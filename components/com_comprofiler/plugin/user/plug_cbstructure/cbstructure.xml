@@ -64,6 +64,7 @@
                 <column name="id" type="sql:int(11)" unsigned="true" auto_increment="1" />
                 <column name="profile_id" type="sql:int(11)" />
                 <column name="title" type="sql:varchar(255)" />
+                <column name="url" type="sql:varchar(255)" />
             </columns>
             <indexes>
                 <index name="PRIMARY" type="primary">

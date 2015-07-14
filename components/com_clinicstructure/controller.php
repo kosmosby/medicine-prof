@@ -45,6 +45,7 @@ class ClinicstructureController extends JControllerLegacy
     }
 
     $clinicName = $_POST['clinicName'];
+    $clinicUrl = $_POST['clinicUrl'];
     $profileId = $input->getInt('profileId');
 
 
@@ -65,7 +66,7 @@ class ClinicstructureController extends JControllerLegacy
       }
     }
 
-    Departments::addClinic($clinicName, $profileId);
+    Departments::addClinic($clinicName, $profileId, $clinicUrl);
 
     $result = array('success'=>true,'message'=>'Клиника добавлена', 'departments'=>
       DepartmentsView::renderDepartments(Departments::getDepartments($profileId),$profileId,$user, $isRoot));
@@ -302,4 +303,3 @@ class ClinicstructureController extends JControllerLegacy
     JFactory::getApplication()->close();
   }
 }
-

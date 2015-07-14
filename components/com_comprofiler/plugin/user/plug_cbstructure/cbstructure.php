@@ -110,7 +110,9 @@ class cbstructureTab extends cbTabHandler
     jQuery.ajax({
       type: "POST",
       url: "'.JRoute::_("/index.php?option=com_clinicstructure&task=add_clinic").'",
-      data: {clinicName:jQuery(\'#clinicName\').val(), profileId:"'.$user->id.'"},
+      data: {clinicName:jQuery(\'#clinicName\').val(),
+             clinicUrl:jQuery(\'#clinicUrl\').val(),
+             profileId:"'.$user->id.'"},
       success: function(data){
         showMessage(data.success, data.message);
         updateDepartments(data.departments);

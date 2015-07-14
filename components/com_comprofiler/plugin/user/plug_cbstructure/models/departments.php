@@ -13,7 +13,7 @@ class Departments{
   public static function getDepartments($profileId){
 
     $db = JFactory::getDbo();
-    $db->setQuery('SELECT c.id, c.title, c.profile_id
+    $db->setQuery('SELECT c.id, c.title, c.profile_id, c.url
                    FROM #__comprofiler_plugin_department_clinic c
                    WHERE c.profile_id='.$db->quote($profileId).' ORDER BY c.title');
     $clinics = $db->loadAssocList();
@@ -66,11 +66,11 @@ class Departments{
     return $clinics;
   }
 
-  public static function addClinic($title, $profile_id){
+  public static function addClinic($title, $profile_id, $url){
     $db = JFactory::getDbo();
     $db->setQuery('INSERT INTO #__comprofiler_plugin_department_clinic
-                  (title, profile_id)
-                  VALUES ('.$db->quote($title).','.$db->quote($profile_id).')');
+                  (title, profile_id, url)
+                  VALUES ('.$db->quote($title).','.$db->quote($profile_id).','.$db->quote($url).')');
     $db->execute();
   }
 

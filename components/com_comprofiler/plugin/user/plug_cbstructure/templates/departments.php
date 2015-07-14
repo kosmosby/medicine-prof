@@ -15,7 +15,12 @@ class DepartmentsView{
     $k=0;
     foreach($clinics as $clinic){
       if(!empty($clinic['title'])){
-        $result .= '<h3>'.$clinic['title'];
+        $result .= '<h3>';
+        if($clinic['url']){
+          $result .= '<a href="'.$clinic['url'].'">'.$clinic['title'].'</a>';
+        }else{
+          $result .= $clinic['title'];
+        }
         if($my->get('id') == $organizationId ||$myIsRoot) {
           $result .= '&nbsp;<small><a onclick="deleteClinic(\'' . $clinic['id'] . '\');return false;" class="text-danger" href="#">Удалить клинику</a></small>';
         }
@@ -99,6 +104,12 @@ class DepartmentsView{
       $result .= '<label for="clinicName" class="col-sm-2 control-label">Клиника</label>';
       $result .= '<div class="col-sm-10">';
       $result .= '<input type="text" class="form-control" id="clinicName" placeholder="Новая клиника"/>';
+      $result .= '</div>';
+      $result .= '</div>';
+      $result .= '<div class="form-group">';
+      $result .= '<label for="clinicUrl" class="col-sm-2 control-label">URL</label>';
+      $result .= '<div class="col-sm-10">';
+      $result .= '<input type="text" class="form-control" id="clinicUrl" placeholder="Ссылка на сайт"/>';
       $result .= '</div>';
       $result .= '</div>';
       $result .= '<div class="form-group">';
