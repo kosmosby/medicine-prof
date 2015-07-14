@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.6.0" type="plugin" group="content" method="upgrade">
+    <name>Content - OSE V5 Content</name>
+    <author>Open Source Excellence</author>
+    <version>5.0</version>
+    <description>Open Source Excellence Membership Control Plugin</description>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <authoremail>info@opensource-excellence.com</authoremail>
+    <authorurl>http://www.opensource-excellence.com</authorurl>
+    <copyright>Copyright (C) 2008-2011 Open Source Excellence. All rights reserved.</copyright>
+    <creationDate>27-Jan-2011</creationDate>
+    <files>
+        <filename plugin="osecontent">osecontent.php</filename>
+    </files>
+    <config><fields name="params"><fieldset name="basic">
+	<field name="controlMethod" type="list" default="1" label="How do you control the content?" description="Would you like to replace the content of the article to default messages to non-members OR ywhen a user tries to read the whole article if he / she is not a member yet?">
+			<option value="replace">Replace Content with default messages to non-members</option>
+			<option value="redirect">Redirect Users to the URL configured below</option>
+			<option value="replaceseq">Replace Content with sequential control messages</option>
+	</field>
+	<field name="spacer1" type="spacer"	hr="true" />
+	<field name="redmenuid" type="sql" default="" label="Redirect URL " description="A URL that redirects users if they are non-members."  query="SELECT id AS value, CONCAT('[', id, '] ', title) AS redmenuid FROM #__menu WHERE client_id = 0" />
+	<field name="sefroutemethod" type="radio" default="0" label="SEF Routing Method for the Redirection function" description="If Redirect is chosen in the above option, please choose whether to use default full URL or alias in JRoute function.">
+			<option value="0">Non-SEF</option>
+			<option value="1">Full URL</option>
+			<option value="2">Alias</option>
+	</field>
+    <field name="redmessage" type="textarea" default="The content is for members only, please subscribe a membership plan to read the full article." label="Redirect Message " description="The message that you would like to show to the user when he/she is redirected to the above page. " rows="8" cols="40" />
+
+	<field name="spacer4" type="spacer" hr="true"/>
+	<field name="seqmessage" type="textarea" default="You will have access to this content on [FUTURETIME]." label="Sequential Control Message " description="The message that you would like to show to members when the Sequential Control function is on." rows="8" cols="40" />
+
+	<field name="spacer3" type="spacer"	hr="true" />
+	<field name="allow_intro" type="radio" default="1" label="Show Intro Text" description="Showing introduction text (first part of the article) to users before showing the default messages to non-members">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+	</field>
+	<field name="allow_uncat" type="radio" default="1" label="Ignore Uncategorized Articles" description="If an article is uncategorized, do not control its content.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+	</field>
+	<field name="run_frontpage" type="radio" default="1" label="Run Control on Frontpage?" description="Control the viewing access on frontpage?">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+	</field>
+	<field name="run_catlayout" type="radio" default="1" label="Run Control on Category Layout?" description="Control the viewing access on category layout?">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+	</field>
+	<field name="run_seclayout" type="radio" default="1" label="Run Control on Section Layout?" description="Control the viewing access on section layout?">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+	</field>
+
+	<field name="googlebot_free" type="radio" default="1" label="Google First Click Free?" description="Enable Google First Click Free?">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+	</field>
+	
+	<field name="msnbot_free" type="radio" default="1" label="MSN First Click Free?" description="Enable MSN First Click Free?">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+	</field>
+	
+	<field name="yahoobot_free" type="radio" default="1" label="Yahoo First Click Free?" description="Enable Yahoo First Click Free?">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+	</field>
+	
+	<field name="spacer2" type="spacer"	hr="true" />
+	<field name="timingcontrol" type="radio" default="1" label="Enable Timing Control?" description="Would you like to enable the timing control? If this is enabled, the user can only read articles that are created within their membership period.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+	</field>
+	
+	<field name="spacer3" type="spacer" default="== Third Party Component ==" />
+	<field name="enable_k2Control" type="radio" default="0" label="Enable K2 Control" description="Control components to be accessible by members only.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+	</field>
+
+	</fieldset></fields></config>
+	<config><fields name="params"><fieldset name="advanced" addfieldpath="/components/com_osemsc/helpers/fields/">
+	<field name="@spacer" type="spacer" default="== Editing Permissions - J1.5 ==" />
+    <field name="allowCreateMSC" type="membership" default="" label="Membership-Allow to Create" description="Membership Plans that are allowed to create articles" />
+    <field name="redcreatemenuid" type="sql" default="" label="Redirect URL" description="A URL that redirects users if they are non-members."  query="SELECT id AS value, CONCAT('[', id, '] ', title)  AS redcreatemenuid FROM #__menu WHERE client_id = 0" />
+    <field name="redcreatemessage" type="textarea" default="You are not authorized to create articles in this category/section. Please contact the administrator." label="Redirect Message " description="The message that you would like to show to the user when he/she is not allowed to the above page. " rows="8" cols="40" />
+
+    <field name="allowEditMSC" type="membership" default="" label="Membership-Allow to Edit" description="Membership Plans that are allowed to edit articles" />
+	<field name="rededitmenuid" type="sql" default="" label="Redirect URL" description="A URL that redirects users if they are non-members."  query="SELECT id AS value, CONCAT('[', id, '] ', title)  AS rededitmenuid FROM #__menu WHERE client_id = 0" />
+    <field name="rededitmessage" type="textarea" default="You are not authorized to edit articles in this category/section. Please contact the administrator." label="Redirect Message " description="The message that you would like to show to the user when he/she is not allowed to the above page. " rows="8" cols="40" />
+	</fieldset></fields></config>
+</extension>
+

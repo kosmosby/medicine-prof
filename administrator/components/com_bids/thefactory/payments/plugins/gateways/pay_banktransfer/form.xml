@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+        <field name="bank_info" type="editor" label="Bank Wire information" description=""
+               buttons="no"
+               rows="20"
+               cols="80"
+               filter="html" />
+	</fieldset>
+</form>

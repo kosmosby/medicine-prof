@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension
+	type="module"
+	version="2.5"
+	client="site">
+	<name>mod_flexpaper</name>
+	<author>Lapytko Yura</author>
+	<creationDate>Oktober 2012</creationDate>
+	<copyright>Copyright (C) 2005 - 2012 Open Source Matters. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>kosmos.by@gmail.com</authorEmail>
+	<authorUrl>www.lapytko-yura.narod.ru</authorUrl>
+	<version>1.0</version>
+	<description>Module for certificates search</description>
+	<files>
+		<filename module="mod_flexpaper">mod_flexpaper.php</filename>
+		<filename>index.html</filename>
+		<folder>tmpl</folder>
+	</files>
+	<languages>
+    </languages>
+
+</extension>

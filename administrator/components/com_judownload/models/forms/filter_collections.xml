@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fields name="filter">
+        <field
+                name="search"
+                type="text"
+                label="COM_JUDOWNLOAD_FILTER_SEARCH_DESC"
+                hint="JSEARCH_FILTER"
+                />
+
+        <field
+                name="username"
+                type="text"
+                label="COM_JUDOWNLOAD_FILTER_USERNAME_DESC"
+                hint="COM_JUDOWNLOAD_FILTER_USERNAME"
+                />
+        <field
+                name="state"
+                type="list"
+                label="COM_JUDOWNLOAD_FILTER_STATE_DESC"
+                onchange="this.form.submit();"
+                >
+            <option value="">JOPTION_SELECT_PUBLISHED</option>
+            <option value="featured">COM_JUDOWNLOAD_FIELD_FEATURED</option>
+            <option value="unfeatured">COM_JUDOWNLOAD_FIELD_UNFEATURED</option>
+            <option value="private">COM_JUDOWNLOAD_FIELD_PRIVATE</option>
+            <option value="inprivate">COM_JUDOWNLOAD_FIELD_INPRIVATE</option>
+            <option value="global">COM_JUDOWNLOAD_FIELD_GLOBAL</option>
+            <option value="non-global">COM_JUDOWNLOAD_FIELD_NONGLOBAL</option>
+        </field>
+    </fields>
+
+    <fields name="list">
+        <field
+                name="fullordering"
+                type="list"
+                label="COM_JUDOWNLOAD_LIST_FULL_ORDERING"
+                description="COM_JUDOWNLOAD_LIST_FULL_ORDERING_DESC"
+                onchange="this.form.submit();"
+                default="cl.created DESC"
+                >
+            <option value="">COM_JUDOWNLOAD_SORT_BY</option>
+            <option value="cl.id ASC">COM_JUDOWNLOAD_SORT_BY_ID_ASC</option>
+            <option value="cl.id DESC">COM_JUDOWNLOAD_SORT_BY_ID_DESC</option>
+            <option value="cl.title ASC">COM_JUDOWNLOAD_SORT_BY_TITLE_ASC</option>
+            <option value="cl.title DESC">COM_JUDOWNLOAD_SORT_BY_TITLE_DESC</option>
+            <option value="cl.icon ASC">COM_JUDOWNLOAD_SORT_BY_ICON_ASC</option>
+            <option value="cl.icon DESC">COM_JUDOWNLOAD_SORT_BY_ICON_DESC</option>
+            <option value="cl.created ASC">COM_JUDOWNLOAD_SORT_BY_CREATED_ASC</option>
+            <option value="cl.created DESC">COM_JUDOWNLOAD_SORT_BY_CREATED_DESC</option>
+            <option value="u.username ASC">COM_JUDOWNLOAD_SORT_BY_USERNAME_ASC</option>
+            <option value="u.username DESC">COM_JUDOWNLOAD_SORT_BY_USERNAME_DESC</option>
+            <option value="u.email ASC">COM_JUDOWNLOAD_SORT_BY_EMAIL_ASC</option>
+            <option value="u.email DESC">COM_JUDOWNLOAD_SORT_BY_EMAIL_DESC</option>
+            <option value="u.private ASC">COM_JUDOWNLOAD_SORT_BY_PRIVATE_ASC</option>
+            <option value="u.private DESC">COM_JUDOWNLOAD_SORT_BY_PRIVATE_DESC</option>
+            <option value="u.featured ASC">COM_JUDOWNLOAD_SORT_BY_FEATURED_ASC</option>
+            <option value="u.featured DESC">COM_JUDOWNLOAD_SORT_BY_FEATURED_DESC</option>
+            <option value="u.global ASC">COM_JUDOWNLOAD_SORT_BY_GLOBAL_ASC</option>
+            <option value="u.global DESC">COM_JUDOWNLOAD_SORT_BY_GLOBAL_DESC</option>
+            <option value="cl.helpful_votes ASC">COM_JUDOWNLOAD_SORT_BY_HELPFUL_VOTES_ASC</option>
+            <option value="cl.helpful_votes DESC">COM_JUDOWNLOAD_SORT_BY_HELPFUL_VOTES_DESC</option>
+            <option value="total_items ASC">COM_JUDOWNLOAD_SORT_BY_TOTAL_ITEMS_ASC</option>
+            <option value="total_items DESC">COM_JUDOWNLOAD_SORT_BY_TOTAL_ITEMS_DESC</option>
+        </field>
+
+        <field
+                name="limit"
+                type="limitbox"
+                class="inputbox input-mini"
+                default="25"
+                label="COM_JUDOWNLOAD_LIST_LIMIT"
+                description="COM_JUDOWNLOAD_LIST_LIMIT_DESC"
+                onchange="this.form.submit();"
+                />
+    </fields>
+</form>

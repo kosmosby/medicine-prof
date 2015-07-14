@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" group="user" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../../../validation/ahawow.xsd">
+	<types />
+	<actions ui="admin" permission="core.manage" permissionasset="com_comprofiler">
+		<action name="consultations" request="view action" action="editPlugin showconsultations" permission="core.admin">
+			<showview view="showconsultations" mode="show" />
+		</action>
+
+		<action name="consultation" request="view table action" action="editPlugin consultationsbrowser editrow" requestparameters="consultationid" permission="core.admin">
+			<extend toxpathnode="/cbxml/types" fromxpathnode="/*/types/type" file="xml/models/model.consultations" mandatory="true" />
+			<showview view="editconsultation" mode="edit">
+				<data name="consultationrow" type="class" class="cbconsultationsconsultationTable" key="id" value="consultationid" valuetype="request:int" />
+			</showview>
+		</action>
+	</actions>
+	<views>
+		<view name="pluginmenu" type="params" ui="admin" label="" viewformatting="none">
+			<param name="consultations" type="button" default="consultations" buttonclass="default" buttonsize="xsmall" link="cb_action:consultations" parameters="cid" paramvalues="id" label="" />
+		</view>
+	</views>
+</cbxml>

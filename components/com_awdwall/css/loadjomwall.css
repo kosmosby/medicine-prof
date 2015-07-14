@@ -1,0 +1,60 @@
+
+
+#awdlightbox{
+	display:none;
+	/*background:#000000;
+	opacity:0.5;
+	filter:alpha(opacity=50);*/
+	position:absolute;
+	top:0px;
+	left:0px;
+	min-width:100%;
+	min-height:100%;
+	z-index:1000;
+}
+#awdlightbox-panel{
+	display:none;
+	position:fixed;
+	top:70px;
+	left:50%;
+	margin-left:-200px;
+	width:400px;
+	background:#FFFFFF;
+	padding:10px 15px 10px 15px;
+	border:2px solid #CCCCCC;
+	z-index:1001;
+}
+
+.awdusername span{
+text-decoration:none;
+font-weight:bold;
+}
+#awdlightcontentbox{
+height:300px;
+overflow:scroll;
+}
+
+.awdthumb{
+float:left;
+padding:2px;
+border:1px solid #CCCCCC;
+margin:3px;
+}
+#btncomment{
+float:left;
+margin-left:84%;
+margin-top:5px;
+}
+
+.awdround{
+	font:calibri;
+	font-size:1.2e;
+	-moz-border-radius: 5px;
+	color: #111;
+	position: relative;
+	width:84% !important;
+	height: 50px; 
+	border-bottom-color: #D8DFEA;
+	border:1px solid #D8DFEA;
+
+}

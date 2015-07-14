@@ -1,0 +1,18 @@
+
+
+.view-pendingdocuments .judl-frontend-toolbar {
+	margin : 10px 0;
+}
+
+.view-pendingdocuments table {
+	clear      : both;
+	margin-top : 10px;
+}
+
+.view-pendingdocuments .center {
+	text-align : center !important;
+}
+
+.view-pendingdocuments .judl-pagination #limit {
+	width: auto;
+}

@@ -1,0 +1,1 @@
+<?phpdefined('_JEXEC') or die("Direct Access Not Allowed");/** * The main uninstaller function */function com_uninstall() {	return TRUE;} // function

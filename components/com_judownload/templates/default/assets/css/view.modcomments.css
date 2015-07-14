@@ -1,0 +1,29 @@
+.view-modcomments .judl-frontend-toolbar {
+	margin : 10px 0;
+}
+
+.view-modcomments table {
+	clear      : both;
+	margin-top : 10px;
+}
+
+.view-modcomments .center {
+	text-align : center !important;
+}
+
+.view-modcomments span.gi {
+	color : #ccc;
+}
+
+.view-modcomments .modal {
+	border-radius : 0;
+	box-shadow    : none;
+	color:#000;
+	position: static;
+	margin-left: 0;
+	border:none;
+}
+
+.view-modcomments .judl-pagination #limit {
+	width: auto;
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../../../validation/ahawow.xsd">
+	<types>
+		<type name="item_state" base="published" valuetype="string">
+			<option value="0" title="Unpublish Item">Unpublished</option>
+			<option value="-1" title="Unapprove Item" iconclass="clock-o" textclass="warning" toggleable="false">Unapproved</option>
+			<option value="1" title="Publish Item">Published</option>
+		</type>
+		<type name="item_type" base="list" valuetype="string">
+			<option value="photos">Photos</option>
+			<option value="files">Files</option>
+			<option value="videos">Videos</option>
+			<option value="music">Music</option>
+		</type>
+		<type name="item_folder" base="list" valuetype="string">
+			<option value="0">Uncategorized</option>
+		</type>
+	</types>
+</cbxml>

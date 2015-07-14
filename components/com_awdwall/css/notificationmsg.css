@@ -1,0 +1,62 @@
+﻿#msg1
+{
+	bottom: 0px;
+	right: 0px;
+	position:fixed;
+    width:290px;
+    height: auto;
+    /*border: solid 1px black;*/
+    margin: 0px 0px 0px 20px;
+    /*background-color:white;*/
+	background-color: Transparent;
+	z-index:999999;
+    display:none;
+    font-size:13px;
+}
+
+#modal .modaltop
+{
+	width: 282px;
+   
+    background-image: url(../images/purrTop.png);
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src='../images/purrTop.png');
+    background-repeat: no-repeat;
+    padding:25px 20px 10px 20px;
+	height:20px;
+    color: #ffffff;
+    text-align: right;
+}
+#modal .modaltitle
+{
+    padding: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ffffff;
+    float:left;
+}
+
+#modal .modalbody
+{
+    padding: 20px;
+    text-align: left;
+	background: url(../images/purrMid.png);
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src='../images/purrMid.png');
+	background-repeat:repeat-y;
+}
+.notice-bottom {
+	height: 22px;
+	background: url(../images/purrBottom.png) no-repeat;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src='../images/purrBottom.png');
+}
+
+#closebutton{
+margin-right:30px;
+cursor:pointer;
+}
+
+#msg1 a,#msg1 a:visited,#msg1 a:hover
+{
+color:#ffffff!important;
+font-weight:bold;
+font-size:14px;
+}

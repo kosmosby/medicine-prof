@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="showplans" type="params" ui="admin" label="Plans" description="Subscription registration plans settings.">
+			<tablebrowser name="plansbrowser" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" label="Plans" description="List of CB subscription plans which can be registered by users:">
+				<tablemenu>
+					<menu action="cbo:newrow" label="Create New" description="Create new product plan" />
+				</tablemenu>
+				<toolbarmenu>
+					<menu name="new"  action="linkAction" task="new" link="cbo:newrow" label="New" />
+					<menu name="publish"  action="linkAction" task="publish" link="cbo:publish" label="Publish" />
+					<menu name="unpublish"  action="linkAction" task="unpublish" link="cbo:unpublish" label="Unpublish" />
+					<menu name="edit"  action="linkAction" task="edit" link="cbo:editrows" label="Edit" />
+					<menu name="copy"  action="linkAction" task="copy" link="cbo:copyrows" label="Copy" />
+					<menu name="delete"  action="linkAction" task="delete" link="cbo:deleterows" label="Delete" />
+					<menu name="spacer1" action="spacer" />
+					<menu name="cancel"   action="cancel" task="cancelPluginAction" label="Close" />
+				</toolbarmenu>
+				<quicksearchfields>
+					<field name="name" />
+					<field name="description" />
+					<field name="id" valuetype="const:int" />
+				</quicksearchfields>
+				<filters>
+					<filter name="name" type="data" value="id" valuetype="sql:int" size="1" default="" label="Name of plan" blanktext="--- By name ---" description="Filter plans by the name of the plan"/>
+					<filter name="access" type="usergroup" size="1" default="" label="Access" blanktext="--- By access ---" description="Filter plans by the access user group of the plan"/>
+					<filter name="usergroup" type="usergroup" size="1" default="" label="User Group" blanktext="--- By usergroup ---" description="Filter plans by the user group assigned to users of the plan"/>
+					<filter name="id" type="field_show_only_if_selected" base="int" size="1" default="" label="Plan id"     blanktext="--- By id ---" description="Select a particular row by its id (used to show a given record only)" />
+				</filters>
+				<orderby>
+					<field name="parent_ordering" type="sql:int" ordering="ASC">
+						<data name="" type="sql:function" operator="IF">
+							<data name="" type="sql:function" operator="ISNULL">
+								<data name="ordering" type="sql:field" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id" value="parent" />
+							</data>
+							<data name="ordering" type="sql:field" />
+							<data name="ordering" type="sql:field" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id" value="parent" />
+						</data>
+					</field>
+					<field name="child_ordering" type="sql:int" ordering="ASC">
+						<data name="" type="sql:function" operator="IF">
+							<data name="" type="sql:function" operator="ISNULL">
+								<data name="ordering" type="sql:field" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id" value="parent" />
+							</data>
+							<data name="ordering" type="sql:field" />
+							<data name="" type="sql:operator" operator="+">
+								<data name="11000" type="sql:int" />
+								<data name="ordering" type="sql:field" />
+							</data>
+						</data>
+					</field>
+					<field name="ordering" ordering="ASC" />
+					<field name="parent_ordering_comment" type="sql:int" ordering="ASC">
+						<data name="ordering" type="sql:field" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id" value="parent" />
+					</field>
+					<field name="ordering" type="sql:field" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id" value="parent" />
+				</orderby>
+				<listfields>
+					<header type="standard" />
+					<rows type="standard" height="auto" limit="20" >
+						<field name=""          type="rownumber"       width="20px" align="right" label="#" />
+						<field name="id"        type="primarycheckbox" width="20px" />
+						<field name="name"      type="string"   translate="_UE"   link="cbo:rowedit"  parameters="tid" paramvalues="id" title="Edit this plan"     width="15%" label="Plan Name" class="title" />
+						<field name="alias"     type="string"   translate="_UE"   width="12%" label="Alias" valuedescriptiontitle="Description">
+							<attributes>
+								<attribute name="class" separator=" ">
+									<param name="cssclass" type="text" />
+									<param name="parent" type="private" class="self" method="renderNameOfIndentCssClassIfHasParent" />
+								</attribute>
+								<attribute name="valuedescription">
+									<param name="description" type="text" />
+								</attribute>
+							</attributes>
+						</field>
+						<!--
+						<field name="alias"     type="string"   translate="_UE"   width="12%" label="Alias" valuedescriptiontitle="Description">
+							<attributes>
+								<attribute name="class" separator=" ">
+									<data name="cssclass" type="sql:field" />
+									<data name="parent" type="private" method="renderNameOfIndentCssClassIfHasParent" />
+								</attribute>
+								<attribute name="valuedescription">
+									<data name="description" type="sql:field" />
+								</attribute>
+							</attributes>
+						</field>
+-->
+						<field name="exclusive" type="checkmark" width="5%"  align="center" label="Exclusive" onclick="toggle" description="If this plan is exclusive to other plans of his level and one is mandatory, or complementary/non-mandatory." />
+						<field name="rate"      type="private"   method="renderRate" key="id" width="6%" label="Price per period" description="Renewal or auto-renewal rates in default currency." />
+						<field name="validity"  type="xml:validity"  width="15%" label="Validity" description="Duration of a period of the plan (e.g. regular period and rates)" />
+						<field name="recurring_max"            type="string"   width="3%" label="Maximum recurrings">
+							<data name="recurring_max" type="sql:function" operator="IF">
+								<data name="" type="sql:operator" operator="=">
+									<data name="recurring_max_times" type="sql:field" />
+									<data name="0" type="const:int" />
+								</data>
+								<data name="unlimited" type="const:string" translate="yes" />
+								<!-- This is here for translation tool to translate above correctly:
+								<field label="unlimited" />
+								-->
+								<data name="recurring_max_times" type="sql:field" />
+							</data>
+						</field>
+						<field name="first_rate"  type="private"   method="renderRate" key="id" width="6%" label="Price first period" description="First subscription or upgrade Rate in default currency (if a first period is defined)." />
+						<field name="first_validity"  type="xml:first_validity"  width="12%" label="First period validity" description="Duration of first term of plan (e.g. trial period or registration fee)" />
+						<field name="ordering"  type="ordering" value="alias"  width="5%"  label="Order" onclick="arrows,number" description="Ordering of plan within each parent plan">
+							<orderinggroups>
+								<ordering name="parent" type="string">
+									<data name="id" as="parent" type="sql:field" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id" value="parent" />
+								</ordering>
+							</orderinggroups>
+						</field>
+						<field name="published" type="published" width="5%"  align="center" label="Published" onclick="toggle" description="Basic publishing: Unpublished plans are not valid at all." />
+						<field name="allow_newsubscriptions" type="checkmark" width="5%"  align="center" label="Allow new subscriptions" onclick="toggle" description="Allow new subscriptions to this plan. If not, the plan will not be visible for new subscriptions, but still remain valid for existing subscriptions." />
+						<field name="allow_registration" type="checkmark" width="5%"  align="center" label="Allow registration" onclick="toggle" description="Show this plan at user registration." />
+						<field name="allow_upgrade_to_this" type="checkmark" width="5%"  align="center" label="Allow upgrade to this" onclick="toggle" description="Allow upgrades to this plan." />
+						<field name="viewaccesslevel"  type="viewaccesslevel"   width="5%" label="Access Level" class="title" description="View Access Level needed for this plan" />
+						<field name="access"    type="usergroup" width="5%" label="Access group" description="Group and above needed to access this plan" />
+						<field name="default"   type="checkmark" width="5%"  label="Default" description="Default plan at registration time." onclick="toggle" />
+						<field name="usergroup" type="usergroup" width="10%" label="User Group" description="The user group to assign to users of this plan (default user group for registered users is `Registered`)." />
+						<field name="owner_name"            type="string"   width="10%" label="Owner" class="title">
+							<data name="owner_name" type="sql:function" operator="IF">
+								<data name="" type="sql:operator" operator="=">
+									<data name="owner" type="sql:field" />
+									<data name="0" type="const:int" />
+								</data>
+								<data name="System" type="const:string" translate="yes" />
+								<!-- This is here for translation tool to translate above correctly:
+									<field label="System" />
+								-->
+								<data name="username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="owner" />
+							</data>
+						</field>
+						<field name="change_logs"    type="int"       link="cb_action:show_history" parameters="historybrowser[filter_table_name] historybrowser[filter_table_key_id]" paramvalues="#__cbsubs_plans id" paramvaluestypes="const:string sql:field" title="Show change-log for this item" width="5%"  align="right" label="Change Logs" description="Number of changes logged for each item. Click to see corresponding logs.">
+							<data type="sql:subquery" name="change_logs" as="change_logs">
+								<data name="change_logs" type="sql:count" distinct="id"  table="#__cbsubs_history" class="cbpaidHistory">
+									<where>
+										<column name="table_name"   operator="=" value="#__cbsubs_plans" type="sql:field" valuetype="const:string" />
+										<column name="table_key_id" operator="=" value="id" type="sql:field" valuetype="sql:parentfield" />
+									</where>
+								</data>
+							</data>
+						</field>
+						<field name="id"        type="int"       width="5%"  align="right" label="Id" />
+						<field name="subscribers" type="int" link="cb_action:show_subscriptions" parameters="subscriptionsbrowser[filter_plan_id]" paramvalues="id" title="Show the subscribers to this plan" width="5%" align="right" label="Subscribers" description="Number of subscriptions to this plan">
+							<data name="subscribers" type="sql:count" distinct="id" table="#__cbsubs_subscriptions" key="plan_id" value="id" />
+						</field>
+						<field name="currency" type="hidden" width="0px" />
+						<field name="cssclass" type="hidden" width="0px" />
+						<field name="description" type="hidden" width="0px" />
+						<!-- The following is needed for class="cbpaidPlansMgr::productObjects" above to instanciate the correct class depending on the row: -->
+						<field name="item_type" type="hidden" width="0px" />
+					</rows>
+				</listfields>
+			</tablebrowser>
+		</view>
+	</views>
+</cbxml>

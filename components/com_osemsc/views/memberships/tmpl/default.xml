@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="DEFAULT_MEMBERSHIP_LIST_LAYOUT">
+		<message>
+			<![CDATA[DEFAULT_MEMBERSHIP_LIST_LAYOUT]]>
+		</message>
+	</layout>
+	<config>
+		<fields name="params" addfieldpath="/components/com_osemsc/helpers/elements/">
+			<fieldset name="basic">
+				<field name="msc_ids" type="membership" default="" label="Select Memberships" description="msc_ids" />
+			</fieldset>
+		</fields>
+	</config>
+</metadata>

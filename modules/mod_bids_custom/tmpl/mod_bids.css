@@ -1,0 +1,36 @@
+.mod_bids_table_vertical{
+    border-collapse: collapse;
+}
+
+.mod_bids_table_vertical tr, td {
+    border: none !important;
+}
+.mod_bids_table_vertical .row_2{
+	background:#E1E2E4;
+}
+
+.mod_bids_table_vertical .row_1_hover, .mod_bids_table_vertical .row_2_hover{
+	background:#F5F4D5;
+}
+
+.mod_bids_table_vertical .row_1{
+	background:#FFFFFF;
+}
+
+.mod_bids_link {
+    text-decoration: none;
+}
+
+.modBidsPrice {
+    font-weight: bold;
+}
+
+.mod_bids_table {
+    height: 160px;
+    width: 100%;
+}
+
+.mod_bids_table tr,td
+{
+    border: none! important;
+}

@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+<fieldset name="GlobalSharing" label="Global Sharing"  addfieldpath="/administrator/components/com_awdwall/models/fields">
+
+<field name="temp" type="temp" label="Select template" desc="Select one template"  default="default" />
+<field name="includejquery" type="list" default="0" label="Include Jquery" description="Include Jquery? Yes/No">
+ 	<option value="0">No</option>
+ 	<option value="1">Yes</option>
+</field>
+<field name="jqueryversion" type="list" default="1.8.2" label="Jquery Version" description="Jquery Version">
+	<option value="1.5.2">1.5.2</option>
+	<option value="1.6.2">1.6.2</option>
+	<option value="1.7.2">1.7.2</option>
+	<option value="1.8.2">1.8.2</option>
+</field>
+<field name="email_auto" type="radio" class="btn-group" default="0" label="Enable automatic emails? Yes/No" description="Enable automatic emails? Yes/No">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="video_lightbox" type="radio" class="btn-group" default="0" label="Enable lightbox for viewing video? Yes/No" description="Select Yes/No">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="image_lightbox" type="radio" class="btn-group" default="1" label="Enable lightbox for viewing image? Yes/No" description="Select Yes/No">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_name" type="radio" class="btn-group" default="1" label="Display Name" description="Set display format for user's name">
+  <option value="0">Real Name</option>
+  <option value="1">Username</option>
+</field>
+<field name="display_jomwalllogin" type="radio" class="btn-group" default="0" label="Display Jomwall Login Page" description="Set Display Jomwall Login Page">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_cbfacebook" type="list" class="btn-group" default="1" label="Display CB Facebok Login" description="Set Display CB Facebok Login">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_reglink" type="list" class="btn-group" default="1" label="Display Registration Link" description="Set Display Registration Link">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_forgotlink" type="list" class="btn-group" default="1" label="Display Forgot Password Link" description="Set Display Forgot Password Link">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="fbshareaapid" type="text" default="" label="Facebook App ID" description="Facebook App ID for facebook share link" />
+<!--<field name="@spacer" type="spacer" default="" label="Facebok Login Details" description="" />
+<field name="fb_id" type="text" default="" label="Facebok Api ID" description="" />
+<field name="fb_key" type="text" default="" label="Facebok API key" description="FBKEY" />
+<field name="fb_secret" type="text" default="" label="Facebok Application Secret" description="FBSECRET" />
+<field name="@spacer" type="spacer" default="" label="Facebok Login Details" description="" />
+-->
+<field name="showterms" type="radio" class="btn-group" default="1" label="Show terms and condition" description="Select Yes/No (Works in case jomwall login page is enable)">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="termsconditiontxt" type="textarea" default="Registration and Account Security &lt;br /&gt;
+- You will not provide any false personal information on our site.&lt;br /&gt;
+- You will not create more than one personal account.&lt;br /&gt;
+- If we disable your account, you will not create another one without our permission.&lt;br /&gt;
+- You will not use our site if you are under 13.&lt;br /&gt;
+- You will not use our site if you are a convicted sex offender.&lt;br /&gt;
+- You will keep your contact information accurate and up-to-date.&lt;br /&gt;
+- You will not share your password" label="Terms and condition Text" description="" rows="10" cols="5" filter="raw" />
+</fieldset>
+
+<fieldset name="WallSharing" label="Wall Sharing" >
+<field name="nof_post" type="text" default="15" label="Posts Limit" description="Limit to the number of posts" />
+<field name="nof_comment" type="text" default="3" label="Comments Limit" description="Limit to the number of comments" />
+ <field name="getrealtimecomment" type="list" default="0" label="Enable real time comment" description="Set option  for real time comment">
+ 	<option value="1">Enable</option>
+ 	<option value="0">Disable</option>
+ </field>
+<field name="bg_color" type="text" default="#FFFFFF" label="Set Background Color" description="Set Background Color Of The component" />
+<field name="image_ext" type="text" default="gif,png,jpg,jpeg" label="Set Image's Extension" description="Set Image's Extension For Uploading, Seperate By Comma" />
+<field name="file_ext" type="text" default="doc,docx,pdf,xls,txt" label="Set File's Extension" description="Set File's Extension For Uploading, Seperate By Comma" />
+<field name="privacy" type="list" default="0" label="AWDWall Privacy" description="Set privacy for AWDWall">
+  <option value="0">Everyone</option>
+  <option value="1">Friends Only</option>
+  <option value="2">Friends Of Friends</option>
+</field>
+<field name="nof_friends" type="text" default="4" label="Friends Limit" description="Limit to the number of displayed friends" />
+<field name="display_online" type="radio" class="btn-group" default="0" label="Display Users Online" description="Set option to display users online">
+  <option value="1">Enable</option>
+  <option value="0">Disable</option>
+</field>
+<field name="seo_format" type="radio" class="btn-group" default="0" label="Enable SEO Format" description="Enable SEO Format For Search Engine Optimizations">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="access_level" type="radio" class="btn-group" default="1" label="Enable Access level" description="Access Level">
+  <option value="0">Public</option>
+  <option value="1">Private</option>
+</field>
+<field name="display_group" type="radio" class="btn-group" default="1" label="Display Group" description="Set display Group LInk in Menubar or not">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="group_creation" type="radio" class="btn-group" default="1" label="Group Creation" description="Group Creation">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="maxgroupno" type="text" default="-1" label="Maximum Group Limit" description="Limit to the number of Group can be created (-1 for unlimited)" />
+<field name="groupcreator" type="usergroup" size="5" multiple="multiple"  default="" label="Select User Group" description="Select User Group" ></field>
+
+<field name="display_gallery" type="radio" class="btn-group" default="1" label="Display Gallery" description="Set display Gallery LInk in Menubar or not">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="listingperpage" type="text" default="5" label="Gallery Listing" description="Limit to the number user's gallery" />
+<field name="imagelimit" type="text" default="4" label="Gallery Image Limit" description="Limit to the number of images each user" />
+<field name="display_hightlightbox" type="radio" class="btn-group" default="0" label="Display Hightlightbox" description="Set display hightlightbox or not">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+ <field name="display_hightlightbox" type="radio" class="btn-group" default="0" label="Display Hightlightbox" description="Set display hightlightbox or not">
+ 	<option value="0">No</option>
+ 	<option value="1">Yes</option>
+ </field>
+ <field name="display_mywalluservideos" type="radio" class="btn-group" default="0" label="Display User's Latest Videos" description="Set display user's latest 5 Videos in mywall">
+ 	<option value="0">No</option>
+ 	<option value="1">Yes</option>
+ </field>
+ <field name="display_mywalluserimages" type="radio" class="btn-group" default="0" label="Display User's Latest Images" description="Set display user's latest 5 images in mywall">
+ 	<option value="0">No</option>
+ 	<option value="1">Yes</option>
+ </field>
+ <field name="display_mywallusermp3" type="radio" class="btn-group" default="0" label="Display User's Latest Music" description="Set display user's latest 5 music in mywall">
+ 	<option value="0">No</option>
+ 	<option value="1">Yes</option>
+ </field>
+ <field name="display_mywalluserlinks" type="radio" class="btn-group" default="0" label="Display User's Latest links" description="Set display user's latest 5 link in mywall">
+ 	<option value="0">No</option>
+ 	<option value="1">Yes</option>
+ </field>
+ <field name="display_mywalluserfiles" type="radio" class="btn-group" default="0" label="Display User's Latest File" description="Set display user's latest 5 file in mywall">
+ 	<option value="0">No</option>
+ 	<option value="1">Yes</option>
+ </field>
+ <field name="display_mywallusertrails" type="radio" class="btn-group" default="0" label="Display User's Latest Trails" description="Set display user's latest 5 trails in mywall">
+ 	<option value="0">No</option>
+ 	<option value="1">Yes</option>
+ </field>
+ <field name="display_mywalluserjings" type="radio" class="btn-group" default="0" label="Display User's Latest jing" description="Set display user's latest 5 jing in mywall">
+ 	<option value="0">No</option>
+ 	<option value="1">Yes</option>
+ </field>
+ <field name="display_mywalluserevents" type="radio" class="btn-group" default="0" label="Display User's Latest events" description="Set display user's latest 5 events in mywall">
+ 	<option value="0">No</option>
+ 	<option value="1">Yes</option>
+ </field>
+ <field name="display_mywalluserarticles" type="radio" class="btn-group" default="0" label="Display User's Latest articles" description="Set display user's latest 5 articles in mywall">
+ 	<option value="0">No</option>
+ 	<option value="1">Yes</option>
+ </field>
+
+<field name="himages" type="text" default="3" label="Highlightbox image limit" description="Limit to the number of images displayed in highlightbox" />
+<field name="display_group_for_moderators" type="radio" class="btn-group" default="1" label="Display Group For moderators" description="Set display Group LInk for moderator users or not">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+</fieldset>
+
+<fieldset name="Integration" label="Integration"  addfieldpath="/administrator/components/com_awdwall/models/fields">
+<field name="avatarintergration" type="list" default="0" label="Avatar Intergration" description="Avatar Intergration">
+  <option value="0">None</option>
+  <option value="1">K2</option>
+  <option value="2">Easy Blogs</option>
+</field>
+ <field name="pushavatar" type="radio" class="btn-group" default="0" label="Push Avatar" description="Avatar upload compulsory for user">
+ 	<option value="1">Yes</option>
+ 	<option value="0">No</option>
+ </field>
+<field name="k2comment" type="radio" class="btn-group" default="0" label="K2 Comment" description="Display K2 comment activity in jomwall">
+  <option value="1">Yes</option>
+  <option value="0">No</option>
+</field>
+<field name="k2article" type="radio" class="btn-group" default="0" label="K2 Article" description="Display K2 article activity in jomwall">
+  <option value="1">Yes</option>
+  <option value="0">No</option>
+</field>
+<field name="easyblogcomment" type="radio" class="btn-group" default="0" label="Easyblog Comment" description="Display Easyblog comment activity in jomwall">
+  <option value="1">Yes</option>
+  <option value="0">No</option>
+</field>
+<field name="easyblogpost" type="radio" class="btn-group" default="0" label="Easyblog Article" description="Display Easyblog post activity in jomwall">
+  <option value="1">Yes</option>
+  <option value="0">No</option>
+</field>
+<field name="alphauserpointactivity" type="radio" class="btn-group" default="0" label="Alphauserpoint Activity" description="Display alphauserpoint activity in jomwall">
+  <option value="1">Yes</option>
+  <option value="0">No</option>
+</field>
+</fieldset>
+
+<fieldset name="ContentSharing" label="Content Sharing"   addfieldpath="/administrator/components/com_awdwall/models/fields">
+<field name="display_pm" type="radio" class="btn-group" default="1" label="Display PM" description="Set display PM functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_share" type="radio" class="btn-group" default="1" label="Display Share" description="Set display Share functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_like" type="radio" class="btn-group" default="1" label="Display Like" description="Set display Like functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="displayCommentLike" type="radio" class="btn-group" default="1" label="Like On Comment" description="Set display Like On Comment">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_video" type="radio" class="btn-group" default="1" label="Display Video" description="Set display video functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_image" type="radio" class="btn-group" default="1" label="Display Image" description="Set display image functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_music" type="radio" class="btn-group" default="1" label="Display Music" description="Set display music functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_link" type="radio" class="btn-group" default="1" label="Display Link" description="Set display link functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_file" type="radio" class="btn-group" default="1" label="Display File" description="Set display file functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_trail" type="radio" class="btn-group" default="0" label="Display Trail" description="Set display trail functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_jing" type="radio" class="btn-group" default="1" label="Display Jing" description="Set display jing functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_event" type="radio" class="btn-group" default="1" label="Display Event" description="Set display event functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_notification" type="radio" class="btn-group" default="1" label="Display Notification" description="Set display notification functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_article" type="radio" class="btn-group" default="0" label="Display Article" description="Set display Article functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_filterwall" type="radio" class="btn-group" default="1" label="Display Filtering Wall" description="Set display Filtering Wall functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_filtervideo" type="radio" class="btn-group" default="1" label="Display Filtering Video" description="Set display Filtering Video functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_filterimage" type="radio" class="btn-group" default="1" label="Display Filtering Image" description="Set display Filtering Image functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_filtermusic" type="radio" class="btn-group" default="1" label="Display Filtering Music" description="Set display Filtering Music functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_filterlink" type="radio" class="btn-group" default="1" label="Display Filtering Link" description="Set display Filtering Link functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+
+</field>
+<field name="display_filterfile" type="radio" class="btn-group" default="1" label="Display Filtering File" description="Set display Filtering File functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_filtertrail" type="radio" class="btn-group" default="0" label="Display Filtering Trail" description="Set display Filtering Trail functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_filterjing" type="radio" class="btn-group" default="1" label="Display Filtering Jing" description="Set display Filtering Jing functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_filterevent" type="radio" class="btn-group" default="1" label="Display Filtering Event" description="Set display Filtering Event functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_filterarticle" type="radio" class="btn-group" default="0" label="Display Filtering Article" description="Set display Filtering Article functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="display_filterpm" type="radio" class="btn-group" default="0" label="Display Filtering PM" description="Set display Filtering PM functionality">
+  <option value="0">No</option>
+  <option value="1">Yes</option>
+</field>
+<field name="article_img_height" type="text" default="84" label="Article Image Height" description="Article Image Height" />
+<field name="article_img_width" type="text" default="112" label="Article Image Width" description="Article Image Width" />
+<field name="dt_format" type="text" default="g:i A  l, j-M-y" label="Posts Time Format" description="Posts Time Format" />
+<field menu="hide" name="" type="header3" default="Sharing Wall Global Setting" label="" description="" />
+<field name="timestamp_format" type="list" default="1" label="Timestamp Format" description="Set how to display Timestamp format">
+  <option value="0">Default</option>
+  <option value="1">Facebook Style</option>
+</field>
+<field name="skype_choice" type="list" default="0" label="Skype Choice" description="Set Skype Choice">
+  <option value="chat">Chat</option>
+  <option value="call">Call</option>
+</field>
+<field name="nof_groups" type="text" default="4" label="Groups Limit" description="Limit to the number of displayed groups" />
+<field name="nof_invite_members" type="text" default="10" label="Invite Members Limit" description="Limit to the number of displayed users" />
+<field name="moderator_users" type="text" default=" " label="Moderator User id" description="Write moderator user id with comma separated" />
+  <field name="moderator_type" type="list" default="0" label="Moderator Type" description="Set Moderator Type( For all groups or only member)">
+ 	<option value="0">All Aroup</option>
+ 	<option value="1">Member</option>
+  </field> 
+ <field name="display_profile_link" type="list" default="1" label="Profile Link" description="Set profile link( CB or Jomwall Profile )">
+ 	<option value="1">CB Profile</option>
+ 	<option value="0">Jomwall Profile</option>
+ </field>
+<field name="fieldids" type="fieldids" label="CB Fields" desc="Fields will show on the mywall basic information when user will take their mouse over ite" default="" multiple="multiple" />  
+</fieldset>
+
+<fieldset  name="GroupAccess" label="Group Access" >
+ <field name="usergroup" type="usergroup" size="5" multiple="multiple"  default="" label="Select User Group" description="Select User Group" ></field>
+</fieldset>
+
+</config> 

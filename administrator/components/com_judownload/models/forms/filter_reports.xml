@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fields name="filter">
+        <field
+                name="search"
+                type="text"
+                label="COM_JUDOWNLOAD_FILTER_SEARCH_DESC"
+                hint="JSEARCH_FILTER"
+                />
+
+        <field
+                name="type"
+                type="list"
+                label="COM_JUDOWNLOAD_FILTER_TYPE"
+                description="COM_JUDOWNLOAD_FILTER_TYPE_DESC"
+                onchange="this.form.submit();"
+                default="tag.ordering ASC"
+                >
+            <option value="">COM_JUDOWNLOAD_SELECT_TYPE</option>
+            <option value="document">COM_JUDOWNLOAD_TYPE_DOCUMENT</option>
+            <option value="comment">COM_JUDOWNLOAD_TYPE_COMMENT</option>
+        </field>
+    </fields>
+
+    <fields name="list">
+        <field
+                name="fullordering"
+                type="list"
+                label="COM_JUDOWNLOAD_LIST_FULL_ORDERING"
+                description="COM_JUDOWNLOAD_LIST_FULL_ORDERING_DESC"
+                onchange="this.form.submit();"
+                default="r.created ASC"
+                >
+            <option value="">COM_JUDOWNLOAD_SORT_BY</option>
+            <option value="r.id ASC">COM_JUDOWNLOAD_SORT_BY_ID_ASC</option>
+            <option value="r.id DESC">COM_JUDOWNLOAD_SORT_BY_ID_DESC</option>
+            <option value="r.subject ASC">COM_JUDOWNLOAD_SORT_BY_SUBJECT_ASC</option>
+            <option value="r.subject DESC">COM_JUDOWNLOAD_SORT_BY_SUBJECT_DESC</option>
+            <option value="r.report ASC">COM_JUDOWNLOAD_SORT_BY_REPORT_ASC</option>
+            <option value="r.report DESC">COM_JUDOWNLOAD_SORT_BY_REPORT_DESC</option>
+            <option value="r.type ASC">COM_JUDOWNLOAD_SORT_BY_TYPE_ASC</option>
+            <option value="r.type DESC">COM_JUDOWNLOAD_SORT_BY_TYPE_DESC</option>
+            <option value="title ASC">COM_JUDOWNLOAD_SORT_BY_ITEM_TITLE_ASC</option>
+            <option value="title DESC">COM_JUDOWNLOAD_SORT_BY_ITEM_TITLE_DESC</option>
+            <option value="ua.name ASC">COM_JUDOWNLOAD_SORT_BY_USERNAME_ASC</option>
+            <option value="ua.name DESC">COM_JUDOWNLOAD_SORT_BY_USERNAME_DESC</option>
+            <option value="r.created ASC">COM_JUDOWNLOAD_SORT_BY_CREATED_ASC</option>
+            <option value="r.created DESC">COM_JUDOWNLOAD_SORT_BY_CREATED_DESC</option>
+            <option value="r.read ASC">COM_JUDOWNLOAD_SORT_BY_READ_ASC</option>
+            <option value="r.read DESC">COM_JUDOWNLOAD_SORT_BY_READ_DESC</option>
+            <option value="r.admin_notes ASC">COM_JUDOWNLOAD_SORT_BY_ADMIN_NOTES_ASC</option>
+            <option value="r.admin_notes DESC">COM_JUDOWNLOAD_SORT_BY_ADMIN_NOTES_DESC</option>
+        </field>
+
+        <field
+                name="limit"
+                type="limitbox"
+                class="inputbox input-mini"
+                default="25"
+                label="COM_JUDOWNLOAD_LIST_LIMIT"
+                description="COM_JUDOWNLOAD_LIST_LIMIT_DESC"
+                onchange="this.form.submit();"
+                />
+    </fields>
+</form>

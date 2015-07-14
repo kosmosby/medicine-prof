@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="file" method="upgrade" judlplugintype="field">
+    <name>Core Confirm license</name>
+    <author>JoomUltra</author>
+    <creationDate>18 July 2014</creationDate>
+    <authorEmail>admin@joomultra.com</authorEmail>
+    <version>1.0</version>
+    <license>GNU/GPL</license>
+    <website>http://www.joomultra.com</website>
+    <description></description>
+    <folder>core_confirm_license</folder>
+    <core>1</core>
+    <default>1</default>
+    <fileset>
+        <files target="components/com_judownload/fields/core_confirm_license">
+            <file>core_confirm_license.xml</file>
+            <file>core_confirm_license.php</file>
+            <file>index.html</file>
+            <folder>tmpl</folder>
+        </files>
+    </fileset>
+</extension>

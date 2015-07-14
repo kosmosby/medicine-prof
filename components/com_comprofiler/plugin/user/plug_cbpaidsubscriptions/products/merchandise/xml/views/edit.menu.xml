@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="productmenus2" type="params" ui="admin">
+			<menu name="merchandises"     action="cb_action:show_merchandises" label="Merchandise" description="Show merchandise sales records">
+				<fields>
+					<field name="merchandises_count" label="merchandise items sold" type="int">
+						<data  name="merchandises_count" type="sql:count" table="#__cbsubs_merchandises" class="cbpaidMerchandiseRecord" key="status" value="A" valuetype="const:string" />
+					</field>
+				</fields>
+			</menu>
+		</view>
+	</views>
+
+</cbxml>

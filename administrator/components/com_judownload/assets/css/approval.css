@@ -1,0 +1,28 @@
+.approval {
+	display    : block;
+	text-align : center;
+}
+
+.approval-inner {
+	display : inline-block;
+}
+
+.judl-approval-options {
+	border  : 1px dashed #CCCCCC;
+	float   : left;
+	margin  : 10px 0 20px;
+	padding : 5px;
+}
+
+.judl-approval-options > div {
+	margin : 0 5px 0 5px !important;
+}
+
+.judl-previous, .judl-next {
+	float  : left;
+	margin : 16px 10px 0;
+}
+
+.clr {
+	clear : both;
+}

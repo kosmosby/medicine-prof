@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0" type="plugin" group="user" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../validation/ahawow.xsd">
+	<name>CB Hangout</name>
+	<author>AKA</author>
+	<creationDate>2014-12-09</creationDate>
+	<copyright>(C) 2004-2014 www.joomlapolis.com / Lightning MultiCom SA - and its licensors, all rights reserved</copyright>
+	<license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2</license>
+	<authorEmail>krileon@joomlapolis.com</authorEmail>
+	<description>Component plugin allowing users to post Conference using CMS content system.</description>
+	<version>2.0.4</version>
+	<files>
+		<filename plugin="cbhangout">cbhangout.php</filename>
+		<filename>component.cbhangout.php</filename>
+		<filename>index.html</filename>
+		<foldername>models</foldername>
+		<foldername>templates</foldername>
+		<foldername>xml</foldername>
+                <foldername>language</foldername>
+	</files>
+
+	<tabs>
+		<tab name="Hangout" translated-name="Hangout" description="" class="cbhangoutTab" fields="0" sys="1" position="cb_tabmain" displaytype="tab">
+			<params>
+				<param name="tab_paging" type="yesno" default="1" label="Paging" description="Enable or disable usage of paging on tab hangout." yes="Enable" no="Disable" />
+				<if name="tab_paging" type="showhide" operator="=" value="1" valuetype="const:int">
+					<param name="tab_limit" type="int" default="15" size="5" label="Page Limit" description="Input page limit on tab hangout. Page limit determines how many hangout are displayed per page." />
+				</if>
+				<param name="tab_search" type="yesno" default="1" label="Search" description="Enable or disable usage of search on tab hangout." yes="Enable" no="Disable" />
+			</params>
+		</tab>
+	</tabs>
+	<params>
+		<tabpane name="hangout">
+			<tabpanetab label="General">
+				<param name="general_template" type="folderlist" default="default" label="Template" description="Select template to be used for all of CB Hangout. If template is incomplete then missing files will be used from the default template. Template files can be located at the following location: components/com_comprofiler/plugin/user/plug_hangout/templates/." directory="/components/com_comprofiler/plugin/user/plug_hangout/templates/" />
+				<param name="general_class" type="text" default="" size="20" label="Class" description="Optionally add a class suffix to surrounding DIV encasing all of CB Blogs." />
+			</tabpanetab>
+			<tabpanetab label="Hangout">
+				<param name="hangout_model" type="list" default="2" label="Model" description="Select hangout model usage. Model determines where hangout will be displayed from. Select a specific model to enable model specific parameters.">
+					<option value="2">Internal</option>
+					<option value="7">Joomla</option>
+					<option value="6">K2</option>
+				</param>
+				<param name="hangout_mode" type="list" default="1" label="Mode" description="Select hangout mode usage. Mode determines how hangout are stored and displayed.">
+					<option value="1">Intro &amp; Full</option>
+					<option value="2">Intro Only</option>
+					<option value="3">Full Only</option>
+				</param>
+				<if name="hangout_model" type="showhide" operator="=" value="2" valuetype="const:int">
+					<param name="hangout_categories" type="text" default="General,Movies,Music,Games,Sports" size="40" label="Categories" description="Input comma separated list of internal categories (e.g. General,Movies,Family)." />
+				</if>
+				<if name="hangout_model" type="showhide" operator="=" value="7" valuetype="const:int">
+					<param name="hangout_j_section" type="mos_category" default="" blanktext="- Select Category -" label="Category" description="Select the external CMS content category where hangouts will be stored as well as hangout categories used." />
+				</if>
+				<if name="hangout_model" type="showhide" operator="=" value="6" valuetype="const:int">
+					<param name="hangout_k2_section" type="list" default="" blanktext="- Select Category -" label="Category" description="Select the K2 content category where hangouts will be stored as well as hangout categories used.">
+						<data name="" type="private" class="cbhangoutClass" method="getK2Options" />
+					</param>
+				</if>
+				<param name="hangout_create_access" type="viewaccesslevel" default="2" managelevels="false" blanktext="" label="Create Access" description="Select hangout create access. Access determines who can create hangouts. The group selected as well as those above it will have access (e.g. Registered will also be accessible to Author). Moderators are exempt from this configuration." />
+				<param name="hangout_limit" type="int" default="" size="5" label="Create Limit" description="Input number of hangouts each individual user is limited to creating. If blank allow unlimited hangouts. Moderators are exempt from this configuration." />
+				<param name="hangout_approval" type="yesno" default="0" label="Approval" description="Enable or disable approval of hangouts. Approval requires a moderator to publish a hangout before it is made visible. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+				<param name="hangout_captcha" type="yesno" default="0" label="Captcha" description="Enable or disable usage of captcha on hangouts. Requires latest CB AntiSpam to be installed and published. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+				<param name="hangout_delete" type="yesno" default="1" label="Auto Delete" description="Enable or disable automatic deletion of hangouts when a user is deleted." yes="Enable" no="Disable" />
+				<if name="hangout_approval" type="showhide" operator="=" value="1" valuetype="const:int">
+					<param name="approval_notify" type="yesno" default="1" label="Notify" description="Enable or disable moderator notifications for hangouts needing approval." yes="Enable" no="Disable" />
+				</if>
+			</tabpanetab>
+			<tabpanetab label="Defaults">
+				<if name="hangout_model" type="showhide" operator="=" value="2" valuetype="const:int">
+					<param name="hangout_int_category_default" type="text" default="General" size="15" label="Category" description="Select default value for the category parameter." />
+				</if>
+				<if name="hangout_model" type="showhide" operator="=" value="7" valuetype="const:int">
+					<param name="hangout_j_category_default" type="mos_category" default="" blanktext="- Select Category -" label="Category" description="Select default value for the category parameter." />
+				</if>
+				<if name="hangout_model" type="showhide" operator="=" value="6" valuetype="const:int">
+					<param name="hangout_k2_category_default" type="list" default="" blanktext="- Select Category -" label="Category" description="Select default value for the category parameter.">
+						<data name="" type="private" class="cbhangoutClass" method="getK2Options" />
+					</param>
+				</if>
+				<param name="hangout_category_config" type="yesno" default="1" label="Category Display" description="Enable or disable the display of the category parameter. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+				<param name="hangout_access_default" type="viewaccesslevel" default="1" blanktext="- Select View Access Level -" managelevels="false" label="Access" description="Select default value for the access parameter." />
+				<param name="hangout_access_config" type="yesno" default="1" label="Access Display" description="Enable or disable the display of the access parameter. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+			</tabpanetab>
+		</tabpane>
+	</params>
+	<database version="1">
+		<table name="#__comprofiler_plugin_hangout" class="" strict="true" drop="never">
+			<columns strict="true" drop="never">
+				<column name="id" type="sql:int(11)" unsigned="true" auto_increment="1" />
+				<column name="user" type="sql:int(11)" />
+				<column name="title" type="sql:varchar(255)" />
+				<column name="hangout_intro" type="sql:text" null="true" />
+				<column name="hangout_full" type="sql:text" null="true" />
+				<column name="category" type="sql:varchar(255)" />
+				<column name="created" type="sql:datetime" default="0000-00-00 00:00:00" />
+				<column name="modified" type="sql:datetime" default="0000-00-00 00:00:00" />
+				<column name="access" type="sql:int(11)" default="0" />
+				<column name="published" type="sql:tinyint(1)" default="0" />
+				<column name="ordering" type="sql:int(11)" default="99999" />
+                                <column name="price" type="sql:float" default="0" />
+			</columns>
+			<indexes strict="true" drop="never">
+				<index name="PRIMARY" type="primary">
+					<column name="id" />
+				</index>
+				<index name="published">
+					<column name="published" />
+				</index>
+				<index name="user">
+					<column name="user" />
+				</index>
+				<index name="access">
+					<column name="access" />
+				</index>
+			</indexes>
+			<engine type="InnoDB" sameastable="#__comprofiler" strict="updatewithtable" />
+		</table>
+                <table name="#__comprofiler_plugin_hangout_join" class="" strict="true" drop="never">
+			<columns strict="true" drop="never">
+				<column name="id" type="sql:int(11)" unsigned="true" auto_increment="1" />
+				<column name="user" type="sql:int(11)" />
+				<column name="hangout_id" type="sql:int(11)" />
+			</columns>
+			<indexes strict="true" drop="never">
+				<index name="PRIMARY" type="primary">
+					<column name="id" />
+				</index>
+				
+				<index name="user" type="unique">
+                                        <column name="hangout_id" />
+					<column name="user" /> 
+				</index>
+				
+			</indexes>
+			<engine type="InnoDB" sameastable="#__comprofiler" strict="updatewithtable" />
+		</table>
+	</database>
+</cbinstall>

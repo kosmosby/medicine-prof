@@ -1,0 +1,45 @@
+
+/*
+ * Widgetkit Gallery: Simple Style
+ */
+
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-gallery-glass ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.wk-gallery-glass a[data-lightbox] { display: block; }
+
+.wk-gallery-glass li {
+    float: left;
+    background: rgba(255,255,255,0.4);
+}
+
+.wk-gallery-glass ul:hover .glass-gallery { opacity: 0.5; }
+
+.wk-gallery-glass li:hover .glass-gallery { opacity: 1; }
+
+.wk-gallery-glass .glass-gallery {
+    background-position: center center;
+    background-size: cover;
+    transition: opacity .35s ease-in-out;
+    -moz-transition: opacity .35s ease-in-out;
+    -webkit-transition: opacity .35s ease-in-out;
+}
+
+.wk-gallery-glass .huhucaption {
+    min-height: 55px;
+    text-align: center;
+    line-height: 55px;
+    font-size: 1.2em;
+}
+
+.wk-gallery-glass li:hover .huhucaption {
+    background: #1a96d3;
+    color: #fff;
+}

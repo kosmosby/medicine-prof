@@ -1,0 +1,61 @@
+.juselect-container {
+}
+
+.juselect-select {
+    float: left;
+    min-width: 250px;
+}
+
+.juselect-select option[disabled="disabled"] {
+    color: #CCC;
+}
+
+.juselect-list {
+    margin: 0.25em 0 1em 0;
+    position: relative;
+    display: block;
+    padding-left: 0;
+    list-style: none;
+    float: left;
+    width: 350px;
+    margin-left: 10px;
+}
+
+.juselect-list .juselect-item {
+    position: relative;
+    padding-left: 0;
+    list-style: none;
+    background: #E7E7E7;
+    border: 1px solid #DDD;
+    width: auto;
+    margin: 0 0 2px 0;
+    line-height: 1em;
+}
+
+.juselect-list .juselect-item:hover {
+    background-color: #F0F0F0;
+}
+
+.juselect-list .placeHolder {
+    margin: 0 0 2px 0;
+    border: 1px dashed #DDD;
+}
+
+.juselect-list .juselect-label {
+    cursor: move;
+    padding: 5px;
+    display: block;
+}
+
+.juselect-list .juselect-remove {
+    font-size: 11px;
+    padding: 5px;
+    position: absolute;
+    right: 0;
+    text-decoration: none;
+    top: 0;
+}
+
+.juselect-list .juselect-remove:hover {
+    text-decoration: none;
+}

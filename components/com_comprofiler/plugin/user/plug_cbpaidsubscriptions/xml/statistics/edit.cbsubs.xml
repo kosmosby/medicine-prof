@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" type="plugin" group="user/plug_cbpaidsubscriptions/plugin"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<types>
+	</types>
+
+	<actions ui="admin">
+		<action name="show_statistics_dayofweek" request="action" action="showstatsdayofweek">
+			<extend toxpathnode="/cbxml/views" fromxpathnode="/*/views/view" file="xml/statistics/edit.statistics" mandatory="true" />
+			<showview view="showstatisticsdayofweek" mode="show" />
+		</action>
+		<action name="show_statistics_hourofday" request="action" action="showstatshourofday">
+			<extend toxpathnode="/cbxml/views" fromxpathnode="/*/views/view" file="xml/statistics/edit.statistics" mandatory="true" />
+			<showview view="showstatisticshourofday" mode="show" />
+		</action>
+		<action name="show_statistics_freequery" request="action" action="showstatsfreequery">
+			<extend toxpathnode="/cbxml/views" fromxpathnode="/*/views/view" file="xml/statistics/edit.statistics" mandatory="true" />
+			<showview view="showstatisticsfreequery" mode="show" />
+		</action>
+		<action name="show_statistics_weekly" request="action" action="showstatsweekly">
+			<extend toxpathnode="/cbxml/views" fromxpathnode="/*/views/view" file="xml/statistics/edit.statistics" mandatory="true" />
+			<showview view="showstatisticsweekly" mode="show" />
+		</action>
+		<action name="show_statistics_monthly" request="action" action="showstatsmonthly">
+			<extend toxpathnode="/cbxml/views" fromxpathnode="/*/views/view" file="xml/statistics/edit.statistics" mandatory="true" />
+			<showview view="showstatisticsmonthly" mode="show" />
+		</action>
+		<action name="show_statistics_country" request="action" action="showstatscountrypayments">
+			<extend toxpathnode="/cbxml/views" fromxpathnode="/*/views/view" file="xml/statistics/edit.statistics" mandatory="true" />
+			<showview view="showstatscountrypayments" mode="show" />
+		</action>
+		
+		<action name="show_statistics_itemsdayofweek" request="action" action="showstatsitemsdayofweek">
+			<extend toxpathnode="/cbxml/views" fromxpathnode="/*/views/view" file="xml/statistics/edit.statistics" mandatory="true" />
+			<showview view="showstatisticsitemsdayofweek" mode="show" />
+		</action>
+		<action name="show_statistics_itemsweekly" request="action" action="showstatsitemsweekly">
+			<extend toxpathnode="/cbxml/views" fromxpathnode="/*/views/view" file="xml/statistics/edit.statistics" mandatory="true" />
+			<showview view="showstatisticsitemsweekly" mode="show" />
+		</action>
+		<action name="show_statistics_itemsmonthly" request="action" action="showstatsitemsmonthly">
+			<extend toxpathnode="/cbxml/views" fromxpathnode="/*/views/view" file="xml/statistics/edit.statistics" mandatory="true" />
+			<showview view="showstatisticsitemsmonthly" mode="show" />
+		</action>
+	</actions>
+
+	<integrations>
+		<integration name="payintegrationstatsmenu">
+			<views>
+				<view name="showstatistics" type="params" ui="admin">
+					<param default="Payments/Transactions totals" type="spacer" />
+					<menugroup name="statsmenu" label="" description="" type="buttonMenu">
+						<menu name="monthly"      action="cb_action:show_statistics_monthly"                  label="Payments Monthly"           description="Show payments by month">
+						</menu>
+						<menu name="weekly"      action="cb_action:show_statistics_weekly"                  label="Payments Weekly"           description="Show payments by week">
+						</menu>
+						<menu name="dayofweek"      action="cb_action:show_statistics_dayofweek"                  label="Payments by weekday"           description="Show payments by the day of the week">
+						</menu>
+						<menu name="hourofday"      action="cb_action:show_statistics_hourofday"                  label="Payments by hour"           description="Show payments by the hour of the day">
+						</menu>
+						<menu name="countrypayments"      action="cb_action:show_statistics_country"                  label="Payments by country"           description="Show payments by country">
+						</menu>
+						<menu name="freequery"      action="cb_action:show_statistics_freequery"                label="Payments Free query"   description="Filter down the result you want by criterias">
+						</menu>
+					</menugroup>
+					<param default="Item sales" type="spacer" />
+					<menugroup name="statsmenu" label="" description="" type="buttonMenu">
+						<menu name="itemsmonthly"      action="cb_action:show_statistics_itemsmonthly"                  label="Sales Monthly"           description="Show item sales by month">
+						</menu>
+						<menu name="itemsweekly"      action="cb_action:show_statistics_itemsweekly"                  label="Sales Weekly"           description="Show item sales by week">
+						</menu>
+						<menu name="itemsdayofweek"      action="cb_action:show_statistics_itemsdayofweek"                  label="Sales by weekday"           description="Show item sales by the day of the week">
+						</menu>
+						<!--
+						<menu name="itemshourofday"      action="cb_action:show_statistics_itemshourofday"                  label="Sales by hour"           description="Show item sales by the hour of the day">
+						</menu>
+						<menu name="itemsfreequery"      action="cb_action:show_statistics_itemsfreequery"                label="Sales Free query"   description="Filter down the result you want by criterias">
+						</menu>
+						-->
+					</menugroup>
+				</view>
+			</views>
+		</integration>
+	</integrations>
+
+</cbxml>

@@ -1,0 +1,33 @@
+/* Background: Gradient Green
+----------------------------------------------------------------------------------------------------*/
+
+body#page { background: #485E02; }
+
+@media only screen and (min-device-width: 769px) {
+
+	body#page {
+		background: #485E02  url(../../images/background/gradient_green/gradient.svg) 50% 0 repeat-y fixed;
+		background-size: 100% 1500px;
+	}
+	
+	.wrapper {
+		-moz-box-shadow:
+			0 0 5px rgba(0,0,0,0.4),
+			0 0 100px rgba(215,230,150,0.6);
+		-webkit-box-shadow:
+			0 0 5px rgba(0,0,0,0.4),
+			0 0 200px rgba(215,230,150,0.6);
+		box-shadow:
+			0 0 5px rgba(0,0,0,0.4),
+			0 0 100px rgba(215,230,150,0.6);
+	}
+
+}
+/* WidgetKit
+----------------------------------------------------------------------------------------------------*/
+
+/* Slideshow */
+.wk-slideshow-downtown .nav span { background-image: url(../../images/widgetkit/color/green/nav.png); }
+
+.wk-slideshow-downtown > div .next,
+.wk-slideshow-downtown > div .prev { background-image: url(../../images/widgetkit/color/green/buttons.png); }

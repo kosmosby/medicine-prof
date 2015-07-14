@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0" type="plugin" group="user/plug_cbpaidsubscriptions/plugin"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		   xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<name>CBSubs CB Field</name>
+	<author>Beat</author>
+	<creationDate>2014-10-09</creationDate>
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<authorEmail>beat@joomlapolis.com</authorEmail>
+	<authorUrl>www.joomlapolis.com</authorUrl>
+	<version>2.0.0</version>
+	<release>4.0.0-rc.1</release>
+	<cbsubsversion version="4.0.0-rc.1" />
+	<description>CBSubs CB Field integration plugin: Provides paid access integration between CBSubs plugin and CB Fields.</description>
+	<files>
+		<filename plugin="cbsubs.cbfield">cbsubs.cbfield.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<params>
+		<param name="remark"  type="spacer" label="Parameters settings"  default="Settings are done from within the paid subscriptions plugin in each plan/product." description="" />
+	</params>
+	<tabs>
+	</tabs>
+	<payintegration>
+		<tabpanetab name="integration_cbfields" label="CB Fields" description="CB fields changing on plan activation and deactivation:">
+			<fieldset name="field1" label="Field 1" description="">
+				<param name="cbfields_fieldid1" type="field" size="" default="" label="Field" description="Select field to change on subscription activation / deactivation. Leave unselected for no effect." />
+				<if name="cbfields_fieldid1" type="showhide" operator="&lt;&gt;" value="0" valuetype="const:int">
+					<param name="cbfields_increment1" type="list" default="0" label="Operator" description="Set how the new value is handled. Prefix and Suffix does not apply to multiselect and multicheckbox field types. Add, Subtract, Multiple, and Divide apply to integer field types only.">
+						<option value="0">Set: Field = Value</option>
+						<option value="5">Prefix: ValueField</option>
+						<option value="6">Suffix: FieldValue</option>
+						<option value="1">Add: Field = Field + Value</option>
+						<option value="2">Subtract: Field = Field - Value</option>
+						<option value="3">Multiply: Field = Field x Value</option>
+						<option value="4">Divide: Field = Field / Value</option>
+					</param>
+					<param name="cbfields_contentoffield1" type="text" size="40" default="" label="Value" description="Enter the value to put in field when this subscription is activated. For multiselect and multicheckbox fields, you may enter multiple values separated by `|*|` (without quotes)." />
+					<param name="cbfields_removeondeact1" type="xml:yesno" default="1" label="Remove value on plan deactivation" description="If this value should be removed when plan gets deactivated for any reason (expiration, cancellation, chargeback, etc)." />
+					<if name="cbfields_removeondeact1" type="showhide" operator="=" value="1" valuetype="const:int">
+						<param name="cbfields_removecontent1" type="text" size="40" default="" label="Value on plan deactivation" description="Enter the value to put in field when this subscription is deactivated. This has no affect for multiselect and multicheckbox field types. If left blank will attempt to reverse the Value. Deactivation value always uses Set operator." />
+					</if>
+				</if>
+			</fieldset>
+			<fieldset name="field2" label="Field 2" description="">
+				<param name="cbfields_fieldid2" type="field" size="" default="" label="Field" description="Select field to change on subscription activation / deactivation. Leave unselected for no effect." />
+				<if name="cbfields_fieldid2" type="showhide" operator="&lt;&gt;" value="0" valuetype="const:int">
+					<param name="cbfields_increment2" type="list" default="0" label="Operator" description="Set how the new value is handled. Prefix and Suffix does not apply to multiselect and multicheckbox field types. Add, Subtract, Multiple, and Divide apply to integer field types only.">
+						<option value="0">Set: Field = Value</option>
+						<option value="5">Prefix: ValueField</option>
+						<option value="6">Suffix: FieldValue</option>
+						<option value="1">Add: Field = Field + Value</option>
+						<option value="2">Subtract: Field = Field - Value</option>
+						<option value="3">Multiply: Field = Field x Value</option>
+						<option value="4">Divide: Field = Field / Value</option>
+					</param>
+					<param name="cbfields_contentoffield2" type="text" size="40" default="" label="Value" description="Enter the value to put in field when this subscription is activated. For multiselect and multicheckbox fields, you may enter multiple values separated by `|*|` (without quotes)." />
+					<param name="cbfields_removeondeact2" type="xml:yesno" default="1" label="Remove value on plan deactivation" description="If this value should be removed when plan gets deactivated for any reason (expiration, cancellation, chargeback, etc)." />
+					<if name="cbfields_removeondeact2" type="showhide" operator="=" value="1" valuetype="const:int">
+						<param name="cbfields_removecontent2" type="text" size="40" default="" label="Value on plan deactivation" description="Enter the value to put in field when this subscription is deactivated. This has no affect for multiselect and multicheckbox field types. If left blank will attempt to reverse the Value. Deactivation value always uses Set operator." />
+					</if>
+				</if>
+			</fieldset>
+			<fieldset name="field3" label="Field 3" description="">
+				<param name="cbfields_fieldid3" type="field" size="" default="" label="Field" description="Select field to change on subscription activation / deactivation. Leave unselected for no effect." />
+				<if name="cbfields_fieldid3" type="showhide" operator="&lt;&gt;" value="0" valuetype="const:int">
+					<param name="cbfields_increment3" type="list" default="0" label="Operator" description="Set how the new value is handled. Prefix and Suffix does not apply to multiselect and multicheckbox field types. Add, Subtract, Multiple, and Divide apply to integer field types only.">
+						<option value="0">Set: Field = Value</option>
+						<option value="5">Prefix: ValueField</option>
+						<option value="6">Suffix: FieldValue</option>
+						<option value="1">Add: Field = Field + Value</option>
+						<option value="2">Subtract: Field = Field - Value</option>
+						<option value="3">Multiply: Field = Field x Value</option>
+						<option value="4">Divide: Field = Field / Value</option>
+					</param>
+					<param name="cbfields_contentoffield3" type="text" size="40" default="" label="Value" description="Enter the value to put in field when this subscription is activated. For multiselect and multicheckbox fields, you may enter multiple values separated by `|*|` (without quotes)." />
+					<param name="cbfields_removeondeact3" type="xml:yesno" default="1" label="Remove value on plan deactivation" description="If this value should be removed when plan gets deactivated for any reason (expiration, cancellation, chargeback, etc)." />
+					<if name="cbfields_removeondeact3" type="showhide" operator="=" value="1" valuetype="const:int">
+						<param name="cbfields_removecontent3" type="text" size="40" default="" label="Value on plan deactivation" description="Enter the value to put in field when this subscription is deactivated. This has no affect for multiselect and multicheckbox field types. If left blank will attempt to reverse the Value. Deactivation value always uses Set operator." />
+					</if>
+				</if>
+			</fieldset>
+			<fieldset name="field4" label="Field 4" description="">
+				<param name="cbfields_fieldid4" type="field" size="" default="" label="Field" description="Select field to change on subscription activation / deactivation. Leave unselected for no effect." />
+				<if name="cbfields_fieldid4" type="showhide" operator="&lt;&gt;" value="0" valuetype="const:int">
+					<param name="cbfields_increment4" type="list" default="0" label="Operator" description="Set how the new value is handled. Prefix and Suffix does not apply to multiselect and multicheckbox field types. Add, Subtract, Multiple, and Divide apply to integer field types only.">
+						<option value="0">Set: Field = Value</option>
+						<option value="5">Prefix: ValueField</option>
+						<option value="6">Suffix: FieldValue</option>
+						<option value="1">Add: Field = Field + Value</option>
+						<option value="2">Subtract: Field = Field - Value</option>
+						<option value="3">Multiply: Field = Field x Value</option>
+						<option value="4">Divide: Field = Field / Value</option>
+					</param>
+					<param name="cbfields_contentoffield4" type="text" size="40" default="" label="Value" description="Enter the value to put in field when this subscription is activated. For multiselect and multicheckbox fields, you may enter multiple values separated by `|*|` (without quotes)." />
+					<param name="cbfields_removeondeact4" type="xml:yesno" default="1" label="Remove value on plan deactivation" description="If this value should be removed when plan gets deactivated for any reason (expiration, cancellation, chargeback, etc)." />
+					<if name="cbfields_removeondeact4" type="showhide" operator="=" value="1" valuetype="const:int">
+						<param name="cbfields_removecontent4" type="text" size="40" default="" label="Value on plan deactivation" description="Enter the value to put in field when this subscription is deactivated. This has no affect for multiselect and multicheckbox field types. If left blank will attempt to reverse the Value. Deactivation value always uses Set operator." />
+					</if>
+				</if>
+			</fieldset>
+			<fieldset name="field5" label="Field 5" description="">
+				<param name="cbfields_fieldid5" type="field" size="" default="" label="Field" description="Select field to change on subscription activation / deactivation. Leave unselected for no effect." />
+				<if name="cbfields_fieldid5" type="showhide" operator="&lt;&gt;" value="0" valuetype="const:int">
+					<param name="cbfields_increment5" type="list" default="0" label="Operator" description="Set how the new value is handled. Prefix and Suffix does not apply to multiselect and multicheckbox field types. Add, Subtract, Multiple, and Divide apply to integer field types only.">
+						<option value="0">Set: Field = Value</option>
+						<option value="5">Prefix: ValueField</option>
+						<option value="6">Suffix: FieldValue</option>
+						<option value="1">Add: Field = Field + Value</option>
+						<option value="2">Subtract: Field = Field - Value</option>
+						<option value="3">Multiply: Field = Field x Value</option>
+						<option value="4">Divide: Field = Field / Value</option>
+					</param>
+					<param name="cbfields_contentoffield5" type="text" size="40" default="" label="Value" description="Enter the value to put in field when this subscription is activated. For multiselect and multicheckbox fields, you may enter multiple values separated by `|*|` (without quotes)." />
+					<param name="cbfields_removeondeact5" type="xml:yesno" default="1" label="Remove value on plan deactivation" description="If this value should be removed when plan gets deactivated for any reason (expiration, cancellation, chargeback, etc)." />
+					<if name="cbfields_removeondeact5" type="showhide" operator="=" value="1" valuetype="const:int">
+						<param name="cbfields_removecontent5" type="text" size="40" default="" label="Value on plan deactivation" description="Enter the value to put in field when this subscription is deactivated. This has no affect for multiselect and multicheckbox field types. If left blank will attempt to reverse the Value. Deactivation value always uses Set operator." />
+					</if>
+				</if>
+			</fieldset>
+			<fieldset name="field6" label="Field 6" description="">
+				<param name="cbfields_fieldid6" type="field" size="" default="" label="Field" description="Select field to change on subscription activation / deactivation. Leave unselected for no effect." />
+				<if name="cbfields_fieldid6" type="showhide" operator="&lt;&gt;" value="0" valuetype="const:int">
+					<param name="cbfields_increment6" type="list" default="0" label="Operator" description="Set how the new value is handled. Prefix and Suffix does not apply to multiselect and multicheckbox field types. Add, Subtract, Multiple, and Divide apply to integer field types only.">
+						<option value="0">Set: Field = Value</option>
+						<option value="5">Prefix: ValueField</option>
+						<option value="6">Suffix: FieldValue</option>
+						<option value="1">Add: Field = Field + Value</option>
+						<option value="2">Subtract: Field = Field - Value</option>
+						<option value="3">Multiply: Field = Field x Value</option>
+						<option value="4">Divide: Field = Field / Value</option>
+					</param>
+					<param name="cbfields_contentoffield6" type="text" size="40" default="" label="Value" description="Enter the value to put in field when this subscription is activated. For multiselect and multicheckbox fields, you may enter multiple values separated by `|*|` (without quotes)." />
+					<param name="cbfields_removeondeact6" type="xml:yesno" default="1" label="Remove value on plan deactivation" description="If this value should be removed when plan gets deactivated for any reason (expiration, cancellation, chargeback, etc)." />
+					<if name="cbfields_removeondeact6" type="showhide" operator="=" value="1" valuetype="const:int">
+						<param name="cbfields_removecontent6" type="text" size="40" default="" label="Value on plan deactivation" description="Enter the value to put in field when this subscription is deactivated. This has no affect for multiselect and multicheckbox field types. If left blank will attempt to reverse the Value. Deactivation value always uses Set operator." />
+					</if>
+				</if>
+			</fieldset>
+			<fieldset name="field7" label="Field 7" description="">
+				<param name="cbfields_fieldid7" type="field" size="" default="" label="Field" description="Select field to change on subscription activation / deactivation. Leave unselected for no effect." />
+				<if name="cbfields_fieldid7" type="showhide" operator="&lt;&gt;" value="0" valuetype="const:int">
+					<param name="cbfields_increment7" type="list" default="0" label="Operator" description="Set how the new value is handled. Prefix and Suffix does not apply to multiselect and multicheckbox field types. Add, Subtract, Multiple, and Divide apply to integer field types only.">
+						<option value="0">Set: Field = Value</option>
+						<option value="5">Prefix: ValueField</option>
+						<option value="6">Suffix: FieldValue</option>
+						<option value="1">Add: Field = Field + Value</option>
+						<option value="2">Subtract: Field = Field - Value</option>
+						<option value="3">Multiply: Field = Field x Value</option>
+						<option value="4">Divide: Field = Field / Value</option>
+					</param>
+					<param name="cbfields_contentoffield7" type="text" size="40" default="" label="Value" description="Enter the value to put in field when this subscription is activated. For multiselect and multicheckbox fields, you may enter multiple values separated by `|*|` (without quotes)." />
+					<param name="cbfields_removeondeact7" type="xml:yesno" default="1" label="Remove value on plan deactivation" description="If this value should be removed when plan gets deactivated for any reason (expiration, cancellation, chargeback, etc)." />
+					<if name="cbfields_removeondeact7" type="showhide" operator="=" value="1" valuetype="const:int">
+						<param name="cbfields_removecontent7" type="text" size="40" default="" label="Value on plan deactivation" description="Enter the value to put in field when this subscription is deactivated. This has no affect for multiselect and multicheckbox field types. If left blank will attempt to reverse the Value. Deactivation value always uses Set operator." />
+					</if>
+				</if>
+			</fieldset>
+			<fieldset name="field8" label="Field 8" description="">
+				<param name="cbfields_fieldid8" type="field" size="" default="" label="Field" description="Select field to change on subscription activation / deactivation. Leave unselected for no effect." />
+				<if name="cbfields_fieldid8" type="showhide" operator="&lt;&gt;" value="0" valuetype="const:int">
+					<param name="cbfields_increment8" type="list" default="0" label="Operator" description="Set how the new value is handled. Prefix and Suffix does not apply to multiselect and multicheckbox field types. Add, Subtract, Multiple, and Divide apply to integer field types only.">
+						<option value="0">Set: Field = Value</option>
+						<option value="5">Prefix: ValueField</option>
+						<option value="6">Suffix: FieldValue</option>
+						<option value="1">Add: Field = Field + Value</option>
+						<option value="2">Subtract: Field = Field - Value</option>
+						<option value="3">Multiply: Field = Field x Value</option>
+						<option value="4">Divide: Field = Field / Value</option>
+					</param>
+					<param name="cbfields_contentoffield8" type="text" size="40" default="" label="Value" description="Enter the value to put in field when this subscription is activated. For multiselect and multicheckbox fields, you may enter multiple values separated by `|*|` (without quotes)." />
+					<param name="cbfields_removeondeact8" type="xml:yesno" default="1" label="Remove value on plan deactivation" description="If this value should be removed when plan gets deactivated for any reason (expiration, cancellation, chargeback, etc)." />
+					<if name="cbfields_removeondeact8" type="showhide" operator="=" value="1" valuetype="const:int">
+						<param name="cbfields_removecontent8" type="text" size="40" default="" label="Value on plan deactivation" description="Enter the value to put in field when this subscription is deactivated. This has no affect for multiselect and multicheckbox field types. If left blank will attempt to reverse the Value. Deactivation value always uses Set operator." />
+					</if>
+				</if>
+			</fieldset>
+			<fieldset name="field9" label="Field 9" description="">
+				<param name="cbfields_fieldid9" type="field" size="" default="" label="Field" description="Select field to change on subscription activation / deactivation. Leave unselected for no effect." />
+				<if name="cbfields_fieldid9" type="showhide" operator="&lt;&gt;" value="0" valuetype="const:int">
+					<param name="cbfields_increment9" type="list" default="0" label="Operator" description="Set how the new value is handled. Prefix and Suffix does not apply to multiselect and multicheckbox field types. Add, Subtract, Multiple, and Divide apply to integer field types only.">
+						<option value="0">Set: Field = Value</option>
+						<option value="5">Prefix: ValueField</option>
+						<option value="6">Suffix: FieldValue</option>
+						<option value="1">Add: Field = Field + Value</option>
+						<option value="2">Subtract: Field = Field - Value</option>
+						<option value="3">Multiply: Field = Field x Value</option>
+						<option value="4">Divide: Field = Field / Value</option>
+					</param>
+					<param name="cbfields_contentoffield9" type="text" size="40" default="" label="Value" description="Enter the value to put in field when this subscription is activated. For multiselect and multicheckbox fields, you may enter multiple values separated by `|*|` (without quotes)." />
+					<param name="cbfields_removeondeact9" type="xml:yesno" default="1" label="Remove value on plan deactivation" description="If this value should be removed when plan gets deactivated for any reason (expiration, cancellation, chargeback, etc)." />
+					<if name="cbfields_removeondeact9" type="showhide" operator="=" value="1" valuetype="const:int">
+						<param name="cbfields_removecontent9" type="text" size="40" default="" label="Value on plan deactivation" description="Enter the value to put in field when this subscription is deactivated. This has no affect for multiselect and multicheckbox field types. If left blank will attempt to reverse the Value. Deactivation value always uses Set operator." />
+					</if>
+				</if>
+			</fieldset>
+			<fieldset name="field10" label="Field 10" description="">
+				<param name="cbfields_fieldid10" type="field" size="" default="" label="Field" description="Select field to change on subscription activation / deactivation. Leave unselected for no effect." />
+				<if name="cbfields_fieldid10" type="showhide" operator="&lt;&gt;" value="0" valuetype="const:int">
+					<param name="cbfields_increment10" type="list" default="0" label="Operator" description="Set how the new value is handled. Prefix and Suffix does not apply to multiselect and multicheckbox field types. Add, Subtract, Multiple, and Divide apply to integer field types only.">
+						<option value="0">Set: Field = Value</option>
+						<option value="5">Prefix: ValueField</option>
+						<option value="6">Suffix: FieldValue</option>
+						<option value="1">Add: Field = Field + Value</option>
+						<option value="2">Subtract: Field = Field - Value</option>
+						<option value="3">Multiply: Field = Field x Value</option>
+						<option value="4">Divide: Field = Field / Value</option>
+					</param>
+					<param name="cbfields_contentoffield10" type="text" size="40" default="" label="Value" description="Enter the value to put in field when this subscription is activated. For multiselect and multicheckbox fields, you may enter multiple values separated by `|*|` (without quotes)." />
+					<param name="cbfields_removeondeact10" type="xml:yesno" default="1" label="Remove value on plan deactivation" description="If this value should be removed when plan gets deactivated for any reason (expiration, cancellation, chargeback, etc)." />
+					<if name="cbfields_removeondeact10" type="showhide" operator="=" value="1" valuetype="const:int">
+						<param name="cbfields_removecontent10" type="text" size="40" default="" label="Value on plan deactivation" description="Enter the value to put in field when this subscription is deactivated. This has no affect for multiselect and multicheckbox field types. If left blank will attempt to reverse the Value. Deactivation value always uses Set operator." />
+					</if>
+				</if>
+			</fieldset>
+			<fieldset name="substitutionshelp" label="Substitutions in Values" description="Substitutions allow to use values depending on user or on merchandise/donation/user-subscription depending on plan type:">
+				<param type="spacer" name="substitutionshelp_user" label="User fields substitutions"           default="[USERNAME], [NAME], [EMAIL], [cb_anycbfieldname]" description="" />
+				<param type="spacer" name="substitutionshelp_plans" label="Plan/Product substitutions"      default="[PLAN_NAME], [PLAN_ALIAS], [PLAN_DESCRIPTION], [PLAN_REGISTRATION_PRICE] and [PLAN_UPGRADE_PRICE] (both display period and price), [PLAN_PRICE] (display generic period and price for plan, or amount donated for donation with currency, or price with currency of product for a merchandise), [PLAN_RATE] and [PLAN_FIRST_RATE] are numeric values, and in case of donations, the donation amount converted into the donation plan's currency" description="" />
+				<param type="spacer" name="substitutionshelp_subscr" label="User Subscription substitutions" default="[SUBSCRIPTION_SIGNUP_DATE], [SUBSCRIPTION_EXPIRY_DATE], [SUBSCRIPTION_LAST_RENEWAL_DATE], [SUBSCRIPTION_VALIDITY_PERIOD_REMAINING], [SUBSCRIPTION_EXPIRY_DATE_IF_RENEWED], [SUBSCRIPTION_VALIDITY_PERIOD_IF_RENEWED], [SUBSCRIPTION_RENEWAL_PRICE] (displays period and price)" description="" />
+			</fieldset>
+		</tabpanetab>
+	</payintegration>
+	<install>
+		<queries>
+		</queries>
+	</install>
+	<uninstall>
+		<queries>
+		</queries>
+	</uninstall>
+	<database>
+	</database>
+</cbinstall>

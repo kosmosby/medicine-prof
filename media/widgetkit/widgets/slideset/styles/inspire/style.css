@@ -1,0 +1,70 @@
+/*
+ * Widgetkit Slideset: Default Style
+ */
+
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-inspire .nav {
+	margin-top: 10px;
+	text-align: center;
+}
+
+.wk-slideset-inspire .nav li { display: inline-block; }
+.wk-slideset-inspire .nav.icon li { margin-left: 5px; }
+.wk-slideset-inspire .nav.text li { margin-left: 40px; }
+
+.wk-slideset-inspire .nav li:first-child { margin-left: 0; }
+
+.wk-slideset-inspire .nav.icon span {
+	width: 17px;
+	height: 17px;
+	background: url(images/nav.png) 0 0 no-repeat;
+	overflow: hidden;
+}
+.wk-slideset-inspire .nav.icon span:hover { background-position: 0 -20px; }
+.wk-slideset-inspire .nav.icon span:active { background-position: 0 -40px; }
+.wk-slideset-inspire .nav.icon .active span { background-position: 0 -60px; }
+
+.wk-slideset-inspire .nav.text span { padding: 0 11px; }
+.wk-slideset-inspire .nav.text .active span {
+	padding: 0 10px;
+	border: 1px solid rgba(0,0,0,0.1);
+	border-radius: 4px;
+	background: rgba(0,0,0,0.05);
+	
+}
+
+
+/* Buttons
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-inspire > div { position: relative; }
+
+.wk-slideset-inspire > div:hover .next,
+.wk-slideset-inspire > div:hover .prev {
+	top: 50%;
+	width: 53px;
+	height: 55px;
+	margin-top: -25px;
+	background: url(images/buttons.png) 0 50px no-repeat;
+}
+
+.wk-slideset-inspire > div:hover .next {
+	right: 30px;
+	background-position: 0 0;
+}
+
+.wk-slideset-inspire > div:hover .prev {
+	left: 30px;
+	background-position: 0 -60px;
+}
+
+/* Title
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-inspire article { margin: 0 0; }
+
+.wk-slideset-inspire article + strong.title { font-weight: normal; }
+

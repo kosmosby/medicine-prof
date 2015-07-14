@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="CART_MEMBERSHIP_DETAIL_LAYOUT">
+		<message>
+			<![CDATA[CART_MEMBERSHIP_DETAIL_LAYOUT]]>
+		</message>
+	</layout>
+<config>
+	<fields name="params">
+		<fieldset name="basic">
+			<field name="detail_mscID" type="sql" default="" description="Please Select a Membership Plan" label="Please Select a Membership Plan" query="SELECT id AS value, title AS detail_mscID FROM #__osemsc_acl" />
+		</fieldset>
+	</fields>
+</config>
+</metadata>

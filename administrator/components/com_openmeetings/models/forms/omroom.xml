@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Licensed under the Apache License, Version 2.0 (the "License"); you 
+	may not use this file except in compliance with the License. You may obtain 
+	a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless 
+	required by applicable law or agreed to in writing, software distributed 
+	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
+	the specific language governing permissions and limitations under the License. -->
+<form>
+	<field name="name" type="text" size="20" maxLength="64" label="ROOM_NAME" />
+	<field name="roomtype_id" type="list" label="ROOM_TYPE" default="1">
+		<option value="1">CONFERENCE_MAX_20_USERS</option>
+		<option value="3">RESTRICTED_MAX_150_USERS</option>
+		<option value="4">INTERVIEW_MAX_2_USERS</option>
+		<option value="5">SIMPLE_MAX_2_USERS</option>
+	</field>
+
+	<field type="textarea" name="comment" label="COMMENT" rows="10"
+		cols="64" maxLength="250" />
+	<field name="number_of_participants" type="list" label="NUMBER_OF_PARTICIPANTS">
+		<option value="2">2</option>
+		<option value="4">4</option>
+		<option value="6">6</option>
+		<option value="8">8</option>
+		<option value="10">10</option>
+		<option value="12">12</option>
+		<option value="14">14</option>
+		<option value="16">16</option>
+		<option value="25">25</option>
+		<option value="32">32</option>
+		<option value="50">50</option>
+		<option value="100">100</option>
+		<option value="150">150</option>
+	</field>
+	<field name="is_public" type="list" label="IS_PUBLIC" default="True">
+		<option value="True">JYES</option>
+		<option value="False">JNO</option>
+	</field>
+
+	<field name="appointment" type="list" label="APPOINTMENT"
+		default="0">
+		<option value="1">JYES</option>
+		<option value="0">JNO</option>
+	</field>
+
+	<field name="is_moderated_room" type="list" label="IS_MODERATED_ROOM"
+		default="1">
+		<option value="1">JYES</option>
+		<option value="0">JNO</option>
+	</field>
+
+	<field name="owner" type="sql" label="OWNER"
+		query="SELECT id as value, name as owner FROM #__users" />
+
+	<field name="owners" type="sql" label="ROOM_USERS" class="room-users"
+		query="SELECT id as value, name as owners FROM #__users" multiple="multiple" />
+
+	<field name="room_validity" type="list" label="ROOM_VALIDITY"
+		default="0" description="ROOM_VALIDITY_DESC">
+		<option value="0">STATIC</option>
+		<option value="1">DYNAMIC</option>
+	</field>
+
+	<field type="calendar" name="date_type" label="DATE_TYPE"
+		description="DATE_TYPE_DESC" />
+	<field name="time_type" type="text" size="20" maxLength="8"
+		label="TIME_TYPE" description="TIME_TYPE_DESC" default="00:00:00" />
+
+	<field name="duration" type="list" label="DURATION" default="1"
+		description="DURATION_DESC">
+		<option value="30">30MIN</option>
+		<option value="60">60MIN</option>
+		<option value="120">120MIN</option>
+		<option value="180">180MIN</option>
+		<option value="240">240MIN</option>
+		<option value="300">300MIN</option>
+		<option value="360">360MIN</option>
+		<option value="420">420MIN</option>
+		<option value="480">480MIN</option>
+		<option value="540">540MIN</option>
+		<option value="600">600MIN</option>
+		<option value="720">720MIN</option>
+		<option value="1440">1440MIN</option>
+		<option value="2160">2160MIN</option>
+		<option value="2880">2880MIN</option>
+	</field>
+
+	<field name="repeat_type" type="checkbox" multiple="no" label="REPEAT_TYPE"
+		default="1" value="1" description="REPEAT_TYPE_DESC" />
+
+	<field name="weekday_type" type="list" label="WEEKDAY_TYPE"
+		default="0" description="WEEKDAY_TYPE_DESC">
+		<option value="0">SELECT_WEEKDAY</option>
+		<option value="2">MONDAY</option>
+		<option value="3">TUESDAY</option>
+		<option value="4">WEDNESDAY</option>
+		<option value="5">THURSDAY</option>
+		<option value="6">FRIDAY</option>
+		<option value="7">SATURDAY</option>
+		<option value="1">SUNDAY</option>
+	</field>
+
+
+	<field name="room_id" type="hidden" default="" />
+
+</form> 

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form addrulepath="/administrator/components/com_judownload/models/rules">
+    <fieldset name="details">
+        <field name="id"
+               type="text"
+               default="0"
+               required="true"
+               readonly="true"
+               class="readonly"
+               label="COM_JUDOWNLOAD_FIELD_ID_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_ID_DESC"
+                />
+
+        <field
+                name="title"
+                type="text"
+                default=""
+                size="30"
+                required="true"
+                label="COM_JUDOWNLOAD_FIELD_TITLE_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_TITLE_DESC"
+                />
+
+        <field
+                name="alias"
+                type="text"
+                default=""
+                size="45"
+                label="COM_JUDOWNLOAD_FIELD_ALIAS_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_ALIAS_DESC"
+                />
+
+        <field name="ordering"
+               type="juordering"
+               table="license"
+               class="inputbox"
+               label="COM_JUDOWNLOAD_FIELD_ORDERING_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_ORDERING_DESC"
+                />
+
+        <field
+                name="description"
+                type="editor"
+                filter="raw"
+                width="600px"
+                default=""
+                label="COM_JUDOWNLOAD_FIELD_DESCRIPTION_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_DESCRIPTION_DESC"
+                hide="readmore,pagebreak"
+                />
+
+        <field
+                name="published"
+                type="radio"
+                default="1"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_PUBLISHED_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_PUBLISHED_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+    </fieldset>
+
+    <fieldset name="publishing">
+        <field name="created"
+               type="calendar"
+               class="inputbox"
+               default=""
+               format="%Y-%m-%d %H:%M:%S"
+               filter="user_utc"
+               label="COM_JUDOWNLOAD_FIELD_CREATED_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_CREATED_DESC"
+                />
+
+        <field
+                name="created_by"
+                type="user"
+                label="COM_JUDOWNLOAD_FIELD_CREATED_BY_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_CREATED_BY_DESC"
+                />
+
+        <field name="modified"
+               type="calendar"
+               class="readonly"
+               readonly="true"
+               format="%Y-%m-%d %H:%M:%S"
+               filter="user_utc"
+               label="COM_JUDOWNLOAD_FIELD_MODIFIED_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_MODIFIED_DESC"
+                />
+
+        <field name="modified_by"
+               type="user"
+               class="readonly"
+               readonly="true"
+               filter="unset"
+               label="COM_JUDOWNLOAD_FIELD_MODIFIED_BY_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_MODIFIED_BY_DESC"
+                />
+    </fieldset>
+
+    <fieldset name="metadata">
+        <field name="metatitle"
+               type="text"
+               size="45"
+               label="COM_JUDOWNLOAD_FIELD_META_TITLE_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_META_TITLE_DESC"
+                />
+
+        <field name="metakeyword"
+               type="textarea"
+               class="inputbox"
+               rows="3"
+               cols="30"
+               label="COM_JUDOWNLOAD_FIELD_META_KEYWORD_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_META_KEYWORD_DESC"
+                />
+
+        <field name="metadescription"
+               type="textarea"
+               class="inputbox"
+               rows="3"
+               cols="30"
+               label="COM_JUDOWNLOAD_FIELD_META_DESCRIPTION_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_META_DESCRIPTION_DESC"
+                />
+
+        <field type="JUMessage"
+               name="seo_tags"
+               description="COM_JUDOWNLOAD_LICENSE_META_TAGS"
+               hr="true"
+                />
+    </fieldset>
+
+    <fields name="metadata">
+        <field name="robots"
+               type="list"
+               fieldset="metadata"
+               label="COM_JUDOWNLOAD_FIELD_METADATA_ROBOTS_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_METADATA_ROBOTS_DESC"
+                >
+            <option value="">COM_JUDOWNLOAD_USE_GLOBAL</option>
+            <option value="index, follow">COM_JUDOWNLOAD_INDEX_FOLLOW</option>
+            <option value="noindex, follow">COM_JUDOWNLOAD_NOINDEX_FOLLOW</option>
+            <option value="index, nofollow">COM_JUDOWNLOAD_INDEX_NOFOLLOW</option>
+            <option value="noindex, nofollow">COM_JUDOWNLOAD_NOINDEX_NOFOLLOW</option>
+        </field>
+
+        <field name="author"
+               type="text"
+               size="20"
+               fieldset="metadata"
+               label="COM_JUDOWNLOAD_FIELD_METADATA_AUTHOR_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_METADATA_AUTHOR_DESC"
+                />
+
+        <field name="rights"
+               type="textarea"
+               class="inputbox"
+               filter="string"
+               cols="30"
+               rows="2"
+               fieldset="metadata"
+               label="COM_JUDOWNLOAD_FIELD_METADATA_RIGHTS_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_METADATA_RIGHTS_DESC"
+                />
+
+        <field name="xreference"
+               type="text"
+               class="inputbox"
+               size="20"
+               fieldset="metadata"
+               label="COM_JUDOWNLOAD_FIELD_METADATA_XREFERENCE_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_METADATA_XREFERENCE_DESC"
+                />
+    </fields>
+</form>

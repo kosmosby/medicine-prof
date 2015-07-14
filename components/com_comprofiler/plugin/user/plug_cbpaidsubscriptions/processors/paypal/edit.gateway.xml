@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<types>
+		<type name="gateway_type" base="list" valuetype="string">
+			<option value="processors.paypal">Paypal</option>
+		</type>
+		<type name="payment_method" base="list" valuetype="string">
+			<option value="paypal">Paypal</option>
+		</type>
+	</types>
+	<views>
+		<view name="selectgatewayinformation" type="params" ui="admin">
+			<fieldset name="fieldset_getPaypalLinks" label="Paypal" description="Paypal is a very popular payment provider, with no setup-fees, no paperwork, no pre-approval process, in minutes you can be up and running, able to accept payments — including credit cards. PayPal is available in 190 markets and supports payments in 24 currencies.">
+				<param name="paypalinfolink" type="spacer" label="Link to information and to your free account with Paypal" default="&lt;a target=&quot;_blank&quot; href=&quot;https://www.paypal.com/ch/mrb/pal=8UK64PPCMZE58&quot; /&gt;&lt;strong&gt;Click here to get your free account with Paypal now&lt;/strong&gt;&lt;/a&gt;" />
+			</fieldset>
+		</view>
+
+		<view name="paymentstatusinformation" type="params" ui="admin">
+			<showview view="paymentrefundbutton" mode="view" type="view" />
+		</view>
+
+		<view name="editgatewaypaypal" type="params" ui="admin">
+			<params name="params" type="params">
+				<if name="paypal_business" type="condition" operator="=" value="" valuetype="const:string">
+					<fieldset name="fieldset_getPaypalLinks" label="Get your FREE Paypal Account Now and start accepting credit card payments instantly" description="If you do not have a Paypal account with your business yet, please use the link below to get a free Paypal account (available almost world-wide):">
+						<param name="paypalaccountlink" type="spacer" label="Link to your free account with Paypal" default="&lt;a target=&quot;_blank&quot; href=&quot;https://www.paypal.com/ch/mrb/pal=8UK64PPCMZE58&quot; /&gt;&lt;strong&gt;Click here to get your free account with Paypal now&lt;/strong&gt;&lt;/a&gt;" />
+					</fieldset>
+				</if>
+			</params>
+			<inherit name="editgatewayofflineinherit" from="/*/views/view[@name='editgenericgateway']">
+				<fieldset name="fieldset_for_gateway" label="PayPal" description="Enter your PayPal account settings below. Your Paypal account level (Premier and Business) must support website payments. Paypal settings: &lt;br /&gt;&lt;br /&gt;You must also enable IPN (Instant Payment Notification), Auto-return and PDT (Payment Data Transfer) in your paypal account: &lt;br /&gt;Go to: My Account: Profile: and in column 'Selling Preferences':&lt;br /&gt;&lt;ul&gt;&lt;li&gt;for PDT: Website Payment Preferences: Auto Return for Website Payments: Turn Auto Return to ON and enter homepage of your site, e.g. http://www.example.com as Return URL (that URL is not very important, you can use same account on multiple websites, as this software sends return URLs with each payment), then turn Payment Data Transfer to ON on same page. Finally leave Encrypted Website Payments off to start easily (you can turn them on later, as this software supports it, see below). Set PayPal Account Optional to ON so that users don't have to register with paypal to pay with credit-cards. Save page and return to page to get your Identity Token to paste in the field below.&lt;br /&gt;&lt;/li&gt;&lt;li&gt;For IPN: In My Profile, click Instant Payment Notification Preferences, then Edit. Activate Instant Payment Notification and put your site URL e.g. http://www.example.com/ as Notification URL (here too, not very important, as this software sends notification URL with each payment). Then Save.&lt;/li&gt;&lt;li&gt;For automated transaction acceptance in foreign currencies: In My Profile, click Payment Receiving Preferences: set &quot;Block payments sent to me in a currency I do not hold&quot; to &quot;automatically accept and convert&quot;. Also for Sandbox accounts, The &quot;Payment Review&quot; parameter should be disabled in your PayPal Sandbox account, otherwise payment will not be completed without manual intervention in the paypal management platform.&lt;/li&gt;&lt;/ul&gt;and you are done with your Paypal profile settings.&lt;br /&gt;">
+					<param name="enabled" type="list" default="0" label="Enable PayPal" description="Whether you want to offer paypal payments or/and subscriptions.">
+						<option value="0">No</option>
+						<option value="1">Enable single payments</option>
+						<option value="2">Enable recurring paypal subscriptions</option>
+						<option value="3">Enable single payments and recurring paypal subscriptions at user's choice</option>
+					</param>
+					<param name="normal_gateway" type="list" default="1" label="PayPal server" description="Select normal server for real payments, and sandbox server for trials (needs a sandbox developer account that you can get at https://developer.paypal.com/ ).">
+						<option value="1">Normal PayPal server</option>
+						<option value="0">PayPal Sandbox server</option>
+						<option value="2">Other compatible server</option>
+					</param>
+					<if name="normal_gateway" type="showhide" operator="=" value="2" valuetype="const:int">
+						<params name="params" type="params">
+							<param name="gateway_paypal_url" type="text" size="60" default="" label="Server submission URL" description="This should be the paypal-compatible-server equivalent of https://www.paypal.com or https://www.sandbox.paypal.com" />
+						</params>
+					</if>
+					<params name="params" type="params">
+						<fieldset name="fieldset_for_gateway" label="PayPal Account and PDT Identity token (required)" description="">
+							<param name="paypal_business" type="text" size="40" default="" label="PayPal Business (email or secure merchant ID)" description="Paypal allows you to have many &quot;shops&quot; (businesses) using one account (Main receiver). The business account is the &quot;shop&quot;, while the main email is the account holder (the main/default email of paypal). Email address or account ID of the customer-side payment recipient (i.e., the merchant, as will be displayed to the customer). It must be one of the emails registered with your paypal account, associated with the business of this website." />
+							<param name="paypal_receiver_email" type="text" size="40" default="" label="PayPal Main receiver account (email) (if Business is different from your main account)" description="This entry is needed if you have multiple Emails (Businesses) in your Paypal account: It is your primary Email address of your paypal receiving account, your paypal login email. If the payment is sent to a non-primary email address on your PayPal account (Paypal Business above), the PayPal Main receiver account (email) will still be your primary email, and this software will check that as well if this entry is filled-in." />
+							<param name="paypal_identity_token" type="text" size="60" default="" label="Your PayPal Identity Token" description="Your Identity Token, as it appears on PayPal backend in 'My account - Profile - Selling Preferences - Website Payment Preferences - Payment Data Transfer. You must enable Auto Return and Payment Data Transfer on the Paypal Website Payment Preferences page: Turn Auto Return to ON and enter homepage of your site, e.g. http://www.example.com as Return URL (that URL is not very important, you can use same account on multiple websites, as this software sends return URLs with each payment), then turn Payment Data Transfer to ON on same page.." />
+						</fieldset>
+					</params>
+					<params name="params" type="params">
+						<fieldset name="fieldset_for_gateway" label="PayPal API credentials (optional)" description="PayPal API is optional and only needed if: &lt;br /&gt; &lt;ul&gt;&lt;li&gt;You want to do refunds from within CBSubs (if you refund from Paypal, CBSubs will be notified by IPNs anyway), &lt;/li&gt;   &lt;li&gt;You wish that users can cancel auto-recurring Paypal payments subscriptions from within CBSubs, and that CBSubs unsubscribes automatically autorecurring payments in case of plan upgrades. Otherwise a manual unsubscribe at paypal.com by the user is needed. This auto-recurring payment subscriptions unsubscriptions feature requires the PayPal 'Enhanced Recurring Payments' (ERP) Option on your Paypal account (available in certain countries only). &lt;/li&gt; &lt;/ul&gt;           You can get your Paypal API Username, API Password and API Signature from your PayPal account in 'My account - Profile - My selling tools - API access - Request API credentials - Request API signature. Please review the Paypal API agreement, that must be accepted to access the API, for compliance. Make sure to use https (SSL) to access this administration area and to restrict its access to a 'Need to know' basis, as these Paypal account credentials must stay confidential.  &lt;br /&gt; &lt;br /&gt;     To activate the ERP option: Click on Merchant services, Click on Subscribe under Create Buttons, Select 'Automatic Billing' (visible only if ERP is available in your country and for your Paypal account) under 'Choose a button type' drop down menu,  Under 'Enhanced Recurring Payments' click on 'Learn more', Click 'Sign up' and follow the steps on the page to complete the sign-up process.">
+							<param name="paypal_api_username" type="text" size="40" default="" label="PayPal account API Username" description="Get this API information from your PayPal account in 'My account - Profile - My selling tools - API access - Request API credentials - Request API signature" />
+							<param name="paypal_api_password" type="password" size="40" default="" label="PayPal account API Password" description="Get this API information from your PayPal account in 'My account - Profile - My selling tools - API access - Request API credentials - Request API signature" />
+							<param name="paypal_api_signature" type="password" size="70" default="" label="PayPal account API Signature" description="Get this API information from your PayPal account in 'My account - Profile - My selling tools - API access - Request API credentials - Request API signature" />
+						</fieldset>
+					</params>
+					
+					<params name="params" type="params">
+						<param name="paypal_country" type="list" default="" label="PayPal country language" description="Paypal user interface language defaults to the main one of the country of your account. Here you can specify the language to be used (later we might add multilingual paypal support).">
+							<option value="">Default of the paypal account</option>
+							<option value="AI">Anguilla</option>
+							<option value="AR">Argentina</option>
+							<option value="AU">Australia</option>
+							<option value="AT">Austria</option>
+							<option value="BE">Belgium</option>
+							<option value="BR">Brazil</option>
+							<option value="CA">Canada</option>
+							<option value="CL">Chile</option>
+							<option value="CN">China</option>
+							<option value="CR">Costa Rica</option>
+							<option value="CY">Cyprus</option>
+							<option value="CZ">Czech Republic</option>
+							<option value="DK">Denmark</option>
+							<option value="DO">Dominican Republic</option>
+							<option value="EC">Ecuador</option>
+							<option value="EE">Estonia</option>
+							<option value="FI">Finland</option>
+							<option value="FR">France</option>
+							<option value="DE">Germany</option>
+							<option value="GR">Greece</option>
+							<option value="HK">Hong Kong</option>
+							<option value="HU">Hungary</option>
+							<option value="IS">Iceland</option>
+							<option value="IN">India</option>
+							<option value="IE">Ireland</option>
+							<option value="IL">Israel</option>
+							<option value="IT">Italy</option>
+							<option value="JM">Jamaica</option>
+							<option value="JP">Japan</option>
+							<option value="LV">Latvia</option>
+							<option value="LT">Lithuania</option>
+							<option value="LU">Luxembourg</option>
+							<option value="MY">Malaysia</option>
+							<option value="MT">Malta</option>
+							<option value="MX">Mexico</option>
+							<option value="NL">Netherlands</option>
+							<option value="NZ">New Zealand</option>
+							<option value="NO">Norway</option>
+							<option value="PL">Poland</option>
+							<option value="PT">Portugal</option>
+							<option value="SG">Singapore</option>
+							<option value="SK">Slovakia</option>
+							<option value="SI">Slovenia</option>
+							<option value="ZA">South Africa</option>
+							<option value="KR">South Korea</option>
+							<option value="ES">Spain</option>
+							<option value="SE">Sweden</option>
+							<option value="CH">Switzerland</option>
+							<option value="TW">Taiwan</option>
+							<option value="TH">Thailand</option>
+							<option value="TR">Turkey</option>
+							<option value="GB">United Kingdom</option>
+							<option value="US">United States</option>
+							<option value="UY">Uruguay</option>
+							<option value="VE">Venezuela</option>
+						</param>
+					</params>
+				</fieldset>
+				<fieldset name="fieldset_for_presentation" label="Presentation" description="">
+					<if name="payment_method_selection_type" operator="=" value="radios" type="condition" nametype="pluginparams:string" valuetype="const:string">
+						<extend toxpathnode="../following-sibling::*[1]/params/fieldset" fromxpathnode="/cbxml/views/view[@name=&quot;radiosettings&quot;]/*" file="xml/admin.lib.processors" mode="prepend">
+							<replaces>
+								<replace attribute="name" from="{SUBMETHOD}" to="single" translate="yes" />
+								<replace attribute="label" from="{SUBMETHOD_TEXT}" to="Single Payment" translate="yes" />
+								<replace attribute="default" from="{SUBMETHOD_DEFAULT_TEXT}" to="Paypal" translate="yes" />
+							</replaces>
+						</extend>
+						<extend toxpathnode="../following-sibling::*[1]/params/fieldset[@name=&quot;single_radios_fieldset&quot;]/param[@name=&quot;single_radio_cardtypes&quot;]/*[1]" fromxpathnode="./replacements/replacement/param[@name=&quot;single_radio_cardtypes&quot;]/*" file="" mode="prepend">
+							<replacements>
+								<replacement>
+									<param name="single_radio_cardtypes" type="checkbox" default="https://www.paypal.com/en_US/i/bnr/horizontal_solution_PPeCheck.gif" rows="" cols="5" label="Images for accepted payment methods" description="Cards will display in the Name of the radio button">
+										<option value="paypal">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/templates/default/images/icons/cards/cc_paypal.png" alt="Paypal" /&gt;</option>
+										<option value="https://www.paypal.com/en_US/i/bnr/horizontal_solution_PPeCheck.gif">&lt;img src="https://www.paypal.com/en_US/i/bnr/horizontal_solution_PPeCheck.gif" alt="Paypal" /&gt;</option>
+									</param>
+								</replacement> 
+							</replacements>
+						</extend>
+					</if>
+					<if name="enabled" type="showhide" operator="regexp" value="^[13]$" valuetype="const:string">
+						<params name="params" type="params">
+							<fieldset name="singleimages" label="Single payments at a time" description="">
+								<param name="paypal_image" type="radio" default="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_paypal.gif" label="Payment Button" description="The payment button (visible only if an Intro Text is present or more than one payment processor enabled.">
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_paypal.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_paypal.gif" alt="" /&gt;</option>
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_paypal_paynow.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_paypal_paynow.gif" alt="" /&gt;</option>
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_pay.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_pay.gif" alt="" /&gt;</option>
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_subscribe.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_subscribe.gif" alt="" /&gt;</option>
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_amex_pay.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_amex_pay.gif" alt="" /&gt;</option>
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_am_subscribe.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_am_subscribe.gif" alt="" /&gt;</option>
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_pay_now.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_pay_now.gif" alt="" /&gt;</option>
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_pay_now.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_pay_now.gif" alt="" /&gt;</option>
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_buy_now.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_buy_now.gif" alt="" /&gt;</option>
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_buy_now.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_buy_now.gif" alt="" /&gt;</option>
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_click_subscribe.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_click_subscribe.gif" alt="" /&gt;</option>
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_3d_paypal.png">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_3d_paypal.png" alt="" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/x-click-but23.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/x-click-but23.gif" alt="" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/x-click-butcc.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/x-click-butcc.gif" alt="" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/x-click-but02.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/x-click-but02.gif" alt="" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/x-click-but03.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/x-click-but03.gif" alt="" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/x-click-but01.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/x-click-but01.gif" alt="" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/x-click-but9.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/x-click-but9.gif" alt="" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/x-click-but5.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/x-click-but5.gif" alt="" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/x-click-but6.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/x-click-but6.gif" alt="" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/x-click-but21.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/x-click-but21.gif" alt="" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/x-click-butcc-donate.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/x-click-butcc-donate.gif" alt="" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/x-click-but04.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/x-click-but04.gif" alt="" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/x-click-but11.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/x-click-but11.gif" alt="" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/BE/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/BE/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/BE/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/btn_buynowCC_LG_global.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/btn_buynowCC_LG_global.gif" alt="" title="https://www.paypal.com/en_US/i/btn/btn_buynowCC_LG_global.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_GB/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_GB/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/en_GB/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/JP/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/JP/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/JP/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/DE/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/DE/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/DE/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/IT/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/IT/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/IT/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/ES/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/ES/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/ES/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/BE/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/BE/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/en_US/BE/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG_global.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG_global.gif" alt="" title="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG_global.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_GB/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/en_GB/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/en_GB/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/JP/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/JP/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/en_US/JP/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/DE/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/DE/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/en_US/DE/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/IT/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/IT/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/en_US/IT/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/ES/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/ES/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/en_US/ES/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/BE/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/BE/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/BE/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG_global.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG_global.gif" alt="" title="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG_global.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_GB/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_GB/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/en_GB/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/JP/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/JP/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/JP/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/DE/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/DE/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/DE/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/IT/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/IT/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/IT/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/ES/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/ES/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/ES/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/BE/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/BE/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/en_US/BE/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/en_US/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/btn_subscribeCC_LG_global.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/btn_subscribeCC_LG_global.gif" alt="" title="https://www.paypal.com/en_US/i/btn/btn_subscribeCC_LG_global.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_GB/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/en_GB/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/en_GB/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/JP/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/JP/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/en_US/JP/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/DE/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/DE/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/en_US/DE/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/IT/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/IT/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/en_US/IT/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/ES/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/ES/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/en_US/ES/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/es_ES/ES/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/es_ES/ES/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/es_ES/ES/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/es_ES/ES/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/es_ES/ES/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/es_ES/ES/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/es_ES/ES/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/es_ES/ES/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/es_ES/ES/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/es_ES/ES/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/es_ES/ES/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/es_ES/ES/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/es_XC/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/es_XC/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/es_XC/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/es_XC/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/es_XC/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/es_XC/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/es_XC/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/es_XC/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/es_XC/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/es_XC/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/es_XC/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/es_XC/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/de_DE/DE/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/de_DE/DE/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/de_DE/DE/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/de_DE/DE/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/de_DE/DE/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/de_DE/DE/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/de_DE/DE/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/de_DE/DE/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/de_DE/DE/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/de_DE/DE/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/de_DE/DE/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/de_DE/DE/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/fr_FR/FR/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/fr_FR/FR/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/fr_FR/FR/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/fr_FR/FR/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/fr_FR/FR/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/fr_FR/FR/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/fr_FR/FR/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/fr_FR/FR/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/fr_FR/FR/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/fr_FR/FR/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/fr_FR/FR/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/fr_FR/FR/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/it_IT/IT/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/it_IT/IT/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/it_IT/IT/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/it_IT/IT/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/it_IT/IT/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/it_IT/IT/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/it_IT/IT/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/it_IT/IT/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/it_IT/IT/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/it_IT/IT/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/it_IT/IT/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/it_IT/IT/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/ja_JP/JP/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/ja_JP/JP/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/ja_JP/JP/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/ja_JP/JP/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/ja_JP/JP/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/ja_JP/JP/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/ja_JP/JP/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/ja_JP/JP/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/ja_JP/JP/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/ja_JP/JP/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/ja_JP/JP/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/ja_JP/JP/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/nl_NL/NL/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/nl_NL/NL/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/nl_NL/NL/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/nl_NL/NL/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/nl_NL/NL/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/nl_NL/NL/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/nl_NL/NL/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/nl_NL/NL/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/nl_NL/NL/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/nl_NL/NL/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/nl_NL/NL/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/nl_NL/NL/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/pl_PL/PL/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/pl_PL/PL/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/pl_PL/PL/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/pl_PL/PL/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/pl_PL/PL/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/pl_PL/PL/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/pl_PL/PL/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/pl_PL/PL/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/pl_PL/PL/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/pl_PL/PL/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/pl_PL/PL/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/pl_PL/PL/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/zh_XC/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/zh_XC/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/zh_XC/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/zh_XC/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/zh_XC/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/zh_XC/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/zh_XC/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/zh_XC/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/zh_XC/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/zh_XC/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/zh_XC/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/zh_XC/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+								</param>
+								<param name="paypal_custom_image" type="text" size="40" default="" label="Custom Payment Button Text or Image" description="Either text of button or URL of a custom payment image (.gif, .jpg or .bmp), overwites selection above." />
+							</fieldset>
+						</params>
+					</if>
+					<if name="payment_method_selection_type" operator="=" value="radios" type="condition" nametype="pluginparams:string" valuetype="const:string">
+						<extend toxpathnode="../following-sibling::*[1]/params/fieldset" fromxpathnode="/cbxml/views/view[@name=&quot;radiosettings&quot;]/*" file="xml/admin.lib.processors" mode="prepend">
+							<replaces>
+								<replace attribute="name" from="{SUBMETHOD}" to="subscribe" translate="yes" />
+								<replace attribute="label" from="{SUBMETHOD_TEXT}" to="Recurring Payments" translate="yes" />
+								<replace attribute="default" from="{SUBMETHOD_DEFAULT_TEXT}" to="Paypal with automatic following payments" translate="yes" />
+							</replaces>
+						</extend>
+						<extend toxpathnode="../following-sibling::*[1]/params/fieldset[@name=&quot;subscribe_radios_fieldset&quot;]/param[@name=&quot;subscribe_radio_cardtypes&quot;]/*[1]" fromxpathnode="./replacements/replacement/param[@name=&quot;subscribe_radio_cardtypes&quot;]/*" file="" mode="prepend">
+							<replacements>
+								<replacement>
+									<param name="subscribe_radio_cardtypes" type="checkbox" default="https://www.paypal.com/en_US/i/bnr/horizontal_solution_PPeCheck.gif" rows="" cols="5" label="Images for accepted payment methods" description="Cards will display in the Name of the radio button">
+										<option value="https://www.paypal.com/en_US/i/bnr/horizontal_solution_PPeCheck.gif">&lt;img src="https://www.paypal.com/en_US/i/bnr/horizontal_solution_PPeCheck.gif" alt="Paypal" /&gt;</option>
+									</param>
+								</replacement> 
+							</replacements>
+						</extend>
+					</if>
+					<if name="enabled" type="showhide" operator="&gt;=" value="2" valuetype="const:int">
+						<params name="params" type="params">
+							<fieldset name="recurringimages" label="Recurring subscribed payments multiple times" description="">
+								<param name="paypal_subscribe_image" type="radio" default="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_paypal_subscribe.gif" label="Subscription Button" description="The payments subscriptions button (visible only if an Intro Text is present or more than one payment processor enabled AND recurring paypal payments are enabled.">
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_paypal.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_paypal.gif" alt="" /&gt;</option>
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_paypal_subscribe.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_paypal_subscribe.gif" alt="" /&gt;</option>
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_subscribe.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_subscribe.gif" alt="" /&gt;</option>
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_am_subscribe.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_am_subscribe.gif" alt="" /&gt;</option>
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_free_trial.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_free_trial.gif" alt="" /&gt;</option>
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_subscribe.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_subscribe.gif" alt="" /&gt;</option>
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_subscribe.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_subscribe.gif" alt="" /&gt;</option>
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_free_trial.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_free_trial.gif" alt="" /&gt;</option>
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_free_trial.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_free_trial.gif" alt="" /&gt;</option>
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_click_subscribe.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_click_subscribe.gif" alt="" /&gt;</option>
+									<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_3d_paypal.png">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_3d_paypal.png" alt="" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/x-click-butcc-subscribe.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/x-click-butcc-subscribe.gif" alt="" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/x-click-but20.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/x-click-but20.gif" alt="" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/x-click-but24.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/x-click-but24.gif" alt="" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/x-click-but28.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/x-click-but28.gif" alt="" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/x-click-but29.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/x-click-but29.gif" alt="" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/x-click-but30.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/x-click-but30.gif" alt="" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/x-click-but31.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/x-click-but31.gif" alt="" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/x-click-but12.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/x-click-but12.gif" alt="" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/BE/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/BE/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/BE/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/btn_buynowCC_LG_global.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/btn_buynowCC_LG_global.gif" alt="" title="https://www.paypal.com/en_US/i/btn/btn_buynowCC_LG_global.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_GB/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_GB/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/en_GB/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/JP/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/JP/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/JP/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/DE/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/DE/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/DE/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/IT/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/IT/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/IT/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/ES/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/ES/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/ES/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/BE/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/BE/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/en_US/BE/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG_global.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG_global.gif" alt="" title="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG_global.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_GB/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/en_GB/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/en_GB/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/JP/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/JP/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/en_US/JP/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/DE/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/DE/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/en_US/DE/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/IT/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/IT/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/en_US/IT/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/ES/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/ES/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/en_US/ES/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/BE/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/BE/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/BE/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG_global.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG_global.gif" alt="" title="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG_global.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_GB/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_GB/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/en_GB/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/JP/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/JP/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/JP/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/DE/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/DE/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/DE/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/IT/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/IT/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/IT/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/ES/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/ES/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/en_US/ES/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/BE/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/BE/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/en_US/BE/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/en_US/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/i/btn/btn_subscribeCC_LG_global.gif">&lt;img src="https://www.paypal.com/en_US/i/btn/btn_subscribeCC_LG_global.gif" alt="" title="https://www.paypal.com/en_US/i/btn/btn_subscribeCC_LG_global.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_GB/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/en_GB/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/en_GB/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/JP/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/JP/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/en_US/JP/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/DE/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/DE/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/en_US/DE/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/IT/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/IT/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/en_US/IT/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/en_US/ES/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/en_US/ES/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/en_US/ES/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/es_ES/ES/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/es_ES/ES/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/es_ES/ES/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/es_ES/ES/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/es_ES/ES/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/es_ES/ES/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/es_ES/ES/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/es_ES/ES/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/es_ES/ES/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/es_ES/ES/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/es_ES/ES/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/es_ES/ES/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/es_XC/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/es_XC/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/es_XC/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/es_XC/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/es_XC/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/es_XC/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/es_XC/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/es_XC/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/es_XC/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/es_XC/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/es_XC/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/es_XC/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/de_DE/DE/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/de_DE/DE/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/de_DE/DE/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/de_DE/DE/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/de_DE/DE/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/de_DE/DE/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/de_DE/DE/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/de_DE/DE/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/de_DE/DE/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/de_DE/DE/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/de_DE/DE/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/de_DE/DE/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/fr_FR/FR/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/fr_FR/FR/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/fr_FR/FR/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/fr_FR/FR/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/fr_FR/FR/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/fr_FR/FR/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/fr_FR/FR/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/fr_FR/FR/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/fr_FR/FR/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/fr_FR/FR/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/fr_FR/FR/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/fr_FR/FR/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/it_IT/IT/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/it_IT/IT/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/it_IT/IT/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/it_IT/IT/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/it_IT/IT/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/it_IT/IT/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/it_IT/IT/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/it_IT/IT/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/it_IT/IT/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/it_IT/IT/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/it_IT/IT/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/it_IT/IT/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/ja_JP/JP/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/ja_JP/JP/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/ja_JP/JP/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/ja_JP/JP/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/ja_JP/JP/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/ja_JP/JP/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/ja_JP/JP/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/ja_JP/JP/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/ja_JP/JP/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/ja_JP/JP/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/ja_JP/JP/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/ja_JP/JP/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/nl_NL/NL/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/nl_NL/NL/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/nl_NL/NL/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/nl_NL/NL/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/nl_NL/NL/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/nl_NL/NL/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/nl_NL/NL/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/nl_NL/NL/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/nl_NL/NL/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/nl_NL/NL/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/nl_NL/NL/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/nl_NL/NL/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/pl_PL/PL/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/pl_PL/PL/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/pl_PL/PL/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/pl_PL/PL/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/pl_PL/PL/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/pl_PL/PL/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/pl_PL/PL/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/pl_PL/PL/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/pl_PL/PL/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/pl_PL/PL/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/pl_PL/PL/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/pl_PL/PL/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/zh_XC/i/btn/btn_buynowCC_LG.gif">&lt;img src="https://www.paypal.com/zh_XC/i/btn/btn_buynowCC_LG.gif" alt="" title="https://www.paypal.com/zh_XC/i/btn/btn_buynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/zh_XC/i/btn/btn_donateCC_LG.gif">&lt;img src="https://www.paypal.com/zh_XC/i/btn/btn_donateCC_LG.gif" alt="" title="https://www.paypal.com/zh_XC/i/btn/btn_donateCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/zh_XC/i/btn/btn_paynowCC_LG.gif">&lt;img src="https://www.paypal.com/zh_XC/i/btn/btn_paynowCC_LG.gif" alt="" title="https://www.paypal.com/zh_XC/i/btn/btn_paynowCC_LG.gif" /&gt;</option>
+									<option value="https://www.paypal.com/zh_XC/i/btn/btn_subscribeCC_LG.gif">&lt;img src="https://www.paypal.com/zh_XC/i/btn/btn_subscribeCC_LG.gif" alt="" title="https://www.paypal.com/zh_XC/i/btn/btn_subscribeCC_LG.gif" /&gt;</option>
+								</param>
+								<param name="paypal_subscribe_custom_image" type="text" size="40" default="" label="Custom Subscription Button Text or Image" description="Either text of button or URL of a custom subscription image (.gif, .jpg or .bmp), overwites selection above." />
+							</fieldset>
+						</params>
+					</if>
+				</fieldset>
+				<fieldset name="fieldset_for_specifics" label="Paypal specific settings" description="">
+					<params name="params" type="params">
+						<param name="paypal_page_style" type="text" size="32" default="" label="PayPal Custom Payment Page Style" description="Leave blank for default Paypal page_style, or type-in exactly the name of the Custom Payment Page Style in your paypal preferences you wish to see appearing" />
+						<param name="paypal_regLogoImage" type="imagelist" directory="/images" default="" label="or Logo image (150x50px)" description="Alternatively you can specify here your paypal 150x50px image logo to be displayed." />
+						<param name="paypal_no_note" type="list" default="1" label="Subscriber's note" description="Whether you allow the payer to add a note with the payment.">
+							<option value="0">Allow</option>
+							<option value="1">Disallow</option>
+						</param>
+						<param name="paypal_no_shipping" type="list" default="0" label="Shipping address" description="Whether you want the payer to enter his post address (can be useful to require it if needed for taxes/VAT/accounting purposes).">
+							<option value="1">Do not ask for shipping address at PayPal</option>
+							<option value="0">Ask for shipping address at PayPal, but do not require one</option>
+							<option value="2">Ask for shipping address at PayPal, and require one</option>
+						</param>
+						<param name="givehiddenaddress" type="xml:yesno" default="1" label="Send customers invoicing address" description="" />
+						<param name="givehiddenemail" type="xml:yesno" default="1" label="Send customers email address" description="" />
+						<param name="givehiddenphonenumber" type="xml:yesno" default="1" label="Send customers phone number" description="" />
+						<param name="paypal_encrypted" type="list" default="0" label="Encrypt paypal form" description="Whether you want to encrypt PayPal's forms to hide paypal email and hinder any tampering. Your server must support OpenSSL in PHP and you need to download PayPal's certificate from your PayPal profile.">
+							<option value="0">Plain-text form</option>
+							<option value="1">Encrypted form</option>
+						</param>
+						<if name="paypal_encrypted" type="showhide" operator="=" value="1" valuetype="const:int">
+							<fieldset name="paypal_encryption_certs" label="Paypal certificate" description="Paypal settings: &lt;br /&gt;&lt;br /&gt;You must also enable Website Encryption in your paypal account: &lt;br /&gt;Go to: My Account: Profile: and in column 'Selling Preferences':&lt;br /&gt;&lt;ol&gt;&lt;li&gt;click on Encrypted Payment Settings: In PayPal Public Certificate, click the &quot;Download&quot; button,&lt;/li&gt;&lt;li&gt;upload that downloaded file to your server and set the full path to this file on your server in the field 'PayPal Public Certificate File' below.&lt;br /&gt;&lt;/li&gt;&lt;li&gt;Generate a private key/public certificate pair using openSSL with the following commands:&lt;ul&gt;&lt;li&gt; Your own private key file:  &lt;code&gt;   openssl genrsa -out my-prvkey.pem 1024  &lt;/code&gt;  &lt;/li&gt;&lt;li&gt; Your own public certificate file:  &lt;code&gt;   openssl req -new -key my-prvkey.pem -x509 -days 7300 -out my-pubcert.pem  &lt;/code&gt; &lt;br /&gt; (change the values after 'days' from 7300 (20 years) to the duration you want the system to work before your own certificate expires and having to renew the certificate)  &lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt; upload both files to your web server, for private key at least outside the directories accessible by http, but inside the directories accessible by PHP. &lt;/li&gt;&lt;li&gt; Then put full files paths below for your private key and public certificate files. &lt;/li&gt;&lt;li&gt; Finally, login to your paypal account, go to Profile - Selling Preferences - Encrypted Payment Settings - Website Payments Certificates - Your Public Certificates - click 'Add' and upload your public certificate. &lt;/li&gt;&lt;li&gt;Copy the then appearing 'Cert Id' from paypal to the corresponding field below. &lt;/li&gt; &lt;li&gt; Once tested, If you wish, you can then block non-encrypted website payments in Paypal, in Profile - Selling Preferences - Website Payment Preferences - Encrypted Website Preferences - Block Non-encrypted - Save. &lt;/li&gt; &lt;/ol&gt;and you are done with your Paypal encrypted form settings.&lt;br /&gt;">
+								<param name=""        type="private" class="cbpaidParamsExt" method="opensslstatus" default=""  label="OpenSSL Status (See Settings)"    description="Current status for OpenSSL" />
+								<param name="paypal_public_certificate_path" type="text" size="60" label="PayPal Public Certificate File" description="The full path to file from PayPal Public Certificate download which you can download from Paypal in Profile - Selling Preferences - Encrypted Payment Settings - Website Payment Certificates - PayPal Public Certificate." />
+								<param name=""        type="private" class="cbpaidParamsExt" method="checkiffilereadable" default="paypal_public_certificate_path"  label="PayPal Public Certificate File status"    description="Checks if the PayPal Public Certificate File exists and is readable" />
+								<param name=""        type="private" class="cbpaidParamsExt" method="checkcertificate" default="paypal_public_certificate_path"  label="PayPal Public Certificate status"    description="Checks if the PayPal Public Certificate is valid" />
+								<param name="paypal_private_key_path" type="text" size="60" label="Your own Private Key file" description="The full path to file from PayPal Public Certificate download which you can download from Paypal in Profile - Selling Preferences - Encrypted Payment Settings - Website Payment Certificates - PayPal Public Certificate." />
+								<param name=""        type="private" class="cbpaidParamsExt" method="checkiffilereadable" default="paypal_private_key_path"  label="Your private Key File status"    description="Checks if your private Key File exists and is readable" />
+								<param name=""        type="private" class="cbpaidParamsExt" method="checkprivatekey" default="paypal_private_key_path" value="paypal_private_key_password" directory="paypal_public_key_path"  label="Your private Key status"    description="Checks your private Key status" />
+								<param name="paypal_public_key_path" type="text" size="60" label="Your own Public Certificate file" description="The full path to your public certificate file that you also uploaded to PayPal as your Public Certificate in Paypal in Profile - Selling Preferences - Encrypted Payment Settings - Website Payment Certificates - PayPal Public Certificate - Upload." />
+								<param name=""        type="private" class="cbpaidParamsExt" method="checkiffilereadable" default="paypal_public_key_path"  label="Your Public Certificate File status"    description="Checks if your Public Certificate File exists and is readable" />
+								<param name=""        type="private" class="cbpaidParamsExt" method="checkcertificate" default="paypal_public_key_path" label="Your Public Certificate status"    description="Checks if your Public Certificate status" />
+								<param name="paypal_private_key_password" type="password" size="20" label="Password for your private key" description="The password for your private key (if any is needed)." />
+								<param name="paypal_certificate_id" type="text" size="20" label="Paypal Cert ID for your uploaded public certificate" description="The Cert ID assigned by Paypal after you uploaded your public certificate in Profile - Selling Preferences - Encrypted Payment Settings - Website Payment Certificates - Your Public Certificates." />
+								<param name="paypal_unsub_warning" type="spacer" label="Note" default="Please note that all Paypal forms will be encrypted, except for the Paypal auto-recurring payments Unsubscribe button, because this button's encryption is not supported at paypal's side. This isn't a security issue though, as there are only non-sensitive data for that form" />
+							</fieldset>
+						</if>
+						<param name="notifications_host" type="text" size="40" default="" label="Notification host (leave blank)" description="Leave blank for most configurations. This setting is only in case you are running on a cluster and the payment gateway notifications (IPN, PDT) need to go at a different domain name than the website domain. In that case enter e.g. 'http://yourdomain.com'." />
+					</params>
+				</fieldset>
+			</inherit>
+		</view>
+
+	</views>
+</cbxml>

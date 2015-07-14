@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0" type="plugin" group="user">
+	<name>Wall</name>
+	<author>Awdsolution</author>
+	<creationDate>26/06/2010</creationDate>
+	<copyright>AWDsolution.com</copyright>
+	<license>Comercial</license>
+	<authorEmail>AwdSolution.com</authorEmail>
+	<authorUrl>http://wwww.awdsolution.com</authorUrl>
+	<version>1.0</version>
+	<description>AWDwall-CB Plugin.</description>
+	<files>
+		<filename plugin="cb.wall">cb.wall.php</filename>		
+	</files>
+    <tabs>
+		<tab name="WALL" description="" class="getWallTab" fields="0" position="cb_tabmain" displaytype="tab">
+			<params>
+				<param name="VRversion" type="radio" default="1" label="Wall Tab" description="Wall like FaceBook.">
+					<option value="0">before 1.2</option>
+					<option value="1">1.2.0 and after</option>
+				</param>
+			</params>			
+			<fields>
+			</fields>
+		</tab>
+	</tabs>
+</cbinstall>

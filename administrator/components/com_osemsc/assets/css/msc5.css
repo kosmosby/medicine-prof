@@ -1,0 +1,768 @@
+div.icon-48-logo {
+  background: url(../images/logo.png) no-repeat;
+}
+
+#ose-addon-list .addon-item td
+{
+	background: #FFF none repeat scroll 0 0;
+	padding: 5px;
+	padding-left: 10px;
+}
+
+body
+{
+    font: 12px/1.5em Arial,Helvetica,sans-serif;
+}
+.setting-msg
+{
+	background: #FFFFAA none repeat scroll 0 0;
+	border:1px solid #FF8E1B;
+	color: #666666;
+	font-weight:normal;
+	padding: 5px;
+	width: 99%;
+	margin-bottom: 10px;
+}
+div#element-box div.m {
+    padding: 0px;
+}
+
+/* ExtJS modifications */
+.x-border-layout-ct  {
+    background-color: #FFF;
+}
+
+.x-panel-header  {
+	background: url(../images/applications-blue.png) no-repeat 2px 12px #FFF;
+	color: #238db4;
+	font-size: 1.25em;
+    font-weight: bold;
+    line-height: 1.2em;
+	margin: 0px;
+	text-indent:22px;
+	padding: 10px 15px 10px 0px;
+	border: 0px solid;
+	border-bottom: 4px solid #DFDFDF;
+}
+
+#ose-member-list .x-panel-header  {
+	background: url(../images/xfn-friend.png) no-repeat 2px 12px #FFF;
+}
+#ose-member-menu .x-panel-header  {
+	background: url(../images/user-pencil.png) no-repeat 2px 12px #FFF;
+}
+
+#osemsc-order .x-panel-header  {
+	background: url(../images/shopping-basket.png) no-repeat 2px 12px #FFF;
+}
+
+#coupons-list .x-panel-header
+{
+background: url(../images/tags-label.png) no-repeat 2px 12px #FFF;
+}
+
+#osemsc--coupon-params .x-panel-header
+{
+background: url(../images/tag-pencil.png) no-repeat 2px 12px #FFF;
+}
+
+#oseMsc-history .x-panel-header
+{
+background: url(../images/tags.png) no-repeat 2px 12px #FFF;
+}
+
+#ose-email-list .x-panel-header
+{
+background: url(../images/mail-open-image.png) no-repeat 2px 12px #FFF;
+}
+
+
+.x-btn-over button,
+.x-btn-over .x-btn-tl,
+.x-btn-over .x-btn-tc,
+.x-btn-over .x-btn-tr,
+.x-btn-over .x-btn-bl,
+.x-btn-over .x-btn-bc,
+.x-btn-over .x-btn-br,
+.x-btn-over .x-btn-mr,
+.x-btn-over .x-btn-mc,
+.x-btn-over .x-btn-ml,
+.x-btn-tl,
+.x-btn-tc,
+.x-btn-tr,
+.x-btn-bl,
+.x-btn-bc,
+.x-btn-br,
+.x-btn-mr,
+.x-btn-mc,
+.x-btn-ml
+{
+background: none;
+height: 0px;
+}
+
+.x-btn-noicon .x-btn-small .x-btn-text {
+    height: 24px;
+}
+
+
+.x-small-editor .x-btn button, .x-small-editor .x-btn button, .x-btn-small,
+.x-small-editor .x-btn-over button, .x-small-editor .x-btn-over button,
+.x-toolbar-cell button
+{
+background-color: #FFF !important;
+font-weight:bold;
+color: #FFF;
+cursor: pointer;
+font-size: 12px;
+float: right;
+}
+
+.x-btn button, .ext-gecko .x-btn button, .ext-webkit .x-btn button,
+.x-btn-over button, .x-btn-text-icon .x-btn-icon-small-left .x-btn-text
+{
+	color: #FFF;
+	cursor: pointer;
+    background: url("../images/grad-d1.gif") repeat-x scroll 0 100% #FFF;
+    border-color: #EEE #EEE #EEE #EEE;
+    border-style: solid;
+    border-width: 0px;
+    cursor: pointer;
+    font: bold 12px arial,helvetica,sans-serif;
+    text-align: center !important;
+    white-space: nowrap;
+    padding:0px 13px 0px 13px ;
+    height: 24px
+}
+
+.x-btn-icon .x-btn-small .x-btn-text {
+    height: 16px;
+    width: 16px;
+    padding:0px ;
+}
+
+.x-panel-body
+{
+margin-top: 0px;
+border-top: 1px solid #99BBE8;
+}
+
+.x-toolbar-layout-ct,
+.x-panel-bbar .x-toolbar, .x-panel-tbar .x-toolbar
+ {
+    background: none repeat scroll 0 0 #E8F1FA;
+    border: 1px solid #99BBE8;
+    padding: 10px;
+    margin-left: 0px;
+    margin-right: 5px;
+    min-height: 25px;
+}
+
+.x-window .x-grid3-row-table tr,
+.x-grid3-row-table tr{
+height: 25px;
+}
+
+.x-window .x-grid3-row-table p,
+.x-grid3-row-table p{
+margin: 0px;
+}
+
+.x-grid3-row-table td{
+font-size: 12px;
+vertical-align: middle;
+}
+
+.x-grid3-hd-row,
+.x-grid3-hd-over
+{
+height: 25px;
+}
+
+.x-grid3-row-selected {
+	background-color: #E8F1FA !important;
+	background-image: none;
+	border-color:#a3bae9;
+	color: #238DB4;
+	font-weight: bold;
+}
+
+
+.x-tab-strip-top .x-tab-right, .x-tab-strip-top .x-tab-left, .x-tab-strip-top .x-tab-strip-inner {
+background-image:none;
+}
+
+.x-tab-panel-header {
+    border: 0px solid;
+    padding-bottom: 0px;
+}
+
+ul.x-tab-strip-top {
+background: url("../images/horiz_tabs_ul_bg.gif") repeat-x scroll 0 100% #F8F8F8;
+border:0px;
+padding: 5px 0px 0px 0px ;
+color: #238DB4;
+}
+
+.x-tab-strip span.x-tab-strip-text {
+    color: #333333;
+    font: 11px Arial,Helvetica,sans-serif;
+}
+.x-tab-strip-over span.x-tab-strip-text {
+    color: #333333;
+}
+
+.x-tab-strip-top .x-tab-left {
+    background: none no-repeat scroll right -351px transparent;
+    padding-right: 0px;
+}
+
+.x-tab-strip-top .x-tab-right {
+    background: none no-repeat scroll 0 -51px transparent;
+    padding-left: 5px;
+}
+
+.x-tab-strip-top .x-tab-strip-inner
+{
+    background: none repeat scroll 0 0 #E2E2E2;
+    border: 1px solid #CCCCCC;
+    color: #333333 !important;
+    display: block;
+    padding: 2px 10px 0px 10px;
+    text-decoration: none !important
+}
+
+.x-tab-strip-active .x-tab-strip-inner{
+	background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+}
+
+#msc-panel,
+#msc-content,
+#msc-bridge,
+#osemsc-mem-basic-panel,
+#osemsc-mem-extra-panel
+{
+width: 100%;
+margin-left: 10px;
+margin-right: 10px;
+margin-top: 10px;
+vertical-align: top;
+display:block;
+clear: both;
+}
+
+#msc-panel .ose-menu-header,
+#msc-content ose-menu-header,
+#msc-bridge ose-menu-header,
+#osemsc-mem-basic-panel .ose-menu-header,
+#osemsc-mem-extra-panel .ose-menu-header
+{
+margin-bottom:5px;
+font-weight: bold;
+}
+
+#msc-panel .x-panel-header,
+#msc-content .x-panel-header,
+#msc-bridge .x-panel-header,
+#osemsc-mem-basic-panel .x-panel-header,
+#osemsc-mem-extra-panel .x-panel-header
+{
+border-bottom:1px dotted #CCCCCC;
+color:#333333;
+font-size:92%;
+font-weight:700;
+padding:0 0 5px;
+background: none;
+margin-top: 10px;
+margin-left: 5px;
+}
+
+#msc-panel ul li,
+#msc-content ul li,
+#msc-bridge ul li,
+#ose-member-menu ul li
+{
+list-style-type:none;
+text-align: center;
+min-height: 48px;
+width: 80px;
+font: 11px Arial,Helvetica,sans-serif;
+padding:64px 0 0 0px;
+float: left;
+margin-right: 10px;
+cursor: pointer;
+}
+
+
+#msc-panel ul li.ose-icon-basic
+{
+background:url("../images/basic_info.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-panel ul li.ose-icon-msc
+{
+background:url("../images/msc_setting.png") no-repeat scroll 15px 5px transparent;
+}
+
+#msc-panel ul li.ose-icon-payment,
+#msc-panel ul li.ose-icon-paymentAdv
+{
+background:url("../images/payments.png") no-repeat scroll 8px 0px transparent;
+}
+
+#msc-bridge ul li.ose-icon-acymailing
+{
+background:url("../images/acymailing.png") no-repeat scroll 8px 5px transparent;
+}
+
+#msc-bridge ul li.ose-icon-jgroup
+{
+background:url("../images/joomla.png") no-repeat scroll 8px 5px transparent;
+}
+
+#msc-bridge ul li.ose-icon-mailchimp
+{
+background:url("../images/mailchimp.png") no-repeat scroll 8px 5px transparent;
+}
+
+#msc-bridge ul li.ose-icon-jspt
+{
+background:url("../images/jspt.png") no-repeat scroll 8px 5px transparent;
+}
+
+#msc-bridge ul li.ose-icon-phpbb
+{
+background:url("../images/phpbb.png") no-repeat scroll 8px 10px transparent;
+}
+
+#msc-bridge ul li.ose-icon-vm
+{
+background:url("../images/virtuemart.gif") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-bridge ul li.ose-icon-lic,
+#msc-bridge ul li.ose-icon-licseat
+{
+background:url("../images/oselicensesmall.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-bridge ul li.ose-icon-osecredit
+{
+background:url("../images/logo.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-bridge ul li.ose-icon-docman
+{
+background:url("../images/docman.png") no-repeat scroll 15px 5px transparent;
+}
+
+#msc-content ul li.ose-icon-menu
+{
+background:url("../images/icon-48-menumgr.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-content ul li.ose-icon-jdownloads
+{
+background:url("../images/jdownloads.jpg") no-repeat scroll 8px 5px transparent;
+}
+
+#msc-content ul li.ose-icon-module
+{
+background:url("../images/icon-48-module.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-content ul li.ose-icon-zoocat
+{
+background:url("../images/zoo.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-content ul li.ose-icon-component
+{
+background:url("../images/icon-48-component.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-content ul li.ose-icon-jcontent,
+#msc-content ul li.ose-icon-jcontent_sequential
+{
+background:url("../images/icon-48-article.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-content ul li.ose-icon-sobi2
+{
+background:url("../images/sobi2.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-content ul li.ose-icon-mtree
+{
+background:url("../images/mtree.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-content ul li.ose-icon-phoca
+{
+background:url("../images/phocadownload.png") no-repeat scroll 15px 5px transparent;
+}
+
+#msc-bridges ul li.ose-icon-k2group,
+#msc-content ul li.ose-icon-k2item,
+#msc-content ul li.ose-icon-k2cat
+{
+background:url("../images/k2.png") no-repeat scroll 15px 20px transparent;
+}
+
+#msc-content ul li.ose-icon-hwdvideo
+{
+background:url("../images/hwdVideoShare.jpg") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-juser
+{
+background:url("../images/user_info.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-mailing
+{
+background:url("../images/mail.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-profile
+{
+background:url("../images/additional_info.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-msc
+{
+background:url("../images/membership_active.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-billinginfo
+{
+background:url("../images/billing_info.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-company
+{
+background:url("../images/company_info.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-licuser
+{
+background:url("../images/licensed_users_info.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-directory
+{
+background:url("../images/directory.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-order
+{
+background:url("../images/billing_history.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-panel ul li a,
+#msc-content ul li a,
+#msc-bridge ul li a
+{
+color: #238DB4;
+text-decoration: none;
+font: 11px Arial,Helvetica,sans-serif;
+}
+
+.x-window-tc
+{
+	background: url(../images/grad-d1.gif) repeat-x left top #238db4;
+	padding: 3px 5px 3px 5px;
+	color: #fff;
+	font-size: 100%;
+	font: 11px Arial,Helvetica,sans-serif;
+	font-weight: bold;
+	margin-left: 0px;
+	margin-right: 0px;
+
+}
+body.x-body-masked .x-window-plain .x-window-mc,
+.x-window-plain .x-window-mc,
+.x-window-mc,
+.x-window-plain .x-window-bc
+{
+background-image: none;
+background-color: #fff;
+height: auto;
+}
+
+.x-window-bc
+{
+background-image: none;
+height: auto;
+}
+
+.x-window-body .x-dlg-icon
+{
+margin-top: 10px;
+margin-left: 10px;
+}
+
+.x-window-dlg .x-dlg-icon .ext-mb-content  {
+width: 85%;
+}
+
+.x-window-dlg .ext-mb-text, .x-window-dlg {
+font: 11px Arial,Helvetica,sans-serif;
+}
+
+.x-window-dlg .ext-mb-question {
+background-image:url("../images/lightbulb.png");
+}
+
+.x-window-tl, .x-window-ml, .x-window-bl,.x-window-br, .x-panel-nofooter, .x-window-mr, .x-window-tr {
+background: none;
+}
+
+.x-window .x-window-bl, .x-panel-nofooter{
+	/* height:0px; */
+}
+
+.x-window-dlg .x-window-bl, .x-panel-nofooter{
+    height: auto;
+}
+
+.x-window-tl .x-window-header {
+color: #fff;
+}
+
+.x-window-mc, .x-toolbar
+{
+background: none repeat-x left top #fff;
+}
+
+.x-form-item label.x-form-item-label {
+    clear: left;
+    float: left;
+    position: relative;
+    width: 100px;
+    z-index: 2;
+    color: #333333;
+	font: 12px/1.5em Arial,Helvetica,sans-serif;
+}
+
+
+.x-fieldset
+{
+border: 0px ;
+margin-top: 3px;
+margin-left: 0px;
+margin-right: 0px;
+background:none repeat scroll 0 0 #E8F1FA;
+padding: 3px;
+width: 100%;
+color: #333333;
+}
+
+
+#osemsc--coupon-params .x-fieldset,
+#osemsc-coupon-params .x-fieldset{
+	padding: 0px;
+	margin: 0px;
+}
+
+.x-fieldset legend,
+fieldset legend
+{
+background:none repeat scroll 0 0 #fff;
+border: 1px solid #C1C1C1;
+border-top:1px solid #C1C1C1;
+border-left:1px solid #C1C1C1;
+border-right:1px solid #C1C1C1;
+border-bottom:1px solid #C1C1C1;
+padding: 5px 0px 5px 5px;
+width: 99%;
+color: #333333;
+font: bold 13px Arial,sans-serif;
+}
+
+.x-form-item
+{
+	font: normal 12px Arial,sans-serif;
+	border-bottom: 0px dotted #D6E5EC;
+	min-height: 20px;
+}
+
+.x-form-element
+{
+	border-bottom: 0px solid #D6E5EC;
+	margin-left: 10px;
+	margin-top: 8px;
+}
+
+.x-form-item-label
+{
+font: bold 12px Arial,sans-serif;
+margin-left: 10px;
+width: 200px;
+min-height: 25px;
+}
+
+#coupons-list .x-toolbar-left
+{
+	width: 0px;
+}
+
+#coupons-list .x-toolbar-right-ct
+{
+	margin-right: 20px;
+}
+
+#osemsc-config .x-tab-panel-body {
+    background-color: #FFF;
+    border-color: #D6E5EC;
+    border: 0px;
+}
+
+.ext-el-mask-msg div {
+	margin: 0;
+	background:-moz-linear-gradient(center top , #666666, #333333) repeat scroll 0 0 #333333;
+	background-color: #666666;
+	color:#FFFFFF;
+	font-size: 12px;
+	border-width: 1px;
+	border-color: #555555;
+}
+
+
+.ext-el-mask-msg div {
+border:0px solid;
+cursor:wait;
+padding:5px 10px;
+}
+
+.ext-el-mask-msg {
+background-color:transparent;
+background-image:none;
+border-color:transparent;
+}
+
+.ext-el-mask-msg {
+background:none repeat-x scroll 0 -16px transparent;
+border:0px solid;
+left:0;
+padding:2px;
+position:absolute;
+top:0;
+z-index:20001;
+}
+
+#multiple-currency .x-panel-body-noheader
+{
+border: 0px;
+}
+
+/* style for the "enable" ActionColumn icon */
+.x-action-col-cell img.enable-col {
+    height: 16px;
+    width: 16px;
+    background-image: url(../images/accept.png);
+}
+
+/* style for the "disable" ActionColumn icon */
+.x-action-col-cell img.disable-col {
+    height: 16px;
+    width: 16px;
+    background-image: url(../images/remove.png);
+}
+
+/* style for the "none" ActionColumn icon */
+.x-action-col-cell img.none-col {
+    height: 16px;
+    width: 16px;
+}
+
+/* style for the "Article" ActionColumn icon */
+.x-action-col-cell img.article-col {
+    height: 16px;
+    width: 16px;
+    background-image: url(../images/article16.png);
+}
+
+/* style for the "none" ActionColumn icon */
+.x-action-col-cell img.none-arrow-col {
+    height: 16px;
+    width: 16px;
+}
+
+/* style for the "Up Order" ActionColumn icon */
+.x-action-col-cell img.up-arrow-col {
+    height: 16px;
+    width: 16px;
+    background-image: url(../images/arrow-curve-090.png);
+}
+
+/* style for the "Down Order" ActionColumn icon */
+.x-action-col-cell img.down-arrow-col {
+    height: 16px;
+    width: 16px;
+    background-image: url(../images/arrow-curve-270.png);
+}
+
+/* style for the "Edit" ActionColumn icon */
+.x-action-col-cell img.edit-col {
+    height: 16px;
+    width: 16px;
+    background-image: url(../images/grid-edit.png);
+}
+
+/* style for the "Delete" ActionColumn icon */
+.x-action-col-cell img.delete-col {
+    height: 16px;
+    width: 16px;
+    background-image: url(../images/delete.png);
+}
+
+/* style for the "view State" ActionColumn icon */
+.x-action-col-cell img.viewState-col {
+    height: 16px;
+    width: 16px;
+    background-image: url(../images/viewState.png);
+}
+
+/* style for the "view State" ActionColumn icon */
+.x-action-col-cell img.view-order-col {
+    height: 16px;
+    width: 16px;
+    background-image: url(../images/document-pdf.png);
+}
+
+
+.ext-gecko .x-window-body .x-form-item,
+.x-window-body .x-form-item
+{
+    outline: medium none;
+    overflow: hidden;
+}
+
+.x-panel fieldset label,
+.x-panel fieldset span.faux-label {
+    clear: none;
+    display: block;
+    float: left;
+    margin: 0px;
+    margin-left:10px;
+    top:0px;
+}
+
+.x-panel fieldset input,
+.x-panel fieldset textarea,
+.x-panel fieldset select,
+.x-panel fieldset img,
+.x-panel fieldset button {
+    float: left;
+    margin: 0px;
+    width: auto;
+}
+
+#osefooter
+{
+	width: 100%;
+	padding: 5px;
+	text-align: center;
+}

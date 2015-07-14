@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fields name="filter">
+        <field
+                name="search"
+                type="text"
+                label="COM_JUDOWNLOAD_FILTER_SEARCH_DESC"
+                hint="JSEARCH_FILTER"
+                />
+
+        <field
+                name="group_id"
+                type="filter_criteriagroup"
+                label="COM_JUDOWNLOAD_FILTER_CRITERIA_GROUP"
+                extension="com_content"
+                description="COM_JUDOWNLOAD_FILTER_CRITERIA_GROUP_DESC"
+                onchange="this.form.submit();"
+                >
+            <option value="">COM_JUDOWNLOAD_SELECT_GROUP</option>
+        </field>
+    </fields>
+
+    <fields name="list">
+        <field
+                name="fullordering"
+                type="list"
+                label="COM_JUDOWNLOAD_LIST_FULL_ORDERING"
+                description="COM_JUDOWNLOAD_LIST_FULL_ORDERING_DESC"
+                onchange="this.form.submit();"
+                default="ordering ASC"
+                >
+            <option value="">COM_JUDOWNLOAD_SORT_BY</option>
+            <option value="id ASC">COM_JUDOWNLOAD_SORT_BY_ID_ASC</option>
+            <option value="id DESC">COM_JUDOWNLOAD_SORT_BY_ID_DESC</option>
+            <option value="title ASC">COM_JUDOWNLOAD_SORT_BY_TITLE_ASC</option>
+            <option value="title DESC">COM_JUDOWNLOAD_SORT_BY_TITLE_DESC</option>
+            <option value="group_name ASC">COM_JUDOWNLOAD_SORT_BY_GROUP_NAME_ASC</option>
+            <option value="group_name DESC">COM_JUDOWNLOAD_SORT_BY_GROUP_NAME_DESC</option>
+            <option value="weights ASC">COM_JUDOWNLOAD_SORT_BY_WEIGHTS_ASC</option>
+            <option value="weights DESC">COM_JUDOWNLOAD_SORT_BY_WEIGHTS_DESC</option>
+            <option value="required ASC">COM_JUDOWNLOAD_SORT_BY_REQUIRED_ASC</option>
+            <option value="required DESC">COM_JUDOWNLOAD_SORT_BY_REQUIRED_DESC</option>
+            <option value="ordering ASC">COM_JUDOWNLOAD_SORT_BY_ORDERING_DESC</option>
+            <option value="ordering DESC">COM_JUDOWNLOAD_SORT_BY_ORDERING_DESC</option>
+            <option value="published ASC">COM_JUDOWNLOAD_SORT_BY_PUBLISHED_ASC</option>
+            <option value="published DESC">COM_JUDOWNLOAD_SORT_BY_PUBLISHED_DESC</option>
+        </field>
+
+        <field
+                name="limit"
+                type="limitbox"
+                class="inputbox input-mini"
+                default="25"
+                label="COM_JUDOWNLOAD_LIST_LIMIT"
+                description="COM_JUDOWNLOAD_LIST_LIMIT_DESC"
+                onchange="this.form.submit();"
+                />
+    </fields>
+</form>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" type="plugin" group="user/plug_cbpaidsubscriptions/plugin"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+	<description>CBSubs Tax integration CB plugin: Provides Sales Tax / VAT calculations for B2B and B2C in EU.</description>
+
+	<types>
+		<type name="business_check" base="list" valuetype="string">
+			<option value="tax_eu">EU VAT: Online check with EU VAT Server</option>
+		</type>
+	</types>
+
+	<businesschecktaxsetting>
+		<if name="business_check" operator="=" value="tax_eu" valuetype="const:int" type="condition">
+			<fieldset label="European Union Tax settings" description="These settings will only apply to the geographic zone of the buyer above">
+				<params name="params" type="params">
+					<param name="server_fail_action" type="list" default="fail" label="What to do if EU server or EU Country server is down" description="Validation is done with &lt;a href=&quot;http://ec.europa.eu/taxation_customs/vies/vieshome.do&quot; target=&quot;_blank&quot; &gt;the UE online VAT number validation service&lt;/a&gt;. This service has good uptime, but &lt;a href=&quot;http://ec.europa.eu/taxation_customs/vies/viesspec.do&quot; target=&quot;_blank&quot; &gt;countries have daily downtimes&lt;/a&gt; which need to be handled.">
+						<option value="validate">If validation server down, accept any VAT number as business proof (more customer friendly, but risky)</option>
+						<option value="fail">If validation server down, reject business validation (EU recommended setting)</option>
+					</param>
+				</params>
+				<param type="spacer" label="" default="Validation is done with &lt;a href=&quot;http://ec.europa.eu/taxation_customs/vies/vieshome.do&quot; target=&quot;_blank&quot; &gt;the UE online VAT number validation service&lt;/a&gt;. For the purpose of the verification, your request is sent to the national database via a secure Intranet service connecting national Customs and Taxation administrations and the reply is sent back in a few seconds. There are lots of information available on the EU VIES site in the &lt;a href=&quot;http://ec.europa.eu/taxation_customs/vies/faqvies.do&quot; target=&quot;_blank&quot; &gt;validation FAQ&lt;/a&gt; and in the &lt;a href=&quot;http://ec.europa.eu/taxation_customs/taxation/vat/traders/e-commerce/article_1610_en.htm&quot; target=&quot;_blank&quot; &gt;E-Commerce FAQ&lt;/a&gt;." />
+				<param name="seller_taxnumber"    type="text"   size="15"  default=""  label="Seller EU Tax id starting with 2 country letters (See note below)" description="This is your EU intra-communitary VAT number starting with your 2-letters country prefix (except &quot;EL&quot; for instead of &quot;GR&quot; for Greece)." validate="eu_taxnumber" />
+				<param type="spacer" label="Note for validation type" default="If you input your own EU VAT Tax number in the field above, this number will be sent to the EU VAT server too (and from there to the national Customs and Taxation administrations too), and the server reply will contain a unique consultation number (requestIdentifier) which &lt;a href=&quot;http://ec.europa.eu/taxation_customs/vies/viesspec.do&quot; target=&quot;_blank&quot; &gt;according to EU can be used to prove to a tax administration of a Member State that you have checked a given VAT number at a given time, and obtained a given validation reply&lt;/a&gt;." />
+				<param type="spacer" label="Disclaimer" default="This implementation is a best effort to provide top services to your business customers. However note the provisions of this service from the EU, in particular &quot;&lt;a href=&quot;http://ec.europa.eu/taxation_customs/vies/viesspec.do&quot; target=&quot;_blank&quot; &gt;Please note, however, that the confirmation of the validity of a VAT number and of its attribution to a given taxable person is only ONE of the elements of evidence supporting the VAT exemption of intra-community supplies of goods (article 138, paragraph 1 of Council Directive 2006/112/EC) or the non-application of VAT on a supply of services due to its localisation in another Member State.&quot;&lt;/a&gt; In no case should this implementation be a replacement from advice and review by yourself and by your tax advisor." />
+			</fieldset>
+		</if>
+	</businesschecktaxsetting>
+
+</cbxml>

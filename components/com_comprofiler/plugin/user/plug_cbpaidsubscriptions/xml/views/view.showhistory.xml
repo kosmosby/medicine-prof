@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="showhistory" type="params" ui="admin" label="History and Logs" description="This is the full log of history events, change log, and error log.">
+			<extend toxpathnode="/cbxml/types/type[@name=&quot;event_tables&quot;]" fromxpathnode="/*/types/type[@name=&quot;event_tables&quot;]/option"  file="plugin/*/xml/edit.cbsubs,../user/*/xml/edit.cbsubs,processors/*/edit.gateway" mandatory="false" />
+			<tablebrowser name="historybrowser" table="#__cbsubs_history" class="cbpaidHistory" label="History and Logs" description="">
+				<toolbarmenu>
+					<menu name="delete"  action="linkAction" task="delete" link="cbo:deleterows" label="Delete" />
+					<!--
+					<menu name="edit"  action="linkAction" task="edit" link="cbo:editrows" label="Edit" />
+					<menu name="spacer1" action="spacer" />
+					-->
+					<menu name="cancel"   action="cancel" task="cancelPluginAction" label="Close" />
+				</toolbarmenu>
+				<quicksearchfields>
+					<field name="user_id" valuetype="const:int" />
+					<field name="user_name" />
+					<field name="user_full_name" />
+					<field name="old_value" />
+					<field name="new_value" />
+					<field name="ip_addresses" />
+					<field name="table_key_id" valuetype="const:int" />
+					<field name="id" valuetype="const:int" />
+				</quicksearchfields>
+				<filters>
+					<filter name="event_type" value="event_type" type="xml:event_type" view="kind" />
+					<filter name="table_name" value="table_name" type="xml:event_tables" view="kind" />
+					<filter name="table_key_id" value="table_key_id" type="field_show_only_if_selected" base="string" view="kind" />
+					<filter name="change_type" value="change_type" type="data"      valuetype="sql:string" view="kind" />
+					<view name="kind" type="params">
+						<fieldset name="kind" label="Type" description="By type and changes of event:">
+							<param name="filter_event_type" type="xml:event_type" size="1" default="" label="Event type" blanktext="--- By type ---" description="Filter events by type" />
+							<param name="filter_table_name" type="xml:event_tables" size="1" default="" label="Table affected" blanktext="--- By table ---" description="Filter events by the table affected"/>
+							<param name="filter_table_key_id" type="field_show_only_if_selected" base="int" size="1" default="" label="Table key id"     blanktext="--- Not filtered ---" description="Selects a particular log by its affected table key id (used to show history records only for a given table entry)" />
+							<param name="filter_change_type" type="data" value="change_type"      valuetype="sql:string" default="" label="Type of change"     blanktext="--- By change type ---" description="Selects a particular log by the way it affected the table" />
+						</fieldset>
+					</view>
+					<filter name="from" value="event_time" type="datetime" valuetype="date"  operator="&gt;" view="fromto" />
+					<filter name="upto" value="event_time" type="datetime" valuetype="date" operator="&lt;" view="fromto" />
+					<filter name="last" value="event_time" type="xml:last_duration" valuetype="date" operator="&gt;" view="fromto" />
+					<view name="fromto" type="params">
+						<fieldset name="calendarperiod" label="Date and time" description="By date and time of event:">
+							<param name="filter_from" type="datetime" size="1" default="" label="From"  blanktext="--- From ---"  description="Filter from a given date and time on"/>
+							<param name="filter_upto" type="datetime" size="1" default="" label="Up to" blanktext="--- Up to ---" description="Filter up to a given date and time"/>
+							<param name="filter_last" type="xml:last_duration" size="1" default="" label="Period" blanktext="--- Logs in last ---" description="Filter for a given period of time" />
+						</fieldset>
+					</view>
+					<filter name="id" type="field_show_only_if_selected" base="int" size="1" default="" label="History id"     blanktext="--- By id ---" description="Select a particular history log by its id (used to show a given history record only)" />
+					<filter name="log_priority" type="xml:log_priority" operator="&lt;=" size="1" default="" label="Priority" blanktext="--- By priority ---" description="Filter events by priority and higher"/>
+				</filters>
+				<orderby>
+					<field name="id" ordering="DESC" />
+				</orderby>
+				<listfields>
+					<header type="standard" />
+					<rows type="standard" height="auto" limit="10" >
+						<field name=""          type="rownumber"       width="20px" align="right" label="#" />
+						<field name="id"        type="primarycheckbox" width="20px" />
+						<field name="event_time"  type="datetime"       width="15%"  align="left" label="Event time" />
+						<field name="event_type" type="xml:event_type" width="5%"  align="left" label="Event type" description="">
+							<attributes>
+								<attribute name="class">
+									<param name="error_cssclass" type="text" />
+								</attribute>
+							</attributes>
+						</field>
+						<field name="message"   type="firstwords" size="72" width="35%" link="cbo:rowedit" parameters="tid" paramvalues="id" align="left" label="Message" description="" valuedescriptiontitle="Message">
+							<attributes>
+								<attribute name="valuedescription">
+									<param name="message" type="text" />
+								</attribute>
+							</attributes>
+						</field>
+						<field name="table_name"  type="xml:event_tables" value="table_name"  width="15%"  label="Table affected" description="" />
+						<field name="table_key_id"  type="int"  width="5%"  align="right" label="Table Key" />
+						<field name="change_type"  type="text"       width="5%" link="cbo:rowedit" parameters="tid" paramvalues="id" align="left" label="Change" valuedescriptiontitle="Database change">
+							<attributes>
+								<attribute name="valuedescription" transform="raw">
+									<param name="new_value" type="private" class="self" method="renderDiff" />
+								</attribute>
+							</attributes>
+						</field>
+						<field name="user_name"            type="string"  link="cb_action:show_usersubscription" parameters="cid" paramvalues="user_id"    title="Edit this user and his subscriptions"  width="10%" label="Username" class="title">
+							<data name="user_name" type="sql:function" operator="IF">
+								<data name="" type="sql:operator" operator="=">
+									<data name="user_id" type="sql:field" />
+									<data name="0" type="const:int" />
+								</data>
+								<data name="System" type="const:string" translate="yes" />
+								<!-- This is here for translation tool to translate above correctly:
+									<field label="System" />
+								-->
+								<data name="username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="user_id" />
+							</data>
+						</field>
+						<field name="user_full_name"            type="string"  link="cb_action:show_usersubscription" parameters="cid" paramvalues="user_id"    title="Edit this user and his subscriptions"  width="10%" label="Full name" class="title">
+							<data name="user_full_name" type="sql:function" operator="IF">
+								<data name="" type="sql:operator" operator="=">
+									<data name="user_id" type="sql:field" />
+									<data name="0" type="const:int" />
+								</data>
+								<data name="-" type="const:string" />
+								<data name="name" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="user_id" />
+							</data>
+						</field>
+						<field name="ip_addresses"  type="string"       width="5%"  align="left" label="IP Address" />
+						<field name="log_priority"  type="xml:log_priority"       width="5%"  align="left" label="Log Priority" />
+						<field name="id"        type="int"       width="5%"  align="right" label="Id" />
+						<field name="user_id"            type="hidden"    width="0px" label="" />
+						<field name="old_value"            type="hidden"    width="0px" label="" />
+						<field name="new_value"            type="hidden"    width="0px" label="" />
+						<field name="error_cssclass" type="hidden" width="0px">
+							<data name="error_cssclass" type="sql:function" operator="IF">
+								<data name="" type="sql:operator" operator="=">
+									<data name="event_type" type="sql:field" />
+									<data name="1" type="const:int" />
+								</data>
+								<data name="cbDisabled" type="const:string" />
+								<data name="" type="const:string" />
+							</data>
+						</field>
+					</rows>
+				</listfields>
+			</tablebrowser>
+		</view>
+	</views>
+</cbxml>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="showhistorydetails" type="params" ui="admin" label="History and Logs" description="This is the full log of history events, change log, and error log.">
+			<toolbarmenu>
+				<menu name="back" action="back" label="Back" href="" />
+			</toolbarmenu>
+			<param name="event_type" type="xml:event_type" label="Event type" description="">
+				<attributes>
+					<attribute name="class">
+						<param name="error_cssclass" type="text" />
+					</attribute>
+				</attributes>
+			</param>
+			<param name="event_time" type="datetime" label="Event time" />
+			<param name="message" type="textarea" label="Message" description="" />
+			<param name="table_name" type="xml:event_tables" value="table_name" label="Table affected" description="" />
+			<param name="table_key_id" type="int"  label="Table Key" />
+			<param name="change_type"  type="text" label="Change" />
+			<param name="new_value" type="private" method="renderDiff" label="Change" description="" />
+			<param name="user_name"   type="private" class="cbpaidParamsExt" method="data"  link="cb_action:show_usersubscription" parameters="cid" paramvalues="user_id"    title="Edit this user and his subscriptions" label="Username">
+				<data name="user_name" type="sql:function" operator="IF">
+					<data name="" type="sql:operator" operator="=">
+						<data name="user_id" type="ext:int:modelofdata" />
+						<data name="0" type="const:int" />
+					</data>
+					<data name="System" type="const:string" translate="yes" />
+					<!-- This is here for translation tool to translate above correctly:
+						<field label="System" />
+					-->
+					<data name="username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="user_id" valuetype="ext:int:modelofdata" />
+				</data>
+			</param>
+			<param name="user_full_name"   type="private" class="cbpaidParamsExt" method="data"  link="cb_action:show_usersubscription" parameters="cid" paramvalues="user_id"    title="Edit this user and his subscriptions" label="Full name">
+				<data name="user_full_name" type="sql:function" operator="IF">
+					<data name="" type="sql:operator" operator="=">
+						<data name="user_id" type="ext:int:modelofdata" />
+						<data name="0" type="const:int" />
+					</data>
+					<data name="-" type="const:string" />
+					<data name="name" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="user_id" valuetype="ext:int:modelofdata" />
+				</data>
+			</param>
+			<param name="user_id"            type="int"  label="User Id" />
+			<param name="ip_addresses"  type="string"    label="IP Address" />
+			<param name="log_priority"  type="xml:log_priority"   label="Log Priority" />
+			<param name="id"        type="int"    label="Log Id" />
+		</view>
+	</views>
+</cbxml>

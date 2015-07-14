@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension
+	type="module"
+	version="1.7"
+	client="site"
+	method="upgrade">
+	<name>Login</name>
+	<author>Lapytko Yura</author>
+	<creationDate>December 2011</creationDate>
+	<copyright>Copyright (C) Lapytko Yura. All rights reserved.</copyright>
+	<license></license>
+	<authorEmail>kosmos.by@gmail.com</authorEmail>
+	<authorUrl></authorUrl>
+	<version>1.0</version>
+	<description>module description</description>
+	<files>
+		<filename module="mod_sociallogin">mod_sociallogin.php</filename>
+		<folder>tmpl</folder>
+		<filename>helper.php</filename>
+		<filename>index.html</filename>		<filename>mod_sociallogin.xml</filename>
+	</files>
+	<help key="JHELP_EXTENSIONS_MODULE_MANAGER_LOGIN" />
+	<config>
+	</config>
+</extension>

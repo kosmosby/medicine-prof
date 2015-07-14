@@ -1,0 +1,31 @@
+/*
+ * RTL Style Sheet
+ */
+
+.wk-slideshow-solar .nav li {
+	margin-left: 0;
+	margin-right: 5px;
+}
+.wk-slideshow-solar .nav li:first-child { margin-right: 0; }
+
+.wk-slideshow-solar > div:hover .next {
+	right: auto;
+	left: 30px;
+	background-position: 0 -120px;
+}
+
+.wk-slideshow-solar > div .next:hover { background-position: 0 -160px; }
+.wk-slideshow-solar > div .next:active { background-position: 0 -200px; }
+
+
+
+
+.wk-slideshow-solar > div:hover .prev {
+	left: auto;
+	right: 30px;
+	background-position: 0 0;
+}
+
+.wk-slideshow-solar > div .prev:hover { background-position: 0 -40px; }
+.wk-slideshow-solar > div .prev:active { background-position: 0 -80px; }
+

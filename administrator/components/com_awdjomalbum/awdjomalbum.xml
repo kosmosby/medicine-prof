@@ -1,0 +1,61 @@
+<extension type="component" version="3.0" method="upgrade">
+	<name>AWD JomAlbum</name>	
+	<creationDate>04/08/2010</creationDate>
+	<author>AWDsolution.com</author>
+	<authorEmail>support@awdsolution.com</authorEmail>
+	<authorUrl>http://www.awdsolution.com</authorUrl>
+	<copyright>AWDsolution.com</copyright>
+	<license>@license GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>	
+	<version>3.0</version>
+	<description>JomWALL-Jomgallery</description>
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">install.awdjomalbum.sql</file>
+		</sql>
+	</install>
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">uninstall.awdjomalbum.sql</file>
+		</sql>
+	</uninstall>
+	<scriptfile>install.awdjomalbum.php</scriptfile>
+	<!-- Site Main File Copy Section -->
+	<files folder="site">
+		<filename>index.html</filename>
+		<filename>awdjomalbum.php</filename>
+		<filename>router.php</filename>
+		<filename>controller.php</filename>
+		<filename>functions.php</filename>
+		<folder>views</folder>				
+		<folder>css</folder>		
+		<folder>images</folder>
+		<folder>js</folder>
+		<folder>models</folder>
+	</files>
+	<languages folder="site/language">
+			<language tag="en-GB">en-GB.com_awdjomalbum.ini</language>			
+    </languages>
+	<administration>
+		<!-- Administration Menu Section -->
+		<menu img="components/com_awdjomalbum/images/jomwallgallery.png">COM_AWDJOMALBUM</menu>
+		<!-- Administration Main File Copy Section -->
+		<files folder="admin">
+			<filename>install.awdjomalbum.sql</filename>
+			<filename>uninstall.awdjomalbum.sql</filename>
+			<filename>index.html</filename>
+			<filename>controller.php</filename>
+			<filename>awdjomalbum.php</filename>
+			<filename>config.xml</filename>			
+			<folder>models</folder>
+			<folder>views</folder>
+			<folder>images</folder>				
+			<folder>tables</folder>				
+			<folder>helpers</folder>				
+		</files>	
+		<languages folder="admin/language">
+			<language tag="en-GB">en-GB.com_awdjomalbum.ini</language>			
+			<language tag="en-GB">en-GB.com_awdjomalbum.sys.ini</language>			
+    	</languages>
+	</administration>
+  
+</extension>

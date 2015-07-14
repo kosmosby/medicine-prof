@@ -1,0 +1,101 @@
+/*
+ * Widgetkit Slideset: Drive Style
+ */
+
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-drive .nav {
+	margin-top: 10px;
+	text-align: center;
+}
+
+.wk-slideset-drive .nav li { display: inline-block; }
+.wk-slideset-drive .nav.text li { margin-left: 40px; }
+
+.wk-slideset-drive .nav.icon span {
+	width: 23px;
+	height: 23px;
+	background: url(images/nav.png) 0 0 no-repeat;
+	overflow: hidden;
+}
+.wk-slideset-drive .nav.icon span:hover { background-position: 0 -60px; }
+.wk-slideset-drive .nav.icon span:active { background-position: 0 -90px; }
+.wk-slideset-drive .nav.icon .active span { background-position: 0 -30px; }
+
+.wk-slideset-drive .nav.text span { padding: 0 11px; }
+.wk-slideset-drive .nav.text .active span {
+	padding: 0 10px;
+	border: 1px solid rgba(0,0,0,0.1);
+	border-radius: 4px;
+	background: rgba(0,0,0,0.05);
+	
+}
+
+
+/* Buttons
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-drive > div { position: relative; }
+
+.wk-slideset-drive > div .next,
+.wk-slideset-drive > div .prev {
+	top: 50%;
+	width: 29px;
+	height: 40px;
+	margin-top: -20px;
+	background: url(images/buttons.png) 0 0 no-repeat;
+}
+
+.wk-slideset-drive > div .next {
+	right: -45px;
+	background-position: 0 -150px;
+}
+
+.wk-slideset-drive > div .next:hover { background-position: 0 -200px; }
+.wk-slideset-drive > div .next:active { background-position: 0 -250px; }
+
+
+.wk-slideset-drive > div .prev {
+	left: -45px;
+	background-position: 0 0;
+}
+
+.wk-slideset-drive > div .prev:hover { background-position: 0 -50px; }
+.wk-slideset-drive > div .prev:active { background-position: 0 -100px; }
+
+/* Title
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-drive .sets { margin: 0 -5px; }
+.wk-slideset-drive article { margin: 0 5px; }
+
+.wk-slideset-drive article + strong.title { font-weight: normal; }
+
+
+/* Responsive
+----------------------------------------------------------------------------------------------------*/
+
+/* Only Touch Devices */
+@media (max-width: 1072px)  {
+
+	.wk-slideset-drive .next,
+	.wk-slideset-drive .prev { display: none; }
+
+}
+
+/* Only Phones */
+@media (max-width: 767px) {
+
+	.wk-slideset-drive .nav.text li { margin-left: 10px; }
+	.wk-slideset-drive .nav.text li:first-child { margin-left: 0; }
+
+	.wk-slideset-drive .nav.text span {
+		padding: 0 6px;
+		font-size: 12px;
+	}
+
+	.wk-slideset-drive .nav.text .active span { padding: 0 5px; }
+
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="file" method="upgrade" judlplugintype="field">
+    <name>Core Approved by</name>
+    <author>JoomUltra</author>
+    <creationDate>18 July 2014</creationDate>
+    <authorEmail>admin@joomultra.com</authorEmail>
+    <version>1.0</version>
+    <license>GNU/GPL</license>
+    <website>http://www.joomultra.com</website>
+    <description></description>
+    <folder>core_approved_by</folder>
+    <core>1</core>
+    <default>1</default>
+    <fileset>
+        <files target="components/com_judownload/fields/core_approved_by">
+            <file>core_approved_by.xml</file>
+            <file>core_approved_by.php</file>
+            <file>index.html</file>
+            <folder>tmpl</folder>
+        </files>
+    </fileset>
+    <config addrulepath="/administrator/components/com_judownload/models/rules">
+        <field name="size"
+               type="text"
+               label="COM_JUDOWNLOAD_FIELD_SIZE_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_SIZE_DESC"
+               default="32"
+                />
+    </config>
+</extension>

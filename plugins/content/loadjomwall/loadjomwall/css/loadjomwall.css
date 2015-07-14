@@ -1,0 +1,276 @@
+.loadjomwallouter {
+	width:100%;
+	margin:auto;
+
+    background-color: #EDEFF4;
+    border-bottom: 1px solid #E5EAF1;
+    border-bottom: 1px solid #CCD6E3;
+    margin-top: 2px;
+    /*padding: 5px 4px;*/
+	height:auto; 
+	min-height:50px;
+	color: #333333;
+    direction: ltr;
+    font-size: 12px;
+    text-align: left;
+	/*   Hack for breking long lines   */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap : break-word; /* Internet Explorer 5.5+ */
+}
+.loadjomwallinner {
+	width:85px;
+	margin:12px; 
+}
+.loadjomwallinner img, #post-comment img{
+   -moz-box-shadow: 3px 3px 3px #888;
+   -webkit-box-shadow: 3px 3px 3px #888;
+   box-shadow: 0px 0px 0px #888;
+}
+.loadjomwalldelete {
+	margin:5px; 
+}
+* html .loadjomwallinner {display:inline}/* for ie*/
+html>body .loadjomwallinner, .loadjomwalldelete {display:table;float:left}/*for mozilla */
+@media all and (min-width: 0px){/* opera 7 styles */
+html>body .loadjomwallinner, .loadjomwalldelete {display:inline-block; /*float:none;*/}
+}
+
+#avatar{
+  width:35px;
+  height:35px;
+}
+#message_wall{
+width:98%!important;
+height:50px;
+padding:0px!important;
+margin:0px!important;
+margin-left:5px!important;
+font-size: 11px!important;
+line-height:normal!important;
+}
+.postavatar{
+float:left;
+margin-right:20px;
+}
+
+#comment-holder{
+	width:80%;
+	margin-right : 2px;
+	text-align:left;
+	vertical-align:top;
+}
+#post-comment{
+	background-color: #EDEFF4;
+	border-bottom: 1px solid #E5EAF1;
+	margin-top: 2px;
+	padding: 7px 12px;
+	overflow : auto;
+	overflow:hidden;
+	overflow-y: hidden;
+	overflow-x: hidden; 
+	height:auto; 
+	min-height:50px;
+}
+.loadjomwalldelete{
+	background:url("../images/delete.png") no-repeat left top;
+	width:15px;
+	height:15px;
+}
+.delete-hover{
+	background:url("../images/delete.png") no-repeat left -30px;
+	width:15px;
+	height:15px;
+	cursor : pointer;
+}
+.comment-text{
+    background-color: #EDEFF4;
+    padding: 0px 4px;
+	text-align:left;
+	color: #333333;
+    direction: ltr;
+    font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+    font-size: 11px;
+    text-align: left;
+	float:right;
+	clear: left;
+	width: 330px;
+	border : 1px solid red;
+	/*   Hack for breking long lines   */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap : break-word; /* Internet Explorer 5.5+ */
+}
+.show-more{
+	background-color: #EDEFF4;
+	padding : 6px 20px;
+	background-image : url("../images/awdlike.png");
+	background-position : 2px 5px;
+	background-repeat : no-repeat;
+	
+}
+
+#text{
+	width:auto;
+	margin-bottom:5px;
+}
+#text a{
+	color: #3B5998;
+	font-weight : bold;
+	text-decoration : none;
+}
+#text a:hover{
+	text-decoration : underline;
+}
+.ago{
+	width:88%;
+	clear:both;
+	color: #808080;
+    font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+    font-size: 11px;
+	display : block;
+	margin-top:10px!important;
+
+}
+#post-comment #comment{
+	height: 36px;
+	float : right;
+	border : 1px solid #BDC7D8;
+	font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+	font-size: 12px;
+	padding: 3px;
+	overflow:hidden;
+	overflow-y: hidden;
+	overflow-x: hidden; 
+}
+
+#post-comment #uname,#uemail{
+	border : 1px solid #BDC7D8;
+	font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+	font-size: 12px;
+	padding-left : 2px;
+	margin-bottom : 4px;
+}
+.error{
+	background : #FFCCCC;
+}
+#post-comment span{
+	margin-right:1px;
+	margin-left:-2px;
+}
+#fb-button{
+    background-color: #5B74A8;
+    border-width : 1px;
+    border-color: #1A356E;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: bold;
+    height : 20px;
+    outline: medium none;
+    white-space: nowrap;
+    margin-top:3px;
+}
+#submit-button{
+	display : block;
+	margin-left : 321px;
+}
+.lightText{
+	color : #9B9B9B;
+}
+#link-text{
+	font-size: 11px;
+	font-family: 'Lucida Grande',Tahoma,Verdana,Arial,sans-serif;
+	cursor : pointer;
+	color : #3B5998;
+}
+#link-text:hover{
+	text-decoration : underline;
+}
+
+.invaild{
+border:1px solid #FF0000;
+}
+
+#viewmore{
+	padding:10px;
+	width:97%; 
+	
+	border:1px solid #D8DFEA; 
+	margin-bottom:10px;
+}
+
+
+#awdlightbox{
+	display:none;
+	/*background:#000000;
+	opacity:0.5;
+	filter:alpha(opacity=50);*/
+	position:absolute;
+	top:0px;
+	left:0px;
+	min-width:100%;
+	min-height:100%;
+	z-index:1000;
+}
+#awdlightbox-panel{
+	display:none;
+	position:fixed;
+	top:70px;
+	left:50%;
+	margin-left:-200px;
+	width:400px;
+	background:#FFFFFF;
+	padding:10px 15px 10px 15px;
+	border:2px solid #CCCCCC;
+	z-index:1001;
+}
+
+.awdusername span{
+text-decoration:none;
+font-weight:bold;
+}
+#awdlightcontentbox{
+height:300px;
+overflow:scroll;
+}
+
+.awdthumb{
+float:left;
+padding:2px;
+border:1px solid #CCCCCC;
+margin:3px;
+}
+#btncomment{
+float:left;
+margin-left:84%;
+margin-top:5px;
+cursor:pointer;
+}
+
+.awdround{
+	font:calibri;
+	font-size:1.2e;
+	-moz-border-radius: 5px;
+	color: #111;
+	position: relative;
+	width:98% !important;
+	height: 50px; 
+	border-bottom-color: #D8DFEA;
+	border:1px solid #D8DFEA;
+
+}
+
+.testdiv{
+float:left;
+height:50px;
+background-color:#FF0000;
+width:100%;
+}
+
+#awd-mainarea tr, #awd-mainarea td{
+padding:0px!important;
+}

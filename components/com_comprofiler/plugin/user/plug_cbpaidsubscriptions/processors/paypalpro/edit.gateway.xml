@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+    <license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<types>
+		<type name="gateway_type" base="list" valuetype="string">
+			<option value="processors.paypalpro">Paypal Pro</option>
+		</type>
+		<type name="payment_method" base="list" valuetype="string">
+			<option value="paypalpro">Paypal Pro</option>
+		</type>
+	</types>
+	<views>
+		<view name="selectgatewayinformation" type="params" ui="admin">
+			<fieldset name="fieldset_getpaypalproLinks" label="Paypal Pro" description="Paypal Pro is a very popular payment services provider, available in 190 markets and supports payments in 24 currencies. This gateway supports only single and recurring payments.">
+				<param name="paypalproinfolink" type="spacer" label="Information about Paypal Pro" default="&lt;a target=&quot;_blank&quot; href=&quot;https://www.paypal.com/&quot; /&gt;&lt;strong&gt;Paypal Pro website&lt;/strong&gt;&lt;/a&gt;" />
+				<param name="paypalproaccountlink" type="spacer" label="Link to your free test-account with Paypal Pro" default="&lt;a target=&quot;_blank&quot; href=&quot;https://developer.paypal.com/&quot; /&gt;&lt;strong&gt;Click here to get your free test account with Paypal Pro now&lt;/strong&gt;&lt;/a&gt;" />
+			</fieldset>
+		</view>
+		<view name="paymentstatusinformation" type="params" ui="admin">
+			<showview view="paymentrefundbutton" mode="view" type="view" />
+		</view>
+		<view name="editgatewaypaypalpro" type="params" ui="admin">
+			<params name="params" type="params">
+				<if name="pspid" type="condition" operator="=" value="" valuetype="const:string">
+					<fieldset name="fieldset_getpaypalproLinks" label="Get your FREE Paypal Pro Test Account Now" description="If you do not have an Paypal Pro account with your Installation ID yet, please use the link below to get a free Paypal Pro test-account (available world-wide).">
+						<param name="paypalproaccountlink" type="spacer" label="Link to your free test-account with Paypal Pro" default="&lt;a target=&quot;_blank&quot; href=&quot;https://developer.paypal.com/&quot; /&gt;&lt;strong&gt;Click here to get your free test account with Paypal Pro now&lt;/strong&gt;&lt;/a&gt;" />
+					</fieldset>
+				</if>
+			</params>
+			<extend toxpathnode=".." fromxpathnode="/cbxml/views/view[@name=&quot;editgatewaypaypalprooem&quot;]/*" file="processors/paypalpro/edit.gateway.oem">
+				<replaces>
+					<replace attribute="label" from="{PSP}" to="Paypal Pro" translate="yes" />
+					<replace attribute="description" from="{PSP}" to="Paypal Pro" translate="yes" />
+					<replace attribute="default" from="{PSP}" to="Paypal Pro" translate="yes" />
+					<replace attribute="[DATA]" from="{PSP}" to="Paypal Pro" translate="yes" />
+					<replace attribute="description" from="{PSPPRODURL}" to="www.paypal.com" translate="no" />
+					<replace attribute="value" from="{PSPPRODURL}" to="www.paypal.com" translate="no" />
+					<replace attribute="value" from="{PSPTESTURL}" to="www.sandbox.paypal.com" translate="no" />
+				</replaces>
+			</extend>
+		</view>
+	</views>
+</cbxml>

@@ -1,0 +1,82 @@
+.cbPlugTitle-cbpaidsubscriptions-showtaxsettings {
+	background: url(icons/normal/calculator_48.gif) no-repeat left;
+}
+
+table.cbTAtaxrulesbrowser th.cbTHtaxrulesbrowser {
+	background: url(icons/normal/calculator_write_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showtaxrules, table.cbTAshowtaxrules th.cbTHshowtaxrules, .cbPlugTitle-cbpaidsubscriptions-edittaxrule {
+	background: url(icons/normal/calculator_write_48.gif) no-repeat left;
+}
+
+table.cbTAtaxratesbrowser th.cbTHtaxratesbrowser {
+	background: url(icons/normal/sign_percentage_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showtaxrates, table.cbTAshowtaxrates th.cbTHshowtaxrates, .cbPlugTitle-cbpaidsubscriptions-edittaxrate {
+	background: url(icons/normal/sign_percentage_48.gif) no-repeat left;
+}
+
+table.cbTAgeozonesbrowser th.cbTHgeozonesbrowser {
+	background: url(icons/normal/geography_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showgeozones, table.cbTAshowgeozones th.cbTHshowgeozones, .cbPlugTitle-cbpaidsubscriptions-editgeozone {
+	background: url(icons/normal/geography_48.gif) no-repeat left;
+}
+table.cbTAgeozoneentriesbrowser th.cbTHgeozoneentriesbrowser {
+	background: url(icons/normal/geography_up_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showgeozoneentries, table.cbTAshowgeozoneentries th.cbTHshowgeozoneentries, .cbPlugTitle-cbpaidsubscriptions-editgeozoneentry {
+	background: url(icons/normal/geography_up_48.gif) no-repeat left;
+}
+
+table.cbTAcountriesbrowser th.cbTHcountriesbrowser {
+	background: url(icons/normal/worldmap_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showcountries, table.cbTAshowcountries th.cbTHshowcountries, .cbPlugTitle-cbpaidsubscriptions-editcountry {
+	background: url(icons/normal/worldmap_48.gif) no-repeat left;
+}
+
+table.cbTAprovincesbrowser th.cbTHprovincesbrowser {
+	background: url(icons/normal/states_us_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showprovinces, table.cbTAshowprovinces th.cbTHshowprovinces, .cbPlugTitle-cbpaidsubscriptions-editprovince {
+	background: url(icons/normal/states_us_48.gif) no-repeat left;
+}
+
+table.cbTAtaxreportmonthlybrowser th.cbTHtaxreportmonthlybrowser {
+	background: url(icons/normal/taxman__spreadsheet_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showtaxreportmonthly, table.cbTAtaxreportmonthly th.cbTHtaxreportmonthly {
+	background: url(icons/normal/taxman__spreadsheet_48.gif) no-repeat left;
+}
+
+div.cbButtonMenuItem div.cbDIIMtaxsettings {
+	background: url(icons/normal/calculator_128.gif) no-repeat center;
+}
+
+div.cbButtonMenuItem div.cbDIIMtaxrules {
+	background: url(icons/normal/calculator_write_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMtaxrates {
+	background: url(icons/normal/sign_percentage_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMgeozones {
+	background: url(icons/normal/geography_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMcountries {
+	background: url(icons/normal/worldmap_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMprovinces {
+	background: url(icons/normal/states_us_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMtaxreportmonthly {
+	background: url(icons/normal/taxman__spreadsheet_128.gif) no-repeat center;
+}
+
+
+#cbfr_taxsettingsmenu strong {
+	font-weight: normal;
+}
+#cbfr_taxsettingsmenu strong ul li strong {
+	font-weight: bold;
+}

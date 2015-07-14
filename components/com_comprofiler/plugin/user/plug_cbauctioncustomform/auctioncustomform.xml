@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* Joomla Community Builder User Plugin: plug_cbauctioncustom
+* @version $Id$
+* @package plug_auctioncustom
+* @subpackage auctioncustom.xml
+* @final 1.0
+*/
+-->
+<cbinstall version="1.0.0" type="plugin" group="user">
+	<name>CB Auction Custom - Submit form</name>
+	<author>Neron</author>
+	<creationDate>2014-12-02</creationDate>
+	<copyright>(C) 2014 joomla.org</copyright>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<authorEmail>alekseikonstantinov@gmail.com</authorEmail>
+	<authorUrl>joomla.org</authorUrl>
+	<version>2.0.3</version>
+	<description>
+		Custom Auction Submit form plugin.
+	</description>
+	<files>
+		<filename plugin="auctioncustomform">auctioncustomform.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<params>
+		<param	name="acPlugEnabled" type="radio" label="Auction Custom Plugin Enabled" default="1" description="Specify Yes to enable auction custom plugin.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+	</params>
+	<tabs>
+		<tab name="Auction Quick Bid - Submit Form" description="Shows Quick Bids panel to submit bids for Consultations" class="getauctioncustomTab" fields="0" position="cb_tabmain" displaytype="tab">
+			<params>
+			</params>
+			<fields>
+			</fields>
+		</tab>
+	</tabs>
+	<install>
+		<queries>
+		</queries>
+	</install>
+	<uninstall>
+	</uninstall>
+</cbinstall>

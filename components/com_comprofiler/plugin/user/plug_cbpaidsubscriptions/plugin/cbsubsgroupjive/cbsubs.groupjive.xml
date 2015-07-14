@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0" type="plugin" group="user/plug_cbpaidsubscriptions/plugin"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		   xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<name>CBSubs GroupJive</name>
+	<author>Kyle (aka Krileon)</author>
+	<creationDate>2014-10-09</creationDate>
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<authorEmail>beat@joomlapolis.com</authorEmail>
+	<authorUrl>www.joomlapolis.com</authorUrl>
+	<version>2.0.0</version>
+	<release>4.0.0-rc.1</release>
+	<cbsubsversion version="4.0.0-rc.1" />
+	<description>CBSubs GroupJive integration plugin: Provides paid access integration between CBSubs plugin and GroupJive.</description>
+	<files>
+		<filename plugin="cbsubs.groupjive">cbsubs.groupjive.php</filename>
+		<filename>index.html</filename>
+	</files>
+    <params>
+    	<param name="remark"  type="spacer" label="Parameters settings"  default="Settings are done from within the paid subscriptions plugin in each plan/product." description="" />
+    </params>
+    <tabs>
+    </tabs>
+	<payintegration>
+		<tabpanetab name="integration_groupjive" label="GroupJive" description="">
+			<fieldset name="cbgjauto1" label="Auto 1" description="">
+				<param name="cbgj_auto_type1" type="list" default="" label="Type" description="Select type of auto. Type determines if groups are being joined, if a group is being created, or if a category is being created.">
+					<option value="">- Select Type -</option>
+					<option value="1">Join Groups</option>
+					<option value="2">New Group</option>
+					<option value="3">New Category</option>
+				</param>
+				<if name="cbgj_auto_type1" type="showhide" operator="!=" value="" valuetype="const:string">
+					<if name="cbgj_auto_type1" type="showhide" operator="=" value="1" valuetype="const:int">
+						<param name="cbgj_auto_usr_groups1" type="custom" class="getcbsubsgroupjiveTab" method="loadGJGroupsList" default="" label="Groups" description="Select groups to automatically join." />
+						<param name="cbgj_auto_usr_status1" type="list" default="1" label="Status" description="Select status of the user for the specified groups.">
+							<option value="-1">Banned</option>
+							<option value="0">Inactive</option>
+							<option value="1">Active</option>
+							<option value="2">Moderator</option>
+							<option value="3">Admin</option>
+							<option value="4">Owner</option>
+						</param>
+					</if>
+					<if name="cbgj_auto_type1" type="showhide" operator="=" value="2" valuetype="const:int">
+						<param name="cbgj_auto_grp_cat1" type="custom" class="getcbsubsgroupjiveTab" method="loadGJCategoryList" default="" label="Category" description="Select the category to create group in." />
+						<if name="cbgj_auto_grp_cat1" type="showhide" operator="=" value="-1" valuetype="const:int">
+							<param name="cbgj_auto_grp_cat_parent1" type="custom" class="getcbsubsgroupjiveTab" method="loadGJParentCategoryList" default="0" label="Category Parent" description="Optionally select parent category for new category." />
+							<param name="cbgj_auto_grp_cat_name1" type="text" size="40" default="" label="Category Name" description="Input substitution supported new category name (e.g. [username])." />
+							<param name="cbgj_auto_grp_cat_desc1" type="textarea" cols="40" rows="5" default="" label="Category Description" description="Optionally input substitution supported new category description (e.g. [name])." />
+							<param name="cbgj_auto_grp_cat_types1" type="multilist" default="1|*|2|*|3" size="4" label="Category Types" description="Select categorys available group types. Types determine the way a groups is joined (e.g. Invite requires new users to be invited to join a group).">
+								<option value="1">Open</option>
+								<option value="2">Approval</option>
+								<option value="3">Invite</option>
+							</param>
+							<param name="cbgj_auto_grp_cat_unique1" type="xml:yesno" default="1" label="Category Unique" description="Select if category should be unique to the user. When checking if group exists by name it will also check user id. If disabled only name is checked." />
+						</if>
+						<param name="cbgj_auto_grp_parent1" type="custom" class="getcbsubsgroupjiveTab" method="loadGJParentGroupsList" default="0" label="Parent" description="Optionally select parent group for new group." />
+					</if>
+					<if name="cbgj_auto_type1" type="showhide" operator="=" value="3" valuetype="const:int">
+						<param name="cbgj_auto_cat_parent1" type="custom" class="getcbsubsgroupjiveTab" method="loadGJParentCategoryList" default="0" label="Parent" description="Optionally select parent category for new category." />
+					</if>
+					<if name="cbgj_auto_type1" type="showhide" operator="regexp" value="2|3" valuetype="const:string">
+						<param name="cbgj_auto_name1" type="text" size="40" default="" label="Name" description="Input substitution supported new category or group name (e.g. [username]). Only applies to new categories and groups." />
+						<param name="cbgj_auto_desc1" type="textarea" cols="40" rows="5" default="" label="Description" description="Optionally input substitution supported new category or group description (e.g. [name]). Only applies to new categories and groups." />
+					</if>
+					<if name="cbgj_auto_type1" type="showhide" operator="=" value="2" valuetype="const:int">
+						<param name="cbgj_auto_grp_type1" type="list" default="1" label="Type" description="Select group type. Type determines the way your group is joined (e.g. Invite requires new users to be invited to join your group).">
+							<option value="1">Open</option>
+							<option value="2">Approval</option>
+							<option value="3">Invite</option>
+						</param>
+					</if>
+					<if name="cbgj_auto_type1" type="showhide" operator="=" value="3" valuetype="const:int">
+						<param name="cbgj_auto_cat_types1" type="multilist" default="1|*|2|*|3" size="4" label="Types" description="Select categorys available group types. Types determine the way a groups is joined (e.g. Invite requires new users to be invited to join a group).">
+							<option value="1">Open</option>
+							<option value="2">Approval</option>
+							<option value="3">Invite</option>
+						</param>
+					</if>
+					<if name="cbgj_auto_type1" type="showhide" operator="regexp" value="2|3" valuetype="const:string">
+						<param name="cbgj_auto_unique1" type="xml:yesno" default="1" label="Unique" description="Select if category or group should be unique to the user. When checking if group exists by name it will also check user id. If disabled only name is checked." />
+					</if>
+					<if name="cbgj_auto_type1" type="showhide" operator="=" value="2" valuetype="const:int">
+						<if name="cbgj_auto_unique1" type="showhide" operator="!=" value="1" valuetype="const:int">
+							<param name="cbgj_auto_grp_autojoin1" type="xml:yesno" default="1" label="Auto Join" description="Select if group should be automatically joined if duplicate found." />
+							<if name="cbgj_auto_grp_autojoin1" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="cbgj_auto_grp_usr_status1" type="list" default="1" label="Status" description="Select status of user automatically joining duplicate group.">
+									<option value="-1">Banned</option>
+									<option value="0">Inactive</option>
+									<option value="1">Active</option>
+									<option value="2">Moderator</option>
+									<option value="3">Admin</option>
+									<option value="4">Owner</option>
+								</param>
+							</if>
+						</if>
+					</if>
+					<param name="cbgj_auto_remove1" type="xml:yesno" default="0" label="Remove" description="Select if user should be removed from the specified groups, if created group should be delete, or if created category should be deleted on plan deactivation (expiration, cancellation, chargeback, etc). Note group owners can not be removed from their groups and deletion of group or category is dependent on group or category name; if name or owner is changed then deletion will not occur." />
+				</if>
+			</fieldset>
+			<fieldset name="cbgjauto2" label="Auto 2" description="">
+				<param name="cbgj_auto_type2" type="list" default="" label="Type" description="Select type of auto. Type determines if groups are being joined, if a group is being created, or if a category is being created.">
+					<option value="">- Select Type -</option>
+					<option value="1">Join Groups</option>
+					<option value="2">New Group</option>
+					<option value="3">New Category</option>
+				</param>
+				<if name="cbgj_auto_type2" type="showhide" operator="!=" value="" valuetype="const:string">
+					<if name="cbgj_auto_type2" type="showhide" operator="=" value="1" valuetype="const:int">
+						<param name="cbgj_auto_usr_groups2" type="custom" class="getcbsubsgroupjiveTab" method="loadGJGroupsList" default="" label="Groups" description="Select groups to automatically join." />
+						<param name="cbgj_auto_usr_status2" type="list" default="1" label="Status" description="Select status of the user for the specified groups.">
+							<option value="-1">Banned</option>
+							<option value="0">Inactive</option>
+							<option value="1">Active</option>
+							<option value="2">Moderator</option>
+							<option value="3">Admin</option>
+							<option value="4">Owner</option>
+						</param>
+					</if>
+					<if name="cbgj_auto_type2" type="showhide" operator="=" value="2" valuetype="const:int">
+						<param name="cbgj_auto_grp_cat2" type="custom" class="getcbsubsgroupjiveTab" method="loadGJCategoryList" default="" label="Category" description="Select the category to create group in." />
+						<if name="cbgj_auto_grp_cat2" type="showhide" operator="=" value="-1" valuetype="const:int">
+							<param name="cbgj_auto_grp_cat_parent2" type="custom" class="getcbsubsgroupjiveTab" method="loadGJParentCategoryList" default="0" label="Category Parent" description="Optionally select parent category for new category." />
+							<param name="cbgj_auto_grp_cat_name2" type="text" size="40" default="" label="Category Name" description="Input substitution supported new category name (e.g. [username])." />
+							<param name="cbgj_auto_grp_cat_desc2" type="textarea" cols="40" rows="5" default="" label="Category Description" description="Optionally input substitution supported new category description (e.g. [name])." />
+							<param name="cbgj_auto_grp_cat_types2" type="multilist" default="1|*|2|*|3" size="4" label="Category Types" description="Select categorys available group types. Types determine the way a groups is joined (e.g. Invite requires new users to be invited to join a group).">
+								<option value="1">Open</option>
+								<option value="2">Approval</option>
+								<option value="3">Invite</option>
+							</param>
+							<param name="cbgj_auto_grp_cat_unique2" type="xml:yesno" default="1" label="Category Unique" description="Select if category should be unique to the user. When checking if group exists by name it will also check user id. If disabled only name is checked." />
+						</if>
+						<param name="cbgj_auto_grp_parent2" type="custom" class="getcbsubsgroupjiveTab" method="loadGJParentGroupsList" default="0" label="Parent" description="Optionally select parent group for new group." />
+					</if>
+					<if name="cbgj_auto_type2" type="showhide" operator="=" value="3" valuetype="const:int">
+						<param name="cbgj_auto_cat_parent2" type="custom" class="getcbsubsgroupjiveTab" method="loadGJParentCategoryList" default="0" label="Parent" description="Optionally select parent category for new category." />
+					</if>
+					<if name="cbgj_auto_type2" type="showhide" operator="regexp" value="2|3" valuetype="const:string">
+						<param name="cbgj_auto_name2" type="text" size="40" default="" label="Name" description="Input substitution supported new category or group name (e.g. [username]). Only applies to new categories and groups." />
+						<param name="cbgj_auto_desc2" type="textarea" cols="40" rows="5" default="" label="Description" description="Optionally input substitution supported new category or group description (e.g. [name]). Only applies to new categories and groups." />
+					</if>
+					<if name="cbgj_auto_type2" type="showhide" operator="=" value="2" valuetype="const:int">
+						<param name="cbgj_auto_grp_type2" type="list" default="1" label="Type" description="Select group type. Type determines the way your group is joined (e.g. Invite requires new users to be invited to join your group).">
+							<option value="1">Open</option>
+							<option value="2">Approval</option>
+							<option value="3">Invite</option>
+						</param>
+					</if>
+					<if name="cbgj_auto_type2" type="showhide" operator="=" value="3" valuetype="const:int">
+						<param name="cbgj_auto_cat_types2" type="multilist" default="1|*|2|*|3" size="4" label="Types" description="Select categorys available group types. Types determine the way a groups is joined (e.g. Invite requires new users to be invited to join a group).">
+							<option value="1">Open</option>
+							<option value="2">Approval</option>
+							<option value="3">Invite</option>
+						</param>
+					</if>
+					<if name="cbgj_auto_type2" type="showhide" operator="regexp" value="2|3" valuetype="const:string">
+						<param name="cbgj_auto_unique2" type="xml:yesno" default="1" label="Unique" description="Select if category or group should be unique to the user. When checking if group exists by name it will also check user id. If disabled only name is checked." />
+					</if>
+					<if name="cbgj_auto_type2" type="showhide" operator="=" value="2" valuetype="const:int">
+						<if name="cbgj_auto_unique2" type="showhide" operator="!=" value="1" valuetype="const:int">
+							<param name="cbgj_auto_grp_autojoin2" type="xml:yesno" default="1" label="Auto Join" description="Select if group should be automatically joined if duplicate found." />
+							<if name="cbgj_auto_grp_autojoin2" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="cbgj_auto_grp_usr_status2" type="list" default="1" label="Status" description="Select status of user automatically joining duplicate group.">
+									<option value="-1">Banned</option>
+									<option value="0">Inactive</option>
+									<option value="1">Active</option>
+									<option value="2">Moderator</option>
+									<option value="3">Admin</option>
+									<option value="4">Owner</option>
+								</param>
+							</if>
+						</if>
+					</if>
+					<param name="cbgj_auto_remove2" type="xml:yesno" default="0" label="Remove" description="Select if user should be removed from the specified groups, if created group should be delete, or if created category should be deleted on plan deactivation (expiration, cancellation, chargeback, etc). Note group owners can not be removed from their groups and deletion of group or category is dependent on group or category name; if name or owner is changed then deletion will not occur." />
+				</if>
+			</fieldset>
+			<fieldset name="cbgjauto3" label="Auto 3" description="">
+				<param name="cbgj_auto_type3" type="list" default="" label="Type" description="Select type of auto. Type determines if groups are being joined, if a group is being created, or if a category is being created.">
+					<option value="">- Select Type -</option>
+					<option value="1">Join Groups</option>
+					<option value="2">New Group</option>
+					<option value="3">New Category</option>
+				</param>
+				<if name="cbgj_auto_type3" type="showhide" operator="!=" value="" valuetype="const:string">
+					<if name="cbgj_auto_type3" type="showhide" operator="=" value="1" valuetype="const:int">
+						<param name="cbgj_auto_usr_groups3" type="custom" class="getcbsubsgroupjiveTab" method="loadGJGroupsList" default="" label="Groups" description="Select groups to automatically join." />
+						<param name="cbgj_auto_usr_status3" type="list" default="1" label="Status" description="Select status of the user for the specified groups.">
+							<option value="-1">Banned</option>
+							<option value="0">Inactive</option>
+							<option value="1">Active</option>
+							<option value="2">Moderator</option>
+							<option value="3">Admin</option>
+							<option value="4">Owner</option>
+						</param>
+					</if>
+					<if name="cbgj_auto_type3" type="showhide" operator="=" value="2" valuetype="const:int">
+						<param name="cbgj_auto_grp_cat3" type="custom" class="getcbsubsgroupjiveTab" method="loadGJCategoryList" default="" label="Category" description="Select the category to create group in." />
+						<if name="cbgj_auto_grp_cat3" type="showhide" operator="=" value="-1" valuetype="const:int">
+							<param name="cbgj_auto_grp_cat_parent3" type="custom" class="getcbsubsgroupjiveTab" method="loadGJParentCategoryList" default="0" label="Category Parent" description="Optionally select parent category for new category." />
+							<param name="cbgj_auto_grp_cat_name3" type="text" size="40" default="" label="Category Name" description="Input substitution supported new category name (e.g. [username])." />
+							<param name="cbgj_auto_grp_cat_desc3" type="textarea" cols="40" rows="5" default="" label="Category Description" description="Optionally input substitution supported new category description (e.g. [name])." />
+							<param name="cbgj_auto_grp_cat_types3" type="multilist" default="1|*|2|*|3" size="4" label="Category Types" description="Select categorys available group types. Types determine the way a groups is joined (e.g. Invite requires new users to be invited to join a group).">
+								<option value="1">Open</option>
+								<option value="2">Approval</option>
+								<option value="3">Invite</option>
+							</param>
+							<param name="cbgj_auto_grp_cat_unique3" type="xml:yesno" default="1" label="Category Unique" description="Select if category should be unique to the user. When checking if group exists by name it will also check user id. If disabled only name is checked." />
+						</if>
+						<param name="cbgj_auto_grp_parent3" type="custom" class="getcbsubsgroupjiveTab" method="loadGJParentGroupsList" default="0" label="Parent" description="Optionally select parent group for new group." />
+					</if>
+					<if name="cbgj_auto_type3" type="showhide" operator="=" value="3" valuetype="const:int">
+						<param name="cbgj_auto_cat_parent3" type="custom" class="getcbsubsgroupjiveTab" method="loadGJParentCategoryList" default="0" label="Parent" description="Optionally select parent category for new category." />
+					</if>
+					<if name="cbgj_auto_type3" type="showhide" operator="regexp" value="2|3" valuetype="const:string">
+						<param name="cbgj_auto_name3" type="text" size="40" default="" label="Name" description="Input substitution supported new category or group name (e.g. [username]). Only applies to new categories and groups." />
+						<param name="cbgj_auto_desc3" type="textarea" cols="40" rows="5" default="" label="Description" description="Optionally input substitution supported new category or group description (e.g. [name]). Only applies to new categories and groups." />
+					</if>
+					<if name="cbgj_auto_type3" type="showhide" operator="=" value="2" valuetype="const:int">
+						<param name="cbgj_auto_grp_type3" type="list" default="1" label="Type" description="Select group type. Type determines the way your group is joined (e.g. Invite requires new users to be invited to join your group).">
+							<option value="1">Open</option>
+							<option value="2">Approval</option>
+							<option value="3">Invite</option>
+						</param>
+					</if>
+					<if name="cbgj_auto_type3" type="showhide" operator="=" value="3" valuetype="const:int">
+						<param name="cbgj_auto_cat_types3" type="multilist" default="1|*|2|*|3" size="4" label="Types" description="Select categorys available group types. Types determine the way a groups is joined (e.g. Invite requires new users to be invited to join a group).">
+							<option value="1">Open</option>
+							<option value="2">Approval</option>
+							<option value="3">Invite</option>
+						</param>
+					</if>
+					<if name="cbgj_auto_type3" type="showhide" operator="regexp" value="2|3" valuetype="const:string">
+						<param name="cbgj_auto_unique3" type="xml:yesno" default="1" label="Unique" description="Select if category or group should be unique to the user. When checking if group exists by name it will also check user id. If disabled only name is checked." />
+					</if>
+					<if name="cbgj_auto_type3" type="showhide" operator="=" value="2" valuetype="const:int">
+						<if name="cbgj_auto_unique3" type="showhide" operator="!=" value="1" valuetype="const:int">
+							<param name="cbgj_auto_grp_autojoin3" type="xml:yesno" default="1" label="Auto Join" description="Select if group should be automatically joined if duplicate found." />
+							<if name="cbgj_auto_grp_autojoin3" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="cbgj_auto_grp_usr_status3" type="list" default="1" label="Status" description="Select status of user automatically joining duplicate group.">
+									<option value="-1">Banned</option>
+									<option value="0">Inactive</option>
+									<option value="1">Active</option>
+									<option value="2">Moderator</option>
+									<option value="3">Admin</option>
+									<option value="4">Owner</option>
+								</param>
+							</if>
+						</if>
+					</if>
+					<param name="cbgj_auto_remove3" type="xml:yesno" default="0" label="Remove" description="Select if user should be removed from the specified groups, if created group should be delete, or if created category should be deleted on plan deactivation (expiration, cancellation, chargeback, etc). Note group owners can not be removed from their groups and deletion of group or category is dependent on group or category name; if name or owner is changed then deletion will not occur." />
+				</if>
+			</fieldset>
+			<fieldset name="cbgjauto4" label="Auto 4" description="">
+				<param name="cbgj_auto_type4" type="list" default="" label="Type" description="Select type of auto. Type determines if groups are being joined, if a group is being created, or if a category is being created.">
+					<option value="">- Select Type -</option>
+					<option value="1">Join Groups</option>
+					<option value="2">New Group</option>
+					<option value="3">New Category</option>
+				</param>
+				<if name="cbgj_auto_type4" type="showhide" operator="!=" value="" valuetype="const:string">
+					<if name="cbgj_auto_type4" type="showhide" operator="=" value="1" valuetype="const:int">
+						<param name="cbgj_auto_usr_groups4" type="custom" class="getcbsubsgroupjiveTab" method="loadGJGroupsList" default="" label="Groups" description="Select groups to automatically join." />
+						<param name="cbgj_auto_usr_status4" type="list" default="1" label="Status" description="Select status of the user for the specified groups.">
+							<option value="-1">Banned</option>
+							<option value="0">Inactive</option>
+							<option value="1">Active</option>
+							<option value="2">Moderator</option>
+							<option value="3">Admin</option>
+							<option value="4">Owner</option>
+						</param>
+					</if>
+					<if name="cbgj_auto_type4" type="showhide" operator="=" value="2" valuetype="const:int">
+						<param name="cbgj_auto_grp_cat4" type="custom" class="getcbsubsgroupjiveTab" method="loadGJCategoryList" default="" label="Category" description="Select the category to create group in." />
+						<if name="cbgj_auto_grp_cat4" type="showhide" operator="=" value="-1" valuetype="const:int">
+							<param name="cbgj_auto_grp_cat_parent4" type="custom" class="getcbsubsgroupjiveTab" method="loadGJParentCategoryList" default="0" label="Category Parent" description="Optionally select parent category for new category." />
+							<param name="cbgj_auto_grp_cat_name4" type="text" size="40" default="" label="Category Name" description="Input substitution supported new category name (e.g. [username])." />
+							<param name="cbgj_auto_grp_cat_desc4" type="textarea" cols="40" rows="5" default="" label="Category Description" description="Optionally input substitution supported new category description (e.g. [name])." />
+							<param name="cbgj_auto_grp_cat_types4" type="multilist" default="1|*|2|*|3" size="4" label="Category Types" description="Select categorys available group types. Types determine the way a groups is joined (e.g. Invite requires new users to be invited to join a group).">
+								<option value="1">Open</option>
+								<option value="2">Approval</option>
+								<option value="3">Invite</option>
+							</param>
+							<param name="cbgj_auto_grp_cat_unique4" type="xml:yesno" default="1" label="Category Unique" description="Select if category should be unique to the user. When checking if group exists by name it will also check user id. If disabled only name is checked." />
+						</if>
+						<param name="cbgj_auto_grp_parent4" type="custom" class="getcbsubsgroupjiveTab" method="loadGJParentGroupsList" default="0" label="Parent" description="Optionally select parent group for new group." />
+					</if>
+					<if name="cbgj_auto_type4" type="showhide" operator="=" value="3" valuetype="const:int">
+						<param name="cbgj_auto_cat_parent4" type="custom" class="getcbsubsgroupjiveTab" method="loadGJParentCategoryList" default="0" label="Parent" description="Optionally select parent category for new category." />
+					</if>
+					<if name="cbgj_auto_type4" type="showhide" operator="regexp" value="2|3" valuetype="const:string">
+						<param name="cbgj_auto_name4" type="text" size="40" default="" label="Name" description="Input substitution supported new category or group name (e.g. [username]). Only applies to new categories and groups." />
+						<param name="cbgj_auto_desc4" type="textarea" cols="40" rows="5" default="" label="Description" description="Optionally input substitution supported new category or group description (e.g. [name]). Only applies to new categories and groups." />
+					</if>
+					<if name="cbgj_auto_type4" type="showhide" operator="=" value="2" valuetype="const:int">
+						<param name="cbgj_auto_grp_type4" type="list" default="1" label="Type" description="Select group type. Type determines the way your group is joined (e.g. Invite requires new users to be invited to join your group).">
+							<option value="1">Open</option>
+							<option value="2">Approval</option>
+							<option value="3">Invite</option>
+						</param>
+					</if>
+					<if name="cbgj_auto_type4" type="showhide" operator="=" value="3" valuetype="const:int">
+						<param name="cbgj_auto_cat_types4" type="multilist" default="1|*|2|*|3" size="4" label="Types" description="Select categorys available group types. Types determine the way a groups is joined (e.g. Invite requires new users to be invited to join a group).">
+							<option value="1">Open</option>
+							<option value="2">Approval</option>
+							<option value="3">Invite</option>
+						</param>
+					</if>
+					<if name="cbgj_auto_type4" type="showhide" operator="regexp" value="2|3" valuetype="const:string">
+						<param name="cbgj_auto_unique4" type="xml:yesno" default="1" label="Unique" description="Select if category or group should be unique to the user. When checking if group exists by name it will also check user id. If disabled only name is checked." />
+					</if>
+					<if name="cbgj_auto_type4" type="showhide" operator="=" value="2" valuetype="const:int">
+						<if name="cbgj_auto_unique4" type="showhide" operator="!=" value="1" valuetype="const:int">
+							<param name="cbgj_auto_grp_autojoin4" type="xml:yesno" default="1" label="Auto Join" description="Select if group should be automatically joined if duplicate found." />
+							<if name="cbgj_auto_grp_autojoin4" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="cbgj_auto_grp_usr_status4" type="list" default="1" label="Status" description="Select status of user automatically joining duplicate group.">
+									<option value="-1">Banned</option>
+									<option value="0">Inactive</option>
+									<option value="1">Active</option>
+									<option value="2">Moderator</option>
+									<option value="3">Admin</option>
+									<option value="4">Owner</option>
+								</param>
+							</if>
+						</if>
+					</if>
+					<param name="cbgj_auto_remove4" type="xml:yesno" default="0" label="Remove" description="Select if user should be removed from the specified groups, if created group should be delete, or if created category should be deleted on plan deactivation (expiration, cancellation, chargeback, etc). Note group owners can not be removed from their groups and deletion of group or category is dependent on group or category name; if name or owner is changed then deletion will not occur." />
+				</if>
+			</fieldset>
+			<fieldset name="cbgjauto5" label="Auto 5" description="">
+				<param name="cbgj_auto_type5" type="list" default="" label="Type" description="Select type of auto. Type determines if groups are being joined, if a group is being created, or if a category is being created.">
+					<option value="">- Select Type -</option>
+					<option value="1">Join Groups</option>
+					<option value="2">New Group</option>
+					<option value="3">New Category</option>
+				</param>
+				<if name="cbgj_auto_type5" type="showhide" operator="!=" value="" valuetype="const:string">
+					<if name="cbgj_auto_type5" type="showhide" operator="=" value="1" valuetype="const:int">
+						<param name="cbgj_auto_usr_groups5" type="custom" class="getcbsubsgroupjiveTab" method="loadGJGroupsList" default="" label="Groups" description="Select groups to automatically join." />
+						<param name="cbgj_auto_usr_status5" type="list" default="1" label="Status" description="Select status of the user for the specified groups.">
+							<option value="-1">Banned</option>
+							<option value="0">Inactive</option>
+							<option value="1">Active</option>
+							<option value="2">Moderator</option>
+							<option value="3">Admin</option>
+							<option value="4">Owner</option>
+						</param>
+					</if>
+					<if name="cbgj_auto_type5" type="showhide" operator="=" value="2" valuetype="const:int">
+						<param name="cbgj_auto_grp_cat5" type="custom" class="getcbsubsgroupjiveTab" method="loadGJCategoryList" default="" label="Category" description="Select the category to create group in." />
+						<if name="cbgj_auto_grp_cat5" type="showhide" operator="=" value="-1" valuetype="const:int">
+							<param name="cbgj_auto_grp_cat_parent5" type="custom" class="getcbsubsgroupjiveTab" method="loadGJParentCategoryList" default="0" label="Category Parent" description="Optionally select parent category for new category." />
+							<param name="cbgj_auto_grp_cat_name5" type="text" size="40" default="" label="Category Name" description="Input substitution supported new category name (e.g. [username])." />
+							<param name="cbgj_auto_grp_cat_desc5" type="textarea" cols="40" rows="5" default="" label="Category Description" description="Optionally input substitution supported new category description (e.g. [name])." />
+							<param name="cbgj_auto_grp_cat_types5" type="multilist" default="1|*|2|*|3" size="4" label="Category Types" description="Select categorys available group types. Types determine the way a groups is joined (e.g. Invite requires new users to be invited to join a group).">
+								<option value="1">Open</option>
+								<option value="2">Approval</option>
+								<option value="3">Invite</option>
+							</param>
+							<param name="cbgj_auto_grp_cat_unique5" type="xml:yesno" default="1" label="Category Unique" description="Select if category should be unique to the user. When checking if group exists by name it will also check user id. If disabled only name is checked." />
+						</if>
+						<param name="cbgj_auto_grp_parent5" type="custom" class="getcbsubsgroupjiveTab" method="loadGJParentGroupsList" default="0" label="Parent" description="Optionally select parent group for new group." />
+					</if>
+					<if name="cbgj_auto_type5" type="showhide" operator="=" value="3" valuetype="const:int">
+						<param name="cbgj_auto_cat_parent5" type="custom" class="getcbsubsgroupjiveTab" method="loadGJParentCategoryList" default="0" label="Parent" description="Optionally select parent category for new category." />
+					</if>
+					<if name="cbgj_auto_type5" type="showhide" operator="regexp" value="2|3" valuetype="const:string">
+						<param name="cbgj_auto_name5" type="text" size="40" default="" label="Name" description="Input substitution supported new category or group name (e.g. [username]). Only applies to new categories and groups." />
+						<param name="cbgj_auto_desc5" type="textarea" cols="40" rows="5" default="" label="Description" description="Optionally input substitution supported new category or group description (e.g. [name]). Only applies to new categories and groups." />
+					</if>
+					<if name="cbgj_auto_type5" type="showhide" operator="=" value="2" valuetype="const:int">
+						<param name="cbgj_auto_grp_type5" type="list" default="1" label="Type" description="Select group type. Type determines the way your group is joined (e.g. Invite requires new users to be invited to join your group).">
+							<option value="1">Open</option>
+							<option value="2">Approval</option>
+							<option value="3">Invite</option>
+						</param>
+					</if>
+					<if name="cbgj_auto_type5" type="showhide" operator="=" value="3" valuetype="const:int">
+						<param name="cbgj_auto_cat_types5" type="multilist" default="1|*|2|*|3" size="4" label="Types" description="Select categorys available group types. Types determine the way a groups is joined (e.g. Invite requires new users to be invited to join a group).">
+							<option value="1">Open</option>
+							<option value="2">Approval</option>
+							<option value="3">Invite</option>
+						</param>
+					</if>
+					<if name="cbgj_auto_type5" type="showhide" operator="regexp" value="2|3" valuetype="const:string">
+						<param name="cbgj_auto_unique5" type="xml:yesno" default="1" label="Unique" description="Select if category or group should be unique to the user. When checking if group exists by name it will also check user id. If disabled only name is checked." />
+					</if>
+					<if name="cbgj_auto_type5" type="showhide" operator="=" value="2" valuetype="const:int">
+						<if name="cbgj_auto_unique5" type="showhide" operator="!=" value="1" valuetype="const:int">
+							<param name="cbgj_auto_grp_autojoin5" type="xml:yesno" default="1" label="Auto Join" description="Select if group should be automatically joined if duplicate found." />
+							<if name="cbgj_auto_grp_autojoin5" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="cbgj_auto_grp_usr_status5" type="list" default="1" label="Status" description="Select status of user automatically joining duplicate group.">
+									<option value="-1">Banned</option>
+									<option value="0">Inactive</option>
+									<option value="1">Active</option>
+									<option value="2">Moderator</option>
+									<option value="3">Admin</option>
+									<option value="4">Owner</option>
+								</param>
+							</if>
+						</if>
+					</if>
+					<param name="cbgj_auto_remove5" type="xml:yesno" default="0" label="Remove" description="Select if user should be removed from the specified groups, if created group should be delete, or if created category should be deleted on plan deactivation (expiration, cancellation, chargeback, etc). Note group owners can not be removed from their groups and deletion of group or category is dependent on group or category name; if name or owner is changed then deletion will not occur." />
+				</if>
+			</fieldset>
+		</tabpanetab>
+	</payintegration>
+	<install>
+    	<queries>
+    	</queries>
+    </install>
+    <uninstall>
+        <queries>
+    	</queries>
+    </uninstall>
+	<database>
+	</database>
+</cbinstall>

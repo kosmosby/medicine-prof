@@ -1,0 +1,795 @@
+// File specific variables
+$queryWidthAdmin: 767px;
+
+// Overrides for default backend template
+fieldset label {
+  float: none;
+  clear: none;
+  margin: 0;
+}
+
+input, textarea {
+  &, &:focus {
+    background-color: white;
+  }
+}
+
+table {
+  a, a:link, a:visited {
+    color: #025A8D; //darken($linkColor, 20%);
+  }
+  a:hover {
+    color: $linkColorHover;
+  }
+}
+
+// j3.0 overrides
+.form-horizontal .control-label {
+  width: 140px;
+  text-align: right;
+}
+
+/* To avoid ugly white borders due to background images expecting a white background */
+.pagination-legacy {
+  .button2-right div,
+  .button2-left div,
+  .button2-right,
+  .button2-left,
+  a {
+    border-radius: 5px;
+  }
+
+  .button2-right div {
+    border-radius: 5px;
+  }
+
+  .limit select {
+    vertical-align: 1%;
+    font-size: inherit;
+  }
+}
+
+.pagination-toolbar {
+  a {
+    color: $linkColor;
+    cursor: pointer;
+  }
+  //J!3.0 pagination fix
+  .page span,
+  a {
+    line-height: 20px;
+  }
+  .disabled {
+    @include opacity(100);
+
+    a {
+      color: #999;
+      background-color: white;
+    }
+  }
+  .limit {
+    float: left;
+    height: 30px;
+    margin: 0 10px;
+
+    &.pull-right {
+      float: right;
+    }
+
+    select {
+      height: 28px;
+      margin: 1px 0;
+      @include box-sizing(border-box);
+    }
+  }
+}
+
+/* fixing a width problem */
+#files-paginator-container {
+  width: auto;
+}
+
+// Custom add and remove buttons
+.koowa-text-icon-button {
+  font-size: 14px !important;
+  font-weight: bold;
+  line-height: 14px;
+  padding: 2px 8px 3px;
+}
+
+// Tables
+.docman_table_container {
+  width: 100%;
+  height: auto;
+  overflow: auto;
+
+  .koowa_header__image {
+    width: 16px;
+    max-width: 16px;
+    height: auto;
+    max-height: 16px;
+    display: inline-block;
+  }
+}
+
+table tr th.whitespace,
+table tr td.whitespace {
+  white-space: normal !important;
+}
+
+table tr .docman_table__title_field,
+table tr .docman_table__category_field {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  min-width: 150px;
+  vertical-align: middle;
+}
+
+table tr td .overflow_ellipsis {
+  display: block;
+  max-width: 150px;
+  min-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  // IE7 + IE8 specific classes
+  overflow: auto\9;
+  white-space: normal\9;
+}
+
+///* Missioncontrol pagination styling */
+#mc-component & .pagination {
+  div.limit {
+    float: left;
+    height: 22px;
+    margin: 0 5px;
+    color: hsl(0, 0%, 40%);
+    text-shadow: 1px 1px 0 white;
+    font-size: 12px;
+    line-height: 20px;
+
+    select {
+      height: 1.8em;
+      margin-top: 0.1em;
+      font-size: 1em;
+    }
+  }
+
+  .button2-left,
+  .button2-right {
+    float: left;
+    font-size: 12px;
+    margin-left: 2px;
+    margin-right: 0px;
+
+    a,
+    span,
+    .page {
+      display: block;
+      float: left;
+      cursor: pointer;
+      height: auto;
+      padding: 3px 8px;
+      background: hsl(0, 0%, 36%);
+      color: white;
+      font-size: 12px;
+      line-height: 13px;
+      border-radius: 4px;
+    }
+
+    &.off {
+      opacity: 0.5;
+
+      a {
+        cursor: default;
+        text-decoration: none;
+      }
+    }
+
+    .page {
+      padding: 0 7px;
+      cursor: default;
+
+      a,
+      span {
+        background: none;
+        padding: 3px 7px;
+        margin: 0;
+      }
+
+      span {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+form {
+  margin-bottom: 0; // Bootstrap override
+}
+
+.table td {
+  vertical-align: middle; // Bootstrap override
+
+  // Override select boxes in tables
+  select {
+    width: auto;
+    line-height: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+& #files-app,
+.docman-container {
+  background-color: #FFF;
+  border: 1px solid darken(#F4F4F4, 10%);
+  @include border-radius(2px);
+  @include clearfix();
+}
+
+.spacing {
+  padding: 20px;
+}
+
+.document-form {
+  background-color: $grayLighter;
+  border: 1px solid darken($grayLighter, 10%);
+  padding: 10px;
+  @include border-radius(5px);
+}
+
+.form-actions {
+  margin: 0;
+}
+
+.help-info {
+  height: $baseLineHeight;
+  padding: 4px;
+  font-size: $baseFontSize;
+  line-height: $baseLineHeight;
+  color: $gray;
+
+  display: inline-block;
+  margin-bottom: 0;
+  @include ie7-inline-block();
+}
+
+//For the affix plugin
+.docman-container {
+  position: relative;
+}
+
+#documents-sidebar,
+#files-sidebar {
+  border-right: 1px solid $tableBorder;
+  border-bottom: 1px solid $tableBorder;
+  margin-bottom: -1px;
+}
+
+.koowa_dialog__child__content__box {
+  #documents-sidebar,
+  #files-sidebar {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+}
+
+.koowa_dialog #documents-sidebar,
+.koowa_dialog #files-sidebar {
+  border-right: none;
+}
+
+#documents-sidebar {
+  $sidebarTransitionDuration: 300ms;
+  $sidebarTransitionEase: ease; //ease
+
+  .sidebar-inner {
+    background-color: #f5f5f5;
+  }
+
+  .sidebar-panel {
+    overflow: hidden;
+    min-height: 0;
+    position: relative;
+    @include transition(all 0ms $sidebarTransitionEase);
+
+    &.transition-enabled {
+      @include transition-duration($sidebarTransitionDuration);
+    }
+
+    &.sidebar-panel-closed {
+      border-bottom-width: 0px !important;
+    }
+  }
+
+  ul.sidebar-nav {
+    background: white;
+  }
+
+  #categories-tree {
+    background: white;
+    max-height: 300px;
+    border-bottom: 1px solid #ddd;
+
+    ul.sidebar-nav {
+      border-bottom: none;
+    }
+  }
+
+  .documents-filters form .controls {
+    padding-bottom: 5px;
+
+    label {
+      text-align: center;
+      font-weight: bold;
+    }
+
+    input.custom_amount {
+      text-align: center;
+    }
+
+    button.active {
+      background: #ddd;
+      box-shadow: inset 0 0 2px rgba(0, 0, 0, .15);
+    }
+  }
+
+  //For the affix plugin
+  &.affix {
+    top: 0px;
+  }
+  &.affix-bottom {
+    position: absolute;
+    top: auto !important;
+    bottom: 0px;
+    left: 0px !important;
+  }
+  &.affix-top {
+    .documents-filters {
+      bottom: 0px;
+    }
+  }
+
+  h3 {
+    background-color: $grayLighter;
+    padding: 3px 8px 3px 5px;
+    line-height: 18px;
+    border-bottom: 1px solid $tableBorder;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #666;
+    text-shadow: white 0 1px 0;
+    margin: 0;
+    position: relative;
+    cursor: pointer;
+
+    &:hover {
+      background-color: darken($grayLighter, 4%);
+    }
+    &:active {
+      background-color: darken($grayLighter, 6%);
+    }
+
+    /* for the close/open feature */
+    &:before {
+      display: inline-block;
+      margin-right: 4px;
+      font-size: 10px;
+      @include transition(all $sidebarTransitionDuration $sidebarTransitionEase);
+    }
+    &.closed,
+    &.open {
+      &:before {
+        font-family: 'koowa';
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+
+        /* Better Font Rendering =========== */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+
+        font-size: 12px;
+        display: inline-block;
+        content: '\e615';
+        margin-left: 5px;
+        margin-right: 8px;
+      }
+    }
+    &.open {
+      &:before {
+        @include rotate(90deg); // IE8 styles on the bottom of this file
+      }
+    }
+  }
+
+  .documents-filters {
+    h4 {
+      font-size: 12px;
+      padding: 10px 10px 10px 10px;
+      margin: 0 0 0 0;
+    }
+    .controls {
+      padding: 10px;
+      background-color: $formActionsBackground;
+    }
+    > .controls {
+      border-right: 1px solid white;
+    }
+
+    label, input, select {
+      font-size: 11px;
+    }
+    input, select {
+      padding: 2px;
+    }
+    select {
+      height: 24px;
+      margin-bottom: 0;
+      width: 100% !important;
+    }
+    label {
+      margin-bottom: 0px;
+      padding: 3px 2px;
+    }
+    #search_date_img {
+      padding: 2px 5px;
+    }
+
+    #day_range {
+      width: auto;
+    }
+  }
+
+  @media screen and (max-width: $queryWidthAdmin) {
+    .sidebar-inner {
+      border: none;
+    }
+
+    .documents-filters {
+      position: static !important;
+    }
+  }
+}
+
+/* $group Scope Bar */
+.scopebar {
+  min-height: 22px;
+  font-size: 10px;
+  line-height: normal;
+  padding: 3px;
+  border-bottom: 1px solid #DBDBDB;
+  @include gradient-vertical(#F2F2F2, #E9E9E9);
+
+  .scopebar-group {
+    display: block;
+    float: left;
+    border-right: 1px solid #BBB;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 5px;
+    margin-right: 5px;
+    margin-top: 2px;
+    position: relative;
+    z-index: 1; //For the search part to not make links unclickable
+
+    &.last {
+      border-right: 0 none;
+      margin-right: 0;
+    }
+
+    select {
+      background: transparent;
+      padding: 2px 0 2px 5px;
+      font-size: 10px;
+      line-height: 10px;
+      height: 15px;
+      width: 90px;
+      overflow: hidden;
+      margin: 0;
+      margin-top: -2px;
+      -webkit-appearance: none;
+      box-shadow: inset hsla(0, 0%, 100%, 0.6) 0 1px 0, hsla(0, 0%, 100%, 0.6) 0 1px 0;
+      @include border-radius(10px);
+    }
+
+    a {
+      margin: 0 2px;
+      padding: 2px 7px;
+      font-weight: bold;
+      color: #363636;
+      text-transform: capitalize;
+      text-shadow: hsla(0, 0%, 100%, 0.75) 0 1px 0;
+    }
+
+    a:hover,
+    a.active {
+      text-decoration: none;
+      background: #A0A0A0;
+      color: #FFF;
+      text-shadow: hsla(0, 0%, 0%, 0.35) 0 1px 0;
+      @include border-radius(10px);
+    }
+
+    a.active,
+    a:hover:active {
+      @include box-shadow(inset hsla(0, 0%, 20%, 0.8) 0px 1px 2px, white 0 1px 0);
+    }
+
+    a:hover:active {
+      background: gray;
+    }
+  }
+
+  .scopebar-search {
+    margin-left: 25px;
+    text-align: right;
+    position: relative;
+
+    input {
+      height: 16px;
+    }
+  }
+}
+
+.koowa_dialog__child__content {
+  .scopebar {
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    border: none;
+    position: absolute;
+    top: 4px;
+    right: 3px;
+    z-index: 99;
+    height: 29px;
+    padding-right: 0;
+
+    .scopebar-search {
+      margin: 0;
+
+      label {
+        top: 2px;
+      }
+
+      input {
+        margin: 0;
+      }
+    }
+  }
+}
+
+/* $end */
+
+///* $group Tags styling */
+.tagsinput .tag {
+  margin: 2px;
+  position: relative;
+  padding-right: 18px;
+  color: $textColor;
+  font-family: Arial, Helvetica, sans-serif;
+  @include user-select(none);
+
+  $closeBtnColor: mix($textColor, $btnBorder, 20%);
+
+  .remove-tag {
+    display: block;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    bottom: 3px;
+    margin: 0px;
+    padding: 2px;
+    font-size: 1.6em;
+    line-height: 0.625em;
+    text-shadow: none;
+    font-weight: normal;
+    color: $closeBtnColor;
+    background-color: transparent;
+    @include border-radius(2px);
+  }
+
+  &:hover .remove-tag {
+    color: white;
+    background-color: $closeBtnColor;
+    @include transition(background-color .1s linear);
+  }
+  &:active .remove-tag {
+    color: white;
+    background-color: darken($closeBtnColor, 10%);
+  }
+}
+
+///* $end */
+/* $group Config screen */
+#extension_groups {
+  li {
+    list-style: none;
+    padding: 5px 0;
+  }
+  span {
+    font-size: 10px;
+  }
+}
+
+/* $end */
+
+///* $group Modal styling for file details */
+&.modal-inspector {
+  position: relative;
+  background-color: white;
+  margin: 20px auto;
+  max-width: 400px;
+
+  .docman_file_modal {
+    padding: 10px;
+  }
+
+  hr {
+    border-top-color: lighten($textColor, 60%);
+    //$TODO make mixin of mask css
+    -webkit-mask-box-image: -webkit-linear-gradient(left, transparent, black, black, transparent);
+    margin: 10px 0 0;
+  }
+  hr.last {
+    margin: 0 0 10px;
+  }
+
+  .preview {
+    text-align: center;
+    padding: 0;
+  }
+  .parameters,
+  .documents {
+    border: none;
+
+    tr, td {
+      border: none;
+      color: $textColor;
+
+      white-space: normal !important;
+      @include wrap_words();
+    }
+
+    td.detail-label {
+      font-weight: bold;
+    }
+
+    .detail-label {
+      text-align: right;
+      color: lighten($textColor, 30%);
+      white-space: nowrap !important;
+    }
+  }
+  .documents {
+    thead, thead tr, thead tr td {
+      background: none;
+    }
+  }
+  h3 {
+    font-size: 12px;
+    color: lighten($textColor, 15%);
+    margin: 0;
+    line-height: 27px;
+  }
+}
+
+///* $end */
+
+///* $group Breadcrumb customization */
+.breadcrumb-resizable {
+  overflow: hidden;
+  margin: 0;
+  padding: 2.5px 0px;
+  line-height: 18px;
+
+  li {
+    max-height: 23px;
+    display: inline-block;
+    overflow: hidden;
+    @include user-select(none);
+    cursor: pointer;
+    padding: 0;
+
+    span {
+      display: inline-block;
+      overflow: visible;
+      vertical-align: top;
+      padding: 0 2px;
+    }
+
+    //For later
+    //-webkit-mask: -webkit-linear-gradient(right, rgba(0, 0, 0, 0), black 10px);
+
+    &.active {
+      cursor: default;
+    }
+
+    span.divider {
+      padding: 0 2px 0 0;
+    }
+
+    &.overflow-ellipsis {
+      text-overflow: ellipsis;
+    }
+
+    &:active {
+      color: $grayLight;
+    }
+
+    &:first-child span {
+      padding-left: 0px;
+    }
+    &:last-child span {
+      padding-right: 0px;
+    }
+  }
+}
+
+///* $end */
+
+// Give the files modal a nice font
+.com_files {
+  font-family: sans-serif;
+  font-size: 14px;
+
+  h3 {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
+// Align icons in categories table
+.docman_categories_table {
+  [class^="koowa_icon--"],
+  [class*=" koowa_icon--"],
+  .koowa_header__image_container {
+    margin: 0 5px;
+  }
+}
+
+// IE8 styles for the arrows in front of h3's
+.old-ie {
+  h3.open:before {
+    content: '\e612' !important;
+  }
+}
+
+// Fixing a btn-group bug on joomla 2.5
+.btn-group .thumbnail-none {
+  float: none !important;
+}
+
+// adding |_ to categories
+.docman_categories_table {
+  td.docman_table__title_field {
+
+    .koowa_wrapped_content {
+      position: relative;
+    }
+
+    .docman_category_title {
+      &:before {
+        content: " ";
+        display: block;
+        width: 6px;
+        height: 6px;
+        border-left: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        position: absolute;
+        top: 50%;
+        left: -2em;
+        margin-top: -.25em;
+      }
+    }
+
+    &.level1 .docman_category_title:before {
+      display: none;
+    }
+  }
+}

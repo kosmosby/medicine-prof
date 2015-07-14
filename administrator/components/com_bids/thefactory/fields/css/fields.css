@@ -1,0 +1,35 @@
+#categories_overlay
+{
+    z-index: 1000000;
+    position: absolute;
+   /* top: 3%;*/
+/*    left: 3%;*/
+    width: 94%;
+    height: 94%;
+    background-color: gray;
+    opacity:.40;
+    filter: alpha(opacity=40);    
+    padding-top:40%;
+ /*   padding-left:30px;*/
+    font-size: 130%;
+    font-weight: bolder;
+    color: #ffff00;
+}
+.pane-down
+{
+    position: relative;
+}
+fieldset label, fieldset span.faux-label
+{
+    clear:none !important;
+    min-width: 50px !important;
+}
+.hasTip img{
+    float: none;
+}
+.fields-delete-button, .fields-edit-button{
+    cursor: pointer;
+}
+#field-reload-options{
+    cursor: pointer;
+}

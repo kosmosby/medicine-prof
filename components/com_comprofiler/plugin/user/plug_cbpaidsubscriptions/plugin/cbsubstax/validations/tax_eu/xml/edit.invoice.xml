@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" type="plugin" group="user/plug_cbpaidsubscriptions/plugin"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<editinvoiceintegration>
+		<!-- That node is needed, so that xpath /cbxml/editinvoiceintegration/ is not empty: -->
+		<comment />
+	</editinvoiceintegration>
+
+	<editinvoicevalidationintegration>
+		<if name="payer_business_name" type="showhide" operator="!=" value="" valuetype="const:string">
+			<if name="address_country_code" operator="regexp" value="^AT|BE|BG|CY|CZ|DE|DK|EE|GR|ES|FI|FR|GB|HU|IE|IT|LT|LU|LV|MT|NL|PL|PT|RO|SE|SI|SK$" valuetype="const:string" type="condition">
+				<param name="vat_number" type="text" size="" default="" validate="eu_taxnumber">
+					<attributes>
+						<attribute name="label" transform="raw">
+							<param name="label" type="text" default="EU VAT number (start with {address_country_code})" />
+							<replaces>
+								<replace attribute="label"       from="{address_country_code}" to="address_country_code" type="datavalue:string" translate="no" />
+								<replace attribute="label"       from="EU VAT number (start with GR)" to="EU VAT number (start with EL)" translate="no" />
+							</replaces>
+						</attribute>
+						<attribute name="description" mode="edit" transform="raw">
+							<param name="description" type="text" default="This is your EU intra-communitary VAT number starting with your 2-letters country prefix (except &quot;EL&quot; instead of &quot;GR&quot; for Greece)." />
+						</attribute>
+					</attributes>
+				</param>
+			</if>
+			<if name="address_country_code" operator="!regexp" value="^AT|BE|BG|CY|CZ|DE|DK|EE|GR|ES|FI|FR|GB|HU|IE|IT|LT|LU|LV|MT|NL|PL|PT|RO|SE|SI|SK$" valuetype="const:string" type="condition">
+				<param name="vat_number" type="text" size="" default="" label="VAT number" description="" />
+			</if>
+			<else action="set" name="vat_number" value="" type="const:string" />
+		</if>
+	</editinvoicevalidationintegration>
+	
+</cbxml>

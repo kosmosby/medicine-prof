@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <groups name="fieldgroup1" label="General">
+        <fieldset name="date_time" label="Date / Time Options">
+            <field name="bid_opt_date_format" type="dateformat" default="" label="Default Date format" />
+            <field name="bid_opt_date_time_format" type="timeformat" default="" label="Default Time format" />
+        </fieldset>
+        <fieldset name="listing_settings" label="Display Settings">
+            <field name="bid_opt_nr_items_per_page" type="text" label="Auctions per page"/>
+            <field name="bid_opt_enable_countdown" type="checkbox" value="1" label="Enable countdown"/>
+            <field name="bid_opt_number_decimals" type="text" label="No. of decimals" size="1" />
+            <field name="bid_opt_decimal_separator" type="text" label="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;decimal separator"
+                   size="1" />
+            <field name="bid_opt_thousand_separator" type="text" label="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;thousand separator"
+                   size="1" />
+            <field name="bid_opt_max_nr_tags" type="text" label="Max no. of tags"/>
+        </fieldset>
+        <fieldset name="category_settings" label="Category Settings">
+            <field name="bid_opt_inner_categories" type="checkbox" value="1" label="Search in sub-categories" description="Search will also look for results in sub-categories of the chosen category"/>
+            <field name="bid_opt_leaf_posting_only" type="checkbox" value="1" label="Post only in &quot;Last&quot; categories" description="Only categories with no sub-categories will be available to post auctions into"/>
+        </fieldset>
+        <fieldset name="messaging_settings" label="Messaging settings">
+            <field name="bid_opt_allow_messages" type="radio" label="Allow messages between bidders and auctioneers">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </field>
+            <field name="bid_opt_allow_guest_messaging" type="radio" label="Allow Guest messages">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </field>
+        </fieldset>
+        <fieldset name="rss_settings" label="RSS settings">
+            <field name="bid_opt_RSS_nritems" type="text" label="Nr Items in RSS" />
+            <field name="bid_opt_RSS_feedtype" type="list" label="RSS Feed Type">
+                <option value="RSS2.0">RSS2.0</option>
+                <option value="RSS1.0">RSS1.0</option>
+                <option value="RSS0.91">RSS0.91</option>
+                <option value="PIE0.1">PIE0.1</option>
+                <option value="MBOX">MBOX</option>
+                <option value="OPML">OPML</option>
+                <option value="ATOM">ATOM</option>
+                <option value="ATOM0.3">ATOM0.3</option>
+            </field>
+            <field name="bid_opt_RSS_title" type="text" label="RSS Title" />
+            <field name="bid_opt_RSS_description" type="textarea" label="RSS Description" />
+        </fieldset>
+        <fieldset name="cron" label="CRON Settings">
+            <field name="bid_opt_cron_password" type="text" label="CRON password" />
+        </fieldset>
+    </groups>
+    <groups name="fieldgroup2a" label="Workflow">
+        <fieldset name="flow_settings" label="Set up the way new Auctions are published">
+            <field name="bid_opt_category_page" type="workflow" default="quick" label="New Auction posting process"
+                   description="Category will be chosen first, then the auction form will be available">
+            </field>
+        </fieldset>
+    </groups>
+    <groups name="fieldgroup2" label="Auction">
+        <fieldset name="auction_types" label="Auction Types">
+            <field name="bid_opt_global_enable_private" type="radio" label="Enable Private auctions">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </field>
+            <field name="bid_opt_global_enable_reserve_price" type="radio" label="Enable Reserve price for auctions">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </field>
+            <field name="bid_opt_allow_proxy" type="radio" label="Allow Proxy Bidding (automatic bidding)">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </field>
+            <field name="bid_opt_automatic_auction_default" type="radio" label="Automatic Auctions">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </field>
+            <field name="bid_opt_automatic_auction_select" type="checkbox" label="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Allow sellers override" />
+            <field name="bid_opt_manual_accept_before_end" type="radio" label="Allow seller to accept bids before auction ends" description="Appliable for NON-automatic PUBLIC and PRIVATE auctions">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </field>
+        </fieldset>
+        <fieldset name="bin_settings" label="BIN">
+            <field name="bid_opt_global_enable_bin" type="radio" label="Enable BIN Price for public auctions">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </field>
+            <field name="bid_opt_enable_bin_only" type="radio" label="Enable BIN Only auction type">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </field>
+            <field name="bin_opt_price_suggestion" type="radio" label="Enable Price Suggestion for BIN ONLY auctions">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </field>
+            <field name="bin_opt_limit_suggestions" type="text" label="Suggestion Limit"/>
+            <field name="bid_opt_quantity_enabled" type="radio" label="Enable number of items for BIN Only Auctions">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </field>
+        </fieldset>
+        <fieldset name="min_increase" label="Min Increase">
+            <field name="bid_opt_min_increase" type="text" label="Default Minimum Increase"/>
+            <field name="bid_opt_min_increase_select" type="radio" label="Allow sellers to define min increase">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </field>
+            <field name="bid_opt_range_increment" type="booleanmodal" label="Enable range min increase" setupURL="index.php?option=com_bids&amp;task=increments.listing&amp;tmpl=component">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </field>
+        </fieldset>
+        <fieldset name="user_options" label="User Options">
+            <field name="bid_opt_allow_user_settings" type="radio" label="Allow Users to save auctions as &lt;em&gt;default&lt;/em&gt;" description="Some auction fields will be saved and next time these fields will be prefilled with default values">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </field>
+            <field name="bid_opt_allow_import" type="radio" label="Allow users to import from CSV">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </field>
+            <field type="spacer" />
+            <field name="bid_opt_fblikebutton" type="radio" label="Facebook &quot;Like&quot; button" description="Show a Facebook &quot;Like&quot; button on auction detail page and on user profile page">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </field>
+            <field name="bid_opt_allowpaypal" type="radio" label="Allow PayPal linking" description="Auction's winner can use seller's PayPal address to pay">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </field>
+        </fieldset>
+        <fieldset name="auto_extend" label="Auto Extend">
+            <field name="bid_opt_auto_extent" type="radio" label="Enable auto extending"
+                   description="If a bid is received in your limit of time until expiring the auction will be automatically extended with the extension time, both settings configurable bellow">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </field>
+            <field name="bid_opt_auto_extent_limit" type="selectperiod"
+                   label="Extend Auction if bid is placed within this time before auction ending"
+                   description="If a bid is received in your limit of time limit until expiring the auction will be automatically extended"/>
+            <field name="bid_opt_auto_extent_offset" type="selectperiod"
+                   label="Extend auction with this amount of time"/>
+            <field name="bid_opt_auto_extent_nobids" type="selectperiod" label="Extend auctions with no bids"/>
+        </fieldset>
+        <fieldset name="availability_options" label="Availability Options">
+            <field name="bid_opt_enable_hour" type="checkbox" value="1" label="Define auction Time"/>
+            <field name="bid_opt_availability" type="text" label="Max. Months of availability for an auction" />
+            <field name="bid_opt_enable_date" type="radio" label="Allow Users to specify Auction End Date" description="Enable end date selection">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </field>
+            <field name="bid_opt_default_period" type="text" label="Default auction availability period (Days)" description="" />
+            <field name="bid_opt_proxy_default_period" type="text" label="Availability period for proxy auctions" description="" />
+            <field name="bid_opt_bin_default_period" type="text" label="Availability period for auctions BIN" description="" />
+            <field name="bid_opt_reserve_price_default_period" type="text" label="Availability for auctions with Reserve price" description="" />
+            <field name="bid_opt_archive" type="selectperiod" label="Time before archived auction to be deleted" />
+        </fieldset>
+        <fieldset name="shipping_settings" label="Shipping">
+            <field name="bid_opt_multiple_shipping" type="booleanmodal" label="Multiple shipping prices" description=""
+                   setupURL="index.php?option=com_bids&amp;task=shipping.listing&amp;tmpl=component">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </field>
+        </fieldset>
+    </groups>
+    <groups name="fieldgroup3" label="Images">
+        <fieldset name="image_settings" label="Auction Listing Images">
+            <field name="gd_version" type="infogdversion" />
+		</fieldset>
+        <fieldset name="listing_image_settings" label="Listing Options">
+            <field name="bid_opt_max_picture_size" type="text" default="1024" size="6" label="Maximum picture size"
+                description="Maximum size allowed for uploaded pictures"/>
+            <field name="bid_opt_maxnr_images" type="text" default="3" size="3" label="Max Nr of Images per listing"
+                description="Maximum allowed images per listing"/>
+            <field name="bid_opt_require_picture" type="checkbox" default="1" value="1" label="Require Main Picture for listing"
+                description="The main Picture is required for all new listings"/>
+            <field name="bid_opt_gallery" type="gallerylist" label="Choose Gallery Type"
+                description="Choose from Available Galleries"/>
+		</fieldset>
+        <fieldset name="image_thumb" label="Thumbnail Settings">
+            <field name="bid_opt_thumb_width" type="text" default="50" size="5" label="Image thumb width resize"
+                description="Image thumbnail will be resized to this width"/>
+            <field name="bid_opt_thumb_height" type="text" default="50" size="5" label="Image thumb height resize"
+                description="Image thumbnail will be resized to this height"/>
+        </fieldset>
+        <fieldset name="image_medium" label="Medium Image Settings">
+            <field name="bid_opt_medium_width" type="text" default="500" size="5" label="Medium Image width resize"
+                description="Image will be resized to this width"/>
+            <field name="bid_opt_medium_height" type="text" default="500" size="5" label="Medium Image height resize"
+                description="Image will be resized to this height"/>
+        </fieldset>
+    </groups>
+    <groups name="fieldgroup5" label="ACL">
+        <fieldset name="acl_settings" label="Auction Listing Images">
+            <field name="bid_opt_enable_acl" type="checkbox" default="0" value="1" label="Enable ACL (Access Control List)"
+                description="Enabling this feature will allow you to select specific groups that can bid or publish auctions"/>
+            <field name="bid_opt_bidder_groups" type="usergroup" default="" multiple="true" size="10" label="Bidder Groups"
+                description="Choose the Groups that are allowed to bid"/>
+            <field name="bid_opt_seller_groups" type="usergroup" default="" multiple="true" size="10" label="Seller Groups"
+                description="Choose the Groups that are allowed to post Auctions"/>
+		</fieldset>
+    </groups>
+    <groups name="fieldgroup6" label="Anti Spam">
+        <fieldset name="spam_recaptcha_settings" label="reCaptcha Settings">
+            <field name="bid_opt_enable_captcha" type="checkbox" default="0" value="1" label="Enable Captcha"
+                description="Enabling this feature will protect you from spam posts"/>
+            <field name="bid_opt_recaptcha_public_key" type="text" default="" size="50" label="ReCaptcha public key (&lt;a href='http://www.google.com/recaptcha' target='_blank'&gt;Get it here&lt;/a&gt;)"
+                description=""/>
+            <field name="bid_opt_recaptcha_private_key" type="text" default="" size="50" label="ReCaptcha private key"
+                description=""/>
+            <field name="bid_opt_recaptcha_theme" type="list" default="" label="ReCaptcha Theme"
+                    description="">
+                <option value="red">Red</option>
+                <option value="white">White</option>
+                <option value="blackglass">Backglass</option>
+                <option value="clean">Clean</option>
+            </field>
+		</fieldset>
+        <fieldset name="spam_email_settings" label="Email Spam Protection">
+            <field name="enable_antispam_bot" type="checkbox" default="0" value="1" label="Enable Email Spam protection"
+                description=""/>
+            <field name="choose_antispam_bot" type="list" default="" label="Choose Email Spam plugin"
+                    description="">
+                <option value="joomla">Joomla</option>
+                <option value="smarty">Smarty</option>
+                <option value="recaptcha">reCaptcha</option>
+            </field>
+            <field name="mailcaptcha_public_key" type="text" default="" size="50" label="MailCaptcha public key (&lt;a href='http://www.google.com/recaptcha/mailhide/apikey' target='_blank'&gt;Get it here&lt;/a&gt;)"
+                description=""/>
+            <field name="mailcaptcha_private_key" type="text" default="" size="50" label="MailCaptcha private key"
+                description=""/>
+        </fieldset>
+
+    </groups>
+    <groups name="fieldgroup7" label="Terms&amp;Conditions">
+        <fieldset name="terms_and_conditions_settings" label="Terms and Conditions Text" hidelabel="1">
+            <field name="terms_and_conditions" type="editor" filter="safehtml" label="Terms and Conditions HTML"
+                description=""/>
+        </fieldset>
+    </groups>
+    <groups name="fieldgroup8" label="System Info">
+        <fieldset name="system_info" label="System Information" hidelabel="1">
+            <field name="system_info" type="systeminfo"  label="System Info" hidelabel="1"
+                description=""/>
+        </fieldset>
+        <fieldset name="cache_info" label="Cache Information" hidelabel="1">
+            <field name="cache_info" type="cacheinfo"  label="Cache Info/Management" hidelabel="1"
+                description=""/>
+        </fieldset>
+    </groups>
+</form>

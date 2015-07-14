@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<code>OSE Member Management Code:201006231645</code>
+	<classes>
+		<class path="" extend="test">member</class>
+	</classes>
+	
+	<files>
+		<file path="" extend="test">oseMemEmail.php</file>
+		<file path="" extend="test">oseMemHistroy.php</file>
+		<file path="" extend="test">oseMemPanelView.php</file>
+		<file path="" extend="test">oseMemGroup.php</file>
+		<file path="" extend="test">oseMemUser.php</file>
+	</files>
+	
+</document>

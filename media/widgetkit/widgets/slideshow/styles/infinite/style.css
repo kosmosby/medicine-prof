@@ -1,0 +1,161 @@
+/* Widgetkit Slideshow: Infinite Style */
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-infinite #nav-wrapper { 
+	position: absolute;
+	z-index: 4;
+	bottom: 3%;
+	left: 0;
+	right: 0;
+	text-align: center;
+}
+
+.wk-slideshow-infinite .nav li {
+	display: inline-block;
+	margin-left: 5px;
+}
+
+.wk-slideshow-infinite .nav li:first-child { margin-left: 0; }
+
+.wk-slideshow-infinite .nav span {
+	width: 20px;
+	height: 20px;
+	opacity: 0.5;
+	background-image: url(images/nav.png);
+	background-repeat: no-repeat;
+	overflow: hidden;
+}
+
+.wk-slideshow-infinite .nav span:hover,
+.wk-slideshow-infinite .nav .active span,
+.wk-slideshow-infinite .nav .active span:hover { opacity: 0.95; }
+
+.wk-slideshow-infinite .nav span:hover { background-position: 0 -30px; }
+
+.wk-slideshow-infinite .nav .active span { background-position: 0 -60px; }
+.wk-slideshow-infinite .nav .active span:hover { background-position: 0 -90px; }
+
+
+/* Buttons
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-infinite > div { position: relative; }
+
+.wk-slideshow-infinite > div .next,
+.wk-slideshow-infinite > div .prev {
+	opacity: 0.7;
+	top: 49%;
+	width: 66px;
+	height: 66px;
+	margin-top: -16px;
+	background-image: url(images/buttons.png);
+	background-repeat: no-repeat;
+
+}
+
+.wk-slideshow-infinite > div .next {
+	right: 80px; 
+	background-position: 0 0; 
+}
+
+.wk-slideshow-infinite > div .prev { 
+	left: 80px;
+	background-position: 0 -200px; 
+}
+
+.wk-slideshow-infinite > div .next:hover,
+.wk-slideshow-infinite > div .prev:hover { opacity: 1; }
+
+.wk-slideshow-infinite > div .next:hover { background-position: 0 -100px; }
+.wk-slideshow-infinite > div .prev:hover { background-position: 0 -300px; }
+
+
+/* Captions
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-infinite .caption {
+	bottom: 10%;
+	left: 18%;
+	right: 25%;
+	background: none;
+}
+
+.wk-ie .wk-slideshow-infinite .caption { filter: none !important; }
+
+.wk-slideshow-infinite .caption h1,
+.wk-slideshow-infinite .caption h1 + span {
+	float: left;
+	margin-left: 5%;
+	padding: 12px 20px;
+}
+
+.wk-slideshow-infinite .caption h1 {
+	margin-top: 6px;
+	background: url(images/raster_bg.png) 0 0 repeat;
+	color: #FFF;
+	text-transform: none;
+}
+
+.wk-slideshow-infinite .caption h1 + span {
+	background: url(images/raster_bg.png) 0 0 repeat;
+	clear: both;
+	font-size: 30px;
+	line-height: 31px;
+}
+
+
+/* Responsive
+----------------------------------------------------------------------------------------------------*/
+
+/* Only Touch Devices */
+@media (max-device-width: 1024px) {
+
+	.wk-slideshow-infinite .next,
+	.wk-slideshow-infinite .prev { display: none; }
+
+}
+
+/* Only Phones */
+@media (max-width: 767px) {
+
+	.wk-slideshow-infinite .caption { bottom: 20%; }
+
+}
+
+/* Only Phones (Landscape) */
+@media (min-width: 480px) and (max-width: 767px) {
+
+	.wk-slideshow-infinite .caption h1, 
+	.wk-slideshow-infinite .caption h1 + span { padding: 6px 8px;}
+
+	.wk-slideshow-infinite .caption h1 { 
+		font-size: 25px;
+		line-height: 27px;
+	}
+
+	.wk-slideshow-infinite .caption h1 + span {
+		font-size: 23px;
+		line-height: 25px;
+	}
+
+}
+
+/* Only Phones (Portrait) */
+@media (max-width: 479px) {
+
+	.wk-slideshow-infinite .caption h1, 
+	.wk-slideshow-infinite .caption h1 + span { padding: 3px 6px;}
+
+	.wk-slideshow-infinite .caption h1 { 
+		font-size: 17px;
+		line-height: 19px;
+	}
+
+	.wk-slideshow-infinite .caption h1 + span {
+		font-size: 15px;
+		line-height: 17px;
+	}
+
+}

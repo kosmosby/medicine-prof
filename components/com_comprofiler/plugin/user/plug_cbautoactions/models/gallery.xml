@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../../../validation/ahawow.xsd">
+	<types>
+		<type name="autoaction_type" base="xml:autoaction_type">
+			<option value="gallery">CB Gallery</option>
+		</type>
+		<type name="autoaction_triggers" base="xml:autoaction_triggers">
+			<optgroup label="CB Gallery">
+				<option value="gallery_onAfterCreateFolder">After Create Folder</option>
+				<option value="gallery_onAfterCreateItem">After Create Item</option>
+				<option value="gallery_onAfterDeleteFolder">After Delete Folder</option>
+				<option value="gallery_onAfterDeleteItem">After Delete Item</option>
+				<option value="gallery_onAfterUpdateFolder">After Update Folder</option>
+				<option value="gallery_onAfterUpdateItem">After Update Item</option>
+				<option value="gallery_onBeforeCreateFolder">Before Create Folder</option>
+				<option value="gallery_onBeforeCreateItem">Before Create Item</option>
+				<option value="gallery_onBeforeDeleteFolder">Before Delete Folder</option>
+				<option value="gallery_onBeforeDeleteItem">Before Delete Item</option>
+				<option value="gallery_onBeforeDisplayFiles">Before Display Files</option>
+				<option value="gallery_onBeforeDisplayFolder">Before Display Folder</option>
+				<option value="gallery_onBeforeDisplayFolders">Before Display Folders</option>
+				<option value="gallery_onBeforeDisplayItems">Before Display Items</option>
+				<option value="gallery_onBeforeDisplayMusic">Before Display Music</option>
+				<option value="gallery_onBeforeDisplayPhotos">Before Display Photos</option>
+				<option value="gallery_onBeforeDisplayTab">Before Display Tab</option>
+				<option value="gallery_onBeforeDisplayVideos">Before Display Videos</option>
+				<option value="gallery_onBeforeFolderEdit">Before Folder Edit</option>
+				<option value="gallery_onBeforeItemEdit">Before Item Edit</option>
+				<option value="gallery_onBeforeUpdateFolder">Before Update Folder</option>
+				<option value="gallery_onBeforeUpdateItem">Before Update Item</option>
+				<option value="gallery_onLoadFolders">Load Folders</option>
+				<option value="gallery_onLoadItems">Load Items</option>
+			</optgroup>
+		</type>
+	</types>
+	<views>
+		<view name="actiontype_gallery" type="params" ui="admin">
+			<param name="" type="spacer" display="2lines" label="" default="Creates gallery linked items and folders." />
+			<if name="" nametype="data:int" operator="=" value="1" valuetype="const:int" type="condition">
+				<left>
+					<param name="" type="private" class="cbautoactionsActionGallery" method="installed" />
+				</left>
+				<then>
+					<params name="gallery" type="params" repeat="true" label="" display="2lines">
+						<param name="mode" type="list" default="item" translate-default="no" label="Mode" description="Select the gallery action mode.">
+							<option value="item">Item</option>
+							<option value="folder">Folder</option>
+						</param>
+						<param name="type" type="list" default="photo" label="Type" blanktext="" description="Select the gallery type.">
+							<option value="photos">Photo</option>
+							<option value="videos">Video</option>
+							<option value="music">Music</option>
+							<option value="files">File</option>
+						</param>
+						<if name="mode" nametype="param:string" operator="=" value="item" valuetype="const:string" type="showhide">
+							<param name="value" type="text" label="File" description="Input substitution supported item file link." size="50" validate="required" />
+						</if>
+						<param name="title" type="text" label="Title" description="Optionally input substitution supported title." size="50" />
+						<param name="description" type="textarea" rows="5" label="Description" description="Optionally input substitution supported description." cssclass="input-block" />
+						<param name="owner" type="text" label="Owner" size="5" description="Input substitution supported owner as single integer user_id. Leave blank to use trigger user as the owner." />
+					</params>
+				</then>
+				<else>
+					<param name="" type="spacer" display="2lines" label="" default="CB Gallery installation not found!" />
+				</else>
+			</if>
+		</view>
+	</views>
+</cbxml>

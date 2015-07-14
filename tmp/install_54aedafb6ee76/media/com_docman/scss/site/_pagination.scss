@@ -1,0 +1,18 @@
+// Pagination
+.pagination ul {
+  vertical-align: middle;
+  display: inline-block;
+  margin-right: 16px;
+}
+
+.pagination .limit {
+  margin-right: 5px;
+  float: left;
+  padding: 0 14px;
+  border-top: 1px solid transparent;
+}
+
+.pagination .limit select {
+  width: auto;
+  margin-bottom: 4px;
+}

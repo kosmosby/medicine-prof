@@ -1,0 +1,110 @@
+/*
+ * Widgetkit Slideshow: Showroom Style
+ */
+
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-showroom .nav {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	height: 18px;
+	z-index: 2;
+}
+
+.wk-slideshow-showroom .nav li {
+	position: relative;
+	display: inline-block;
+	margin-left: 19px;
+}
+
+.wk-slideshow-showroom .nav li:first-child { margin-left: 0; }
+
+.wk-slideshow-showroom .nav li span:before {
+	content: "";
+	position: absolute;
+	right: 18px;
+	top: 7px;
+	width: 15px;
+	height: 2px;
+	background: url(images/nav_li_before.png) 0 0 no-repeat;
+}
+
+.wk-slideshow-showroom .nav li:first-child span:before { background: none; }
+
+.wk-slideshow-showroom .nav span {
+	width: 16px;
+	height: 16px;
+	background: url(images/nav.png) 0 0 no-repeat;
+}
+
+.wk-slideshow-showroom .nav span:hover { background-image: url(images/nav_hover.png); }
+.wk-slideshow-showroom .nav span:active { background-image: url(images/nav_active.png); }
+.wk-slideshow-showroom .nav .active span { background-image: url(images/nav_active.png); }
+
+
+/* Buttons
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-showroom > div { position: relative; }
+
+.wk-slideshow-showroom > div .next,
+.wk-slideshow-showroom > div .prev {
+	top: 50%;
+	width: 40px;
+	height: 40px;
+	margin-top: -40px;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	opacity: 0;
+}
+
+.wk-slideshow-showroom > div:hover .next {
+	right: 30px;
+	background-image: url(images/button_right.png);
+	opacity: 0.7;
+}
+
+.wk-slideshow-showroom > div .next:hover { opacity: 1; }
+
+.wk-slideshow-showroom > div:hover .prev {
+	left: 30px;
+	background-image: url(images/button_left.png);
+	opacity: 0.7;
+}
+
+.wk-slideshow-showroom > div .prev:hover { opacity: 1; }
+
+.wk-slideshow-showroom .caption {
+	right: auto;
+    margin: 30px;
+}
+
+/* Responsive
+----------------------------------------------------------------------------------------------------*/
+
+/* Only Touch Devices */
+@media (max-device-width: 1024px) {
+
+	.wk-slideshow-showroom .next,
+	.wk-slideshow-showroom .prev { display: none; }
+
+}
+
+/* Animation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-showroom > div:hover .next,
+.wk-slideshow-showroom > div:hover .prev,
+.wk-slideshow-showroom > div .next,
+.wk-slideshow-showroom > div .prev {
+	-webkit-transition: opacity 0.2s linear;
+	-moz-transition: opacity 0.2s linear;
+	transition: opacity 0.2s linear;
+}
+
+.wk-slideshow-showroom .nav span:hover {
+	-moz-transition: opacity 0.2s ease-in-out;
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="editgateway" type="params" ui="admin" label="Payment gateway settings" description="">
+			<toolbarmenu>
+				<menu name="save"    action="save"   task="savePlugin" link="cb_action:show_gateways" label="Save" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="apply "  action="apply"  task="applyPlugin"  label="Apply" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="back"    action="back"   href=""             label="Back" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="close"   action="linkAction" task="cancel" link="cb_action:show_gateways" label="Close" />
+			</toolbarmenu>
+			<if name="gateway_type" operator="=" value="" valuetype="const:string" type="condition">
+				<param type="spacer" label="Please choose type of payment gateway first:" />
+			</if>
+			<if name="gateway_type" operator="=" value="" valuetype="const:string" type="condition">
+				<extend toxpathnode="/cbxml/types/type[@name=&quot;gateway_type&quot;]" fromxpathnode="/*/types/type[@name=&quot;gateway_type&quot;]/option" file="processors/*/edit.gateway" />
+				<extend toxpathnode=".." fromxpathnode="/*/views/view[@name=&quot;selectgatewayinformation&quot;]/*" file="processors/*/edit.gateway" mandatory="false" />
+				<param name="gateway_type" type="xml:gateway_type" default="" blanktext="--- Choose type ---" hideblanktext="true" label="Type of gateway" description="You can choose the type of product to use" onchange="evaluate" />
+				<param name="gatewaytypesheader" type="spacer" label="Short descriptions of supported payment gateways and our partner links so that you can get runing quickly" default=" " />
+			</if>
+			<if name="gateway_type" operator="!=" value="" valuetype="const:string" type="condition">
+				<param name="gateway_type" type="hidden" class="cbregHidden" />
+				
+				<extend toxpathnode="/cbxml/types/type[@name=&quot;gateway_type&quot;]" fromxpathnode="/*/types/type[@name=&quot;gateway_type&quot;]/option" file="{gateway_type}/edit.gateway" />
+				<extend toxpathnode="/cbxml/views" fromxpathnode="/*/views/view" file="{gateway_type}/edit.gateway" />
+				
+				<showview name="gateway_settings" view="editgateway{gateway_type}" />
+			</if>
+		</view>
+	</views>
+</cbxml>

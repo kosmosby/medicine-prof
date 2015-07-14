@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="file" method="upgrade" judlplugintype="field">
+    <name>Core Description</name>
+    <author>JoomUltra</author>
+    <creationDate>18 July 2014</creationDate>
+    <authorEmail>admin@joomultra.com</authorEmail>
+    <version>1.0</version>
+    <license>GNU/GPL</license>
+    <website>http://www.joomultra.com</website>
+    <description></description>
+    <folder>core_description</folder>
+    <core>1</core>
+    <default>1</default>
+    <fileset>
+        <files target="components/com_judownload/fields/core_description">
+            <file>core_description.xml</file>
+            <file>core_description.php</file>
+            <file>index.html</file>
+            <folder>tmpl</folder>
+        </files>
+    </fileset>
+    <config>
+        <field
+                name="width"
+                type="text"
+                default="400"
+                label="COM_JUDOWNLOAD_FIELD_WIDTH_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_WIDTH_DESC"
+                />
+
+        <field
+                name="height"
+                type="text"
+                default="300"
+                label="COM_JUDOWNLOAD_FIELD_HEIGHT_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_HEIGHT_DESC"
+                />
+
+        <field
+                name="cols"
+                type="text"
+                default="50"
+                label="COM_JUDOWNLOAD_FIELD_COLS_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_COLS_DESC"
+                />
+
+        <field
+                name="rows"
+                type="text"
+                default="5"
+                label="COM_JUDOWNLOAD_FIELD_ROWS_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_ROWS_DESC"
+                />
+
+        <field
+                name="use_editor_back_end"
+                type="radio"
+                default="0"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_USE_EDITOR_BACK_END_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_USE_EDITOR_BACK_END_DESC"
+                >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field
+                name="backend_editor"
+                type="selecteditors"
+                folder="editors"
+                default="tinymce"
+                label="COM_JUDOWNLOAD_FIELD_BACKEND_EDITOR_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_BACKEND_EDITOR_DESC"
+                filter="cmd">
+        </field>
+
+        <field
+                name="use_editor_front_end"
+                type="radio"
+                default="0"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_USE_EDITOR_FRONTEND_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_USE_EDITOR_FRONTEND_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field
+                name="frontend_editor"
+                type="selecteditors"
+                folder="editors"
+                default="tinymce"
+                label="COM_JUDOWNLOAD_FIELD_FRONTEND_EDITOR_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_FRONTEND_EDITOR_DESC"
+                filter="cmd">
+        </field>
+
+        <field
+                name="groups_can_use_frontend_editor"
+                type="accesslevel"
+                multiple="true"
+                default="1"
+                label="COM_JUDOWNLOAD_FIELD_USER_GROUPS_CAN_USE_FRONTEND_EDITOR_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_USER_GROUPS_CAN_USE_FRONTEND_EDITOR_DESC">
+            <option value="none">COM_JUDOWNLOAD_NONE</option>
+        </field>
+
+        <field name="placeholder"
+               type="text"
+               default=""
+               label="COM_JUDOWNLOAD_FIELD_PLACEHOLDER_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_PLACEHOLDER_DESC"
+                />
+
+        <field
+                name="strip_tags_list_view"
+                type="radio"
+                default="1"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_STRIP_TAGS_IN_LIST_VIEW_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_STRIP_TAGS_IN_LIST_VIEW_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field
+                name="use_html_entities"
+                type="radio"
+                default="0"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_USE_HTML_ENTITIES_IN_LIST_VIEW_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_USE_HTML_ENTITIES_IN_LIST_VIEW_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field
+                name="strip_tags_details_view"
+                type="radio"
+                default="0"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_STRIP_TAGS_IN_DETAILS_VIEW_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_STRIP_TAGS_IN_DETAILS_VIEW_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field
+                name="strip_tags_before_save"
+                type="radio"
+                default="0"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_STRIP_TAGS_BEFORE_STORING_TO_DATABASE_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_STRIP_TAGS_BEFORE_STORING_TO_DATABASE_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field name="allowable_tags"
+               type="text"
+               label="COM_JUDOWNLOAD_FIELD_ALLOWABLE_TAGS_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_ALLOWABLE_TAGS_DESC"
+               default="u,b,i,a,ul,li,pre,blockquote,strong,em"
+                />
+
+        <field
+                name="truncate"
+                type="radio"
+                default="1"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_TRUNCATE_IN_LIST_VIEW_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_TRUNCATE_IN_LIST_VIEW_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field
+                name="limit_char_in_list_view"
+                type="text"
+                default="200"
+                label="COM_JUDOWNLOAD_FIELD_LIMIT_CHARACTERS_IN_LIST_VIEW_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_LIMIT_CHARACTERS_IN_LIST_VIEW_DESC"
+                />
+
+        <field
+                name="show_introtext_in_details_view"
+                type="radio"
+                default="1"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_SHOW_INTROTEXT_IN_DETAILS_VIEW_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_SHOW_INTROTEXT_IN_DETAILS_VIEW_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field
+                name="auto_link"
+                type="radio"
+                default="1"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_AUTO_LINK_IN_DETAILS_VIEW_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_AUTO_LINK_IN_DETAILS_VIEW_DESC"
+                >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field
+                name="nofollow_link"
+                type="radio"
+                default="1"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_NOFOLLOW_LINK_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_NOFOLLOW_LINK_DESC"
+                >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field
+                name="trim_long_url"
+                type="text"
+                default="0"
+                label="COM_JUDOWNLOAD_FIELD_TRIM_LONG_URL_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_TRIM_LONG_URL_DESC"
+                />
+        <field
+                name="front_portion_url"
+                type="text"
+                default="0"
+                label="COM_JUDOWNLOAD_FIELD_FRONT_PORTION_URL_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_FRONT_PORTION_URL_DESC"
+                />
+        <field
+                name="back_portion_url"
+                type="text"
+                default="0"
+                label="COM_JUDOWNLOAD_FIELD_BACK_PORTION_URL_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_BACK_PORTION_URL_DESC"
+                />
+        <field
+                name="parse_plugin"
+                type="radio"
+                default="0"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_PARSE_PLUGIN_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_PARSE_PLUGIN_DESC"
+                >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field
+                name="nl2br_details_view"
+                type="radio"
+                default="0"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_NL2BR_DETAILS_VIEW_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_NL2BR_DETAILS_VIEW_DESC"
+                >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field
+                name="filter"
+                type="list"
+                label="COM_JUDOWNLOAD_FIELD_FILTER_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_FILTER_DESC"
+                default="RAW">
+            <option value="">COM_JUDOWNLOAD_NONE</option>
+            <option value="RAW">COM_JUDOWNLOAD_FILTER_RAW</option>
+            <option value="SAFEHTML">COM_JUDOWNLOAD_FILTER_SAFE_HTML</option>
+        </field>
+
+        <field
+                name="show_readmore"
+                type="radio"
+                default="0"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_SHOW_READMORE_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_SHOW_READMORE_DESC"
+                >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field
+                name="readmore_text"
+                type="text"
+                default="Read more..."
+                label="COM_JUDOWNLOAD_FIELD_READMORE_TEXT_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_READMORE_TEXT_DESC"
+                />
+
+        <field
+                name="show_readmore_when"
+                type="list"
+                default="1"
+                label="COM_JUDOWNLOAD_FIELD_SHOW_READMORE_WHEN_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_SHOW_READMORE_WHEN_DESC"
+                >
+            <option value="1">COM_JUDOWNLOAD_TEXT_IS_TRUNCATED</option>
+            <option value="2">COM_JUDOWNLOAD_ALWAYS</option>
+        </field>
+
+        <field
+                name="trigger_window_resize"
+                type="radio"
+                default="0"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_TRIGGER_WINDOW_RESIZE_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_TRIGGER_WINDOW_RESIZE_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+    </config>
+</extension>

@@ -1,0 +1,52 @@
+// Core variables and mixins without output available outside .koowa scope
+@import "../../../../../koowa/code/media/koowa/com_koowa/scss/bootstrap/variables";
+@import "../../../../../koowa/code/media/koowa/com_koowa/scss/bootstrap/mixins";
+
+// Costom variables and mixins
+@import "generic/variables";
+@import "generic/mixins";
+
+// Import Nooku
+@import "../../../../../koowa/code/media/koowa/com_koowa/scss/koowa";
+
+// Import user interface
+@import "../../../../../koowa/code/media/koowa/com_koowa/scss/site";
+
+// Photoswipe
+@import "photoswipe/main";
+@import "photoswipe/default-skin/default-skin";
+
+// Namespacing with Koowa
+.koowa {
+
+  // Generic
+  @import "generic/dropdowngrid";
+  @import "generic/iconpicker";
+  @import "generic/footable";
+  @import "generic/oldie";
+  @import "generic/select2";
+  @import "generic/textarea";
+  @import "generic/tooltip";
+  @import "generic/validator";
+
+  // Front
+  @import "site/block";
+  @import "site/categories";
+  @import "site/document";
+  @import "site/download";
+  @import "site/gallery";
+  @import "site/labels";
+  @import "site/pagination";
+  @import "site/pane_toggler";
+  @import "site/sidebar";
+  @import "site/thumbnail";
+  @import "site/utilities";
+
+  // Shame
+  @import "generic/shame";
+
+  // RTL
+  &.koowa--rtl {
+    @import "site/rtl";
+  }
+}

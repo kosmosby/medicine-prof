@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_JUDOWNLOAD_MENU_DOCUMENT_DEFAULT_LAYOUT_TITLE">
+        <message>
+            <![CDATA[COM_JUDOWNLOAD_MENU_DOCUMENT_DEFAULT_LAYOUT_DESC]]>
+        </message>
+    </layout>
+
+    <fields name="request">
+        <fieldset name="request"
+                  addfieldpath="/administrator/components/com_judownload/models/fields">
+            <field name="id"
+                   type="modal_document"
+                   label="COM_JUDOWNLOAD_DOCUMENT_LABEL"
+                   description="COM_JUDOWNLOAD_DOCUMENT_DESC"
+                   required="true"
+                    />
+        </fieldset>
+    </fields>
+
+    <fields name="params">
+
+
+        <fieldset name="basic"
+                  label="COM_JUDOWNLOAD_BASIC_OPTIONS">
+            <fields name="doc">
+                <fields name="fields">
+                    <fields name="icon">
+                        <field name="list_view"
+                               type="list"
+                               fieldset="basic"
+                               label="COM_JUDOWNLOAD_FIELD_LIST_VIEW_ICON_LABEL"
+                               description="COM_JUDOWNLOAD_FIELD_LIST_VIEW_ICON_DESC">
+                            <option value="">JGLOBAL_USE_GLOBAL</option>
+                            <option value="0">JNO</option>
+                            <option value="1">JYES</option>
+                        </field>
+                    </fields>
+                    <fields name="title">
+                        <field name="details_view"
+                               type="list"
+                               fieldset="basic"
+                               label="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_TITLE_LABEL"
+                               description="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_TITLE_DESC">
+                            <option value="">JGLOBAL_USE_GLOBAL</option>
+                            <option value="0">JNO</option>
+                            <option value="1">JYES</option>
+                        </field>
+                        <field name="link"
+                               type="list"
+                               fieldset="basic"
+                               label="COM_JUDOWNLOAD_FIELD_LINK_TITLE_LABEL"
+                               description="COM_JUDOWNLOAD_FIELD_LINK_TITLE_DESC">
+                            <option value="">JGLOBAL_USE_GLOBAL</option>
+                            <option value="0">JNO</option>
+                            <option value="1">JYES</option>
+                        </field>
+                    </fields>
+
+                    <fields name="description">
+                        <field name="details_view"
+                               type="list"
+                               fieldset="basic"
+                               label="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_LABEL"
+                               description="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_DESC">
+                            <option value="">JGLOBAL_USE_GLOBAL</option>
+                            <option value="0">JNO</option>
+                            <option value="1">JYES</option>
+                        </field>
+                    </fields>
+
+                    <fields name="cat_id">
+                        <field name="details_view"
+                               type="list"
+                               fieldset="basic"
+                               label="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_CATEGORY_LABEL"
+                               description="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_CATEGORY_DESC">
+                            <option value="">JGLOBAL_USE_GLOBAL</option>
+                            <option value="0">JNO</option>
+                            <option value="1">JYES</option>
+                        </field>
+
+                        <field name="link"
+                               type="list"
+                               fieldset="basic"
+                               label="COM_JUDOWNLOAD_FIELD_LINKED_CATEGRY_LABEL"
+                               description="COM_JUDOWNLOAD_FIELD_LINKED_CATEGORY_DESC">
+                            <option value="">JGLOBAL_USE_GLOBAL</option>
+                            <option value="0">JNO</option>
+                            <option value="1">JYES</option>
+                        </field>
+                    </fields>
+
+                    <fields name="author">
+                        <field name="details_view"
+                               type="list"
+                               fieldset="basic"
+                               label="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_AUTHOR_LABEL"
+                               description="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_AUTHOR_DESC">
+                            <option value="">JGLOBAL_USE_GLOBAL</option>
+                            <option value="0">JNO</option>
+                            <option value="1">JYES</option>
+                        </field>
+
+                        <field name="link"
+                               type="list"
+                               fieldset="basic"
+                               label="COM_JUDOWNLOAD_FIELD_LINKED_AUTHOR_LABEL"
+                               description="COM_JUDOWNLOAD_FIELD_LINKED_AUTHOR_DESC">
+                            <option value="">JGLOBAL_USE_GLOBAL</option>
+                            <option value="0">JNO</option>
+                            <option value="1">JYES</option>
+                        </field>
+                    </fields>
+
+                    <fields name="created">
+                        <field name="details_view"
+                               type="list"
+                               fieldset="basic"
+                               label="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_CREATED_LABEL"
+                               description="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_CREATED_DESC">
+                            <option value="">JGLOBAL_USE_GLOBAL</option>
+                            <option value="0">JNO</option>
+                            <option value="1">JYES</option>
+                        </field>
+                    </fields>
+
+                    <fields name="modified">
+                        <field name="details_view"
+                               type="list"
+                               fieldset="basic"
+                               label="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_MODIFIED_LABEL"
+                               description="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_MODIFIED_DESC">
+                            <option value="">JGLOBAL_USE_GLOBAL</option>
+                            <option value="0">JNO</option>
+                            <option value="1">JYES</option>
+                        </field>
+                    </fields>
+
+                    <fields name="published">
+                        <field name="details_view"
+                               type="list"
+                               fieldset="basic"
+                               label="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_PUBLISHED_LABEL"
+                               description="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_PUBLISHED_DESC">
+                            <option value="">JGLOBAL_USE_GLOBAL</option>
+                            <option value="0">JNO</option>
+                            <option value="1">JYES</option>
+                        </field>
+                    </fields>
+
+                    <fields name="voting">
+                        <field name="details_view"
+                               type="list"
+                               fieldset="basic"
+                               label="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_VOTING_LABEL"
+                               description="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_VOTING_DESC">
+                            <option value="">JGLOBAL_USE_GLOBAL</option>
+                            <option value="0">JNO</option>
+                            <option value="1">JYES</option>
+                        </field>
+                    </fields>
+
+                    <fields name="hits">
+                        <field name="details_view"
+                               type="list"
+                               fieldset="basic"
+                               label="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_HITS_LABEL"
+                               description="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_HITS_DESC">
+                            <option value="">JGLOBAL_USE_GLOBAL</option>
+                            <option value="0">JNO</option>
+                            <option value="1">JYES</option>
+                        </field>
+                    </fields>
+                </fields>
+            </fields>
+        </fieldset>
+
+    </fields>
+</metadata>
+
+
+	
+

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<factoryplugin version="1.0" type="theme" folder="default" priority="core">
+    <name>Default Theme</name>
+    <author>The Factory</author>
+    <creationDate>2012-09-14</creationDate>
+    <copyright>(C) 2007-2011 thefactory.ro</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <authorEmail>contact@thefactory.ro</authorEmail>
+    <authorUrl>www.thefactory.ro</authorUrl>
+    <version>1.0</version>
+    <description>Default Auction Factory Theme</description>
+
+    <pages>
+        <page name="listauctions" description="Main Auction Listing" fieldpage="auctions" thumbnail="images/t_listauctions.jpg">
+            <positions>
+                <position name="cell-header"/>
+                <position name="cell-left"/>
+                <position name="cell-middle"/>
+                <position name="cell-right"/>
+                <position name="cell-footer"/>
+            </positions>
+        </page>
+        <page name="myauctions" description="My Auctions Listing" fieldpage="auctions" thumbnail="images/t_myauctions.jpg">
+            <positions>
+                <position name="cell-header"/>
+                <position name="cell-left"/>
+                <position name="cell-middle"/>
+                <position name="cell-right"/>
+                <position name="cell-footer"/>
+            </positions>
+        </page>
+        <page name="mybids" description="My Bids Listing" fieldpage="auctions" thumbnail="images/t_myauctions.jpg">
+            <positions>
+                <position name="cell-header"/>
+                <position name="cell-left"/>
+                <position name="cell-middle"/>
+                <position name="cell-right"/>
+                <position name="cell-footer"/>
+            </positions>
+        </page>
+        <page name="mywatchlist" description="My Watchlist" fieldpage="auctions" thumbnail="images/t_myauctions.jpg">
+            <positions>
+                <position name="cell-header"/>
+                <position name="cell-left"/>
+                <position name="cell-middle"/>
+                <position name="cell-right"/>
+                <position name="cell-footer"/>
+            </positions>
+        </page>
+        <page name="mywonbids" description="My Won Bids Listing" fieldpage="auctions" thumbnail="images/t_myauctions.jpg">
+            <positions>
+                <position name="cell-header"/>
+                <position name="cell-left"/>
+                <position name="cell-middle"/>
+                <position name="cell-right"/>
+                <position name="cell-footer"/>
+            </positions>
+        </page>
+        <page name="auctiondetails" description="Auction Detail" fieldpage="auctions" thumbnail="images/t_auctiondetails.jpg">
+            <positions>
+                <position name="header"/>
+                <position name="detail-left"/>
+                <position name="detail-right"/>
+                <position name="middle"/>
+                <position name="footer"/>
+            </positions>
+        </page>
+        <page name="showusers" description="Search Users results Listing" fieldpage="user_profile" thumbnail="images/t_showusers.jpg">
+            <positions>
+                <position name="header"/>
+                <position name="details"/>
+            </positions>
+        </page>
+        <page name="userdetails" description="User Details Page" fieldpage="user_profile" thumbnail="images/t_userdetails.jpg">
+            <positions>
+                <position name="header"/>
+                <position name="bottom"/>
+            </positions>
+        </page>
+
+    </pages>
+
+</factoryplugin>

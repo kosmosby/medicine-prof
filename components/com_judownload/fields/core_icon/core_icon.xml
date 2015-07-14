@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="file" method="upgrade" judlplugintype="field">
+    <name>Core Icon</name>
+    <author>JoomUltra</author>
+    <creationDate>18 July 2014</creationDate>
+    <authorEmail>admin@joomultra.com</authorEmail>
+    <version>1.0</version>
+    <license>GNU/GPL</license>
+    <website>http://www.joomultra.com</website>
+    <description></description>
+    <folder>core_icon</folder>
+    <core>1</core>
+    <default>1</default>
+    <fileset>
+        <files target="components/com_judownload/fields/core_icon">
+            <file>core_icon.xml</file>
+            <file>core_icon.php</file>
+            <file>index.html</file>
+            <folder>tmpl</folder>
+        </files>
+    </fileset>
+    <config>
+        <field name="list_view_set_icon_dimension"
+               type="radio"
+               default="1"
+               class="btn-group"
+               label="COM_JUDOWNLOAD_FIELD_LIST_VIEW_SET_ICON_DOCUMENT_DIMENSION_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_LIST_VIEW_SET_ICON_DOCUMENT_DIMENSION_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field name="list_view_icon_width"
+               type="text"
+               default="100"
+               label="COM_JUDOWNLOAD_FIELD_LIST_VIEW_ICON_DOCUMENT_WIDTH_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_LIST_VIEW_ICON_DOCUMENT_WIDTH_DESC"
+                />
+
+        <field name="list_view_icon_height"
+               type="text"
+               default="100"
+               label="COM_JUDOWNLOAD_FIELD_LIST_VIEW_ICON_DOCUMENT_HEIGHT_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_LIST_VIEW_ICON_DOCUMENT_HEIGHT_DESC"
+                />
+
+        <field name="details_view_set_icon_dimension"
+               type="radio"
+               default="1"
+               class="btn-group"
+               label="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_SET_ICON_DOCUMENT_DIMENSION_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_SET_ICON_DOCUMENT_DIMENSION_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field name="details_view_icon_width"
+               type="text"
+               default="100"
+               label="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_ICON_DOCUMENT_WIDTH_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_ICON_DOCUMENT_WIDTH_DESC"
+                />
+
+        <field name="details_view_icon_height"
+               type="text"
+               default="100"
+               label="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_ICON_DOCUMENT_WIDTH_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_DETAILS_VIEW_ICON_DOCUMENT_WIDTH_DESC"
+                />
+    </config>
+</extension>

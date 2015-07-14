@@ -1,0 +1,63 @@
+ALTER TABLE `#__judownload_criterias_groups` 
+	ADD COLUMN `published` tinyint(3)   NOT NULL DEFAULT 0 after `params` , 
+	CHANGE `checked_out` `checked_out` int(11) unsigned   NOT NULL DEFAULT 0 after `published` , 
+	CHANGE `checked_out_time` `checked_out_time` datetime   NOT NULL DEFAULT '0000-00-00 00:00:00' after `checked_out` , 
+	CHANGE `created` `created` datetime   NOT NULL DEFAULT '0000-00-00 00:00:00' after `checked_out_time` , 
+	CHANGE `created_by` `created_by` int(11) unsigned   NOT NULL DEFAULT 0 after `created` , 
+	CHANGE `modified` `modified` datetime   NOT NULL DEFAULT '0000-00-00 00:00:00' after `created_by` , 
+	CHANGE `modified_by` `modified_by` int(11) unsigned   NOT NULL DEFAULT 0 after `modified` , 
+	CHANGE `asset_id` `asset_id` int(11) unsigned   NOT NULL DEFAULT 0 after `modified_by` , 
+	ADD KEY `idx_published`(`published`) ;
+
+ALTER TABLE `#__judownload_emails` 
+	CHANGE `priority` `priority` tinyint(2) unsigned   NOT NULL DEFAULT 5 after `use_mailq` , 
+	CHANGE `ordering` `ordering` int(11)   NOT NULL DEFAULT 0 after `priority` , 
+	CHANGE `created` `created` datetime   NOT NULL DEFAULT '0000-00-00 00:00:00' after `ordering` , 
+	CHANGE `created_by` `created_by` int(11) unsigned   NOT NULL DEFAULT 0 after `created` , 
+	CHANGE `modified` `modified` datetime   NOT NULL DEFAULT '0000-00-00 00:00:00' after `created_by` , 
+	CHANGE `modified_by` `modified_by` int(11) unsigned   NOT NULL DEFAULT 0 after `modified` , 
+	CHANGE `published` `published` tinyint(3)   NOT NULL DEFAULT 0 after `modified_by` , 
+	ADD COLUMN `publish_up` datetime   NOT NULL DEFAULT '0000-00-00 00:00:00' after `published` , 
+	ADD COLUMN `publish_down` datetime   NOT NULL DEFAULT '0000-00-00 00:00:00' after `publish_up` , 
+	CHANGE `checked_out` `checked_out` int(11) unsigned   NOT NULL DEFAULT 0 after `publish_down` , 
+	CHANGE `checked_out_time` `checked_out_time` datetime   NOT NULL DEFAULT '0000-00-00 00:00:00' after `checked_out` , 
+	CHANGE `notes` `notes` text  COLLATE utf8_general_ci NOT NULL after `checked_out_time` , 
+	ADD KEY `idx_publishing`(`published`,`publish_up`,`publish_down`) ;
+
+ALTER TABLE `#__judownload_moderators` 
+	CHANGE `description` `description` text  COLLATE utf8_general_ci NOT NULL after `user_id` , 
+	CHANGE `document_view` `document_view` tinyint(3) unsigned   NOT NULL DEFAULT 0 after `description` , 
+	CHANGE `document_view_unpublished` `document_view_unpublished` tinyint(3) unsigned   NOT NULL DEFAULT 0 after `document_view` , 
+	CHANGE `document_create` `document_create` tinyint(3) unsigned   NOT NULL DEFAULT 0 after `document_view_unpublished` , 
+	CHANGE `document_edit` `document_edit` tinyint(3) unsigned   NOT NULL DEFAULT 0 after `document_create` , 
+	CHANGE `document_edit_state` `document_edit_state` tinyint(3) unsigned   NOT NULL DEFAULT 0 after `document_edit` , 
+	CHANGE `document_edit_own` `document_edit_own` tinyint(3) unsigned   NOT NULL DEFAULT 0 after `document_edit_state` , 
+	CHANGE `document_delete` `document_delete` tinyint(3) unsigned   NOT NULL DEFAULT 0 after `document_edit_own` , 
+	CHANGE `document_delete_own` `document_delete_own` tinyint(3) unsigned   NOT NULL DEFAULT 0 after `document_delete` , 
+	CHANGE `document_download` `document_download` tinyint(3) unsigned   NOT NULL DEFAULT 0 after `document_delete_own` , 
+	CHANGE `document_approve` `document_approve` tinyint(3) unsigned   NOT NULL DEFAULT 0 after `document_download` , 
+	CHANGE `comment_edit` `comment_edit` tinyint(3) unsigned   NOT NULL DEFAULT 0 after `document_approve` , 
+	CHANGE `comment_edit_state` `comment_edit_state` tinyint(3) unsigned   NOT NULL DEFAULT 0 after `comment_edit` , 
+	CHANGE `comment_delete` `comment_delete` tinyint(3) unsigned   NOT NULL DEFAULT 0 after `comment_edit_state` , 
+	CHANGE `comment_approve` `comment_approve` tinyint(3) unsigned   NOT NULL DEFAULT 0 after `comment_delete` , 
+	CHANGE `created` `created` datetime   NOT NULL DEFAULT '0000-00-00 00:00:00' after `comment_approve` , 
+	CHANGE `created_by` `created_by` int(11) unsigned   NOT NULL DEFAULT 0 after `created` , 
+	CHANGE `modified` `modified` datetime   NOT NULL DEFAULT '0000-00-00 00:00:00' after `created_by` , 
+	CHANGE `modified_by` `modified_by` int(11) unsigned   NOT NULL DEFAULT 0 after `modified` , 
+	CHANGE `published` `published` tinyint(3)   NOT NULL DEFAULT 0 after `modified_by` , 
+	ADD COLUMN `publish_up` datetime   NOT NULL DEFAULT '0000-00-00 00:00:00' after `published` , 
+	ADD COLUMN `publish_down` datetime   NOT NULL DEFAULT '0000-00-00 00:00:00' after `publish_up` , 
+	CHANGE `checked_out` `checked_out` int(11) unsigned   NOT NULL DEFAULT 0 after `publish_down` , 
+	CHANGE `checked_out_time` `checked_out_time` datetime   NOT NULL DEFAULT '0000-00-00 00:00:00' after `checked_out` , 
+	CHANGE `params` `params` text  COLLATE utf8_general_ci NOT NULL after `checked_out_time` , 
+	ADD KEY `idx_publishing`(`published`,`publish_up`,`publish_down`) ;
+
+ALTER TABLE `#__judownload_tags` 
+	ADD COLUMN `publish_up` datetime   NOT NULL DEFAULT '0000-00-00 00:00:00' after `published` , 
+	ADD COLUMN `publish_down` datetime   NOT NULL DEFAULT '0000-00-00 00:00:00' after `publish_up` , 
+	CHANGE `created` `created` datetime   NOT NULL DEFAULT '0000-00-00 00:00:00' after `publish_down` , 
+	CHANGE `created_by` `created_by` int(11) unsigned   NOT NULL DEFAULT 0 after `created` , 
+	CHANGE `modified` `modified` datetime   NOT NULL DEFAULT '0000-00-00 00:00:00' after `created_by` , 
+	CHANGE `modified_by` `modified_by` int(11) unsigned   NOT NULL DEFAULT 0 after `modified` , 
+	DROP KEY `idx_published` , 
+	ADD KEY `idx_publishing`(`published`,`publish_up`,`publish_down`) ;

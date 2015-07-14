@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" type="plugin" group="user/plug_cbpaidsubscriptions"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../cb/validation/ahawow.xsd">
+	<types>
+		<type name="manual_payment_type" base="list" valuetype="string">
+			<option value="bank">Bank transfer</option>
+			<option value="post">Post transfer</option>
+			<option value="cash">Cash</option>
+			<option value="check">Check</option>
+			<option value="phone">Phone payment</option>
+			<option value="fax">Fax payment</option>
+			<option value="creditnote">Credit note</option>
+			<option value="coupon">Coupon</option>
+			<option value="gift">Gift</option>
+			<option value="online">Online by other means</option>
+		</type>
+	</types>
+	<actions ui="all" permissionasset="com_cbsubs">
+		<action name="recordpayment" request="result" action="saverecordpayment" requestparameters="" paramvaluestypes="" label="Record Payment" permission="cbsubs.recordpayments">
+			<showview view="showrecordpayment" mode="edit" />
+		</action>
+	</actions>
+	<views>
+		<view name="showrecordpayment" type="params" ui="all" label="Pay the basket manually" description="">
+			<trigger group="user/plug_cbpaidsubscriptions/plugin" event="onxmlBeforeCbSubsDisplayOrSaveRecordPayment" results="extend" toxpathnode="../if/fieldset[@name=&quot;paymentinput&quot;]" mode="replaceorappend" keyattribute="name" />
+			<extend toxpathnode="../if/fieldset[@name=&quot;paymentinput&quot;]" fromxpathnode="/*/recordpaymentintegration[@view=&quot;paymentinput&quot;]/view/fieldset[@name=&quot;paymentinput&quot;]/*" file="plugin/*/xml/edit.recordpayment" mandatory="false" mode="replaceorappend" keyattribute="name" />
+
+			<toolbarmenu>
+				<menu name="paybasket" action="custom"     task="savePlugin" label="Pay" icon="paybasket" />
+				<menu name="spacer1"   action="spacer" />
+				<menu name="back"      action="back"   href=""             label="Back" />
+				<menu name="spacer1"   action="spacer" />
+				<menu name="close"     action="linkAction" task="cancel" link="cb_action:show_paymentbaskets" label="Close" />
+			</toolbarmenu>
+			<if name="payment_status" operator="regexp" value="^(?!Pending)(?!Refunded)(?!NotInitiated).+$" valuetype="const:string" type="condition">
+				<param name="warning_not_pending" type="spacer" label="WARNING" cssclass="cbSmallWarning" default="WARNING: This basket is not pending for payment. Only Pending or NotInitiated can be paid offline here. You can't pay it here. Click Back or Close." />
+			</if>
+			<if name="payment_status" operator="regexp" value="^(?!Pending)(?!Refunded)(?!NotInitiated).+$" valuetype="const:string" type="condition">
+				<if name="payment_method" operator="!=" value="offline" valuetype="const:string" type="condition">
+					<param name="warning_not_offline" type="spacer" label="WARNING" cssclass="cbSmallWarning" default="WARNING: This basket is not for an offline payment. This is only for offline payments. Automatic payments are created and administered automatically. Don't touch things here. No warranty on effects of changes on non-offline payments." />
+				</if>
+			</if>
+			<fieldset name="basketinfo" label="Payment basket details">
+				<param mode="show" name="id"                 type="int"       label="Basket Id" />
+				<param mode="show" name="invoice"                 type="text"       label="Invoice number" />
+				<param mode="show" name="item_number"                 type="text"       label="Item number" />
+			</fieldset>
+			<fieldset name="userinfo" label="User details">
+				<param mode="show" name="user_name"   type="private" class="cbpaidParamsExt" method="data"  link="cb_action:show_usersubscription" parameters="cid" paramvalues="user_id"    title="Edit this user and his subscriptions" label="Username">
+					<data name="user_name" type="sql:function" operator="IF">
+						<data name="" type="sql:operator" operator="=">
+							<data name="user_id" type="ext:int:modelofdata" />
+							<data name="0" type="const:int" />
+						</data>
+						<data name="System" type="const:string" translate="yes" />
+						<!-- This is here for translation tool to translate above correctly:
+							<field label="System" />
+						-->
+						<data name="username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="user_id" valuetype="ext:int:modelofdata" />
+					</data>
+				</param>
+				<param mode="show" name="user_full_name"   type="private" class="cbpaidParamsExt" method="data"  link="cb_action:show_usersubscription" parameters="cid" paramvalues="user_id"    title="Edit this user and his subscriptions" label="Full name">
+					<data name="user_full_name" type="sql:function" operator="IF">
+						<data name="" type="sql:operator" operator="=">
+							<data name="user_id" type="ext:int:modelofdata" />
+							<data name="0" type="const:int" />
+						</data>
+						<data name="System" type="const:string" translate="yes" />
+						<!-- This is here for translation tool to translate above correctly:
+							<field label="System" />
+						-->
+						<data name="name" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="user_id" valuetype="ext:int:modelofdata" />
+					</data>
+				</param>
+				<param mode="show" name="user_id"            type="int"  label="User Id" />
+			</fieldset>
+			<fieldset name="basketcontent" label="Payment basket Content">
+				<param name="id" type="private" method="renderBasket" class="cbpaidPaymentBasket" label="Basket" description="" />
+				<param mode="show" name="quantity"                 type="text"       label="Quantity" />
+				<param mode="show" name="item_name"                 type="text"       label="Item name" />
+				<param mode="show" name="time_initiated"                 type="datetime"       label="Time initiated" />
+				<param mode="show" name="mc_currency"                 type="text"       label="Currency" />
+				<param mode="show" name="mc_gross"                 type="float"       label="Amount" />
+			</fieldset>
+			<if name="payment_status" operator="regexp" value="^(Pending|Refunded|NotInitiated)$" valuetype="const:string" type="condition">
+				<fieldset name="paymentinput" label="Payment details of payment to register">
+					<param name="time_completed"       type="datetime"      size="40" default="" label="Payment date" description="Date of the payment" />
+					<param name="mc_currency" mode="show" type="text"  default="params:"   label="Currency" description="Currency of the basket"  align="right" />
+					<param name="mc_gross"              type="float"     size="20" default="0"   label="Amount" description="Amount of the payment in currency"  align="right" />
+					<param name="payment_type"       type="xml:manual_payment_type"      size="1" default="bank" label="Payment type" description="The way the money was paid." />
+					<param name="txn_id"       type="text"      size="40" default="" label="Transaction id (optional)" description="Your transaction id or your bank's transaction id, can be useful for searches, will be auto-assigned if empty, as needed for payment records." />
+				</fieldset>
+			</if>
+			<if name="payment_status" operator="regexp" value="^(Completed|Processed)$" valuetype="const:string" type="condition">
+				<fieldset name="paymentinfo" label="Payment details of payment">
+					<param mode="show" name="payment_status"     type="xml:payment_status"    label="Payment status" description="Current status of payment(s) for this basket." />
+					<param mode="show" name="time_completed"       type="datetime"      size="40" default="" label="Payment date" description="Date of the payment" />
+					<param mode="show" name="mc_currency"            type="xml:currencies"  default="params:"   label="Currency" description="Currency of the basket"  align="right" />
+					<param mode="show" name="mc_gross"              type="float"     size="20" default="0"   label="Amount" description="Amount of the payment in currency"  align="right" />
+					<param mode="show" name="payment_type"       type="xml:manual_payment_type"      size="1" default="bank" label="Payment type" description="The way the money was paid." />
+					<param mode="show" name="txn_id"       type="text"      size="40" default="" label="Transaction id" description="Transaction id or bank's transaction id." />
+				</fieldset>
+			</if>
+		</view>
+	</views>
+</cbxml>

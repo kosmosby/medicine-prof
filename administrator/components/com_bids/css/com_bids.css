@@ -1,0 +1,18 @@
+.invalid {border:#FF0000 1px solid !important;}
+div.current input, div.current textarea, div.current select, div.current label{
+    clear: none !important;
+    display: inline !important;
+}
+
+.icon-48-bids {
+    background-image: url("../../../../components/com_bids/images/auction_48.png");
+}
+
+#description {
+    width: 0 !important;
+}
+
+.radiobtn {
+    float: left !important;
+    width: auto !important;
+}

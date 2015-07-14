@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<types>
+		<type name="gateway_type" base="list" valuetype="string">
+			<option value="processors.authorizenet">Authorize.net</option>
+		</type>
+		<type name="payment_method" base="list" valuetype="string">
+			<option value="authorizenet">Authorize.net</option>
+		</type>
+	</types>
+	<views>
+		<view name="selectgatewayinformation" type="params" ui="admin">
+			<fieldset name="fieldset_gettwocheckoutLinks" label="US authorize.net" description="authorize.net is one of the oldest US-based payment services providers, and is available only to US companies. If you choose authorize.net, you will also need an acquiring bank.">
+				<param name="twocheckoutinfolink" type="spacer" label="Information about authorize.net" default="&lt;a target=&quot;_blank&quot; href=&quot;http://www.authorize.net/&quot; /&gt;&lt;strong&gt;authorize.net website&lt;/strong&gt;&lt;/a&gt;" />
+			</fieldset>
+		</view>
+
+		<view name="paymentstatusinformation" type="params" ui="admin">
+			<showview view="paymentrefundbutton" mode="view" type="view" />
+		</view>
+
+		<view name="editgatewayauthorizenet" type="params" ui="admin">
+			<inherit name="editgatewayofflineinherit" from="/*/views/view[@name='editgenericgateway']">
+				<fieldset name="fieldset_for_gateway" label="Gateway account settings" description="Gateway-specific settings:">
+					<param name="enabled" type="list" default="0" label="Enable Authorize.net" description="Whether you want to offer authorize.net payments.">
+						<option value="0">No</option>
+						<option value="1">Yes: AIM: Single Billing per payment</option>
+						<option value="2">Yes: AIM+ABR: Automated Recurring Billing for autorecurring plans</option>
+						<option value="3">Yes: AIM+ABR: Single payments or Automated Recurring Billing at user's choice for autorecurring plans</option>
+					</param>
+					<param name="normal_gateway" type="list" default="1" label="Authorize.net server" description="Which authorize.net server to use" valuetype="int">
+						<option value="1">Normal Authorize.net servers</option>
+						<option value="0">Authorize.net developer test servers</option>
+						<option value="2">Other server compatible with Authorize.net</option>
+					</param>
+					<if name="normal_gateway" type="showhide" operator="=" value="2" valuetype="const:int">
+						<params name="params" type="params">
+							<param name="gateway_single_url" type="text" size="60" default="" label="Server AIM submission URL" description="This should be the authorize.net-compatible-server equivalent of https://secure.authorize.net/gateway/transact.dll" />
+							<param name="gateway_recurring_url" type="text" size="60" default="" label="Server ARB submission URL" description="This should be the authorize.net-compatible-server equivalent of https://api.authorize.net/xml/v1/request.api" />
+						</params>
+					</if>
+					<params name="params" type="params">
+						<param name="authorize_login_id" type="text" size="40" default="" label="Authorize.net name (API login id)" description="Your authorize.net merchant authentication: your API login id: you must login to your authorize.net account to get this parameter." />
+						<param name="authorize_transaction_key" type="text" size="40" default="" label="Authorize.net transaction key" description="Your authorize.net transaction key: you must login to your authorize.net account to get this parameter." />
+						<param name="authorize_md_hash" type="text" size="20" default="" label="Authorize.net MD5 Hash" description="Your authorize.net MD5 Hash value: you must login to your authorize.net account to set this parameter in in Account / Settings / Security Settings: General Security Settings: MD5-Hash." />
+					</params>
+					<fieldset name="fieldset_for_silent_call" label="Settings for silent Posts from Authorize.net" description="Using silent posts is optional but recommended. It is direct posts from Authorize.net's server to your server whenever a payment is made or voided at Authorize.net. For auto-recurring ARB payments, this means that CBSubs will know for each payment, add a payment transaction record for the payment or refund, and extend subscription at each successful payment.">
+						<param name="id" type="private" class="cbpaidGatewayAccountauthorizenet" method="renderNotifyUrl" key="id" label="Silent Post URL notifications to set into authorize.net" default="First fill-in parameters above, then &quot;Apply&quot; this new gateway settings: Then this URL %s will be computed and displayed." description="This is the url to paste into Authorize.net admin area in Account / Settings / Transaction Format Settings: Transaction Response Settings: Silent Post URL." />
+						<param name="auth_silent_explanation" type="spacer" label="Once you have set the silent post URL at authorize.net you will need to change this setting here too:" default=" " />
+						<params name="params" type="params">
+							<param name="authorize_silent_posts_set" type="list" default="0" label="Silent Post URL above is" description="Only change this after having set the URL at authorize.net.">
+								<option value="0">not configured</option>
+								<option value="1">set at Authorize.net</option>
+							</param>
+						</params>
+					</fieldset>
+				</fieldset>
+				<fieldset name="fieldset_for_presentation" label="Presentation" description="">
+					<params name="params" type="params">
+						<param name="psp_radio_description" type="textarea" cols="40" rows="2" label="Description shown when radio is selected" value="" default="" description="This allows to add instructions, or special conditions for that payment method." />
+						<param name="show_cc_avs" type="list" default="0" label="Ask for card billing address for AVS" description="If you want to use credit-card billing Address Verification Services (AVS) and therefore want to ask for credit-card billing address">
+							<option value="0">No</option>
+							<option value="1">ZIP-code + country</option>
+							<option value="2">Street-address + ZIP-code + country</option>
+						</param>
+						<param name="card_button_type" type="radio" default="image" label="Payment Button type" description="The payment button type can be a text or logo of corresponding credit card. Note: to display the logo, you must have a valid licence from the corresponding credit-card company.">
+							<option value="text">Names of credit cards text</option>
+							<option value="image">Credit-cards Logo images</option>
+						</param>
+						<param name="card_choice_type" type="radio" default="image" label="Payment Choice type" description="The payment choice type can be a text or logo of corresponding credit card. Note: to display the logo, you must have a valid licence from the corresponding credit-card company.">
+							<option value="text">Names of credit cards text</option>
+							<option value="image">Credit-cards Logo images</option>
+						</param>
+						<param name="cards_custom_image" type="text" size="40" default="" label="Custom button text/image" description="Either text of button or URL of a custom image (.gif, .jpg or .bmp), overwites selection above." />
+						<param name="cardtypes" type="checkbox" default="visa|*|mastercard" rows="" cols="3" label="Accepted credit cards" description="Credit cards accepted shows in buttons">
+							<option value="visa">Visa &lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_visa.gif" alt="" /&gt;</option>
+							<option value="mastercard">Mastercard &lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_mastercard.gif" alt="" /&gt;</option>
+							<option value="amexco">American Express &lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_amexco.gif" alt="" /&gt;</option>
+							<option value="discover">Discover &lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_discover.gif" alt="" /&gt;</option>
+							<option value="diners">Diners Club International &lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_diners.gif" alt="" /&gt;</option>
+							<option value="jcb">JCB &lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_jcb.gif" alt="" /&gt;</option>
+						</param>
+					</params>
+				</fieldset>
+			</inherit>
+		</view>
+	</views>
+</cbxml>

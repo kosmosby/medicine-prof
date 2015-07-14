@@ -1,0 +1,4 @@
+oseMscTree
+ -> function getSubTreeDepth, no lock when operation is running
+ 
+ can not  load data to fields

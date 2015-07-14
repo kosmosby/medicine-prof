@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<metadata>
+
+	<layout title="Gallery">
+
+		<message>
+
+			<![CDATA[]]>
+
+		</message>
+
+	</layout>
+
+	<state>
+
+		<name>Gallery Layout</name>
+
+		<description>Gallery Layout</description>
+
+        <url></url>
+
+		<params>
+
+
+
+		</params>
+
+		<advanced>
+
+
+
+		</advanced>
+
+	</state>
+
+</metadata>

@@ -1,0 +1,1584 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0" type="plugin" group="user" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../cb/validation/ahawow.xsd">
+
+	<name>CB Paid Subscriptions</name>
+	<author>Beat</author>
+	<creationDate>2014-10-09</creationDate>
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<authorEmail>beat@joomlapolis.com</authorEmail>
+	<authorUrl>www.joomlapolis.com</authorUrl>
+	<version>2.0.0</version>
+	<release>4.0.0-rc.1</release>
+	<description>CBSubs CB Paid Subscriptions plugin version 4.0.0-rc.1 - Handles paid member subscriptions.&lt;br /&gt;&lt;br /&gt;&lt;strong&gt;by Lightning MultiCom SA - &lt;a href="http://www.joomlapolis.com/"&gt;Joomlapolis.com&lt;/a&gt; at http://www.joomlapolis.com/.&lt;/strong&gt;</description>
+	<files>
+		<filename plugin="cbpaidsubscriptions">cbpaidsubscriptions.php</filename>
+		<filename>admin.cbpaidsubscriptions.php</filename>
+		<filename>cbpaidsubscriptions.class.php</filename>
+		<!--    <deletefile>cbpaidsubscriptions.condition.php</deletefile>
+		        <deletefile>cbpaidsubscriptions.countries.php</deletefile>
+        		<deletefile>cbpaidsubscriptions.crosstotalizer.php</deletefile>
+        		<deletefile>cbpaidsubscriptions.ctrl.php</deletefile>
+        		<deletefile>cbpaidsubscriptions.currency.php</deletefile>
+        		<deletefile>cbpaidsubscriptions.gui.php</deletefile>
+        		<deletefile>cbpaidsubscriptions.guisubs.php</deletefile>
+        		<deletefile>cbpaidsubscriptions.importer.php</deletefile>
+        		<deletefile>cbpaidsubscriptions.scheduler.php</deletefile>
+		        <deletefile>cbpaidsubscriptions.sql.php</deletefile>
+        		<deletefile>cbpaidsubscriptions.userparams.php</deletefile>
+		-->
+		<filename>cbpaidsubscriptions.creditcards.php</filename>
+		<filename>cbpaidsubscriptions.hostedpage.php</filename>
+		<filename>cbpaidsubscriptions.install.php</filename>
+		<filename>cbpaidsubscriptions.pay.php</filename>
+		<filename>cbpaidsubscriptions.sysplug.php</filename>
+		<filename>index.html</filename>
+		<filename>LICENSE.txt</filename>
+		<filename>README.txt</filename>
+        <filename>controllers/index.html</filename>
+        <filename>controllers/cbpaidControllerCBComponent.php</filename>
+        <filename>controllers/cbpaidControllerCBTab.php</filename>
+        <filename>controllers/cbpaidControllerOffer.php</filename>
+        <filename>controllers/cbpaidControllerOrder.php</filename>
+        <filename>controllers/cbpaidControllerPaychoices.php</filename>
+        <filename>controllers/cbpaidControllerUI.php</filename>
+        <filename>controllers/cbpaidCreditCardsPayHandler.php</filename>
+        <filename>controllers/cbpaidHostedPagePayHandler.php</filename>
+        <filename>controllers/cbpaidPayHandler.php</filename>
+        <filename>libraries/index.html</filename>
+        <filename>libraries/cbpaidAES128.php</filename>
+        <filename>libraries/cbpaidApp.php</filename>
+        <filename>libraries/cbpaidBaseClass.php</filename>
+        <filename>libraries/cbpaidCondition.php</filename>
+        <filename>libraries/cbpaidCountries.php</filename>
+        <filename>libraries/cbpaidErrorHandler.php</filename>
+        <filename>libraries/cbpaidMoney.php</filename>
+        <filename>libraries/cbpaidParamsExt.php</filename>
+        <filename>libraries/cbpaidPaymentCurrencyInfo.php</filename>
+        <filename>libraries/cbpaidPlansMgr.php</filename>
+        <filename>libraries/cbpaidRequest.php</filename>
+        <filename>libraries/cbpaidScheduler.php</filename>
+        <filename>libraries/cbpaidSomethingMgr.php</filename>
+        <filename>libraries/cbpaidSqlCleanQuote.php</filename>
+        <filename>libraries/cbpaidSubscriptionsMgr.php</filename>
+        <filename>libraries/cbpaidTemplateHandler.php</filename>
+        <filename>libraries/cbpaidTimes.php</filename>
+        <filename>libraries/cbpaidUserExtension.php</filename>
+        <filename>libraries/cbpaidUserParams.php</filename>
+        <filename>libraries/cbpaidUserWithSubsFields.php</filename>
+        <filename>libraries/cbpaidVersionMgr.php</filename>
+        <filename>libraries/cbpaidWebservices.php</filename>
+        <filename>libraries/cbpaidXmlHandler.php</filename>
+        <filename>libraries/CBPTXT.php</filename>
+        <filename>models/index.html</filename>
+        <filename>models/currency/index.html</filename>
+        <filename>models/currency/cbpaidCurrency.php</filename>
+        <filename>models/gateway/index.html</filename>
+        <filename>models/gateway/cbpaidGatewayAccount.php</filename>
+        <filename>models/gateway/cbpaidGatewayAccountCreditCards.php</filename>
+        <filename>models/gateway/cbpaidGatewayAccounthostedpage.php</filename>
+        <filename>models/gateway/cbpaidGatewayAccountUndefined.php</filename>
+        <filename>models/gateway/cbpaidGatewaysAccountsMgr.php</filename>
+        <filename>models/gateway/cbpaidGatewaySelector.php</filename>
+        <filename>models/gateway/cbpaidGatewaySelectorButton.php</filename>
+        <filename>models/gateway/cbpaidGatewaySelectorRadio.php</filename>
+        <filename>models/misc/index.html</filename>
+        <filename>models/misc/cbpaidConfig.php</filename>
+        <filename>models/misc/cbpaidItem.php</filename>
+        <filename>models/misc/cbpaidSubscriptionsImporter.php</filename>
+        <filename>models/misc/cbpaidTimed.php</filename>
+        <filename>models/order/index.html</filename>
+        <filename>models/order/cbpaidOrdersMgr.php</filename>
+        <filename>models/order/cbpaidPaymentBasket.php</filename>
+        <filename>models/order/cbpaidPaymentItem.php</filename>
+		<filename>models/payment/index.html</filename>
+        <filename>models/payment/cbpaidPayment.php</filename>
+        <filename>models/payment/cbpaidPaymentBaseEntries.php</filename>
+        <filename>models/payment/cbpaidPaymentNotification.php</filename>
+		<filename>models/payment/cbpaidPaymentNumber.php</filename>
+		<filename>models/payment/cbpaidRecordBasketPayment.php</filename>
+        <filename>models/product/index.html</filename>
+        <filename>models/product/cbpaidProduct.php</filename>
+        <filename>models/product/cbpaidProductUndefined.php</filename>
+        <filename>models/something/index.html</filename>
+        <filename>models/something/cbpaidNonRecurringSomething.php</filename>
+        <filename>models/something/cbpaidSomething.php</filename>
+        <filename>models/table/index.html</filename>
+        <filename>models/table/cbpaidHistory.php</filename>
+        <filename>models/table/cbpaidInstanciator.php</filename>
+        <filename>models/table/cbpaidTable.php</filename>
+        <filename>models/totalizer/index.html</filename>
+        <filename>models/totalizer/cbpaidCrossTotalizer.php</filename>
+        <filename>models/totalizer/cbpaidPaymentTotalizer.php</filename>
+		<filename>plugin/index.html</filename>
+		<filename>processors/index.html</filename>
+		<filename>processors/authorizenet/index.html</filename>
+		<filename>processors/authorizenet/edit.gateway.xml</filename>
+		<filename>processors/authorizenet/cbpaidsubscriptions.authorizenet.php</filename>
+		<filename>processors/cancelpay/index.html</filename>
+		<filename>processors/cancelpay/edit.gateway.xml</filename>
+		<filename>processors/cancelpay/cbpaidsubscriptions.cancelpay.php</filename>
+		<filename>processors/dummy/index.html</filename>
+		<filename>processors/dummy/edit.gateway.xml</filename>
+		<filename>processors/dummy/cbpaidsubscriptions.dummy.php</filename>
+		<filename>processors/freetrial/index.html</filename>
+		<filename>processors/freetrial/edit.gateway.xml</filename>
+		<filename>processors/freetrial/cbpaidsubscriptions.freetrial.php</filename>
+		<filename>processors/offline/index.html</filename>
+		<filename>processors/offline/edit.gateway.xml</filename>
+		<filename>processors/offline/cbpaidsubscriptions.offline.php</filename>
+		<filename>processors/ogone/index.html</filename>
+		<filename>processors/ogone/edit.gateway.xml</filename>
+		<filename>processors/ogone/edit.gateway.oem.xml</filename>
+		<filename>processors/ogone/cbpaidsubscriptions.ogone.php</filename>
+		<filename>processors/paypal/index.html</filename>
+		<filename>processors/paypal/edit.gateway.xml</filename>
+		<filename>processors/paypal/cbpaidsubscriptions.paypal.php</filename>
+		<filename>processors/swisspostfinance/index.html</filename>
+		<filename>processors/swisspostfinance/edit.gateway.xml</filename>
+		<filename>processors/swisspostfinance/cbpaidsubscriptions.swisspostfinance.php</filename>
+        <filename>products/index.html</filename>
+        <filename>products/donation/index.html</filename>
+        <filename>products/donation/cbpaidDonationRecord.php</filename>
+        <filename>products/donation/cbpaidProductDonation.php</filename>
+        <filename>products/donation/xml/index.html</filename>
+        <filename>products/donation/xml/controllers/index.html</filename>
+        <filename>products/donation/xml/controllers/edit.cbsubs.xml</filename>
+        <filename>products/donation/xml/models/index.html</filename>
+        <filename>products/donation/xml/models/edit.product.xml</filename>
+        <filename>products/donation/xml/views/index.html</filename>
+        <filename>products/donation/xml/views/edit.menu.xml</filename>
+        <filename>products/donation/xml/views/edit.product.xml</filename>
+        <filename>products/donation/xml/views/edit.productitem.xml</filename>
+        <filename>products/donation/xml/views/edit.productitems.xml</filename>
+        <filename>products/merchandise/index.html</filename>
+        <filename>products/merchandise/cbpaidMerchandiseRecord.php</filename>
+        <filename>products/merchandise/cbpaidProductMerchandise.php</filename>
+        <filename>products/merchandise/xml/index.html</filename>
+        <filename>products/merchandise/xml/controllers/index.html</filename>
+        <filename>products/merchandise/xml/controllers/edit.cbsubs.xml</filename>
+        <filename>products/merchandise/xml/models/index.html</filename>
+        <filename>products/merchandise/xml/models/edit.product.xml</filename>
+        <filename>products/merchandise/xml/views/index.html</filename>
+        <filename>products/merchandise/xml/views/edit.menu.xml</filename>
+        <filename>products/merchandise/xml/views/edit.product.xml</filename>
+        <filename>products/merchandise/xml/views/edit.productitem.xml</filename>
+        <filename>products/merchandise/xml/views/edit.productitems.xml</filename>
+        <filename>products/usersubscription/index.html</filename>
+        <filename>products/usersubscription/cbpaidProductUsersubscription.php</filename>
+        <filename>products/usersubscription/cbpaidUsersubscriptionRecord.php</filename>
+        <filename>products/usersubscription/xml/index.html</filename>
+        <filename>products/usersubscription/xml/controllers/index.html</filename>
+        <filename>products/usersubscription/xml/controllers/edit.cbsubs.xml</filename>
+        <filename>products/usersubscription/xml/models/index.html</filename>
+        <filename>products/usersubscription/xml/models/edit.product.xml</filename>
+        <filename>products/usersubscription/xml/views/index.html</filename>
+        <filename>products/usersubscription/xml/views/edit.menu.xml</filename>
+        <filename>products/usersubscription/xml/views/edit.product.xml</filename>
+        <filename>products/usersubscription/xml/views/edit.productitem.xml</filename>
+        <filename>products/usersubscription/xml/views/edit.productitems.xml</filename>
+        <filename>views/index.html</filename>
+        <filename>views/basket.php</filename>
+		<filename>views/invoice.php</filename>
+		<filename>views/invoiceslist.php</filename>
+		<filename>views/product.php</filename>
+		<filename>views/productdonation.php</filename>
+		<filename>views/productmerchandise.php</filename>
+		<filename>views/productusersubscription.php</filename>
+		<filename>views/something.php</filename>
+		<filename>views/somethingusersubscription.php</filename>
+		<filename>views/userprofilesubstab.php</filename>
+		<filename>views/userregistrationplans.php</filename>
+		<filename>views/usersubscriptions.php</filename>
+		<filename>views/userupgradeplans.php</filename>
+		<filename>templates/index.html</filename>
+		<filename>templates/default/index.html</filename>
+		<filename>templates/default/default.xml</filename>
+		<filename>templates/default/cbpaidsubscriptions.css</filename>
+		<filename>templates/default/cbpaidsubscriptions.admin.css</filename>
+		<filename>templates/default/xml/edit.template.xml</filename>
+		<filename>templates/default/basket/index.html</filename>
+		<filename>templates/default/basket/default.php</filename>
+		<filename>templates/default/basket/coupon.php</filename>
+		<filename>templates/default/basket/paybutton.php</filename>
+		<filename>templates/default/basket/payradio.php</filename>
+		<filename>templates/default/images/index.html</filename>
+		<filename>templates/default/images/icons/index.html</filename>
+		<filename>templates/default/images/icons/cards/index.html</filename>
+		<filename>templates/default/images/icons/cards/cc_amexco.png</filename>
+		<filename>templates/default/images/icons/cards/cc_diners.png</filename>
+		<filename>templates/default/images/icons/cards/cc_directdebitde.png</filename>
+		<filename>templates/default/images/icons/cards/cc_discover.png</filename>
+		<filename>templates/default/images/icons/cards/cc_jcb.png</filename>
+		<filename>templates/default/images/icons/cards/cc_maestro.png</filename>
+		<filename>templates/default/images/icons/cards/cc_mastercard.png</filename>
+		<filename>templates/default/images/icons/cards/cc_paypal.png</filename>
+		<filename>templates/default/images/icons/cards/cc_solo.png</filename>
+		<filename>templates/default/images/icons/cards/cc_swisspostfinance.png</filename>
+		<filename>templates/default/images/icons/cards/cc_swisspostfinancecard.png</filename>
+		<filename>templates/default/images/icons/cards/cc_twocheckout.png</filename>
+		<filename>templates/default/images/icons/cards/cc_visa.png</filename>
+		<filename>templates/default/images/icons/cards/cc_visaelectron.png</filename>
+		<filename>templates/default/images/icons/cards/cc_vpay.png</filename>
+		<filename>templates/default/invoice/index.html</filename>
+		<filename>templates/default/invoice/default.php</filename>
+		<filename>templates/default/invoiceslist/index.html</filename>
+		<filename>templates/default/invoiceslist/default.php</filename>
+		<filename>templates/default/invoiceslist/invoiceslistlink.php</filename>
+		<filename>templates/default/productdonation/index.html</filename>
+		<filename>templates/default/productdonation/default.php</filename>
+		<filename>templates/default/productmerchandise/index.html</filename>
+		<filename>templates/default/productmerchandise/default.php</filename>
+		<filename>templates/default/productusersubscription/index.html</filename>
+		<filename>templates/default/productusersubscription/default.php</filename>
+		<filename>templates/default/somethingusersubscription/index.html</filename>
+		<filename>templates/default/somethingusersubscription/default.php</filename>
+		<filename>templates/default/userprofilesubstab/index.html</filename>
+		<filename>templates/default/userprofilesubstab/default.php</filename>
+		<filename>templates/default/userregistrationplans/index.html</filename>
+		<filename>templates/default/userregistrationplans/default.php</filename>
+		<filename>templates/default/usersubscriptions/index.html</filename>
+		<filename>templates/default/usersubscriptions/default.php</filename>
+		<filename>templates/default/userupgradeplans/index.html</filename>
+		<filename>templates/default/userupgradeplans/default.php</filename>
+		<filename>templates/default/xml/index.html</filename>
+		<filename>templates/default/xml/edit.template.xml</filename>
+		<filename>js/index.html</filename>
+		<filename>js/cbpaidsubscriptions.js</filename>
+		<filename>js/cbpaidsubscriptions.min.js</filename>
+		<filename>js/admin.cbpaidsubscriptions.js</filename>
+		<filename>js/admin.cbpaidsubscriptions.min.js</filename>
+		<filename>xml/index.html</filename>
+		<filename>xml/admin.lib.processors.xml</filename>
+		<filename>xml/edit.front.invoice.xml</filename>
+		<filename>xml/edit.front.recordpayment.xml</filename>
+		<filename>xml/edit.plugin.xml</filename>
+        <filename>xml/controllers/index.html</filename>
+        <filename>xml/models/index.html</filename>
+		<filename>xml/statistics/index.html</filename>
+		<filename>xml/statistics/edit.cbsubs.xml</filename>
+		<filename>xml/statistics/edit.statistics.xml</filename>
+        <filename>xml/views/index.html</filename>
+        <filename>xml/views/library/index.html</filename>
+        <filename>xml/views/library/view.editgenericproduct.xml</filename>
+        <filename>xml/views/view.editbasket.xml</filename>
+        <filename>xml/views/view.editgateway.xml</filename>
+        <filename>xml/views/view.editproduct.xml</filename>
+        <filename>xml/views/view.paybasket.xml</filename>
+        <filename>xml/views/view.paycontrolcenter.xml</filename>
+        <filename>xml/views/view.refundpayment.xml</filename>
+        <filename>xml/views/view.showcurrencies.xml</filename>
+        <filename>xml/views/view.showexport.xml</filename>
+        <filename>xml/views/view.showgateways.xml</filename>
+        <filename>xml/views/view.showhistory.xml</filename>
+        <filename>xml/views/view.showhistorydetails.xml</filename>
+        <filename>xml/views/view.showimport.xml</filename>
+        <filename>xml/views/view.showinvoice.xml</filename>
+        <filename>xml/views/view.shownotificationdetails.xml</filename>
+        <filename>xml/views/view.shownotifications.xml</filename>
+        <filename>xml/views/view.showparams.xml</filename>
+        <filename>xml/views/view.showpaymentbaskets.xml</filename>
+        <filename>xml/views/view.showpayments.xml</filename>
+        <filename>xml/views/view.showplans.xml</filename>
+        <filename>xml/views/view.showstatistics.xml</filename>
+		<filename>icons/index.html</filename>
+		<filename>icons/normal/index.html</filename>
+		<filename>icons/normal/ok_b_16.gif</filename>
+		<filename>icons/normal/close_b_16.gif</filename>
+		<filename>icons/normal/bank_transaction_128.gif</filename>
+		<filename>icons/normal/bank_transaction_16.gif</filename>
+		<filename>icons/normal/bank_transaction_48.gif</filename>
+		<filename>icons/normal/bank_transaction_gear_128.gif</filename>
+		<filename>icons/normal/bank_transaction_gear_48.gif</filename>
+		<filename>icons/normal/calendar_week_cart_16.gif</filename>
+		<filename>icons/normal/calendar_week_cart_24.gif</filename>
+		<filename>icons/normal/calendar_week_cart_48.gif</filename>
+		<filename>icons/normal/calendar_week_cart_128.gif</filename>
+		<filename>icons/normal/calendar_week_money_16.gif</filename>
+		<filename>icons/normal/calendar_week_money_24.gif</filename>
+		<filename>icons/normal/calendar_week_money_48.gif</filename>
+		<filename>icons/normal/calendar_week_money_128.gif</filename>
+		<filename>icons/normal/calendar_weekday_cart_16.gif</filename>
+		<filename>icons/normal/calendar_weekday_cart_24.gif</filename>
+		<filename>icons/normal/calendar_weekday_cart_48.gif</filename>
+		<filename>icons/normal/calendar_weekday_cart_128.gif</filename>
+		<filename>icons/normal/calendar_weekday_money_16.gif</filename>
+		<filename>icons/normal/calendar_weekday_money_24.gif</filename>
+		<filename>icons/normal/calendar_weekday_money_48.gif</filename>
+		<filename>icons/normal/calendar_weekday_money_128.gif</filename>
+		<filename>icons/normal/calendaryear_cart_16.gif</filename>
+		<filename>icons/normal/calendaryear_cart_24.gif</filename>
+		<filename>icons/normal/calendaryear_cart_48.gif</filename>
+		<filename>icons/normal/calendaryear_cart_128.gif</filename>
+		<filename>icons/normal/calendaryear_money_16.gif</filename>
+		<filename>icons/normal/calendaryear_money_24.gif</filename>
+		<filename>icons/normal/calendaryear_money_48.gif</filename>
+		<filename>icons/normal/calendaryear_money_128.gif</filename>
+		<filename>icons/normal/cbsubs_logo_300.jpg</filename>
+		<filename>icons/normal/clock_24.gif</filename>
+		<filename>icons/normal/clock_cart_16.gif</filename>
+		<filename>icons/normal/clock_cart_24.gif</filename>
+		<filename>icons/normal/clock_cart_48.gif</filename>
+		<filename>icons/normal/clock_cart_128.gif</filename>
+		<filename>icons/normal/clock_money_16.gif</filename>
+		<filename>icons/normal/clock_money_24.gif</filename>
+		<filename>icons/normal/clock_money_48.gif</filename>
+		<filename>icons/normal/clock_money_128.gif</filename>
+		<filename>icons/normal/coin_stack_128.gif</filename>
+		<filename>icons/normal/coin_stack_16.gif</filename>
+		<filename>icons/normal/coin_stack_24.gif</filename>
+		<filename>icons/normal/coin_stack_48.gif</filename>
+		<filename>icons/normal/calendar_month_search_128.gif</filename>
+		<filename>icons/normal/calendar_month_search_16.gif</filename>
+		<filename>icons/normal/calendar_month_search_48.gif</filename>
+		<filename>icons/normal/currency_conversion_128.gif</filename>
+		<filename>icons/normal/currency_conversion_16.gif</filename>
+		<filename>icons/normal/currency_conversion_48.gif</filename>
+		<filename>icons/normal/datagram_back_128.gif</filename>
+		<filename>icons/normal/datagram_back_16.gif</filename>
+		<filename>icons/normal/datagram_back_48.gif</filename>
+		<filename>icons/normal/deposit_128.gif</filename>
+		<filename>icons/normal/deposit_16.gif</filename>
+		<filename>icons/normal/deposit_48.gif</filename>
+		<filename>icons/normal/deposit_search_128.gif</filename>
+		<filename>icons/normal/deposit_search_16.gif</filename>
+		<filename>icons/normal/deposit_search_48.gif</filename>
+		<filename>icons/normal/economics_cart_16.gif</filename>
+		<filename>icons/normal/economics_cart_24.gif</filename>
+		<filename>icons/normal/economics_cart_48.gif</filename>
+		<filename>icons/normal/economics_cart_128.gif</filename>
+		<filename>icons/normal/economics_money_16.gif</filename>
+		<filename>icons/normal/economics_money_24.gif</filename>
+		<filename>icons/normal/economics_money_48.gif</filename>
+		<filename>icons/normal/economics_money_128.gif</filename>
+		<filename>icons/normal/gear_128.gif</filename>
+		<filename>icons/normal/gear_16.gif</filename>
+		<filename>icons/normal/gear_48.gif</filename>
+		<filename>icons/normal/loan_128.gif</filename>
+		<filename>icons/normal/loan_16.gif</filename>
+		<filename>icons/normal/loan_24.gif</filename>
+		<filename>icons/normal/loan_32.gif</filename>
+		<filename>icons/normal/loan_48.gif</filename>
+		<filename>icons/normal/objects_128.gif</filename>
+		<filename>icons/normal/objects_16.gif</filename>
+		<filename>icons/normal/objects_24.gif</filename>
+		<filename>icons/normal/objects_48.gif</filename>
+		<filename>icons/normal/pay-offline.gif</filename>
+		<filename>icons/normal/payment_128.gif</filename>
+		<filename>icons/normal/payment_16.gif</filename>
+		<filename>icons/normal/payment_24.gif</filename>
+		<filename>icons/normal/payment_48.gif</filename>
+		<filename>icons/normal/refund_128.gif</filename>
+		<filename>icons/normal/refund_16.gif</filename>
+		<filename>icons/normal/refund_24.gif</filename>
+		<filename>icons/normal/refund_32.gif</filename>
+		<filename>icons/normal/refund_48.gif</filename>
+		<filename>icons/normal/record_a_128.gif</filename>
+		<filename>icons/normal/record_a_16.gif</filename>
+		<filename>icons/normal/record_a_48.gif</filename>
+		<filename>icons/normal/shopping_cart_128.gif</filename>
+		<filename>icons/normal/shopping_cart_16.gif</filename>
+		<filename>icons/normal/shopping_cart_48.gif</filename>
+		<filename>icons/normal/statistic_128.gif</filename>
+		<filename>icons/normal/statistic_16.gif</filename>
+		<filename>icons/normal/statistic_48.gif</filename>
+		<filename>icons/normal/taxes_128.gif</filename>
+		<filename>icons/normal/taxes_16.gif</filename>
+		<filename>icons/normal/taxes_48.gif</filename>
+		<filename>icons/normal/time_sheet_128.gif</filename>
+		<filename>icons/normal/time_sheet_16.gif</filename>
+		<filename>icons/normal/time_sheet_24.gif</filename>
+		<filename>icons/normal/time_sheet_48.gif</filename>
+		<filename>icons/normal/user_id_128.gif</filename>
+		<filename>icons/normal/user_id_16.gif</filename>
+		<filename>icons/normal/user_id_24.gif</filename>
+		<filename>icons/normal/user_id_48.gif</filename>
+		<filename>icons/normal/user_id_add_128.gif</filename>
+		<filename>icons/normal/user_id_add_16.gif</filename>
+		<filename>icons/normal/user_id_add_48.gif</filename>
+		<filename>icons/normal/menubutton.png</filename>
+		<filename>icons/normal/bargraph_horiz.gif</filename>
+		<filename>icons/normal/hierarchy_level1.gif</filename>
+		<filename>icons/normal/world_cart_16.gif</filename>
+		<filename>icons/normal/world_cart_24.gif</filename>
+		<filename>icons/normal/world_cart_48.gif</filename>
+		<filename>icons/normal/world_cart_128.gif</filename>
+		<filename>icons/normal/world_money_16.gif</filename>
+		<filename>icons/normal/world_money_24.gif</filename>
+		<filename>icons/normal/world_money_48.gif</filename>
+		<filename>icons/normal/world_money_128.gif</filename>
+		<filename>icons/hot/index.html</filename>
+		<filename>icons/hot/wheel_pay.gif</filename>
+		<filename>icons/hot/menubutton.png</filename>
+		<filename>icons/cards/cc_3d_amexco.png</filename>
+		<filename>icons/cards/cc_3d_diners.png</filename>
+		<filename>icons/cards/cc_3d_directdebitde.png</filename>
+		<filename>icons/cards/cc_3d_discover.png</filename>
+		<filename>icons/cards/cc_3d_jcb.png</filename>
+		<filename>icons/cards/cc_3d_maestro.png</filename>
+		<filename>icons/cards/cc_3d_mastercard.png</filename>
+		<filename>icons/cards/cc_3d_paypal.png</filename>
+		<filename>icons/cards/cc_3d_swisspostfinance.png</filename>
+		<filename>icons/cards/cc_3d_swisspostfinancecard.png</filename>
+		<filename>icons/cards/cc_3d_solo.png</filename>
+		<filename>icons/cards/cc_3d_twocheckout.png</filename>
+		<filename>icons/cards/cc_3d_visa.png</filename>
+		<filename>icons/cards/cc_3d_visaelectron.png</filename>
+		<filename>icons/cards/cc_3d_vpay.png</filename>
+		<filename>icons/cards/cc_amexco.gif</filename>
+		<filename>icons/cards/cc_big_amexco.gif</filename>
+		<filename>icons/cards/cc_big_diners.gif</filename>
+		<filename>icons/cards/cc_big_discover.gif</filename>
+		<filename>icons/cards/cc_big_confirm_order.gif</filename>
+		<filename>icons/cards/cc_big_free_trial.gif</filename>
+		<filename>icons/cards/cc_big_jcb.gif</filename>
+		<filename>icons/cards/cc_big_mastercard.gif</filename>
+		<filename>icons/cards/cc_big_offline.gif</filename>
+		<filename>icons/cards/cc_big_orange_buy_now.gif</filename>
+		<filename>icons/cards/cc_big_orange_confirm_order.gif</filename>
+		<filename>icons/cards/cc_big_orange_free_trial.gif</filename>
+		<filename>icons/cards/cc_big_orange_pay_now.gif</filename>
+		<filename>icons/cards/cc_big_orange_subscribe.gif</filename>
+		<filename>icons/cards/cc_big_paypal.gif</filename>
+		<filename>icons/cards/cc_big_paypal_paynow.gif</filename>
+		<filename>icons/cards/cc_big_paypal_subscribe.gif</filename>
+		<filename>icons/cards/cc_big_visa.gif</filename>
+		<filename>icons/cards/cc_big_visa_mc_am_subscribe.gif</filename>
+		<filename>icons/cards/cc_big_visa_mc_amex_pay.gif</filename>
+		<filename>icons/cards/cc_big_visa_mc_pay.gif</filename>
+		<filename>icons/cards/cc_big_visa_mc_subscribe.gif</filename>
+		<filename>icons/cards/cc_big_visa_mc_postfinance.gif</filename>
+		<filename>icons/cards/cc_big_swisspostfinance.gif</filename>
+		<filename>icons/cards/cc_cvv2.gif</filename>
+		<filename>icons/cards/cc_diners.gif</filename>
+		<filename>icons/cards/cc_discover.gif</filename>
+		<filename>icons/cards/cc_jcb.gif</filename>
+		<filename>icons/cards/cc_mastercard.gif</filename>
+		<filename>icons/cards/cc_offline.gif</filename>
+		<filename>icons/cards/cc_orange_buy_now.gif</filename>
+		<filename>icons/cards/cc_orange_confirm_order.gif</filename>
+		<filename>icons/cards/cc_orange_click_subscribe.gif</filename>
+		<filename>icons/cards/cc_orange_free_trial.gif</filename>
+		<filename>icons/cards/cc_orange_pay_now.gif</filename>
+		<filename>icons/cards/cc_orange_subscribe.gif</filename>
+		<filename>icons/cards/cc_paypal.gif</filename>
+		<filename>icons/cards/cc_visa.gif</filename>
+		<filename>icons/cards/cc_swisspostfinance.gif</filename>
+		<filename>icons/cards/index.html</filename>
+	</files>
+	<tabs>
+		<tab name="Subscription" description="" class="getcbpaidsubscriptionsTab" fields="0" position="cb_tabmain" displaytype="tab" ordering_register="1">
+			<params>
+			</params>
+			<userparams>
+				<param name="intro_text" type="textarea" cols="40" rows="5" default="" label="User Text" description="Text above the donation button (optional)" />	
+				<param name="allow_select_currency" type="list" default="1" label="My preferred currency" description="Whether you allow the donor to choose the currency.">
+					<option value="0">Fixed</option>
+					<option value="1">User-selectable</option>
+				</param>
+			</userparams>
+			<fields>
+				<!-- <field title="Subscription User Parameters" name="cb_subs_params" description="User's parameters for his subscriptions" type="textarea" registration="0" profile="0" readonly="0" params="" />  -->
+				<field title="Invoice to: First name" name="cb_subs_inv_first_name" type="text" size="" default="" description="" registration="0" profile="0" readonly="0" params="" />
+				<field title="Invoice to: Last name" name="cb_subs_inv_last_name" type="text" size="" default="" description="" registration="0" profile="0" readonly="0" params="" />
+				<field title="Invoice to: Company" name="cb_subs_inv_payer_business_name" type="text" size="" default="" description="" registration="0" profile="0" readonly="0" params="" />
+				<field title="Invoice to: Address" name="cb_subs_inv_address_street" type="text" size="" default="" description="" registration="0" profile="0" readonly="0" params="" />
+				<field title="Invoice to: City" name="cb_subs_inv_address_city" type="text" size="" default="" description="" registration="0" profile="0" readonly="0" params="" />
+				<field title="Invoice to: State" name="cb_subs_inv_address_state" type="text" size="" default="" description="" registration="0" profile="0" readonly="0" params="" />
+				<field title="Invoice to: Zipcode " name="cb_subs_inv_address_zip" type="text" size="" default="" description="" registration="0" profile="0" readonly="0" params="" />
+				<field title="Invoice to: Country" name="cb_subs_inv_address_country" type="text" size="" default="" description="" registration="0" profile="0" readonly="0" params="" />
+				<field title="Invoice to: Contact phone" name="cb_subs_inv_contact_phone" type="text" size="" default="" description="" registration="0" profile="0" readonly="0" params="" />
+				<field title="Invoice to: VAT number" name="cb_subs_inv_vat_number" type="text" size="" default="" description="" registration="0" profile="0" readonly="0" params="" />
+			</fields>
+		</tab>
+	</tabs>
+	<database version="1">
+		<table name="#__cbsubs_config" class="" strict="true" drop="never">
+			<columns strict="true" drop="never">
+				<column name="id" type="sql:int(11)" unsigned="true" auto_increment="500" />
+				<column name="user_id" type="sql:int(11)" default="0" />
+				<column name="type" type="sql:varchar(24)" />
+				<column name="last_updated_date" type="sql:datetime" />
+				<column name="sequencenumber" type="sql:int(11)" unsigned="true" default="0" />
+				<column name="params" type="sql:text" />
+			</columns>
+			<indexes strict="true" drop="never">
+				<index name="PRIMARY" type="primary">
+					<column name="id" />
+				</index>
+				<!-- This index is not added at this point because of a bug to be fixed in CB 1.2.3- : looks like cb adds first new indexes, then does update rows contents...
+				<index name="userid_type" type="unique">
+					<column name="user_id" />
+					<column name="type" />
+				</index>
+				-->
+			</indexes>
+			<rows strict="false" drop="never">
+				<row index="id" value="1" valuetype="const:int">
+					<field name="id" value="1" valuetype="const:int" strict="true" />
+					<field name="user_id" value="0" valuetype="const:int" strict="true" />
+					<field name="type" value="config" valuetype="const:string" strict="true" />
+					<field name="last_updated_date" value="0000-00-00 00:00:00" valuetype="const:datetime" />
+					<field name="sequencenumber" value="0" valuetype="const:int" />
+					<field name="params" value="" valuetype="const:string" />
+				</row>
+				<row index="id" value="2" valuetype="const:int">
+					<field name="id" value="2" valuetype="const:int" strict="true" />
+					<field name="user_id" value="0" valuetype="const:int" strict="true" />
+					<field name="type" value="license" valuetype="const:string" strict="true" />
+					<field name="last_updated_date" value="0000-00-00 00:00:00" valuetype="const:datetime" />
+					<field name="sequencenumber" value="0" valuetype="const:int" />
+					<field name="params" value="" valuetype="const:string" />
+				</row>
+			</rows>
+		</table>
+		<table name="#__cbsubs_currencies" class="" strict="true" drop="never">
+			<columns strict="true" drop="never">
+				<column name="id" type="sql:int(11)" unsigned="true" auto_increment="1" />
+				<column name="base_currency" type="sql:varchar(3)" />
+				<column name="currency" type="sql:varchar(3)" />
+				<column name="rate" type="sql:decimal(16,8)" null="true" />
+				<column name="source" type="sql:varchar(255)" />
+				<column name="last_updated_date" type="sql:datetime" null="true" />
+				<column name="last_renewed_date" type="sql:datetime" null="true" />
+				<column name="ordering" type="sql:int(11)" />
+			</columns>
+			<indexes strict="true" drop="never">
+				<index name="PRIMARY" type="primary">
+					<column name="id" />
+				</index>
+				<index name="currencies" type="unique">
+					<column name="currency" />
+					<column name="base_currency" />
+				</index>
+				<index name="last_updated_date">
+					<column name="last_updated_date" />
+				</index>
+			</indexes>
+		</table>
+		<table name="#__cbsubs_merchandises" class="" strict="true" drop="never">
+			<columns strict="true" drop="never">
+				<column name="id" type="sql:int(20)" unsigned="true" auto_increment="1" />
+				<column name="status" type="sql:char(1)" default="I" />
+				<column name="user_id" type="sql:int(11)" />
+				<column name="plan_id" type="sql:int(11)" null="true" />
+				<column name="parent_plan" type="sql:int(11)" unsigned="true" />
+				<column name="parent_subscription" type="sql:int(11)" unsigned="true" />
+				<column name="payment_date" type="sql:datetime" null="true" />
+				<column name="amount" type="sql:decimal(16,5)" null="true" />
+				<column name="currency" type="sql:varchar(3)" />
+				<column name="ip_addresses" type="sql:varchar(255)" null="true" />
+				<column name="integrations" type="sql:text" />
+			</columns>
+			<indexes strict="true" drop="never">
+				<index name="PRIMARY" type="primary">
+					<column name="id" />
+				</index>
+				<index name="user_plan_status">
+					<column name="user_id" />
+					<column name="plan_id" />
+					<column name="status" />
+				</index>
+				<index name="plan_status_date">
+					<column name="plan_id" />
+					<column name="status" />
+					<column name="payment_date" />
+				</index>
+			</indexes>
+		</table>
+		<table name="#__cbsubs_donations" class="" strict="true" drop="never">
+			<columns strict="true" drop="never">
+				<column name="id" type="sql:int(20)" unsigned="true" auto_increment="1" />
+				<column name="status" type="sql:char(1)" default="I" />
+				<column name="user_id" type="sql:int(11)" />
+				<column name="plan_id" type="sql:int(11)" null="true" />
+				<column name="parent_plan" type="sql:int(11)" unsigned="true" />
+				<column name="parent_subscription" type="sql:int(11)" unsigned="true" />
+				<column name="payment_date" type="sql:datetime" null="true" oldname="donation_date" />
+				<column name="amount" type="sql:decimal(16,5)" null="true" />
+				<column name="currency" type="sql:varchar(3)" />
+				<column name="ip_addresses" type="sql:varchar(255)" null="true" />
+				<column name="integrations" type="sql:text" />
+			</columns>
+			<indexes strict="true" drop="never">
+				<index name="PRIMARY" type="primary">
+					<column name="id" />
+				</index>
+				<index name="user_plan_status">
+					<column name="user_id" />
+					<column name="plan_id" />
+					<column name="status" />
+				</index>
+				<index name="plan_status_date">
+					<column name="plan_id" />
+					<column name="status" />
+					<column name="payment_date" />
+				</index>
+			</indexes>
+		</table>
+		<table name="#__cbsubs_gateway_accounts" class="cbpaidGatewaysAccountsMgr::gatewayAccountObjects" strict="true" drop="never">
+			<columns strict="true" drop="never">
+				<column name="id" type="sql:int(11)" unsigned="true" auto_increment="1" />
+				<column name="name" type="sql:varchar(64)" />
+				<column name="gateway_type" type="sql:varchar(32)" default="unknown" />
+				<column name="owner" type="sql:int(11)" />
+				<column name="enabled" type="sql:tinyint(4)" />
+				<column name="normal_gateway" type="sql:tinyint(4)" default="1" />
+				<column name="ordering" type="sql:int(11)" />
+				<column name="currencies_accepted" type="sql:varchar(255)" default="" />
+				<column name="currency_acceptance_mode" type="sql:char(1)" default="H" />
+				<column name="currency_acceptance_text" type="sql:varchar(255)" default="" />
+				<column name="viewaccesslevel" type="sql:int(10)" unsigned="true" initialvalue="1" initialvaluetype="int" />
+				<column name="params" type="sql:text" />
+				<column name="cssclass" type="sql:varchar(48)" />
+			</columns>
+			<indexes strict="true" drop="never">
+				<index name="PRIMARY" type="primary">
+					<column name="id" />
+				</index>
+				<index name="ordering">
+					<column name="ordering" />
+				</index>
+				<index name="owner_enabled_ordering">
+					<column name="owner" />
+					<column name="enabled" />
+					<column name="ordering" />
+				</index>
+			</indexes>
+		</table>
+		<table name="#__cbsubs_history" class="" strict="true" drop="never">
+			<columns strict="true" drop="never">
+				<column name="id" type="sql:bigint(20)" unsigned="true" auto_increment="1" />
+				<column name="event_type" type="sql:varchar(16)" />
+				<column name="message" type="sql:mediumtext" null="true" />
+				<column name="table_name" type="sql:varchar(48)" />
+				<column name="table_key_id" type="sql:int(11)" unsigned="true" null="true" />
+				<column name="field_changed" type="sql:varchar(48)" />
+				<column name="change_type" type="sql:varchar(16)" />
+				<column name="old_value" type="sql:mediumtext" null="true" />
+				<column name="new_value" type="sql:mediumtext" null="true" />
+				<column name="event_time" type="sql:datetime" />
+				<column name="user_id" type="sql:int(11)" />
+				<column name="ip_addresses" type="sql:varchar(255)" null="true" />
+				<column name="log_priority" type="sql:tinyint(4)" />
+				<column name="log_version" type="sql:tinyint(4)" />
+			</columns>
+			<indexes strict="true" drop="never">
+				<index name="PRIMARY" type="primary">
+					<column name="id" />
+				</index>
+				<index name="user_time_id">
+					<column name="user_id" />
+					<column name="event_time" />
+					<column name="id" />
+				</index>
+				<index name="table_name_id_time_id">
+					<column name="table_name" />
+					<column name="table_key_id" />
+					<column name="event_type" />
+					<column name="event_time" />
+					<column name="id" />
+				</index>
+				<index name="event_time_id">
+					<column name="event_time" />
+					<column name="id" />
+				</index>
+				<index name="event_type_time_id">
+					<column name="event_type" />
+					<column name="event_time" />
+					<column name="id" />
+				</index>
+				<index name="log_priority_time_id">
+					<column name="log_priority" />
+					<column name="event_time" />
+					<column name="id" />
+				</index>
+				<index name="ip_addresses_time_id">
+					<column name="ip_addresses" />
+					<column name="event_time" />
+					<column name="id" />
+				</index>
+				<index name="change_type">
+					<column name="change_type" />
+				</index>
+				<!-- NEW and better but too slow to re-index for now during upgrade:
+					<index name="user_id">
+						<column name="user_id" />
+						<column name="id" />
+					</index>
+					<index name="table_name_key_id">
+						<column name="table_name" />
+						<column name="table_key_id" />
+						<column name="event_type" />
+						<column name="id" />
+					</index>
+					<index name="event_time_id">
+						<column name="event_time" />
+						<column name="id" />
+					</index>
+					<index name="event_type_id">
+						<column name="event_type" />
+						<column name="id" />
+					</index>
+					<index name="log_priority_id">
+						<column name="log_priority" />
+						<column name="id" />
+					</index>
+					<index name="ip_addresses_id">
+						<column name="ip_addresses" />
+						<column name="id" />
+					</index>
+					<index name="change_type">
+						<column name="change_type" />
+					</index>
+				 -->
+			</indexes>
+		</table>
+		<table name="#__cbsubs_notifications" class="" strict="true" drop="never">
+			<columns strict="true" drop="never">
+				<column name="id" type="sql:bigint(20)" unsigned="true" auto_increment="1" />
+				<column name="user_id" type="sql:int(11)" />
+				<column name="payment_basket_id" type="sql:bigint(20)" unsigned="true" null="true" />
+				<column name="payment_method" type="sql:varchar(255)" null="true" />
+				<column name="gateway_account" type="sql:int(11)" unsigned="true" />
+				<column name="log_type" type="sql:varchar(20)" null="true" />
+				<column name="time_received" type="sql:datetime" null="true" />
+				<column name="raw_data" type="sql:mediumtext" null="true" />
+				<column name="raw_result" type="sql:mediumtext" null="true" />
+				<column name="ip_addresses" type="sql:varchar(255)" null="true" />
+				<column name="notify_version" type="sql:varchar(255)" null="true" />
+				<column name="verify_sign" type="sql:varchar(255)" null="true" />
+				<column name="charset" type="sql:varchar(255)" null="true" />
+				<column name="test_ipn" type="sql:tinyint(4)" />
+				<column name="address_name" type="sql:varchar(255)" null="true" />
+				<column name="address_street" type="sql:varchar(255)" null="true" />
+				<column name="address_city" type="sql:varchar(255)" null="true" />
+				<column name="address_state" type="sql:varchar(255)" null="true" />
+				<column name="address_zip" type="sql:varchar(255)" null="true" />
+				<column name="address_country" type="sql:varchar(255)" null="true" />
+				<column name="address_country_code" type="sql:varchar(255)" null="true" />
+				<column name="address_status" type="sql:varchar(255)" null="true" />
+				<column name="first_name" type="sql:varchar(255)" null="true" />
+				<column name="last_name" type="sql:varchar(255)" null="true" />
+				<column name="payer_business_name" type="sql:varchar(255)" null="true" />
+				<column name="payer_email" type="sql:varchar(255)" null="true" />
+				<column name="payer_id" type="sql:varchar(255)" null="true" />
+				<column name="payer_status" type="sql:varchar(64)" null="true" />
+				<column name="residence_country" type="sql:varchar(255)" null="true" />
+				<column name="contact_phone" type="sql:varchar(32)" null="true" />
+				<column name="vat_number" type="sql:varchar(32)" null="true" />
+				<column name="business" type="sql:varchar(255)" null="true" />
+				<column name="item_name" type="sql:varchar(255)" null="true" />
+				<column name="item_number" type="sql:varchar(255)" null="true" />
+				<column name="quantity" type="sql:int(11)" null="true" />
+				<column name="receiver_email" type="sql:varchar(255)" null="true" />
+				<column name="receiver_id" type="sql:varchar(255)" null="true" />
+				<column name="custom" type="sql:varchar(255)" null="true" />
+				<column name="invoice" type="sql:varchar(255)" null="true" />
+				<column name="memo" type="sql:varchar(255)" null="true" />
+				<column name="option_name1" type="sql:varchar(255)" null="true" />
+				<column name="option_selection1" type="sql:varchar(255)" null="true" />
+				<column name="option_name2" type="sql:varchar(255)" null="true" />
+				<column name="option_selection2" type="sql:varchar(255)" null="true" />
+				<column name="tax" type="sql:decimal(16,5)" null="true" />
+				<column name="auth_id" type="sql:varchar(255)" null="true" />
+				<column name="auth_exp" type="sql:varchar(255)" null="true" />
+				<column name="auth_amount" type="sql:varchar(255)" null="true" />
+				<column name="auth_status" type="sql:varchar(255)" null="true" />
+				<column name="num_cart_items" type="sql:varchar(255)" null="true" />
+				<column name="parent_txn_id" type="sql:varchar(128)" null="true" />
+				<column name="payment_date" type="sql:varchar(255)" null="true" />
+				<column name="payment_status" type="sql:varchar(64)" null="true" />
+				<column name="payment_type" type="sql:varchar(32)" null="true" />
+				<column name="pending_reason" type="sql:varchar(128)" null="true" />
+				<column name="reason_code" type="sql:varchar(255)" null="true" />
+				<column name="remaining_settle" type="sql:varchar(255)" null="true" />
+				<column name="shipping" type="sql:decimal(16,5)" null="true" />
+				<column name="transaction_entitiy" type="sql:varchar(255)" null="true" />
+				<column name="txn_id" type="sql:varchar(128)" null="true" />
+				<column name="txn_type" type="sql:varchar(64)" null="true" />
+				<column name="receipt_id" type="sql:varchar(32)" null="true" />
+				<column name="sale_id" type="sql:varchar(64)" null="true" />
+				<column name="exchange_rate" type="sql:decimal(16,8)" null="true" />
+				<column name="mc_currency" type="sql:varchar(255)" null="true" />
+				<column name="mc_fee" type="sql:decimal(16,5)" null="true" />
+				<column name="mc_gross" type="sql:decimal(16,5)" null="true" />
+				<column name="mc_handling" type="sql:decimal(16,5)" null="true" />
+				<column name="mc_shipping" type="sql:decimal(16,5)" null="true" />
+				<column name="payment_fee" type="sql:decimal(16,5)" null="true" />
+				<column name="payment_gross" type="sql:decimal(16,5)" null="true" />
+				<column name="settle_amount" type="sql:decimal(16,5)" null="true" />
+				<column name="settle_currency" type="sql:varchar(255)" null="true" />
+				<column name="auction_buyer_id" type="sql:varchar(255)" null="true" />
+				<column name="auction_closing_date" type="sql:varchar(255)" null="true" />
+				<column name="auction_multi_item" type="sql:varchar(255)" null="true" />
+				<column name="for_auction" type="sql:varchar(255)" null="true" />
+				<column name="subscr_date" type="sql:varchar(255)" null="true" />
+				<column name="subscr_effective" type="sql:varchar(255)" null="true" />
+				<column name="period1" type="sql:varchar(255)" null="true" />
+				<column name="period2" type="sql:varchar(255)" null="true" />
+				<column name="period3" type="sql:varchar(255)" null="true" />
+				<column name="amount1" type="sql:decimal(16,5)" null="true" />
+				<column name="amount2" type="sql:decimal(16,5)" null="true" />
+				<column name="amount3" type="sql:decimal(16,5)" null="true" />
+				<column name="mc_amount1" type="sql:decimal(16,5)" null="true" />
+				<column name="mc_amount2" type="sql:decimal(16,5)" null="true" />
+				<column name="mc_amount3" type="sql:decimal(16,5)" null="true" />
+				<column name="recurring" type="sql:tinyint(4)" />
+				<column name="reattempt" type="sql:tinyint(4)" null="true" />
+				<column name="retry_at" type="sql:varchar(255)" null="true" />
+				<column name="recur_times" type="sql:smallint(6)" null="true" />
+				<column name="username" type="sql:varchar(255)" null="true" />
+				<column name="password" type="sql:varchar(255)" null="true" />
+				<column name="subscr_id" type="sql:varchar(255)" null="true" />
+				<column name="case_id" type="sql:varchar(255)" null="true" />
+				<column name="case_type" type="sql:varchar(255)" null="true" />
+				<column name="case_creation_date" type="sql:varchar(255)" null="true" />
+				<column name="integrations" type="sql:text" null="true" />
+			</columns>
+			<indexes strict="true" drop="never">
+				<index name="PRIMARY" type="primary">
+					<column name="id" />
+				</index>
+				<index name="user_id_time">
+					<column name="user_id" />
+					<column name="time_received" />
+				</index>
+				<index name="payment_basket_id">
+					<column name="payment_basket_id" />
+				</index>
+				<index name="gatewayaccount_paystatus">
+					<column name="gateway_account" />
+					<column name="payment_status" />
+				</index>
+				<index name="txn_id">
+					<column name="txn_id" />
+					<column name="parent_txn_id" />
+				</index>
+				<index name="parent_txn_id">
+					<column name="parent_txn_id" />
+					<column name="txn_id" />
+				</index>
+				<index name="txn_type">
+					<column name="txn_type" />
+				</index>
+				<index name="sale_id">
+					<column name="sale_id" />
+				</index>
+				<index name="payment_status">
+					<column name="payment_status" />
+				</index>
+				<index name="pending_reason">
+					<column name="pending_reason" />
+				</index>
+				<index name="payer_status">
+					<column name="payer_status" />
+				</index>
+				<index name="payment_type">
+					<column name="payment_type" />
+				</index>
+				<index name="retry_at">
+					<column name="retry_at" />
+				</index>
+				<index name="receiver_email">
+					<column name="receiver_email" />
+				</index>
+				<index name="time_received">
+					<column name="time_received" />
+				</index>
+				<index name="Log_type_time_received">
+					<column name="log_type" />
+					<column name="time_received" />
+				</index>
+			</indexes>
+		</table>
+		<table name="#__cbsubs_payment_baskets" class="" strict="true" drop="never">
+			<columns strict="true" drop="never">
+				<column name="id" type="sql:bigint(20)" unsigned="true" auto_increment="1" />
+				<column name="user_id" type="sql:int(11)" />
+				<column name="owner" type="sql:int(11)" />
+				<column name="payment_method" type="sql:varchar(255)" null="true" />
+				<column name="gateway_account" type="sql:int(11)" unsigned="true" />
+				<column name="time_initiated" type="sql:datetime" null="true" />
+				<column name="time_completed" type="sql:datetime" null="true" />
+				<column name="time_completed_date" type="sql:date" />
+				<column name="time_completed_day_of_week" type="sql:tinyint(1)" null="true" />
+				<column name="time_completed_yearweek" type="sql:varchar(8)" null="true" initialvalue="DATE_FORMAT(time_completed, '%x-W%v')" initialvaluetype="formula" />
+				<column name="time_completed_yearmonth" type="sql:varchar(7)" null="true" initialvalue="DATE_FORMAT(time_completed, '%Y-%m')" initialvaluetype="formula" />
+				<column name="time_completed_hour" type="sql:tinyint(2)" null="true" initialvalue="DATE_FORMAT(time_completed, '%H')" initialvaluetype="formula" />
+				<column name="shared_secret" type="sql:varchar(255)" null="true" />
+				<column name="ip_addresses" type="sql:varchar(255)" null="true" />
+				<column name="charset" type="sql:varchar(255)" null="true" />
+				<column name="test_ipn" type="sql:tinyint(4)" />
+				<column name="address_name" type="sql:varchar(255)" null="true" />
+				<column name="address_street" type="sql:varchar(255)" null="true" />
+				<column name="address_city" type="sql:varchar(255)" null="true" />
+				<column name="address_state" type="sql:varchar(255)" null="true" />
+				<column name="address_zip" type="sql:varchar(255)" null="true" />
+				<column name="address_country" type="sql:varchar(255)" null="true" />
+				<column name="address_country_code" type="sql:varchar(255)" null="true" />
+				<column name="address_status" type="sql:varchar(255)" null="true" />
+				<column name="first_name" type="sql:varchar(255)" null="true" />
+				<column name="last_name" type="sql:varchar(255)" null="true" />
+				<column name="payer_business_name" type="sql:varchar(255)" null="true" />
+				<column name="payer_email" type="sql:varchar(255)" null="true" />
+				<column name="payer_id" type="sql:varchar(255)" null="true" />
+				<column name="payer_status" type="sql:varchar(64)" null="true" />
+				<column name="residence_country" type="sql:varchar(255)" null="true" />
+				<column name="contact_phone" type="sql:varchar(32)" null="true" />
+				<column name="vat_number" type="sql:varchar(32)" null="true" />
+				<column name="business" type="sql:varchar(255)" null="true" />
+				<column name="item_name" type="sql:varchar(255)" null="true" />
+				<column name="item_number" type="sql:varchar(255)" null="true" />
+				<column name="quantity" type="sql:int(11)" null="true" />
+				<column name="receiver_email" type="sql:varchar(255)" null="true" />
+				<column name="receiver_id" type="sql:varchar(255)" null="true" />
+				<column name="custom" type="sql:varchar(255)" null="true" />
+				<column name="invoice" type="sql:varchar(255)" null="true" />
+				<column name="proformainvoice" type="sql:varchar(255)" null="true" />
+				<column name="memo" type="sql:varchar(255)" null="true" />
+				<column name="option_name1" type="sql:varchar(255)" null="true" />
+				<column name="option_selection1" type="sql:varchar(255)" null="true" />
+				<column name="option_name2" type="sql:varchar(255)" null="true" />
+				<column name="option_selection2" type="sql:varchar(255)" null="true" />
+				<column name="tax" type="sql:decimal(16,5)" null="true" />
+				<column name="auth_id" type="sql:varchar(255)" null="true" />
+				<column name="auth_exp" type="sql:varchar(255)" null="true" />
+				<column name="auth_amount" type="sql:varchar(255)" null="true" />
+				<column name="auth_status" type="sql:varchar(255)" null="true" />
+				<column name="num_cart_items" type="sql:varchar(255)" null="true" />
+				<column name="parent_txn_id" type="sql:varchar(128)" null="true" />
+				<column name="payment_date" type="sql:varchar(255)" null="true" />
+				<column name="payment_status" type="sql:varchar(64)" default="NotInitiated" />
+				<column name="payment_type" type="sql:varchar(32)" null="true" />
+				<column name="pending_reason" type="sql:varchar(128)" null="true" />
+				<column name="reason_code" type="sql:varchar(255)" null="true" />
+				<column name="remaining_settle" type="sql:varchar(255)" null="true" />
+				<column name="shipping" type="sql:decimal(16,5)" null="true" />
+				<column name="transaction_entitiy" type="sql:varchar(255)" null="true" />
+				<column name="txn_id" type="sql:varchar(128)" null="true" />
+				<column name="txn_type" type="sql:varchar(64)" null="true" />
+				<column name="receipt_id" type="sql:varchar(32)" null="true" />
+				<column name="sale_id" type="sql:varchar(64)" null="true" />
+				<column name="exchange_rate" type="sql:decimal(16,8)" null="true" />
+				<column name="mc_currency" type="sql:varchar(255)" null="true" />
+				<column name="mc_fee" type="sql:decimal(16,5)" null="true" />
+				<column name="mc_gross" type="sql:decimal(16,5)" null="true" />
+				<column name="mc_handling" type="sql:decimal(16,5)" null="true" />
+				<column name="mc_shipping" type="sql:decimal(16,5)" null="true" />
+				<column name="payment_fee" type="sql:decimal(16,5)" null="true" />
+				<column name="payment_gross" type="sql:decimal(16,5)" null="true" />
+				<column name="settle_amount" type="sql:decimal(16,5)" null="true" />
+				<column name="settle_currency" type="sql:varchar(255)" null="true" />
+				<column name="auction_buyer_id" type="sql:varchar(255)" null="true" />
+				<column name="auction_closing_date" type="sql:varchar(255)" null="true" />
+				<column name="auction_multi_item" type="sql:varchar(255)" null="true" />
+				<column name="for_auction" type="sql:varchar(255)" null="true" />
+				<column name="subscr_date" type="sql:varchar(255)" null="true" />
+				<column name="subscr_effective" type="sql:varchar(255)" null="true" />
+				<column name="period1" type="sql:varchar(255)" null="true" />
+				<column name="period2" type="sql:varchar(255)" null="true" />
+				<column name="period3" type="sql:varchar(255)" null="true" />
+				<column name="amount1" type="sql:decimal(16,5)" null="true" />
+				<column name="amount2" type="sql:decimal(16,5)" null="true" />
+				<column name="amount3" type="sql:decimal(16,5)" null="true" />
+				<column name="mc_amount1" type="sql:decimal(16,5)" null="true" />
+				<column name="mc_amount2" type="sql:decimal(16,5)" null="true" />
+				<column name="mc_amount3" type="sql:decimal(16,5)" null="true" />
+				<column name="recurring" type="sql:tinyint(4)" />
+				<column name="reattempt" type="sql:tinyint(4)" null="true" />
+				<column name="retry_at" type="sql:varchar(255)" null="true" />
+				<column name="recur_times" type="sql:smallint(6)" null="true" />
+				<column name="username" type="sql:varchar(255)" null="true" />
+				<column name="password" type="sql:varchar(255)" null="true" />
+				<column name="subscr_id" type="sql:varchar(255)" null="true" />
+				<column name="case_id" type="sql:varchar(255)" null="true" />
+				<column name="case_type" type="sql:varchar(255)" null="true" />
+				<column name="case_creation_date" type="sql:varchar(255)" null="true" />
+				<column name="recur_times_used" type="sql:smallint(6)" null="true" />
+				<column name="reattempts_tried" type="sql:smallint(6)" null="true" />
+				<column name="scheduler_state" type="sql:varchar(4)" null="false" />
+				<column name="scheduler_next_maturity" type="sql:datetime" null="false" />
+				<column name="integrations" type="sql:text" null="true" />
+				<column name="is_business" type="sql:tinyint(4)" null="true" />
+				<column name="vat_verification" type="sql:text" null="true" />
+			</columns>
+			<indexes strict="true" drop="never">
+				<index name="PRIMARY" type="primary">
+					<column name="id" />
+				</index>
+				<index name="user_id">
+					<column name="user_id" />
+				</index>
+				<index name="txn_id">
+					<column name="txn_id" />
+				</index>
+				<index name="txn_type">
+					<column name="txn_type" />
+				</index>
+				<index name="sale_id">
+					<column name="sale_id" />
+				</index>
+				<index name="payment_status">
+					<column name="payment_status" />
+				</index>
+				<index name="pending_reason">
+					<column name="pending_reason" />
+				</index>
+				<index name="gatewayaccount_paystatus">
+					<column name="gateway_account" />
+					<column name="payment_status" />
+				</index>
+				<index name="payer_status">
+					<column name="payer_status" />
+				</index>
+				<index name="payment_type">
+					<column name="payment_type" />
+				</index>
+				<index name="retry_at">
+					<column name="retry_at" />
+				</index>
+				<index name="receiver_email">
+					<column name="receiver_email" />
+				</index>
+				<index name="time_completed">
+					<column name="time_completed" />
+				</index>
+				<index name="time_completed_date">
+					<column name="time_completed_date" />
+				</index>
+				<index name="status_time_completed_date">
+					<column name="payment_status" />
+					<column name="time_completed_date" />
+				</index>
+				<index name="status_time_completed_dayofweek">
+					<column name="payment_status" />
+					<column name="time_completed_day_of_week" />
+				</index>
+				<index name="status_time_completed_yearweek">
+					<column name="payment_status" />
+					<column name="time_completed_yearweek" />
+				</index>
+				<index name="status_time_completed_yearmonth">
+					<column name="payment_status" />
+					<column name="time_completed_yearmonth" />
+				</index>
+				<index name="status_time_completed_hour">
+					<column name="payment_status" />
+					<column name="time_completed_hour" />
+				</index>
+				<index name="scheduler_next_maturity">
+					<column name="scheduler_next_maturity" />
+				</index>
+			</indexes>
+		</table>
+		<table name="#__cbsubs_payment_items" class="" strict="true" drop="never">
+			<columns strict="true" drop="never">
+				<column name="id" type="sql:bigint(20)" unsigned="true" auto_increment="1" />
+				<column name="payment_basket_id" type="sql:bigint(20)" unsigned="true" null="true" />
+				<column name="item_type" type="sql:varchar(16)" />
+				<column name="subscription_id" type="sql:bigint(20)" unsigned="true" null="true" />
+				<column name="plan_id" type="sql:int(11)" unsigned="true" null="true" />
+				<column name="reason" type="sql:char(1)" default="N" />
+				<column name="quantity" type="sql:decimal(16,5)" null="true" />
+				<column name="unit" type="sql:varchar(255)" null="true" />
+				<column name="artnum" type="sql:varchar(64)" null="true" />
+				<column name="description" type="sql:varchar(255)" null="true" />
+				<column name="alias" type="sql:varchar(255)" null="true" />
+				<column name="discount_text" type="sql:varchar(255)" null="true" />
+				<column name="first_discount_amount" type="sql:decimal(16,5)" null="true" />
+				<column name="discount_amount" type="sql:decimal(16,5)" null="true" />
+				<column name="prorate_discount" type="sql:decimal(16,5)" null="true" />
+				<column name="currency" type="sql:varchar(3)" null="true" />
+				<column name="rate" type="sql:decimal(16,5)" null="true" />
+				<column name="validity" type="sql:varchar(24)" null="true" />
+				<column name="bonustime" type="sql:datetime" null="true" />
+				<column name="start_date" type="sql:datetime" null="true" />
+				<column name="stop_date" type="sql:datetime" null="false" />
+				<column name="second_stop_date" type="sql:datetime" null="false" />
+				<column name="recurring_max_times" type="sql:int(11)" />
+				<column name="autorecurring" type="sql:tinyint(4)" null="true" />
+				<column name="first_rate" type="sql:decimal(16,5)" null="true" />
+				<column name="first_validity" type="sql:varchar(24)" />
+				<column name="tax_rule_id" type="sql:int(11)" unsigned="true" null="true" />
+				<column name="tax_amount" type="sql:decimal(16,5)" null="true" />
+				<column name="first_tax_amount" type="sql:decimal(16,5)" null="true" />
+				<column name="owner" type="sql:int(11)" />
+				<column name="parent" type="sql:int(11)" />
+				<column name="ordering" type="sql:int(11)" />
+			</columns>
+			<indexes strict="true" drop="never">
+				<index name="PRIMARY" type="primary">
+					<column name="id" />
+				</index>
+				<index name="subscription_basket_plan" type="unique">
+					<column name="subscription_id" />
+					<column name="payment_basket_id" />
+					<column name="plan_id" />
+				</index>
+				<index name="plan_subscription">
+					<column name="plan_id" />
+					<column name="subscription_id" />
+				</index>
+				<index name="basket_ordering">
+					<column name="payment_basket_id" />
+					<column name="ordering" />
+				</index>
+			</indexes>
+		</table>
+		<table name="#__cbsubs_payment_totalizers" class="" strict="true" drop="never">
+			<columns strict="true" drop="never">
+				<column name="id" type="sql:bigint(20)" unsigned="true" auto_increment="1" />
+				<column name="payment_basket_id" type="sql:bigint(20)" unsigned="true" null="true" />
+				<column name="payment_item_id" type="sql:bigint(20)" unsigned="true" null="false" />
+				<column name="ordering" type="sql:int(11)" />
+				<column name="totalizer_type" type="sql:varchar(16)" />
+				<column name="totalizer_id" type="sql:bigint(20)" unsigned="true" null="true" />
+				<column name="quantity" type="sql:decimal(16,5)" null="true" />
+				<column name="unit" type="sql:varchar(255)" null="true" />
+				<column name="artnum" type="sql:varchar(64)" null="true" />
+				<column name="description" type="sql:varchar(255)" null="true" />
+				<column name="totalizer_days" type="sql:int(11)" unsigned="true" />
+				<column name="item_days" type="sql:int(11)" unsigned="true" />
+				<column name="first_totalizer_days" type="sql:int(11)" unsigned="true" />
+				<column name="first_item_days" type="sql:int(11)" unsigned="true" />
+				<column name="currency" type="sql:varchar(3)" null="true" />
+				<column name="original_rate" type="sql:decimal(16,5)" null="true" />
+				<column name="first_original_rate" type="sql:decimal(16,5)" null="true" />
+				<column name="rate" type="sql:decimal(16,5)" null="true" />
+				<column name="first_rate" type="sql:decimal(16,5)" null="true" />
+				<column name="start_date" type="sql:datetime" null="false" />
+				<column name="stop_date" type="sql:datetime" null="false" />
+				<column name="tax_rule_id" type="sql:int(11)" unsigned="true" null="true" />
+				<column name="tax_amount" type="sql:decimal(16,5)" null="true" />
+				<column name="first_tax_amount" type="sql:decimal(16,5)" null="true" />
+			</columns>
+			<indexes strict="true" drop="never">
+				<index name="PRIMARY" type="primary">
+					<column name="id" />
+				</index>
+				<index name="basket_ordering">
+					<column name="payment_basket_id" />
+					<column name="ordering" />
+				</index>
+			</indexes>
+		</table>
+		<table name="#__cbsubs_payments" class="cbpaidPayment" strict="true" drop="never">
+			<columns strict="true" drop="never">
+				<column name="id" type="sql:bigint(20)" unsigned="true" auto_increment="1" />
+				<column name="payment_basket_id" type="sql:bigint(20)" unsigned="true" null="true" />
+				<column name="payment_method" type="sql:varchar(255)" null="true" />
+				<column name="gateway_account" type="sql:int(11)" unsigned="true" />
+				<column name="log_id" type="sql:int(11)" />
+				<column name="for_user_id" type="sql:int(11)" />
+				<column name="by_user_id" type="sql:int(11)" />
+				<column name="to_user_id" type="sql:int(11)" />
+				<column name="created_by_user_id" type="sql:int(11)" />
+				<column name="modified_by_user_id" type="sql:int(11)" />
+				<column name="time_paid" type="sql:datetime" null="true" />
+				<column name="time_paid_date" type="sql:date" />
+				<column name="time_paid_day_of_week" type="sql:tinyint(1)" null="true" />
+				<column name="time_paid_yearweek" type="sql:varchar(8)" null="true" initialvalue="DATE_FORMAT(time_paid, '%x-W%v')" initialvaluetype="formula" />
+				<column name="time_paid_yearmonth" type="sql:varchar(7)" null="true" initialvalue="DATE_FORMAT(time_paid, '%Y-%m')" initialvaluetype="formula" />
+				<column name="time_paid_hour" type="sql:tinyint(2)" null="true" />
+				<column name="time_created" type="sql:datetime" null="true" />
+				<column name="time_modified" type="sql:datetime" null="true" />
+				<column name="ip_addresses" type="sql:varchar(255)" null="true" />
+				<column name="notify_version" type="sql:varchar(255)" null="true" />
+				<column name="verify_sign" type="sql:varchar(255)" null="true" />
+				<column name="charset" type="sql:varchar(255)" null="true" />
+				<column name="test_ipn" type="sql:tinyint(4)" />
+				<column name="address_name" type="sql:varchar(255)" null="true" />
+				<column name="address_street" type="sql:varchar(255)" null="true" />
+				<column name="address_city" type="sql:varchar(255)" null="true" />
+				<column name="address_state" type="sql:varchar(255)" null="true" />
+				<column name="address_zip" type="sql:varchar(255)" null="true" />
+				<column name="address_country" type="sql:varchar(255)" null="true" />
+				<column name="address_country_code" type="sql:varchar(255)" null="true" />
+				<column name="address_status" type="sql:varchar(255)" null="true" />
+				<column name="first_name" type="sql:varchar(255)" null="true" />
+				<column name="last_name" type="sql:varchar(255)" null="true" />
+				<column name="payer_business_name" type="sql:varchar(255)" null="true" />
+				<column name="payer_email" type="sql:varchar(255)" null="true" />
+				<column name="payer_id" type="sql:varchar(255)" null="true" />
+				<column name="payer_status" type="sql:varchar(64)" null="true" />
+				<column name="residence_country" type="sql:varchar(255)" null="true" />
+				<column name="contact_phone" type="sql:varchar(32)" null="true" />
+				<column name="vat_number" type="sql:varchar(32)" null="true" />
+				<column name="business" type="sql:varchar(255)" null="true" />
+				<column name="item_name" type="sql:varchar(255)" null="true" />
+				<column name="item_number" type="sql:varchar(255)" null="true" />
+				<column name="quantity" type="sql:int(11)" null="true" />
+				<column name="receiver_email" type="sql:varchar(255)" null="true" />
+				<column name="receiver_id" type="sql:varchar(255)" null="true" />
+				<column name="custom" type="sql:varchar(255)" null="true" />
+				<column name="invoice" type="sql:varchar(255)" null="true" />
+				<column name="memo" type="sql:varchar(255)" null="true" />
+				<column name="option_name1" type="sql:varchar(255)" null="true" />
+				<column name="option_selection1" type="sql:varchar(255)" null="true" />
+				<column name="option_name2" type="sql:varchar(255)" null="true" />
+				<column name="option_selection2" type="sql:varchar(255)" null="true" />
+				<column name="tax" type="sql:decimal(16,5)" null="true" />
+				<column name="auth_id" type="sql:varchar(255)" null="true" />
+				<column name="auth_exp" type="sql:varchar(255)" null="true" />
+				<column name="auth_amount" type="sql:varchar(255)" null="true" />
+				<column name="auth_status" type="sql:varchar(255)" null="true" />
+				<column name="num_cart_items" type="sql:varchar(255)" null="true" />
+				<column name="parent_txn_id" type="sql:varchar(128)" null="true" />
+				<column name="payment_date" type="sql:varchar(255)" null="true" />
+				<column name="payment_status" type="sql:varchar(64)" null="true" />
+				<column name="payment_type" type="sql:varchar(32)" null="true" />
+				<column name="pending_reason" type="sql:varchar(128)" null="true" />
+				<column name="reason_code" type="sql:varchar(255)" null="true" />
+				<column name="remaining_settle" type="sql:varchar(255)" null="true" />
+				<column name="shipping" type="sql:decimal(16,5)" null="true" />
+				<column name="transaction_entitiy" type="sql:varchar(255)" null="true" />
+				<column name="txn_id" type="sql:varchar(128)" null="true" />
+				<column name="txn_type" type="sql:varchar(64)" null="true" />
+				<column name="receipt_id" type="sql:varchar(32)" null="true" />
+				<column name="sale_id" type="sql:varchar(64)" null="true" />
+				<column name="exchange_rate" type="sql:decimal(16,8)" null="true" />
+				<column name="mc_currency" type="sql:varchar(255)" null="true" />
+				<column name="mc_fee" type="sql:decimal(16,5)" null="true" />
+				<column name="mc_gross" type="sql:decimal(16,5)" null="true" />
+				<column name="mc_handling" type="sql:decimal(16,5)" null="true" />
+				<column name="mc_shipping" type="sql:decimal(16,5)" null="true" />
+				<column name="payment_fee" type="sql:decimal(16,5)" null="true" />
+				<column name="payment_gross" type="sql:decimal(16,5)" null="true" />
+				<column name="settle_amount" type="sql:decimal(16,5)" null="true" />
+				<column name="settle_currency" type="sql:varchar(255)" null="true" />
+				<column name="auction_buyer_id" type="sql:varchar(255)" null="true" />
+				<column name="auction_closing_date" type="sql:varchar(255)" null="true" />
+				<column name="auction_multi_item" type="sql:varchar(255)" null="true" />
+				<column name="for_auction" type="sql:varchar(255)" null="true" />
+				<column name="subscr_date" type="sql:varchar(255)" null="true" />
+				<column name="subscr_effective" type="sql:varchar(255)" null="true" />
+				<column name="period1" type="sql:varchar(255)" null="true" />
+				<column name="period2" type="sql:varchar(255)" null="true" />
+				<column name="period3" type="sql:varchar(255)" null="true" />
+				<column name="amount1" type="sql:decimal(16,5)" null="true" />
+				<column name="amount2" type="sql:decimal(16,5)" null="true" />
+				<column name="amount3" type="sql:decimal(16,5)" null="true" />
+				<column name="mc_amount1" type="sql:decimal(16,5)" null="true" />
+				<column name="mc_amount2" type="sql:decimal(16,5)" null="true" />
+				<column name="mc_amount3" type="sql:decimal(16,5)" null="true" />
+				<column name="recurring" type="sql:tinyint(4)" />
+				<column name="reattempt" type="sql:tinyint(4)" null="true" />
+				<column name="retry_at" type="sql:varchar(255)" null="true" />
+				<column name="recur_times" type="sql:smallint(6)" null="true" />
+				<column name="username" type="sql:varchar(255)" null="true" />
+				<column name="password" type="sql:varchar(255)" null="true" />
+				<column name="subscr_id" type="sql:varchar(255)" null="true" />
+				<column name="case_id" type="sql:varchar(255)" null="true" />
+				<column name="case_type" type="sql:varchar(255)" null="true" />
+				<column name="case_creation_date" type="sql:varchar(255)" null="true" />
+				<column name="integrations" type="sql:text" null="true" />
+			</columns>
+			<indexes strict="true" drop="never">
+				<index name="PRIMARY" type="primary">
+					<column name="id" />
+				</index>
+				<index name="payment_basket_id">
+					<column name="payment_basket_id" />
+				</index>
+				<index name="gatewayaccount_paystatus">
+					<column name="gateway_account" />
+					<column name="payment_status" />
+				</index>
+				<index name="for_user_id_time">
+					<column name="for_user_id" />
+					<column name="time_paid" />
+				</index>
+				<index name="by_user_id_time">
+					<column name="by_user_id" />
+					<column name="time_paid" />
+				</index>
+				<index name="to_user_id_time">
+					<column name="to_user_id" />
+					<column name="time_paid" />
+				</index>
+				<index name="txn_id_parent">
+					<column name="txn_id" />
+					<column name="parent_txn_id" />
+				</index>
+				<index name="parent_txn_id_txn">
+					<column name="parent_txn_id" />
+					<column name="txn_id" />
+				</index>
+				<index name="txn_type">
+					<column name="txn_type" />
+				</index>
+				<index name="sale_id">
+					<column name="sale_id" />
+				</index>
+				<index name="payment_type">
+					<column name="payment_type" />
+				</index>
+				<index name="time_paid">
+					<column name="time_paid" />
+				</index>
+				<index name="time_paid_date">
+					<column name="time_paid_date" />
+				</index>
+				<index name="status_time_paid_date">
+					<column name="payment_status" />
+					<column name="time_paid_date" />
+				</index>
+				<index name="status_time_paid_day_of_week">
+					<column name="payment_status" />
+					<column name="time_paid_day_of_week" />
+				</index>
+				<index name="status_time_paid_yearweek">
+					<column name="payment_status" />
+					<column name="time_paid_yearweek" />
+				</index>
+				<index name="status_time_paid_yearmonth">
+					<column name="payment_status" />
+					<column name="time_paid_yearmonth" />
+				</index>
+				<index name="status_time_paid_hour">
+					<column name="payment_status" />
+					<column name="time_paid_hour" />
+				</index>
+				<index name="test_ipn_status_time_paid_date">
+					<column name="test_ipn" />
+					<column name="payment_status" />
+					<column name="time_paid_date" />
+				</index>
+				<index name="time_created">
+					<column name="time_created" />
+				</index>
+			</indexes>
+		</table>
+		<table name="#__cbsubs_plans" class="" strict="true" drop="never">
+			<columns strict="true" drop="never">
+				<column name="id" type="sql:int(11)" unsigned="true" auto_increment="1" />
+				<column name="item_type" type="sql:varchar(16)" />
+				<column name="published" type="sql:tinyint(4)" default="1" />
+				<column name="allow_newsubscriptions" type="sql:tinyint(4)" default="1" />
+				<column name="allow_registration" type="sql:tinyint(4)" default="1" />
+				<column name="allow_upgrade_to_this" type="sql:tinyint(4)" default="1" />
+				<column name="allow_frontend" type="sql:tinyint(4)" default="1" />
+				<column name="propose_registration" type="sql:tinyint(4)" default="1" />
+				<column name="propose_upgrade" type="sql:tinyint(4)" default="1" />
+				<column name="auto_compute_upgrade" type="sql:tinyint(4)" default="1" />
+				<column name="multiple" type="sql:tinyint(4)" default="0" />
+				<column name="access" type="sql:int(11)" />
+				<column name="name" type="sql:varchar(255)" />
+				<column name="alias" type="sql:varchar(64)" />
+				<column name="description" type="sql:mediumtext" />
+				<column name="runcontentplugins" type="sql:tinyint(4)" default="0" />
+				<column name="pricedisplay" type="sql:varchar(255)" null="true" />
+				<column name="item_text" type="sql:varchar(255)" />
+				<column name="item_alias" type="sql:varchar(255)" />
+				<column name="currency" type="sql:varchar(3)" />
+				<column name="rate" type="sql:decimal(16,5)" null="true" />
+				<column name="validity" type="sql:varchar(24)" />
+				<column name="calstart" type="sql:varchar(5)" default="01-01" />
+				<column name="bonustime" type="sql:varchar(24)" />
+				<column name="graceperiod" type="sql:varchar(24)" />
+				<column name="renewableinadvanceby" type="sql:varchar(24)" />
+				<column name="prorate" type="sql:tinyint(4)" default="1" />
+				<column name="renewal_start" type="sql:tinyint(4)" default="0" />
+				<column name="recurring_max_times" type="sql:int(11)" />
+				<column name="autorecurring" type="sql:tinyint(4)" />
+				<column name="action_at_last_recurring" type="sql:tinyint(4)" />
+				<column name="first_different" type="sql:tinyint(4)" />
+				<column name="first_rate" type="sql:decimal(16,5)" null="true" />
+				<column name="first_validity" type="sql:varchar(24)" />
+				<column name="first_calstart" type="sql:varchar(5)" default="01-01" />
+				<column name="default" type="sql:tinyint(4)" />
+				<column name="hideregistrationfields" type="sql:varchar(512)" />
+				<column name="confirmed" type="sql:tinyint(4)" default="2" />
+				<column name="approved" type="sql:tinyint(4)" default="2" />
+				<column name="viewaccesslevel" type="sql:int(10)" unsigned="true" initialvalue="1" initialvaluetype="int" />
+				<column name="usergroup" type="sql:int(11)" />
+				<column name="owner" type="sql:int(11)" />
+				<column name="thankyoutextcompleted" type="sql:mediumtext" />
+				<column name="thankyoutextpending" type="sql:mediumtext" />
+				<column name="thankyouemailsubject" type="sql:mediumtext" />
+				<column name="thankyouemailbody" type="sql:mediumtext" />
+				<column name="thankyouemailhtml" type="sql:tinyint(4)" default="0" />
+				<column name="thankyouemailcc" type="sql:varchar(255)" />
+				<column name="thankyouemailbcc" type="sql:varchar(255)" />
+				<column name="thankyouemailattachments" type="sql:text" />
+				<column name="pendingfirstemailsubject" type="sql:mediumtext" />
+				<column name="pendingfirstemailbody" type="sql:mediumtext" />
+				<column name="pendingfirstemailhtml" type="sql:tinyint(4)" default="0" />
+				<column name="pendingfirstemailcc" type="sql:varchar(255)" />
+				<column name="pendingfirstemailbcc" type="sql:varchar(255)" />
+				<column name="pendingfirstemailattachments" type="sql:text" />
+				<column name="renewalemailsubject" type="sql:mediumtext" />
+				<column name="renewalemailbody" type="sql:mediumtext" />
+				<column name="renewalemailhtml" type="sql:tinyint(4)" default="0" />
+				<column name="renewalemailcc" type="sql:varchar(255)" />
+				<column name="renewalemailbcc" type="sql:varchar(255)" />
+				<column name="renewalemailattachments" type="sql:text" />
+				<column name="pendingrenewalemailsubject" type="sql:mediumtext" />
+				<column name="pendingrenewalemailbody" type="sql:mediumtext" />
+				<column name="pendingrenewalemailhtml" type="sql:tinyint(4)" default="0" />
+				<column name="pendingrenewalemailcc" type="sql:varchar(255)" />
+				<column name="pendingrenewalemailbcc" type="sql:varchar(255)" />
+				<column name="pendingrenewalemailattachments" type="sql:text" />
+				<column name="autorenewalemailsubject" type="sql:mediumtext" />
+				<column name="autorenewalemailbody" type="sql:mediumtext" />
+				<column name="autorenewalemailhtml" type="sql:tinyint(4)" default="0" />
+				<column name="autorenewalemailcc" type="sql:varchar(255)" />
+				<column name="autorenewalemailbcc" type="sql:varchar(255)" />
+				<column name="autorenewalemailattachments" type="sql:text" />
+				<column name="expirationemailsubject" type="sql:mediumtext" />
+				<column name="expirationemailbody" type="sql:mediumtext" />
+				<column name="expirationemailhtml" type="sql:tinyint(4)" default="0" />
+				<column name="expirationemailcc" type="sql:varchar(255)" />
+				<column name="expirationemailbcc" type="sql:varchar(255)" />
+				<column name="expirationemailattachments" type="sql:text" />
+				<column name="cancelledemailsubject" type="sql:mediumtext" />
+				<column name="cancelledemailbody" type="sql:mediumtext" />
+				<column name="cancelledemailhtml" type="sql:tinyint(4)" default="0" />
+				<column name="cancelledemailcc" type="sql:varchar(255)" />
+				<column name="cancelledemailbcc" type="sql:varchar(255)" />
+				<column name="cancelledemailattachments" type="sql:text" />
+				<column name="parent" type="sql:int(11)" />
+				<column name="ordering" type="sql:int(11)" />
+				<column name="exclusive" type="sql:tinyint(4)" default="1" />
+				<column name="hidechildren" type="sql:tinyint(4)" default="0" />
+				<column name="firstloginurl" type="sql:varchar(255)" />
+				<column name="eachloginurl" type="sql:varchar(255)" />
+				<column name="template" type="sql:varchar(48)" null="false" />
+				<column name="cssclass" type="sql:varchar(48)" />
+				<column name="tax_rule_id" type="sql:int(11)" unsigned="true" null="false" />
+				<column name="reg_conds" type="sql:tinyint(4)" />
+				<column name="reg_conds_plans_required" type="sql:varchar(255)" />
+				<column name="reg_conds_plans_not_required" type="sql:varchar(255)" />
+				<column name="reg_conds_plans_disallowing" type="sql:varchar(255)" />
+				<column name="reg_conds_fields_required" type="sql:varchar(255)" />
+				<column name="reg_conds_fields_not_required" type="sql:varchar(255)" />
+				<column name="reg_conds_fields_disallowing" type="sql:varchar(255)" />
+				<column name="reg_conds_cbfield_1" type="sql:int(11)" />
+				<column name="reg_conds_cbfield_1_operator" type="sql:varchar(7)" />
+				<column name="reg_conds_value_1" type="sql:varchar(255)" />
+				<column name="cond_1_operator" type="sql:varchar(7)" />
+				<column name="cond_1_plans_required" type="sql:varchar(1024)" />
+				<column name="cond_1_plans_status" type="sql:varchar(40)" />
+				<column name="cond_1_purchase_ok" type="sql:tinyint(4)" />
+				<column name="cond_1_date_1" type="sql:varchar(20)" />
+				<column name="cond_1_date_cbfield_1" type="sql:int(11)" />
+				<column name="cond_1_value_1" type="sql:varchar(1024)" />
+				<column name="cond_1_dates_diff_a" type="sql:varchar(21)" />
+				<column name="cond_1_dates_diff_b" type="sql:varchar(21)" />
+				<column name="cond_1_date_2" type="sql:varchar(20)" />
+				<column name="cond_1_date_cbfield_2" type="sql:int(11)" />
+				<column name="cond_1_value_2" type="sql:varchar(1024)" />
+				<column name="cond_2_operator" type="sql:varchar(7)" />
+				<column name="cond_2_plans_required" type="sql:varchar(1024)" />
+				<column name="cond_2_plans_status" type="sql:varchar(40)" />
+				<column name="cond_2_purchase_ok" type="sql:tinyint(4)" />
+				<column name="cond_2_date_1" type="sql:varchar(20)" />
+				<column name="cond_2_date_cbfield_1" type="sql:int(11)" />
+				<column name="cond_2_value_1" type="sql:varchar(1024)" />
+				<column name="cond_2_dates_diff_a" type="sql:varchar(21)" />
+				<column name="cond_2_dates_diff_b" type="sql:varchar(21)" />
+				<column name="cond_2_date_2" type="sql:varchar(20)" />
+				<column name="cond_2_date_cbfield_2" type="sql:int(11)" />
+				<column name="cond_2_value_2" type="sql:varchar(1024)" />
+				<column name="upgrade_conds" type="sql:tinyint(4)" />
+				<column name="upgrade_conds_plans_required" type="sql:varchar(255)" />
+				<column name="upgrade_conds_plans_disallowing" type="sql:varchar(255)" />				
+				<column name="integrations" type="sql:text" />
+				<column name="params" type="sql:text" />
+			</columns>
+			<indexes strict="true" drop="never">
+				<index name="PRIMARY" type="primary">
+					<column name="id" />
+				</index>
+				<index name="published_allownew_allowreg_parent_ordering">
+					<column name="published" />
+					<column name="allow_newsubscriptions" />
+					<column name="allow_registration" />
+					<column name="parent" />
+					<column name="ordering" />
+				</index>
+				<index name="fe_published_allownew_allowreg_parent_order">
+					<column name="allow_frontend" />
+					<column name="published" />
+					<column name="allow_newsubscriptions" />
+					<column name="allow_registration" />
+					<column name="parent" />
+					<column name="ordering" />
+				</index>
+				<index name="upgrade_published_allownew_parent_ordering">
+					<column name="allow_upgrade_to_this" />
+					<column name="published" />
+					<column name="allow_newsubscriptions" />
+					<column name="parent" />
+					<column name="ordering" />
+				</index>
+				<index name="allownew_published_upgrade_fe_parent_order">
+					<column name="allow_newsubscriptions" />
+					<column name="published" />
+					<column name="allow_upgrade_to_this" />
+					<column name="allow_frontend" />
+					<column name="parent" />
+					<column name="ordering" />
+				</index>
+			</indexes>
+		</table>
+		<table name="#__cbsubs_subscriptions" class="" strict="true" drop="never">
+			<columns strict="true" drop="never">
+				<column name="id" type="sql:int(11)" unsigned="true" auto_increment="1" />
+				<column name="status" type="sql:char(1)" default="I" />
+				<column name="user_id" type="sql:int(11)" />
+				<column name="plan_id" type="sql:int(11)" unsigned="true" null="true" />
+				<column name="parent_plan" type="sql:int(11)" unsigned="true" />
+				<column name="parent_subscription" type="sql:int(11)" unsigned="true" />
+				<column name="replaces_plan" type="sql:int(11)" unsigned="true" null="true" />
+				<column name="replaces_subscription" type="sql:int(11)" unsigned="true" null="true" />
+				<column name="subscription_date" type="sql:datetime" null="true" />
+				<column name="last_renewed_date" type="sql:datetime" null="true" />
+				<column name="expiry_date" type="sql:datetime" null="true" />
+				<column name="next_event_date" type="sql:datetime" null="true" />
+				<column name="next_event_id" type="sql:int(11)" />
+				<column name="next_event_params" type="sql:varchar(255)" />
+				<column name="autorenew_type" type="sql:tinyint(4)" />
+				<column name="autorecurring_type" type="sql:tinyint(4)" />
+				<column name="regular_recurrings_total" type="sql:int(11)" />
+				<column name="regular_recurrings_used" type="sql:int(11)" />
+				<column name="previous_recurrings_used" type="sql:int(11)" />
+				<column name="previous_expiry_date" type="sql:datetime" null="true" />
+				<column name="previous_status" type="sql:char(1)" default="I" />
+				<column name="ip_addresses" type="sql:varchar(255)" null="true" />
+				<column name="integrations" type="sql:text" />
+			</columns>
+			<indexes strict="true" drop="never">
+				<index name="PRIMARY" type="primary">
+					<column name="id" />
+				</index>
+				<index name="replaces_subscription_plan">
+					<column name="replaces_subscription" />
+					<column name="replaces_plan" />
+				</index>
+				<index name="user_status_plan">
+					<column name="user_id" />
+					<column name="status" />
+					<column name="plan_id" />
+				</index>
+				<index name="status_plan_expiry">
+					<column name="status" />
+					<column name="plan_id" />
+					<column name="expiry_date" />
+				</index>
+				<index name="plan_id">
+					<column name="plan_id" />
+				</index>
+			</indexes>
+		</table>
+	</database>
+	<install>
+    </install>
+    	<installfile>cbpaidsubscriptions.install.php</installfile>
+    <uninstall>
+      <queries>
+      </queries>
+    </uninstall>
+</cbinstall>

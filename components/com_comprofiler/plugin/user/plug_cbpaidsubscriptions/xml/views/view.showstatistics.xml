@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="showstatistics" type="params" ui="admin" label="Statistics" description="This page allows to get some statistics, and will be expanded in the next version.">
+			<extend toxpathnode=".." fromxpathnode="/*/integrations/integration[@name=&quot;payintegrationstatsmenu&quot;]/views/view[@name=&quot;showstatistics&quot;]/*" file="xml/statistics/edit.cbsubs" />
+			<menugroup name="statsmenu" type="buttonMenu" label="Statistics menu" description="Different statistics are available here. Please choose by pressing corresponding button below.">
+				<!-- 
+				<menu name="dayofweek"      action="cb_action:show_statistics_dayofweek"                  label="By day of week"           description="Compare weeks by day of week">
+				</menu>
+				<menu name="freequery"      action="cb_action:show_statistics_freequery"                label="Free query"   description="Filter down the result you want by criterias">
+				</menu>
+			-->
+				<showview name="integrationstatsmenu" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.]" action="" path="payintegrationstatsmenu" />
+			</menugroup>
+		</view>
+	</views>
+</cbxml>

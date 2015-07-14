@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="editproduct" type="params" ui="admin" label="Subscription Plan" description="A Subscription Plan includes the settings for that plan, which can be set here.">
+			<toolbarmenu>
+				<menu name="save"    action="save"   task="savePlugin" link="cb_action:show_plan" label="Save" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="apply "  action="apply"  task="applyPlugin"  label="Apply" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="back"    action="back"   href=""             label="Back" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="close"   action="linkAction" task="cancel" link="cb_action:show_plan" label="Close" />
+			</toolbarmenu>
+			<if name="item_type" operator="=" value="" valuetype="const:string" type="condition">
+				<param type="spacer" label="Please choose type of product first:" />
+			</if>
+			<if name="item_type" operator="=" value="" valuetype="const:string" type="condition">
+				<extend toxpathnode="/cbxml/types/type[@name=&quot;product_type&quot;]" fromxpathnode="/*/types/type[@name=&quot;product_type&quot;]/option" file="products/*/xml/models/edit.product" />
+				<extend toxpathnode=".." fromxpathnode="/*/views/view[@name=&quot;selectproductinformation&quot;]/*" file="products/*/xml/views/edit.product" mandatory="false" />
+				<param name="item_type" type="xml:product_type" default="" blanktext="--- Choose type ---" hideblanktext="true" label="Type of product" description="You can choose the type of product to use" onchange="evaluate"/>
+				<param name="producttypesheader" type="spacer" label="Available basic product types. CBSubs integrations plugins can extend their functionality." default=" " />
+			</if>
+			<if name="item_type" operator="!=" value="" valuetype="const:string" type="condition">
+				<param name="item_type" type="hidden" class="cbregHidden" />
+				
+				<extend toxpathnode="/cbxml/types/type[@name=&quot;product_type&quot;]" fromxpathnode="/*/types/type[@name=&quot;product_type&quot;]/option" file="products/{item_type}/xml/models/edit.product" />
+				<extend toxpathnode="/cbxml/views" fromxpathnode="/*/views/view" file="products/{item_type}/xml/views/edit.product" />
+				
+				<showview name="product_settings" view="edit{item_type}" />
+			</if>
+		</view>
+	</views>
+</cbxml>

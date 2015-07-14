@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.0.0" method="upgrade" overwrite="true">
+    <identifier>com:logman</identifier>
+    <name>LOGman</name>
+    <author>Joomlatools</author>
+    <creationDate>June 2013</creationDate>
+    <copyright>Copyright (C) 2011 - 2013 Timble CVBA (http://www.timble.net)</copyright>
+    <license>GNU GPLv3 - http://www.gnu.org/licenses/gpl.html</license>
+    <authorEmail>support@joomlatools.com</authorEmail>
+    <authorUrl>www.joomlatools.com</authorUrl>
+    <version>1.0.0RC5</version>
+    <description>User Activity Stream</description>
+
+    <media folder="media">
+        <folder>com_logman</folder>
+    </media>
+
+    <scriptfile>install/script.php</scriptfile>
+    <installfile>install/install.php</installfile>
+    <uninstallfile>install/uninstall.php</uninstallfile>
+
+    <update>
+        <schemas>
+            <schemapath type="mysql">updates</schemapath>
+        </schemas>
+    </update>
+
+    <administration>
+        <menu view="activities">COM_LOGMAN</menu>
+
+        <files folder="administrator/components/com_logman">
+            <filename>access.xml</filename>
+            <filename>aliases.php</filename>
+            <filename>config.xml</filename>
+            <filename>logman.php</filename>
+            <filename>dispatcher.php</filename>
+            <filename>translator.php</filename>
+            <filename>version.php</filename>
+
+            <folder>activities</folder>
+            <folder>controllers</folder>
+            <folder>databases</folder>
+            <folder>install</folder>
+            <folder>language</folder>
+            <folder>models</folder>
+            <folder>templates</folder>
+            <folder>views</folder>
+            <folder>updates</folder>
+            <folder>plugins</folder>
+        </files>
+
+        <languages folder="administrator/language">
+            <language tag="en-GB">en-GB/en-GB.com_logman.ini</language>
+            <language tag="en-GB">en-GB/en-GB.com_logman.menu.ini</language>
+        </languages>
+
+    </administration>
+
+    <dependencies>
+        <dependency type="component" element="com_activities">extensions/com_activities</dependency>
+        <dependency type="module" element="mod_logman" client_id="1">extensions/mod_logman</dependency>
+        <dependency type="plugin" element="logman" folder="koowa">extensions/plg_koowa_logman</dependency>
+        <dependency type="plugin" element="content" folder="logman">extensions/plg_logman_content</dependency>
+        <dependency type="plugin" element="docman" folder="logman">extensions/plg_logman_docman</dependency>
+        <dependency type="plugin" element="files" folder="logman">extensions/plg_logman_files</dependency>
+        <dependency type="plugin" element="extension" folder="logman">extensions/plg_logman_extension</dependency>
+        <dependency type="plugin" element="installer" folder="logman">extensions/plg_logman_installer</dependency>
+        <dependency type="plugin" element="users" folder="logman">extensions/plg_logman_users</dependency>
+        <dependency type="plugin" element="contact" folder="logman">extensions/plg_logman_contact</dependency>
+        <dependency type="plugin" element="config" folder="logman">extensions/plg_logman_config</dependency>
+    </dependencies>
+
+    <deleted>
+        <folder>administrator/components/com_logman/controllers/behaviors/loggables</folder>
+        <folder>administrator/components/com_logman/controllers/behaviors/files</folder>
+        <file>administrator/components/com_logman/templates/helpers/paginator.php</file>
+        <file>administrator/components/com_logman/templates/helpers/autocomplete.php</file>
+        <folder>media/com_logman/css</folder>
+        <file>media/com_logman/images/calendar.png</file>
+        <file>media/com_logman/images/glyphicons-halflings-white.png</file>
+        <file>media/com_logman/images/glyphicons-halflings.png</file>
+    </deleted>
+</extension>

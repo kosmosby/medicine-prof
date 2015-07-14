@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="module" client="site" method="upgrade">
+	<name>JOMWALL MiniProfile</name>
+	<author>AWDsolution.com</author>
+	<creationDate>1/11/2010</creationDate>
+	<copyright>Copyright (C) 2010 AWDsolution.com </copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>inof@AWDsolution.com</authorEmail>
+	<authorUrl>http://www.AWDsolution.com</authorUrl>	
+   <description><![CDATA[This module display a small snap of jomwall profile.]]></description>
+	<files>
+		<filename module="mod_jomwallminiprofile">mod_jomwallminiprofile.php</filename>
+		<filename>index.html</filename>
+		<filename>helper.php</filename>
+		<filename>ajax.php</filename>
+		<folder>tmpl</folder>
+		<folder>images</folder>
+	</files>
+  <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.mod_jomwallminiprofile.ini</language>
+        <language tag="en-GB">en-GB/en-GB.mod_jomwallminiprofile.sys.ini</language>
+    </languages>
+  <config>
+    <fields name="params">
+      <fieldset name="basic">
+		<field name="profilelinks" type="menuitem" default="" multiple="multiple" label="Select Links" description="Select Links which it should display in module" />
+		
+        <field name="show_profile_link" type="list" default="1" label="Display Profile Link" description="Display Profile Link">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </field>
+        <field name="show_photo_link" type="list" default="1" label="Display Photo Link" description="Display Photo Link">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </field>
+        <field name="show_wallpost_link" type="list" default="1" label="Display Wall Post Link" description="Display Wall Post Link">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </field>
+        <field name="show_friend_link" type="list" default="1" label="Display Friend Link" description="Display Friend Link">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </field>
+        <field name="show_message_link" type="list" default="1" label="Display Message Link" description="Display Message Link">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </field>
+        <field name="show_group_link" type="list" default="1" label="Display Group Link" description="Display Group Link">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </field>
+		<field name="injquery" type="list" default="1" label="Include Jquery" description="Include Jquery">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</field>
+		<field name="jqueryversion" type="list" default="1.8.2" label="Jquery Version" description="Jquery Version">
+			<option value="1.5.2">1.5.2</option>
+			<option value="1.6.2">1.6.2</option>
+			<option value="1.7.2">1.7.2</option>
+			<option value="1.8.2">1.8.2</option>
+		</field>
+      </fieldset>
+    </fields>
+  </config>
+</extension>

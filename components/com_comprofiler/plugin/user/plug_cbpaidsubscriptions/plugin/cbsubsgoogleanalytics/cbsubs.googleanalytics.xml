@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0" type="plugin" group="user/plug_cbpaidsubscriptions/plugin"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		   xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<name>CBSubs GoogleAnalytics</name>
+	<author>Beat</author>
+	<creationDate>2014-10-09</creationDate>
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<authorEmail>beat@joomlapolis.com</authorEmail>
+	<authorUrl>www.joomlapolis.com</authorUrl>
+	<version>2.0.0</version>
+	<release>4.0.0-rc.1</release>
+	<cbsubsversion version="4.0.0-rc.1" />
+	<description>CBSubs Google Analytics integration plugin: Provides paid access integration between CBSubs plugin and Google Analytics to track sales in relation with page visits.</description>
+	<files>
+		<filename plugin="cbsubs.googleanalytics">cbsubs.googleanalytics.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<params>
+		<param name="remark"  type="spacer" label="Parameters settings"  default="Settings are done from within the paid subscriptions plugin in the general settings and in each plan/product." description="" />
+	</params>
+	<tabs>
+	</tabs>
+	<payintegrationglobals>
+		<tabpanetab name="integration_google" label="GoogleAnalytics" description="Analytics tracking on payments: here you can setup your analytics tracking global settings.">
+			<fieldset name="trackingcode" label="Google Analytics Tracking Code" description="">
+				<param name="googleanalytics_trackingcode" type="text" default="" label="Tracking Code" description="Provide the proper tracking code for your google analytics account." />
+			</fieldset>
+			<fieldset name="crossdomain" label="Cross Domain Tracking" description="">
+				<param name="googleanalytics_domainname" type="text" size="50" default="" label="Domain Name (optional)" description="Optionally input domain for cross-domain tracking (e.g. .example.com). Specify none for global domain tracking (allows cookie to be accessed by any domain). Leave blank to disable cross-domain tracking." />
+			</fieldset>
+		</tabpanetab>
+	</payintegrationglobals>
+	<payintegration>
+		<tabpanetab name="integration_google" label="GoogleAnalytics" description="Analytics tracking on payments:">
+			<param name="google_remark"  type="spacer" label="Parameters settings"  default="Settings are done from the GoogleAnalytics tab globally in global configurations of CB paid subscriptions plugin." description="" />
+		</tabpanetab>
+	</payintegration>
+	<install>
+		<queries>
+		</queries>
+	</install>
+	<uninstall>
+		<queries>
+		</queries>
+	</uninstall>
+	<database>
+	</database>
+</cbinstall>

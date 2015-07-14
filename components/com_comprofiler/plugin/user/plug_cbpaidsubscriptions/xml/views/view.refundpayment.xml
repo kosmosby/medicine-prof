@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="refundpayment" type="params" ui="admin" label="Refund this Payment manually" description="">
+			<extend toxpathnode="/cbxml/types/type[@name=&quot;payment_method&quot;]" fromxpathnode="/*/types/type[@name=&quot;payment_method&quot;]/option" file="processors/*/edit.gateway" />
+			<toolbarmenu>
+				<menu name="refundpayment"    action="custom"   task="savePlugin" label="Refund" icon="refund" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="back"    action="back"   href=""             label="Back" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="close"   action="linkAction" task="cancel" link="cb_action:show_payments" label="Close" />
+			</toolbarmenu>
+			<if name="payment_status" operator="regexp" value="^(?!Completed)(?!Partially-Refunded)(?!Pending).+$" valuetype="const:string" type="condition">
+				<param name="warning_not_pending" type="spacer" label="WARNING" cssclass="cbSmallWarning" default="WARNING: This basket is not pending for payment. Only Pending or NotInitiated can be paid offline here. You can't pay it here. Click Back or Close." />
+			</if>
+			<if name="payment_method" operator="regexp" value="^(?!offline).+$" valuetype="const:string" type="condition">
+				<param name="warning_refunding" type="spacer" label="This is a refund" cssclass="cbSmallWarning" default="You are about to send back money from your account back to the customer." />
+			</if>
+			<if name="payment_method" operator="regexp" value="offline" valuetype="const:string" type="condition">
+				<param name="warning_refunding" type="spacer" label="This is a refund" cssclass="cbSmallWarning" default="This is to record a refund made offline to the customer." />
+			</if>
+			<fieldset name="paymentinfo" label="Payment details">
+				<param mode="show" name="id"                 type="int"   label="Payment Id" />
+				<param mode="show" name="invoice"            type="text"  label="Invoice number" />
+				<param mode="show" name="proformainvoice"    type="text"  label="Proforma Invoice number" />
+				<param mode="show" name="item_number"        type="text"  label="Item number" />
+			</fieldset>
+			<fieldset name="userinfo" label="User details">
+				<!-- Using field instead of param so that link works: -->
+				<field mode="show" name="user_name"   type="private" class="cbpaidParamsExt" method="data" link="cb_action:show_usersubscription" parameters="cid" paramvalues="by_user_id" target="_blank"    title="Edit this user and his subscriptions" label="Username">
+					<data name="user_name" type="sql:function" operator="IF">
+						<data name="" type="sql:operator" operator="=">
+							<data name="by_user_id" type="ext:int:modelofdata" />
+							<data name="0" type="const:int" />
+						</data>
+						<data name="System" type="const:string" translate="yes" />
+						<!-- This is here for translation tool to translate above correctly:
+							<field label="System" />
+						-->
+						<data name="username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="by_user_id" valuetype="ext:int:modelofdata" />
+					</data>
+				</field>
+				<field mode="show" name="user_full_name"   type="private" class="cbpaidParamsExt" method="data"  link="cb_action:show_usersubscription" parameters="cid" paramvalues="by_user_id" target="_blank"    title="Edit this user and his subscriptions" label="Full name">
+					<data name="user_full_name" type="sql:function" operator="IF">
+						<data name="" type="sql:operator" operator="=">
+							<data name="by_user_id" type="ext:int:modelofdata" />
+							<data name="0" type="const:int" />
+						</data>
+						<data name="System" type="const:string" translate="yes" />
+						<!-- This is here for translation tool to translate above correctly:
+							<field label="System" />
+						-->
+						<data name="name" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="by_user_id" valuetype="ext:int:modelofdata" />
+					</data>
+				</field>
+				<param mode="show" name="by_user_id"            type="int"  label="User Id" />
+			</fieldset>
+			<if name="payment_status" operator="regexp" value="^(Completed|Processed|.*)$" valuetype="const:string" type="condition">
+				<fieldset name="paymentinfo" label="Payment details of payment to refund">
+					<param mode="show" name="payment_status"     type="xml:payment_status"    label="Payment status" description="Current status of payment(s) for this basket." />
+					<param mode="show" name="time_completed"       type="datetime"      size="40" default="" label="Payment date" description="Date of the payment" />
+					<param mode="show" name="mc_currency"            type="xml:currencies"  default="params:"   label="Currency" description="Currency of the basket"  align="right" />
+					<param mode="show" name="mc_gross"              type="float"     size="20" default="0"   label="Amount" description="Amount of the payment in currency"  align="right" />
+					<param mode="show" name="payment_method"     type="xml:payment_method"    label="Payment method" description="Method used for payment" />
+					<param mode="show" name="payment_type"       type="text"      size="1" default="bank" label="Payment type" description="The way the money was paid." />
+					<param mode="show" name="" type="group" label="Name of payer">
+						<param mode="show" name="first_name" type="text" label=" " class="cbadminHorizontal" />
+						<param mode="show" name="last_name"  type="text" label=" " class="cbadminHorizontal" />
+					</param>
+					<param mode="show" name="txn_id"       type="text"      size="40" default="" label="Transaction id" description="Transaction id or bank's transaction id." />
+				</fieldset>
+				<fieldset name="paymentinput" label="Details of refund to make">
+					<param mode="show" name="mc_currency"            type="xml:currencies"  default="params:"   label="Currency" description="Currency of the refund"  align="right" />
+					<param name="refund_gross"       type="float"     size="20" default=""  validate="required" label="Amount to refund" description="Amount to refund in the currency of the payment"  align="right" />
+					<param name="refund_is_last"       type="radio"    cols="1" default=""  validate="required" label="Final or partial refund for this payment" description="Is this the last refund for this payment, which cancels also the subscriptions in CBSubs, or a partial refund, which keeps CBSubs subscriptions ?">
+						<option value="1">Final and last refund closing this transaction and cancelling products subscriptions</option>
+						<option value="0">Partial refund, keeping this transaction open and product subscriptions</option>
+					</param>
+					<param name="refund_reason"       type="text"      size="80" default="" label="Reason for refund (optional description)" description="You can enter here a short description of the reason for this refund." />
+				</fieldset>
+			</if>
+		</view>
+	</views>
+</cbxml>

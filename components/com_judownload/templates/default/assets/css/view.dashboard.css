@@ -1,0 +1,117 @@
+.judl-dashboard .navbar ul.nav {
+	margin: 0;
+	padding: 0;
+}
+
+.judl-dashboard .navbar ul.nav li {
+	list-style: none outside none;
+}
+
+.judl-dashboard .navbar ul.nav li a{
+	padding: 13px 20px;
+}
+
+.judl-dashboard .dashboard-head {
+	border: 1px solid #BBBBBB;
+	border-radius: 3px;
+	margin-bottom: 15px;
+	padding: 5px;
+}
+
+.judl-dashboard .dashboard-head .dashboard-avatar {
+	border: 1px solid #CCCCCC;
+	margin-right: 10px;
+	padding: 3px;
+}
+
+.judl-dashboard .dashboard-head .user-name {
+	font-weight: bold;
+}
+
+.judl-dashboard .dashboard-head .dashboard-actions {
+	margin-top: 10px;
+}
+
+.judl-dashboard .quick-box {
+	border                : 1px solid #bbb;
+	border-bottom-color   : #999;
+	margin-bottom         : 15px;
+	background            : #fdfdfd;
+	position              : relative;
+	border-radius         : 3px;
+	-moz-border-radius    : 3px;
+	-webkit-border-radius : 3px;
+}
+
+.judl-dashboard .quick-box-head {
+	background            : #eee;
+	position              : relative;
+	display               : inline-block;
+	width                 : 100%;
+	-webkit-border-radius : 2px 2px 0 0;
+	-moz-border-radius    : 2px 2px 0 0;
+	border-radius         : 2px 2px 0 0;
+}
+
+.judl-dashboard .quick-box-head .quick-box-title {
+	border-bottom: 1px solid #BBBBBB;
+	color: #444444;
+	font-weight: bold;
+	line-height: 1.6;
+	padding: 5px 10px;
+}
+
+.judl-dashboard .quick-box-body {
+	padding               : 10px;
+	color                 : #666;
+	background            : #fff;
+	-webkit-border-radius : 0 0 2px 2px;
+	-moz-border-radius    : 0 0 2px 2px;
+	border-radius         : 0 0 2px 2px
+}
+
+.judl-dashboard .stat-list li {
+	float: left;
+	list-style: none outside none;
+	margin-bottom: 10px;
+	width: 50%;
+}
+
+.judl-dashboard .stat-list li span.stat-info {
+	min-width             : 35px;
+	font-weight           : 700;
+	color                 : #555;
+	background            : #eee;
+	text-align            : center;
+	margin                : 0 8px 0 0;
+	border                : 1px solid #ccc;
+	position              : relative;
+	top                   : -1px;
+	border-radius         : 2px;
+	-moz-border-radius    : 2px;
+	-webkit-border-radius : 2px;
+	box-shadow            : 0 1px 1px #fff inset;
+	-moz-box-shadow       : 0 1px 1px #fff inset;
+	-webkit-box-shadow    : 0 1px 1px #fff inset;
+}
+
+.judl-dashboard .stat-list li span,
+.judl-dashboard .stat-list li span a {
+	float       : left;
+	display     : inline-block;
+	height      : 25px;
+	line-height : 25px;
+}
+
+.judl-dashboard  li.settings .dropdown-menu a{
+    padding:7px !important;
+    margin:5px ;
+}
+
+.judl-dashboard  li.settings .dropdown-menu{
+    padding:15px !important;
+}
+
+.judl-dashboard form.logout{
+    margin:10px;
+}

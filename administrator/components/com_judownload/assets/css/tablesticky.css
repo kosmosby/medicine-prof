@@ -1,0 +1,64 @@
+/* Component styles */
+.sticky-wrap th {
+	background-color : #fff;
+	/*font-weight: bold;
+	color: #fff;*/
+	white-space      : nowrap;
+}
+
+.sticky-wrap tbody th {
+	font-weight : normal;
+}
+
+/* For appearance */
+.sticky-wrap {
+	overflow-x : auto;
+	overflow-y : hidden;
+	position   : relative;
+	width      : 100%;
+}
+
+.sticky-wrap .sticky-thead,
+.sticky-wrap .sticky-col,
+.sticky-wrap .sticky-intersect {
+	opacity    : 0;
+	position   : absolute;
+	top        : 0;
+	left       : 0;
+	transition : all .125s ease-in-out;
+	z-index    : -99;
+	width      : auto; /* Prevent table from stretching to full size */
+}
+
+.sticky-wrap .sticky-thead {
+	box-shadow : 0 0.25em 0.1em -0.1em rgba(0, 0, 0, .125);
+	z-index    : 100;
+	width      : 100%; /* Force stretch */
+}
+
+.sticky-wrap .sticky-intersect {
+	opacity : 1;
+	z-index : 150;
+
+}
+
+.sticky-wrap .sticky-intersect th {
+	background-color : #666;
+	color            : #eee;
+}
+
+.sticky-wrap td,
+.sticky-wrap th {
+	box-sizing : border-box;
+}
+
+/* Not needed for sticky header/column functionality */
+
+.sticky-wrap.overflow-y {
+	overflow-y : auto;
+	max-height : 50vh;
+}
+.sticky-thead{
+    -webkit-transition: All 0.1s ease; /* For Safari 3.1 to 6.0 */
+    transition: All 0.1s ease;
+}

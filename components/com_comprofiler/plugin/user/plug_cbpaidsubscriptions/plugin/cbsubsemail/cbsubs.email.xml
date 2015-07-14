@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0" type="plugin" group="user/plug_cbpaidsubscriptions/plugin"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		   xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<name>CBSubs Email</name>
+	<author>Beat</author>
+	<creationDate>2014-10-09</creationDate>
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<authorEmail>beat@joomlapolis.com</authorEmail>
+	<authorUrl>www.joomlapolis.com</authorUrl>
+	<version>2.0.0</version>
+	<release>4.0.0-rc.1</release>
+	<cbsubsversion version="4.0.0-rc.1" />
+	<description>CBSubs Email Integration plugin: Provides integrated capability to send emails upon subscription activation and deactivation.</description>
+	<files>
+		<filename plugin="cbsubs.email">cbsubs.email.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<params>
+		<param name="remark"  type="spacer" label="Parameters settings"  default="Settings are done from within the paid subscriptions plugin in each plan/product." description="" />
+	</params>
+	<tabs>
+	</tabs>
+	<payintegration>
+		<tabpanetab name="integration_cbemail" label="Email" description="">
+			<fieldset name="email_activation" label="Activation Email" description="Name, Address, To, CC, BCC, Subject, and Body can use CB field substitutions (e.g. [user_id] or [username]).">
+					<fieldset label="From">
+							<param name="cbemail_name_activation" type="text" size="40" default="" label="Name" description="The name of the address the email will be sent from." />
+							<param name="cbemail_address_activation" type="text" size="40" default="" label="Address" description="The address the email will be sent from." />
+					</fieldset>
+					<fieldset label="Email">
+						<param name="cbemail_to_activation" type="text" size="40" default="" label="To (Required if used)" description="The addresses to send the email (separate multiple addresses by a comma)." />
+						<param name="cbemail_cc_activation" type="text" size="40" default="" label="CC" description="The addresses to Carbon-Copy (CC) the email (separate multiple addresses by a comma)." />
+						<param name="cbemail_bcc_activation" type="text" size="40" default="" label="BCC" description="The addresses to Blind-Carbon-Copy (BCC) the email (separate multiple addresses by a comma)." />
+						<param name="cbemail_sub_activation" type="text" size="40" default="" label="Subject" description="The subject of the email sent (language translations are supported)." />
+						<param name="cbemail_msg_activation" type="textarea" cols="50" rows="8" default="" label="Body" description="The body of the email sent (language translations are supported)." />
+						<param name="cbemail_atch_activation" type="text" size="40" default="" label="Attachments" description="File(s) to attach to the email (provide full path to files on server, separate multiple files by a comma)." />
+						<param name="cbemail_type_activation" type="list" default="0" label="Send email in:" description="If the email should be sent in Text or HTML. HTML is not recommended, as spam-filters add probabibility for spamming-detection when an email is sent in HTML.">
+							<option value="0">Text</option>
+							<option value="1">HTML</option>
+						</param>
+					</fieldset>
+			</fieldset>
+			<fieldset name="email_pendingfirst" label="Pending first payment Email" description="Name, Address, To, CC, BCC, Subject, and Body can use CB field substitutions (e.g. [user_id] or [username]).">
+					<fieldset label="From">
+							<param name="cbemail_name_pendingfirst" type="text" size="40" default="" label="Name" description="The name of the address the email will be sent from." />
+							<param name="cbemail_address_pendingfirst" type="text" size="40" default="" label="Address" description="The address the email will be sent from." />
+					</fieldset>
+					<fieldset label="Email">
+						<param name="cbemail_to_pendingfirst" type="text" size="40" default="" label="To (Required if used)" description="The addresses to send the email (separate multiple addresses by a comma)." />
+						<param name="cbemail_cc_pendingfirst" type="text" size="40" default="" label="CC" description="The addresses to Carbon-Copy (CC) the email (separate multiple addresses by a comma)." />
+						<param name="cbemail_bcc_pendingfirst" type="text" size="40" default="" label="BCC" description="The addresses to Blind-Carbon-Copy (BCC) the email (separate multiple addresses by a comma)." />
+						<param name="cbemail_sub_pendingfirst" type="text" size="40" default="" label="Subject" description="The subject of the email sent (language translations are supported)." />
+						<param name="cbemail_msg_pendingfirst" type="textarea" cols="50" rows="8" default="" label="Body" description="The body of the email sent (language translations are supported)." />
+						<param name="cbemail_atch_pendingfirst" type="text" size="40" default="" label="Attachments" description="File(s) to attach to the email (provide full path to files on server, separate multiple files by a comma)." />
+						<param name="cbemail_type_pendingfirst" type="list" default="0" label="Send email in:" description="If the email should be sent in Text or HTML. HTML is not recommended, as spam-filters add probabibility for spamming-detection when an email is sent in HTML.">
+							<option value="0">Text</option>
+							<option value="1">HTML</option>
+						</param>
+					</fieldset>
+			</fieldset>
+			<fieldset name="email_renewal" label="Manual Renewal Email" description="Name, Address, To, CC, BCC, Subject, and Body can use CB field substitutions (e.g. [user_id] or [username]).">
+					<fieldset label="From">
+							<param name="cbemail_name_renewal" type="text" size="40" default="" label="Name" description="The name of the address the email will be sent from." />
+							<param name="cbemail_address_renewal" type="text" size="40" default="" label="Address" description="The address the email will be sent from." />
+					</fieldset>
+					<fieldset label="Email">
+						<param name="cbemail_to_renewal" type="text" size="40" default="" label="To (Required if used)" description="The addresses to send the email (separate multiple addresses by a comma)." />
+						<param name="cbemail_cc_renewal" type="text" size="40" default="" label="CC" description="The addresses to Carbon-Copy (CC) the email (separate multiple addresses by a comma)." />
+						<param name="cbemail_bcc_renewal" type="text" size="40" default="" label="BCC" description="The addresses to Blind-Carbon-Copy (BCC) the email (separate multiple addresses by a comma)." />
+						<param name="cbemail_sub_renewal" type="text" size="40" default="" label="Subject" description="The subject of the email sent (language translations are supported)." />
+						<param name="cbemail_msg_renewal" type="textarea" cols="50" rows="8" default="" label="Body" description="The body of the email sent (language translations are supported)." />
+						<param name="cbemail_atch_renewal" type="text" size="40" default="" label="Attachments" description="File(s) to attach to the email (provide full path to files on server, separate multiple files by a comma)." />
+						<param name="cbemail_type_renewal" type="list" default="0" label="Send email in:" description="If the email should be sent in Text or HTML. HTML is not recommended, as spam-filters add probabibility for spamming-detection when an email is sent in HTML.">
+							<option value="0">Text</option>
+							<option value="1">HTML</option>
+						</param>
+					</fieldset>
+			</fieldset>
+			<fieldset name="email_pendingrenewal" label="Pending payment of manual Renewal Email" description="Name, Address, To, CC, BCC, Subject, and Body can use CB field substitutions (e.g. [user_id] or [username]).">
+					<fieldset label="From">
+							<param name="cbemail_name_pendingrenewal" type="text" size="40" default="" label="Name" description="The name of the address the email will be sent from." />
+							<param name="cbemail_address_pendingrenewal" type="text" size="40" default="" label="Address" description="The address the email will be sent from." />
+					</fieldset>
+					<fieldset label="Email">
+						<param name="cbemail_to_pendingrenewal" type="text" size="40" default="" label="To (Required if used)" description="The addresses to send the email (separate multiple addresses by a comma)." />
+						<param name="cbemail_cc_pendingrenewal" type="text" size="40" default="" label="CC" description="The addresses to Carbon-Copy (CC) the email (separate multiple addresses by a comma)." />
+						<param name="cbemail_bcc_pendingrenewal" type="text" size="40" default="" label="BCC" description="The addresses to Blind-Carbon-Copy (BCC) the email (separate multiple addresses by a comma)." />
+						<param name="cbemail_sub_pendingrenewal" type="text" size="40" default="" label="Subject" description="The subject of the email sent (language translations are supported)." />
+						<param name="cbemail_msg_pendingrenewal" type="textarea" cols="50" rows="8" default="" label="Body" description="The body of the email sent (language translations are supported)." />
+						<param name="cbemail_atch_pendingrenewal" type="text" size="40" default="" label="Attachments" description="File(s) to attach to the email (provide full path to files on server, separate multiple files by a comma)." />
+						<param name="cbemail_type_pendingrenewal" type="list" default="0" label="Send email in:" description="If the email should be sent in Text or HTML. HTML is not recommended, as spam-filters add probabibility for spamming-detection when an email is sent in HTML.">
+							<option value="0">Text</option>
+							<option value="1">HTML</option>
+						</param>
+					</fieldset>
+			</fieldset>
+			<fieldset name="email_renewal" label="Automatic Renewal Email" description="Name, Address, To, CC, BCC, Subject, and Body can use CB field substitutions (e.g. [user_id] or [username]).">
+					<fieldset label="From">
+							<param name="cbemail_name_autorenewal" type="text" size="40" default="" label="Name" description="The name of the address the email will be sent from." />
+							<param name="cbemail_address_autorenewal" type="text" size="40" default="" label="Address" description="The address the email will be sent from." />
+					</fieldset>
+					<fieldset label="Email">
+						<param name="cbemail_to_autorenewal" type="text" size="40" default="" label="To (Required if used)" description="The addresses to send the email (separate multiple addresses by a comma)." />
+						<param name="cbemail_cc_autorenewal" type="text" size="40" default="" label="CC" description="The addresses to Carbon-Copy (CC) the email (separate multiple addresses by a comma)." />
+						<param name="cbemail_bcc_autorenewal" type="text" size="40" default="" label="BCC" description="The addresses to Blind-Carbon-Copy (BCC) the email (separate multiple addresses by a comma)." />
+						<param name="cbemail_sub_autorenewal" type="text" size="40" default="" label="Subject" description="The subject of the email sent (language translations are supported)." />
+						<param name="cbemail_msg_autorenewal" type="textarea" cols="50" rows="8" default="" label="Body" description="The body of the email sent (language translations are supported)." />
+						<param name="cbemail_atch_autorenewal" type="text" size="40" default="" label="Attachments" description="File(s) to attach to the email (provide full path to files on server, separate multiple files by a comma)." />
+						<param name="cbemail_type_autorenewal" type="list" default="0" label="Send email in:" description="If the email should be sent in Text or HTML. HTML is not recommended, as spam-filters add probabibility for spamming-detection when an email is sent in HTML.">
+							<option value="0">Text</option>
+							<option value="1">HTML</option>
+						</param>
+					</fieldset>
+			</fieldset>
+			<fieldset name="email_expired" label="Expired Email" description="Name, Address, To, CC, BCC, Subject, and Body can use CB field substitutions (e.g. [user_id] or [username]).">
+					<fieldset label="From">
+							<param name="cbemail_name_expired" type="text" size="40" default="" label="Name" description="The name of the address the email will be sent from." />
+							<param name="cbemail_address_expired" type="text" size="40" default="" label="Address" description="The address the email will be sent from." />
+					</fieldset>
+					<fieldset label="Email">
+						<param name="cbemail_to_expired" type="text" size="40" default="" label="To (Required if used)" description="The addresses to send the email (separate multiple addresses by a comma)." />
+						<param name="cbemail_cc_expired" type="text" size="40" default="" label="CC" description="The addresses to Carbon-Copy (CC) the email (separate multiple addresses by a comma)." />
+						<param name="cbemail_bcc_expired" type="text" size="40" default="" label="BCC" description="The addresses to Blind-Carbon-Copy (BCC) the email (separate multiple addresses by a comma)." />
+						<param name="cbemail_sub_expired" type="text" size="40" default="" label="Subject" description="The subject of the email sent (language translations are supported)." />
+						<param name="cbemail_msg_expired" type="textarea" cols="50" rows="8" default="" label="Body" description="The body of the email sent (language translations are supported)." />
+						<param name="cbemail_atch_expired" type="text" size="40" default="" label="Attachments" description="File(s) to attach to the email (provide full path to files on server, separate multiple files by a comma)." />
+						<param name="cbemail_type_expired" type="list" default="0" label="Send email in:" description="If the email should be sent in Text or HTML. HTML is not recommended, as spam-filters add probabibility for spamming-detection when an email is sent in HTML.">
+							<option value="0">Text</option>
+							<option value="1">HTML</option>
+						</param>
+					</fieldset>
+			</fieldset>
+			<fieldset name="email_deactivation" label="Deactivation Email" description="Name, Address, To, CC, BCC, Subject, and Body can use CB field substitutions (e.g. [user_id] or [username]).">
+					<fieldset label="From">
+							<param name="cbemail_name_deactivation" type="text" size="40" default="" label="Name" description="The name of the address the email will be sent from." />
+							<param name="cbemail_address_deactivation" type="text" size="40" default="" label="Address" description="The address the email will be sent from." />
+					</fieldset>
+					<fieldset label="Email">
+						<param name="cbemail_to_deactivation" type="text" size="40" default="" label="To (Required if used)" description="The addresses to send the email (separate multiple addresses by a comma)." />
+						<param name="cbemail_cc_deactivation" type="text" size="40" default="" label="CC" description="The addresses to Carbon-Copy (CC) the email (separate multiple addresses by a comma)." />
+						<param name="cbemail_bcc_deactivation" type="text" size="40" default="" label="BCC" description="The addresses to Blind-Carbon-Copy (BCC) the email (separate multiple addresses by a comma)." />
+						<param name="cbemail_sub_deactivation" type="text" size="40" default="" label="Subject" description="The subject of the email sent (language translations are supported)." />
+						<param name="cbemail_msg_deactivation" type="textarea" cols="50" rows="8" default="" label="Body" description="The body of the email sent (language translations are supported)." />
+						<param name="cbemail_atch_deactivation" type="text" size="40" default="" label="Attachments" description="File(s) to attach to the email (provide full path to files on server, separate multiple files by a comma)." />
+						<param name="cbemail_type_deactivation" type="list" default="0" label="Send email in:" description="If the email should be sent in Text or HTML. HTML is not recommended, as spam-filters add probabibility for spamming-detection when an email is sent in HTML.">
+							<option value="0">Text</option>
+							<option value="1">HTML</option>
+						</param>
+					</fieldset>
+			</fieldset>
+			<fieldset name="substitutionshelp" label="Substitutions" description="Substitutions allow to personalize the message subject and body. Following substitutions can be used in message subject and body depending on plan type:">
+				<param type="spacer" name="substitutionshelp_user" label="User fields substitutions"           default="[USERNAME], [NAME], [EMAIL], [cb_anycbfieldname]" description="" />
+				<param type="spacer" name="substitutionshelp_plans" label="Plan/Product substitutions"      default="[PLAN_NAME], [PLAN_ALIAS], [PLAN_DESCRIPTION], [PLAN_REGISTRATION_PRICE] and [PLAN_UPGRADE_PRICE] (both display period and price), [PLAN_PRICE] (display generic period and price for plan, or amount donated for donation with currency, or price with currency of product for a merchandise), [PLAN_RATE] and [PLAN_FIRST_RATE] are numeric values, and in case of donations, the donation amount converted into the donation plan's currency" description="" />
+				<param type="spacer" name="substitutionshelp_subscr" label="User Subscription substitutions" default="[SUBSCRIPTION_SIGNUP_DATE], [SUBSCRIPTION_EXPIRY_DATE], [SUBSCRIPTION_LAST_RENEWAL_DATE], [SUBSCRIPTION_VALIDITY_PERIOD_REMAINING], [SUBSCRIPTION_EXPIRY_DATE_IF_RENEWED], [SUBSCRIPTION_VALIDITY_PERIOD_IF_RENEWED], [SUBSCRIPTION_RENEWAL_PRICE] (displays period and price)" description="" />
+			</fieldset>
+		</tabpanetab>
+	</payintegration>
+	<install>
+		<queries>
+		</queries>
+	</install>
+	<uninstall>
+		<queries>
+		</queries>
+	</uninstall>
+	<database>
+	</database>
+</cbinstall>

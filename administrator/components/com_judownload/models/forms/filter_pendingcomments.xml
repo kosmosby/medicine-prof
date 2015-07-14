@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fields name="filter">
+        <field
+                name="search"
+                type="text"
+                label="COM_JUDOWNLOAD_FILTER_SEARCH_DESC"
+                hint="JSEARCH_FILTER"
+                />
+
+        <field
+                name="author"
+                type="list"
+                label="COM_JUDOWNLOAD_FILTER_AUTHOR"
+                extension="com_content"
+                description="COM_JUDOWNLOAD_FILTER_AUTHOR_DESC"
+                onchange="this.form.submit();"
+                >
+            <option value="">COM_JUDOWNLOAD_SELECT_AUTHOR</option>
+            <option value="guest_name">COM_JUDOWNLOAD_GUEST</option>
+            <option value="user_id">COM_JUDOWNLOAD_USER</option>
+        </field>
+    </fields>
+
+    <fields name="list">
+        <field
+                name="fullordering"
+                type="list"
+                label="COM_JUDOWNLOAD_LIST_FULL_ORDERING"
+                description="COM_JUDOWNLOAD_LIST_FULL_ORDERING_DESC"
+                onchange="this.form.submit();"
+                default="cm.created ASC"
+                >
+            <option value="">COM_JUDOWNLOAD_SORT_BY</option>
+            <option value="cm.id ASC">COM_JUDOWNLOAD_SORT_BY_ID_ASC</option>
+            <option value="cm.id DESC">COM_JUDOWNLOAD_SORT_BY_ID_DESC</option>
+            <option value="cm.title ASC">COM_JUDOWNLOAD_SORT_BY_TITLE_ASC</option>
+            <option value="cm.title DESC">COM_JUDOWNLOAD_SORT_BY_TITLE_DESC</option>
+            <option value="d.title ASC">COM_JUDOWNLOAD_SORT_BY_DOCUMENT_TITLE_ASC</option>
+            <option value="d.title DESC">COM_JUDOWNLOAD_SORT_BY_DOCUMENT_TITLE_DESC</option>
+            <option value="ua.username ASC">COM_JUDOWNLOAD_SORT_BY_USERNAME_ASC</option>
+            <option value="ua.username DESC">COM_JUDOWNLOAD_SORT_BY_USERNAME_DESC</option>
+            <option value="cm.guest_name ASC">COM_JUDOWNLOAD_SORT_BY_GUEST_NAME_ASC</option>
+            <option value="cm.guest_name DESC">COM_JUDOWNLOAD_SORT_BY_GUEST_NAME_DESC</option>
+            <option value="cm.parent_id ASC">COM_JUDOWNLOAD_SORT_BY_PARENT_ASC</option>
+            <option value="cm.parent_id DESC">COM_JUDOWNLOAD_SORT_BY_PARENT_DESC</option>
+            <option value="cm.created ASC">COM_JUDOWNLOAD_SORT_BY_CREATED_ASC</option>
+            <option value="cm.created DESC">COM_JUDOWNLOAD_SORT_BY_CREATED_DESC</option>
+            <option value="total_reports ASC">COM_JUDOWNLOAD_SORT_BY_TOTAL_REPORTS_ASC</option>
+            <option value="total_reports DESC">COM_JUDOWNLOAD_SORT_BY_TOTAL_REPORTS_DESC</option>
+            <option value="total_subscriptions ASC">COM_JUDOWNLOAD_SORT_BY_TOTAL_SUBSCRIPTIONS_ASC</option>
+            <option value="total_subscriptions DESC">COM_JUDOWNLOAD_SORT_BY_TOTAL_SUBSCRIPTIONS_DESC</option>
+        </field>
+
+        <field
+                name="limit"
+                type="limitbox"
+                class="inputbox input-mini"
+                default="25"
+                label="COM_JUDOWNLOAD_LIST_LIMIT"
+                description="COM_JUDOWNLOAD_LIST_LIMIT_DESC"
+                onchange="this.form.submit();"
+                />
+    </fields>
+</form>

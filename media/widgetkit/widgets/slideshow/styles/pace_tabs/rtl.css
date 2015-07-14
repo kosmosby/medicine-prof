@@ -1,0 +1,21 @@
+/*
+ * RTL Style Sheet
+ */
+
+.wk-slideshow-pacetabs .nav,
+.wk-slideshow-pacetabs .nav li { float: right; }
+
+.wk-slideshow-pacetabs .nav li {
+	border-width: 1px 1px 1px 0;
+	box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset,
+				-1px -1px 0 rgba(255,255,255,0.9) inset;
+}
+
+.wk-slideshow-pacetabs .nav li:first-child { border-width: 1px 0; }
+
+/* Only Phones (Portrait) */
+@media (max-width: 767px) {
+	
+		.wk-slideshow-pacetabs .nav li { border-width: 0 0 1px 0; }
+
+}

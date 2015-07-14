@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" type="plugin" group="user/plug_cbpaidsubscriptions"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../cb/validation/ahawow.xsd">
+	<views>
+		<view name="radiosettings" type="params" ui="backend" label="">
+			<fieldset name="{SUBMETHOD}_radios_fieldset" label="Radios for {SUBMETHOD_TEXT}" description="These will display only if Settings - Display - Baskets - Display Payment Methods has been configured to radios">
+				<param name="{SUBMETHOD}_radio_name" type="text" label="Label of {SUBMETHOD_TEXT} radio" value="" size="60" default="{SUBMETHOD_DEFAULT_TEXT}" description="Change this text to show the client-oriented methods of payments supported by your PSP setup." />
+				<param name="{SUBMETHOD}_radio_description" type="textarea" cols="40" rows="2" label="Description shown when radio is selected for {SUBMETHOD_TEXT}" value="" default="" description="This allows to add instructions, or special conditions for that payment method." />
+				<param name="{SUBMETHOD}_radio_cardtypes" type="checkbox" default="visa|*|mastercard" rows="" cols="5" label="Images for accepted payment methods" description="Cards will display in the Name of the radio button">
+					<option value="visa">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_visa.gif" alt="Visa" /&gt;</option>
+					<option value="mastercard">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_mastercard.gif" alt="Mastercard" /&gt;</option>
+					<option value="amexco">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_amexco.gif" alt="American Express" /&gt;</option>
+					<option value="discover"> &lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_discover.gif" alt="Discover" /&gt;</option>
+					<option value="diners">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_diners.gif" alt="Diners Club International" /&gt;</option>
+					<option value="jcb">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_jcb.gif" alt="JCB" /&gt;</option>
+					<option value="paypal">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_paypal.gif" alt="Paypal" /&gt;</option>
+					<option value="offline">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_offline.gif" alt="" /&gt;</option>
+				</param>
+			</fieldset>
+		</view>
+	</views>
+</cbxml>

@@ -1,0 +1,26 @@
+div.ose-icon-juser{background:url(../images/user_info.png) no-repeat scroll 15px 0 transparent}
+div.ose-icon-license{background:url(../images/oselicensesmall.png) no-repeat scroll 15px 0 transparent}
+div.ose-icon-billinginfo{background:url(../images/billing_info.png) no-repeat scroll 15px 0 transparent}
+div.ose-icon-creditcardupdate{background:url(../images/creditcardsupdate.png) no-repeat scroll 8px -5px transparent}
+div.ose-icon-licuser{background:url(../images/licensed_users_info.png) no-repeat scroll 15px 0 transparent}
+div.ose-icon-mailing{background:url(../images/mail.png) no-repeat scroll 15px 0 transparent}
+div.ose-icon-profile{background:url(../images/additional_info.png) no-repeat scroll 15px 0 transparent}
+div.ose-icon-directory{background:url(../images/directory.png) no-repeat scroll 15px 0 transparent}
+div.ose-icon-msc{background:url(../images/membership_active.png) no-repeat scroll 15px 0 transparent}
+div.ose-icon-msc_renew{background:url(../images/membership_renew.png) no-repeat scroll 15px 0 transparent}
+div.ose-icon-msc_cancel{background:url(../images/membership_cancel.png) no-repeat scroll 15px 0 transparent}
+
+
+div.ose-icon-addon{line-height:20px;min-height:60px;border-bottom:1px solid #eaeaea}
+
+.x-tab {
+	-webkit-border-radius: 0.25em;
+	border-radius: 0.25em;
+	min-width: 5.0em;
+	position: relative;
+	padding-top: .2em;
+	padding-left: 1.0em;
+	padding-right: 1.0em;
+}
+
+.credicardimg{display:block;height:20px;width:100%;background-image:url(../images/creditcards.png);background-repeat:no-repeat}

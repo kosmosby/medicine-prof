@@ -1,0 +1,74 @@
+/*
+ * Widgetkit Slideset: Steam Style
+ */
+
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-steam .nav {
+	margin-top: 10px;
+	text-align: center;
+}
+
+.wk-slideset-steam .nav li { display: inline-block; }
+.wk-slideset-steam .nav.icon li { margin-left: 5px; }
+.wk-slideset-steam .nav.text li { margin-left: 40px; }
+
+.wk-slideset-steam .nav li:first-child { margin-left: 0; }
+
+.wk-slideset-steam .nav.icon span {
+	width: 13px;
+	height: 13px;
+	background: url(images/nav.png) 0 0 no-repeat;
+	overflow: hidden;
+}
+.wk-slideset-steam .nav.icon span:hover { background-position: 0 -26px; }
+.wk-slideset-steam .nav.icon span:active { background-position: 0 -39px; }
+.wk-slideset-steam .nav.icon .active span { background-position: 0 -13px; }
+
+.wk-slideset-steam .nav.text span { padding: 0 11px; }
+.wk-slideset-steam .nav.text .active span {
+	padding: 0 10px;
+	border: 1px solid rgba(0,0,0,0.1);
+	border-radius: 4px;
+	background: rgba(0,0,0,0.05);
+	
+}
+
+
+/* Buttons
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-steam > div { position: relative; }
+
+.wk-slideset-steam > div:hover .next,
+.wk-slideset-steam > div:hover .prev {
+	top: 50%;
+	width: 28px;
+	height: 28px;
+	margin-top: -14px;
+	background: url(images/buttons.png);
+	background-repeat: no-repeat;
+}
+.wk-slideset-steam > div:hover .prev {
+	left: 10px;
+	background-position: 0 0;
+}
+.wk-slideset-steam > div:hover .prev:hover { background-position: 0 -30px; }
+.wk-slideset-steam > div:hover .prev:active { background-position: 0 -60px; }
+.wk-slideset-steam > div:hover .next {
+	right: 10px;
+	background-position: 0 -90px;
+}
+.wk-slideset-steam > div:hover .next:hover { background-position: 0 -120px; }
+.wk-slideset-steam > div:hover .next:active { background-position: 0 -150px; }
+
+
+/* Title
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-steam article { margin: 0 10px; }
+
+.wk-slideset-steam article + strong.title { font-weight: normal; }
+

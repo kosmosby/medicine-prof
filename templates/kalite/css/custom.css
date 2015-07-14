@@ -1,0 +1,71 @@
+/*
+ * Custom Style Sheet - Use this file to style your content
+ */
+
+#logo .custom-logo {
+  width: 340px;
+  height: 106px;
+}
+
+.slide_demo {
+  height: 220px;
+  padding: 10px 610px 10px 60px;
+  overflow: hidden;
+}
+
+/* Widgetkit Frontpage Slideset */
+
+.wk-slideset-streamline li > article { width: 240px; }
+.wk-slideset-streamline li > article h5 { margin-top: 0; }
+.wk-slideset-streamline article + strong.title { font-weight: normal; }
+
+#menu .dropdown {
+    width: 300px;
+}
+.alt_slider_yazi{width:190px}
+.egitim_icerik{float:left;width:220px;margin:0 3px 30px}
+.egitim_resim{background:url(../images/egitimler_img_bg.png) no-repeat scroll 0 0 transparent;height:163px;width:230px}
+.egitim_resim a{display:block;text-align:center;padding:2px 0 0}
+.egitim_resim span{display:table-cell;height:42px;vertical-align:middle;width:180px;padding:0px 5px 0 10px}
+.egitim_resim span a{color:#FFF;display:block;float:left;font-size:13px;font-weight:700}
+.egitim_kisa_yazi{color:#3A3731;line-height:16px;min-height:120px;padding:5px 2px 0 10px}
+.detayli_bilgi{background:url(../images/detayli_bilgi.jpg) no-repeat scroll 0 0 transparent;display:block;float:left;height:33px;width:120px;margin:15px 8px 0 0}
+.fiyat_buton{background:url(../images/fiyat_bg.jpg) no-repeat scroll 0 0 transparent;color:#23688E;display:block;float:left;font-size:14px;font-weight:700;height:33px;padding-top:8px;padding-bottom:5px;text-align:center;width:87px;margin:15px 0 0}
+.tabs_egitimler{float:left;margin-left:35px;width:230px;}
+.tabs_egitimler .preloader{background:url(../images/content_ufak_resim_bg.png) no-repeat scroll 0 0 transparent;float:left;height:111px;margin-bottom:5px;text-align:center;width:236px;padding:2px}
+.tabs_egitimler h2{text-align:center;padding:4px}
+.tabs_egitimler h2 a{font-size:14px;font-weight:700;margin-bottom:10px}
+.sertifika_sorgula p{color:#3A3731;line-height:16px;margin-top:10px;width:255px}
+.sertifika_sorgula_no{background:url(../images/sertifika_sorgula_no_bg.png) no-repeat scroll 0 0 transparent;border:0 none;color:#484848;font-size:13px;height:24px;margin-top:12px;width:118px;padding:0 10px 0 15px}
+.sertifika_sorgula_buton{background:url(../images/sertifika_sorgula_buton.png) no-repeat scroll 0 0 transparent;border:0 none;cursor:pointer;height:27px;position:absolute;width:90px;margin:15px 0 0 5px}
+a.sol_ust_baslik {background: url("../img/egitim_sol_ust.png") no-repeat scroll 0 0 transparent;font-weight: bold;line-height: 13px;padding-top: 7px;}
+.sol_kategori{min-height: 12px;line-height: 13px;font-size:12px;font-weight: bold;}
+.egitim_detay_fiyat {background: url("../images/fiyat_buyuk_bg.jpg") no-repeat scroll 0 0 transparent;color: #23688E;display: block;float: right;font-size: 16px;font-weight: 700;margin: 20px 0 0 20px;padding: 14px 0;text-align: center;width: 114px;}
+#tel{float:right;margin-top: 26px;position: relative;right: 600px;}
+#header_login{float:right;margin-top: 5px;position: relative;right:5px;}
+#egitim_alani {float:right;top: 44px;position: absolute;right:13px;}
+#form-login-links{display: block;}
+span.logout-links{display: block;}
+
+.cb_template .cbPosCanvas .cbPosCanvasHeader .cbPosCanvasTitle .cb_tab_content {
+  position: static; 
+  width: auto; 
+  height: auto;
+}
+
+
+/* normal width for the profile name */
+.cb_template .cbPosCanvas .cbPosCanvasHeader .cbPosCanvasTitle .cbProfileTitle{
+    width:auto;
+}
+
+.ms-parent > .ms-choice > span {
+height: auto !important;
+}
+
+.ms-parent > .ms-choice {
+    height: auto !important;
+}
+
+#comments .comments-list {height: auto !important; }
+

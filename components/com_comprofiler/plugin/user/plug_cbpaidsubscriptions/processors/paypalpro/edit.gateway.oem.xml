@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+    <license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<views>
+		<view name="editgatewaypaypalprooem" type="params" ui="admin">
+			<inherit name="editgatewayinherit" from="/*/views/view[@name='editgenericgateway']">
+				<fieldset name="fieldset_for_gateway" label="{PSP} Payment Service Provider (PSP) E-Payments" description="{PSP} PSP E-Payments services settings:">
+					<param name="enabled" type="list" default="0" label="Enable {PSP} E-Payments" description="Whether you want to offer payments through {PSP}.">
+						<option value="0">No</option>
+						<option value="1">Enable single payments</option>
+						<option value="2">Enable auto-recurring payments</option>
+						<option value="3">Enable single and auto-recurring payments at user's choice</option>
+					</param>
+					<param name="normal_gateway" type="list" default="1" label="{PSP} server" description="Select the payments gateway to use.">
+						<option value="1">Normal {PSP} server</option>
+						<option value="0">{PSP} test server</option>
+						<option value="2">Other server compatible with {PSP}</option>
+					</param>
+					<if name="normal_gateway" type="showhide" operator="=" value="2" valuetype="const:int">
+						<params name="params" type="params">
+							<param name="gateway_psp_url" type="text" size="60" default="" label="Server submission URL" description="This should be the {PSP}-compatible-server equivalent of {PSPPRODURL}" />
+						</params>
+					</if>
+					<if name="normal_gateway" type="showhide" operator="=" value="9" valuetype="const:int">
+						<params name="params" type="params">
+							<param name="psp_normal_url" type="hidden" label="" value="{PSPPRODURL}" />
+							<param name="psp_test_url" type="hidden" label="" value="{PSPTESTURL}" />
+						</params>
+					</if>
+					<params name="params" type="params">
+						<fieldset name="fieldset_for_gateway" label="PayPal API credentials" description="You can get your Paypal API Username, API Password and API Signature from your PayPal account in 'My account - Profile - My selling tools - API access - Request API credentials - Request API signature. Please review the Paypal API agreement, that must be accepted to access the API, for compliance. Make sure to use https (SSL) to access this administration area and to restrict its access to a 'Need to know' basis, as these Paypal account credentials must stay confidential.">
+							<param name="paypal_api_username" type="text" size="40" default="" label="PayPal account API Username" description="Get this API information from your PayPal account in 'My account - Profile - My selling tools - API access - Request API credentials - Request API signature" />
+							<param name="paypal_api_password" type="password" size="40" default="" label="PayPal account API Password" description="Get this API information from your PayPal account in 'My account - Profile - My selling tools - API access - Request API credentials - Request API signature" />
+							<param name="paypal_api_signature" type="password" size="70" default="" label="PayPal account API Signature" description="Get this API information from your PayPal account in 'My account - Profile - My selling tools - API access - Request API credentials - Request API signature" />
+						</fieldset>
+					</params>
+					<param name="id" type="private" class="cbpaidGatewayAccountpaypalprooem" method="renderUrl" value="notifyurl" key="id" label="URL to set into {PSP} admin area in Profile - Instant Payment Notification preferences - &quot;Notification URL&quot;" default="First fill-in parameters above, then &quot;Apply&quot; this new gateway settings: Then this URL %s will be computed and displayed." description="This is the &quot;Notification URL&quot; to paste into {PSP} admin area" />
+					<params name="params" type="params">
+						<param name="accept_payment_condition" type="list" default="captured" label="Accept payment once" description="This option allows to set when a payment is deemed as completed by CBSubs. Credit-card authorization is usually immediate, except if acquirer is offline. In some cases you want to defer capture.">
+							<option value="pending">Even if payment is pending authorization, authorized or captured</option>
+							<option value="captured">Payment is authorized and captured (means completed)</option>
+						</param>
+						<param name="notifications_host" type="text" size="40" default="" label="Notification host (leave blank)" description="Leave blank for most configurations. This setting is only in case you are running on a cluster and the payment gateway notifications (IPN, PDT) need to go at a different domain name than the website domain. In that case enter e.g. 'http://yourdomain.com'." />
+					</params>
+				</fieldset>
+				<fieldset name="fieldset_for_presentation" label="Presentation" description="">
+					<params name="params" type="params">
+						<param name="psp_radio_description" type="textarea" cols="40" rows="2" label="Description shown when radio is selected" value="" default="" description="This allows to add instructions, or special conditions for that payment method." />
+						<param name="show_cc_avs" type="hidden" label="" value="0" />
+						<param name="card_button_type" type="radio" default="image" label="Payment Button type" description="The payment button type can be a text or logo of corresponding credit card. Note: to display the logo, you must have a valid licence from the corresponding credit-card company.">
+							<option value="text">Names of credit cards text</option>
+							<option value="image">Credit-cards Logo images</option>
+						</param>
+						<param name="card_choice_type" type="radio" default="image" label="Payment Choice type" description="The payment choice type can be a text or logo of corresponding credit card. Note: to display the logo, you must have a valid licence from the corresponding credit-card company.">
+							<option value="text">Names of credit cards text</option>
+							<option value="image">Credit-cards Logo images</option>
+						</param>
+						<param name="cards_custom_image" type="text" size="40" default="" label="Custom button text/image" description="Either text of button or URL of a custom image (.gif, .jpg or .bmp), overwites selection above." />
+						<param name="cardtypes" type="checkbox" default="visa|*|mastercard" rows="" cols="3" label="Accepted credit cards" description="Credit cards accepted shows in buttons">
+							<option value="Visa">Visa &lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_visa.gif" alt="" /&gt;</option>
+							<option value="MasterCard">Mastercard &lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_mastercard.gif" alt="" /&gt;</option>
+							<option value="Amex">American Express &lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_amexco.gif" alt="" /&gt;</option>
+							<option value="Discover">Discover &lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_discover.gif" alt="" /&gt;</option>
+						</param>
+					</params>
+				</fieldset>
+			</inherit>
+		</view>
+	</views>
+</cbxml>

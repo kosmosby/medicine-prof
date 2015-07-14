@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<code>OSE ECash Code:201104272147</code>
+	<classes>
+		<class path="" extend="test">msc</class>
+	</classes>
+	
+	<files>
+		<file path="" extend="test">oseMsc.php</file>
+	</files>
+	
+</document>

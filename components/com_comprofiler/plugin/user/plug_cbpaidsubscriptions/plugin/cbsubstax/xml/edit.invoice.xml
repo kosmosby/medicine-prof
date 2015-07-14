@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" type="plugin" group="user/plug_cbpaidsubscriptions/plugin" element="cbsubs.tax" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<payaddressintegration view="showinvoicingaddressmandatory">
+		<view name="showinvoicingaddress" type="params" ui="all" label="">
+			<fieldset name="invoicing_address" label="Invoicing address" description="This is your invoicing address:">
+				<param name="address_country_code" type="private" class="cbpaidParamsExt" method="datalist" size="1" default="" label="Country" blanktext="--- Click to select Country ---" description="" validate="required" onchange="evaluate">
+					<attributes>
+						<attribute name="default">
+							<param name="default" type="param" value="integration_cbsubstax_system_buyer_country_iso_code2" />
+						</attribute>
+					</attributes>
+					<data name="address_country_code" type="sql:multiplerows" table="#__comprofiler_countries" class="" key="country_iso_code2" dogroupby="false">
+						<rows>
+							<field name="country_iso_code2" as="value" />
+							<field name="country_name" as="text" />
+						</rows>
+						<orderby>
+							<field name="country_name" type="sql:string" ordering="ASC" />
+						</orderby>
+					</data>
+				</param>
+				<if name="address_country_code" operator="!=" value="" valuetype="const:string" type="showhide">
+					<param name="address_state" type="private" class="cbpaidParamsExt" method="datalist" size="1" default="" label="State / Province" blanktext="--- Click to select State/Province ---" hideblanktext="true" description="">
+						<data name="address_state" type="sql:multiplerows" table="#__comprofiler_provinces" class="" key="country_iso_code2" dogroupby="false">
+							<rows>
+								<field name="province_iso_code" as="value" />
+								<field name="province_name" as="text" />
+							</rows>
+							<where>
+								<column name="country_iso_code2" operator="=" value="address_country_code" type="sql:field" valuetype="ext:string:modelofdata" />
+							</where>
+							<orderby>
+								<field name="province_name" type="sql:string" ordering="ASC" />
+							</orderby>
+						</data>
+					</param>
+					<else action="set" name="address_state" value="" type="const:string" />
+				</if>
+				<extend toxpathnode="/cbxml/views/view[@name=&quot;showinvoicingaddress&quot;]/if[@value=&quot;2&quot;]/fieldset[@name=&quot;invoicing_address&quot;]" fromxpathnode="/cbxml/editinvoiceintegration/*" file="plugin/cbsubstax/validations/*/xml/edit.invoice" mandatory="true" />
+			</fieldset>
+		</view>
+		
+	</payaddressintegration>
+	<payaddressintegration view="showinvoicingaddressoptional">
+		<view name="showinvoicingaddress" type="params" ui="all" label="">
+			<fieldset name="invoicing_address" label="Invoicing address" description="This is your invoicing address:">
+				<param name="address_country_code" type="private" class="cbpaidParamsExt" method="datalist" size="1" default="" label="Country" blanktext="--- Click to select Country ---" description="" onchange="evaluate">
+					<attributes>
+						<attribute name="default">
+							<param name="default" type="param" value="integration_cbsubstax_system_buyer_country_iso_code2" />
+						</attribute>
+					</attributes>
+					<data name="address_country_code" type="sql:multiplerows" table="#__comprofiler_countries" class="" key="country_iso_code2" dogroupby="false">
+						<rows>
+							<field name="country_iso_code2" as="value" />
+							<field name="country_name" as="text" />
+						</rows>
+						<orderby>
+							<field name="country_name" type="sql:string" ordering="ASC" />
+						</orderby>
+					</data>
+				</param>
+				<if name="address_country_code" operator="!=" value="" valuetype="const:string" type="showhide">
+					<param name="address_state" type="private" class="cbpaidParamsExt" method="datalist" size="1" default="" label="State / Province" blanktext="--- Click to select Province/State ---" hideblanktext="true" description="">
+						<data name="address_state" type="sql:multiplerows" table="#__comprofiler_provinces" class="" key="country_iso_code2" dogroupby="false">
+							<rows>
+								<field name="province_iso_code" as="value" />
+								<field name="province_name" as="text" />
+							</rows>
+							<where>
+								<column name="country_iso_code2" operator="=" value="address_country_code" type="sql:field" valuetype="ext:string:modelofdata" />
+							</where>
+							<orderby>
+								<field name="province_name" type="sql:string" ordering="ASC" />
+							</orderby>
+						</data>
+					</param>
+					<else action="set" name="address_state" value="" type="const:string" />
+				</if>
+				<extend toxpathnode="/cbxml/views/view[@name=&quot;showinvoicingaddress&quot;]/if[@value=&quot;1&quot;]/fieldset[@name=&quot;invoicing_address&quot;]" fromxpathnode="/cbxml/editinvoiceintegration/*" file="plugin/cbsubstax/validations/*/xml/edit.invoice" mandatory="true" />
+			</fieldset>
+		</view>
+	</payaddressintegration>
+
+</cbxml>

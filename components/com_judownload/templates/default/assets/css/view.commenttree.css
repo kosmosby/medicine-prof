@@ -1,0 +1,124 @@
+select#limit {
+    width: auto !important;
+    height: auto !important;
+    margin-bottom: 0;
+}
+/* DOCUMENT COMMENTS */
+.judl-comments {
+    margin-top : 20px;
+}
+
+.judl-comments h3.leave-comment {
+    font-size   : 14px !important;
+    font-weight : 700 !important;
+    color       : #222 !important;
+}
+
+/* STYLESHEET COMMENT TREE */
+.judl-comments .total-comments {
+    width         : 100%;
+    padding       : 0;
+    margin-bottom : 20px;
+    font-size     : 21px;
+    line-height   : 40px;
+    color         : #333333;
+    border        : 0;
+    border-bottom : 1px solid #e5e5e5;
+}
+
+.judl-comments ul.comment-list {
+    list-style         : none !important;
+    padding-left       : 0 !important;
+    box-sizing         : border-box;
+    -moz-box-sizing    : border-box;
+    -webkit-box-sizing : border-box;
+    width              : 100%;
+    clear              : both;
+}
+
+.judl-comments ul.comment-list li.comment-item.unpublished {
+    opacity : .6
+}
+
+.judl-comments ul.comment-list li.comment-item {
+    padding-left : 15% !important
+}
+
+.judl-comments ul.comment-list li.comment-item ul.comment-list {
+    margin: 0 !important;
+}
+
+.judl-comments ul.comment-list li.comment-item.level-1, .judl-comments ul.comment-list li.comment-item.level-3 li.comment-item {
+    padding-left : 0 !important
+}
+
+.judl-comments ul.comment-list li.comment-item .comment-box {
+    width              : 100%;
+    box-sizing         : border-box;
+    -moz-box-sizing    : border-box;
+    -webkit-box-sizing : border-box;
+    border             : 1px solid #e5e5e5;
+    margin-bottom: 20px;
+    padding            : 5px;
+}
+
+.judl-comments ul.comment-list li.comment-item .comment-box .comment-user {
+    float: left;
+    margin-right: 10px;
+    overflow: hidden;
+    position: relative;
+    min-width: 100px;
+}
+
+.judl-comments ul.comment-list li.comment-item .comment-box .comment-user .comment-avatar {
+    max-width: 100px;
+}
+
+.judl-comments ul.comment-list li.comment-item .comment-box .comment-user .comment-username {
+    margin-top     : 5px !important;
+    font-size      : 12px !important;
+    text-align     : center;
+}
+
+.judl-comments ul.comment-list li.comment-item .comment-box .comment-text {
+    overflow: hidden;
+    position: relative;
+    width: auto;
+}
+
+.judl-comments ul.comment-list li.comment-item .comment-box .comment-text .comment-metadata h3 {
+    font-size   : 18px !important;
+    font-weight : 700;
+    color       : #222 !important;
+    font-family : Helvetica, Arial, sans-serif !important;
+    margin      : 10px 0 0 !important
+}
+
+.judl-comments .comment-item .comment-actions .comment-vote {
+    display: block;
+    font-size: 11px;
+    margin: 5px 0;
+}
+
+.judl-comments ul.comment-list li.comment-item .comment-box .comment-text .comment-metadata .comment-created {
+    color  : #a0a0a0;
+    font-size: 11px;
+}
+
+.judl-comments ul.comment-list li.comment-item .comment-box .comment-text .comment-metadata .comment-website {
+    margin : 10px 0px 0px 30px;
+    color  : #a0a0a0;
+}
+
+.btn-comment-group a {
+    display         : inline-block;
+    color           : #a0a0a0 !important;
+    text-decoration : none;
+    margin-left     : 10px;
+    float           : left;
+    color           : #7BA428 !important;
+}
+
+.save_edit_comment, .cancel_edit_comment {
+    margin : 10px;
+}

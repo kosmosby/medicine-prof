@@ -1,0 +1,42 @@
+#searchmod{
+background: url(bg.jpg);
+float: left;
+font-size: 1.76em;
+line-height: 40px;
+position: relative;
+text-align: left;
+width: 100%;
+height: 39px;
+margin-top: 15px;
+color: #000000;
+}
+#searchmodleft{
+background-attachment: scroll;
+background-clip: border-box;
+background-color: transparent;
+background: url(left.jpg);
+background-origin: padding-box;
+background-position: 0px 0px;
+background-repeat: no-repeat;
+background-size: auto;
+height: 39px;
+margin-right: 10px;
+padding-left: 14px;
+position: absolute;
+top: 0px;
+}
+#searchmodright{
+background-attachment: scroll;
+background-clip: border-box;
+background-color: transparent;
+background: url(right.jpg);
+background-origin: padding-box;
+background-position: 100% 0px;
+background-repeat: no-repeat;
+background-size: auto;
+height: 39px;
+padding-right: 14px;
+position: absolute;
+right: -1px;
+top: 0px;
+}

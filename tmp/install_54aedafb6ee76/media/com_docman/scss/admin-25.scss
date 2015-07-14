@@ -1,0 +1,59 @@
+// Core variables and mixins without output available outside .koowa scope
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+// Overwrite variables
+$koowaPath: '../../koowa/com_koowa';
+
+// Mixins
+@import "koowa/generic/mixins";
+
+// Koowa behaviors
+@import "koowa/generic/select2";
+@import "koowa/generic/select2--custom";
+@import "koowa/generic/modal";
+@import "koowa/generic/datepicker";
+@import "koowa/generic/icons";
+@import "koowa/generic/general";
+@import "koowa/generic/koowa_template";
+@import "koowa/admin/admin";
+
+// Keep outside .koowa for it to work properly everywhere
+@import "generic/dropdowngrid";
+@import "generic/toolbar";
+@import "admin/global_overrides";
+
+.koowa {
+
+  // Koowa behaviours
+  @import "koowa/generic/dialog";
+  @import "koowa/generic/inputgroups";
+  @import "koowa/generic/tree";
+  @import "koowa/generic/variables";
+  @import "koowa/generic/pagination";
+  @import "koowa/generic/sidebar-nav";
+  @import "koowa/admin/table";
+  @import "koowa/admin/select2";
+
+  // Com files
+  @import "koowa/files";
+  @import "admin/files";
+
+  // Generic
+  @import "generic/iconpicker";
+  @import "generic/layout";
+  @import "generic/layout-25";
+  @import "generic/mixins";
+  @import "generic/oldie";
+  @import "generic/radio";
+  @import "generic/select2";
+  @import "generic/validator";
+
+  // Admin
+  @import "admin/admin";
+}
+
+// Import the bootstrap tooltip in the joomla 2.5 toolbar
+.koowa-toolbar {
+  @import "../libraries/sass-twitter-bootstrap/lib/tooltip";
+}

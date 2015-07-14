@@ -1,0 +1,92 @@
+Ext.ns('oseMscAddon');
+
+	var addonLicSeatFieldset = new Ext.form.FieldSet({
+		title:'License Seat Setting'
+		,labelWidth: 200
+		,items: [{
+			xtype: 'numberfield'
+			,name: 'licseat_seat_number'
+			,maxlength: 10
+			,maxValue: 9999999999
+			,fieldLabel: 'Maximum number of concurrent logins'
+		},{
+			xtype: 'compositefield'
+			,fieldLabel: 'Licenser Contact'
+			,items: [{
+				xtype: 'textfield'
+				,name: 'licseat_contact'
+				,vtype:'email'
+			},{
+				xtype: 'checkbox'
+				,name: 'licseat_contact_send'
+				,inputValue: 1
+			}]
+		},{
+			xtype: 'compositefield'
+			,fieldLabel: 'Internal Contact'
+			,items: [{
+				xtype: 'textfield'
+				,name: 'licseat_internal_contact'
+				,vtype:'email'
+			},{
+				xtype: 'checkbox'
+				,name: 'licseat_internal_contact_send'
+				,inputValue: 1
+			}]
+		},{
+			xtype: 'hidden'
+			,name: 'licseat_id'
+		},{
+			xtype: 'hidden'
+			,name: 'licseat_license_id'
+		}]
+	});
+
+
+
+	//
+	// Addon Msc Panel
+	//
+	oseMscAddon.licseat = new Ext.FormPanel({
+		//title: 'Membership Parameters',
+		bodyStyle: 'padding: 10px'
+		,labelWidth: 200
+		,height: 300
+		,items: addonLicSeatFieldset
+		,reader:new Ext.data.JsonReader({
+		    root: 'result',
+		    totalProperty: 'total',
+		    fields:[
+			    {name: 'licseat_seat_number', type: 'int', mapping: 'seat_number'}
+			    ,{name: 'licseat_contact', type: 'string', mapping: 'contact'}
+			    ,{name: 'licseat_internal_contact', type: 'string', mapping: 'internal_contact'}
+		  		,{name: 'licseat_contact_send', type: 'string', mapping: 'contact_send'}
+			    ,{name: 'licseat_internal_contact_send', type: 'string', mapping: 'internal_contact_send'}
+			    ,{name: 'licseat_license_id', type: 'string', mapping: 'license_id'}
+			    ,{name: 'licseat_id', type: 'string', mapping: 'id'}
+		  	]
+	  	})
+	  	,buttons: [{
+	  		text: 'Save'
+	  		,handler: function()	{
+	  			oseMscAddon.licseat.getForm().submit({
+				    clientValidation: true,
+				    url: 'index.php?option=com_osemsc&controller=membership',
+				    params: {
+				        task: 'action', action : 'member.licseat.save',member_id: oseMemsMsc.member_id,msc_id: oseMemsMsc.msc_id
+				    },
+				    success: oseMsc.formSuccess
+				    ,failure: oseMsc.formFailureMB
+    			})
+	  		}
+	  	}]
+		,listeners:{
+			render: function(panel){
+				panel.getForm().load({
+					//waitMsg : 'Loading...',
+					url: 'index.php?option=com_osemsc&controller=membership',
+					params:{task:'action',action:'member.licseat.getItem',member_id: oseMemsMsc.member_id,msc_id: oseMemsMsc.msc_id}
+				});
+			}
+		}
+	});

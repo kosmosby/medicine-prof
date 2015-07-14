@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="showcurrencies" type="params" ui="admin" label="Currency exchange rates" description="Latest currency exchange rates. If this table is empty, it is because your global settings don't have secondary currencies set.">
+			<tablebrowser name="currenciesbrowser" table="#__cbsubs_currencies" class="cbpaidCurrency" label="Currency exchange rates" description="Latest currency exchange rates downloaded from Central European bank (updated daily).">
+				<!-- 
+				<tablemenu>
+					<menu action="cb_action:update_currencies" label="Update currency rates now">Update</menu>
+				</tablemenu>
+				-->
+				<quicksearchfields>
+					<field name="currency" valuetype="const:string"/>
+					<field name="id" valuetype="const:int" />
+				</quicksearchfields>
+				<filters>
+					<filter name="currency" type="data" base="string" value="currency" size="1" default="" label="Name of currency" blanktext="--- By currency ---" description="Filter currency by its ISO code">
+						<data name="gatewayaccounts" type="sql:multiplerows" table="#__cbsubs_currencies" key="id">
+							<rows>
+								<field name="currency" as="value" />
+								<field name="currency" as="text" />
+							</rows>
+							<orderby>
+								<field name="ordering" ordering="ASC" />
+							</orderby>
+						</data>
+					</filter>
+					<filter name="id" type="field_show_only_if_selected" base="int" size="1" default="" label="Currency id"     blanktext="--- By id ---" description="Select a particular row by its id (used to show a given record only)" />
+				</filters>
+				<orderby>
+					<field name="ordering" ordering="ASC" />
+				</orderby>
+				<listfields>
+					<header type="standard" />
+					<rows type="standard" height="auto" limit="15" >
+						<field name=""          type="rownumber"       width="20px" align="right" label="#" />
+						<field name="id"        type="primarycheckbox" width="20px" />
+						<field name="currency"          type="string"  title="Currency Symbol"     width="10%" label="Currency ISO code" class="title" />
+						<field name="currency"          type="xml:currencies" width="20%" label="Currency name" />
+						<field name="rate"              type="float"        width="10%" label="Exchange rate" align="right" />
+						<field name="base_currency"     type="string"       width="10%" label="Base currency" />
+						<field name="source"            type="string"       width="20%" label="Source of rate" description="We do not give any warranty about the source or the update process." />
+						<field name="last_updated_date" type="datetime" timezone="RAW" showtime="0"  width="10%" label="Last Update" description="Last date received from currency exchange rate server" />
+						<field name="last_renewed_date" type="datetime"     width="10%" label="Last renewed" description="Last time the software fetched the rate from server (once a day maximum, when needed to display or compute rates only)." />
+						<field name="change_logs"    type="int"       link="cb_action:show_history" parameters="historybrowser[filter_table_name] historybrowser[filter_table_key_id]" paramvalues="#__cbsubs_currencies id" paramvaluestypes="const:string sql:field" title="Show change-log for this item" width="5%"  align="left" label="Change Logs" description="Number of changes logged for each item. Click to see corresponding logs.">
+							<data type="sql:subquery" name="change_logs" as="change_logs">
+								<data name="change_logs" type="sql:count" distinct="id"  table="#__cbsubs_history" class="cbpaidHistory">
+									<where>
+										<column name="table_name"   operator="=" value="#__cbsubs_currencies" type="sql:field" valuetype="const:string" />
+										<column name="table_key_id" operator="=" value="id" type="sql:field" valuetype="sql:parentfield" />
+									</where>
+								</data>
+							</data>
+						</field>
+						<field name="ordering"          type="ordering"  value="currency"   width="3%"  label="Order"  onclick="arrows,number" />
+						<field name="id"                type="int"          width="10%"  label="Id" align="right" />
+					</rows>
+				</listfields>
+			</tablebrowser>
+		</view>
+	</views>
+</cbxml>

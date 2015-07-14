@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="DEFAULT_MEMBER_LIST_LAYOUT">
+		<message>
+			<![CDATA[DEFAULT_MEMBER_LIST_LAYOUT]]>
+		</message>
+	</layout>
+	<config>
+		<fields name="params" addfieldpath="/components/com_osemsc/helpers/elements/">
+			<fieldset name="basic">
+				<field name="msc" type="sql" label="Membership" default="" description="Select a Membership" query="SELECT id AS value, CONCAT('[',id,'] ', title) AS msc FROM #__osemsc_acl" />
+				<field name="status" type="list" default="1" label="Status">
+				<option value="all">All</option>
+				<option value="1">Active</option>
+				<option value="0">Expired</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</metadata>

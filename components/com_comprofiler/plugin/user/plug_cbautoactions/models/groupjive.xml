@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../../../validation/ahawow.xsd">
+	<types>
+		<type name="autoaction_type" base="xml:autoaction_type">
+			<option value="groupjive">CB GroupJive</option>
+		</type>
+		<type name="autoaction_triggers" base="xml:autoaction_triggers">
+			<optgroup label="CB GroupJive">
+				<option value="gj_onPluginBE">Integration Backend</option>
+				<option value="gj_onBeforeTools">Before Tools</option>
+				<option value="gj_onAfterTools">After Tools</option>
+				<option value="gj_onBeforeNotification">Before Notification</option>
+				<option value="gj_onAfterNotification">After Notification</option>
+				<option value="gj_onBeforeTemplate">Before Template</option>
+				<option value="gj_onAfterTemplate">After Template</option>
+				<option value="gj_onBeforeUpdateCategory">Before Update Category</option>
+				<option value="gj_onBeforeCreateCategory">Before Create Category</option>
+				<option value="gj_onAfterUpdateCategory">After Update Category</option>
+				<option value="gj_onAfterCreateCategory">After Create Category</option>
+				<option value="gj_onBeforeDeleteCategory">Before Delete Category</option>
+				<option value="gj_onAfterDeleteCategory">After Delete Category</option>
+				<option value="gj_onBeforeUpdateCategoryOrder">Before Update Category Order</option>
+				<option value="gj_onAfterUpdateCategoryOrder">After Update Category Order</option>
+				<option value="gj_onBeforeUpdateCategoryState">Before Update Category State</option>
+				<option value="gj_onAfterUpdateCategoryState">After Update Category State</option>
+				<option value="gj_onBeforeUpdateCategoryParams">Before Update Category Params</option>
+				<option value="gj_onAfterUpdateCategoryParams">After Update Category Params</option>
+				<option value="gj_onBeforeSetCategoryParams">Before Set Category Params</option>
+				<option value="gj_onAfterSetCategoryParams">After Set Category Params</option>
+				<option value="gj_onBeforeUpdateGroup">Before Update Group</option>
+				<option value="gj_onBeforeCreateGroup">Before Create Group</option>
+				<option value="gj_onAfterUpdateGroup">After Update Group</option>
+				<option value="gj_onAfterCreateGroup">After Create Group</option>
+				<option value="gj_onBeforeDeleteGroup">Before Delete Group</option>
+				<option value="gj_onAfterDeleteGroup">After Delete Group</option>
+				<option value="gj_onBeforeUpdateGroupOrder">Before Update Group Order</option>
+				<option value="gj_onAfterUpdateGroupOrder">After Update Group Order</option>
+				<option value="gj_onBeforeUpdateGroupState">Before Update Group State</option>
+				<option value="gj_onAfterUpdateGroupState">After Update Group State</option>
+				<option value="gj_onBeforeUpdateGroupParams">Before Update Group Params</option>
+				<option value="gj_onAfterUpdateGroupParams">After Update Group Params</option>
+				<option value="gj_onBeforeSetGroupParams">Before Set Group Params</option>
+				<option value="gj_onAfterSetGroupParams">After Set Group Params</option>
+				<option value="gj_onBeforeUpdateUser">Before Update User</option>
+				<option value="gj_onBeforeCreateUser">Before Create User</option>
+				<option value="gj_onAfterUpdateUser">After Update User</option>
+				<option value="gj_onAfterCreateUser">After Create User</option>
+				<option value="gj_onBeforeDeleteUser">Before Delete User</option>
+				<option value="gj_onAfterDeleteUser">After Delete User</option>
+				<option value="gj_onBeforeUpdateUserStatus">Before Update User Status</option>
+				<option value="gj_onAfterUpdateUserStatus">After Update User Status</option>
+				<option value="gj_onBeforeUpdateUserParams">Before Update User Params</option>
+				<option value="gj_onAfterUpdateUserParams">After Update User Params</option>
+				<option value="gj_onBeforeSetUserParams">Before Set User Params</option>
+				<option value="gj_onAfterSetUserParams">After Set User Params</option>
+				<option value="gj_onBeforeUpdateInvite">Before Update Invite</option>
+				<option value="gj_onBeforeCreateInvite">Before Create Invite</option>
+				<option value="gj_onAfterUpdateInvite">After Update Invite</option>
+				<option value="gj_onAfterCreateInvite">After Create Invite</option>
+				<option value="gj_onBeforeDeleteInvite">Before Delete Invite</option>
+				<option value="gj_onAfterDeleteInvite">After Delete Invite</option>
+				<option value="gj_onBeforeUpdateNotification">Before Update Notification</option>
+				<option value="gj_onBeforeCreateNotification">Before Create Notification</option>
+				<option value="gj_onAfterUpdateNotification">After Update Notification</option>
+				<option value="gj_onAfterCreateNotification">After Create Notification</option>
+				<option value="gj_onBeforeDeleteNotification">Before Delete Notification</option>
+				<option value="gj_onAfterDeleteNotification">After Delete Notification</option>
+				<option value="gj_onBeforeUpdateNotificationParams">Before Update Notification Params</option>
+				<option value="gj_onAfterUpdateNotificationParams">After Update Notification Params</option>
+				<option value="gj_onBeforeSetNotificationParams">Before Set Notification Params</option>
+				<option value="gj_onAfterSetNotificationParams">After Set Notification Params</option>
+				<option value="gj_onPluginFE">Integration Frontend</option>
+				<option value="gj_onBeforeMessageOverview">Before Message Overview</option>
+				<option value="gj_onAfterMessageOverview">After Message Overview</option>
+				<option value="gj_onBeforeMessageCategory">Before Message Category</option>
+				<option value="gj_onAfterMessageCategory">After Message Category</option>
+				<option value="gj_onBeforeJoinGroup">Before Join Group</option>
+				<option value="gj_onAfterJoinGroup">After Join Group</option>
+				<option value="gj_onBeforeLeaveGroup">Before Leave Group</option>
+				<option value="gj_onAfterLeaveGroup">After Leave Group</option>
+				<option value="gj_onBeforeMessageGroup">Before Message Group</option>
+				<option value="gj_onAfterMessageGroup">After Message Group</option>
+				<option value="gj_onPluginBEToolbar">Integration Backend Toolbar</option>
+				<option value="gjint_onBeforeUpdateAuto">Before Update Auto</option>
+				<option value="gjint_onBeforeCreateAuto">Before Create Auto</option>
+				<option value="gjint_onAfterUpdateAuto">After Update Auto</option>
+				<option value="gjint_onAfterCreateAuto">After Create Auto</option>
+				<option value="gjint_onBeforeDeleteAuto">Before Delete Auto</option>
+				<option value="gjint_onAfterDeleteAuto">After Delete Auto</option>
+				<option value="gjint_onBeforeUpdateAutoOrder">Before Update Auto Order</option>
+				<option value="gjint_onAfterUpdateAutoOrder">After Update Auto Order</option>
+				<option value="gjint_onBeforeUpdateAutoParams">Before Update Auto Params</option>
+				<option value="gjint_onAfterUpdateAutoParams">After Update Auto Params</option>
+				<option value="gjint_onBeforeUpdateAutoState">Before Update Auto State</option>
+				<option value="gjint_onAfterUpdateAutoState">After Update Auto State</option>
+				<option value="gjint_onBeforeSetAutoFields">Before Set Auto Fields</option>
+				<option value="gjint_onAfterSetAutoFields">After Set Auto Fields</option>
+				<option value="gjint_onBeforeSetAutoOperators">Before Set Auto Operators</option>
+				<option value="gjint_onAfterSetAutoOperators">After Set Auto Operators</option>
+				<option value="gjint_onBeforeSetAutoValues">Before Set Auto Values</option>
+				<option value="gjint_onAfterSetAutoValues">After Set Auto Values</option>
+				<option value="gjint_onBeforeSetAutoParams">Before Set Auto Params</option>
+				<option value="gjint_onAfterSetAutoParams">After Set Auto Params</option>
+				<option value="gjint_onBeforeUpdateEvent">Before Update Event</option>
+				<option value="gjint_onBeforeCreateEvent">Before Create Event</option>
+				<option value="gjint_onAfterUpdateEvent">After Update Event</option>
+				<option value="gjint_onAfterCreateEvent">After Create Event</option>
+				<option value="gjint_onBeforeDeleteEvent">Before Delete Event</option>
+				<option value="gjint_onAfterDeleteEvent">After Delete Event</option>
+				<option value="gjint_onBeforeUpdateEventState">Before Update Event State</option>
+				<option value="gjint_onAfterUpdateEventState">After Update Event State</option>
+				<option value="gjint_onBeforeUpdateEventAttendance">Before Update Event Attendance</option>
+				<option value="gjint_onAfterUpdateEventAttendance">After Update Event Attendance</option>
+				<option value="gjint_onBeforeUpdateFile">Before Update File</option>
+				<option value="gjint_onBeforeCreateFile">Before Create File</option>
+				<option value="gjint_onAfterUpdateFile">After Update File</option>
+				<option value="gjint_onAfterCreateFile">After Create File</option>
+				<option value="gjint_onBeforeDeleteFile">Before Delete File</option>
+				<option value="gjint_onAfterDeleteFile">After Delete File</option>
+				<option value="gjint_onBeforeUpdateFileState">Before Update File State</option>
+				<option value="gjint_onAfterUpdateFileState">After Update File State</option>
+				<option value="gjint_onBeforeUpdatePhoto">Before Update Photo</option>
+				<option value="gjint_onBeforeCreatePhoto">Before Create Photo</option>
+				<option value="gjint_onAfterUpdatePhoto">After Update Photo</option>
+				<option value="gjint_onAfterCreatePhoto">After Create Photo</option>
+				<option value="gjint_onBeforeDeletePhoto">Before Delete Photo</option>
+				<option value="gjint_onAfterDeletePhoto">After Delete Photo</option>
+				<option value="gjint_onBeforeUpdatePhotoState">Before Update Photo State</option>
+				<option value="gjint_onAfterUpdatePhotoState">After Update Photo State</option>
+				<option value="gjint_onBeforeUpdateVideo">Before Update Video</option>
+				<option value="gjint_onBeforeCreateVideo">Before Create Video</option>
+				<option value="gjint_onAfterUpdateVideo">After Update Video</option>
+				<option value="gjint_onAfterCreateVideo">After Create Video</option>
+				<option value="gjint_onBeforeDeleteVideo">Before Delete Video</option>
+				<option value="gjint_onAfterDeleteVideo">After Delete Video</option>
+				<option value="gjint_onBeforeUpdateVideoState">Before Update Video State</option>
+				<option value="gjint_onAfterUpdateVideoState">After Update Video State</option>
+				<option value="gjint_onBeforeUpdateWall">Before Update Wall</option>
+				<option value="gjint_onBeforeCreateWall">Before Create Wall</option>
+				<option value="gjint_onAfterUpdateWall">After Update Wall</option>
+				<option value="gjint_onAfterCreateWall">After Create Wall</option>
+				<option value="gjint_onBeforeDeleteWall">Before Delete Wall</option>
+				<option value="gjint_onAfterDeleteWall">After Delete Wall</option>
+				<option value="gjint_onBeforeUpdateWallState">Before Update Wall State</option>
+				<option value="gjint_onAfterUpdateWallState">After Update Wall State</option>
+				<option value="gj_onMenuBE">Backend Menu</option>
+				<option value="gj_onCategoryEdit">Category Edit</option>
+				<option value="gj_onGroupEdit">Group Edit</option>
+				<option value="gj_onConfigIntegrations">Config Integrations</option>
+				<option value="gj_onMenusIntegrationsGeneral">Menus Integrations General</option>
+				<option value="gj_onMenusIntegrationsCategories">Menus Integrations Categories</option>
+				<option value="gj_onMenusIntegrationsGroups">Menus Integrations Groups</option>
+				<option value="gj_onMenusIntegrationsSave">Menus Integrations Save</option>
+				<option value="gj_onAuthorization">Authorization</option>
+				<option value="gj_onCaptchaRender">Captcha Render</option>
+				<option value="gj_onCaptchaValidate">Captcha Validate</option>
+				<option value="gj_onToolbarBE">Backend Toolbar</option>
+				<option value="gj_onBeforeOverviewCategoryMenu">Before Overview Category Menu</option>
+				<option value="gj_onAfterOverviewCategoryMenu">After Overview Category Menu</option>
+				<option value="gj_onBeforeOverviewCategoryInfo">Before Overview Category Info</option>
+				<option value="gj_onAfterOverviewCategoryInfo">After Overview Category Info</option>
+				<option value="gj_onBeforeCategoryGroupMenu">Before Category Group Menu</option>
+				<option value="gj_onAfterCategoryGroupMenu">After Category Group Menu</option>
+				<option value="gj_onBeforeCategoryGroupInfo">Before Category Group Info</option>
+				<option value="gj_onAfterCategoryGroupInfo">After Category Group Info</option>
+				<option value="gj_onBeforeCategoryTab">Before Category Tab</option>
+				<option value="gj_onAfterCategoryTab">After Category Tab</option>
+				<option value="gj_onBeforeCategoryInfo">Before Category Info</option>
+				<option value="gj_onAfterCategoryInfo">After Category Info</option>
+				<option value="gj_onBeforeCategoryMenu">Before Category Menu</option>
+				<option value="gj_onAfterCategoryMenu">After Category Menu</option>
+				<option value="gj_onBeforeGroupInviteInfo">Before Group Invite Info</option>
+				<option value="gj_onBeforeGroupInviteMenu">Before Group Invite Menu</option>
+				<option value="gj_onAfterGroupInviteMenu">After Group Invite Menu</option>
+				<option value="gj_onAfterGroupInviteInfo">After Group Invite Info</option>
+				<option value="gj_onBeforeGroupTab">Before Group Tab</option>
+				<option value="gj_onAfterGroupTab">After Group Tab</option>
+				<option value="gj_onBeforeGroupInfo">Before Group Info</option>
+				<option value="gj_onAfterGroupInfo">After Group Info</option>
+				<option value="gj_onBeforeGroupMenu">Before Group Menu</option>
+				<option value="gj_onAfterGroupMenu">After Group Menu</option>
+				<option value="gj_onBeforeGroupUserMenu">Before Group User Menu</option>
+				<option value="gj_onAfterGroupUserMenu">After Group User Menu</option>
+				<option value="gj_onBeforeGroupUserInfo">Before Group User Info</option>
+				<option value="gj_onAfterGroupUserInfo">After Group User Info</option>
+				<option value="gj_onGeneralNotifications">General Notifications</option>
+				<option value="gj_onCategoryNotifications">Category Notifications</option>
+				<option value="gj_onGroupNotifications">Group Notifications</option>
+				<option value="gj_onBeforeOverviewInfo">Before Overview Info</option>
+				<option value="gj_onAfterOverviewInfo">After Overview Info</option>
+				<option value="gj_onBeforeOverviewMenu">Before Overview Menu</option>
+				<option value="gj_onAfterOverviewMenu">After Overview Menu</option>
+				<option value="gj_onBeforePanelInfo">Before Panel Info</option>
+				<option value="gj_onAfterPanelInfo">After Panel Info</option>
+				<option value="gj_onBeforePanelMenu">Before Panel Menu</option>
+				<option value="gj_onAfterPanelMenu">After Panel Menu</option>
+				<option value="gj_onBeforeProfileTab">Before Profile Tab</option>
+				<option value="gj_onAfterProfileTab">After Profile Tab</option>
+				<option value="gj_onBeforeProfileOverviewCategoryMenu">Before Profile Overview Category Menu</option>
+				<option value="gj_onAfterProfileOverviewCategoryMenu">After Profile Overview Category Menu</option>
+				<option value="gj_onBeforeProfileOverviewCategoryInfo">Before Profile Overview Category Info</option>
+				<option value="gj_onAfterProfileOverviewCategoryInfo">After Profile Overview Category Info</option>
+				<option value="gj_onBeforeProfileCategoryGroupMenu">Before Profile Category Group Menu</option>
+				<option value="gj_onAfterProfileCategoryGroupMenu">After Profile Category Group Menu</option>
+				<option value="gj_onBeforeProfileCategoryGroupInfo">Before Profile Category Group Info</option>
+				<option value="gj_onAfterProfileCategoryGroupInfo">After Profile Category Group Info</option>
+				<option value="gj_onBeforeProfileGroupInvitedMenu">Before Profile Group Invited Menu</option>
+				<option value="gj_onAfterProfileGroupInvitedMenu">After Profile Group Invited Menu</option>
+				<option value="gj_onBeforeProfileGroupInvitedInfo">Before Profile Group Invited Info</option>
+				<option value="gj_onAfterProfileGroupInvitedInfo">After Profile Group Invited Info</option>
+				<option value="gj_onBeforeProfileGroupInviteInfo">Before Profile Group Invite Info</option>
+				<option value="gj_onBeforeProfileGroupInviteMenu">Before Profile Group Invite Menu</option>
+				<option value="gj_onAfterProfileGroupInviteMenu">After Profile Group Invite Menu</option>
+				<option value="gj_onAfterProfileGroupInviteInfo">After Profile Group Invite Info</option>
+			</optgroup>
+		</type>
+	</types>
+	<views>
+		<view name="actiontype_groupjive" type="params" ui="admin">
+			<param name="" type="spacer" display="2lines" label="" default="Create GroupJive categories and groups." />
+			<if name="" nametype="data:int" operator="=" value="1" valuetype="const:int" type="condition">
+				<left>
+					<param name="" type="private" class="cbautoactionsActionGroupJive" method="installed" />
+				</left>
+				<then>
+					<params name="groupjive" type="params" repeat="true" label="" display="2lines">
+						<param name="mode" type="list" default="1" translate-default="no" label="Mode" description="Select what CB GroupJive action to perform.">
+							<option value="1">Join Groups</option>
+							<option value="4">Leave Groups</option>
+							<option value="2">New Group</option>
+							<option value="3">New Category</option>
+						</param>
+						<if name="mode" nametype="param:string" operator="in" value="1|*|4" valuetype="const:string" type="showhide">
+							<param name="groups" type="list" multiple="true" size="10" blanktext="" label="Groups" description="Select the groups to join or leave based off mode." validate="required">
+								<data name="" type="private" class="cbautoactionsActionGroupJive" method="groups" />
+							</param>
+						</if>
+						<if name="mode" nametype="param:string" operator="=" value="1" valuetype="const:string" type="showhide">
+							<param name="status" type="list" default="1" label="Status" description="Select status of the user for the specified groups.">
+								<option value="-1">Banned</option>
+								<option value="0">Inactive</option>
+								<option value="1">Active</option>
+								<option value="2">Moderator</option>
+								<option value="3">Admin</option>
+								<option value="4">Owner</option>
+							</param>
+						</if>
+						<if name="mode" nametype="param:string" operator="in" value="2|*|3" valuetype="const:string" type="showhide">
+							<param name="name" type="text" label="Name" description="Input substitution supported category or group name." size="50" validate="required" />
+							<if name="mode" nametype="param:string" operator="=" value="2" valuetype="const:string" type="showhide">
+								<param name="category" type="list" hideblanktext="always" label="Category" description="Select group category.">
+									<option value="-1">New Category</option>
+									<data name="" type="private" class="cbautoactionsActionGroupJive" method="categories" />
+								</param>
+								<if name="category" nametype="param:int" operator="=" value="-1" valuetype="const:int" type="showhide">
+									<param name="category_name" type="text" label="Category Name" description="Input substitution supported category name." size="50" validate="required" />
+									<param name="category_parent" type="list" hideblanktext="always" label="Parent" description="Optionally select category parent.">
+										<option value="0">No Parent</option>
+										<data name="" type="private" class="cbautoactionsActionGroupJive" method="categories" />
+									</param>
+									<param name="category_types" type="list" multiple="true" default="1|*|2|*|3" blanktext="" label="Category Types" description="Select available group types for this category. Types determine the way a groups is joined (e.g. Invite requires new users to be invited to join a group)." validate="required">
+										<option value="1">Open</option>
+										<option value="2">Approval</option>
+										<option value="3">Invite</option>
+									</param>
+									<param name="category_description" type="textarea" rows="10" label="Category Description" description="Optionally input substitution supported category description." cssclass="input-block" />
+									<param name="category_unique" type="yesno" default="1" label="Category Unique" description="Select if category should be unique to the owner. When checking if a category exists by name it will also check if exists by owner user id. If disabled only name is checked." />
+								</if>
+								<param name="group_parent" type="list" hideblanktext="always" label="Parent" description="Optionally select group parent.">
+									<option value="0">No Parent</option>
+									<data name="" type="private" class="cbautoactionsActionGroupJive" method="groups" />
+								</param>
+								<param name="type" type="list" default="1" label="Type" description="Select group type. Type determines the way your group is joined (e.g. Invite requires new users to be invited to join your group).">
+									<option value="1">Open</option>
+									<option value="2">Approval</option>
+									<option value="3">Invite</option>
+								</param>
+							</if>
+							<if name="mode" nametype="param:string" operator="=" value="3" valuetype="const:string" type="showhide">
+								<param name="parent" type="list" hideblanktext="always" label="Parent" description="Optionally select category parent.">
+									<option value="0">No Parent</option>
+									<data name="" type="private" class="cbautoactionsActionGroupJive" method="categories" />
+								</param>
+								<param name="types" type="list" multiple="true" default="1|*|2|*|3" blanktext="" label="Types" description="Select available group types for this category. Types determine the way a groups is joined (e.g. Invite requires new users to be invited to join a group)." validate="required">
+									<option value="1">Open</option>
+									<option value="2">Approval</option>
+									<option value="3">Invite</option>
+								</param>
+							</if>
+							<param name="description" type="textarea" rows="10" label="Description" description="Optionally input substitution supported category or group description." cssclass="input-block" />
+							<param name="owner" type="text" label="Owner" description="Input substitution supported owner as single integer user_id. Leave blank to use trigger user as the owner." size="10" />
+							<param name="unique" type="yesno" default="1" label="Unique" description="Select if group or category should be unique to the owner. When checking if a group or category exists by name it will also check if exists by owner user id. If disabled only name is checked." />
+							<if name="mode" nametype="param:string" operator="=" value="2" valuetype="const:string" type="showhide">
+								<if name="unique" nametype="param:int" operator="=" value="0" valuetype="const:int" type="showhide">
+									<param name="autojoin" type="yesno" default="1" label="Auto Join" description="Select if group should be automatically joined if duplicate found." />
+									<if name="autojoin" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+										<param name="group_status" type="list" default="1" label="Group Status" description="Select status of the user when auto joining.">
+											<option value="-1">Banned</option>
+											<option value="0">Inactive</option>
+											<option value="1">Active</option>
+											<option value="2">Moderator</option>
+											<option value="3">Admin</option>
+											<option value="4">Owner</option>
+										</param>
+									</if>
+								</if>
+							</if>
+						</if>
+					</params>
+				</then>
+				<else>
+					<param name="" type="spacer" display="2lines" label="" default="CB GroupJive 2.x installation not found!" />
+				</else>
+			</if>
+		</view>
+	</views>
+</cbxml>

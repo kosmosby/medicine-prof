@@ -1,0 +1,1 @@
+UPDATE #__judownload_categories SET style_id = -2 WHERE parent_id = 0;

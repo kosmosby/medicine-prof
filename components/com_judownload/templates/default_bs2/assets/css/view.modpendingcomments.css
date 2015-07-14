@@ -1,0 +1,16 @@
+.judl-pending-comments .judl-frontend-toolbar {
+	margin : 10px 0;
+}
+
+.judl-pending-comments table {
+	clear      : both;
+	margin-top : 10px;
+}
+
+.judl-pending-comments .center {
+	text-align : center;
+}
+
+.judl-pending-comments .judl-pagination #limit {
+	width: auto !important;
+}

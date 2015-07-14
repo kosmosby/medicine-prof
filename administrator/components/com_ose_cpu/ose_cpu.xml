@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="1.6" method="upgrade">
+    <name>ose_cpu</name>
+    <author>Open Source Excellence</author>
+    <creationDate>10/05/2011</creationDate>
+    <license>GNU/GPL</license>
+    <version>4.1</version>
+    <description>OSE Core Central Processing Units</description>
+    <!-- installation part -->
+    <installfile>install.osecpu.php</installfile>
+    <uninstallfile>uninstall.osecpu.php</uninstallfile>
+    <!-- administration part -->
+    <administration>
+    <menu img="components/com_ose_cpu/favicon.ico">OSE CPU</menu>
+    <files>
+        <filename>favicon.ico</filename>
+        <filename>ose_cpu.xml</filename>
+        <filename>index.html</filename>
+        <filename>ose_cpu.php</filename>
+        <filename>define.php</filename>
+	<folder>assets</folder>
+	<folder>oseregistry</folder>
+	<folder>remote</folder>
+	<folder>email</folder>
+	<folder>user2</folder>
+    </files>
+    </administration>
+    <files>
+	<folder>extjs</folder>
+	<folder>jquery</folder>
+    </files>
+    <params>
+    </params>
+</extension>

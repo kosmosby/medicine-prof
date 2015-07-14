@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="View a specific User">
+            <message>
+                    <![CDATA[View a specific User Profile Layout]]>
+            </message>
+    </layout>
+    <state>
+        <name>Display user</name>
+        <description>Display an user profile</description>
+		<url>
+            <param name="task" type="hidden" default="userdetails"/>
+			<param name="id" key_field="id" value_field="text" type="sql" default="62" label="Select an user" query="SELECT a.userid AS id, b.username as text FROM #__bid_users AS a LEFT JOIN #__users AS b ON b.id = a.userid " />
+		</url>
+    </state>
+    <fields name="request">
+        <fieldset name="request" label="Basic Parameters">
+            <field name="task" type="hidden" default="categories" />
+			<field name="id" key_field="id" value_field="text" type="sql" default="62" label="Select an user" query="SELECT a.userid AS id, b.username as text FROM #__bid_users AS a LEFT JOIN #__users AS b ON b.id = a.userid " />
+        </fieldset>
+    </fields>
+</metadata>

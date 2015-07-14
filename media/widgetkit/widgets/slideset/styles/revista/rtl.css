@@ -1,0 +1,37 @@
+/*
+ * RTL Style Sheet
+ */
+
+.wk-slideset-revista .nav.icon li {
+	margin-left: 0;
+	margin-right: 3px;
+}
+.wk-slideset-revista .nav.text li {
+	margin-left: 0;
+	margin-right: 40px;
+}
+.wk-slideset-revista .nav li:first-child { margin-right: 0; }
+
+
+.wk-slideset-revista > div .prev {
+	right: 15px;
+	left: auto;
+	background-position: 0 -90px;
+}
+.wk-slideset-revista > div .prev:hover { background-position: 0 -120px; }
+.wk-slideset-revista > div .prev:active { background-position: 0 -150px; }
+.wk-slideset-revista > div .next {
+	right: auto;
+	left: 15px;
+	background-position: 0 0;
+}
+.wk-slideset-revista > div .next:hover { background-position: 0 -30px; }
+.wk-slideset-revista > div .next:active { background-position: 0 -60px; }
+
+.wk-slideset-revista > div:hover .next:hover { background-position: 0 -60px; }
+
+.wk-slideset-revista > div:hover .next:active { background-position: 0 -120px; }
+
+.wk-slideset-revista ul.set li {  background-position: 100% 0; }
+
+.wk-slideset-revista .wk-content { text-align: right; }

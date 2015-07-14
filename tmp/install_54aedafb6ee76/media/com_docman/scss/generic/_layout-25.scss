@@ -1,0 +1,20 @@
+.docman_secondary_container {
+  @media screen and (min-width: $queryWidthMedium) {
+    background: #fcfcfc;
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+}
+
+.old-ie {
+  div .docman_secondary_container {
+    background: #fcfcfc;
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+}
+
+.select2-container {
+  margin-bottom: 9px;
+  max-width: 100%;
+}

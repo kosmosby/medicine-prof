@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0" type="plugin" group="user" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../validation/ahawow.xsd">
+	<name>CB consultations</name>
+	<author>Krileon</author>
+	<creationDate>2014-10-30</creationDate>
+	<copyright>(C) 2004-2014 www.joomlapolis.com / Lightning MultiCom SA - and its licensors, all rights reserved</copyright>
+	<license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2</license>
+	<authorEmail>krileon@joomlapolis.com</authorEmail>
+	<description>Component plugin allowing users to post consultations using CMS content system.</description>
+	<version>2.0.2</version>
+	<files>
+		<filename plugin="cbconsultations">cbconsultations.php</filename>
+		<filename>component.cbconsultations.php</filename>
+		<filename>index.html</filename>
+		<foldername>models</foldername>
+		<foldername>templates</foldername>
+		<foldername>xml</foldername>
+	</files>
+	<delete>
+		<filename>models/joomla15.php</filename>
+		<filename>templates/default/consultation_approval.php</filename>
+		<filename>templates/default/template.css</filename>
+		<filename>admin.cbconsultations.css</filename>
+		<filename>admin.cbconsultations.html.php</filename>
+		<filename>admin.cbconsultations.php</filename>
+		<filename>cbconsultations.class.php</filename>
+		<filename>plugin.cbconsultations.php</filename>
+		<filename>tab.cbconsultations.php</filename>
+		<filename>toolbar.cbconsultations.html.php</filename>
+		<filename>toolbar.cbconsultations.php</filename>
+		<foldername>images</foldername>
+		<foldername>templates/default/images</foldername>
+	</delete>
+	<tabs>
+		<tab name="consultationS_TITLE" translated-name="consultations" description="" class="cbconsultationsTab" fields="0" sys="1" position="cb_tabmain" displaytype="tab">
+			<params>
+				<param name="tab_paging" type="yesno" default="1" label="Paging" description="Enable or disable usage of paging on tab consultations." yes="Enable" no="Disable" />
+				<if name="tab_paging" type="showhide" operator="=" value="1" valuetype="const:int">
+					<param name="tab_limit" type="int" default="15" size="5" label="Page Limit" description="Input page limit on tab consultations. Page limit determines how many consultations are displayed per page." />
+				</if>
+				<param name="tab_search" type="yesno" default="1" label="Search" description="Enable or disable usage of search on tab consultations." yes="Enable" no="Disable" />
+			</params>
+		</tab>
+	</tabs>
+	<params>
+		<tabpane name="consultations">
+			<tabpanetab label="General">
+				<param name="general_template" type="folderlist" default="default" label="Template" description="Select template to be used for all of CB consultations. If template is incomplete then missing files will be used from the default template. Template files can be located at the following location: components/com_comprofiler/plugin/user/plug_cbconsultations/templates/." directory="/components/com_comprofiler/plugin/user/plug_cbconsultations/templates/" />
+				<param name="general_class" type="text" default="" size="20" label="Class" description="Optionally add a class suffix to surrounding DIV encasing all of CB consultations." />
+			</tabpanetab>
+			<tabpanetab label="consultations">
+				<param name="consultation_model" type="list" default="2" label="Model" description="Select consultation model usage. Model determines where consultations will be displayed from. Select a specific model to enable model specific parameters.">
+					<option value="2">Internal</option>
+					<option value="7">Joomla</option>
+					<option value="6">K2</option>
+				</param>
+				<param name="consultation_mode" type="list" default="1" label="Mode" description="Select consultation mode usage. Mode determines how consultations are stored and displayed.">
+					<option value="1">Intro &amp; Full</option>
+					<option value="2">Intro Only</option>
+					<option value="3">Full Only</option>
+				</param>
+				<if name="consultation_model" type="showhide" operator="=" value="2" valuetype="const:int">
+					<param name="consultation_categories" type="text" default="General,Movies,Music,Games,Sports" size="40" label="Categories" description="Input comma seperated list of internal categories (e.g. General,Movies,Family)." />
+				</if>
+				<if name="consultation_model" type="showhide" operator="=" value="7" valuetype="const:int">
+					<param name="consultation_j_section" type="mos_category" default="" blanktext="- Select Category -" label="Category" description="Select the external CMS content category where consultations will be stored as well as consultation categories used." />
+				</if>
+				<if name="consultation_model" type="showhide" operator="=" value="6" valuetype="const:int">
+					<param name="consultation_k2_section" type="list" default="" blanktext="- Select Category -" label="Category" description="Select the K2 content category where consultations will be stored as well as consultation categories used.">
+						<data name="" type="private" class="cbconsultationsClass" method="getK2Options" />
+					</param>
+				</if>
+				<param name="consultation_create_access" type="viewaccesslevel" default="2" managelevels="false" blanktext="" label="Create Access" description="Select consultation create access. Access determines who can create consultations. The group selected as well as those above it will have access (e.g. Registered will also be accessible to Author). Moderators are exempt from this configuration." />
+				<param name="consultation_limit" type="int" default="" size="5" label="Create Limit" description="Input number of consultations each individual user is limited to creating. If blank allow unlimited consultations. Moderators are exempt from this configuration." />
+				<param name="consultation_approval" type="yesno" default="0" label="Approval" description="Enable or disable approval of consultations. Approval requires a moderator to publish a consultation before it is made visible. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+				<param name="consultation_captcha" type="yesno" default="0" label="Captcha" description="Enable or disable usage of captcha on consultations. Requires latest CB Captcha to be installed and published. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+				<param name="consultation_delete" type="yesno" default="1" label="Auto Delete" description="Enable or disable automatic deletion of consultations when a user is deleted." yes="Enable" no="Disable" />
+				<if name="consultation_approval" type="showhide" operator="=" value="1" valuetype="const:int">
+					<param name="approval_notify" type="yesno" default="1" label="Notify" description="Enable or disable moderator notifications for consultations needing approval." yes="Enable" no="Disable" />
+				</if>
+			</tabpanetab>
+			<tabpanetab label="Defaults">
+				<if name="consultation_model" type="showhide" operator="=" value="2" valuetype="const:int">
+					<param name="consultation_int_category_default" type="text" default="General" size="15" label="Category" description="Select default value for the category parameter." />
+				</if>
+				<if name="consultation_model" type="showhide" operator="=" value="7" valuetype="const:int">
+					<param name="consultation_j_category_default" type="mos_category" default="" blanktext="- Select Category -" label="Category" description="Select default value for the category parameter." />
+				</if>
+				<if name="consultation_model" type="showhide" operator="=" value="6" valuetype="const:int">
+					<param name="consultation_k2_category_default" type="list" default="" blanktext="- Select Category -" label="Category" description="Select default value for the category parameter.">
+						<data name="" type="private" class="cbconsultationsClass" method="getK2Options" />
+					</param>
+				</if>
+				<param name="consultation_category_config" type="yesno" default="1" label="Category Display" description="Enable or disable the display of the category parameter. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+				<param name="consultation_access_default" type="viewaccesslevel" default="1" blanktext="- Select View Access Level -" managelevels="false" label="Access" description="Select default value for the access parameter." />
+				<param name="consultation_access_config" type="yesno" default="1" label="Access Display" description="Enable or disable the display of the access parameter. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+			</tabpanetab>
+		</tabpane>
+	</params>
+	<database version="1">
+		<table name="#__comprofiler_plugin_consultations" class="" strict="true" drop="never">
+			<columns strict="true" drop="never">
+				<column name="id" type="sql:int(11)" unsigned="true" auto_increment="1" />
+				<column name="user" type="sql:int(11)" />
+				<column name="title" type="sql:varchar(255)" />
+				<column name="consultation_intro" type="sql:text" null="true" />
+				<column name="consultation_full" type="sql:text" null="true" />
+				<column name="category" type="sql:varchar(255)" />
+				<column name="created" type="sql:datetime" default="0000-00-00 00:00:00" />
+				<column name="modified" type="sql:datetime" default="0000-00-00 00:00:00" />
+				<column name="access" type="sql:int(11)" default="0" />
+				<column name="published" type="sql:tinyint(1)" default="0" />
+				<column name="ordering" type="sql:int(11)" default="99999" />
+			</columns>
+			<indexes strict="true" drop="never">
+				<index name="PRIMARY" type="primary">
+					<column name="id" />
+				</index>
+				<index name="published">
+					<column name="published" />
+				</index>
+				<index name="user">
+					<column name="user" />
+				</index>
+				<index name="access">
+					<column name="access" />
+				</index>
+			</indexes>
+			<engine type="InnoDB" sameastable="#__comprofiler" strict="updatewithtable" />
+		</table>
+	</database>
+</cbinstall>

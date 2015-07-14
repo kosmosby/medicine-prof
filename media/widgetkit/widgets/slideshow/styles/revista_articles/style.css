@@ -1,0 +1,67 @@
+/*
+ * Widgetkit Slideshow: Revista Articles Style
+ */
+
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-revista-articles .nav {
+	position: absolute;
+	top: -36px;
+	right: 0;
+	text-align: center;
+	z-index: 5;
+}
+
+.wk-slideshow-revista-articles .prev + .nav { right: 36px; }
+
+.wk-slideshow-revista-articles .nav li {
+	display: inline-block;
+	margin-left: 3px;
+}
+.wk-slideshow-revista-articles .nav li:first-child { margin-left: 0; }
+
+.wk-slideshow-revista-articles .nav span {
+	width: 7px;
+	height: 7px;
+	background: url(images/nav.png) 0 0 no-repeat;
+	overflow: hidden;
+}
+.wk-slideshow-revista-articles .nav span:hover { background-position: 0 -10px; }
+.wk-slideshow-revista-articles .nav span:active { background-position: 0 -30px; }
+.wk-slideshow-revista-articles .nav .active span { background-position: 0 -20px; }
+
+
+/* Buttons
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-revista-articles > div { position: relative; }
+
+.wk-slideshow-revista-articles > div .next,
+.wk-slideshow-revista-articles > div .prev {
+	top: -33px;
+	width: 14px;
+	height: 15px;
+	margin-top: 0;
+	background-image: url(images/buttons.png);
+	background-repeat: no-repeat;
+}
+.wk-slideshow-revista-articles > div .prev {
+	right: 14px;
+	background-position: 0 0;
+}
+.wk-slideshow-revista-articles > div .prev:hover { background-position: 0 -20px; }
+.wk-slideshow-revista-articles > div .prev:active { background-position: 0 -40px; }
+.wk-slideshow-revista-articles > div .next {
+	right: 0;
+	background-position: 0 -60px;
+}
+.wk-slideshow-revista-articles > div .next:hover { background-position: 0 -80px; }
+.wk-slideshow-revista-articles > div .next:active { background-position: 0 -100px; }
+
+/* IE7 Fixes */
+.wk-ie7 .wk-slideshow-revista-articles .nav li,
+.wk-ie7 .wk-slideshow-revista-articles .nav span { display: inline; }
+.wk-ie7 .wk-slideshow-revista-articles .nav span { zoom: 1; }
+.wk-ie7 .wk-slideshow-revista-articles .nav { top: -29px; }

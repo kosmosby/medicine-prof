@@ -1,0 +1,161 @@
+.jplist{
+	float: left;
+	width: 100%;
+}
+
+/* panel */
+.jplist .panel{
+	width: 100%;
+	
+	margin: 0px 0px 10px 0px;
+	padding: 10px 0px 10px 0px;
+	background: url('images/bg.png');	
+	font-family: 'arial';
+	color: #444;
+	font-size: 12px;	
+	line-height: 18px;
+}
+
+.jplist .panel-top{
+	border-radius: 5px 5px 5px 5px;
+	height:60px!important;
+}
+
+.jplist .panel-bottom{
+	border-radius: 0px 0px 5px 5px;
+}
+
+/* filter */
+.jplist .filter{
+	float: left!important;
+	margin:0px!important;
+	padding:0px!important;
+}
+
+.jplist .filter input{
+	display: block;
+	float: left;
+	
+	width: 130px!important;
+	height: 18px!important;
+	padding:0px!important;
+	margin: 0px 0px 0px 15px!important;
+	font-size:12px!important;
+	line-height:12px!important;
+	border: 0px solid #aaaaaa!important;
+	border-radius: 3px!important;
+}
+
+.jplist .filter .placeholder-parent{
+	margin: 0px 0px 0px 15px!important;
+	position: relative!important;
+	float: left!important;
+	font-size:12px!important;
+}
+
+.jplist .filter .placeholder{
+	position: absolute!important;
+	top: 0px!important;
+	left: 0px!important;
+	padding: 0px 0px 0px 5px!important;
+	border-radius: 3px!important;
+	font-size:12px!important;
+}
+
+.jplist .filter .placeholder-parent input{
+	margin: 0px 0px 0px 0px;
+}
+
+/* paging */
+.jplist .pagingprev,
+.jplist .pagingmid,
+.jplist .pagingnext{
+	float: left;
+}
+
+.jplist .awdpagination{
+	float: left!important;
+	margin: 0px 10px 0px 15px!important;	
+}
+
+.jplist .awdpagination span{
+	cursor: pointer!important;
+	color: #BBBBBB!important;
+	margin: 0px 5px 0px 0px!important;
+	padding:4px;
+	border:1px solid #BBBBBB!important;
+}
+
+.jplist .awdpagination  span.current{
+	font-weight: bold!important;
+	color: #111111!important;
+}
+
+.jplist .awdinfopage{
+	float: left;
+	margin: 0px 0px 0px 15px;
+}
+
+/* drop down */
+.jplist .drop-down{
+	float: left;
+	width: 120px!important;
+	height: 20px!important;
+	
+	position: relative!important;
+	margin: 0px 0px 0px 15px!important;
+	
+	border: 0px solid #cccccc!important;
+}
+
+.jplist .drop-down .panel{
+	float: lef!important;
+	width: 115px!important;
+	height: 16px!important;
+	line-height: 16px!important;
+	
+	overflow: hidden!important;
+	background: #ffffff url('images/down-arrow.jpg') no-repeat top right!important;
+	
+	padding: 0px 0px 0px 5px!important;
+	margin: 0px 0px 0px 0px!important;
+	cursor: pointer!important;
+}
+
+.jplist .drop-down ul{	
+
+	position: relative;
+	top: 0px;
+	left: -1px;
+	z-index: 1000!important;
+	
+	width: 121px!important;
+	display: none;
+	overflow: hidden;
+	
+	background-color: #ffffff!important;
+	border: 1px solid #cccccc!important;
+	
+	padding: 0px 0px 0px 0px!important;
+	margin: 0px 0px 0px 0px!important;
+	
+	list-style: none!important;
+	border-radius: 0px 0px 3px 3px!important;
+}
+
+.jplist .drop-down ul li{
+	padding-left:5px !important;
+	cursor: pointer !important;
+	width: 120px !important;
+	float: left ;
+	background-color: #ffffff!important;
+}
+
+.jplist .drop-down ul li:hover{
+	/*background-color: blue!important;
+	color: #ffffff!important;*/
+}
+.jplist .hidden{
+	display: none;
+}
+.jplist div.filter input

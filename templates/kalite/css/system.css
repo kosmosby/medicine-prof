@@ -1,0 +1,53 @@
+@import url(../warp/css/system.css);
+@import url(../warp/systems/joomla/css/system.css);
+@import url(system-all.css);
+
+
+/* Items (Addition)
+----------------------------------------------------------------------------------------------------*/
+
+#system .items .leading .item {
+	padding-bottom: 19px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #d3d3d3;
+}
+
+
+/* Item List
+----------------------------------------------------------------------------------------------------*/
+
+#system .item-list { border-top: 1px solid #d3d3d3; }
+
+
+/* Search
+----------------------------------------------------------------------------------------------------*/
+
+#system span.highlight { background-color: #ffffaa; }
+
+/* Item List
+----------------------------------------------------------------------------------------------------*/
+
+#system .item-list { border-top: 1px solid #e2e2e2; }
+
+/* Login */
+#headerbar .module form.short > div.username,
+#headerbar .module form.short > div.password,
+#headerbar .module form.short > div.button {
+	margin: 0 5px 0 0;
+	float: left;
+}
+
+#headerbar .module form.short > div.button { margin-right: 0; }
+
+#headerbar .module form.short > div.username input,
+#headerbar .module form.short > div.password input { width: 160px; }
+
+#headerbar .module form.short > div.remember { display: none; }
+
+#headerbar .module form.short > ul.blank { clear: both; }
+
+#headerbar .module form.short > ul.blank li {
+	display: inline-block;
+	margin-right: 5px;
+	font-size: 11px;
+}

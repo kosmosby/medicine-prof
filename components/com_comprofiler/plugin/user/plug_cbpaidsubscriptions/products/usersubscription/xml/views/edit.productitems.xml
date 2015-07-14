@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="showsubscriptions" type="params" ui="admin" label="Subscriptions" description="A Subscription of a user to a plan includes the details of that subscription of that user for that plan, which can be seen here.">
+			<param name="versioncheck"        type="private" class="cbpaidParamsExt" method="ajaxversioncheck" label=""  align="center" default="silent" description="" />
+			<tablebrowser name="subscriptionsbrowser" table="#__cbsubs_subscriptions" class="cbpaidUsersubscriptionRecord" label="Subscriptions" description="List of CB subscription plans which have been registered by users:">
+				<toolbarmenu>
+					<!-- <menu name="edit"  action="linkAction" task="edit" link="cbo:editrows" label="Edit" />
+					<menu name="delete"  action="linkAction" task="delete" link="cbo:deleterows" label="Delete" />
+					<menu name="spacer1" action="spacer" /> -->
+					<menu name="cancel"   action="cancel" task="cancelPluginAction" label="Close" />
+				</toolbarmenu>
+				<quicksearchfields>
+					<field name="user_id" valuetype="const:int" />
+					<field name="username" />
+					<field name="name" />
+					<field name="id" valuetype="const:int" />
+				</quicksearchfields>
+				<filters>
+					<filter name="id" type="field_show_only_if_selected" base="int" view="statusplan" />
+					<filter name="plan_id" value="plan_id" type="data" valuetype="sql:int" view="statusplan">
+						<data name="plansidsnames" type="sql:multiplerows" table="#__cbsubs_plans" key="id">
+							<rows>
+								<field name="id" as="value" />
+								<field name="alias" as="text" />
+							</rows>
+							<where>
+								<column name="item_type"     operator="=" value="usersubscription" type="sql:field"       valuetype="const:string" />
+							</where>
+							<orderby>
+								<field name="ordering" ordering="ASC" />
+								<field name="parent_ordering_comment" type="sql:int" ordering="ASC">
+									<data name="ordering" type="sql:field" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id" value="parent" />
+								</field>
+								<field name="ordering" type="sql:field" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id" value="parent" />
+							</orderby>
+						</data>
+					</filter>
+					<filter name="status" value="status" type="xml:subscription_status" valuetype="sql:string" operator="=" view="statusplan" />
+					<view name="statusplan" type="params">
+						<fieldset name="statusplanset" label="Status and plan" description="By subscription status and plan:">
+							<param name="filter_status" type="xml:subscription_status" size="1" default="" label="Subscription Status" blanktext="--- By status ---" description="Filter subscriptions by their current status"/>
+							<param name="filter_plan_id" type="data" size="1" default="" label="Plan" blanktext="--- By plan ---" description="Filter subscriptions by the name of the plan" />
+							<param name="filter_id" type="field_show_only_if_selected" base="int" size="1" default="" label="User subscription id"     blanktext="--- By id ---" description="Select a particular row by its id (used to show a given record only)" />
+						</fieldset>
+					</view>
+					<filter name="subfrom" value="subscription_date" type="datetime" valuetype="date" operator="&gt;=" view="expfromto" />
+					<filter name="subupto" value="subscription_date" type="datetime" valuetype="date" operator="&lt;=" view="expfromto" />
+					<filter name="sublastfrom" value="subscription_date" type="xml:relative_datetime" valuetype="sql:formula" operator="&gt;" view="expfromto" />
+					<filter name="sublastto" value="subscription_date" type="xml:relative_datetime" valuetype="sql:formula" operator="&lt;=" view="expfromto" />
+					<filter name="renfrom" value="last_renewed_date" type="datetime" valuetype="date" operator="&gt;=" view="expfromto" />
+					<filter name="renupto" value="last_renewed_date" type="datetime" valuetype="date" operator="&lt;=" view="expfromto" />
+					<filter name="renlastfrom" value="last_renewed_date" type="xml:relative_datetime" valuetype="sql:formula" operator="&gt;" view="expfromto" />
+					<filter name="renlastto" value="last_renewed_date" type="xml:relative_datetime" valuetype="sql:formula" operator="&lt;=" view="expfromto" />
+					<filter name="expfrom" value="expiry_date" type="datetime" valuetype="date" operator="&gt;=" view="expfromto" />
+					<filter name="expupto" value="expiry_date" type="datetime" valuetype="date" operator="&lt;=" view="expfromto" />
+					<filter name="explastfrom" value="expiry_date" type="xml:relative_datetime" valuetype="sql:formula" operator="&gt;" view="expfromto" />
+					<filter name="explastto" value="expiry_date" type="xml:relative_datetime" valuetype="sql:formula" operator="&lt;=" view="expfromto" />
+					<view name="expfromto" type="params">
+						<fieldset name="subcalendarperiod" label="Subscription date" description="By date and time of subscription:">
+							<param name="filter_subfrom" type="datetime" size="1" default="" label="From"  blanktext="--- From ---"  description="Filter from a given date on" />
+							<param name="filter_subupto" type="datetime" size="1" default="" label="Up to" blanktext="--- Up to ---" description="Filter up to a given date NOT included" />
+							<param name="filter_sublastfrom" type="xml:relative_datetime" size="1" default="" label="Period: From" blanktext="--- Subscribed from ---" description="Filter for a given period of time" />
+							<param name="filter_sublastto" type="xml:relative_datetime" size="1" default="" label="Period: To" blanktext="--- Subscribed up to ---" description="Filter for a given period of time" />
+						</fieldset>
+						<fieldset name="rencalendarperiod" label="Last renewal date" description="By date and time of last renewal:">
+							<param name="filter_renfrom" type="datetime" size="1" default="" label="From"  blanktext="--- From ---"  description="Filter from a given date on" />
+							<param name="filter_renupto" type="datetime" size="1" default="" label="Up to" blanktext="--- Up to ---" description="Filter up to a given date NOT included" />
+							<param name="filter_renlastfrom" type="xml:relative_datetime" size="1" default="" label="Period: From" blanktext="--- Last renewed from ---" description="Filter for a given period of time" />
+							<param name="filter_renlastto" type="xml:relative_datetime" size="1" default="" label="Period: To" blanktext="--- Last renewed up to ---" description="Filter for a given period of time" />
+						</fieldset>
+						<fieldset name="expcalendarperiod" label="Expiration date" description="By date and time of expiration:">
+							<param name="filter_expfrom" type="datetime" size="1" default="" label="From"  blanktext="--- From ---"  description="Filter from a given date on" />
+							<param name="filter_expupto" type="datetime" size="1" default="" label="Up to" blanktext="--- Up to ---" description="Filter up to a given date NOT included" />
+							<param name="filter_explastfrom" type="xml:relative_datetime" size="1" default="" label="Period: From" blanktext="--- Expiration from ---" description="Filter for a given period of time" />
+							<param name="filter_explastto" type="xml:relative_datetime" size="1" default="" label="Period: To" blanktext="--- Expiration up to ---" description="Filter for a given period of time" />
+						</fieldset>
+					</view>
+				</filters>
+				<orderby>
+					<field name="subscription_date" ordering="DESC" />
+				</orderby>
+				<groupby>
+					<field name="id" />
+				</groupby>
+				
+				<listfields>
+					<header type="standard" />
+					<rows type="standard" height="auto" limit="15" >
+						<field name=""          type="rownumber"       width="20px" align="right" label="#" />
+						<field name="id"        type="primarycheckbox" width="20px" />
+						<field name="username"            type="string"   link="cb_action:show_usersubscription" parameters="cid" paramvalues="user_id"    title="Edit this subscription"     width="12%" label="Username" class="title">
+							<data name="username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="user_id" />
+						</field>
+						<field name="name"            type="string"   link="cb_action:show_usersubscription" parameters="cid" paramvalues="user_id"    title="Edit this subscription"     width="15%" label="Full name" class="title">
+							<data name="name" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="user_id" />
+						</field>
+						<field name="plan_name"              type="string"    link="cb_action:show_plan" parameters="plansbrowser[filter_name]" paramvalues="plan_id"  title="Show the plan of this subscription" width="15%" label="Plan name">
+							<data name="name" as="plan_name" type="sql:field" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id" value="plan_id" />
+							<attributes>
+								<attribute name="class">
+									<param name="cssclass" type="text" />
+								</attribute>
+							</attributes>
+						</field>
+						<field name="replaces_subscription"    type="string"   link="cb_action:show_subscriptions" parameters="subscriptionsbrowser[filter_id]" paramvalues="replaces_subscription"    title="Show that subscription" width="5%" label="Replaces subscription" description="Upgrade/Downgrade of that subscription" />
+						<field name="upgraded_to_subscription" type="string"   link="cb_action:show_subscriptions" parameters="subscriptionsbrowser[filter_id]" paramvalues="upgraded_to_subscription" title="Show that subscription" width="5%" label="Replaced by subscription" description="This subscription has been upgraded/downgraded to that subscription">
+							<data name="id" as="upgraded_to_subscription" type="sql:field" table="#__cbsubs_subscriptions" class="cbpaidUsersubscriptionRecord" key="replaces_subscription" value="id" />
+						</field>
+						<field name="subscription_date"  type="datetime"  width="10%" label="Subscription date" description="Date of the user subscribing first time to this subscription" />
+						<field name="last_renewed_date"  type="datetime"  width="10%" label="Last renewal date" description="Date of the user renewing last time this subscription" />
+						<field name="expiry_date"        type="datetime"  width="10%" label="Expiration date" description="Date of the expiry this subscription" />
+						<field name="status"             type="xml:subscription_status"            width="10%" label="Status" description="Current status of subscription." />
+						<field name="change_logs"    type="int"       link="cb_action:show_history" parameters="historybrowser[filter_table_name] historybrowser[filter_table_key_id]" paramvalues="#__cbsubs_subscriptions id" paramvaluestypes="const:string sql:field" title="Show change-log for this item" width="5%"  align="right" label="Change Logs" description="Number of changes logged for each item. Click to see corresponding logs.">
+							<data type="sql:subquery" name="change_logs" as="change_logs">
+								<data name="change_logs" type="sql:count" distinct="id"  table="#__cbsubs_history" class="cbpaidHistory">
+									<where>
+										<column name="table_name"   operator="=" value="#__cbsubs_subscriptions" type="sql:field" valuetype="const:string" />
+										<column name="table_key_id" operator="=" value="id" type="sql:field" valuetype="sql:parentfield" />
+									</where>
+								</data>
+							</data>
+						</field>
+						<field name="autorenew_type"     type="xml:subscription_autorenew_type"    width="15%" label="Autorenew Type" description="Wether the subscription auto-renews itself (ARB Auto-renew-billing)" />
+						<field name="autorecurring_type" type="xml:subscription_autorecurring_type" width="15%" label="Autorecurring Type" description="Wether the subscription auto-renews itself (ARB Auto-renew-billing)" />
+						<field name="regular_recurrings_used" type="int" width="3%" label="Recurrings used" description="Number of regular recurrings used (excluding different first period)" />
+						<field name="recurring_max"            type="string"   width="3%" label="Maximum recurrings" description="Total number of regular recurrings which can be used (excluding different first period)">
+							<data name="recurring_max" type="sql:function" operator="IF">
+								<data name="" type="sql:operator" operator="=">
+									<data name="regular_recurrings_total" type="sql:field" />
+									<data name="0" type="const:int" />
+								</data>
+								<data name="unlimited" type="const:string" translate="yes" />
+								<!-- This is here for translation tool to translate above correctly:
+									<field label="unlimited" />
+								-->
+								<data name="regular_recurrings_total" type="sql:field" />
+							</data>
+						</field>
+						<field name="payment_basket_id"  type="string"    link="cb_action:show_paymentbaskets" parameters="paymentbasketsbrowser[filter_id]" paramvalues="payment_basket_id"  title="Show latest payment basket for this subscription" width="20%" label="Payment basket id" description="Most recent payment basket for this subscription" >
+							<data name="payment_basket_id" type="sql:function" operator="MAX">
+								<!-- <data name="payment_basket_id" type="sql:field" table="#__cbsubs_payment_items" class="cbpaidPaymentItem" key="subscription_id" value="id" />  -->
+								<data name="payment_basket_id" type="sql:field" distinct="id"  table="#__cbsubs_payment_items" class="cbpaidPaymentItem">
+									<joinkeys dogroupby="false">
+										<column name="item_type"   operator="=" value="usersubscription" type="sql:field" valuetype="const:string" />
+										<column name="subscription_id" operator="=" value="id" type="sql:field" valuetype="sql:field" />
+									</joinkeys>
+								</data>
+							</data>
+						</field>
+						<field name="ip_addresses"       type="text"      width="5%"  label="IP address"  description="IP address(es) at subscription time" />
+						<field name="id"                 type="text" link="cbo:rowedit" parameters="sid" paramvalues="id"  title="Edit at your own risk this subscription (prefer clicking username)" width="5%" align="right" label="Id" />
+						<field name="cssclass"               type="hidden"    width="0px" label="">
+							<data name="cssclass" type="sql:field" table="#__cbsubs_plans" key="id" value="plan_id" />
+						</field>
+						<field name="user_id"               type="hidden"    width="0px" label="" />
+					</rows>
+				</listfields>
+			</tablebrowser>
+		</view>
+	</views>
+</cbxml>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form addrulepath="/administrator/components/com_judownload/models/rules">
+    <fieldset name="details">
+        <field name="id"
+               type="text"
+               default="0"
+               required="true"
+               readonly="true"
+               class="readonly"
+               label="COM_JUDOWNLOAD_FIELD_ID_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_ID_DESC"
+                />
+
+        <field
+                name="asset_id"
+                type="hidden"
+                filter="unset"
+                />
+
+        <field
+                name="name"
+                type="text"
+                default=""
+                size="40"
+                required="true"
+                class="required"
+                label="COM_JUDOWNLOAD_FIELD_NAME_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_NAME_DESC"
+                />
+
+        <field
+                name="assigntocats"
+                type="categoriestoassigncriteria"
+                default=""
+                label="COM_JUDOWNLOAD_FIELD_ASSIGNED_CATEGORIES_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_ASSIGNED_CATEGORIES_DESC"
+                />
+
+        <field
+                name="published"
+                type="radio"
+                default="1"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_PUBLISHED_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_PUBLISHED_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field
+                name="description"
+                type="editor"
+                filter="raw"
+                width="600px"
+                default=""
+                label="COM_JUDOWNLOAD_FIELD_DESCRIPTION_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_DESCRIPTION_DESC"
+                hide="readmore,pagebreak"
+                />
+    </fieldset>
+
+    <fieldset name="publishing">
+        <field name="created"
+               type="calendar"
+               class="inputbox"
+               default=""
+               format="%Y-%m-%d %H:%M:%S"
+               filter="user_utc"
+               label="COM_JUDOWNLOAD_FIELD_CREATED_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_CREATED_DESC"
+                />
+
+        <field
+                name="created_by"
+                type="user"
+                label="COM_JUDOWNLOAD_FIELD_CREATED_BY_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_CREATED_BY_DESC"
+                />
+
+        <field name="modified"
+               type="calendar"
+               class="readonly"
+               readonly="true"
+               format="%Y-%m-%d %H:%M:%S"
+               filter="user_utc"
+               label="COM_JUDOWNLOAD_FIELD_MODIFIED_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_MODIFIED_DESC"
+                />
+
+        <field name="modified_by"
+               type="user"
+               class="readonly"
+               readonly="true"
+               filter="unset"
+               label="COM_JUDOWNLOAD_FIELD_MODIFIED_BY_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_MODIFIED_BY_DESC"
+                />
+    </fieldset>
+
+    <fieldset name="permissions">
+        <field id="rules" name="rules" type="rules" label="COM_JUDOWNLOAD_PERMISSION_DOCUMENT_LABEL"
+               translate_label="false" filter="rules" validate="rules" component="com_judownload"
+               section="criteria_group_criteria"/>
+    </fieldset>
+</form>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.6" type="plugin" group="system">
+	<name>System - OSE V5 Router</name>
+	<author>Open Source Excellence</author>
+	<creationDate>26-Nov-2010</creationDate>
+	<copyright>Copyright (C) 2010 Open Source Excellence. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <authoremail>info@opensource-excellence.com</authoremail>
+    <authorurl>http://www.opensource-excellence.com</authorurl>
+	<version>5.0</version>
+	<description>Open Source Excellence - URL Router.</description>
+	<files>
+		<filename plugin="oserouter">oserouter.php</filename>
+	</files>
+
+    <config>
+	    <fields name="params">
+	    	<fieldset name="Basic">
+				<field name="registrationRedirect" type="radio" default="0" label="Registration Redirection" description="Turn on/off Registration Redirection">
+						<option value="0">Off</option>
+						<option value="1">On</option>
+				</field>
+			    <field name="redmenuid" type="sql" default="" label="Registration Redirect URL " description="A URL that redirects users if they are non-members."  query="SELECT id AS value, CONCAT('[',id,'] ', title)  AS redmenuid FROM #__menu WHERE client_id = 0" />
+				<field name="redmessage" type="textarea" default="The content is for members only, please subscribe a membership plan first.You will have access to this content on [FUTURETIME]." label="Redirect Message " description="The message that you would like to show to the user when he/she is redirected to the above page. " rows="8" cols="40" />
+				<field name="sefroutemethod" type="radio" default="0" label="SEF Routing Method" description="Use default full URL or alias in JRoute function.">
+						<option value="0">Non-SEF</option>
+						<option value="1">Full URL</option>
+						<option value="2">Alias</option>
+				</field>
+
+				<field name="use2columnLayout" type="radio" default="0" label="Use 2 columns layout" description="If your registration form is two columns, please turn this on.">
+						<option value="0">Off</option>
+						<option value="1">On</option>
+				</field>
+
+				<field name="force_ssl" type="radio" default="0" label="Force SSL connection" description="Force OSE Registration pages to use https protocol">
+						<option value="0">Off</option>
+						<option value="1">On</option>
+				</field>
+
+				<field name="force_user_to_member" type="radio" default="0" label="Force User to Member" description="">
+						<option value="0">Off</option>
+						<option value="1">On</option>
+				</field>
+
+				<field name="delete_users" type="radio" default="0" label="Delete non-Member users [WARNING: PLESAE SEE DESCRIPTIONS]"
+					description="If this is On, non-member users will be deleted. If it is OFF, non-member users will be disabled. [WARNING: ALL NON MEMBER USERS WILL BE REMOVED FROM YOUR JOOMLA USER DATABASE IF THIS IS TURNED TO ON]"
+				>
+						<option value="0">Off</option>
+						<option value="1">On</option>
+				</field>
+
+				<field name="enable_componentControl" type="radio" default="0" label="Enable Component Control" description="Control components to be accessible by members only.">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+				</field>
+
+				<field name="com_redmenuid" type="sql" default="" label="Component Control Redirect URL " description="A URL that redirects users if they are non-members."  query="SELECT id AS value, CONCAT('[', id, '] ', title) AS com_redmenuid FROM #__menu WHERE client_id = 0" />
+
+				<field name="enable_menuControl" type="radio" default="0" label="Enable Menu Control Control" description="Control menus to be accessible by members only.">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+				</field>
+
+				<field name="menu_redmenuid" type="sql" default="" label="Menu Control Redirect URL " description="A URL that redirects users if they are non-members."  query="SELECT id AS value, CONCAT('[', id, '] ', title) AS menu_redmenuid FROM #__menu WHERE client_id = 0" />
+
+				<field name="enable_osedownloadControl" type="radio" default="0" label="Enable OSEDownload Category Control" description="Control OSEDownload items to be accessible by members only.">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+				</field>
+
+				<field name="enable_phocaControl" type="radio" default="0" label="Enable PhocaDownload Category Control" description="Control PhocaDownload items to be accessible by members only.">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+				</field>
+
+				<field name="enable_mtreeControl" type="radio" default="1" label="Enable MosetTree Category Control" description="Control components to be accessible by members only.">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+				</field>
+
+				<field name="enable_hwdvideoshareControl" type="radio" default="1" label="Enable HWDVideoShare Category Control" description="Control components to be accessible by members only.">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+				</field>
+
+				<field name="enable_hwdmediashareControl" type="radio" default="1" label="Enable HWDMeidaShare Category Control" description="Control components to be accessible by members only.">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+				</field>
+				
+				<field name="enable_sobi2Control" type="radio" default="1" label="Enable Sobi2 Category Control" description="Control components to be accessible by members only.">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+				</field>
+				<field name="enable_sobiproControl" type="radio" default="1" label="Enable SobiPro Category Control" description="Control components to be accessible by members only.">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="enable_rokdownloadControl" type="radio" default="1" label="Enable Rokdownload Category Control" description="Control components to be accessible by members only.">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+				</field>
+
+				<field name="enable_jdownloadsControl" type="radio" default="1" label="Enable JDownloads Control" description="Control components to be accessible by members only.">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+				</field>
+
+				<field name="enable_ariquizControl" type="radio" default="1" label="Enable ARI Quiz Category Control" description="Control components to be accessible by members only.">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+				</field>
+				<field name="allowQuizPageView" type="radio" default="0" label="Allow viewing of quiz page" description="If this option set to 'Yes', user can see quiz page, but user can't start quiz if doesn't have subscription.">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="allowCategoryPageView" type="radio" default="0" label="Allow viewing of category page" description="If this option set to 'Yes', users who don't have subscription can see quiz category page.">
+					<option value="0">No</option>
+					<option value="1">Yse</option>
+				</field>
+				
+				<field name="enable_eventbookingControl" type="radio" default="0" label="Enable Event Booking Category Control" description="Control Event Booking items to be accessible by members only.">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+				</field>
+				
+				<field name="enable_jomsocialRegRedirect" type="radio" default="0" label="Enable JSPT Registration Redirect" description="Redirect user to MSC payment page after JSPT registration if the profile type associate with a paid membership.">
+						<option value="0">No</option>
+						<option value="1">Yes</option>
+				</field>
+				<field name="enable_JomRegRedirect" type="radio" default="0" label="Enable jomsocial Registration Redirect" description="Redirect user to MSC payment page after Jomsocial registration.">
+						<option value="0">No</option>
+						<option value="1">Yes</option>
+				</field>
+
+			</fieldset>
+		</fields>
+	</config>
+</extension>

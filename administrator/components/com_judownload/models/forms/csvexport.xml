@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<form addrulepath="/administrator/components/com_judownload/models/rules">
+    <fieldset name="details"
+              addfieldpath="/administrator/components/com_judownload/models/fields">
+        <field
+                name="csv_export_file_name"
+                type="text"
+                size="30"
+                required="true"
+                default=""
+                label="COM_JUDOWNLOAD_FIELD_EXPORTED_FILE_NAME_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_EXPORTED_FILE_NAME_DESC"
+                />
+
+        <field
+                name="csv_cat_filter"
+                type="categorytree"
+                fetchself="true"
+                label="COM_JUDOWNLOAD_FIELD_CATEGORY_FILTER_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_CATEGORY_FILTER_DESC"
+                multiple="true"
+                />
+
+        <field name="csv_sub_cat"
+               type="checkbox"
+               default="0"
+               value="1"
+               label="COM_JUDOWNLOAD_FIELD_SELECT_SUB_CATEGORIES_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_SELECT_SUB_CATEGORIES_DESC"
+                />
+
+        <field
+                name="csv_tag_filter"
+                type="tagselector"
+                label="COM_JUDOWNLOAD_FIELD_TAG_FILTER_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_TAG_FILTER_DESC"
+                />
+
+        <field
+                name="licenses"
+                type="license"
+                multiple="true"
+                label="COM_JUDOWNLOAD_FIELD_LICENSE_FILTER_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_LICENSE_FILTER_DESC"
+                >
+            <option value="">COM_JUDOWNLOAD_SELECT_LICENSE</option>
+        </field>
+
+        <field
+                name="csv_publishing_filter"
+                type="list"
+                default=""
+                label="COM_JUDOWNLOAD_FIELD_PUBLISHING_FILTER_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_PUBLISHING_FILTER_DESC"
+                multiple="true"
+                >
+            <option value="">COM_JUDOWNLOAD_ALL</option>
+            <option value="published">COM_JUDOWNLOAD_PUBLISHED</option>
+            <option value="unpublished">COM_JUDOWNLOAD_UNPUBLISHED</option>
+            <option value="pending">COM_JUDOWNLOAD_PENDING</option>
+            <option value="expired">COM_JUDOWNLOAD_EXPIRED</option>
+            <option value="pending_approval">COM_JUDOWNLOAD_PENDING_APPROVAL</option>
+            <option value="approved">COM_JUDOWNLOAD_APPROVED</option>
+        </field>
+
+        <field
+                name="csv_created_from_filter"
+                type="calendar"
+                default=""
+                format="%Y-%m-%d %H:%M:%S"
+                label="COM_JUDOWNLOAD_FIELD_CREATED_FROM_FILTER_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_CREATED_FROM_FILTER_DESC"
+                />
+
+        <field
+                name="csv_created_to_filter"
+                type="calendar"
+                default=""
+                format="%Y-%m-%d %H:%M:%S"
+                label="COM_JUDOWNLOAD_FIELD_CREATED_TO_FILTER_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_CREATED_TO_FILTER_DESC"
+                />
+
+        <field
+                name="csv_limit_export"
+                type="text"
+                default="100"
+                label="COM_JUDOWNLOAD_FIELD_EXPORT_LIMIT_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_EXPORT_LIMIT_DESC"
+                />
+    </fieldset>
+</form>

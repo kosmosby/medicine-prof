@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="1.6.0" client="site" method="upgrade">
+	<name>JOMWall Groups(2.5) </name>
+	<author>AWDsolution.com</author>
+	<creationDate>March 2013</creationDate>
+	<copyright>AWDsolution.com</copyright>
+	<license>@license GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>
+	<authorEmail>support@awdsolution.com</authorEmail>
+	<authorUrl>http://www.awdsolution.com</authorUrl>
+	<version>2.5.0</version>
+	<description>Group LIST module will display the latest group made on jomwall</description> 
+	<config><fields name="params"><fieldset name="basic">
+		<field name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
+		<field name="count" type="text" default="5" label="Count" description="The number of items to display (default 5)" />
+		<field name="topgroup" type="text" default="" label="Featured Group" description="The group id which used to be on top of other group" />
+		<field name="ordering1" type="list" default="ordering" label="Ordering" description="Ordering options">
+			<option value="0">Recently Added</option>
+			<option value="1">Randomly</option>
+	  	</field> 
+	</fieldset></fields></config>
+	<files> 
+		<filename module="mod_jomwallgroups">mod_jomwallgroups.php</filename>
+		<filename module="mod_jomwallgroups">helper.php</filename>
+		<filename module="mod_awdwallgroups">index.html</filename> 
+		<folder>tmpl</folder>
+		<folder>css</folder>
+		<folder>images</folder>
+	</files>
+</extension>

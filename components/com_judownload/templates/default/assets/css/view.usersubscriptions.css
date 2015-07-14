@@ -1,0 +1,11 @@
+.judl-form-subscriptions .sort-pagination select {
+    float: left;
+    height: auto;
+    margin-bottom: 0;
+    margin-left: 5px;
+    width: auto;
+}
+
+.judl-form-subscriptions table {
+    margin-top: 10px;
+}

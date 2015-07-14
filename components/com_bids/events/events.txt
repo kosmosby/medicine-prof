@@ -1,0 +1,42 @@
+Available events for Auction Factory:
+
+/onBeforeExecuteTask(&$stopexecution) - Called after framework init, ACL check, and before any Controller Execution
+/onAfterExecuteTask($controller) - Called after task execution with controller as param
+
+/onBeforeEditAuction($auction) - Called before edit view is loaded. for Edit/New/Republish
+/onBeforeCancelAuction($auction)
+/onAfterCancelAuction($auction)
+
+/onBeforeSaveAuction($auction)
+/onAfterSaveAuctionError($auction,$error_array)
+/onAfterSaveAuctionSuccess($auction)
+
+/onBeforeSaveBid($auction,$bid)
+/onAfterSaveBid($auction,$bid)
+
+/onBeforeSendMessage($auction,$messageobject)
+/onAfterSendMessage($auction,$messageobject)
+
+/onBeforeAcceptBid($auction,$bid)
+/onAfterAcceptBid($auction,$bid)
+
+/onAcceptSuggestion($auction,$suggest) 
+/onRejectSuggestion($auction,$suggest) 
+/onBeforeSaveSuggestion($auction,$suggest)
+/onAfterSaveSuggestion($auction,$suggest)
+/onAuctionBanned($auction)
+
+onAfterCloseAuction($auction)
+
+/onAuctionReported($auction,$message)
+
+onPaymentIPNError($paylog,$error_text)
+onPaymentForOrder($paylog,$order) - called for status OK, MANUAL_CHECK and ERROR. Dispatcher must check if order is Completed!
+
+onBeforeDisplay($task,$smarty)
+onAfterDisplay()
+
+onDefaultCurrencyChange() - called when default curreny changes. for now without parameters
+onConversionRateChange() - called when conversion rates update
+
+/onUserRating($rateobject)

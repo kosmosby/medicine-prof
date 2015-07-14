@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="module" >
+	<name>JOMWALL member</name>
+	<author>AWDsolution.com</author>
+	<creationDate>1/11/2010</creationDate>
+	<copyright>Copyright (C) 2010 AWDsolution.com </copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>inof@AWDsolution.com</authorEmail>
+	<authorUrl>http://www.AWDsolution.com</authorUrl>	
+  <description>Shows the list of avatars of jomwall user in a animated way</description>
+  <files>
+    <filename module="mod_awdwallmembers">mod_awdwallmembers.php</filename>
+    <filename>index.html</filename>
+    <filename>helper.php</filename>
+    <filename>tn51nophoto_n.png</filename>
+    <filename>tn51user.png</filename>
+    <filename>tmpl/default.php</filename>
+    <filename>tmpl/index.html</filename>
+	<folder>js</folder>
+	<folder>css</folder>
+	<folder>images</folder>
+
+  </files>
+  <config>
+    <fields name="params">
+      <fieldset name="basic">
+        <field name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
+		<field name="integration" type="list" default="2" label="Integration" description="Integration options">
+			<option value="0">Community Builder</option>
+			<option value="1">Jomsocial</option>
+			<option value="2">Jomwall</option>
+		</field>
+		<field name="count" type="text" default="5" label="Number of member" description="The number of member to display (default 5)" />
+        <field name="ordering" type="list" default="ordering" label="Ordering" description="Ordering options">
+          <option value="0">Recently Added</option>
+          <option value="1">Randomly</option>
+          <option value="2">Online Users</option>
+        </field>
+		<field name="showavatar" type="list" default="1" label="Show Avatar" description="Only user with avatar">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</field>
+	<field name="interval" type="text" default="1500" label="Animation interval" description="Animation interval" />
+		<field name="maxStep" type="text" default="1" label="Max Step" description="Number of items that are replaced at the same time" />
+        <field name="preventClick" type="list" default="false" label="Prevent Click" description="Prevent user to click the profile Image">
+          <option value="true">true</option>
+          <option value="false">false</option>
+        </field>
+        <field name="animType" type="list" default="fadeInOut" label="Animation Type" description="Animation Type">
+          <option value="showHide">showHide</option>
+          <option value="fadeInOut">fadeInOut</option>
+          <option value="slideLeft">slideLeft</option>
+          <option value="slideRight">slideRight</option>
+       </field>
+      </fieldset>
+    </fields>
+  </config>
+</extension>

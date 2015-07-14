@@ -1,0 +1,1584 @@
+/* Global setting */
+input:focus
+{
+	border: 1px;
+	border-color: #B5B8C8;
+}
+
+body {
+text-align: left!important;
+font: 12px/21px arial,sans-serif;
+}
+
+input, .inputbox, textarea, .button, button {
+-moz-border-radius:5px 5px 5px 5px;
+border-radius:5px 5px 5px 5px;
+-webkit-border-radius: 5px 5px 5px 5px;
+}
+
+input, .inputbox {
+background:none repeat scroll 0 0 #FFFFFF;
+border:1px solid #D6E4EC;
+}
+
+input, select, textarea, .inputbox {
+font-family:Arial,Helvetica,sans-serif;
+padding:4px 5px;
+}
+
+input, select, textarea, .inputbox {
+font-size:100%;
+}
+
+/* MSC Card in the Membership plan list page */
+
+.msc-card{
+border:1px solid #D6E4EC;
+margin:0 15px 15px;
+padding:12px;
+-moz-border-radius:8px 8px 8px 8px;
+border-radius:5px 5px 5px 5px;
+-webkit-border-radius: 5px 5px 5px 5px;
+min-height: 200px;
+}
+
+.msc-card .msc-image {
+margin-top: 10px;
+vertical-align: top;
+float: left;
+}
+
+.msc-card .msc-image img {
+border: solid 0px #fafafa;
+max-width:120px;
+}
+
+.msc-card  .msc-row {
+margin: 0 0 0 140px;
+}
+
+.msc-card  .msc-row .msc-sub-title {
+	margin: 0;
+	padding: 0;
+	height: auto !important;
+	background: none;
+	font-weight: bold;
+	font-size: 150%;
+	border-bottom: 1px dotted #CCCCCC;
+	margin-bottom: 10px;
+	color: #238DB4;
+	text-transform: uppercase;
+}
+
+.msc-card  .msc-row .msc-desc
+{
+color:#666666;
+font-size:100%;
+margin-top: 5px;
+}
+
+.msc-card  .msc-row .msc-sub-title span{
+	font-size: 60%;
+	font-weight: bold;
+	float: right;
+	margin-top:5px;
+	color: #238DB4;
+}
+
+.msc-card  .msc-row .msc-sub-title span a{
+	color: #238DB4;
+	font-weight: bold;
+	text-decoration:none;
+}
+
+.msc-card  .msc-row .msc-price-box span,
+.msc-card  .msc-row .msc-desc-box span
+{ font-weight: bold; margin: 10px 0 0 0; }
+
+.msc-card  .msc-row .msc-price-box,
+.msc-card  .msc-row .msc-desc-box,
+.msc-card  .msc-row .msc-price-box ul li{
+list-style: none;
+background: none;
+padding: 0;
+}
+
+.msc-card  .msc-row ul.msc-price-box li {
+	line-height: normal;
+	width: 100%; /*clearing IE spacing*/
+	float: left;
+	display: inline;
+}
+
+.msc-card  .msc-row ul.msc-price-box li.title { font-weight: bold; margin: 10px 0 0 0; }
+
+.msc-card  .msc-row .msc-button-box {
+	background: transparent;
+	border-top: 1px dotted #ddd;
+	min-height: 40px;
+	margin-top: 50px;
+	vertical-align: bottom;
+}
+.msc-card  .msc-row .msc-button-box ul{
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+.msc-card  .msc-row .msc-button-box ul li{
+	margin-right: 5px;
+	background: none;
+	list-style: none;
+	float: right;
+}
+
+/* Registration page */
+
+.x-btn-mc, .osebutton, .button, button {
+background:url("../images/readon-bg.gif") repeat-x scroll left bottom transparent;
+border:1px solid #DDDDDD;
+font-weight:bold;
+padding:2px 5px;
+text-shadow:0 1px 1px #FFFFFF;
+color: #238DB4;
+cursor: pointer;
+font-size: 12px;
+-moz-border-radius:5px 5px 5px 5px;
+border-radius:5px 5px 5px 5px;
+-webkit-border-radius: 5px 5px 5px 5px;
+text-transform: uppercase;
+}
+
+.ose-ownmsc-renew,
+.ose-ownmsc-cancel
+{
+background:url("../images/readon-bg.gif") repeat-x scroll left bottom transparent;
+border:1px solid #DDDDDD;
+font-weight:bold;
+padding:2px 5px;
+text-shadow:0 1px 1px #FFFFFF;
+color: #238DB4;
+cursor: pointer;
+font-size: 12px;
+-moz-border-radius:5px 5px 5px 5px;
+border-radius:5px 5px 5px 5px;
+-webkit-border-radius: 5px 5px 5px 5px;
+text-decoration:none;
+}
+
+.ose-ownmsc-renew a,
+.ose-ownmsc-cancel a
+{
+text-decoration:none;
+}
+
+.x-fieldset {
+    border:1px solid #F1F1F1;
+    padding:10px;
+    margin-bottom:10px;
+    display:block; /* preserve margins in IE */
+}
+
+#ose-login-heading,
+#ose-reg-heading
+{
+	background: url(../images/grad-d1.gif) repeat-x left top #238db4;
+	color: #fff;
+	font-size: 110%;
+	font-family: "Segoe UI", Helvetica, sans-serif;
+	font-weight: bold;
+	margin: 0;
+	padding: 10px 15px;
+	text-transform: uppercase;
+	-moz-border-radius:8px 8px 0 0;
+	border-radius:8px 8px 0 0;
+	-webkit-border-radius: 8px 8px 0 0;
+	text-shadow:0 -1px 0 rgba(0, 0, 0, 0.6);
+}
+
+#ose-login-box {
+	background: #fff;
+	border: solid 1px #F3F7F9;
+	color: #36a0c5;
+	margin: 0 0 15px;
+	width:100%;
+	min-height: 220px;
+}
+
+#ose-login-introduction {
+	margin-bottom: 10px;
+	padding: 20px 10px 0 10px;
+	width: 330px;
+	float: left;
+	min-height: 200px;
+}
+
+#ose-login
+{
+min-height: 200px;
+}
+
+#ose-login, .x-panel-body
+{
+border: 0px;
+text-align: left!important;
+}
+
+#ose-login-introduction h1,
+#ose-login h1
+{
+	font-size: 200%;
+	padding-bottom:20px;
+	text-align: center;
+	color: #666666;
+	text-shadow: 0 1px 1px #999999;
+	min-height: 30px;
+	width: 100%;
+}
+
+#ose-login, .x-panel-body h1
+{
+border: 0px;
+padding-top: 10px;
+vertical-align: bottom;
+}
+
+#ose-login-introduction ul#instructions
+{
+margin:15px 0;
+}
+
+#ose-login-introduction ul#instructions li
+{
+background:url("../images/list-arrow.png") no-repeat scroll 0px 0px transparent;
+padding: 1px;
+text-indent: 20px;
+list-style-type:none;
+min-height: 25px;
+font-family: "Segoe UI", Helvetica, sans-serif;
+margin-left: 10px;
+}
+
+#ose-login input {
+	background: url(../images/input-bg.gif) repeat-x left top;
+	border: 1px solid #666;
+	padding: 4px 5px;
+	color: #666;
+	height: 12px;
+	weight: 1000px;;
+}
+
+#ose-login .x-fieldset
+{
+height: 123px;
+border: none;
+}
+
+#ose-login .x-form-item-label
+{
+float:left;
+position:relative;
+width:80px;
+margin-left: 20px;
+vertical-align: bottom;
+}
+
+.ose-button
+{
+ float:right;
+}
+
+.ose-button-list .osejoinbutton
+{
+width: 330px;
+float: left;
+}
+
+.ose-button-list .oseloginbutton{
+margin-left: 340px;
+}
+
+#oseregister
+{
+ margin-right: 10px;
+}
+
+#oselogin
+{
+ margin-right: 10px;
+}
+
+.ose-clear{
+	clear:both;
+	margin-top: 10px;
+	border-bottom: 1px dotted #dddddd;
+	height: 10px;
+}
+
+#osemsc-reg .x-form,
+#ose-payment .x-form,
+#ose-my-account .x-form
+{
+margin-top: 10px;
+}
+
+#osemsc-reg .x-fieldset,
+#ose-payment .x-fieldset,
+#ose-my-account .x-fieldset
+{
+margin-top: 15px;
+margin-left: 0px;
+}
+
+#osemsc-reg fieldset legend,
+#ose-payment fieldset legend,
+#ose-my-account fieldset legend,
+#ose-account-menu .ose-menu-header
+{
+background:none repeat scroll 0 0 #E8F1FA;
+border: 1px 1px 1px 1px;
+border-style: solid;
+border-color: #D6E5EC;
+border-top:2px solid #D6E5EC;
+border-left:1px solid #D6E5EC;
+border-right:1px solid #D6E5EC;
+border-bottom:1px solid #D6E5EC;
+padding:5px 10px;
+width: 90%;
+color: #238DB4;
+
+border-radius: 3px 3px 3px 3px;
+-moz-border-radius: 3px 3px 3px 3px;
+-webkit-border-radius: 3px 3px 3px 3px;
+
+margin-left: -5px;
+}
+
+.x-combo-list-item{
+text-align:left !important;
+}
+
+#ose-my-account fieldset legend
+{
+margin-bottom: 25px;
+}
+
+#osemsc-reg .x-form-item-label,
+#osemsc-reg .x-form-cb-label,
+#ose-payment .x-form-item-label,
+#ose-payment .x-form-cb-label,
+#ose-my-account .x-form-item-label,
+#ose-my-account .x-form-cb-label,
+#ose-my-account .x-box-item
+{
+color: #555555;
+}
+#ose-my-account .x-box-item
+{
+font-size: 10px;
+}
+
+.x-window .x-form-item-label
+{
+color: #555555;
+margin-left: 50px;
+padding: 5px 0px 5px 0px;
+font-weight: bold;
+}
+
+.x-form-item label.x-form-item-label {
+clear:left;
+float:left;
+padding:8px 0px 0px 0px;
+position:relative;
+width:100px;
+z-index:2;
+}
+
+.x-window  .x-form-element
+{
+padding: 5px 0px 5px 0px;
+}display:block;
+
+#osefooter
+{
+margin-left: 20px;
+}
+
+#osefooter a,
+#osefooter a:link,
+#osefooter a:visited
+{
+font-size: 11px;
+color: #238DB4;
+margin-left: 20px;
+margin-top: 10px;
+}
+
+#ose-my-account
+{
+margin: 0 0 0 5px;
+width: auto;
+}
+
+#ose-login-box .x-panel-header
+{
+	background: url(../images/grad-d1.gif) repeat-x left top #238db4;
+	color: #fff;
+	font-size: 110%;
+	font-family: "Segoe UI", Helvetica, sans-serif;
+	text-transform: uppercase;
+	font-weight: bold;
+	margin: 0;
+	padding: 10px 15px;
+	border-radius: 8px 8px 0 0;
+	-moz-border-radius:8px 8px 0 0;
+	-webkit-border-radius: 8px 8px 0 0;
+	text-shadow:0 -1px 0 rgba(0, 0, 0, 0.6);
+}
+
+#ose-account-menu
+{
+width: 100%;
+margin-left: 0px;
+margin-right: 10px;
+margin-top: 10px;
+vertical-align: top;
+display:block;
+clear: both;
+}
+#ose-account-menu .ose-menu-header
+{
+margin-bottom:5px;
+font-weight: bold;
+}
+#ose-account-menu .x-panel-header
+{
+border-bottom:1px dotted #CCCCCC;
+color:#333333;
+font-size:92%;
+font-weight:700;
+padding:0 0 5px;
+background: none;
+margin-top: 10px;
+margin-left: 5px;
+}
+
+
+#o.se-account-menu ul li
+{
+background-image:url("../images/list-bullet.png");
+background-repeat: no-repeat;
+padding: 1px;
+text-indent: 20px;
+list-style-type:none;
+min-height: 16px;
+font-family: "Segoe UI", Helvetica, sans-serif;
+}
+
+
+#ose-account-menu ul li
+{
+list-style-type:none;
+text-align: center;
+min-height: 48px;
+width: 80px;
+font-family: "Segoe UI", Helvetica, sans-serif;
+padding:64px 0 0 0px;
+float: left;
+margin-right: 10px;
+cursor: pointer;
+}
+
+
+#ose-account-menu ul li.ose-icon-juser
+{
+background:url("../images/user_info.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-account-menu ul li.ose-icon-billinginfo
+{
+background:url("../images/billing_info.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-account-menu ul li.ose-icon-company
+{
+background:url("../images/company_info.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-account-menu ul li.ose-icon-company_view
+{
+background:url("../images/company_info.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-account-menu ul li.ose-icon-licuser
+{
+background:url("../images/licensed_users_info.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-account-menu ul li.ose-icon-directory
+{
+background:url("../images/directory.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-account-menu ul li.ose-icon-order
+{
+background:url("../images/billing_history.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-account-menu ul li.ose-icon-msc
+{
+background:url("../images/membership_active.png") no-repeat scroll 15px 0px transparent;
+}
+#ose-account-menu ul li.ose-icon-msc_renew
+{
+background:url("../images/membership_renew.png") no-repeat scroll 15px 0px transparent;
+}
+#ose-account-menu ul li.ose-icon-msc_cancel
+{
+background:url("../images/membership_cancel.png") no-repeat scroll 15px 0px transparent;
+}
+#ose-account-menu ul li a,
+#ose-account-menu ul li a:link,
+#ose-account-menu ul li a:visited
+{
+color: #238DB4;
+font-size: 12px;
+text-decoration: none;
+font-family:tahoma,arial,verdana,sans-serif;
+}
+
+#my-memberships .x-fieldset
+{
+margin-left:0px;
+}
+
+#my-memberships-fieldset .x-fieldset-body
+{
+margin-top: 0px;
+padding:0;
+}
+
+#ose-my-account .hello
+{
+	margin-top: 5px;
+	padding-bottom: 20px;
+	height: auto !important;
+	background: none;
+	font-weight: bold;
+	font-size: 200%;
+	border-bottom: 1px dotted #CCCCCC;
+}
+
+#ose-my-account .notice {
+-moz-border-radius:3px 3px 3px 3px;
+border-radius: 3px 3px 3px 3px;
+-webkit-border-radius: 3px 3px 3px 3px;
+background-color:#FFFAEA;
+border:2px solid #FB8200;
+color:#BF4900;
+margin-top:5px;
+margin-bottom:10px;
+overflow:hidden;
+padding:10px;
+}
+
+.ose-selected-heading {
+	margin: 10px 0px 10px 10px; ;
+	padding: 0px 0px 10px 0px;
+	height: auto !important;
+	background: none;
+	font-weight: bold;
+	font-size: 150%;
+	border-bottom: 1px dotted #CCCCCC;
+	text-align: center;
+}
+
+.msc-first-title-leaf{
+	margin: 10px 0px 10px 10px; ;
+	padding: 0px 0px 10px 0px;
+	font-size: 150%;
+	color: #238DB4;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.msc-price,
+.msc-period {
+	margin-top: -15px;
+	text-indent: 50px;
+	font-size: 100%;
+	color: #666666;
+	text-align: left;
+}
+
+.x-window .msc-price,
+.x-window #ose-confirm-preference,
+.x-window #ose-confirm-method
+{
+	margin-top: 15px;
+	margin-left: 50px;
+	margin-right: 0px;
+}
+
+.x-window .ose-selected-row
+{
+	padding: 10px;
+	text-align: right;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+	color: #666666;
+	margin: 30px;
+	border: 3px solid #eee;
+}
+.x-window #osecart-items
+{
+	text-align: left;
+	border: 0px solid #eee;
+	color: #777777;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin:0px;
+}
+
+.x-window #osecart-items th
+{
+    font-weight: bold;
+	border-bottom: 1px dotted #eee;
+}
+
+.x-window #osecart-items .msc-first-title-leaf,
+.x-window #osecart-items .msc-first-title
+{
+	text-align: left;
+	margin-left: 15px;
+	color: #238db4;
+	font-size: 14px;
+}
+
+.x-window #osecart-items td,
+.x-window #osecart-items .last
+{
+	text-align: right;
+	height: 30px;
+	border-bottom: 1px dotted #eee;
+}
+
+.x-window #osetotalcosts .items
+{
+	padding: 10px;
+	color: #238db4;
+	border-bottom: 1px dotted #eee;
+}
+
+.x-window #osetotalcosts
+{
+	margin-right: 0px;
+}
+
+.x-window .msc-price
+{
+text-indent: 0px;
+}
+
+.x-panel-footer
+{
+border-top:1px dotted #DDDDDD;
+}
+
+/* ExtJS modifications */
+
+.x-window-tc
+{
+	background: url(../images/grad-d1.gif) repeat-x left top #238db4;
+	color: #fff;
+	font-size: 100%;
+	font-family: "Segoe UI", Helvetica, sans-serif;
+	text-transform: uppercase;
+	font-weight: bold;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding: 10px 10px;
+	-moz-border-radius:8px 8px 0 0;
+	border-radius: 8px 8px 0 0;
+	-webkit-border-radius: 8px 8px 0 0;
+	text-shadow:0 -1px 0 rgba(0, 0, 0, 0.6);
+}
+body.x-body-masked .x-window-plain .x-window-mc,
+.x-window-plain .x-window-mc,
+.x-window-mc,
+.x-window-plain .x-window-bc
+{
+background-image: none;
+background-color: #fff;
+height: auto;
+}
+
+
+.x-window-bc
+{
+background-image: none;
+height: auto;
+}
+
+.x-window-body .x-dlg-icon
+{
+margin-top: 10px;
+margin-left: 10px;
+}
+
+.x-window-dlg .x-dlg-icon .ext-mb-content  {
+width: 85%;
+}
+
+.x-window-dlg .ext-mb-text, .x-window-dlg {
+font-size: 14px;
+font-family: "Segoe UI", Helvetica, sans-serif;
+}
+
+.x-window-dlg .ext-mb-question {
+background-image:url("../images/lightbulb.png");
+}
+
+.x-window-tl, .x-window-ml, .x-window-bl,.x-window-br, .x-panel-nofooter, .x-window-mr, .x-window-tr {
+background: none;
+}
+
+.x-window .x-window-bl, .x-panel-nofooter{
+	/* height:0px; */
+}
+
+.x-window-dlg .x-window-bl, .x-panel-nofooter{
+    height: auto;
+}
+
+.x-window-tl .x-window-header {
+color: #fff;
+}
+
+.x-window-mc, .x-toolbar
+{
+background: none repeat-x left top #fff;
+}
+
+.ext-gecko .x-btn button, .ext-webkit .x-btn button, .x-btn-small,
+.ext-gecko .x-btn-over button, .ext-webkit .x-btn-over button
+{
+font-weight:bold;
+padding-left:10px;
+padding-right:10px;
+padding-top: 2px;
+padding-bottom: 5px;
+text-shadow:0 1px 1px #FFFFFF;
+color: #238DB4;
+cursor: pointer;
+font-size: 12px;
+-moz-border-radius:5px 5px 5px 5px;
+border-radius: 5px 5px 5px 5px;
+-webkit-border-radius: 5px 5px 5px 5px;
+float: right;
+min-height: 20px;
+background-image: none;
+}
+
+.x-btn-noicon .x-btn-small .x-btn-text {
+min-height:16px;
+min-width: 30px;
+font-weight:bold;
+padding-left:10px;
+padding-right:10px;
+padding-top: 0px;
+padding-bottom: 0px;
+text-shadow:0 1px 1px #FFFFFF;
+color: #238DB4;
+cursor: pointer;
+font-size: 12px;
+-moz-border-radius:5px 5px 5px 5px;
+border-radius: 5px 5px 5px 5px;
+-webkit-border-radius: 5px 5px 5px 5px;
+float: right;
+min-height: 20px;
+background-image: none;
+
+}
+
+.x-btn-over button,
+.x-btn-over .x-btn-tl,
+.x-btn-over .x-btn-tc,
+.x-btn-over .x-btn-tr,
+.x-btn-over .x-btn-bl,
+.x-btn-over .x-btn-bc,
+.x-btn-over .x-btn-br,
+.x-btn-over .x-btn-mr,
+.x-btn-over .x-btn-mc,
+.x-btn-over .x-btn-ml,
+.x-btn-tl,
+.x-btn-tc,
+.x-btn-tr,
+.x-btn-bl,
+.x-btn-bc,
+.x-btn-br,
+.x-btn-mr,
+.x-btn-mc,
+.x-btn-ml
+{
+background: none;
+height: 0px;
+}
+
+.x-btn button {
+font-weight:bold;
+color:#238DB4;
+font:11px arial,tahoma,verdana,helvetica;
+}
+
+.x-grid3-row-table tr{
+height: 30px;
+}
+
+.x-grid3-row-table td{
+font-size: 12px;
+vertical-align: middle;
+}
+
+.x-grid3-hd-row,
+.x-grid3-hd-over
+{
+height: 25px;
+}
+
+.x-window-bc .x-window-footer {
+font-size:0;
+line-height:0;
+padding-bottom:6px;
+background-color: #fff;
+margin-left: 1px;
+}
+
+.x-grid3-row-selected {
+	background-color: #E8F1FA !important;
+	background-image: none;
+	border-color:#a3bae9;
+	color: #238DB4;
+	font-weight: bold;
+}
+
+.x-tab-strip-top .x-tab-right, .x-tab-strip-top .x-tab-left, .x-tab-strip-top .x-tab-strip-inner {
+background-image:none;
+}
+
+ul.x-tab-strip-top {
+background-color:#FFF;
+background-image:none;
+border-bottom-color:transparent;
+}
+
+#ose-account-menus{
+margin-left: -10px;
+}
+.x-tab-strip-wrap{
+background-color: #fff;
+height: 35px;
+}
+.x-tab-strip-top
+{
+margin-top:10px;
+padding-top: 10px;
+height: 15px;
+}
+.x-tab-strip-top .x-tab-strip-inner {
+background:none;
+}
+
+.x-tab-strip a, .x-tab-strip span, .x-tab-strip em {
+display:inline;
+color: #238DB4;
+}
+
+.x-tab-strip-inner{
+-moz-border-radius:3px 3px 0px 0px;
+border-radius: 3px 3px 0px 0px;
+-webkit-border-radius: 3px 3px 0px 0px;
+background:none repeat scroll 0 0 #E8F1FA;
+border-top:1px solid #D6E5EC;
+border-left:1px solid #D6E5EC;
+border-right:1px solid #D6E5EC;
+border-bottom:0px solid #D6E5EC;
+margin: 10px -10px 25px -10px;
+padding:5px 10px 10px 10px;
+width: 90%;
+color: #238DB4;
+}
+
+.x-tab-strip span.x-tab-strip-text {
+color: #238DB4;
+font:11px tahoma,arial,helvetica;
+}
+
+.x-tab-strip-active span.x-tab-strip-text {
+color: #238DB4;
+font-weight:bold;
+}
+
+#reg-payment-ccform .x-fieldset
+{
+width: 700px;
+}
+
+#ose-member_user .x-fieldset,
+#ose-member_billing .x-fieldset
+{
+width: 300px;
+float: left;
+min-height: 185px;
+margin-bottom: 10px;
+margin-top: 0px;
+}
+
+#ose-member_company .x-fieldset,
+#ose-member_msc .x-fieldset
+{
+width: 280px;
+min-height: 185px;
+margin-left: 330px;
+margin-bottom: 10px;
+margin-top: 5px;
+display: block;
+clear: right;
+}
+
+/* OSE Module */
+.module_osemodule,
+.moduletable_osemodule
+{
+border: 0px;
+}
+
+.moduletable_osemodule
+{
+margin-top: 20px;
+}
+
+.module_osemodule .heading
+{
+	background: url(../images/grad-d1.gif) repeat-x left top #238db4;
+	color: #fff;
+	font-size: 110%;
+	font-family: "Segoe UI", Helvetica, sans-serif;
+	text-transform: uppercase;
+	font-weight: bold;
+	padding: 10px 15px;
+	border-radius: 8px 8px 0 0;
+	text-shadow:0 -1px 0 rgba(0, 0, 0, 0.6);
+	-moz-border-radius:8px 8px 0 0;
+	-webkit-border-radius: 8px 8px 0 0;
+}
+
+
+.moduletable_osemodule .heading
+{
+	background: url(../images/grad-d1.gif) repeat-x left top #238db4;
+	color: #fff;
+	font-size: 110%;
+	font-family: "Segoe UI", Helvetica, sans-serif;
+	text-transform: uppercase;
+	font-weight: bold;
+	padding: 10px 15px;
+	border-radius: 8px 8px 0px 0px;
+	border-top-left-radius: 8px 8px;
+	text-shadow:0 -1px 0 rgba(0, 0, 0, 0.6);
+    margin-left: 10px;
+    margin-right: 5px;
+    -moz-border-radius:8px 8px 0 0;
+	-webkit-border-radius: 8px 8px 0 0;
+
+
+}
+#form-login,
+#form-login .ose-links
+{
+margin-top: 5px;
+margin-left: 5px;
+}
+
+#form-login a,
+#form-login a:link,
+#form-login a:visited
+{
+text-decoration: none;
+color: #238DB4;
+font-weight: bold;
+}
+
+.module_osemodule #oseform,
+.moduletable_osemodule #oseform
+{
+border: 1px solid #efefef;
+}
+
+.ext-el-mask-msg div {
+	margin: 0;
+	padding: 10px 15px;
+	text-transform: uppercase;
+	-moz-border-radius:8px 8px 8px 8px;
+	border-radius: 8px 8px 8px 8px;
+	-webkit-border-radius: 8px 8px 8px 8px;
+	text-shadow:0 -1px 0 rgba(0, 0, 0, 0.6);
+	background:-moz-linear-gradient(center top , #666666, #333333) repeat scroll 0 0 #333333;
+	background-color: #666666;
+	color:#FFFFFF;
+	font-size: 12px;
+	font-family: "Segoe UI", Helvetica, sans-serif;
+	font-weight: bold;
+	border-width: 1px;
+	border-color: #555555;
+}
+#ose-account-menu .x-fieldset-header-text
+{
+margin-left: 16px;
+}
+
+.ext-el-mask-msg div {
+border:0px solid;
+cursor:wait;
+padding:5px 10px;
+}
+
+.ext-el-mask-msg {
+background-color:transparent;
+background-image:none;
+border-color:transparent;
+}
+
+.ext-el-mask-msg {
+background:none repeat-x scroll 0 -16px transparent;
+-moz-border-radius:8px 8px 8px 8px;
+border-radius: 8px 8px 8px 8px;
+-webkit-border-radius: 8px 8px 8px 8px;
+border:0px solid;
+left:0;
+padding:2px;
+position:absolute;
+top:0;
+z-index:20001;
+}
+
+#info-non-corp-user
+{
+color: #666666;
+margin-left: 30px;
+align-vertical: middle;
+}
+
+#osefooter a,
+#osefooter a:link,
+#osefooter a:visited
+{
+color: #238DB4;
+font-size: 10px;
+text-decoration: none;
+}
+
+#osecurrency select,
+#osemsc-reg select,
+.msc-price select {
+   width: 158px;
+   height: 22px;
+   padding: 1px 1px 1px 1px;
+   color: #238DB4;
+   font: 12px/21px arial,sans-serif;
+   background-color: #ffffff;
+   border-color: #D6E4EC;
+   border-width: 1px;
+   border-left: 1px solid #D6E4EC;
+   border-top: 1px solid #D6E4EC;
+   border-right: 1px solid #D6E4EC;
+   border-bottom: 1px solid #D6E4EC;
+   margin: 0px 5px 5px 10px;
+}
+
+#osecurrency select
+{
+   margin: 0px 5px 5px 5px;
+   width: 180px;
+}
+
+#form-login .myaccount
+{
+margin-top: 10px;
+margin-left: 5px;
+margin-bottom: 15px;
+text-indent: 20px;
+font-weight: bold;
+color: #238DB4;
+font-family: Arial,sans-serif;
+background: url(../images/subscriptions_small.png) no-repeat 1px 0px transparent;
+}
+
+#form-login .mysubscription
+{
+margin-top: 10px;
+margin-left: 5px;
+margin-bottom: 10px;
+text-indent: 20px;
+font-weight: bold;
+font-family: Arial,sans-serif;
+color: #238DB4;
+background: url(../images/subscriptions_active.png) no-repeat 1px 0px transparent;
+}
+
+#form-login .ose-text,
+.mysubscription .ose-text
+{
+margin-top: 5px;
+text-decoration: none;
+color: #333333;
+font-weight: normal;
+}
+
+#form-login .ose-date
+{
+color: #333333;
+font-weight: normal;
+font-size: 11px;
+margin-top: 3px;
+}
+
+.mysubscription .ose-msc-title
+{
+margin-top: 5px;
+text-decoration: none;
+color: #333333;
+font-weight: bold;
+}
+
+#form-login .ose-buttons
+{
+margin-left: 5px;
+margin-top: 5px;
+margin-bottom: 10px;
+margin-right: 5px;
+}
+
+#oseform form
+{
+margin:0px 5px 20px 10px;
+}
+
+
+#form-login .ose-username
+{
+color: #333333;
+font-weight: normal;
+text-indent: 40px;
+height: 18px;
+margin-top: 3px;
+background: url(../images/icon-user.png) no-repeat 20px 0px transparent;
+}
+
+#form-login .ose-email
+{
+color: #333333;
+font-weight: normal;
+text-indent: 40px;
+height: 18px;
+margin-top: 3px;
+background: url(../images/icon-email.png) no-repeat 20px 0px transparent;
+}
+
+#osesidebar div {
+ 	list-style: none outside none;
+    text-indent: 5px;
+    margin-top: 5px;
+    margin-left: 0px;
+    padding:5px 5px 10px 5px;
+    background: url("../images/bullet01.png") no-repeat scroll 100% -34px transparent;
+    border-bottom: 1px dotted #666666;
+}
+
+#osesidebar a,
+#osesidebar a:link,
+#osesidebar a:visited {
+ 	list-style: none outside none;
+    text-indent: 5px;
+    margin-top: 5px;
+    margin-left: 0px;
+    padding:5px 5px 10px 5px;
+    background: none no-repeat scroll 100% -34px transparent;
+    text-decoration:none;
+    font-family: Arial,sans-serif;
+    color: #238DB4;
+}
+
+#gk-content .msc-card
+{
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #E6F0F2;
+    float: left;
+    margin-bottom: 1.5em;
+    padding: 1.5em;
+    width: 230px;
+}
+
+#osemsc-msc-detail .msc-card
+{
+	width: 91%;
+	float: left;
+	clear: both;
+	margin: 5px 0px 5px 0px;
+}
+
+#gk-content .msc-card .msc-image {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	vertical-align: top;
+	float: left;
+	width: 100%;
+}
+
+#osemsc-msc-detail .msc-card .msc-image
+{
+	width: 200px;
+	float: left;
+}
+
+#gk-content .msc-card .msc-image img {
+	margin-left: 30px;
+}
+
+#gk-content .msc-card .msc-desc-box
+{
+	display: none;
+}
+
+#osemsc-msc-detail .msc-card .msc-desc-box
+{
+	display: block;
+	float: left;
+	width: 98%;
+	margin-left: 40px;
+	padding-right: 30px;
+}
+
+#gk-content .msc-card .msc-row
+{
+margin: 10px 5px 5px 5px;
+}
+
+#gk-content .msc-card .msc-row .msc-sub-title
+{
+text-decoration: none;
+font-family: Arial,sans-serif;
+color: #03497E;
+text-transform: none;
+font-size: 12px;
+font-weight: bold;
+}
+
+#osemsc-msc-detail .msc-card .msc-row .msc-sub-title
+{
+text-decoration: none;
+font-family: Arial,sans-serif;
+color: #03497E;
+text-transform: none;
+font-size: 16px;
+font-weight: bold;
+}
+
+#gk-content .msc-card .msc-row .msc-sub-title p
+{
+	margin-top: 10px;
+	height: 180px;
+}
+
+#osemsc-msc-detail .msc-card .msc-row .msc-sub-title p
+{
+	height: 30px;
+}
+
+
+#osemsc-msc-detail .msc-card .msc-sub-title
+{
+	width: 600px;
+	float: left;
+}
+
+#gk-content .msc-card .msc-row .msc-sub-title span{
+	font-size: 10px;
+	font-weight: bold;
+	float: left;
+	width: 100%;
+	margin-top:5px;
+	margin-left: 60px;
+	color: #238DB4;
+	display: none;
+}
+
+#gk-content .msc-sub-title span a {
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 12px;
+    font-family: Arial,sans-serif;
+	color: #03497E;
+	display: none;
+}
+
+#osemsc-msc-detail .msc-sub-title span a {
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 12px;
+    font-family: Arial,sans-serif;
+	color: #03497E;
+	display: block;
+}
+
+#gk-content .msc-price-box
+{
+margin-top: 30px;
+}
+
+#osemsc-msc-detail .msc-price-box
+{
+margin-top: 10px;
+margin-left: 200px;
+}
+
+#gk-content .msc-price select
+{
+	margin-left: 0px;
+	width: 100px;
+}
+
+#gk-content .msc-price-box span
+{
+	float: left;
+	width: 100%;
+	display: none;
+}
+
+#osemsc-msc-detail .msc-price-box span
+{
+	float: left;
+	width: 100%;
+	display: block;
+}
+
+#gk-content .msc-price-box .msc-price
+{
+	float: left;
+	width: 100%;
+	text-indent: 0px;
+}
+
+#osemsc-msc-detail .msc-price-box .msc-price
+{
+	float: left;
+	width: 100%;
+	text-indent: 0px;
+	margin-top: 10px;
+}
+
+#osemsc-msc-detail .msc-card .msc-row .msc-button-box
+{
+	margin-top: 0px;
+	border-top: 0px;
+}
+
+#thermometer
+{
+    background: url("../images/therm_bkgd.gif") no-repeat scroll 0 0 transparent;
+    height: 66px;
+    width: 99%;
+    border: 1px solid #EEE;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+}
+
+#thermometer #image {
+    padding-left: 20px;
+    padding-top: 12px;
+}
+
+#thermometer .therm_sec {
+	padding-left:22px;
+}
+#thermometer .therm_sec .text {
+	float:left;
+	width:183px;
+	text-align:center;
+	font-size:13px;
+}
+#thermometer .therm_sec .text .selected {
+	font-weight:bold;
+	color:#F99E2D;
+}
+#thermometer .therm_sec .text .highlighted {
+	color:#F8B058;
+}
+
+#ose-cart #osemsc-reg #osecart-cart{
+    padding-left: 2px;
+    padding-top: 34px;
+}
+
+#ose-cart .osecart-heading
+{
+	width: 220px;
+	font-size:16px;
+	font-weight: bold;
+	color: #238DB4;
+	padding: 8px;
+	float: left;
+	vertical-align: top;
+}
+
+#ose-cart .payment-selector
+{
+	float:right;
+	margin: 0px 10px 0px 10px;
+}
+
+#ose-cart .payment-selector .items
+{
+	float:right;
+	min-width:280px;
+	text-align:center;
+	font-size:13px;
+	padding: 8px;
+}
+
+#ose-cart #osecart-items
+{
+	float: left;
+	margin-left: 5px;
+	width: 98%;
+	border: 1px solid #ddd;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+}
+
+#ose-cart .osecart-header
+{
+    background: url("../images/carttop_bkgd.gif") no-repeat scroll center top transparent;
+    width: 100%;
+    border: 1px solid #FEFEFE;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+	padding: 8px;
+}
+
+#ose-cart .osecart-header .items
+{
+	text-indent: 10px;
+	font-weight: bold;
+}
+
+#ose-cart .purchased-items
+{
+	height: 100px;
+	border-bottom: 1px dotted #DDDDDD;
+}
+
+#ose-cart .purchased-items img
+{
+	max-width: 80px;
+}
+
+#ose-cart .purchased-items .purchased-item-title
+{
+	vertical-align: middle;
+	color: #238db4;
+	font-weight: bold;
+}
+
+#ose-cart tfoot,
+#ose-cart #additional
+{
+	height: 100px;
+	border-bottom: 1px dotted #DDDDDD;
+}
+
+#ose-cart .purchased-item-costs
+{
+	font-weight: bold;
+}
+
+#ose-cart #osecontinue
+{
+width: 100%;
+float: left;
+}
+
+#ose-cart #osecontinue .items
+{
+min-width: 100px;
+float: right;
+margin-right: 10px;
+padding: 8px;
+}
+
+#ose-cart #additional #ose-license
+{
+	float: left;
+	width: 290px;
+	margin-left: 10px;
+}
+
+#ose-cart #additional #ose-coupon
+{
+	width: 290px;
+	margin-left: 300px;
+}
+
+#ose-cart #additional #ose-license .x-form-item-label,
+#ose-cart #additional #ose-coupon .x-form-item-label
+{
+    color: #F99E2D;
+    font-size: 13px;
+    padding: 10px;
+}
+
+#ose-cart #additional #ose-license .x-form-element,
+#ose-cart #additional #ose-coupon .x-form-element
+{
+	padding: 10px;
+	margin-left: 8px;
+}
+
+#go-to-payment
+{
+padding: 10px;
+margin-top: 20px;
+margin-left:10px;
+width: 100px;
+height: 100px;
+text-align: left;
+background:url("../images/payments.png") no-repeat scroll 40px 0px transparent;
+}
+
+#add-to-cart
+{
+padding: 10px;
+margin-top: 20px;
+margin-left:10px;
+width: 100px;
+height: 100px;
+text-align: left;
+background:url("../images/shopping_cart.png") no-repeat scroll 30px 0px transparent;
+}
+
+#go-to-payment button,
+#add-to-cart button
+{
+margin-top: 50px;
+}
+
+.go-to-payment
+{
+background:url("../images/payments.png") no-repeat scroll 40px 0px transparent;
+}

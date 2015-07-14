@@ -1,0 +1,12 @@
+// Categories Module
+ul ul {
+  margin-left: 0;
+  margin-right: 24px;
+
+  li:before {
+    border-right: 1px solid #ccc;
+    border-left: 0;
+    right: -1.25em;
+    left: auto;
+  }
+}

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="1.6.0" method="upgrade">
+	<name>auctionFactory Custom Module</name>
+	<author>Neron</author>
+	<creationDate>November 2014</creationDate>
+	<copyright>(C) 2014 Neron . All rights reserved.</copyright>
+	<license>Commercial</license>
+	<authorEmail>alekseikonstantinov@gmail.com</authorEmail>
+	<authorUrl>http://www.thefactory.ro</authorUrl>
+	<version>1.5.0</version>
+	<description>Custom Module for auctionFactory</description>
+	<files>
+		<filename module="mod_bids_custom">mod_bids_custom.php</filename>
+		<filename>helper.php</filename>
+		<filename>index.html</filename>
+		<folder>assets</folder>
+		<folder>tmpl</folder>
+	</files>
+	<config>
+        <fields name="params">
+            <fieldset name="basic">
+
+				<field name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="A suffix to be applied to the css class of the module (table.moduletable), this allows individual module styling" />
+
+                <field name="template" type="list" label="Template">
+                    <option value="list">List</option>
+                    <option value="carousel">Carousel</option>
+                </field>
+
+                <field name="bin_filter" type="list" label="Show only BIN auctions">
+                    <option value="0">No</option>
+                    <option value="1">With BIN</option>
+                    <option value="2">Only with BIN</option>
+                </field>
+
+				<field name="type_display" type="list" label="The type of module">
+					<option value="0">Latest Auctions</option>
+					<option value="1">Popular Auctions</option>
+					<option value="2">Most Valuable Auctions</option>
+					<option value="3">Random Auctions</option>
+					<option value="4">Featured Auctions</option>
+					<option value="5">Ending Soon Auctions</option>
+				</field>
+
+                <field name="featured" type="list" label="Show only featured">
+                    <option value="">None</option>
+                    <option value="featured">Featured</option>
+                </field>
+
+                <field name="filter_user" type="text" default="" label="Show Auctions only for userid:" description=""/>
+
+                <field name="spacer1" type="spacer" hr="true" />
+
+				<field name="display_image" type="radio" default="0" label="Display auction image in Module">
+						<option value="0">No</option>
+						<option value="1">Yes</option>
+				</field>
+
+                <field name="image_width" type="text" default="30" label="Image Width" description=""/>
+
+                <field name="image_height" type="text" default="30" label="Image Height" description=""/>
+
+                <field name="spacer2" type="spacer" hr="true"/>
+
+                <field name="nr_auctions_displayed" type="text" default="5" label="Number of auctions to display"
+                       description="Enter a number of auctions to display in the list"/>
+
+                <field name="sort_by" type="list" label="Sort by field">
+                    <option value="start_date">Start Date</option>
+                    <option value="end_date">End Date</option>
+                    <option value="title">Title</option>
+                    <option value="initial_price">Starting Price</option>
+                </field>
+
+				<field name="display_counter" type="radio" default="0" label="Display time countdown in Module">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+				</field>
+
+			</fieldset>
+		</fields>
+	</config>
+</extension>

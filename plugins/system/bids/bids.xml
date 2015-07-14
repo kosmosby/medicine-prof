@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.6" type="plugin" group="system"  method="upgrade">
+	<name>plg_system_bids</name>
+	<author>The Factory</author>
+	<creationDate>Jan 2011</creationDate>
+	<copyright>SKEPSIS Consult SRL</copyright>
+	<license>GPL</license>
+	<version>1.0</version>
+	<description>Auction Factory - System Plugin</description>
+	<files>
+		<filename plugin="bids">bids.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="itemid" type="text" default="0" label="Itemid to use for link" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

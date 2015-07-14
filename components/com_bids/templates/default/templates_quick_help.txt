@@ -1,0 +1,76 @@
+    You can use following variables to display several informations about an auction.
+    For AuctionDetails Just replace $current_row with $auction
+
+	$current_row->id
+	$current_row->userid
+	$current_row->title
+	$current_row->shortdescription
+	$current_row->description
+	$current_row->initial_price
+	$current_row->currency
+	$current_row->BIN_price
+	$current_row->auction_type
+	$current_row->automatic
+	$current_row->payment
+	$current_row->shipment_info
+	$current_row->start_date
+	$current_row->end_date
+	$current_row->closed_date
+	$current_row->params
+	$current_row->published
+	$current_row->close_offer
+	$current_row->close_by_admin
+	$current_row->hits
+	$current_row->featured
+	$current_row->reserve_price
+
+	$current_row->modified
+	$current_row->newmessages
+
+	$current_row->cat
+	$current_row->auction_nr
+	$current_row->nr_items
+
+	$current_row->payment_name
+	$current_row->currency
+	$current_row->categoryName
+
+	$current_row->username			//auctioneer
+	$current_row->verified_auctioneer
+	$current_row->rating_auctioneer
+	$current_row->rating_bidder
+	$current_row->rating_overall
+
+	$current_row->auctioneer
+	$current_row->auctioneer_details
+
+
+	$current_row->tags
+	$current_row->rownr
+	$current_row->nrNewMessages'
+	$current_row->isMyAuction
+	$current_row->del_from_watchlist //if logged in
+	$current_row->add_to_watchlist   //if logged in
+ 	$current_row->mybid            //in task mybids only
+	$current_row->nr_bidders       //in task myauctions only
+	$current_row->winBid      //in task myauctions only
+	$current_row->highest_bid      //in task myauctions only
+	$current_row->countdown        //if enabled
+	$current_row->expired
+	$current_row->start_date_text //formatted date
+	$current_row->end_date_text   //formatted date
+	$current_row->thumbnail
+
+	$current_row->links.otherauctions
+	$current_row->links.bids
+	$current_row->links.edit
+	$current_row->links.cancel
+	$current_row->links.publish
+	$current_row->links.filter_cat
+	$current_row->links.republish
+	$current_row->links.messages
+	$current_row->links.add_to_watchlist
+	$current_row->links.del_from_watchlist
+	$current_row->links.pagelinks
+	$current_row->links.tags
+	$current_row->links.auctioneer_profile

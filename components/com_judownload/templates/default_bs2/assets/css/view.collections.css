@@ -1,0 +1,128 @@
+.judl-form-collections {
+    border-top: 1px solid #DDDDDD;
+    margin-top: 20px;
+    padding-top: 10px;
+}
+
+.judl-form-collections .sort-pagination select {
+    float: left;
+    height: auto;
+    margin-bottom: 0;
+    margin-left: 5px;
+    width: auto;
+}
+
+.judl-collection-list {
+    clear : both;
+    width : 100%;
+}
+
+.judl-collection-list a.collection_title {
+	font-size : 12px;
+}
+
+.judl-collection-list .judl-collection {
+    box-sizing         : border-box;
+    -moz-box-sizing    : border-box;
+    -webkit-box-sizing : border-box;
+    float: left;
+    margin-top: 30px;
+    overflow: visible;
+}
+
+.judl-collection-list .judl-collection .collection-icon {
+    float: left;
+    margin: 0 10px 10px 0;
+}
+
+.judl-collection-list .judl-collection .collection-icon a {
+    display : block;
+}
+
+.judl-collection-list .judl-collection ul.collection-meta {
+    list-style: none outside none;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.judl-collection-list .judl-collection .collection-meta li{
+    display:inline-block;
+}
+
+.judl-collection-list .judl-collection .collection-meta li .caption {
+    display:inline-block;
+}
+
+.judl-collection-list .judl-collection .collection-meta li .value{
+    display:inline-block;
+}
+
+.judl-collection-list .judl-collection .collection-title {
+    font-size: 125%;
+    line-height: 1.2;
+    margin: 5px 0 0 !important;
+    text-align: left;
+}
+
+.judl-collection-list .judl-collection .actions {
+    margin-top : 10px;
+}
+
+.judl-collection-list .judl-collection .collection-introtext {
+    margin: 10px 0;
+}
+
+.judl-collection {
+	box-sizing         : border-box;
+	-moz-box-sizing    : border-box;
+	-webkit-box-sizing : border-box;
+    float: left;
+    margin-top: 30px;
+    overflow: hidden;
+	position: relative;
+}
+
+.judl-collection .private-actions {
+	opacity: 0;
+	transition:All 0.2s ease;
+	-webkit-transition:All 0.2s ease;
+	-moz-transition:All 0.2s ease;
+	-o-transition:All 0.2s ease;
+	position: relative;
+	right: 0;
+	top: 0;
+}
+
+.judl-collection:hover .private-actions {
+	opacity: 1;
+}
+.collection-vote {
+    margin: 5px 0;
+}
+
+.judl-view-grid .judl-collection-row {
+	border-bottom: 1px solid #ccc;
+}
+
+.judl-view-list .judl-collection {
+	border-bottom: 1px solid #ccc;
+}
+
+.judl-form-collections .judl-sort select {
+	float: left;
+	height: auto;
+	margin-bottom: 0;
+	margin-left: 5px;
+	width: auto;
+}
+
+.judl-collection .vote-result {
+    color: #a0a0a0;
+    font-size: 11px;
+}
+
+.judl-collection .collection-vote-action {
+   margin-right: 5px;
+}
+
+

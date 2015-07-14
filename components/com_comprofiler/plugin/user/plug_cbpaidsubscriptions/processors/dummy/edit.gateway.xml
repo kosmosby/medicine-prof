@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<types>
+		<type name="gateway_type" base="list" valuetype="string">
+			<option value="processors.dummy">Dumy test-gateway</option>
+		</type>
+		<type name="payment_method" base="list" valuetype="string">
+			<option value="dummy">Dumy test-gateway</option>
+		</type>
+	</types>
+	<views>
+		<view name="paymentstatusinformation" type="params" ui="admin">
+			<showview view="paymentrefundbutton" mode="view" type="view" />
+		</view>
+
+		<view name="editgatewaydummy" type="params" ui="admin">
+			<inherit name="editgatewayofflineinherit" from="/*/views/view[@name='editgenericgateway']">
+				<fieldset name="fieldset_for_gateway" label="Gateway account settings" description="Gateway-specific settings:">
+					<param name="enabled" type="list" default="0" label="Enable Dummy test-account" description="Whether you want to test using internal test-gateway.">
+						<option value="0">No</option>
+						<option value="1">Yes: Single Billing per payment</option>
+						<option value="2">Yes: Automated Recurring Billing for autorecurring plans</option>
+						<option value="3">Yes: Single payments or Automated Recurring Billing at user's choice for autorecurring plans</option>
+					</param>
+					<param name="normal_gateway" type="list" default="1" label="Gateway server selection" description="Which server to use. As it's a dummy, it's an internal simulation only." valuetype="int">
+						<option value="0">Dummy internal test gateway</option>
+					</param>
+				</fieldset>
+				<fieldset name="fieldset_for_presentation" label="Presentation" description="">
+					<params name="params" type="params">
+						<param name="show_cc_avs" type="list" default="0" label="Ask for card billing address for AVS" description="If you want to use credit-card billing Address Verification Services (AVS) and therefore want to ask for credit-card billing address">
+							<option value="0">No</option>
+							<option value="1">ZIP-code + country</option>
+							<option value="2">Street-address + ZIP-code + country</option>
+						</param>
+						<param name="psp_radio_description" type="textarea" cols="40" rows="2" label="Description shown when radio is selected" value="" default="" description="This allows to add instructions, or special conditions for that payment method." />
+						<param name="card_button_type" type="radio" default="image" label="Payment Button type" description="The payment button type can be a text or logo of corresponding credit card. Note: to display the logo, you must have a valid licence from the corresponding credit-card company.">
+							<option value="text">Names of credit cards text</option>
+							<option value="image">Credit-cards Logo images</option>
+						</param>
+						<param name="card_choice_type" type="radio" default="image" label="Payment Choice type" description="The payment choice type can be a text or logo of corresponding credit card. Note: to display the logo, you must have a valid licence from the corresponding credit-card company.">
+							<option value="text">Names of credit cards text</option>
+							<option value="image">Credit-cards Logo images</option>
+						</param>
+						<param name="cards_custom_image" type="text" size="40" default="" label="Custom button text/image" description="Either text of button or URL of a custom image (.gif, .jpg or .bmp), overwites selection above." />
+						<param name="cardtypes" type="checkbox" default="visa|*|mastercard" rows="" cols="3" label="Accepted credit cards" description="Credit cards accepted shows in buttons">
+							<option value="visa">Visa &lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_visa.gif" alt="" /&gt;</option>
+							<option value="mastercard">Mastercard &lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_mastercard.gif" alt="" /&gt;</option>
+							<option value="amexco">American Express &lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_amexco.gif" alt="" /&gt;</option>
+							<option value="discover">Discover &lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_discover.gif" alt="" /&gt;</option>
+							<option value="diners">Diners Club International &lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_diners.gif" alt="" /&gt;</option>
+							<option value="jcb">JCB &lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_jcb.gif" alt="" /&gt;</option>
+						</param>
+					</params>
+				</fieldset>
+			</inherit>
+		</view>
+
+	</views>
+</cbxml>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0" type="plugin" group="user/plug_cbpaidsubscriptions/plugin"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		   xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<name>CBSubs URL</name>
+	<author>Krileon</author>
+	<creationDate>2014-10-09</creationDate>
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<authorEmail>beat@joomlapolis.com</authorEmail>
+	<authorUrl>www.joomlapolis.com</authorUrl>
+	<version>2.0.0</version>
+	<release>4.0.0-rc.1</release>
+	<cbsubsversion version="4.0.0-rc.1" />
+	<description>CBSubs URL integration plugin: Provides paid URL requests or posts.</description>
+	<files>
+		<filename plugin="cbsubs.url">cbsubs.url.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<params>
+		<param name="remark" type="spacer" label="Parameters settings" default="Settings are done from within the paid subscriptions plugin in each plan/product." description="" />
+	</params>
+	<payintegration>
+		<tabpanetab name="integration_code" label="URL" description="">
+			<fieldset name="substitutionshelp" label="Substitutions in URLs and POST/XML requests" description="Substitutions allow to use values depending on user or on merchandise/donation/user-subscription depending on plan type:">
+				<param type="spacer" name="urlremark"            label="Substitutions encodings"             default="All user data is URL-encoded for URLs and htmlspecialchars-escaped for XML requests" description="" />
+				<param type="spacer" name="substitutionshelp_sql" label="Plan and Subscriptions ids"         default="[plan_id], [subscription_id], and where applicable (replaced by a 0 if not available): [replaced_plan_id], [parent_plan_id], [parent_subscription_id]" description="" />
+				<param type="spacer" name="substitutionshelp_user" label="User fields substitutions"         default="[USERNAME], [NAME], [EMAIL], [cb_anycbfieldname]" description="" />
+				<param type="spacer" name="substitutionshelp_plans" label="Plan/Product substitutions"       default="[PLAN_NAME], [PLAN_ALIAS], [PLAN_DESCRIPTION], [PLAN_REGISTRATION_PRICE] and [PLAN_UPGRADE_PRICE] (both display period and price), [PLAN_PRICE] (display generic period and price for plan, or amount donated for donation with currency, or price with currency of product for a merchandise), [PLAN_RATE] and [PLAN_FIRST_RATE] are numeric values, and in case of donations, the donation amount converted into the donation plan's currency" description="" />
+				<param type="spacer" name="substitutionshelp_subscr" label="User Subscription substitutions" default="[SUBSCRIPTION_SIGNUP_DATE], [SUBSCRIPTION_EXPIRY_DATE], [SUBSCRIPTION_LAST_RENEWAL_DATE], [SUBSCRIPTION_VALIDITY_PERIOD_REMAINING], [SUBSCRIPTION_EXPIRY_DATE_IF_RENEWED], [SUBSCRIPTION_VALIDITY_PERIOD_IF_RENEWED], [SUBSCRIPTION_RENEWAL_PRICE] (displays period and price)" description="" />
+			</fieldset>
+			<fieldset name="url_activation" label="First Subscription Activation" description="">
+				<param name="url_path_activation" type="text" size="80" default="" label="Path" description="E.g. http://www.mysite.com/insert.php?username=[username]&amp;securityString=mysecret&amp;user_id=[user_id]" />
+				<if name="url_path_activation" type="showhide" operator="!=" value="" valuetype="const:text">
+					<param name="url_method_activation" type="list" default="GET" label="Method" description="Should URL method be executed as a request or a post.">
+						<option value="GET">Get</option>
+						<option value="POST">Post</option>
+						<option value="XML">XML</option>
+					</param>
+					<if name="url_method_activation" type="showhide" operator="=" value="POST" valuetype="const:text">
+						<param name="url_post_activation" type="textarea" cols="50" rows="4" default="" label="Post" description="Data to post with URL (seperate multiple variables with a line break). E.g. name=[first_name]." />
+					</if>
+					<if name="url_method_activation" type="showhide" operator="=" value="XML" valuetype="const:text">
+						<param name="url_xml_activation" type="textarea" cols="70" rows="12" default="" label="XML request" description="XML UTF-8  Data to post with URL (You can use substitutions: E.g. &lt;firstname&gt;[first_name]&lt;/firstname&gt;)." />
+					</if>
+					<param name="url_results_activation" type="list" default="0" label="Results" description="Enable echoing of URL request results on payment confirmation page.">
+						<option value="1">Enable</option>
+						<option value="0">Disable</option>
+					</param>					
+				</if>
+			</fieldset>
+			<fieldset name="url_renewal" label="Subscription Renewal" description="">
+				<param name="url_path_renewal" type="text" size="80" default="" label="Path" description="E.g. http://www.mysite.com/renew.php?user_id=[user_id]" />
+				<if name="url_path_renewal" type="showhide" operator="!=" value="" valuetype="const:text">
+					<param name="url_method_renewal" type="list" default="GET" label="Method" description="Should URL method be executed as a request or a post.">
+						<option value="GET">Get</option>
+						<option value="POST">Post</option>
+						<option value="XML">XML</option>
+					</param>
+					<if name="url_method_renewal" type="showhide" operator="=" value="POST" valuetype="const:text">
+						<param name="url_post_renewal" type="textarea" cols="50" rows="4" default="" label="Post" description="Data to post with URL (seperate multiple variables with a line break). E.g. email=[email]." />
+					</if>
+					<if name="url_method_renewal" type="showhide" operator="=" value="XML" valuetype="const:text">
+						<param name="url_xml_renewal" type="textarea" cols="70" rows="12" default="" label="XML request" description="XML UTF-8  Data to post with URL (You can use substitutions: E.g. &lt;firstname&gt;[first_name]&lt;/firstname&gt;)." />
+					</if>
+					<param name="url_results_renewal" type="list" default="0" label="Results" description="Enable echoing of URL request results on payment confirmation page.">
+						<option value="1">Enable</option>
+						<option value="0">Disable</option>
+					</param>
+				</if>
+			</fieldset>
+			<fieldset name="url_deactivation" label="Subscription Deactivation" description="">
+				<param name="url_path_deactivation" type="text" size="80" default="" label="Path" description="E.g. https://www.mysite.com/mailinglist.php?email=[email]" />
+				<if name="url_path_deactivation" type="showhide" operator="!=" value="" valuetype="const:text">
+					<param name="url_method_deactivation" type="list" default="GET" label="Method" description="Should URL method be executed as a request or a post.">
+						<option value="GET">Get</option>
+						<option value="POST">Post</option>
+						<option value="XML">XML</option>
+					</param>
+					<if name="url_method_deactivation" type="showhide" operator="=" value="POST" valuetype="const:text">
+						<param name="url_post_deactivation" type="textarea" cols="50" rows="4" default="" label="Post" description="Data to post with URL (seperate multiple variables with a line break). E.g. username=[username]." />
+					</if>
+					<if name="url_method_deactivation" type="showhide" operator="=" value="XML" valuetype="const:text">
+						<param name="url_xml_deactivation" type="textarea" cols="70" rows="12" default="" label="XML request" description="XML UTF-8  Data to post with URL (You can use substitutions: E.g. &lt;firstname&gt;[first_name]&lt;/firstname&gt;)." />
+					</if>
+					<param name="url_results_deactivation" type="list" default="0" label="Results" description="Enable echoing of URL request results on payment confirmation page.">
+						<option value="1">Enable</option>
+						<option value="0">Disable</option>
+					</param>					
+				</if>
+			</fieldset>
+			<fieldset name="url_expiration" label="Subscription Expiration" description="">
+				<param name="url_path_expiration" type="text" size="80" default="" label="Path" description="E.g. http://www.mysite.com/activate/deactivate.asp?MemberID=[user_id]&amp;securityString=mysecret" />
+				<if name="url_path_expiration" type="showhide" operator="!=" value="" valuetype="const:text">
+					<param name="url_method_expiration" type="list" default="GET" label="Method" description="Should URL method be executed as a request or a post.">
+						<option value="GET">Get</option>
+						<option value="POST">Post</option>
+						<option value="XML">XML</option>
+					</param>
+					<if name="url_method_expiration" type="showhide" operator="=" value="POST" valuetype="const:text">
+						<param name="url_post_expiration" type="textarea" cols="50" rows="4" default="" label="Post" description="Data to post with URL (seperate multiple variables with a line break). E.g. user=[user_id]." />
+					</if>
+					<if name="url_method_expiration" type="showhide" operator="=" value="XML" valuetype="const:text">
+						<param name="url_xml_expiration" type="textarea" cols="70" rows="12" default="" label="XML request" description="XML UTF-8 Data to post with URL (You can use substitutions: E.g. &lt;firstname&gt;[first_name]&lt;/firstname&gt;)." />
+					</if>
+					<param name="url_results_expiration" type="list" default="0" label="Results" description="Enable echoing of URL request results on payment confirmation page.">
+						<option value="1">Enable</option>
+						<option value="0">Disable</option>
+					</param>					
+				</if>
+			</fieldset>
+		</tabpanetab>
+	</payintegration>
+	<database>
+	</database>
+</cbinstall>

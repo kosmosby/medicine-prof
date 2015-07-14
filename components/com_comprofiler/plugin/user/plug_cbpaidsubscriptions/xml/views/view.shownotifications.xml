@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="shownotifications" type="params" ui="admin" label="Notifications" description="View log of server notifications here, ordered by reverse order of arrival:">
+			<tablebrowser name="notificationsbrowser" table="#__cbsubs_notifications" class="cbpaidPaymentNotification" label="Notifications" description="List of notifications received">
+				<toolbarmenu>
+					<!-- <menu name="edit"  action="linkAction" task="edit" link="cbo:editrows" label="Edit" /> -->
+					<menu name="delete"  action="linkAction" task="delete" link="cbo:deleterows" label="Delete" />
+					<menu name="spacer1" action="spacer" />
+					<menu name="cancel"   action="cancel" task="cancelPluginAction" label="Close" />
+				</toolbarmenu>
+				<quicksearchfields>
+					<field name="user_id" valuetype="const:int" />
+					<field name="username" />
+					<field name="name" />
+					<field name="payer_email" />
+					<field name="txn_id" />
+					<field name="parent_txn_id" />
+					<field name="sale_id" />
+					<field name="auth_id" />
+					<field name="id" valuetype="const:int" />
+				</quicksearchfields>
+				<filters>
+					<filter name="raw_result" type="data" valuetype="sql:string"  size="1" default="" label="Verification" blanktext="--- By verification result ---" description="Filter notifications by the verification result">
+						<data name="results" type="sql:multiplerows" table="#__cbsubs_notifications" key="id">
+							<rows>
+								<field name="raw_result" as="value" />
+								<field name="raw_result" as="text" type="firstwords" size="25" />
+							</rows>
+							<orderby>
+								<field name="raw_result" ordering="ASC" />
+							</orderby>
+						</data>
+					</filter>
+					<filter name="gateway_account" type="data" valuetype="sql:int"  size="1" default="" label="Gateway account" blanktext="--- By gateway account ---" description="Filter notifications by the gateway account">
+						<data name="gatewayaccounts" type="sql:multiplerows" table="#__cbsubs_gateway_accounts" key="id" class="cbpaidGatewaysAccountsMgr::gatewayAccountObjects">
+							<rows>
+								<field name="id" as="value" />
+								<field name="name" as="text" />
+							</rows>
+							<orderby>
+								<field name="ordering" ordering="ASC" />
+							</orderby>
+						</data>
+					</filter>
+					<filter name="payment_method" type="xml:payment_method"         size="1" default="" label="Payment method" blanktext="--- By payment method ---" description="Filter payment baskets by their payment method"/>
+					<filter name="payment_status" type="xml:payment_status"         size="1" default="" label="Payment status" blanktext="--- By status ---" description="Filter payment baskets by their current status"/>
+					<filter name="id" type="field_show_only_if_selected" base="int" size="1" default="" label="Payment id"     blanktext="--- By id ---" description="Select a particular payment by its id (used to show a given payment only)" />
+					<filter name="payment_basket_id" type="field_show_only_if_selected" base="string" size="1" default="" label="Payment basket id"     blanktext="--- By basket id ---" description="Select a particular basket by its id (used to show a given basket only)" />
+				</filters>
+				<orderby>
+					<field name="time_received" ordering="DESC" />
+					<field name="id" ordering="DESC" />
+				</orderby>
+				<listfields>
+					<header type="standard" />
+					<rows type="standard" height="auto" limit="15" >
+						<field name=""            type="rownumber"       width="20px" align="right" label="#" />
+						<field name="id"          type="primarycheckbox" width="20px" />
+						<field name="time_received" type="datetime" link="cb_action:show_notification_details" parameters="nid" paramvalues="id" title="Show details of this notification" width="8%" label="Log date" description="Date of logging the notification" />
+						<field name="log_type"    type="xml:log_type"    width="5%" label="Log Type" description="Type of notification and validation" />
+						<field name="raw_result"  type="firstwords"    width="7%" label="Verification" description="Result of Verification at payment processor" />
+						<field name="username"    type="string"   link="cb_action:show_usersubscription" parameters="cid" paramvalues="user_id" title="Edit this user's subscriptions" width="10%" label="Username" class="title">
+							<data name="username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="user_id" />
+						</field>
+						<field name="name"    type="string"   link="cb_action:show_usersubscription" parameters="cid" paramvalues="user_id" title="Edit this user's subscriptions" width="10%" label="Full name" class="title">
+							<data name="name" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="user_id" />
+						</field>
+						<field name="mc_currency"        type="text"                  width="3%"  label="Currency" description="Currency of payment basket"  align="right" />
+						<field name="mc_gross"           type="text"                  width="4%"  label="Amount: single" description="Amount for single payment in currency of payment basket"  align="right" />
+						<field name="mc_amount1"         type="text"                  width="3%"  label="first" description="First amount of payment subscription in currency of payment basket"  align="right" />
+						<field name="mc_amount3"         type="text"                  width="3%"  label="recurring" description="Recurring amount of payment subscription in currency of payment basket"  align="right" />
+						<field name="gateway_accnt_name" type="text"                  width="8%" label="Gateway account" description="Gateway account used for payment">
+							<data name="name" as="gateway_accnt_name" type="sql:field" table="#__cbsubs_gateway_accounts" class="cbpaidGatewaysAccountsMgr::gatewayAccountObjects" key="id" value="gateway_account" />
+						</field>
+						<field name="payment_method"     type="xml:payment_method"    width="8%"  label="Payment method" description="Method used for payment" />
+						<field name="txn_type"           type="string"                width="8%"  label="Type" description="Type of transaction" />
+						<field name="payment_status"     type="xml:payment_status"    width="7%"  label="Status" description="Current status of payment." />
+						<field name="pending_reason"     type="string"                width="8%"  label="Pending reason" description="Reason of pending state, if pending" />
+						<field name="reason_code"        type="string"                width="8%"  label="Reason code"  description="Code of Reason of pending state, if pending" />
+						<field name="payment_date"       type="string"                width="9%"  label="Completed on" description="Date of completing the payment" />
+						<field name="first_name"         type="text"                  width="5%"  label="First name"   description="First name as stated at payment" />
+						<field name="last_name"          type="text"                  width="5%"  label="Last name"    description="Last name as stated at payment" />
+						<field name="payer_email"        type="text"                  width="5%"  label="Email"        description="Email as stated at payment" />
+						<field name="item_number"        type="text"      link="cb_action:show_notifications" parameters="notificationsbrowser[filter_payment_basket_id]" paramvalues="payment_basket_id" title="Show all the notifications for the corresponding payment basket" width="5%"  label="Item number"   description="item number of payment. Click to see notifications for same basket" />
+						<field name="payment_basket_id"  type="int"       link="cb_action:show_paymentbaskets" parameters="paymentbasketsbrowser[filter_id]" paramvalues="payment_basket_id" title="Show corresponding payment basket" width="3%"  align="right" label="Payment basket" description="Id of payment basket. Click to see the payment basket" />
+					</rows>
+				</listfields>
+			</tablebrowser>
+		</view>
+	</views>
+</cbxml>

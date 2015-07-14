@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+    <layout title="COM_JUDOWNLOAD_MENU_TAG_DEFAULT_LAYOUT_TITLE">
+        <message>
+            <![CDATA[COM_JUDOWNLOAD_MENU_TAG_DEFAULT_LAYOUT_DESC]]>
+        </message>
+    </layout>
+
+    <fields name="request">
+        <fieldset name="request"
+                  addfieldpath="/administrator/components/com_judownload/models/fields">
+            <field name="id"
+                   type="modal_tag"
+                   required="true"
+                   label="COM_JUDOWNLOAD_TAG_LABEL"
+                   description="COM_JUDOWNLOAD_TAG_DESC"
+                    />
+        </fieldset>
+    </fields>
+
+    <fields name="params">
+        <fieldset name="basic"
+                  label="COM_JUDOWNLOAD_BASIC_OPTIONS">
+            <field name="document_columns"
+                   type="text"
+                   size="10"
+                   default=""
+                   label="COM_JUDOWNLOAD_CONFIG_DOCUMENT_COLUMNS_LABEL"
+                   description="COM_JUDOWNLOAD_CONFIG_DOCUMENT_COLUMNS_DESC"
+                    />
+
+            <field name="document_column_class"
+                   type="text"
+                   size="60"
+                   label="COM_JUDOWNLOAD_CONFIG_DOCUMENT_COLUMN_CLASS_LABEL"
+                   description="COM_JUDOWNLOAD_CONFIG_DOCUMENT_COLUMN_CLASS_DESC"
+                    />
+
+            <field name="document_row_class"
+                   type="text"
+                   size="60"
+                   label="COM_JUDOWNLOAD_CONFIG_DOCUMENT_ROW_CLASS_LABEL"
+                   description="COM_JUDOWNLOAD_CONFIG_DOCUMENT_ROW_CLASS_DESC"
+                    />
+        </fieldset>
+    </fields>
+</metadata>

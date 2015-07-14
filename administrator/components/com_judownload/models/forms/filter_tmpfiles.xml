@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fields name="filter">
+        <field
+                name="search"
+                type="text"
+                label="COM_JUDOWNLOAD_FILTER_SEARCH_DESC"
+                hint="JSEARCH_FILTER"
+                />
+    </fields>
+
+    <fields name="list">
+        <field
+                name="fullordering"
+                type="list"
+                label="COM_JUDOWNLOAD_LIST_FULL_ORDERING"
+                description="COM_JUDOWNLOAD_LIST_FULL_ORDERING_DESC"
+                onchange="this.form.submit();"
+                default="ftmp.created DESC"
+                >
+            <option value="">COM_JUDOWNLOAD_SORT_BY</option>
+            <option value="ftmp.id ASC">COM_JUDOWNLOAD_SORT_BY_ID_ASC</option>
+            <option value="ftmp.id DESC">COM_JUDOWNLOAD_SORT_BY_ID_DESC</option>
+            <option value="ua.username ASC">COM_JUDOWNLOAD_SORT_BY_USERNAME_ASC</option>
+            <option value="ua.username DESC">COM_JUDOWNLOAD_SORT_BY_USERNAME_DESC</option>
+            <option value="ftmp.included_fileids ASC">COM_JUDOWNLOAD_SORT_BY_DOWNLOAD_FILES_ASC</option>
+            <option value="ftmp.included_fileids DESC">COM_JUDOWNLOAD_SORT_BY_DOWNLOAD_FILES_DESC</option>
+            <option value="ftmp.file_path ASC">COM_JUDOWNLOAD_SORT_BY_FILE_PATH_ASC</option>
+            <option value="ftmp.file_path DESC">COM_JUDOWNLOAD_SORT_BY_FILE_PATH_DESC</option>
+            <option value="ftmp.file_size ASC">COM_JUDOWNLOAD_SORT_BY_FILE_SIZE_ASC</option>
+            <option value="ftmp.file_size DESC">COM_JUDOWNLOAD_SORT_BY_FILE_SIZE_DESC</option>
+            <option value="ftmp.created ASC">COM_JUDOWNLOAD_SORT_BY_CREATED_ASC</option>
+            <option value="ftmp.created DESC">COM_JUDOWNLOAD_SORT_BY_CREATED_DESC</option>
+            <option value="ftmp.removed ASC">COM_JUDOWNLOAD_SORT_BY_REMOVED_ASC</option>
+            <option value="ftmp.removed DESC">COM_JUDOWNLOAD_SORT_BY_REMOVED_DESC</option>
+        </field>
+
+        <field
+                name="limit"
+                type="limitbox"
+                class="inputbox input-mini"
+                default="25"
+                label="COM_JUDOWNLOAD_LIST_LIMIT"
+                description="COM_JUDOWNLOAD_LIST_LIMIT_DESC"
+                onchange="this.form.submit();"
+                />
+    </fields>
+</form>

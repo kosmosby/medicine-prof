@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../cb/validation/ahawow.xsd">
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<types>
+		<type name="templates_list" base="list" valuetype="string">
+			<option value="default">Default template</option>
+		</type>
+	</types>
+	<templateglobalsettings>
+		<if name="template" operator="=" value="template" valuetype="param:string" type="showhide">
+			<fieldset name="currenttemplatesettings" label="Specific settings for the Default template" description="">
+			</fieldset>
+		</if>
+	</templateglobalsettings>
+	<templateplansettings>
+		<if name="template" operator="=" value="template" valuetype="param:string" type="showhide">
+			<fieldset name="currenttemplatesettings" label="Specific settings for the Default template" description="">
+			</fieldset>
+		</if>
+	</templateplansettings>
+</cbxml>

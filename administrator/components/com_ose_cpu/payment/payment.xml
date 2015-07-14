@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<code>OSE Payment Code:201009091155</code>
+	<classes>
+		<class path="" extend="test">payment</class>
+	</classes>
+
+	<files>
+		<file path="" extend="test">osePaymentOrder.php</file>
+		<file path="" extend="test">osePaymentPrice.php</file>
+		<file path="" extend="test">osePaymentView.php</file>
+		<file path="" extend="test">osePaymentMscList.php</file>
+		<file path="" extend="test">osePaymentCart.php</file>
+		<file path="" extend="test">osePaymentGateWay.php</file>
+		<file path="" extend="test">osePaymentTax.php</file>
+		<file path="" extend="test">osePayment_j15.php</file>
+	</files>
+
+</document>

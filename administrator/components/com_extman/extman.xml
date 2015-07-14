@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.0.0" method="upgrade" overwrite="true">
+    <name>com_extman</name>
+    <identifier>com:extman</identifier>
+    <author>Joomlatools</author>
+    <creationDate>July 2014</creationDate>
+    <copyright>Copyright (C) 2011 - 2014 Timble CVBA (http://www.timble.net)</copyright>
+    <license>GNU GPLv3 - http://www.gnu.org/licenses/gpl.html</license>
+    <authorEmail>support@joomlatools.com</authorEmail>
+    <authorUrl>www.joomlatools.com</authorUrl>
+    <version>2.1.1</version>
+    <description>Joomlatools Extension Manager</description>
+
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">resources/install/install.sql</file>
+		</sql>
+	</install>
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">resources/install/uninstall.sql</file>
+		</sql>
+	</uninstall>
+
+    <update>
+        <schemas>
+            <schemapath type="mysql">resources/updates</schemapath>
+        </schemas>
+    </update>
+
+    <scriptfile>resources/install/script.php</scriptfile>
+
+    <administration>
+        <files folder="administrator/components/com_extman">
+        	<file>access.xml</file>
+        	<file>config.xml</file>
+            <file>extman.php</file>
+            <file>installer.php</file>
+            <file>version.php</file>
+
+            <folder>controller</folder>
+            <folder>database</folder>
+            <folder>dispatcher</folder>
+            <folder>filter</folder>
+            <folder>language</folder>
+            <folder>model</folder>
+            <folder>resources</folder>
+            <folder>views</folder>
+        </files>
+
+        <menu>COM_EXTMAN</menu>
+    </administration>
+
+    <media folder="media">
+        <folder>com_extman</folder>
+    </media>
+</extension>

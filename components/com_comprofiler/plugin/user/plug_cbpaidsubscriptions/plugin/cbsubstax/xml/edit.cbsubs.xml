@@ -1,0 +1,1562 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" type="plugin" group="user/plug_cbpaidsubscriptions/plugin"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+	<description>CBSubs Tax integration CB plugin: Provides Sales Tax / VAT calculations for B2B and B2C in EU.</description>
+
+	<types>
+		<type name="event_tables" base="list" valuetype="string">
+			<option value="#__cbsubs_tax_rules">Tax Rules</option>
+			<option value="#__cbsubs_tax_rates">Tax Rates</option>
+			<option value="#__cbsubs_geo_zones">Geographic Zones</option>
+			<option value="#__cbsubs_geo_zones_entries">Geographic Zones Entries</option>
+			<option value="#__comprofiler_countries">Countries</option>
+			<option value="#__comprofiler_provinces">States / Provinces</option>
+		</type>
+		<type name="business_check" base="list" valuetype="string" newdefinition="true">
+			<option value="company_name">Company name filled-in in invoice address</option>
+			<option value="vat_number">Company name and VAT number filled-in in invoice address</option>
+		</type>
+	</types>
+
+	<paymentbasketsbrowserrows>
+		<field name="business_for_vat"            type="string"   width="10%" label="Business" valuedescriptiontitle="Message">
+			<data name="business_for_vat" type="sql:function" operator="IF">
+				<data name="" type="sql:operator" operator="=">
+					<data name="is_business" type="sql:field" />
+					<data name="1" type="const:int" />
+				</data>
+				<data name="Yes" type="const:string" translate="yes" />
+				<!-- This is here for translation tool to translate above correctly:
+					<field label="Yes" />
+				-->
+				<data name="-" type="const:string" translate="no" />
+			</data>
+			<attributes>
+				<attribute name="valuedescription" transform="raw">
+					<param name="vat_verification" type="json" />
+				</attribute>
+			</attributes>
+		</field>
+		<field name="vat_verification"            type="hidden"    width="0px" label="" />
+	</paymentbasketsbrowserrows>
+
+	<actions ui="admin" permission="core.manage" permissionasset="com_cbsubs">
+		<action name="show_tax_settings" request="action" action="showtaxsettings" permission="cbsubs.financial">
+			<showview view="showtaxsettings" mode="show" />
+		</action>
+		<!--
+			<action name="edit_tax_seller_settings" request="action" action="editrow taxsellersettings">
+			<showview view="edittaxrule" mode="edit" >
+			<data name="taxsettingrow" type="sql:row" table="#__cbsubs_tax_sellers" class="cbpaidTaxRule" key="id" value="tid" valuetype="request:int" />
+			</showview>
+			</action>
+		-->
+		<action name="show_tax_rules" request="action table" action="showtable taxrules" requestparameters="taxrulesbrowser[filter_taxrule_id]" permission="cbsubs.financial">
+			<showview view="showtaxrules" mode="show">
+				<data name="taxrulesrow" type="parameters" />
+			</showview>
+		</action>
+		<action name="edit_tax_rule" request="action table" action="editrow taxrulesbrowser" requestparameters="tid" permission="cbsubs.financial">
+			<showview view="edittaxrule" mode="edit" >
+				<data name="taxrulerow" type="sql:row" table="#__cbsubs_tax_rules" class="cbpaidTaxRule" key="id" value="tid" valuetype="request:int" />
+			</showview>
+		</action>
+		<action name="show_geo_zones" request="action table" action="showtable geozones" requestparameters="geozonesbrowser[filter_geozone_id]" permission="cbsubs.financial">
+			<showview view="showgeozones" mode="show">
+				<data name="geozonesrow" type="parameters" />
+			</showview>
+		</action>
+		<action name="edit_geo_zone" request="action table" action="editrow geozonesbrowser" requestparameters="tid" permission="cbsubs.financial">
+			<showview view="editgeozone" mode="edit" >
+				<data name="geozonerow" type="sql:row" table="#__cbsubs_geo_zones" class="cbpaidGeoZone" key="id" value="tid" valuetype="request:int" />
+			</showview>
+		</action>
+		<action name="show_geo_zone_entries" request="action table" action="showtable geozoneentries" requestparameters="geozonesbrowser[filter_geozoneentry_id]" permission="cbsubs.financial">
+			<showview view="showgeozoneentries" mode="show">
+				<data name="geozoneentriesrow" type="parameters" />
+			</showview>
+		</action>
+		<action name="edit_geo_zone_entry" request="action table" action="editrow geozoneentriesbrowser" requestparameters="tid" permission="cbsubs.financial">
+			<showview view="editgeozoneentry" mode="edit" >
+				<data name="geozoneentryrow" type="sql:row" table="#__cbsubs_geo_zones_entries" class="cbpaidGeoZoneEntry" key="id" value="tid" valuetype="request:int" />
+			</showview>
+		</action>
+		<action name="show_tax_rates" request="action table" action="showtable taxrates" requestparameters="taxratesbrowser[filter_taxrate_id]" permission="cbsubs.financial">
+			<showview view="showtaxrates" mode="show">
+				<data name="taxratesrow" type="parameters" />
+			</showview>
+		</action>
+		<action name="edit_tax_rate" request="action table" action="editrow taxratesbrowser" requestparameters="tid" permission="cbsubs.financial">
+			<showview view="edittaxrate" mode="edit" >
+				<data name="taxraterow" type="sql:row" table="#__cbsubs_tax_rates" class="cbpaidsalestaxTotalizertype" key="id" value="tid" valuetype="request:int" />
+			</showview>
+		</action>
+		<action name="show_countries" request="action table" action="showtable countries" requestparameters="countriesbrowser[filter_country_iso_code2]" permission="cbsubs.financial">
+			<showview view="showcountries" mode="show" />
+		</action>
+		<action name="edit_country" request="action table" action="editrow countriesbrowser" requestparameters="tid" permission="cbsubs.financial">
+			<showview view="editcountry" mode="edit" >
+				<data name="countryrow" type="sql:row" table="#__comprofiler_countries" class="moscomprofilerCountry" key="country_iso_code2" value="tid" valuetype="request:string" />
+			</showview>
+		</action>
+		<action name="show_provinces" request="action table" action="showtable provinces" requestparameters="provincesbrowser[filter_province_iso_code]" permission="cbsubs.financial">
+			<showview view="showprovinces" mode="show" />
+		</action>
+		<action name="edit_province" request="action table" action="editrow provincesbrowser" requestparameters="tid" permission="cbsubs.financial">
+			<showview view="editprovince" mode="edit" >
+				<data name="provincerow" type="sql:row" table="#__comprofiler_provinces" class="moscomprofilerProvince" key="province_iso_code" value="tid" valuetype="request:string" />
+			</showview>
+		</action>
+		<action name="show_taxreportmonthly" request="action table" action="showtable taxreportmonthly" requestparameters="" permission="cbsubs.financial">
+			<showview view="showtaxreportmonthly" mode="show" />
+		</action>
+	</actions>
+
+	<views>
+		<view name="showtaxsettings" type="params" ui="admin" label="Sales Tax / VAT Settings and Reports" description="This page allows to configure general tax-related settings. Each product/plan has also an integrations tab &quot;Tax&quot; for the choice of the Tax Rule to apply to the product. It also allows you to view sales taxes reports by month and to print corresponding invoices.">
+			<css file="plugin/cbsubstax/cbsubs.tax.admin.css" />
+			<param name="checkv"  mode="show"   type="private" hideblanktext="true" class="cbpaidParamsExt" method="checkPluginsPublished" groups="user/plug_cbpaidsubscriptions/plugin[cbsubs.tax]" action="" path="" label="" description="" />
+			<params type="pluginparams">
+				<if name="integration_cbsubstax_enabled" operator="!=" value="1" valuetype="const:int" type="condition">
+					<param name="integration_cbsubstax_enabled_error" type="spacer" label="" cssclass="cbWarning" default="Warning: taxes not enabled globally" />
+				</if>
+			</params>
+			<menugroup name="taxsettingsmenu" type="buttonMenu" label="Tax settings menu" description="Here is how taxes work:&lt;ul&gt;				&lt;li&gt;a &lt;strong&gt;Product Plan&lt;/strong&gt; can get assigned a &lt;strong&gt;Tax Rule&lt;/strong&gt;&lt;/li&gt;				&lt;li&gt;a &lt;strong&gt;Tax Rule&lt;/strong&gt; can get assigned several &lt;strong&gt;Tax Rates&lt;/strong&gt; (e.g. Canada needs multiple ones: country and state taxes apply)&lt;/li&gt;				&lt;li&gt;a &lt;strong&gt;Tax Rate&lt;/strong&gt; defines a tax %, and depends on a &lt;strong&gt;Geographic Zone&lt;/strong&gt;&lt;/li&gt;				&lt;li&gt;a &lt;strong&gt;Geographic Zone&lt;/strong&gt; is comprized of &lt;strong&gt;Geographic Zone Entries&lt;/strong&gt;&lt;/li&gt;				&lt;li&gt;a &lt;strong&gt;Geographic Zone Entry&lt;/strong&gt; is a &lt;strong&gt;Country&lt;/strong&gt; and optionally a &lt;strong&gt;Province/State&lt;/strong&gt;&lt;/li&gt;&lt;/ul&gt;				Thus, when a buyer billing addres is in a given &lt;strong&gt;Geographic Zone&lt;/strong&gt; which has &lt;strong&gt;Tax Rate(s)&lt;/strong&gt; assigned to a &lt;strong&gt;Tax Rule&lt;/strong&gt; used by a &lt;strong&gt;Product Plan&lt;/strong&gt;, the corresponding invoice item computes the corresponding tax that is added to the invoice.&lt;br /&gt;">
+				<menu name="taxrules"       action="cb_action:show_tax_rules"            label="Tax Rules"                description="Configure Sales Tax Rules that can be applied to Products">
+					<fields>
+						<field name="rules_count" label="tax rules" type="int">
+							<data  name="rules_count" type="sql:count" table="#__cbsubs_tax_rules" />
+						</field>
+					</fields>
+				</menu>
+				<menu name="taxrates"       action="cb_action:show_tax_rates"            label="Tax Rates"                description="Configure Tax Rates that can be applied to Tax Rules">
+					<fields>
+						<field name="rates_count" label="published tax rates" type="int">
+							<data  name="rates_count" type="sql:count" table="#__cbsubs_tax_rates" key="published" value="1" valuetype="const:int" />
+						</field>
+					</fields>
+				</menu>
+				<menu name="geozones"       action="cb_action:show_geo_zones"            label="Geographic Zones"         description="Configure Geographic Zones (groups of Geographic Zones Entries)">
+					<fields>
+						<field name="geozones_count" label="geographic zones" type="int">
+							<data  name="geozones_count" type="sql:count" table="#__cbsubs_geo_zones" />
+						</field>
+						<field name="geozoneentries_count" label="published zones entries" type="int">
+							<data  name="geozoneentries_count" type="sql:count" table="#__cbsubs_geo_zones_entries" />
+						</field>
+					</fields>
+				</menu>
+				<!--
+					<menu name="geozoneentries" action="cb_action:show_geo_zone_entries"     label="Geographic Zones Entries" description="Configure Geographic Zones Entries (Country and State / Province)">
+					<fields>
+					<field name="geozoneentries_count" label="published zones entries" type="int">
+					<data  name="geozoneentries_count" type="sql:count" table="#__cbsubs_geo_zones_entries" />
+					</field>
+					</fields>
+					</menu>
+				-->
+				<menu name="countries"      action="cb_action:show_countries"            label="Countries"                description="Configure Countries">
+					<fields>
+						<field name="countries_count" label="countries defined" type="int">
+							<data  name="countries_count" type="sql:count" table="#__comprofiler_countries" />
+						</field>
+					</fields>
+				</menu>
+				<menu name="provinces"      action="cb_action:show_provinces"            label="States / Provinces"         description="Configure States / Provinces">
+					<fields>
+						<field name="provinces_count" label="states/provinces defined" type="int">
+							<data  name="provinces_count" type="sql:count" table="#__comprofiler_provinces" />
+						</field>
+					</fields>
+				</menu>
+				<menu name="taxreportmonthly"      action="cb_action:show_taxreportmonthly"            label="Sales Tax / VAT Report"         description="Show monthly tax report on paid invoices">
+				</menu>
+				<showview name="integrationsglobals" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.]" action="" path="payintegrationtaxsettingsmenu" />
+			</menugroup>
+		</view>
+		
+		<view name="showtaxrules" type="params" ui="admin" label="Tax Rules" description="Sales Tax rules settings.">
+			<css file="plugin/cbsubstax/cbsubs.tax.admin.css" />
+			<showview name="integrationsglobals" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.]" action="" path="payintegrationtaxrules" />
+			<tablebrowser name="taxrulesbrowser" table="#__cbsubs_tax_rules" class="cbpaidTaxRule" label="Tax Rules" description="List of applicable tax rules:">
+				<tablemenu>
+					<menu action="cbo:newrow" label="Create New" description="Create new product plan" />
+				</tablemenu>
+				<toolbarmenu>
+					<menu name="new"  action="linkAction" task="new" link="cbo:newrow" label="New" />
+					<menu name="edit"  action="linkAction" task="edit" link="cbo:editrows" label="Edit" />
+					<menu name="copy"  action="linkAction" task="copy" link="cbo:copyrows" label="Copy" />
+					<menu name="delete"  action="linkAction" task="delete" link="cbo:deleterows" label="Delete" />
+					<menu name="spacer1" action="spacer" />
+					<menu name="cancel"   action="linkAction" task="cancel" link="cb_action:show_tax_settings" label="Close" />
+				</toolbarmenu>
+				<quicksearchfields>
+					<field name="name" />
+					<field name="short_code" />
+					<field name="id" valuetype="const:int" />
+				</quicksearchfields>
+				<filters>
+					<filter name="id" type="field_show_only_if_selected" base="int" size="1" default="" label="Plan id"     blanktext="--- By id ---" description="Select a particular row by its id (used to show a given record only)" />
+				</filters>
+				<orderby>
+					<field name="ordering" ordering="ASC" />
+				</orderby>
+				<listfields>
+					<header type="standard" />
+					<rows type="standard" height="auto" limit="20" >
+						<field name=""           type="rownumber"       width="20px" align="right" label="#" />
+						<field name="id"         type="primarycheckbox" width="20px" />
+						<field name="name"       type="string"   translate="true"   link="cbo:rowedit"  parameters="tid" paramvalues="id" title="Edit this tax rule"  description="This is the internal name, not visible by customer."   width="35%" label="Tax Rule Name" class="title" />
+						<field name="short_code" type="string"   translate="true"   width="25%" label="Short Code" description="This is the short code visible on the invoice." />
+						<!--
+							<field name="owner_name"            type="string"   width="20%" label="Owner" class="title">
+							<data name="owner_name" type="sql:function" operator="IF">
+							<data name="" type="sql:operator" operator="=">
+							<data name="owner" type="sql:field" />
+							<data name="0" type="const:int" />
+							</data>
+							<data name="System" type="const:string" translate="yes" />
+							<data name="username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="owner" />
+							</data>
+							</field>
+						-->
+						<field name="default"   type="checkmark" width="5%"  label="Default" description="Default tax rule for all products." onclick="toggle" />
+						<field name="ordering"  type="ordering" value="alias"  width="5%"  label="Order" onclick="arrows,number" description="Ordering of tax rule" />
+						<field name="tax_rates" type="int" link="cb_action:show_tax_rates" parameters="taxratesbrowser[filter_tax_rule]" paramvalues="id" title="Show the tax rates applied to this tax rule" width="5%" align="right" label="Tax Rates" description="Number of tax rates applied to this tax rule">
+							<data name="tax_rates" type="sql:count" distinct="id" table="#__cbsubs_tax_rates" key="tax_rule_id" value="id" />
+						</field>
+						<field name="change_logs"    type="int"       link="cb_action:show_history" parameters="historybrowser[filter_table_name] historybrowser[filter_table_key_id]" paramvalues="#__cbsubs_tax_rules id" paramvaluestypes="const:string sql:field" title="Show change-log for this item" width="5%"  align="right" label="Change Logs" description="Number of changes logged for each item. Click to see corresponding logs.">
+							<data name="change_logs" type="sql:count" distinct="id"  table="#__cbsubs_history" class="cbpaidHistory">
+								<joinkeys dogroupby="true">
+									<column name="table_name"   operator="=" value="#__cbsubs_tax_rules" type="sql:field" valuetype="const:string" />
+									<column name="table_key_id" operator="=" value="id" type="sql:field" valuetype="sql:field" />
+								</joinkeys>
+							</data>
+						</field>
+						<field name="id"        type="int"       width="5%"  align="right" label="Id" />
+					</rows>
+				</listfields>
+			</tablebrowser>
+		</view>
+		
+		<view name="showtaxrates" type="params" ui="admin" label="Tax Rates" description="Tax Rates settings.">
+			<css file="plugin/cbsubstax/cbsubs.tax.admin.css" />
+			<showview name="integrationsglobals" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.]" action="" path="payintegrationtaxrates" />
+			<tablebrowser name="taxratesbrowser" table="#__cbsubs_tax_rates" class="cbpaidsalestaxTotalizertype" label="Tax Rates" description="List of tax rates:">
+				<tablemenu>
+					<menu action="cbo:newrow" label="Create New" description="Create new Tax Rate" />
+				</tablemenu>
+				<toolbarmenu>
+					<menu name="new"  action="linkAction" task="new" link="cbo:newrow" label="New" />
+					<menu name="edit"  action="linkAction" task="edit" link="cbo:editrows" label="Edit" />
+					<menu name="copy"  action="linkAction" task="copy" link="cbo:copyrows" label="Copy" />
+					<menu name="delete"  action="linkAction" task="delete" link="cbo:deleterows" label="Delete" />
+					<menu name="spacer1" action="spacer" />
+					<menu name="cancel"   action="linkAction" task="cancel" link="cb_action:show_tax_settings" label="Close" />
+				</toolbarmenu>
+				<quicksearchfields>
+					<field name="name" />
+					<field name="short_code" />
+					<field name="id" valuetype="const:int" />
+				</quicksearchfields>
+				<filters>
+					<filter name="tax_rule" value="tax_rule_id" type="data" valuetype="sql:int" size="1" default="" label="Tax Rule" blanktext="--- By Tax Rule ---" description="Filter Tax Rates by the Tax Rule they are assigned to" >
+						<data name="zaxrulesnames" type="sql:multiplerows" table="#__cbsubs_tax_rules" key="id">
+							<rows>
+								<field name="id" as="value" />
+								<field name="name" as="text" />
+							</rows>
+							<orderby>
+								<field name="ordering" ordering="ASC" />
+							</orderby>
+						</data>
+					</filter>
+					<filter name="id" type="field_show_only_if_selected" base="int" size="1" default="" label="Tax Rate id"     blanktext="--- By id ---" description="Select a particular row by its id (used to show a given record only)" />
+				</filters>
+				<orderby>
+					<field name="tax_rule_id" ordering="ASC" />
+					<field name="priority" ordering="ASC" />
+					<field name="ordering" ordering="ASC" />
+				</orderby>
+				<listfields>
+					<header type="standard" />
+					<rows type="standard" height="auto" limit="20" >
+						<field name=""            type="rownumber"       width="20px" align="right" label="#" />
+						<field name="id"          type="primarycheckbox" width="20px" />
+						<field name="description" type="string"   translate="true"   link="cbo:rowedit"  parameters="tid" paramvalues="id" title="Edit this tax rate"  description=""   width="15%" label="Tax Rate Description" class="title" />
+						<field name="tax_rate"    type="string"   width="12%" label="Tax rate" description="" />
+						<field name="priority"    type="string"   width="12%" label="Tax priority" description="Taxes rates of same priority are added, and of different priorities are compounded in priority order (Priority 1 first)" />
+						<field name="tax_rule"              type="string"    link="cb_action:show_tax_rules" parameters="taxrulesbrowser[filter_id]" paramvalues="tax_rule_id"  title="Show the Tax Rule using this entry" width="15%" label="Tax Rule">
+							<data name="name" as="tax_rule" type="sql:field" table="#__cbsubs_tax_rules" class="cbpaidTaxRule" key="id" value="tax_rule_id" />
+						</field>
+						<field name="buyer_geo_zone"              type="string"    link="cb_action:show_geo_zones" parameters="geozonesbrowser[filter_zone]" paramvalues="buyer_geo_zone"  title="Show the Geographic Zone of this entry" width="15%" label="Geographic Zone of Buyer">
+							<data name="name" as="buyer_geo_zone" type="sql:field" table="#__cbsubs_geo_zones" class="cbpaidGeoZone" key="id" value="buyer_geo_zone_id" />
+						</field>
+						<field name="seller_geo_zone"              type="string"    link="cb_action:show_geo_zones" parameters="geozonesbrowser[filter_zone]" paramvalues="seller_geo_zone"  title="Show the Geographic Zone of this entry" width="15%" label="Geographic Zone of Seller">
+							<data name="name" as="seller_geo_zone" type="sql:field" table="#__cbsubs_geo_zones" class="cbpaidGeoZone" key="id" value="seller_geo_zone_id" />
+						</field>
+						<field name="tax_inside_of_country"   type="list" width="5%"  label="Applies inland" description="Does this tax apply for sales inside of the seller Country">
+							<option value="0">No</option>
+							<option value="1">All</option>
+							<option value="2">B2C</option>
+							<option value="3">B2B</option>
+						</field>
+						<field name="tax_outside_of_country"   type="list" width="5%"  label="Applies to export" description="Does this tax apply for sales outside of the seller Country">
+							<option value="0">No</option>
+							<option value="1">All</option>
+							<option value="2">B2C</option>
+							<option value="3">B2B</option>
+						</field>
+						<field name="tax_inside_of_state"   type="list" width="5%"  label="Applies in-state" description="Does this tax apply for sales inside of the seller State / Province">
+							<option value="0">No</option>
+							<option value="1">All</option>
+							<option value="2">B2C</option>
+							<option value="3">B2B</option>
+						</field>
+						<field name="tax_outside_of_state"   type="list" width="5%"  label="Applies out-of-state" description="Does this tax apply for sales outside of the seller State / Province">
+							<option value="0">No</option>
+							<option value="1">All</option>
+							<option value="2">B2C</option>
+							<option value="3">B2B</option>
+						</field>
+						<field name="published"   type="published" width="5%"  align="center" label="Published" onclick="toggle" description="Basic publishing: Unpublished rates are not valid at all." />
+						<field name="start_date" type="datetime" default="0000-00-00 00:00:00" width="10%" label="Start date of validity" description="As tax rates can change, a given tax may be applicable only to a given time period. Leave default if there is no start date." />
+						<field name="stop_date"  type="datetime" default="0000-00-00 00:00:00" width="10%" label="End date of validity" description="As tax rates can change, a given tax may be applicable only to a given time period. Leave default if there is no end date." />
+						<field name="ordering"    type="ordering" value="alias"  width="5%"  label="Order" onclick="arrows,number" description="Ordering of tax rate">
+							<orderinggroups>
+								<ordering name="tax_rule_name" type="string">
+									<data name="name" as="tax_rule_name" type="sql:field" table="#__cbsubs_tax_rules" class="cbpaidTaxRule" key="id" value="tax_rule_id" />
+								</ordering>
+								<ordering name="priority" type="int" />
+							</orderinggroups>
+						</field>
+						<field name="change_logs"    type="int"       link="cb_action:show_history" parameters="historybrowser[filter_table_name] historybrowser[filter_table_key_id]" paramvalues="#__cbsubs_geo_zones id" paramvaluestypes="const:string sql:field" title="Show change-log for this item" width="5%"  align="right" label="Change Logs" description="Number of changes logged for each item. Click to see corresponding logs.">
+							<data name="change_logs" type="sql:count" distinct="id"  table="#__cbsubs_history" class="cbpaidHistory">
+								<joinkeys dogroupby="true">
+									<column name="table_name"   operator="=" value="#__cbsubs_geo_zones" type="sql:field" valuetype="const:string" />
+									<column name="table_key_id" operator="=" value="id" type="sql:field" valuetype="sql:field" />
+								</joinkeys>
+							</data>
+						</field>
+						<field name="id"        type="int"       width="5%"  align="right" label="Id" />
+					</rows>
+				</listfields>
+			</tablebrowser>
+		</view>
+		
+		<view name="showgeozones" type="params" ui="admin" label="Geographic Zones" description="Geographic Zones settings.">
+			<css file="plugin/cbsubstax/cbsubs.tax.admin.css" />
+			<showview name="integrationsglobals" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.]" action="" path="payintegrationzones" />
+			<tablebrowser name="geozonesbrowser" table="#__cbsubs_geo_zones" class="cbpaidGeoZone" label="Geographic Zones" description="List of Geographic Zones:">
+				<tablemenu>
+					<menu action="cbo:newrow" label="Create New" description="Create new Geographic Zone" />
+				</tablemenu>
+				<toolbarmenu>
+					<menu name="new"  action="linkAction" task="new" link="cbo:newrow" label="New" />
+					<menu name="edit"  action="linkAction" task="edit" link="cbo:editrows" label="Edit" />
+					<menu name="copy"  action="linkAction" task="copy" link="cbo:copyrows" label="Copy" />
+					<menu name="delete"  action="linkAction" task="delete" link="cbo:deleterows" label="Delete" />
+					<menu name="spacer1" action="spacer" />
+					<menu name="cancel"   action="linkAction" task="cancel" link="cb_action:show_tax_settings" label="Close" />
+				</toolbarmenu>
+				<quicksearchfields>
+					<field name="name" />
+					<field name="short_code" />
+					<field name="id" valuetype="const:int" />
+				</quicksearchfields>
+				<filters>
+					<filter name="id" type="field_show_only_if_selected" base="int" size="1" default="" label="Geographic Zone id"     blanktext="--- By id ---" description="Select a particular row by its id (used to show a given record only)" />
+				</filters>
+				<orderby>
+					<field name="ordering" ordering="ASC" />
+				</orderby>
+				<listfields>
+					<header type="standard" />
+					<rows type="standard" height="auto" limit="20" >
+						<field name=""           type="rownumber"       width="20px" align="right" label="#" />
+						<field name="id"         type="primarycheckbox" width="20px" />
+						<field name="name"       type="string"   translate="true"   link="cbo:rowedit"  parameters="tid" paramvalues="id" title="Edit this Geographic Zone"  description="This is the internal name, not visible by customer."   width="35%" label="Geographic Zone Name" class="title" />
+						<field name="description" type="firstwords"   translate="true"  description="This is the internal description, not visible by customer."   width="45%" label="Geographic Zone Description" />
+						<!--
+							<field name="owner_name"            type="string"   width="25%" label="Owner" class="title">
+							<data name="owner_name" type="sql:function" operator="IF">
+							<data name="" type="sql:operator" operator="=">
+							<data name="owner" type="sql:field" />
+							<data name="0" type="const:int" />
+							</data>
+							<data name="System" type="const:string" translate="yes" />
+							<data name="username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="owner" />
+							</data>
+							</field>
+						-->
+						<field name=""  type="spacer" default="EDIT&amp;nbsp;ENTRIES" translate="true" link="cb_action:show_geo_zone_entries" parameters="geozoneentriesbrowser[filter_geo_zone]" paramvalues="id" title="Edit the Geographic Zone Entries corresponding to this Geographic Zone" width="10%" label="Edit Entries" description="This is the link to edit Geographic Zone Entries belonging to this Geographic Zone" class="cbadminLinksAsButtons"  />
+						<field name="ordering"   type="ordering" value="alias"  width="5%"  label="Order" onclick="arrows,number" description="Ordering of Geographic Zone" />
+						<field name="zone_entries"  type="int" link="cb_action:show_geo_zone_entries" parameters="geozoneentriesbrowser[filter_geo_zone]" paramvalues="id" title="Show the Geographic Zone Entries corresponding to this Geographic Zone" width="5%" align="right" label="Geographic Zone Entries" description="Number of Geographic Zone Entries belonging to this Geographic Zone">
+							<data name="zone_entries" type="sql:count" distinct="id" table="#__cbsubs_geo_zones_entries" key="geo_zone_id" value="id" />
+						</field>
+						<field name="change_logs"    type="int"       link="cb_action:show_history" parameters="historybrowser[filter_table_name] historybrowser[filter_table_key_id]" paramvalues="#__cbsubs_geo_zones id" paramvaluestypes="const:string sql:field" title="Show change-log for this item" width="5%"  align="right" label="Change Logs" description="Number of changes logged for each item. Click to see corresponding logs.">
+							<data name="change_logs" type="sql:count" distinct="id"  table="#__cbsubs_history" class="cbpaidHistory">
+								<joinkeys dogroupby="true">
+									<column name="table_name"   operator="=" value="#__cbsubs_geo_zones" type="sql:field" valuetype="const:string" />
+									<column name="table_key_id" operator="=" value="id" type="sql:field" valuetype="sql:field" />
+								</joinkeys>
+							</data>
+						</field>
+						<field name="id"        type="int"       width="5%"  align="right" label="Id" />
+					</rows>
+				</listfields>
+			</tablebrowser>
+		</view>
+		
+		<view name="showgeozoneentries" type="params" ui="admin" label="Geographic Zone Entries" description="Country and State / Province entries forming a Geographic Zone.">
+			<css file="plugin/cbsubstax/cbsubs.tax.admin.css" />
+			<showview name="integrationsglobals" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.]" action="" path="payintegrationzoneentries" />
+			<tablebrowser name="geozoneentriesbrowser" table="#__cbsubs_geo_zones_entries" class="cbpaidGeoZoneEntry" label="Geographic Zone Entries" description="List of Geographic Zone Entries:">
+				<tablemenu>
+					<menu action="cbo:newrow" label="Create New" description="Create new Geographic Zone Entry" />
+				</tablemenu>
+				<toolbarmenu>
+					<menu name="new"  action="linkAction" task="new" link="cbo:newrow" label="New" />
+					<menu name="edit"  action="linkAction" task="edit" link="cbo:editrows" label="Edit" />
+					<menu name="copy"  action="linkAction" task="copy" link="cbo:copyrows" label="Copy" />
+					<menu name="delete"  action="linkAction" task="delete" link="cbo:deleterows" label="Delete" />
+					<menu name="spacer1" action="spacer" />
+					<menu name="cancel"   action="linkAction" task="cancel" link="cb_action:show_geo_zones" label="Close" />
+				</toolbarmenu>
+				<quicksearchfields>
+					<field name="country_iso_code2" />
+					<field name="province_iso_code" />
+					<field name="zip_code_min" />
+					<field name="zip_code_max" />
+					<field name="id" valuetype="const:int" />
+				</quicksearchfields>
+				<filters>
+					<filter name="geo_zone" value="geo_zone_id" type="data" valuetype="sql:int" size="1" default="" label="Geographic Zone" blanktext="--- By Geographic Zone ---" description="Filter Geographic Zone Entries by the Geographic Zone they are assigned to" >
+						<data name="zoneidsnames" type="sql:multiplerows" table="#__cbsubs_geo_zones" key="id">
+							<rows>
+								<field name="id" as="value" />
+								<field name="name" as="text" />
+							</rows>
+							<orderby>
+								<field name="ordering" ordering="ASC" />
+							</orderby>
+						</data>
+					</filter>
+					<filter name="country_iso_code2" type="data" value="country_iso_code2" valuetype="sql:string" size="1" default="" label="Country" blanktext="--- By country ---" description="Filter Geographic Zone Entries by the country of the Geographic Zone Entry" />
+					<filter name="province_iso_code" type="data" value="province_iso_code" valuetype="sql:string" size="1" default="" label="State / Province" blanktext="--- By state/province ---" description="Filter Geographic Zone Entries by the state/province of the Geographic Zone Entry" />
+					<filter name="id" type="field_show_only_if_selected" base="int" size="1" default="" label="Geographic Zone Entry id"     blanktext="--- By id ---" description="Select a particular row by its id (used to show a given record only)" />
+				</filters>
+				<orderby>
+					<field name="ordering" ordering="ASC" />
+				</orderby>
+				<listfields>
+					<header type="standard" />
+					<rows type="standard" height="auto" limit="20" >
+						<field name=""           type="rownumber"       width="20px" align="right" label="#" />
+						<field name="id"         type="primarycheckbox" width="20px" />
+						<field name="" type="spacer" label="Edit" default="Edit" translate="true"   link="cbo:rowedit"  parameters="tid" paramvalues="id" title="Edit this Geographic Zone Entry"  width="10%" />
+						<field name="geo_zone"              type="string"    link="cb_action:show_geo_zones" parameters="geozonesbrowser[filter_zone]" paramvalues="geo_zone_id"  title="Show the Geographic Zone of this entry" width="15%" label="Geographic Zone">
+							<data name="name" as="geo_zone" type="sql:field" table="#__cbsubs_geo_zones" class="cbpaidGeoZone" key="id" value="geo_zone_id" />
+						</field>
+						<field name="country"              type="string"    link="cb_action:show_countries" parameters="countriesbrowser[filter_country]" paramvalues="country_iso_code2"  title="Show the Country of this entry" width="15%" label="Country">
+							<data name="country_name" as="country" type="sql:field" table="#__comprofiler_countries" class="moscomprofilerCountry" key="country_iso_code2" value="country_iso_code2" />
+						</field>
+						<field name="province"              type="string"    link="cb_action:show_provinces" parameters="geozonesbrowser[filter_province]" paramvalues="province_iso_code"  title="Show the State / Province of this entry" width="15%" label="State / Province">
+							<data name="province_name" as="province" type="sql:field" table="#__comprofiler_provinces" class="moscomprofilerProvince" key="province_iso_code" value="province_iso_code" />
+						</field>
+						<field name="zip_code"            type="string"   width="10%" label="Zip Codes" title="Zip codes filtering by regexp or by range">
+							<data name="zip_code" type="sql:function" operator="IF">
+								<data name="" type="sql:operator" operator="=">
+									<data name="zip_code_condition" type="sql:field" />
+									<data name="0" type="const:int" />
+								</data>
+								<data name="All" type="const:string" translate="yes" />
+								<data name="" type="sql:function" operator="IF">
+									<data name="" type="sql:operator" operator="=">
+										<data name="zip_code_condition" type="sql:field" />
+										<data name="1" type="const:int" />
+									</data>
+									<data name="zip_code_regexp" type="sql:field" />
+									<data name="" type="sql:function" operator="CONCAT">
+										<data name="zip_code_min" type="sql:field" />
+										<data name=" - " type="const:string" />
+										<data name="zip_code_max" type="sql:field" />
+									</data>
+								</data>
+							</data>
+						</field>
+						<field name="ordering"   type="ordering" value="alias"  width="5%"  label="Order" onclick="arrows,number" description="Ordering of Geographic Zone" />
+						<!--
+							<field name="owner_name"            type="string"   width="10%" label="Owner" class="title">
+							<data name="owner_name" type="sql:function" operator="IF">
+							<data name="" type="sql:operator" operator="=">
+							<data name="owner" type="sql:field" />
+							<data name="0" type="const:int" />
+							</data>
+							<data name="System" type="const:string" translate="yes" />
+							<data name="username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="owner" />
+							</data>
+							</field>
+						-->
+						<field name="change_logs"    type="int"       link="cb_action:show_history" parameters="historybrowser[filter_table_name] historybrowser[filter_table_key_id]" paramvalues="#__cbsubs_geo_zones_entries id" paramvaluestypes="const:string sql:field" title="Show change-log for this item" width="5%"  align="right" label="Change Logs" description="Number of changes logged for each item. Click to see corresponding logs.">
+							<data name="change_logs" type="sql:count" distinct="id"  table="#__cbsubs_history" class="cbpaidHistory">
+								<joinkeys dogroupby="true">
+									<column name="table_name"   operator="=" value="#__cbsubs_geo_zones_entries" type="sql:field" valuetype="const:string" />
+									<column name="table_key_id" operator="=" value="id" type="sql:field" valuetype="sql:field" />
+								</joinkeys>
+							</data>
+						</field>
+						<field name="id"        type="int"       width="5%"  align="right" label="Id" />
+					</rows>
+				</listfields>
+			</tablebrowser>
+		</view>
+		
+		<view name="showcountries" type="params" ui="admin" label="Countries" description="Countries settings.">
+			<css file="plugin/cbsubstax/cbsubs.tax.admin.css" />
+			<showview name="integrationsglobals" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.]" action="" path="payintegrationcountries" />
+			<tablebrowser name="countriesbrowser" table="#__comprofiler_countries" class="moscomprofilerCountry" label="Countries" description="List of countries:">
+				<tablemenu>
+					<menu action="cbo:newrow" label="Create New" description="Create new Country" />
+				</tablemenu>
+				<toolbarmenu>
+					<menu name="new"  action="linkAction" task="new" link="cbo:newrow" label="New" />
+					<menu name="edit"  action="linkAction" task="edit" link="cbo:editrows" label="Edit" />
+					<menu name="copy"  action="linkAction" task="copy" link="cbo:copyrows" label="Copy" />
+					<menu name="delete"  action="linkAction" task="delete" link="cbo:deleterows" label="Delete" />
+					<menu name="spacer1" action="spacer" />
+					<menu name="cancel"   action="linkAction" task="cancel" link="cb_action:show_tax_settings" label="Close" />
+				</toolbarmenu>
+				<quicksearchfields>
+					<field name="country_name" />
+					<field name="country_iso_code2" />
+					<field name="country_iso_code3" />
+					<field name="country_iso_num" valuetype="const:int" />
+					<field name="country_fips_code" />
+					<field name="country_taxnumber_prefix" />
+					<field name="country_fips_name" />
+					<field name="country_alternate_names" />
+				</quicksearchfields>
+				<filters>
+					<filter name="country_iso_code2" type="field_show_only_if_selected" base="text" size="1" default="" label="Country ISO 3166-1 alpha-2 id"     blanktext="--- By ISO 3166-1 id ---" description="Select a particular row by its id (used to show a given record only)" />
+					<filter name="geo_zone_id" value="geo_zone_id" type="data" size="1"  default="" label="Used in Geographic Zone" blanktext="--- By use in Geographic Zone ---" description="Filter Countries by Geographic Zone they are used in" >
+						<data name="zoneidsnames" type="sql:multiplerows" table="#__cbsubs_geo_zones" class="cbpaidGeoZone" key="id">
+							<rows>
+								<field name="value" type="int">
+									<data name="id" as="value" type="sql:field" />
+								</field>
+								<field name="text" type="string" >
+									<data name="name" as="text" type="sql:field" />
+								</field>
+							</rows>
+							<where>
+								<column name="id"     operator="=" value="geo_zone_id" type="int"       valuetype="sql:formula">
+									<data name="geo_zone_id" type="sql:field" table="#__cbsubs_geo_zones_entries" class="cbpaidGeoZoneEntry" key="geo_zone_id" value="id" valuetype="sql:field">
+										<data name="country_iso_code2" type="sql:field" table="#__comprofiler_countries" class="moscomprofilerCountry" key="country_iso_code2" value="country_iso_code2" valuetype="sql:field" />
+									</data>
+								</column>
+							</where>
+							<orderby>
+								<field name="ordering" ordering="ASC" />
+							</orderby>
+						</data>
+					</filter>
+				</filters>
+				<orderby>
+					<field name="country_name" ordering="ASC" />
+				</orderby>
+				<listfields>
+					<header type="standard" />
+					<rows type="standard" height="auto" limit="20" >
+						<field name=""            type="rownumber"       width="20px" align="right" label="#" />
+						<field name="country_iso_code2"          type="primarycheckbox" width="20px" />
+						<field name="country_name"             type="string"   translate="true"   link="cbo:rowedit"  parameters="tid" paramvalues="country_iso_code2" title="Edit this country"  description=""   width="20%" label="Country name" class="title" />
+						<field name="country_iso_code2"        type="string"   width="10%" label="Country 2-characters-code"  description="Country ISO 3166-1 alpha-2" />
+						<field name="country_iso_code3"        type="string"   width="10%" label="Country 3-characters-code"  description="Country ISO 3166-1 alpha-3" />
+						<field name="country_iso_num"          type="string"   width="10%" label="Country numeric ISO code"  description="Country ISO 3166-1 numeric-3" />
+						<field name="country_taxnumber_prefix" type="string"   width="10%" label="Tax numbers prefix" description="Tax numbers prefixes in country" />
+						<field name="country_region"           type="string"   translate="true"  description=""   width="10%" label="World Region" />
+						<field name="country_sub_region"       type="string"   translate="true"  description=""   width="15%" label="World Sub-Region" />
+						<field name="provinces"  type="int" link="cb_action:show_provinces" parameters="provincesbrowser[filter_country_iso_code2]" paramvalues="country_iso_code2" title="Show the states/provinces of this country" width="5%" align="right" label="States / Provinces" description="Number of States / Provinces in this Country.">
+							<data name="provinces" type="sql:count" distinct="province_iso_code" table="#__comprofiler_provinces" key="country_iso_code2" value="country_iso_code2" />
+						</field>
+						<field name="country_provinces_title"  type="string"   translate="true"  description=""   width="10%" label="World Sub-Region" />
+						<field name="geo_zones"  type="int" link="cb_action:show_geo_zone_entries" parameters="geozoneentriesbrowser[filter_country_iso_code2]" paramvalues="country_iso_code2" title="Show the Geographic Zone Entries using this Country" width="5%" align="right" label="Geographic Zones Entries" description="Number of Geographic Zones Entries using this Country.">
+							<data name="geo_zones" type="sql:count" distinct="id" table="#__cbsubs_geo_zones_entries" key="country_iso_code2" value="country_iso_code2" />
+						</field>
+						<field name="change_logs"    type="int"       link="cb_action:show_history" parameters="historybrowser[filter_table_name] historybrowser[filter_table_key_id]" paramvalues="#__comprofiler_countries country_iso_code2" paramvaluestypes="const:string sql:field" title="Show change-log for this item" width="5%"  align="right" label="Change Logs" description="Number of changes logged for each item. Click to see corresponding logs.">
+							<data name="change_logs" type="sql:count" distinct="id"  table="#__cbsubs_history" class="cbpaidHistory">
+								<joinkeys dogroupby="true">
+									<column name="table_name"   operator="=" value="#__comprofiler_countries" type="sql:field" valuetype="const:string" />
+									<column name="table_key_id" operator="=" value="country_iso_code2" type="sql:field" valuetype="sql:field" />
+								</joinkeys>
+							</data>
+						</field>
+					</rows>
+				</listfields>
+			</tablebrowser>
+		</view>
+		
+		<view name="showprovinces" type="params" ui="admin" label="States / Provinces" description="States / Provinces settings.">
+			<css file="plugin/cbsubstax/cbsubs.tax.admin.css" />
+			<showview name="integrationsglobals" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.]" action="" path="payintegrationprovinces" />
+			<tablebrowser name="provincesbrowser" table="#__comprofiler_provinces" class="moscomprofilerProvince" label="States / Provinces" description="List of states/provinces:">
+				<tablemenu>
+					<menu action="cbo:newrow" label="Create New" description="Create new State / Province" />
+				</tablemenu>
+				<toolbarmenu>
+					<menu name="new"  action="linkAction" task="new" link="cbo:newrow" label="New" />
+					<menu name="edit"  action="linkAction" task="edit" link="cbo:editrows" label="Edit" />
+					<menu name="copy"  action="linkAction" task="copy" link="cbo:copyrows" label="Copy" />
+					<menu name="delete"  action="linkAction" task="delete" link="cbo:deleterows" label="Delete" />
+					<menu name="spacer1" action="spacer" />
+					<menu name="cancel"   action="linkAction" task="cancel" link="cb_action:show_tax_settings" label="Close" />
+				</toolbarmenu>
+				<quicksearchfields>
+					<field name="province_name" />
+					<field name="province_iso_code" />
+					<field name="country_iso_code2" />
+				</quicksearchfields>
+				<filters>
+					<filter name="country_iso_code2" type="data" value="country_iso_code2" valuetype="sql:string" size="1" default="" label="Country" blanktext="--- By country ---" description="Filter Geographic Zone Entries by the country of the Geographic Zone Entry" />
+					<filter name="province_iso_code" type="field_show_only_if_selected" base="text" size="1" default="" label="Country ISO 3166-1 alpha-2 id"     blanktext="--- By ISO 3166-1 id ---" description="Select a particular row by its id (used to show a given record only)" />
+					<filter name="geo_zone_id" value="geo_zone_id" type="data" size="1"  default="" label="Used in Geographic Zone" blanktext="--- By use in Geographic Zone ---" description="Filter States / Provinces by Geographic Zone they are used in" >
+						<data name="zoneidsnames" type="sql:multiplerows" table="#__cbsubs_geo_zones" class="cbpaidGeoZone" key="id">
+							<rows>
+								<field name="value" type="int">
+									<data name="id" as="value" type="sql:field" />
+								</field>
+								<field name="text" type="string" >
+									<data name="name" as="text" type="sql:field" />
+								</field>
+							</rows>
+							<where>
+								<column name="id"     operator="=" value="geo_zone_id" type="int"       valuetype="sql:formula">
+									<data name="geo_zone_id" type="sql:field" table="#__cbsubs_geo_zones_entries" class="cbpaidGeoZoneEntry" key="geo_zone_id" value="id" valuetype="sql:field">
+										<data name="province_iso_code" type="sql:field" table="#__comprofiler_provinces" class="moscomprofilerProvince" key="province_iso_code" value="province_iso_code" valuetype="sql:field" />
+									</data>
+								</column>
+							</where>
+							<orderby>
+								<field name="ordering" ordering="ASC" />
+							</orderby>
+						</data>
+					</filter>
+				</filters>
+				<orderby>
+					<field name="country_iso_code2" ordering="ASC" />
+					<field name="province_name" ordering="ASC" />
+				</orderby>
+				<listfields>
+					<header type="standard" />
+					<rows type="standard" height="auto" limit="20" >
+						<field name=""            type="rownumber"       width="20px" align="right" label="#" />
+						<field name="province_iso_code"    type="primarycheckbox" width="20px" />
+						<field name="province_name"        type="string"   translate="true"   link="cbo:rowedit"  parameters="tid" paramvalues="province_iso_code" title="Edit this state/province"  description=""   width="35%" label="State / Province name" class="title" />
+						<field name="province_latin_name"  type="string"   translate="true"   link="cbo:rowedit"  parameters="tid" paramvalues="province_iso_code" title="Edit this state/province"  description=""   width="35%" label="State / Province name in latin" class="title" />
+						<field name="province_iso_code"    type="string"   width="25%" label="State / Province 3-characters-code"  description="Country ISO 3166-1 alpha-3" />
+						<field name="country"              type="string"   link="cb_action:show_countries" parameters="countriesbrowser[filter_country]" paramvalues="country_iso_code2"  title="Show the Country of this entry" width="35%" label="Country">
+							<data name="country_name" as="country" type="sql:field" table="#__comprofiler_countries" class="moscomprofilerCountry" key="country_iso_code2" value="country_iso_code2" />
+						</field>
+						<field name="country_iso_code2"   type="string"   width="15%" label="Country 2-characters-code"  description="Country ISO 3166-1 alpha-2" />
+						<field name="geo_zones"           type="int"      link="cb_action:show_geo_zones" parameters="geozonesbrowser[filter_province_iso_code]" paramvalues="province_iso_code" title="Show the Geographic Zones using this State / Province" width="5%" align="right" label="Geographic Zones Entries" description="Number of Geographic Zones Entries using this state/province.">
+							<data name="geo_zones" type="sql:count" distinct="id" table="#__cbsubs_geo_zones_entries" key="province_iso_code" value="province_iso_code" />
+						</field>
+						<field name="change_logs"    type="int"       link="cb_action:show_history" parameters="historybrowser[filter_table_name] historybrowser[filter_table_key_id]" paramvalues="#__comprofiler_provinces province_iso_code" paramvaluestypes="const:string sql:field" title="Show change-log for this item" width="5%"  align="right" label="Change Logs" description="Number of changes logged for each item. Click to see corresponding logs.">
+							<data name="change_logs" type="sql:count" distinct="id"  table="#__cbsubs_history" class="cbpaidHistory">
+								<joinkeys dogroupby="true">
+									<column name="table_name"   operator="=" value="#__comprofiler_provinces" type="sql:field" valuetype="const:string" />
+									<column name="table_key_id" operator="=" value="province_iso_code" type="sql:field" valuetype="sql:field" />
+								</joinkeys>
+							</data>
+						</field>
+					</rows>
+				</listfields>
+			</tablebrowser>
+		</view>
+		
+		<view name="showtaxreportmonthly" type="params" ui="admin" label="Sales tax report" description="Monthly tax report on paid invoices.&lt;br /&gt;&lt;br /&gt;&lt;strong&gt;WARNING:&lt;/strong&gt; The amounts below are automatically calculated for your double-checking and reconciliation with your bank.&lt;br /&gt;&lt;strong&gt;NO WARRANTY:&lt;/strong&gt; there is no warranty on these calculated numbers.">
+			<css file="plugin/cbsubstax/cbsubs.tax.admin.css" />
+			<showview name="integrationsglobals" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.]" action="" path="payintegrationtaxreportmonthly" />
+			<tablebrowser name="taxreportmonthlybrowser" table="#__cbsubs_payment_baskets" class="cbpaidPaymentBasket" label="Sales tax report by month and currency" description="Sales taxes invoiced to customers and paid each month by currency:">
+				<toolbarmenu>
+					<menu name="close"   action="linkAction" task="cancel" link="cb_action:show_tax_settings" label="Close" />
+				</toolbarmenu>
+				<quicksearchfields>
+					<field name="user_id" valuetype="const:int" />
+					<field name="username" />
+					<field name="name" />
+					<field name="payer_email" />
+					<field name="invoice" />
+					<field name="txn_id" />
+					<field name="parent_txn_id" />
+					<field name="sale_id" />
+					<field name="auth_id" />
+					<field name="mc_gross" valuetype="sql:float"/>
+					<field name="id" valuetype="const:int" />
+				</quicksearchfields>
+				<filters>
+					<filter name="id" type="field_show_only_if_selected" base="int" size="1" default="" label="Payment basket id"     blanktext="--- By id ---" description="Select a particular basket by its id (used to show a given basket only)" />
+					<filter name="time_completed_date" type="field_show_only_if_selected" base="string" size="1" default="" label="Payment date"      blanktext="--- By payment date ---" description="Select a particular payments date (used to show all payments from a given date only)" />
+					<filter name="time_completed_day_of_week" type="field_show_only_if_selected" base="int" size="1" default="" label="Payment of day of week"      blanktext="--- By day of week payment ---" description="Select payments of a particular day of week (used to show all payments from a given day of week only)" />
+					<!-- above should be base=xml:day_of_week but doesn't work -->
+					<filter name="time_completed_yearweek" type="field_show_only_if_selected"  base="string" size="1" default="" label="Payment of week"      blanktext="--- By week of payment ---"  description="Select payments of a particular week (used to show all payments from a given week only)" />
+					<filter name="time_completed_yearmonth" type="field_show_only_if_selected" base="string" size="1" default="" label="Payment of month"     blanktext="--- By month of payment ---" description="Select payments of a particular month (used to show all payments from a given month only)" />
+					<filter name="time_completed_hour" type="field_show_only_if_selected" base="int" size="1" default="" label="Payment for a given hour"     blanktext="--- By hour of day ---" description="Select payments of a particular hour of day (used to show all payments from a gven full hour in day only)" />
+					<filter name="plan_id" value="plan_id" type="data" size="1"  view="paymentitems">
+						<data name="plansidsnames" type="sql:multiplerows" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id">
+							<rows>
+								<field name="value" type="int">
+									<data name="id" as="value" type="sql:field" />
+								</field>
+								<field name="text" type="string" >
+									<data name="alias" as="text" type="sql:field" />
+								</field>
+								<!-- For the cbpaidPlansMgr::productObjects instanciator: -->
+								<field name="item_type" type="sql:field" />
+							</rows>
+							<where>
+								<column name="id"     operator="=" value="plan_id" type="int"       valuetype="sql:formula">
+									<data name="plan_id" type="sql:field" table="#__cbsubs_payment_items" class="cbpaidPayementItem" key="plan_id" value="id" valuetype="sql:field">
+										<data name="basket_id" type="sql:field" table="#__cbsubs_payment_baskets" class="cbpaidPayementBasket" key="id" value="payment_basket_id" valuetype="sql:field">
+											<where>
+												<column name="payment_status" operator="=" value="Completed" type="sql:field" valuetype="const:string" />
+											</where>
+										</data>
+									</data>
+								</column>
+							</where>
+							<orderby>
+								<field name="ordering" ordering="ASC" />
+							</orderby>
+						</data>
+					</filter>
+					<view name="paymentitems" type="params">
+						<fieldset name="paymentitems" label="Subscriptions" description="">
+							<param name="filter_plan_id"        type="data" size="1" default="" label="Plan" blanktext="--- By plan ---" description="Filter payments by the name of the plan" />
+						</fieldset>
+					</view>
+					<filter name="mc_currency"    value="mc_currency"      type="sql:string" operator="=" view="currencyamounts" />
+					<filter name="mc_gross"       value="mc_gross"         type="sql:float"  operator="=" view="currencyamounts" />
+					<filter name="gateway_account" value="gateway_account" type="data" valuetype="sql:int" operator="=" view="currencyamounts">
+						<data name="gatewayaccounts" type="sql:multiplerows" table="#__cbsubs_gateway_accounts" key="id" class="cbpaidGatewaysAccountsMgr::gatewayAccountObjects">
+							<rows>
+								<field name="id" as="value" />
+								<field name="name" as="text" />
+							</rows>
+							<orderby>
+								<field name="ordering" ordering="ASC" />
+							</orderby>
+						</data>
+					</filter>
+					<filter name="payment_method" value="payment_method" type="sql:string" operator="=" view="currencyamounts" />
+					<filter name="payment_type"       value="payment_type"       type="sql:string" operator="=" view="currencyamounts" />
+					<filter name="payment_status" value="payment_status" type="sql:string" operator="=" view="currencyamounts" />
+					<filter name="address_country_code" value="address_country_code" type="data" valuetype="sql:string" operator="=" view="currencyamounts">
+						<data name="address_country_code" type="sql:multiplerows" table="#__cbsubs_payment_baskets" key="id">
+							<rows>
+								<field name="address_country_code" as="value" />
+								<field name="address_country" as="text" />
+							</rows>
+							<orderby>
+								<field name="address_country" ordering="ASC" />
+							</orderby>
+						</data>
+					</filter>
+
+					<filter name="tax" value="tax" type="list" valuetype="const:float" base="float" view="currencyamounts">
+						<option operator="&gt;=" value="0.00001">Taxed</option>
+						<option operator="=||ISNULL" value="0.0">Not Taxed</option>
+					</filter>
+					<view name="currencyamounts" type="params">
+						<fieldset name="currencypayments" label="Payments" description="">
+							<param name="filter_mc_currency"     type="data" size="1" default="" label="Currency"      blanktext="--- currency ---" description="Filter payments based on payment currency" />
+							<param name="filter_mc_gross"        type="data" size="1" default="" label="Gross amount"  blanktext="--- gross amount ---" description="Filter payments based on payment amount" />
+							<param name="filter_gateway_account" type="data" size="1" default="" label="Gateway account"    blanktext="--- gateway account ---" description="Filter payments by payment gateway account" />
+							<param name="filter_payment_method"  type="xml:payment_method" size="1" default="" label="Payment using" blanktext="--- payment using ---" description="Filter payments using payment method" />
+							<param name="filter_payment_type"        type="data" size="1" default="" label="Payment type" blanktext="--- payment type ---" description="Filter payments using payment type" />
+							<param name="filter_payment_status"  type="xml:payment_status" size="1" default="" label="Payment status" blanktext="--- payment status ---" description="Filter payment baskets by their current status" />
+							<param name="filter_address_country_code" type="data" size="1" default="" label="Country"    blanktext="--- country ---" description="Filter payments by country of invoicing address" />
+							<param name="filter_tax"   type="data" size="1" default="" label="Taxed" blanktext="--- Tax status ---" description="Filter payment baskets by their tax" />
+						</fieldset>
+					</view>
+					<filter name="from" value="time_completed" type="datetime" valuetype="date" operator="&gt;=" view="fromto" />
+					<filter name="upto" value="time_completed" type="datetime" valuetype="date" operator="&lt;=" view="fromto" />
+					<filter name="last" value="time_completed" type="xml:last_duration" valuetype="sql:formula" operator="&gt;" view="fromto" />
+					<view name="fromto" type="params">
+						<fieldset name="calendarperiod" label="Date and time" description="By date and time of completed payment:">
+							<param name="filter_from" type="datetime" size="1" default="" label="From"  blanktext="--- From ---"  description="Filter from a given date on" />
+							<param name="filter_upto" type="datetime" size="1" default="" label="Up to" blanktext="--- Up to ---" description="Filter up to a given date NOT included" />
+							<param name="filter_last" type="xml:last_duration" size="1" default="" label="Period" blanktext="--- Turnover in last ---" description="Filter for a given period of time" />
+						</fieldset>
+					</view>
+				</filters>
+				<where>
+					<column name="payment_status" operator="=" value="Completed" type="sql:field" valuetype="const:string" />
+				</where>
+				<orderby>
+					<field name="time_completed_yearmonth" ordering="DESC" />
+					<field name="mc_currency" ordering="ASC" />
+				</orderby>
+				<groupby>
+					<field name="time_completed_yearmonth" />
+					<field name="mc_currency" />
+				</groupby>
+				<!-- Doesn't work yet and here, wrong results with adding amounts from different currencies:
+					<groupby withrollup="true">
+						<field name="time_completed_yearmonth" ordering="DESC" />
+						<field name="mc_currency" ordering="ASC" />
+					</groupby>
+				-->
+				<listfields>
+					<header type="standard" />
+					<rows type="standard" height="auto" limit="12" limits="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,24,36,48,60,72,84,96,108,120,180,240,300,360,500,1000">
+						<!-- <field name=""          type="rownumber"       width="20px" align="right" label="#" />  -->
+						<field name="time_completed_yearmonth"     type="string" link="cb_action:show_paymentbaskets" parameters="paymentbasketsbrowser[filter_time_completed_yearmonth]" paramvalues="time_completed_yearmonth" title="Show the invoices for this month" width="2%" align="right" label="Payments completed date"        description="Month of the payments" />
+						<field name="mc_currency"        type="text"      width="1%" label="Currency" description="Currency of payment basket" align="right" />
+						<field name="number"     type="group"  base="int"  width="3%" align="right" label="Invoices" class="cbadminLinksAsButtons" description="Number of invoices.">
+							<param name="number" type="int" label=" " class="cbadminHorizontal">
+							</param>
+							<if name="paid_ids" operator="!=" value="" valuetype="const:string" type="condition">
+								<field name="paid_ids"        type="spacer" width="1%" label=" " default="View" link="cb_action:show_invoice" target="_blank" parameters="invoice" paramvalues="paid_ids" description="Show customer invoices" class="cbadminHorizontal cbadminRowButton" />
+							</if>
+						</field>
+						<field name="number"             type="hidden"       width="1%"  align="right" label="Transactions" description="Number of transactions.">
+							<data name="number"          type="sql:count" distinct="id" />
+						</field>
+						<field name="paid_ids"        type="hidden" width="1%" label="Invoices" default="View" link="cb_action:show_invoice" target="_blank" parameters="invoice" paramvalues="paid_ids"  class="cbadminLinksAsButtons" description="Show customer invoices">
+							<data name="paid_ids" type="sql:function" operator="GROUP_CONCAT">
+								<data name="id" type="sql:field" />
+							</data>
+						</field>
+						<field name="number_non_taxed"     type="group"  base="int"  width="3%" align="right" label="Tax-exempt invoices" class="cbadminLinksAsButtons" description="Number of invoices without taxes.">
+							<param name="number_non_taxed" type="int" label=" " class="cbadminHorizontal">
+							</param>
+							<if name="number_non_taxed" operator="&gt;" value="0" valuetype="const:int" type="condition">
+								<field name="paid_taxed_ids"        type="spacer" width="1%" label=" " default="View" link="cb_action:show_invoice" target="_blank" parameters="invoice" paramvalues="paid_non_taxed_ids" description="Show only customer invoices without sales taxes" class="cbadminHorizontal cbadminRowButton" />
+							</if>
+						</field>
+						<field name="number_non_taxed"       type="hidden"       width="1%"  align="right" label="Tax-exempt invoices" description="Number of invoices without taxes.">
+							<data name="number_non_taxed"    type="sql:function" operator="count">
+								<data name="" type="sql:function" operator="IF">
+									<data name="" type="sql:operator" operator="&gt;=">
+										<data name="tax" type="sql:field" />
+										<data name="0.00001" type="const:float" />
+									</data>
+									<data name="" type="const:null" />
+									<data name="1" type="const:string" />
+								</data>
+							</data>
+						</field>
+						<field name="paid_non_taxed_ids"        type="hidden" width="1%">
+							<data name="paid_non_taxed_ids" type="sql:function" operator="GROUP_CONCAT">
+								<data name="" type="sql:function" operator="IF">
+									<data name="" type="sql:operator" operator="&gt;=">
+										<data name="tax" type="sql:field" />
+										<data name="0.00001" type="const:float" />
+									</data>
+									<data name="" type="const:null" />
+									<data name="id" type="sql:field" />
+								</data>
+							</data>
+						</field>
+						<field name="number_taxed"     type="group"  base="int"  width="3%" align="right" label="Taxed invoices" class="cbadminLinksAsButtons" description="Number of invoices with taxes.">
+							<param name="number_taxed" type="int" label=" " class="cbadminHorizontal">
+							</param>
+							<if name="paid_taxed_ids" operator="!=" value="" valuetype="const:string" type="condition">
+								<field name="paid_taxed_ids"        type="spacer" width="1%" label=" " default="View" link="cb_action:show_invoice" target="_blank" parameters="invoice" paramvalues="paid_taxed_ids" description="Show only customer invoices with sales taxes invoiced" class="cbadminHorizontal cbadminRowButton" />
+							</if>
+						</field>
+						<field name="number_taxed"       type="hidden"       width="1%"  align="right" label="Taxed invoices" description="Number of invoices with taxes.">
+							<data name="number_taxed"    type="sql:function" operator="count">
+								<data name="" type="sql:function" operator="IF">
+									<data name="" type="sql:operator" operator="&gt;=">
+										<data name="tax" type="sql:field" />
+										<data name="0.00001" type="const:float" />
+									</data>
+									<data name="id" type="sql:field" />
+									<data name="" type="const:null" />
+								</data>
+							</data>
+						</field>
+						<field name="paid_taxed_ids"        type="hidden" width="1%" label="Invoices" default="View" link="cb_action:show_invoice" target="_blank" parameters="invoice" paramvalues="paid_taxed_ids"  class="cbadminLinksAsButtons" description="Show customer invoices">
+							<data name="paid_taxed_ids" type="sql:function" operator="GROUP_CONCAT">
+								<data name="" type="sql:function" operator="IF">
+									<data name="" type="sql:operator" operator="&gt;=">
+										<data name="tax" type="sql:field" />
+										<data name="0.00001" type="const:float" />
+									</data>
+									<data name="id" type="sql:field" />
+									<data name="" type="const:null" />
+								</data>
+							</data>
+						</field>
+						<field name="paid_mc_gross_total" type="private"   method="renderCurrencyAmount" value="" width="4%"  link="cb_action:show_paymentbaskets" parameters="paymentbasketsbrowser[filter_payment_status] paymentbasketsbrowser[filter_time_completed_yearmonth] paymentbasketsbrowser[filter_mc_currency]" paramvalues="Completed time_completed_yearmonth mc_currency" paramvaluestypes="const:string sql:field sql:field"  label="Gross total invoiced and received" description="Amount for all completed payments, in original currency."  align="right">
+							<data name="paid_mc_gross_total"  type="sql:function" operator="SUM">
+								<data name="mc_gross" type="sql:field" />
+							</data>
+							<attributes>
+								<attribute name="value">
+									<param name="mc_currency" type="text" />
+								</attribute>
+							</attributes>
+						</field>
+						<field name="paid_mc_gross_total_untaxed" type="private"   method="renderCurrencyAmount" value="" width="4%" label="Gross sub-total exempt from sales tax" description="Gross amount for payments completed on which no sales tax has been invoiced, in original currency."  align="right">
+							<data name="paid_mc_gross_total_untaxed"  type="sql:function" operator="SUM">
+								<data name="" type="sql:operator" operator="*">
+									<data name="mc_gross" type="sql:field" />
+									<data name="" type="sql:function" operator="IF">
+										<data name="" type="sql:operator" operator="&gt;=">
+											<data name="tax" type="sql:field" />
+											<data name="0.00001" type="const:float" />
+										</data>
+										<data name="0" type="const:string" />
+										<data name="1" type="const:string" />
+									</data>
+								</data>
+							</data>
+							<attributes>
+								<attribute name="value">
+									<param name="mc_currency" type="text" />
+								</attribute>
+							</attributes>
+						</field>
+						<field name="paid_mc_gross_total_taxed" type="private"   method="renderCurrencyAmount" value="" width="4%"  label="Gross sub-total containing sales tax" description="Amount for payments completed on which sales tax has been invoiced, in original currency."  align="right">
+							<data name="paid_mc_gross_total_taxed"  type="sql:function" operator="SUM">
+								<data name="" type="sql:operator" operator="*">
+									<data name="mc_gross" type="sql:field" />
+									<data name="" type="sql:function" operator="IF">
+										<data name="" type="sql:operator" operator="&gt;=">
+											<data name="tax" type="sql:field" />
+											<data name="0.00001" type="const:float" />
+										</data>
+										<data name="1" type="const:string" />
+										<data name="0" type="const:string" />
+									</data>
+								</data>
+							</data>
+							<attributes>
+								<attribute name="value">
+									<param name="mc_currency" type="text" />
+								</attribute>
+							</attributes>
+						</field>
+						<field name="paid_mc_net_total" type="private"   method="renderCurrencyAmount" value="" width="4%"  label="Net total sales, excl. sales-taxes" description="Amount net of sales taxes for payments completed, in original currency."  align="right">
+							<data name="paid_mc_net_total" type="sql:operator" operator="-">
+								<data name=""  type="sql:function" operator="SUM">
+									<data name="" type="sql:operator" operator="-">
+										<data name="mc_gross" type="sql:field" />
+										<data name="" type="sql:function" operator="IF">
+											<data name="" type="sql:operator" operator="&gt;=">
+												<data name="tax" type="sql:field" />
+												<data name="0.00001" type="const:float" />
+											</data>
+											<data name="tax" type="sql:field" />
+											<data name="0" type="const:int" />
+										</data>
+									</data>
+								</data>
+							</data>
+							<attributes>
+								<attribute name="value">
+									<param name="mc_currency" type="text" />
+								</attribute>
+							</attributes>
+						</field>
+						<field name="paid_mc_net_total_taxable" type="private"   method="renderCurrencyAmount" value="" width="4%"  label="Net sub-total taxable sales" description="Amount for payments completed on which sales tax has been invoiced, in original currency."  align="right">
+							<data name="paid_mc_net_total_taxable"  type="sql:function" operator="SUM">
+								<data name="" type="sql:function" operator="IF">
+									<data name="" type="sql:operator" operator="&gt;=">
+										<data name="tax" type="sql:field" />
+										<data name="0.00001" type="const:float" />
+									</data>
+									<data name="" type="sql:operator" operator="-">
+										<data name="mc_gross" type="sql:field" />
+										<data name="tax" type="sql:field" />
+									</data>
+									<data name="0" type="const:int" />
+								</data>
+							</data>
+							<attributes>
+								<attribute name="value">
+									<param name="mc_currency" type="text" />
+								</attribute>
+							</attributes>
+						</field>
+						<field name="paid_mc_tax_total" type="private"   method="renderCurrencyAmount" value="" width="4%"  label="Sales-taxes collected" description="Amount of sales taxes for payments completed, in original currency."  align="right">
+							<data name="paid_mc_tax_total"  type="sql:function" operator="SUM">
+								<data name="" type="sql:function" operator="IF">
+									<data name="" type="sql:operator" operator="&gt;=">
+										<data name="tax" type="sql:field" />
+										<data name="0.00001" type="const:float" />
+									</data>
+									<data name="tax" type="sql:field" />
+									<data name="0" type="const:int" />
+								</data>
+							</data>
+							<attributes>
+								<attribute name="value">
+									<param name="mc_currency" type="text" />
+								</attribute>
+							</attributes>
+						</field>
+						<field name="paid_average_tax_rate" type="string"  width="1%"  label="Tax rate" description="Overall tax rate (for safety check)."  align="right">
+							<data name="paid_average_tax_rate"  type="sql:function" operator="CONCAT">
+								<data name=""  type="sql:function" operator="ROUND">
+									<data name="" type="sql:operator" operator="*">
+										<data name="" type="sql:operator" operator="/">
+											<data name=""  type="sql:function" operator="SUM">
+												<data name="" type="sql:function" operator="IF">
+													<data name="" type="sql:operator" operator="&gt;=">
+														<data name="tax" type="sql:field" />
+														<data name="0.00001" type="const:float" />
+													</data>
+													<data name="tax" type="sql:field" />
+													<data name="0" type="const:int" />
+												</data>
+											</data>
+											<data name=""  type="sql:function" operator="SUM">
+												<data name="" type="sql:function" operator="IF">
+													<data name="" type="sql:operator" operator="&gt;=">
+														<data name="tax" type="sql:field" />
+														<data name="0.00001" type="const:float" />
+													</data>
+													<data name="" type="sql:operator" operator="-">
+														<data name="mc_gross" type="sql:field" />
+														<data name="tax" type="sql:field" />
+													</data>
+													<data name="0" type="const:int" />
+												</data>
+											</data>
+										</data>
+										<data name="100.0" type="const:float" />
+									</data>
+									<data name="5" type="const:int" />
+								</data>
+								<data name="%" type="const:string" />
+							</data>
+						</field>
+						<field name="exchange_rate" type="float" link="cb_action:show_currencies" parameters="currenciesbrowser[filter_currency]" paramvalues="mc_currency" paramvaluestypes="sql:field"  width="1%"  label="Currency exchange rate" description="Currency exchange rate towards main currency"  align="right">
+							<data name="exchange_rate" type="sql:operator" operator="/">
+								<data name="rate" type="sql:field" table="#__cbsubs_currencies" key="currency" value="currency_code"    valuetype="param:string" />
+								<data name="rate" type="sql:field" table="#__cbsubs_currencies" key="currency" value="mc_currency" valuetype="sql:field" />
+							</data>
+						</field>
+						<field name="paid_gross_total" type="private"   method="renderCurrencyAmount" width="4%"  label="Gross total invoiced and received (in main currency)" description="Amount for payments completed, converted in main currency of site at today's rate."  align="right">
+							<data name="paid_gross_total"  type="sql:function" operator="SUM">
+								<data name="" type="sql:operator" operator="*">
+									<data name="mc_gross" type="sql:field" />
+									<data name="" type="sql:operator" operator="/">
+										<data name="rate" type="sql:field" table="#__cbsubs_currencies" key="currency" value="currency_code"    valuetype="param:string" />
+										<data name="rate" type="sql:field" table="#__cbsubs_currencies" key="currency" value="mc_currency" valuetype="sql:field" />
+									</data>
+								</data>
+							</data>
+						</field>
+						<field name="paid_net_total_taxable" type="private"   method="renderCurrencyAmount" width="4%"  label="Net Sub-Total taxable  (in main currency)" description="Amount for payments completed on which sales tax has been invoiced, converted in main currency of site at today's rate."  align="right">
+							<data name="paid_net_total_taxable"  type="sql:function" operator="SUM">
+								<data name="" type="sql:function" operator="IF">
+									<data name="" type="sql:operator" operator="&gt;=">
+										<data name="tax" type="sql:field" />
+										<data name="0.00001" type="const:float" />
+									</data>
+									<data name="" type="sql:operator" operator="*">
+										<data name="" type="sql:operator" operator="-">
+											<data name="mc_gross" type="sql:field" />
+											<data name="tax" type="sql:field" />
+										</data>
+										<data name="" type="sql:operator" operator="/">
+											<data name="rate" type="sql:field" table="#__cbsubs_currencies" key="currency" value="currency_code"    valuetype="param:string" />
+											<data name="rate" type="sql:field" table="#__cbsubs_currencies" key="currency" value="mc_currency" valuetype="sql:field" />
+										</data>
+									</data>
+									<data name="0" type="const:int" />
+								</data>
+							</data>
+						</field>
+						<field name="paid_tax_total" type="private"   method="renderCurrencyAmount" width="4%"  label="Sales-taxes collected (in main currency)" description="Amount of sales taxes for payments completed, converted in main currency of site at today's rate."  align="right">
+							<data name="paid_tax_total"  type="sql:function" operator="SUM">
+								<data name="" type="sql:function" operator="IF">
+									<data name="" type="sql:operator" operator="&gt;=">
+										<data name="tax" type="sql:field" />
+										<data name="0.00001" type="const:float" />
+									</data>
+									<data name="" type="sql:operator" operator="*">
+										<data name="tax" type="sql:field" />
+										<data name="" type="sql:operator" operator="/">
+											<data name="rate" type="sql:field" table="#__cbsubs_currencies" key="currency" value="currency_code"    valuetype="param:string" />
+											<data name="rate" type="sql:field" table="#__cbsubs_currencies" key="currency" value="mc_currency" valuetype="sql:field" />
+										</data>
+									</data>
+									<data name="0" type="const:int" />
+								</data>
+							</data>
+						</field>
+						<!--
+						<field name="owner_name"            type="string"   width="10%" label="Owner" class="title">
+							<data name="owner_name" type="sql:function" operator="IF">
+								<data name="" type="sql:operator" operator="=">
+									<data name="owner" type="sql:field" />
+									<data name="0" type="const:int" />
+								</data>
+								<data name="System" type="const:string" translate="yes" />
+								<data name="username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="owner" />
+							</data>
+						</field>
+						-->
+					</rows>
+				</listfields>
+				<statistics>
+					<statistic name="total_paid" type="fields">
+						<where>
+							<column name="payment_status" operator="=" value="Completed" type="sql:field" valuetype="const:string" />
+						</where>
+						<model>
+							<data name="paid_quantity" type="sql:count" distinct="id" />
+							<data name="paid_mc_taxable_grandtotal"  type="sql:function" operator="SUM">
+								<data name="" type="sql:function" operator="IF">
+									<data name="" type="sql:operator" operator="&gt;=">
+										<data name="tax" type="sql:field" />
+										<data name="0.00001" type="const:float" />
+									</data>
+									<data name="" type="sql:operator" operator="*">
+										<data name="" type="sql:operator" operator="-">
+											<data name="mc_gross" type="sql:field" />
+											<data name="tax" type="sql:field" />
+										</data>
+										<data name="" type="sql:operator" operator="/">
+											<data name="rate" type="sql:field" table="#__cbsubs_currencies" key="currency" value="currency_code"    valuetype="param:string" />
+											<data name="rate" type="sql:field" table="#__cbsubs_currencies" key="currency" value="mc_currency" valuetype="sql:field" />
+										</data>
+									</data>
+									<data name="0" type="const:int" />
+								</data>
+							</data>
+							<data name="paid_tax_grandtotal"  type="sql:function" operator="SUM">
+								<data name="" type="sql:function" operator="IF">
+									<data name="" type="sql:operator" operator="&gt;=">
+										<data name="tax" type="sql:field" />
+										<data name="0.00001" type="const:float" />
+									</data>
+									<data name="" type="sql:operator" operator="*">
+										<data name="tax" type="sql:field" />
+										<data name="" type="sql:operator" operator="/">
+											<data name="rate" type="sql:field" table="#__cbsubs_currencies" key="currency" value="currency_code"    valuetype="param:string" />
+											<data name="rate" type="sql:field" table="#__cbsubs_currencies" key="currency" value="mc_currency" valuetype="sql:field" />
+										</data>
+									</data>
+									<data name="0" type="const:int" />
+								</data>
+							</data>
+							<data name="paid_average_tax_rate_grandtotal"  type="sql:function" operator="CONCAT">
+								<data name=""  type="sql:function" operator="ROUND">
+									<data name="" type="sql:operator" operator="*">
+										<data name="" type="sql:operator" operator="/">
+											<data name=""  type="sql:function" operator="SUM">
+												<data name="" type="sql:function" operator="IF">
+													<data name="" type="sql:operator" operator="&gt;=">
+														<data name="tax" type="sql:field" />
+														<data name="0.00001" type="const:float" />
+													</data>
+													<data name="tax" type="sql:field" />
+													<data name="0" type="const:int" />
+												</data>
+											</data>
+											<data name=""  type="sql:function" operator="SUM">
+												<data name="" type="sql:function" operator="IF">
+													<data name="" type="sql:operator" operator="&gt;=">
+														<data name="tax" type="sql:field" />
+														<data name="0.00001" type="const:float" />
+													</data>
+													<data name="" type="sql:operator" operator="-">
+														<data name="mc_gross" type="sql:field" />
+														<data name="tax" type="sql:field" />
+													</data>
+													<data name="0" type="const:int" />
+												</data>
+											</data>
+										</data>
+										<data name="100.0" type="const:float" />
+									</data>
+									<data name="5" type="const:int" />
+								</data>
+								<data name="%" type="const:string" />
+							</data>
+							<data name="paid_ids" type="sql:function" operator="GROUP_CONCAT">
+								<data name="id" type="sql:field" />
+							</data>
+						</model>
+						<view type="statistic" name="total_paid" label="Total taxed sales completed with criterias above" description="This is the total of payments completed, converted into main currency at current currency exchange rates.">
+							<field name="paid_quantity" type="int" link="cb_action:show_paymentbaskets" parameters="paymentbasketsbrowser[filter_payment_status]" paramvalues="Completed" paramvaluestypes="const:string" title="Show these payment baskets" align="right" label="Paid baskets" description="Number of payment baskets in this selection which have payment completed with criterias above." />
+							<fieldset label="Amount">
+								<field name="currency"   type="param"     value="currency_code" label="Currency of total" description="This is the main currency as set in the parameters." />
+								<field name="paid_mc_taxable_grandtotal" type="private"   method="renderAmount" align="right" label="Total taxable sales completed (converted to main currency)" description="This is the total of payments completed to which sales taxes have been added, converted into main currency at current currency exchange rates." />
+								<field name="paid_tax_grandtotal" type="private"   method="renderAmount" align="right" label="Total taxes invoiced (converted to main currency)" description="This is the total of taxes invoiced to customers with payments completed, converted into main currency at current currency exchange rates." />
+								<field name="paid_average_tax_rate_grandtotal" type="string" align="right" label="Average tax rate on taxable invoices" description="This is the average tax rate on taxable invoices over the whole period filtered." />
+							</fieldset>
+							<field name="paid_invoices"        type="spacer" label="Show invoices" default="View or print all corresponding invoices" link="cb_action:show_invoice" target="_blank" parameters="invoice" paramvalues="paid_ids"  class="cbadminLinksAsButtons" description="Show customer invoice" />
+						</view>
+					</statistic>
+				</statistics>
+			</tablebrowser>
+		</view>
+
+		<view name="edittaxrule" type="params" ui="admin" label="Tax Rule" description="A Tax Rule can be assigned to a product. It defines the tax rules for that product, depending on Geographic Zone of the buyer.">
+			<css file="plugin/cbsubstax/cbsubs.tax.admin.css" />
+			<toolbarmenu>
+				<menu name="save"    action="save"   task="savePlugin"   label="Save" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="apply "  action="apply"  task="applyPlugin"  label="Apply" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="back"    action="back"   href=""             label="Back" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="close"   action="linkAction" task="cancel" link="cb_action:show_tax_rules" label="Close" />
+			</toolbarmenu>
+			<if name="id" operator="=" value="1" valuetype="const:int" type="condition">
+				<param name="warning" type="spacer" label="Information" cssclass="cbInfo" default="This Tax Rule is to be used when a product is not subject to sales tax. Thus no Tax Rates can be assigned to this rule, which can not be edited, nor deleted." />
+				<param mode="show" name="name"               type="text"   size="40" default=""  label="Tax Rule Name (internal)" description="This is the internal name, not visible by customer." />
+				<param mode="show" name="short_code"         type="text"   size="40" default=""  label="Short Code (visible on invoice)" description="This is the short code visible on the invoice." />				
+			</if>
+			<if name="id" operator="!=" value="1" valuetype="const:int" type="condition">
+				<param name="name"               type="text"   size="40" default=""  label="Tax Rule Name (internal)" description="This is the internal name, not visible by customer." />
+				<param name="short_code"         type="text"   size="40" default=""  label="Short Code (visible on invoice)" description="This is the short code visible on the invoice." />
+			</if>
+			<param name="default"       type="xml:yesno" default="0" label="Default Tax Rule for plans" description="Is this Tax Rule the default one ? (choose only one, otherwise first one will be taken)" />
+			<!-- <param name="owner"              type="text"   size="40" default="0"  label="Owner id (only supported: 0 for now)" description="owner of this tax rule (only system = 0 supported for now)." /> -->
+			<param name="owner"              type="hidden"   value="0" label="" />
+			<showview name="integrationsglobals" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.]" action="" path="payintegrationedittaxrule" />
+		</view>
+		
+		<view name="edittaxrate" type="params" ui="admin" label="Tax Rate" description="A Tax Rate applies to a Tax Rule, which applies to products. A Tax Rate depends on the buyer's Geographic Zone (which is a set of country and state/province combinations (Geographic Zone Entry). A Geographic Zone can be assigned to a tax rate (which can be assigned to a tax rule, which can be assigned to products).">
+			<css file="plugin/cbsubstax/cbsubs.tax.admin.css" />
+			<toolbarmenu>
+				<menu name="save"    action="save"   task="savePlugin"   label="Save" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="apply "  action="apply"  task="applyPlugin"  label="Apply" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="back"    action="back"   href=""             label="Back" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="close"   action="linkAction" task="cancel" link="cb_action:show_tax_rates" label="Close" />
+			</toolbarmenu>
+			<fieldset label="Tax settings" description="Here you can set precisely &lt;strong&gt;WHAT&lt;/strong&gt; this tax is:">
+				<param name="tax_kind" type="list" default="1" label="The tax is" description="">
+					<option value="percentage">A percentage of the item price</option>
+					<option value="fixed">A fixed amount</option>
+					<option value="fixed_percent">A fixed amount added/substracted from the item price, plus a percentage</option>
+					<option value="percent_fixed">A percentage of the item price, added/substracted by a fixed amount</option>
+					<option value="value_dependent">A fixed amount or percentage depending on the corresponding items price</option>
+				</param>
+				<if name="tax_kind" operator="regexp" value="percentage|fixed_percent|percent_fixed" valuetype="const:string" type="showhide">
+					<param name="tax_rate"           type="text"   size="12" default="0.0"  label="Tax Rate in PERCENT (%)" description="This is the tax rate, expressed in percent, enter for instance: 15.7" />
+					<else action="set" name="tax_rate" value="0.0" type="const:string" />
+				</if>
+				<if name="tax_kind" operator="regexp" value="fixed|value_dependent" valuetype="const:string" type="showhide">
+					<param name="tax_currency" type="xml:currencies" default="" label="Currency" description="The currency of the fixed amount">
+						<option value="">Same as global configuration</option>
+					</param>
+				</if>
+				<if name="tax_kind" operator="regexp" value="fixed" valuetype="const:string" type="showhide">
+						<param name="tax_amount"         type="text"   size="20" default=""     label="Fixed Tax Amount in currency above" description="This is the tax amount, expressed in the currency, enter for instance: 1.50" />
+					<else action="set" name="tax_amount" value="0.00000" type="const:string" />
+				</if>
+				<if name="tax_kind" operator="=" value="value_dependent" valuetype="const:string" type="showhide">
+					<param name="tax_stages"         type="text"   size="80" default=""     label="Step Tax formula" description="This is a stepped/staged/progressive tax amount/percentage based on item amount. For instance, if currency is euro: 0-20:0%;20-50:1.00;50-100:4.2%;100+:25.00 Means no discount for items under 20 euro, 1 euro for items that cost between 20 and 50 euro, 4.2% discount for items between 50 and 100 euro and 25 euro for items above 100 euro" />
+					<if name="tax_stages" operator="!regexp" value="^(?:(?:(\d+(?:\.\d*)?)(?:(?:-(\d+(?:\.\d*)?))|(\+)):(\d+(?:\.\d*)?%?));?)+$" valuetype="const:string" type="showhide">
+						<param name="warning_tax_stages_syntaxerror" type="spacer" label="ERROR" cssclass="cbSmallWarning" default="ERROR: Check the syntax for Step Tax formula." />
+					</if>
+					<else action="set" name="tax_stages" value="" type="const:string" />
+				</if>
+				<param name="priority"        type="text"   size="5"  default="1"  label="Tax priority" description="Taxes rates of same priority are added, and of different priorities are compounded in priority order (Priority 1 first)" />
+				<param name="description"     type="text"   size="80" default=""   label="Short Description (visible on invoice)" description="This is the tax description, visible by customer." />
+			</fieldset>
+			<fieldset label="Tax Rule" description="Here you can set precisely &lt;strong&gt;TO WHAT&lt;/strong&gt; this tax applies: a Product/Plan can be set to use one Tax Rule in the &quot;Tax&quot; tab of the product settings.">
+				<param name="tax_rule_id" type="private" class="cbpaidParamsExt" method="datalist" size="1" default="0" label="Tax rule to assign this tax to" blanktext="--- Select Tax Rule ---" description="The tax rule is mandatory.">
+					<data name="tax_rule_id" type="sql:multiplerows" table="#__cbsubs_tax_rules" class="" key="id">
+						<rows>
+							<field name="id" as="value" />
+							<field name="name" as="text" />
+						</rows>
+						<where>
+							<column name="id" type="sql:field" operator="&gt;" value="1" valuetype="const:int" />
+						</where>
+						<orderby>
+							<field name="ordering" type="sql:int" ordering="ASC" />
+						</orderby>
+					</data>
+				</param>
+			</fieldset>
+			<fieldset label="Geographic conditions for applying this tax" description="Here you can set precisely &lt;strong&gt;WHERE&lt;/strong&gt; this tax applies:">
+				<param name="buyer_geo_zone_id" type="private" class="cbpaidParamsExt" method="datalist" size="1" default="0" label="Geographic Zone of Buyer" blanktext="To Buyers everywhere" description="Here you can restrict this tax to apply only to Buyers from a specific Geographic Zone.">
+					<data name="geozones" type="sql:multiplerows" table="#__cbsubs_geo_zones" class="" key="id">
+						<rows>
+							<field name="id" as="value" />
+							<field name="name" as="text" />
+						</rows>
+						<orderby>
+							<field name="ordering" type="sql:int" ordering="ASC" />
+						</orderby>
+					</data>
+				</param>
+				<param name="seller_geo_zone_id" type="private" class="cbpaidParamsExt" method="datalist" size="1" default="0" label="Geographic Zone of Seller" blanktext="From Seller everywhere" description="Here you can restrict this tax to apply only to Sellers from a specific Geographic Zone.">
+					<data name="geozones" type="sql:multiplerows" table="#__cbsubs_geo_zones" class="" key="id">
+						<rows>
+							<field name="id" as="value" />
+							<field name="name" as="text" />
+						</rows>
+						<orderby>
+							<field name="ordering" type="sql:int" ordering="ASC" />
+						</orderby>
+					</data>
+				</param>
+				<params type="pluginparams">
+					<param mode="show" name="integration_cbsubstax_system_seller_country_iso_code2" type="private" class="cbpaidParamsExt" method="datalist" size="1" default="" label="System Seller Country" blanktext="Undefined" description="The country of the system seller is defined in Settings: Tax.">
+						<data name="country_iso_code2" type="sql:multiplerows" table="#__comprofiler_countries" class="" key="country_iso_code2" dogroupby="false">
+							<rows>
+								<field name="country_iso_code2" as="value" />
+								<field name="country_name" as="text" />
+							</rows>
+							<orderby>
+								<field name="country_name" type="sql:string" ordering="ASC" />
+							</orderby>
+						</data>
+					</param>
+					<if name="integration_cbsubstax_system_seller_country_iso_code2" operator="!=" value="" valuetype="const:string" type="condition">
+						<param mode="show" name="integration_cbsubstax_system_seller_province_iso_code" type="private" class="cbpaidParamsExt" method="datalist" size="1" default="" label="System Seller State / Province" blanktext="Undefined" description="The province of the system seller is defined in Settings: Tax.">
+							<data name="province_iso_code" type="sql:multiplerows" table="#__comprofiler_provinces" class="" key="province_iso_code" dogroupby="false">
+								<rows>
+									<field name="province_iso_code" as="value" />
+									<field name="province_name" as="text" />
+								</rows>
+								<orderby>
+									<field name="province_name" type="sql:string" ordering="ASC" />
+								</orderby>
+							</data>
+						</param>
+						<param mode="show" name="integration_cbsubstax_system_seller_province_iso_code_zip_code" type="text" size="60" maxlength="1024" default="" label="System Seller Zip Code" blanktext="Undefined" description="The Zip Code of the system seller is defined in Settings: Tax." />
+					</if>
+				</params>
+				<fieldset label="Domestic sales" description="">
+					<param name="tax_inside_of_country" type="list" default="1" label="Does this tax apply for sales inside of the seller Country" description=".">
+						<option value="0">No, never charge this tax for domestic sales</option>
+						<option value="1">Yes, apply this tax for all domestic sales</option>
+						<option value="2">Yes, apply this tax for domestic sales, but for Consumers only - B2C</option>
+						<option value="3">Yes, apply this tax for domestic sales, but for Businesses only - B2B</option>
+					</param>
+					<if name="tax_inside_of_country" operator="!=" value="0" valuetype="const:string" type="showhide">
+						<param name="tax_inside_of_state" type="list" default="1" label="Does this tax apply for sales inside of the seller State / Province" description=".">
+							<option value="0">No, never charge this tax for in-state sales</option>
+							<option value="1">Yes, apply this tax for all in-state sales</option>
+							<option value="2">Yes, apply this tax for in-state sales, but for Consumers only - B2C</option>
+							<option value="3">Yes, apply this tax for in-state sales, but for Businesses only - B2B</option>
+						</param>
+						<param name="tax_outside_of_state" type="list" default="1" label="Does this tax apply for sales outside of the seller State / Province" description=".">
+							<option value="0">No, never charge tax for out-of-state sales</option>
+							<option value="1">Yes, apply this tax rate for all out-of-state sales too</option>
+							<option value="2">Yes, apply this tax for out-of-state sales, but for Consumers only - B2C</option>
+							<option value="3">Yes, apply this tax for out-of-state sales, but for Businesses only - B2B</option>
+						</param>
+						<else action="set" name="tax_inside_of_state" value="0" type="const:string" />
+						<else action="set" name="tax_outside_of_state" value="0" type="const:string" />
+					</if>
+				</fieldset>
+				<fieldset label="Export sales" description="">
+					<param name="tax_outside_of_country" type="list" default="1" label="Does this tax apply for sales outside of the seller Country" description=".">
+						<option value="0">No, never charge tax for export sales</option>
+						<option value="1">Yes, apply this tax rate for all export sales too</option>
+						<option value="2">Yes, apply this tax for export sales, but for Consumers only - B2C</option>
+						<option value="3">Yes, apply this tax for export sales, but for Businesses only - B2B</option>
+					</param>
+				</fieldset>
+			</fieldset>
+			<fieldset label="Calendar conditions for applying this tax" description="Here you can set precisely &lt;strong&gt;WHEN&lt;/strong&gt; this tax applies: this allows to automatically change tax rates when tax rates are updated.">
+				<param name="published" type="xml:yesno" default="1" label="Published" description="To become available, a tax rate needs to be published." />
+				<param name="start_date" type="datetime" default="0000-00-00 00:00:00" label="Start date of validity of this tax" description="As tax rates can change, a given tax may be applicable only to a given time period. Leave default if there is no start date." />
+				<param name="stop_date"  type="datetime" default="0000-00-00 00:00:00" label="End date of validity of this tax" description="As tax rates can change, a given tax may be applicable only to a given time period. Leave default if there is no end date." />
+				<param name="start_stop_date_function" type="list" default="1" label="Start and End dates means tax applies to" description=".">
+					<option value="1">Date of sale only, independantly of plan setting</option>
+					<option value="2">Throughout the validity period of the subscription, if plan tax setting allows it too</option>
+				</param>
+			</fieldset>
+			<fieldset name="businesschecktaxsettingfieldset" label="Validation for business (B2B) conditions" description="Here you can choose the conditions for automated testing of business status of the buyer.">
+				<extend toxpathnode="/*/types/type[@name=&quot;business_check&quot;]" fromxpathnode="/cbxml/types/type[@name=&quot;business_check&quot;]/option" file="plugin/cbsubstax/validations/*/xml/edit.cbsubs" mandatory="true" />
+				<param name="business_check" type="xml:business_check" default="" label="Methods to validate that the customer is a business (B2) for this tax" blanktext="No business customers discrimination by this tax rate" description=""  onchange="evaluate" />
+				<extend toxpathnode=".." fromxpathnode="/cbxml/businesschecktaxsetting/*" file="plugin/cbsubstax/validations/*/xml/edit.cbsubs" mandatory="true" />
+			</fieldset>
+			<param name="owner"              type="hidden"   value="0" label="" />
+			<showview name="integrationsglobals" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.]" action="" path="payintegrationedittaxrate" />
+		</view>
+		
+		<view name="editgeozone" type="params" ui="admin" label="Geographic Zone" description="A Geographic Zone is a set of country/states combinations (Geographic Zone Entries). A Geographic Zone can be assigned to a tax rate (which can be assigned to a tax rule, which can be assigned to products). It allows to determine the Geographic Zone of the buyer.">
+			<css file="plugin/cbsubstax/cbsubs.tax.admin.css" />
+			<toolbarmenu>
+				<menu name="save"    action="save"   task="savePlugin"   label="Save" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="apply "  action="apply"  task="applyPlugin"  label="Apply" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="back"    action="back"   href=""             label="Back" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="close"   action="linkAction" task="cancel" link="cb_action:show_geo_zones" label="Close" />
+			</toolbarmenu>
+			<param name="name"               type="text"   size="40" default=""  label="Geographic Zone Name" description="This is the short name, might be visible on the invoice." />
+			<param name="description"        type="text"   size="80" default=""  label="Geographic Zone Description" description="This is the internal description, not visible by customer." />
+			<param name="owner"              type="hidden"   value="0" label="" />
+			<showview name="integrationsglobals" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.]" action="" path="payintegrationeditgeozone" />
+		</view>
+		
+		<view name="editgeozoneentry" type="params" ui="admin" label="Geographic Zone Entry" description="A Geographic Zone is a set of country and state/province combinations (Geographic Zone Entry). A Geographic Zone can be assigned to a tax rate (which can be assigned to a tax rule, which can be assigned to products). It allows to determine the Geographic Zone of the buyer.">
+			<css file="plugin/cbsubstax/cbsubs.tax.admin.css" />
+			<toolbarmenu>
+				<menu name="save"    action="save"   task="savePlugin"   label="Save" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="apply "  action="apply"  task="applyPlugin"  label="Apply" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="back"    action="back"   href=""             label="Back" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="close"   action="linkAction" task="cancel" link="cb_action:show_geo_zone_entries" label="Close" />
+			</toolbarmenu>
+			<param name="geo_zone_id" type="private" class="cbpaidParamsExt" method="datalist" size="1" default="0" label="Geographic Zone" blanktext="--- Select Geographic Zone ---" description="This Geographic Zone Entry must be assigned to a Geographic Zone.">
+				<data name="geo_zone_id" type="sql:multiplerows" table="#__cbsubs_geo_zones" class="" key="id">
+					<rows>
+						<field name="id" as="value" />
+						<field name="name" as="text" />
+					</rows>
+					<orderby>
+						<field name="ordering" type="sql:int" ordering="ASC" />
+					</orderby>
+				</data>
+			</param>
+			<param name="country_iso_code2" type="private" class="cbpaidParamsExt" method="datalist" size="1" default="" label="Country (mandatory)" blanktext="--- Select Country ---" description="The country is mandatory." onchange="evaluate">
+				<data name="country_iso_code2" type="sql:multiplerows" table="#__comprofiler_countries" class="" key="country_iso_code2" dogroupby="false">
+					<rows>
+						<field name="country_iso_code2" as="value" />
+						<field name="country_name" as="text" />
+					</rows>
+					<orderby>
+						<field name="country_name" type="sql:string" ordering="ASC" />
+					</orderby>
+				</data>
+			</param>
+			<if name="country_iso_code2" operator="!=" value="" valuetype="const:string" type="showhide">
+				<param name="province_iso_code" type="private" class="cbpaidParamsExt" method="datalist" size="1" default="" label="State / Province" blanktext="All" description="The State / Province is optional.">
+					<data name="province_iso_code" type="sql:multiplerows" table="#__comprofiler_provinces" class="" key="country_iso_code2" dogroupby="false">
+						<rows>
+							<field name="province_iso_code" as="value" />
+							<field name="province_name" as="text" />
+						</rows>
+						<where>
+							<column name="country_iso_code2" operator="=" value="country_iso_code2" type="sql:field" valuetype="ext:string:modelofdata" />
+						</where>
+						<orderby>
+							<field name="province_name" type="sql:string" ordering="ASC" />
+						</orderby>
+					</data>
+				</param>
+				<else action="set" name="province_iso_code" value="" type="const:string" />
+				<param name="zip_code_condition" type="list" default="0" label="Zip Codes" description="You can additionally filter by zip codes.">
+					<option value="0">All</option>
+					<option value="1">Following Zip code only</option>
+					<option value="2">In following range (type twice same Zip Code if only one)</option>
+				</param>
+				<if name="zip_code_condition" type="showhide" operator="=" value="1" valuetype="const:int">
+					<param name="zip_code_regexp" type="text" size="60" maxlength="1024" default="" label="Zip Code (regexp: &quot;.*&quot; means any characters)" description="Empty means any" />
+					<else action="set" name="zip_code_regexp" value="" type="const:string" />
+				</if>
+				<if name="zip_code_condition" type="showhide" operator="=" value="2" valuetype="const:int">
+					<param name="zip_code_min" type="text" size="18" maxlength="16" default="" label="Minimum Zip Code Number" description="Mandatory" />
+					<param name="zip_code_max" type="text" size="18" maxlength="16" default="" label="Maximum Zip Code Number" description="Mandatory" />
+					<else action="set" name="zip_code_min" value="" type="const:string" />
+					<else action="set" name="zip_code_max" value="" type="const:string" />
+				</if>
+			</if>
+			<param name="owner"              type="hidden"   value="0" label="" />
+			<showview name="integrationsglobals" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.]" action="" path="payintegrationeditgeozoneentry" />
+		</view>
+		
+		<view name="editcountry" type="params" ui="admin" label="Country" description="A Country can be used in Geographic Zone Entries. A Geographic Zone of Geographic Zone Entries can be assigned to a tax rate (which can be assigned to a tax rule, which can be assigned to products).">
+			<css file="plugin/cbsubstax/cbsubs.tax.admin.css" />
+			<toolbarmenu>
+				<menu name="save"    action="save"   task="savePlugin"   label="Save" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="apply "  action="apply"  task="applyPlugin"  label="Apply" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="back"    action="back"   href=""             label="Back" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="close"   action="linkAction" task="cancel" link="cb_action:show_countries" label="Close" />
+			</toolbarmenu>
+			<param name="country_region" type="private" class="cbpaidParamsExt" method="datalist" size="1" default="" label="Country World Region" description="World Region to which this Country belongs.">
+				<data name="country_region" type="sql:multiplerows" table="#__comprofiler_countries" class="" key="country_iso_code2">
+					<rows>
+						<field name="country_region" as="value" />
+						<field name="country_region" as="text" />
+					</rows>
+					<groupby>
+						<field name="country_region" type="sql:field" />
+					</groupby>
+					<orderby>
+						<field name="country_region" type="sql:string" ordering="ASC" />
+					</orderby>
+				</data>
+			</param>
+			<param name="country_sub_region" type="private" class="cbpaidParamsExt" method="datalist" size="1" default="" label="Country World Sub-Region" description="World Sub-Region to which this Country belongs.">
+				<data name="country_sub_region" type="sql:multiplerows" table="#__comprofiler_countries" class="" key="country_iso_code2">
+					<rows>
+						<field name="country_sub_region" as="value" />
+						<field name="country_sub_region" as="text" />
+					</rows>
+					<groupby>
+						<field name="country_sub_region" type="sql:field" />
+					</groupby>
+					<orderby>
+						<field name="country_region" type="sql:string" ordering="ASC" />
+						<field name="country_sub_region" type="sql:string" ordering="ASC" />
+					</orderby>
+				</data>
+			</param>
+			<param name="country_name"               type="text"   size="60" default=""  label="Country Exact Name in English" description="This is the exact country name, visible on the user interface. Translations must be done in translation files, not here." />
+			<param name="country_iso_code2"          type="text"   size="3"  default="" maxlength="2" label="Country 2-characters &lt;a href=&quot;http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2&quot; target=&quot;_blank&quot;&gt;ISO 3166-1 alpha-2&lt;/a&gt; code" description="Country ISO 3166-1 alpha-2 code. This is the internal database primary key, not visible by customer." />
+			<param name="country_iso_code3"          type="text"   size="4"  default="" maxlength="3" label="Country 3-characters &lt;a href=&quot;http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3&quot; target=&quot;_blank&quot;&gt;ISO 3166-1 alpha-3&lt;/a&gt; code" description="Country ISO 3166-1 alpha-3 code. This is not visible by customer." />
+			<param name="country_iso_num"            type="text"   size="4"  default="" maxlength="3" label="Country 3-digits &lt;a href=&quot;http://en.wikipedia.org/wiki/ISO_3166-1_numeric&quot; target=&quot;_blank&quot;&gt;ISO 3166-1 numeric-3&lt;/a&gt; code" description="Country ISO 3166-1 numeric-3 code. This is not visible by customer." />
+			<param name="country_alternate_names"    type="text"   size="60" default=""  label="Alternate country names as defined by ISO-3166-1" description="This field is for country search functions." />
+			<param name="country_fips_code"          type="text"   size="4"  default="" maxlength="3" label="Country 3-characters &lt;a href=&quot;http://en.wikipedia.org/wiki/List_of_FIPS_country_codes&quot; target=&quot;_blank&quot;&gt;FIPS code&lt;/a&gt; code" description="Country ISO 3166-1 numeric-3 code. This is not visible by customer." />
+			<param name="country_fips_name"          type="text"   size="60" default=""  label="Country Exact Name in FIPS code" description="Country FIPS-10 code. This is not visible by customer." />
+			<param name="country_latitude"           type="text"   size="19" default=""  label="Country Geoposition latitude" description="" />
+			<param name="country_longitude"          type="text"   size="19" default=""  label="Country Geoposition longitude" description="" />
+			<param name="country_provinces_title"    type="text"   size="60" default=""  label="Country's State/Province label (singular)" description="This will be usefull for customer address entry." />
+			<param name="country_taxnumber_prefix"   type="text"   size="6"  default="" maxlength="6" label="Country Tax/VAT-numbers prefix" description="This can be used for validations purposes." />
+			<param name="country_address_zip_prefix" type="text"   size="6"  default="" maxlength="6" label="Country postcode prefix on addresses" description="E.g. &quot;DE-&quot; is usual in Germany. This can be used for address-entry and validations purposes." />
+			<param name="country_address_format"     type="textarea"   cols="60" rows="6"  default="" maxlength="255" label="Country address notation" description="This is not yet used by CBSubs 1.1, but there for future versions: [ADDRESS_COMPANY] [ADDRESS_FIRST_NAME] [ADDRESS_LAST_NAME] [ADDRESS_STREET] [ADDRESS_CITY] [ADDRESS_STATE] [ADDRESS_STATE_NAME] [ADDRESS_ZIPCODE] [ADDRESS_COUNTRY] can be used. This can be used for address-entry and display/printing purposes." />
+			<showview name="integrationsglobals" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.]" action="" path="payintegrationeditcountry" />
+		</view>
+		
+		<view name="editprovince" type="params" ui="admin" label="State / Province" description="A Province can be used in Geographic Zone Entries. A Geographic Zone of Geographic Zone Entries can be assigned to a tax rate (which can be assigned to a tax rule, which can be assigned to products).">
+			<css file="plugin/cbsubstax/cbsubs.tax.admin.css" />
+			<toolbarmenu>
+				<menu name="save"    action="save"   task="savePlugin"   label="Save" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="apply "  action="apply"  task="applyPlugin"  label="Apply" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="back"    action="back"   href=""             label="Back" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="close"   action="linkAction" task="cancel" link="cb_action:show_provinces" label="Close" />
+			</toolbarmenu>
+			<param name="province_name"             type="text"   size="60" default=""  label="Province Exact Name in English" description="This is the exact Province name, visible on the user interface. Translations must be done in translation files, not here." />
+			<param name="country_iso_code2" type="private" class="cbpaidParamsExt" method="datalist" size="1" default="" label="Country (mandatory)" blanktext="--- Select Country ---" description="Country to which this province belongs. The country is mandatory.">
+				<data name="country_iso_code2" type="sql:multiplerows" table="#__comprofiler_countries" class="" key="country_iso_code2" dogroupby="false">
+					<rows>
+						<field name="country_iso_code2" as="value" />
+						<field name="country_name" as="text" />
+					</rows>
+					<orderby>
+						<field name="country_name" type="sql:string" ordering="ASC" />
+					</orderby>
+				</data>
+			</param>
+			<param name="province_iso_code"        type="text"   size="4"  default="" maxlength="12" label="Province &lt;a href=&quot;http://en.wikipedia.org/wiki/ISO_3166-2&quot; target=&quot;_blank&quot;&gt;ISO 3166-2 code&lt;/a&gt; (must start with 2-characters country code CC-)" description="Province ISO 3166-2 code, format CC-PPP... where CC is Country 2 digits code. This is not visible by customer." />
+			<showview name="integrationsglobals" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.]" action="" path="payintegrationeditprovince" />
+		</view>
+	</views>
+
+</cbxml>

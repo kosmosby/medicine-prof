@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.6" type="plugin" group="system" >
+	<name>System - OSE-V5 Affiliate</name>
+	<author>Open Source Excellence</author>
+	<creationDate>26-Nov-2010</creationDate>
+	<copyright>Copyright (C) 2010 Open Source Excellence. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <authoremail>info@opensource-excellence.com</authoremail>
+    <authorurl>http://www.opensource-excellence.com</authorurl>
+	<version>5.0</version>
+	<description>Open Source Excellence - Affiliate.</description>
+	<files>
+		<filename plugin="oseAffiliate">oseAffiliate.php</filename>
+	</files>
+
+    <config>
+	    <fields name="params">
+	    	<fieldset name="Basic">
+				<field name="pap4_click_track_api" type="radio" default="1" label="PAP4 Click Track API Enabled?" description="If you have integrated with Javascript, disable it! If enabled, this plugin will record the visitor ID into Cookie.">
+						<option value="0">Off</option>
+						<option value="1">On</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field
+			name="id"
+			type="hidden"
+		/>
+		<field
+			name="question"
+			type="textarea"
+			label="COM_FLEXPAPER_QUESTION"
+			description="COM_FLEXPAPER_DESCRIPTION_OF_QUESTION"
+			size="80"
+			class="inputbox"
+			default=""
+            required="true"
+		/>
+
+        <field
+                name="testid"
+                type="sql"
+                class="inputbox"
+                default=""
+                label="COM_FLEXPAPER_TEST"
+                description="COM_FLEXPAPER_TEST_FIELD_DESC"
+                required="true"
+                query="SELECT id AS value, name as testid FROM #__lms_tests"
+                />
+
+        <field name="qtype" type="list" default="sa" label="COM_FLEXPAPER_QUESTION_TYPE" description="">
+            <option value="sa">COM_FLEXPAPER_SHORT_ANSWER</option>
+            <option value="mc5">COM_FLEXPAPER_MULTIPLE_CHOICE</option>
+        </field>
+
+        <field
+                name="published"
+                type="hidden"
+                default="1"
+                />
+
+        <field
+                name="a1"
+                type="text"
+                label="COM_FLEXPAPER_ANSWER_1"
+                description=""
+                size="80"
+                class="inputbox"
+                default=""
+                required="true"
+                />
+        <field
+                name="a2"
+                type="text"
+                label="COM_FLEXPAPER_ANSWER_2"
+                description=""
+                size="80"
+                class="inputbox"
+                default=""
+                />
+        <field
+                name="a3"
+                type="text"
+                label="COM_FLEXPAPER_ANSWER_3"
+                description=""
+                size="80"
+                class="inputbox"
+                default=""
+                />
+        <field
+                name="a4"
+                type="text"
+                label="COM_FLEXPAPER_ANSWER_4"
+                description=""
+                size="80"
+                class="inputbox"
+                default=""
+                />
+        <field
+                name="a5"
+                type="text"
+                label="COM_FLEXPAPER_ANSWER_5"
+                description=""
+                size="80"
+                class="inputbox"
+                default=""
+                />
+        <field
+                name="answer"
+                type="text"
+                label="COM_FLEXPAPER_CORRECT_ANSWER"
+                description=""
+                size="20"
+                class="inputbox"
+                default=""
+                />
+
+    </fieldset>
+</form>

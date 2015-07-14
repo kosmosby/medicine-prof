@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fields name="filter">
+        <field
+                name="search"
+                type="text"
+                label="COM_JUDOWNLOAD_FILTER_SEARCH_DESC"
+                hint="JSEARCH_FILTER"
+                />
+
+        <field
+                name="from_date"
+                type="calendar"
+                format="%d-%m-%Y"
+                default=""
+                label="COM_JUDOWNLOAD_FILTER_FROM"
+                description="COM_JUDOWNLOAD_FILTER_FROM_DESC"
+                hint="COM_JUDOWNLOAD_FROM"
+                />
+
+        <field
+                name="to_date"
+                type="calendar"
+                format="%d-%m-%Y"
+                default=""
+                label="COM_JUDOWNLOAD_FILTER_TO"
+                description="COM_JUDOWNLOAD_FILTER_TO_DESC"
+                hint="COM_JUDOWNLOAD_TO"
+                />
+
+        <field
+                name="type"
+                type="list"
+                label="COM_JUDOWNLOAD_FILTER_TYPE"
+                description="COM_JUDOWNLOAD_FILTER_TYPE_DESC"
+                onchange="this.form.submit();"
+                default="tag.ordering ASC"
+                >
+            <option value="">COM_JUDOWNLOAD_SELECT_TYPE</option>
+            <option value="document">COM_JUDOWNLOAD_TYPE_DOCUMENT</option>
+            <option value="comment">COM_JUDOWNLOAD_TYPE_COMMENT</option>
+        </field>
+    </fields>
+
+    <fields name="list">
+        <field
+                name="fullordering"
+                type="list"
+                label="COM_JUDOWNLOAD_LIST_FULL_ORDERING"
+                description="COM_JUDOWNLOAD_LIST_FULL_ORDERING_DESC"
+                onchange="this.form.submit();"
+                default="sub.created DESC"
+                >
+            <option value="">COM_JUDOWNLOAD_SORT_BY</option>
+            <option value="sub.id ASC">COM_JUDOWNLOAD_SORT_BY_ID_ASC</option>
+            <option value="sub.id DESC">COM_JUDOWNLOAD_SORT_BY_ID_DESC</option>
+            <option value="sortname ASC">COM_JUDOWNLOAD_SORT_BY_NAME_ASC</option>
+            <option value="sortname DESC">COM_JUDOWNLOAD_SORT_BY_NAME_DESC</option>
+            <option value="sortemail ASC">COM_JUDOWNLOAD_SORT_BY_EMAIL_ASC</option>
+            <option value="sortemail DESC">COM_JUDOWNLOAD_SORT_BY_EMAIL_DESC</option>
+            <option value="sub.created ASC">COM_JUDOWNLOAD_SORT_BY_CREATED_ASC</option>
+            <option value="sub.created DESC">COM_JUDOWNLOAD_SORT_BY_CREATED_DESC</option>
+            <option value="sub.ip_address ASC">COM_JUDOWNLOAD_SORT_BY_IP_ADDRESS_ASC</option>
+            <option value="sub.ip_address DESC">COM_JUDOWNLOAD_SORT_BY_IP_ADDRESS_DESC</option>
+            <option value="sub.published ASC">COM_JUDOWNLOAD_SORT_BY_STATE_ASC</option>
+            <option value="sub.published DESC">COM_JUDOWNLOAD_SORT_BY_STATE_DESC</option>
+        </field>
+
+        <field
+                name="limit"
+                type="limitbox"
+                class="inputbox input-mini"
+                default="25"
+                label="COM_JUDOWNLOAD_LIST_LIMIT"
+                description="COM_JUDOWNLOAD_LIST_LIMIT_DESC"
+                onchange="this.form.submit();"
+                />
+    </fields>
+</form>

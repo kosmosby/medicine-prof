@@ -1,0 +1,16 @@
+.view-modpendingcomments .judl-frontend-toolbar {
+	margin : 10px 0;
+}
+
+.view-modpendingcomments table {
+	clear      : both;
+	margin-top : 10px;
+}
+
+.view-modpendingcomments .center {
+	text-align : center;
+}
+
+.view-modpendingcomments .judl-pagination #limit {
+	width: auto !important;
+}

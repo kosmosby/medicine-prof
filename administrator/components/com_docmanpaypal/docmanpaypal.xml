@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.0" method="upgrade">
+  <name>DOCman PayPal</name>
+  <creationDate>03-Sep-2013</creationDate>
+  <author>Deian Motov</author>
+  <authorEmail>deian@motov.net</authorEmail>
+  <authorUrl>motov.net</authorUrl>
+  <copyright>motov.NET 2013</copyright>
+  <license>This extension is released under the GNU/GPL License</license>
+  <version>3.1</version>
+  <description>Thank you for installing DOCman PayPal IPN for Joomla! For more info visit motov.net</description>
+  <scriptfile/>
+  <install>
+    <sql>
+      <file driver="mysql" charset="utf8">install/install.sql</file>
+    </sql>
+  </install>
+  <uninstall>
+    <sql>
+      <file driver="mysql" charset="utf8">install/uninstall.sql</file>
+    </sql>
+  </uninstall>
+  <update>
+    <schemas/>
+  </update>
+  <files folder="site">
+    <folder>anet_php_sdk</folder>
+    <folder>assets</folder>
+    <folder>css</folder>
+    <folder>images</folder>
+    <folder>js</folder>
+    <folder>lang</folder>
+    <folder>language</folder>
+    <filename>authorize.net.php</filename>
+    <filename>buy_now_button.php</filename>
+    <filename>buy_now_button_large.php</filename>
+    <filename>docmanpaypal.php</filename>
+    <filename>googleCheckout.php</filename>
+    <filename>hack.docman.php</filename>
+    <filename>indentbg.gif</filename>
+    <filename>indentbg2.gif</filename>
+    <filename>index.html</filename>
+    <filename>micropayment.de.php</filename>
+    <filename>moneybookers.php</filename>
+    <filename>netcash.php</filename>
+    <filename>paypal.class.php</filename>
+    <filename>paypal.php</filename>
+    <filename>shade.gif</filename>
+    <filename>shadeactive.gif</filename>
+    <filename>tabcontent.css</filename>
+    <filename>tabcontent.js</filename>
+  </files>
+  <administration>
+    <menu img="components/com_docmanpaypal/images/paypal_icon.gif">COM_DOCMANPAYPAL</menu>
+    <submenu>
+      <menu img="components/com_docmanpaypal/images/config.png" link="option=com_docmanpaypal&amp;task=config">COM_DOCMANPAYPAL_CONFIGURATION</menu>
+      <menu img="components/com_docmanpaypal/images/content.png" link="option=com_docmanpaypal&amp;task=modifyprice">COM_DOCMANPAYPAL_MODIFY_PRICES</menu>
+      <menu img="components/com_docmanpaypal/images/config.png" link="option=com_docmanpaypal&amp;task=merchantconfig">COM_DOCMANPAYPAL_MERCHANT_CONFIGURATION</menu>
+      <menu img="components/com_docmanpaypal/images/stats.png" link="option=com_docmanpaypal&amp;task=mySales">COM_DOCMANPAYPAL_ORDERS</menu>
+      <menu img="components/com_docmanpaypal/images/stats.png" link="option=com_docmanpaypal&amp;task=generateSale">COM_DOCMANPAYPAL_GENERATE_SALE</menu>
+      <menu img="components/com_docmanpaypal/images/info.png" link="option=com_docmanpaypal&amp;task=stats">COM_DOCMANPAYPAL_STATISTICS</menu>
+      <menu img="components/com_docmanpaypal/images/menumgr.png" link="option=com_docmanpaypal&amp;task=vendors">COM_DOCMANPAYPAL_VENDORS</menu>
+      <menu img="components/com_docmanpaypal/images/help.png" link="option=com_docmanpaypal&amp;task=help">COM_DOCMANPAYPAL_HELP</menu>
+    </submenu>
+    <files folder="admin">
+      <folder>css</folder>
+      <folder>fpdi</folder>
+      <folder>images</folder>
+      <folder>install</folder>
+      <folder>js</folder>
+      <folder>language</folder>
+      <folder>plugins</folder>
+      <folder>tables</folder>
+      <folder>tasks</folder>
+      <filename>MD5SUMS</filename>
+      <filename>authorizenet_logo.gif</filename>
+      <filename>dmp.css</filename>
+      <filename>docmanpaypal.class.php</filename>
+      <filename>docmanpaypal.php</filename>
+      <filename>docmanpaypalsmall.png</filename>
+      <filename>googleCheckout.png</filename>
+      <filename>index.html</filename>
+      <filename>micropayment.de.png</filename>
+      <filename>moneybookers.gif</filename>
+      <filename>netcash.jpg</filename>
+      <filename>paypal.gif</filename>
+      <filename>paypal_icon.gif</filename>
+    </files>
+  </administration>
+  <params/>
+  <config/>
+</extension>

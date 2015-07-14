@@ -1,0 +1,72 @@
+/*
+ * Widgetkit Slideshow: Solar Style
+ */
+
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-solar .nav {
+	margin-top: 15px;
+	text-align: center;
+}
+
+.wk-slideshow-solar .nav li {
+	display: inline-block;
+	margin-left: 5px;
+}
+.wk-slideshow-solar .nav li:first-child { margin-left: 0; }
+
+.wk-slideshow-solar .nav span {
+	width: 22px;
+	height: 22px;
+	background: url(images/nav.png) 0 0 no-repeat;
+	overflow: hidden;
+}
+
+.wk-slideshow-solar .nav span:hover { background-position: 0 -60px; }
+.wk-slideshow-solar .nav span:active { background-position: 0 -90px; }
+.wk-slideshow-solar .nav .active span { background-position: 0 -30px; }
+
+/* Buttons
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-solar > div { position: relative; }
+
+.wk-slideshow-solar > div:hover .next,
+.wk-slideshow-solar > div:hover .prev {
+	top: 50%;
+	width: 40px;
+	height: 40px;
+	margin-top: -20px;
+	background: url(images/buttons.png) 0 50px no-repeat;
+}
+
+.wk-slideshow-solar > div:hover .next {
+	right: 30px;
+	background-position: 0 0;
+}
+
+.wk-slideshow-solar > div .next:hover { background-position: 0 -40px; }
+.wk-slideshow-solar > div .next:active { background-position: 0 -80px; }
+
+.wk-slideshow-solar > div:hover .prev {
+	left: 30px;
+	background-position: 0 -120px;
+}
+
+.wk-slideshow-solar > div .prev:hover { background-position: 0 -160px; }
+.wk-slideshow-solar > div .prev:active { background-position: 0 -200px; }
+
+
+/* Responsive
+----------------------------------------------------------------------------------------------------*/
+
+/* Only Touch Devices */
+@media (max-device-width: 1024px) {
+
+	.wk-slideshow-solar .next,
+	.wk-slideshow-solar .prev { display: none; }
+
+}
+

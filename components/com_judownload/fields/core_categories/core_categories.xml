@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="file" method="upgrade" judlplugintype="field">
+    <name>Core Categories</name>
+    <author>JoomUltra</author>
+    <creationDate>18 July 2014</creationDate>
+    <authorEmail>admin@joomultra.com</authorEmail>
+    <version>1.0</version>
+    <license>GNU/GPL</license>
+    <website>http://www.joomultra.com</website>
+    <description></description>
+    <folder>core_categories</folder>
+    <core>1</core>
+    <default>1</default>
+    <fileset>
+        <files target="components/com_judownload/fields/core_categories">
+            <file>core_categories.xml</file>
+            <file>core_categories.php</file>
+            <file>core_categories.css</file>
+            <file>core_categories.js</file>
+            <file>index.html</file>
+            <folder>tmpl</folder>
+        </files>
+    </fileset>
+    <config>
+        <field
+                name="cat_selection_mode"
+                type="radio"
+                default="all"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_CAT_SELECTION_MODE_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_CAT_SELECTION_MODE_DESC"
+                >
+            <option value="all">COM_JUDOWNLOAD_OPTION_ALL_CATEGORIES</option>
+            <option value="drilldown">COM_JUDOWNLOAD_OPTION_CATEGORY_DRILL_DOWN</option>
+        </field>
+    </config>
+</extension>
+

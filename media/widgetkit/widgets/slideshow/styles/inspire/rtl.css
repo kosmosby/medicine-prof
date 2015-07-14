@@ -1,0 +1,14 @@
+/*
+ * RTL Style Sheet
+ */
+
+.wk-slideshow-inspire .nav {
+	right: auto;
+	left: 0;
+}
+
+.wk-slideshow-inspire .nav li {
+	margin-left: 0;
+	margin-right: 5px;
+}
+.wk-slideshow-inspire .nav li:first-child { margin-right: 0; }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="component" version="1.5" method="upgrade">
+    <name>OSEMSC</name>
+    <version>6.0.6</version>
+    <description>An Open Source Membership Management System.</description>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <author>Open Source Excellence</author>
+    <authoremail>info@opensource-excellence.com</authoremail>
+    <authorurl>http://www.opensource-excellence.com</authorurl>
+    <copyright>Copyright (C) 2008-2011 Open Source Excellence. All rights reserved.</copyright>
+    <creationDate>12-May-2011</creationDate>
+    <installfile>install.osemsc.php</installfile>
+    <scriptfile>install.osemscj3.php</scriptfile>
+    <uninstallfile>uninstall.osemsc.php</uninstallfile>
+	<files folder="site">
+		<filename>site.zip</filename>
+	</files>
+<administration>
+    <menu img="components/com_osemsc/favicon.ico">OSE Membership</menu>
+ 	<files folder="admin">
+	<filename>osemsc.php</filename>
+	<filename>define.php</filename>
+	<filename>favicon.ico</filename>
+	<filename>install.osemsc.php</filename>
+	<filename>uninstall.osemsc.php</filename>
+	<folder>assets</folder>
+	<folder>helpers</folder>
+	<filename>installer.helper.php</filename>
+	<filename>installer.template.php</filename>
+	<filename>ose_plugins.zip</filename>
+	<filename>cpuMSC.zip</filename>
+	<filename>com_cpu_admin.zip</filename>
+	<filename>com_cpu_site.zip</filename>
+	<filename>admin.zip</filename>
+	</files>
+</administration>
+</install>

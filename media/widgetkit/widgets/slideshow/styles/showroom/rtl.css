@@ -1,0 +1,37 @@
+/*
+ * RTL Style Sheet
+ */
+
+.wk-slideshow-showroom .nav {
+	right: auto;
+	left: 20px;
+}
+
+.wk-slideshow-showroom .nav li {
+	margin-left: 0;
+	margin-right: 19px;
+}
+.wk-slideshow-showroom .nav li:first-child { margin-right: 0; }
+
+.wk-slideshow-showroom .nav li span:before {
+	right: auto;
+	left: 18px;
+}
+
+
+.wk-slideshow-showroom > div:hover .next {
+	right: auto;
+	left: 30px;
+	background-image: url(images/button_left.png);
+}
+
+.wk-slideshow-showroom > div:hover .prev {
+	left: auto;
+	right: 30px;
+	background-image: url(images/button_right.png);
+}
+
+.wk-slideshow .caption {
+    right: 0;
+    left: auto;
+}

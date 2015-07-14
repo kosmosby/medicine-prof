@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<code>OSE Membership Management Code:201006231645</code>
+	<classes>
+		<class path="" extend="test">membership</class>
+	</classes>
+
+	<files>
+		<file path="" extend="test">oseMscMethods.php</file>
+		<file path="" extend="test">oseMscTree.php</file>
+		<file path="" extend="test">oseMscAddon.php</file>
+		<file path="" extend="test">oseMscPayment.php</file>
+		<file path="" extend="test">oseMscConfig.php</file>
+		<file path="" extend="test">oseMscListDraw.php</file>
+		<file path="" extend="test">oseMscJaccess.php</file>
+		<file path="" extend="test">oseMscLanguage.php</file>
+	</files>
+
+</document>

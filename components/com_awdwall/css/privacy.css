@@ -1,0 +1,38 @@
+.js_PriContainer,.js_PriContainer{position:relative;z-index:1}
+.js_PrivacyOpen,.js_PrivacyOpen{z-index:10000;}
+.js_PriContainer{margin-left:0px;}
+.js_PriContainerLarge{margin-left:0;margin-top:4px;}
+.js_PriContainerLarge .js_dropDownChild{display:block;min-width:100px;text-align:left !important;}
+.js_PriDefault,.js_PriDefault,{border:1px solid #ddd;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
+ .js_PriDefault .js_PriOption,.js_PriDefault .js_PriOption{background-image:url('../images/icons-privacy.png');background-repeat:no-repeat;padding-left:22px;}
+.awd_dropDownMain,
+.awd_dropDownMain dd,
+.awd_dropDownMain dt,
+.js_dropDownParent,.awd_dropDownMain,.awd_dropDownMain dd,.awd_dropDownMain dt,.js_dropDownParent{margin:0;padding:0;}
+.awd_dropDownMain,.awd_dropDownMain{border:1px solid transparent;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;background:#fff;position:absolute; z-index:10000; margin-top:11px!important;}
+ .awd_dropDownMain:hover,
+ .awd_Current,.awd_dropDownMain:hover,.awd_Current{border:1px solid #ccc;cursor:pointer;-moz-box-shadow:0px 2px 2px rgba(0,0,0,0.4);-webkit-box-shadow:0px 2px 2px rgba(0,0,0,0.4);box-shadow:0px 2px 2px rgba(0,0,0,0.4);}
+ .js_dropDownParent,.js_dropDownParent{list-style-type:none;}
+ .js_dropDownParent li,.js_dropDownParent li{background-image:none;background-color:transparent;padding:0;margin:0;text-align:left !important;}
+ .js_dropDownParent li a,
+ .awd_dropDownMain dt,.js_dropDownParent li a,.awd_dropDownMain dt{display:block;background-image:url('../images/icons-privacy.png');background-repeat:no-repeat;padding:4px 4px 4px 22px;line-height:16px;height:16px;text-decoration:none;white-space:nowrap;}.js_dropDownParent li a{color:#333;}
+ .js_dropDownParent li a:hover,.js_dropDownParent li a:hover{background-color:#e1e1e1;}
+ .awd_dropDownMain dt,.awd_dropDownMain dt{font-weight:700;text-indent:-9999em;min-width:10px;}
+ .js_PriContainerLarge .awd_dropDownMain dt{text-indent:0;min-width:100px;}
+ .awd_dropDownMain dt span,.awd_dropDownMain dt span{display:block;background:transparent url('../images/pri-arrow.png') no-repeat 50% 50%;width:10px;height:100%;float:right;}
+ .awd_dropDownMain dt strong,.awd_dropDownMain dt strong{display:block;float:left;}
+ .awd_Current dt span,.awd_Current dt span{background:transparent url('../images/pri-arrow-up.png') no-repeat 50% 50%;}
+ .awd_dropDownMain dd,.awd_dropDownMain dd{display:none;}
+ .js_dropDown-0,
+ .js_dropSelect-0,
+ .js_Pri-0,.js_dropDown-0,.js_dropSelect-0,.js_Pri-0{background-position:0 50%;}
+ .js_dropDown-1,
+ .js_dropSelect-1,
+ .js_Pri-1,.js_dropDown-1,.js_dropSelect-1,.js_Pri-1{background-position:-200px 50%;}
+ .js_dropDown-2,
+ .js_dropSelect-2,
+ .js_Pri-2,.js_dropDown-2,.js_dropSelect-2,.js_Pri-2{background-position:-400px 50%;}
+ .js_dropDown-40,
+ .js_dropSelect-40,
+ .js_Pri-40,
+.js_dropDown-40,.js_dropSelect-40,.js_Pri-40{background-position:-600px 50%;}

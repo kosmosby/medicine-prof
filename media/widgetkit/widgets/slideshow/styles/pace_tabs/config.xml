@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style name="pace_tabs" label="Pace Tabs">
+	<fields>
+		<field type="title" name="title" label="Title" description="" />
+		<field type="html" name="content" label="Content" description="" />
+		<field type="textarea" name="navigation" label="Navigation" description="" />
+	</fields>
+	<settings>
+		<setting name="animated" label="Effect" type="list" default="fade">
+			<option value="fade">Fade</option>
+			<option value="scroll">Scroll</option>
+		</setting>
+	</settings>
+</style>

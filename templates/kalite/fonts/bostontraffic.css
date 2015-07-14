@@ -1,0 +1,9 @@
+@font-face {
+	font-family: 'BostonTrafficRegular';
+	src: url('boston_traffic-webfont.eot?') format('eot'),
+		 url('boston_traffic-webfont.woff') format('woff'),
+		 url('boston_traffic-webfont.ttf') format('truetype'),
+		 url('boston_traffic-webfont.svg#BostonTrafficRegular') format('svg');
+	font-weight: normal;
+    font-style: normal;
+}

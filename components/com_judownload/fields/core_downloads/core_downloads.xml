@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="file" method="upgrade" judlplugintype="field">
+    <name>Core Downloads</name>
+    <author>JoomUltra</author>
+    <creationDate>18 July 2014</creationDate>
+    <authorEmail>admin@joomultra.com</authorEmail>
+    <version>1.0</version>
+    <license>GNU/GPL</license>
+    <website>http://www.joomultra.com</website>
+    <description></description>
+    <folder>core_downloads</folder>
+    <core>1</core>
+    <default>1</default>
+    <fileset>
+        <files target="components/com_judownload/fields/core_downloads">
+            <file>core_downloads.xml</file>
+            <file>core_downloads.php</file>
+            <file>index.html</file>
+            <folder>tmpl</folder>
+        </files>
+    </fileset>
+    <config>
+        <field name="size"
+               type="text"
+               label="COM_JUDOWNLOAD_FIELD_SIZE_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_SIZE_DESC"
+               default="32"
+                />
+
+        <field name="placeholder"
+               type="text"
+               label="COM_JUDOWNLOAD_FIELD_PLACEHOLDER_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_PLACEHOLDER_DESC"
+               default=""
+                />
+
+        <field
+                name="is_numeric"
+                type="radio"
+                default="0"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_IS_NUMERIC_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_IS_NUMERIC_DESC"
+                >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field name="digits_in_total"
+               type="text"
+               label="COM_JUDOWNLOAD_FIELD_DIGITS_IN_TOTAL_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_DIGITS_IN_TOTAL_DESC"
+               default="11"
+                />
+
+        <field name="digits_after_decimal"
+               type="text"
+               label="COM_JUDOWNLOAD_FIELD_DIGITS_AFTER_DECIMAL_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_DIGITS_AFTER_DECIMAL_DESC"
+               default="2"
+                />
+
+        <field name="dec_point"
+               type="text"
+               label="COM_JUDOWNLOAD_FIELD_DEC_POINT_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_DEC_POINT_DESC"
+               default="."
+                />
+
+        <field
+                name="use_thousands_sep"
+                type="radio"
+                default="0"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_USE_THOUSANDS_SEP_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_USE_THOUSANDS_SEP_DESC"
+                >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field name="thousands_sep"
+               type="text"
+               label="COM_JUDOWNLOAD_FIELD_THOUSANDS_SEP_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_THOUSANDS_SEP_DESC"
+               default=","/>
+    </config>
+</extension>

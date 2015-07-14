@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="file" method="upgrade" judlplugintype="field">
+    <name>Core Updated</name>
+    <author>JoomUltra</author>
+    <creationDate>18 July 2014</creationDate>
+    <authorEmail>admin@joomultra.com</authorEmail>
+    <version>1.0</version>
+    <license>GNU/GPL</license>
+    <website>http://www.joomultra.com</website>
+    <description></description>
+    <folder>core_updated</folder>
+    <core>1</core>
+    <default>1</default>
+    <fileset>
+        <files target="components/com_judownload/fields/core_updated">
+            <file>core_updated.xml</file>
+            <file>core_updated.php</file>
+            <file>index.html</file>
+            <folder>tmpl</folder>
+        </files>
+    </fileset>
+    <config>
+        <field
+                name="dateformat"
+                type="list"
+                default="DATE_FORMAT_LC1"
+                label="COM_JUDOWNLOAD_FIELD_DATETIME_FORMAT_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_DATETIME_FORMAT_DESC">
+            <option value="l, d F Y">COM_JUDOWNLOAD_DATE_FORMAT_LC</option>
+            <option value="l, d F Y">COM_JUDOWNLOAD_DATE_FORMAT_LC1</option>
+            <option value="l, d F Y H:i">COM_JUDOWNLOAD_DATE_FORMAT_LC2</option>
+            <option value="d F Y">COM_JUDOWNLOAD_DATE_FORMAT_LC3</option>
+            <option value="Y-m-d">COM_JUDOWNLOAD_DATE_FORMAT_LC4</option>
+            <option value="y-m-d">COM_JUDOWNLOAD_DATE_FORMAT_JS1</option>
+            <option value="custom">COM_JUDOWNLOAD_CUSTOM</option>
+        </field>
+
+        <field name="custom_dateformat"
+               type="text"
+               label="COM_JUDOWNLOAD_FIELD_CUSTOM_DATE_FORMAT_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_CUSTOM_DATE_FORMAT_DESC"
+               default=""
+               size="32"
+                />
+
+        <field
+                name="filter"
+                type="list"
+                default="USER_UTC"
+                label="COM_JUDOWNLOAD_FIELD_FILTER_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_FILTER_DESC">
+            <option value="USER_UTC">COM_JUDOWNLOAD_FILTER_USER_UTC</option>
+            <option value="SEVER_UTC">COM_JUDOWNLOAD_FILTER_SEVER_UTC</option>
+        </field>
+
+        <field name="size"
+               type="text"
+               label="COM_JUDOWNLOAD_FIELD_SIZE_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_SIZE_DESC"
+               default="32"
+                />
+    </config>
+</extension>

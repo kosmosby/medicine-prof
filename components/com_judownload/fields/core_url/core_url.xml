@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="file" method="upgrade" judlplugintype="field">
+    <name>Core Url</name>
+    <author>JoomUltra</author>
+    <creationDate>18 July 2014</creationDate>
+    <authorEmail>admin@joomultra.com</authorEmail>
+    <version>1.0</version>
+    <license>GNU/GPL</license>
+    <website>http://www.joomultra.com</website>
+    <description></description>
+    <folder>core_url</folder>
+    <core>1</core>
+    <default>1</default>
+    <fileset>
+        <files target="components/com_judownload/fields/core_url">
+            <file>core_url.xml</file>
+            <file>core_url.php</file>
+            <file>index.html</file>
+        </files>
+    </fileset>
+    <config>
+        <field
+                name="link_text"
+                type="text"
+                default=""
+                label="COM_JUDOWNLOAD_FIELD_LINK_TEXT_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_LINK_TEXT_DESC"
+                />
+
+        <field
+                name="trim_long_url"
+                type="text"
+                default="0"
+                label="COM_JUDOWNLOAD_FIELD_TRIM_LONG_URL_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_TRIM_LONG_URL_DESC"
+                />
+
+        <field
+                name="front_portion_url"
+                type="text"
+                default="0"
+                label="COM_JUDOWNLOAD_FIELD_FRONT_PORTION_URL_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_FRONT_PORTION_URL_DESC"
+                />
+
+        <field
+                name="back_portion_url"
+                type="text"
+                default="0"
+                label="COM_JUDOWNLOAD_FIELD_BACK_PORTION_URL_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_BACK_PORTION_URL_DESC"
+                />
+
+        <field
+                name="strip_http"
+                type="radio"
+                default="1"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_STRIP_HTTP_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_STRIP_HTTP_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field
+                name="open_in"
+                type="list"
+                default="_blank"
+                label="COM_JUDOWNLOAD_FIELD_OPEN_IN_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_OPEN_IN_DESC"
+                >
+            <option value="_self">COM_JUDOWNLOAD_SAME_WINDOW</option>
+            <option value="_blank">COM_JUDOWNLOAD_NEW_WINDOW</option>
+            <option value="popup">COM_JUDOWNLOAD_POPUP</option>
+            <option value="lightbox">COM_JUDOWNLOAD_LIGHTBOX_POPUP</option>
+        </field>
+
+        <field name="popup_width"
+               type="text"
+               default="800"
+               label="COM_JUDOWNLOAD_FIELD_POPUP_WIDTH_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_POPUP_WIDTH_DESC"
+                />
+
+        <field name="popup_height"
+               type="text"
+               default="500"
+               label="COM_JUDOWNLOAD_FIELD_POPUP_HEIGHT_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_POPUP_HEIGHT_DESC"
+                />
+
+        <field
+                name="show_go_button"
+                type="radio"
+                default="1"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_SHOW_GO_BUTTON_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_SHOW_GO_BUTTON_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field
+                name="use_nofollow"
+                type="radio"
+                default="1"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_USE_NOFOLLOW_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_USE_NOFOLLOW_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field
+                name="regex"
+                type="text"
+                default="/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/"
+                label="COM_JUDOWNLOAD_FIELD_REGEX_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_REGEX_DESC"
+                />
+
+        <field
+                name="invalid_message"
+                type="text"
+                default=""
+                label="COM_JUDOWNLOAD_FIELD_INVALID_MESSAGE_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_INVALID_MESSAGE_DESC"
+                />
+
+        <field name="size"
+               type="text"
+               default="32"
+               label="COM_JUDOWNLOAD_FIELD_SIZE_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_SIZE_DESC"
+                />
+
+        <field name="placeholder"
+               type="text"
+               default=""
+               label="COM_JUDOWNLOAD_FIELD_PLACEHOLDER_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_PLACEHOLDER_DESC"
+                />
+    </config>
+</extension>

@@ -1,0 +1,1 @@
+the folder under addons is the type of addon

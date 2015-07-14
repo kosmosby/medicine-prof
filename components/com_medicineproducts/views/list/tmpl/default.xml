@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="Medicine Products" option="Medicine Products">
+		<help
+			key = "Medicine Products"
+		/>
+		<message>
+			<![CDATA[Medicine Products]]>
+		</message>
+	</layout>
+
+	<!-- Add fields to the request variables for the layout. -->
+	<fields name="request">
+		
+</fields>
+</metadata>

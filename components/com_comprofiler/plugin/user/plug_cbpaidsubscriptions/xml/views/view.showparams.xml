@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view ui="admin" name="showparams" type="params"  label="General plugin settings" description="Here you can set general global settings. Next steps after this on first configuration are to setup payment gateway accounts and subscription plans/products.">
+			<extend toxpathnode="/cbxml/types/type[@name=&quot;templates_list&quot;]" fromxpathnode="/*/types/type[@name=&quot;templates_list&quot;]/option" file="templates/*/xml/edit.template" />
+			<param name="checkv"  mode="show"   type="private" hideblanktext="true" class="cbpaidParamsExt" method="checkPluginsPublished" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.]" action="" path="payintegrationglobals" label=" " description="" />
+			<tabpane name="cpayallparams">
+				<tabpanetab name="global" label="Global" description="Global settings:">
+					<fieldset label="Information on system" description="">
+						<param name=""        type="private" class="cbpaidParamsExt" method="versionlicensecheck" value="version versionminor" label="Your installed version"    description="Installed version of this software." />
+						<param name=""        type="private" class="cbpaidParamsExt" method="versionlicensecheck" value="latestversion latestversionminor" label="Latest version available"    description="Latest version available for this software." />
+						<param name=""        type="private" class="cbpaidParamsExt" method="versionlicensecheck" value="latestversionmessage" label="Latest version message"    description="Updated important messages regarding your version." />
+						<param name=""        type="private" class="cbpaidParamsExt" method="httpspoststatus" default=""  label="HTTPS POST subsystem status"    description="Some functions may fail if there is not at least a green line here." />
+						<param name="openssl_exec_path" type="text" size="60" label="Path to openssl on your website " default="/usr/bin/openssl" description="path to openssl executable on your system (will be first trial of autodetection)" />
+						<param name=""        type="private" class="cbpaidParamsExt" method="checkifexecutable" default="openssl_exec_path"  label="Openssl status"    description="Checks if openssl executable is existing and executable" />
+						<param name=""        type="private" class="cbpaidParamsExt" method="opensslstatus" default=""  label="OpenSSL Status (See Settings)"    description="Current status for OpenSSL" />
+					</fieldset>
+					<fieldset label="Registration settings" description="Select global registration and free subscriptions settings:">
+						<param name="registrationPlansEnabled" type="xml:yesno" default="1" label="Show subscription plans at registration" description="Whether you want to display subscription plans at registration screen." />
+						<param name="enableFreeRegisteredUser" type="xml:yesno" default="1" label="Allow Free Registered Users (without subscriptions)" description="YES means users with no subscription records for plans will be allowed to login as Registered users. NO means that these (e.g. existing) users will be blocked from logging in and will be proposed with possible subscription upgrades. If YES, they will be allowed and receive normal CB confirmation emails." />
+						<param name="createAlsoFreeSubscriptions" type="xml:yesno" default="0" label="Create Subscriptions also for free lifetime plans" description="YES means that a subscription record will be created for all plan types, also for free lifetime plans (without different first validity). NO means that no subscription records will be created for simple free lifetime plans. In the NO case, they are automatically shown as belonging to first free lifetime plan with User-Group-level `Registered`. Setting this to NO and also NOT allowing free registered users doesn't make sense." />
+						<if name="enableFreeRegisteredUser" type="showhide" operator="=" value="0" valuetype="const:int">
+							<if name="createAlsoFreeSubscriptions" type="showhide" operator="=" value="0" valuetype="const:int">
+								<param name="warning_free_incoherent" type="spacer" label="WARNING" cssclass="cbSmallWarning" default="WARNING: This setting does not make sense: free registered users without subscriptions not allowed, but subscriptions are not created for all plans, including free lifetime ones. In that mode that controls all site users through paid subscriptions, subscriptions are needed for all plans." />
+							</if>
+						</if>
+					</fieldset>
+					<fieldset label="Renewals and upgrade settings" description="Select global registration, upgrade, renewals, and free subscriptions settings:">
+						<param name="showRenewButtons" type="xml:yesno" default="1" label="Show Renew/Reactivate buttons" description="Whether you want to display renew buttons with subscribed subscription plans." />
+						<param name="upgradePlansEnabled" type="xml:yesno" default="1" label="Show subscription plans upgrade possibilities" description="Whether you want to display subscription plan upgrade possibilities with the subscriptions." />
+					</fieldset>
+					<fieldset label="Currency and Price display" description="Set currencies used, roundings and price display styling:">
+						<param name="currency_code" type="xml:currencies" default="USD" label="Main Currency" description="The default site currency that you are going to receive (can be overridden by products/plans)." />
+						<param name="secondary_currency_code" type="xml:currencies" default="" label="Multi-currency mode: Secondary Currency" description="Switch multi-currency on, and your second currency for display by default (can be set below to not display).">
+							<option value="">- Multi-currency mode off - no secondary currency -</option>
+						</param>
+						<param name="numbers_separators" type="list" default="|*|." label="Numbers format" description="The way you are displaying numbers and prices.">
+							<option value="">Corresponding to locale settings</option>
+							<option value="|*|.">1000.20</option>
+							<option value="|*|,">1000,20</option>
+							<option value="'|*|.">1'000.20</option>
+							<option value="'|*|,">1'000,20</option>
+							<option value=",|*|.">1,000.20</option>
+							<option value=".|*|,">1.000,20</option>
+							<option value=" |*|.">1 000.20</option>
+							<option value=" |*|,">1 000,20</option>
+						</param>
+						<param name="price_number_format" type="list" default="%.2f" label="Price cents format" description="The way you are displaying prices. WARNING: You should also round accordingly, if you do not want to surprise the customer at checkout.">
+							<option value="">Corresponding to locale settings</option>
+							<option value="%f">No formatting</option>
+							<option value="%.0f.-">x.- format (9.-) always</option>
+							<option value="%.0f,-">x,- format (9,-) always</option>
+							<option value="%.0f">0 decimals (9)</option>
+							<option value="%.1f">1 decimals (9.0)</option>
+							<option value="%.2f">2 decimals (9.00)</option>
+							<option value="%.2f.-">2 decimals with x.- format (9.-) if no cents</option>
+							<option value="%.2f,-">2 decimals with x,- format (9,-) if no cents</option>
+							<option value="%.2f.">2 decimals with 0 decimals if no cents</option>
+							<option value="%.3f">3 decimals (9.000)</option>
+							<option value="%.4f">4 decimals (9.0000)</option>
+						</param>
+						<param name="price_roundings" type="list" default="100" label="Price roundings" description="The way you are rounding prices.">
+							<option value="1">No cents (12.00)</option>
+							<option value="2">Nearest 50 cents (12.50)</option>
+							<option value="4">Nearest 25 cents (12.25)</option>
+							<option value="5">Nearest 20 cents (12.40)</option>
+							<option value="10">Nearest 10 cents (29.90)</option>
+							<option value="20">Nearest 5 cents (29.95)</option>
+							<option value="50">Nearest 2 cents (29.94)</option>
+							<option value="100">Nearest 1 cents (29.93)</option>
+						</param>
+						<param name="price_currency_format" type="list" default="%2$s %1$s" label="Price currency format ('EUR' is as example only here)" description="The way you are displaying prices and currencies. Example is with Euros, but it works with all supported currencies.">
+							<option value="%2$s %1$s">EUR 9.90</option>
+							<option value="%2$s%1$s">EUR9.90</option>
+							<option value="%1$s %2$s">9.90 EUR</option>
+							<option value="%1$s%2$s">9.90EUR</option>
+							<option value="%3$s %1$s">(Euro-sign) 9.90</option>
+							<option value="%3$s%1$s">(Euro-sign)9.90</option>
+							<option value="%1$s %3$s">9.90 (Euro-sign)</option>
+							<option value="%1$s%3$s">9.90(Euro-sign)</option>
+							<option value="%1$s">9.90 (No currency display)</option>
+						</param>
+						<if name="secondary_currency_code" type="showhide" operator="!=" value="" valuetype="const:string">
+							<param name="secondary_price_display_format" type="text" size="80" default="[MAIN_CURRENCY_PRICE] (~ [SECONDARY_CURRENCY_PRICE])"  label="Display of prices with secondary currency price" description="[MAIN_CURRENCY_PRICE] is replaced by currency+price of main currency, [SECONDARY_CURRENCY_PRICE] is replaced by currency+price of secondary currency, Default is: &quot;[MAIN_CURRENCY_PRICE] (~ [SECONDARY_CURRENCY_PRICE])&quot;. Any other currency+price can be displayed with ISO-code as follows: e.g.: [USD]. HTML tags are allowed, but stripped when the price is displayed in text-format." />
+							<param name="allow_select_currency" type="list" default="0" label="Allow currency selection at checkout" description="Whether you allow currency to change depending on gateway and wether the customer can choose the currency for his order. Note: display of the customer order at checkout must be forced with an introduction text to show the choice to the customer.">
+								<option value="0">Fixed by main currency and plan currency</option>
+								<option value="1">Can also be fixed by gateway and payment method</option>
+								<option value="2">User-selectable at checkout</option>
+							</param>
+							<if name="allow_select_currency" type="showhide" operator="&gt;=" value="1" valuetype="const:string">
+								<param name="allowed_currencies" type="xml:currencies" multiple="true" default="" blanktext="" label="Allowed Currencies for payment" description="The currency you are allowing to be selected for order display and for payment at checkout.">
+									<option value="">- Primary and Secondary currencies selected above -</option>
+								</param>
+							</if>
+							<param name="currency_conversion_markup_percent" type="text" size="5" default="0"  label="Markup of prices when not in currency of plan (in %)" description="Percents to increase prices when displayed or sold in a currency that is different from the currency set in the plan." />
+							<param name="rounding_converted_currency_price" type="list" default="0" label="Currency conversions rounding" description="Wheter the converted price should be precise or rounded.">
+								<option value="0">No rounding (precise conversion)</option>
+								<option value="1">Yes, rounding to nearest as set above</option>
+							</param>
+							<if name="allow_select_currency" type="showhide" operator="&gt;=" value="1" valuetype="const:string">
+								<param name="info_currency" type="spacer" label="Currency settings" cssclass="cb_result_info" default="More settings for currencies are located in each payment gateway." />
+							</if>
+							<else action="set" name="allow_select_currency" value="0" type="const:int" />
+							<else action="set" name="currency_conversion_markup_percent" value="0" type="const:int" />
+						</if>
+					</fieldset>
+					<fieldset label="Automation settings" description="">
+						<fieldset label="Mass expiry settings" description="">
+							<param name="massexpirymethod" type="list" default="0" label="Mass expire subscriptions method" description="The way you want to expire subscriptions. Access to CBSubs admin area does that automatically.">
+								<option value="0">Admin area only (100 at a time maximum per main CBSubs admin pageload)</option>
+								<option value="1">Front-end (10 max/page) and admin accesses (100 max/page) (cbpaidsubsbot needed)</option>
+								<option value="2">Cron task and admin access (100 max/page) </option>
+								<option value="3">Cron task only (no mass-expiry elsewhere)</option>
+							</param>
+							<if name="massexpirymethod" type="showhide" operator="&gt;=" value="2" valuetype="const:int">
+								<param name="massexpirynumber" type="text" size="12" default="100" label="Maximum subscriptions to expire per cron task run" description="The maximum number of subscriptions to expire per cron task run)." />
+								<param name="massexpirymethodurl" type="private" class="cbpaidSubscriptionsMgr" method="renderUrlOfAutoExpiry" value="massexpire" label="Url of cron task" description="This is the url to access from a crontab job to check and expire plans (recommended maximum 500 at a time)" />
+							</if>
+						</fieldset>
+						<fieldset label="Automated payments (this is only for use if required and supported in payment gateway and by payment service provider)" description="">
+							<param name="massautorenewalsnumber" type="text" size="12" default="100" label="Maximum auto-recurring payments per cron task run" description="The maximum number of automated payments per cron task run)." />
+							<param name="massrenewalurl" type="private" class="cbpaidSubscriptionsMgr" method="renderUrlOfAutoExpiry" value="autopayments" label="Url of cron task" description="This is the url to access from a crontab job to do automated payments (if supported by gateway)" />
+							<param name="massrenewaloutputincron" type="xml:yesno" default="1" label="Output results to cron url" description="Enable output results of auto-recurring payments triggered by CBSubs in Cron output, so that they get logged by cron on server and possibly emailed to user. If disabled, Cron output will be silenced." />
+							<param name="massrenewalemail" type="text" size="50" default="" label="Email addresses to email auto-payments results" description="Email addresses (separate multiple addresses by a comma ','). Leave blank for no emails." />
+						</fieldset>
+					</fieldset>
+					<fieldset label="PCI-DSS settings" description="PCI-DSS compliance requires https server and all E-commerce forms to be posted in https. Check with your payment services provider if this is required. This is often not required as long as you don't use credit-cards forms or storage on-site">
+						<param name="https_posts" type="list" default="0" label="Post all forms to https and return from gateways to https" description="">
+							<option value="0">Keep HTTP/HTTPS mode as is</option>
+							<option value="1">Force HTTPS on CBSubs forms</option>
+						</param>
+					</fieldset>
+				</tabpanetab>
+				<tabpanetab name="display" label="Display" description="Display formats settings:">
+					<tabpane name="displayparams">
+						<tabpanetab name="plansdisplaying" label="Plans" description="General settings for plans and products presentation">
+							<fieldset label="Subscriptions presentation" description="">
+								<param name="subscription_name" type="text" size="40" default="subscription" label="Singular name for subscription/membership" description="The singular name displayed in front-end for a subscription/membership (language translations are supported)." />
+								<param name="subscriptions_name" type="text" size="40" default="subscriptions" label="Plural name for subscriptions/memberships" description="The plural name displayed in front-end for a subscription/membership (language translations are supported)." />
+								<param name="regTitle" type="text" size="40" default="Subscription Plan" label="Title of registration choice" description="The text displayed for registration (language translations are supported)." />
+								<param name="regDisplayLines" type="list" default="2" label="Display registration choice on" description="How you want to display plans on the registration page.">
+									<option value="1">With title on the left of all plans</option>
+									<option value="2">With title above the plans taking full width</option>
+								</param>
+								<param name="profileTitle" type="text" size="40" default="Your Subscriptions" label="Title in subscriptions tab" description="The text displayed in the subscriptions tab. %s replaced with user name. Language translations are supported." />
+								<param name="period_for_price_text" type="list" default="%1$s%2$s%3$s" label="Periods pricing display" description="In which order you want to display periods pricings.">
+									<option value="%1$s%2$s%3$s">period for price (xx months for EUR yy)</option>
+									<option value="%3$s%2$s%1$s">price for period (EUR yy for xx months)</option>
+								</param>
+								<param name="regtextFor" type="text" size="40" default="for" label="Text -duration- FOR -price-" description="The text displayed between duration and price (language translations are supported)." />
+								<param name="regtextFree" type="text" size="40" default="Free" label="Text -duration- -for- FREE" description="The text displayed when plan price is 0 or unset (language translations are supported)." />
+								<param name="regtextLifetime" type="text" size="40" default="Lifetime Subscription" label="Text -LIFETIME SUBSCRIPTION- -for- price" description="The text displayed when subscription plan duration is set to Lifetime or unset (language translations are supported)." />
+								<param name="showtime" type="list" default="0" label="Show date and time" description="Display date and time or dates only, for instance for subscription expirations">
+									<option value="0">Show Date only</option>
+									<option value="1">Show Date and Time</option>
+								</param>
+							</fieldset>
+							<fieldset label="Plans and Subscriptions presentation" description="">
+								<param name="display_subscriptions_on_user_profile" type="list" default="1" label="Show on CB User Profile" description="The user sees on his own profile a tab Subscriptions where he can do upgrades, renewals and cancellations and see invoices list.">
+									<option value="0">Do not display on User Profile</option>
+									<option value="1">Display Subscriptions tab on User Profile</option>
+								</param>
+								<param name="plans_accessurl" type="spacer" label="Url to display subscriptions and plans" default="&lt;a href=&quot;../index.php?option=com_comprofiler&amp;task=pluginclass&amp;plugin=cbpaidsubscriptions&amp;do=displayplans&quot; target=&quot;_blank&quot;>index.php?option=com_comprofiler&amp;task=pluginclass&amp;plugin=cbpaidsubscriptions&amp;do=displayplans&lt;/a&gt;" description="This is the url of plan to display only this plan (use '-' to display multiple plans, e.g. &amp;plans=1-3-6)." />
+							</fieldset>
+							<fieldset label="Access not authorized texts" description="Following texts will display if you use a link to one or more plans:">
+								<param name="plansLoginOrRegisterText" type="textarea" rows="4" cold="40" default="If you already have an account, please login first. Otherwise you need to register using this form." label="Login or subscribe text (displayed if not logged in)" description="If user is not logged in, this text is displayed over registration or upgrade form when you use a link to plan(s) (HTML and language translations are supported)." />
+								<param name="plansDisplayIntroText" type="textarea" rows="4" cold="40" default="We suggest subscribing to following subscriptions:" label="Suggestion text for plans subscription (always displayed)" description="Text displayed always, independantly of logged-in status, over registration or upgrade form when you use a link to plan(s) like 'index.php?option=com_comprofiler&amp;task=pluginclass &amp;plugin=cbpaidsubscriptions &amp;do=displayplans, after login text above if needed (HTML and language translations are supported)." />
+							</fieldset>
+						</tabpanetab>
+						<tabpanetab name="basketsdisplaying" label="Baskets" description="General settings for presenting payment baskets">
+							<fieldset label="Website payment information surrounding texts" description="">
+								<param name="intro_text" type="htmlarea" height="170" cols="40" rows="5" default="Your registration data has now been saved, but your subscription isn't active yet. You need now to pay the subscription:" label="Registration payment Intro Text" description="Text above the payment button (optional). Any custom code to be inserted after the button. It can be form elements (HTML) or text. Leave this field completely empty to directly redirect to the payment processor if only one is installed. In that case you may want to add a conclusion text to the registration page warning the user that he will be redirected." />
+								<param name="intro_text_upgrade" type="htmlarea" height="170" cols="40" rows="5" default="You need now to pay the subscription upgrade." label="Upgrade Account Intro Text" description="Text above the payment button (optional). Any custom code to be inserted after the button. It can be form elements (HTML) or text. Leave this field completely empty to directly redirect to the payment processor if only one is installed." />
+								<param name="intro_text_renew" type="htmlarea" height="170" cols="40" rows="5" default="You need now to pay the subscription renewal." label="Renew Account Intro Text" description="Text above the payment button (optional). Any custom code to be inserted after the button. It can be form elements (HTML) or text. Leave this field completely empty to directly redirect to the payment processor if only one is installed." />
+								<param name="conclusion_text" type="htmlarea" height="170" cols="40" rows="5" default="Please click now on this button to pay:" label="Conclusion text" description="Text just above the payment button (optional). Any custom code to be inserted after the button. It can be form elements (HTML) or text." />
+								<param name="final_text" type="htmlarea" height="170" cols="40" rows="5" default="" label="Final text at bottom of page" description="Text below the payment button (optional). Any custom code to be inserted after the button. It can be form elements (HTML) or text." />
+								<fieldset label="Payment method choice" description="Here you can configure how a payment method is chosen by the buyer. If a basket needs to be displayed, because there is an introduction text above or there is more than one payment method.">
+									<param name="payment_method_selection_type" type="list" default="buttons" label="Choose payment method" description="A radio allows to re-compute the basket when the payment method changes and allows to display more text, while a button proceeds directly to the payment through the gateway.">
+										<option value="buttons">Choose payment method by showing all buttons available for payment</option>
+										<option value="radios">Choose payment method by showing a radio-selected list of payment methods</option>
+									</param>
+									<if name="payment_method_selection_type" operator="=" value="radios" valuetype="const:string" type="showhide">
+										<param name="info_payment_method_radios" type="spacer" label="Radios texts settings" cssclass="cb_result_info" default="More settings for radios are below and also located in each payment gateway." />
+									</if>
+								</fieldset>
+								<if name="payment_method_selection_type" operator="=" value="radios" valuetype="const:string" type="showhide">
+									<fieldset name="radios_fieldset" label="Settings for choice of payment method using radios" description="">
+										<param name="radios_intro_html" type="text" size="60" default="Choose your payment method:" label="Text displayed before the payment method selection radios" description="Default is: Choose your payment method:. It can be formatted elements (HTML) or text and is translatable." />
+										<param name="radios_unselected_conclusion_html" type="textarea" rows="5" cols="60" default="" label="Text displayed after the payment method selection radios (when none is selected)" description="It can be formatted elements (HTML) or text and is translatable." />
+										<param name="radios_selected_conclusion_html" type="textarea" rows="5" cols="60" default="" label="Text displayed after the payment method selection radios (when one is selected)" description="It can be formatted elements (HTML) or text and is translatable." />
+										<param name="payment_method_radios_template" type="xml:templates_list" default="" label="Template for displaying the payment method selection radios" description="You can choose the template just for the radios. Default template has 2D cards, Rounded template has 3D cards.">
+											<option value="">The template chosen in the global CBSubs Settings, Template tab</option>
+										</param>
+										<if name="payment_method_radios_template" operator="!=" value="payment_method_radios_template" valuetype="param:string" type="showhide">
+											<param name="warning_template_changed" type="spacer" label="Template settings" cssclass="cbSmallWarning" default="As selected template is not yet set or change saved, first apply plan settings to see any specific settings for the template." />
+										</if>
+										<if name="payment_method_radios_template" operator="!=" value="" valuetype="const:string" type="condition">
+											<extend toxpathnode=".." fromxpathnode="/cbxml/templatepaymentmethodradiosettings/*" file="templates/{template}/xml/edit.template" mandatory="false" />
+										</if>
+										<fieldset name="payment_button_for_radios_fieldset" label="Order button display for paid orders (if applicable)" description="If an order in a basket results payment or payment subscription need and payment method radios are selected, but basket still needs to be displayed, this button will be displayed.">
+											<param name="payment_button" type="list" default="paybutton" label="Pay Button to display" description="">
+												<option value="paybutton">Standard payment buttons chosen below</option>
+												<option value="gatewaybutton">Gateway-dependant payment button</option>
+											</param>
+											<if name="payment_button" operator="=" value="paybutton" valuetype="const:string" type="showhide">
+												<fieldset name="singleimages" label="Single payments at a time" description="">
+													<param name="paybutton_single_image" type="radio" default="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_pay_now.gif" label="Payment Button" description="The payment button (visible only if an Intro Text is present or more than one payment processor enabled.">
+														<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_pay.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_pay.gif" alt="" /&gt;</option>
+														<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_subscribe.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_subscribe.gif" alt="" /&gt;</option>
+														<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_amex_pay.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_amex_pay.gif" alt="" /&gt;</option>
+														<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_am_subscribe.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_am_subscribe.gif" alt="" /&gt;</option>
+														<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_pay_now.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_pay_now.gif" alt="" /&gt;</option>
+														<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_pay_now.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_pay_now.gif" alt="" /&gt;</option>
+														<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_buy_now.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_buy_now.gif" alt="" /&gt;</option>
+														<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_buy_now.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_buy_now.gif" alt="" /&gt;</option>
+														<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_click_subscribe.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_click_subscribe.gif" alt="" /&gt;</option>
+													</param>
+													<param name="paybutton_single_custom_image" type="text" size="40" default="" label="Custom Payment Button Text or Image" description="Either text of button or URL of a custom payment image (.gif, .jpg or .bmp), overwites selection above." />
+												</fieldset>
+												<fieldset name="recurringimages" label="Recurring subscribed payments multiple times" description="">
+													<param name="paybutton_subscribe_image" type="radio" default="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_subscribe.gif" label="Subscription Button" description="The payments subscriptions button (visible only if an Intro Text is present or more than one payment processor enabled AND recurring paypal payments are enabled.">
+														<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_subscribe.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_subscribe.gif" alt="" /&gt;</option>
+														<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_am_subscribe.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_am_subscribe.gif" alt="" /&gt;</option>
+														<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_free_trial.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_free_trial.gif" alt="" /&gt;</option>
+														<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_subscribe.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_subscribe.gif" alt="" /&gt;</option>
+														<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_subscribe.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_subscribe.gif" alt="" /&gt;</option>
+														<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_free_trial.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_free_trial.gif" alt="" /&gt;</option>
+														<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_free_trial.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_free_trial.gif" alt="" /&gt;</option>
+														<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_click_subscribe.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_click_subscribe.gif" alt="" /&gt;</option>
+													</param>
+													<param name="paybutton_subscribe_custom_image" type="text" size="40" default="" label="Custom Subscription Button Text or Image" description="Either text of button or URL of a custom subscription image (.gif, .jpg or .bmp), overwites selection above." />
+												</fieldset>
+											</if>
+										</fieldset>
+									</fieldset>
+								</if>
+								<fieldset label="Terms and Conditions on checkout" description="">
+									<param name="basket_requiredterms" type="list" default="0" label="Display and require accepting terms" description="When using the registration terms, displays: &quot;I have read and approve the terms and conditions.&quot; with link to registration terms.">
+										<option value="0">Do not ask to approve terms and conditions</option>
+										<option value="1">Ask to approve same terms and conditions as on registration page</option>
+										<option value="2">Ask to approve different terms and conditions for checkout</option>
+									</param>
+									<if name="basket_requiredterms" operator="=" value="2" valuetype="const:int" type="showhide">
+										<param name="basket_termsandconditions" type="htmlarea" height="170" cols="40" rows="5" default="I have read and approve the &lt;a href=&quot;#&quot; target=&quot;_blank&quot;&gt;terms and conditions&lt;/a&gt;." label="Terms and conditions text (adapt link url)" description="This text is displayed with a mandatory checkbox on its left. It can be form elements (HTML) or text." />
+									</if>
+									<if name="basket_requiredterms" operator="&gt;=" value="1" valuetype="const:int" type="showhide">
+										<param name="basket_requiredtermserror" type="text" size="60" default="You must accept terms and conditions to proceed." label="Error to display if Terms and conditions are not accepted" description="" />
+									</if>
+								</fieldset>
+								<fieldset label="Order Confirmation button display for free orders (if applicable)" description="If an order in a basket results in no payment or payment subscription needed, but basket still needs to be displayed, this button will be displayed.">
+									<param name="order_image" type="radio" default="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_confirm_order.gif" label="Confirm Order Button" description="The confirm order button (visible only if an Intro Text is present or terms are enabled and price is free.">
+										<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_confirm_order.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_confirm_order.gif" alt="" /&gt;</option>
+										<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_confirm_order.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_confirm_order.gif" alt="" /&gt;</option>
+										<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_confirm_order.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_confirm_order.gif" alt="" /&gt;</option>
+									</param>
+									<param name="order_custom_image" type="text" size="40" default="" label="Custom Button Text or Image" description="Either text of button or URL of a custom image (.gif, .jpg or .bmp), overwites selection above." />
+								</fieldset>
+								<fieldset label="Free Trial display (if applicable)" description="If a subscription plan includes free trial period and choice by user to immediately subscribe to autorecurring payments, both the payment buttons and this Free Trial button will be displayed side by side:">
+									<param name="freetrial_image" type="radio" default="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_free_trial.gif" label="Free Trial Button" description="The free trial button (visible only if an Intro Text is present or more than one payment processor enabled.">
+										<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_free_trial.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_free_trial.gif" alt="" /&gt;</option>
+										<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_free_trial.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_free_trial.gif" alt="" /&gt;</option>
+										<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_free_trial.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_free_trial.gif" alt="" /&gt;</option>
+									</param>
+									<param name="freetrial_custom_image" type="text" size="40" default="" label="Custom Button Text or Image" description="Either text of button or URL of a custom image (.gif, .jpg or .bmp), overwites selection above." />
+									<param name="freetrial_radio_name" type="text" label="Label of Free Trial radio" value="" size="60" default="Free trial" description="This text will only display if radios instead of buttons are set in CBSubs settings - Display - Baskets tab. You can put html. Text is translated." />
+									<param name="freetrial_radio_alt" type="text" label="Hover text of Free Trial radio" value="" size="60" default="Subscribe to free trial period only" description="Title text on hover of the radio text above" />
+									<param name="freetrial_radio_description" type="textarea" cols="40" rows="2" label="Description shown when radio is selected for Free trial" value="" default="" description="This allows to add instructions, or encouragements for a free trial." />
+								</fieldset>
+								<fieldset label="Cancel subscription display" description="">
+									<param name="cancel_subscription_link_text" type="text" size="40" default="Cancel payment and subscription" label="Cancel subscription link text" description="This is the text which will be shown as a link for cancelling subscription/payment when more than one payment options are present." />
+								</fieldset>
+							</fieldset>
+							<fieldset label="Website payment information displayed inside the basket view" description="">
+								<param name="basket_items_view_type" type="list" default="0" label="Columns displayed in basket on screen" description="You can leave default columns or set specifc ones">
+									<option value="0">Default display</option>
+									<option value="1">Custom</option>
+								</param>
+								<if name="basket_items_view_type" operator="=" value="1" valuetype="const:int" type="showhide">
+									<fieldset name="fbasket_item_line1_columns" label="Items columns line 1" description="">
+										<param name="basket_item_line1_columns"      type="xml:basket_item_columns" cols="1" multiple="true" class="cbregautoheight" default="description|*|first_rate|*|second_rate"          label="Items columns line 1" description="Columns in first line of items displayed in basket view" />
+										<param name="basket_item_display_empty_columns" type="list" default="0" label="Display columns even if empty" description="Bye default, empty columns are not displayed at all, but you can still mandatorily display them">
+											<option value="0">Do not display completely empty columns (default)</option>
+											<option value="1">Display columns even if nothing to display in them</option>
+										</param>
+									</fieldset>
+									<!--
+									<fieldset name="fbasket_item_line2_columns" label="Items columns line 2" description="">
+										<param name="basket_item_line2_columns"      type="xml:basket_item_columns" cols="1" multiple="true" class="cbregautoheight" default="validity_period"                                 label="Items columns line 2" description="Columns in second line of items displayed in basket view. * second period information only displayed if any item is recurring in the basket" />
+									</fieldset>
+									-->
+									<fieldset name="fbasket_totalizer_line1_columns" label="Totalizers columns line 1" description="">
+										<param name="basket_totalizer_line1_columns" type="xml:basket_item_columns" cols="1" multiple="true" class="cbregautoheight" default="artnum|*|description|*|validity_period|*|first_rate|*|second_rate" label="Totalizers columns line 1" description="Columns in first line of totalizers displayed in basket view" />
+										<param name="basket_totalizer_display_empty_columns" type="list" default="0" label="Display columns even if empty" description="Bye default, empty columns are not displayed at all, but you can still mandatorily display them">
+											<option value="0">Do not display completely empty columns (default)</option>
+											<option value="1">Display columns even if nothing to display in them</option>
+										</param>
+									</fieldset>
+									<!--
+									<fieldset name="fbasket_totalizer_line2_columns" label="Totalizers columns line 2" description="">
+										<param name="basket_totalizer_line2_columns" type="xml:basket_item_columns" cols="1" multiple="true" class="cbregautoheight" default=""                                                label="Totalizers columns line 2" description="Columns in second line of totalizers displayed in basket view" />
+									</fieldset>
+									-->
+								</if>
+							</fieldset>
+							<fieldset label="Payment basket and gateway item text" description="Settings for item name/text/description sent to the payment processor as the user will see on the payment processor workflows: You can substitute text using following strings: [PREFIX_TEXT] (depending on payment: can be empty for new subscriptions, or Renew, Upgrade), [ITEMS_ALIASES], [PLANS_TITLE], [SITENAME], [SITEURL], [USERNAME], [NAME], [EMAIL] and any [cb_fieldname].">
+								<param name="basket_item_name"  type="text" size="70" default="[ITEMS_ALIASES] for [USERNAME]" label="Payment basket item text" description="This is the item name for the payment basket, as forwarded to the payment processor. It will there be presented to user and/or emailed to user by the payment gateway, depending on gateway and its settings. WARNING: most do truncate this to 127 or 255 characters." />
+							</fieldset>
+							<fieldset label="Payment basket timeouts" description="Baskets are timed out by users in frontend and by admins and/or cron jobs in backend. These settings allow to set after how many hours the baskets timeout. Normal values are 3 hours for the user in front-end and 24 hours in administration area by administrators or cron jobs.">
+								<param name="basket_timeout_user"  type="text" size="5" default="3" label="Hours for payment basket to timeout in front-end" description="This setting allows to set after how many hours the baskets to timeout by the user in front-end (normal value: 3 hours)." />
+								<param name="basket_timeout_admin"  type="text" size="5" default="24" label="Hours for payment basket to timeout in administration" description="This setting allows to set after how many hours the baskets to timeout in administration area by administrators or cron jobs (normal value: 24 hours)." />
+							</fieldset>
+						</tabpanetab>
+						<tabpanetab name="showinvoices" label="Invoices" description="General settings for the handling of invoices.">
+							<fieldset label="Invoice numbering" description="">
+								<param name="invoices_numbering_type" type="list" default="0" label="Numbering of invoices" description="You can choose between a single invoice number and an invoice number which changes once paid (proforma invoice number before payment, then final invoice number).">
+									<option value="0">Single invoice number, assigned at ordering time (default)</option>
+									<option value="1">Proforma invoice number at order time, then different final invoice number once paid</option>
+								</param>
+								<if name="invoices_numbering_type" operator="=" value="1" valuetype="const:int" type="showhide">
+									<fieldset name="fieldset_proforma_numberings" label="Proforma Invoices numbering" description="">
+										<param name="proformainvoice_number_format"  type="text" size="70" default="PR-[PREFIX_TEXT][GROWING_ID]" label="Proforma Invoice number format" description="This is the proforma invoice number (unpaid invoice) format for the invoice numbering as displayed, stored, and forwarded to the payment processor. It will there also be presented to user and/or emailed to user by the payment gateway, depending on gateway and its settings. WARNING: most do truncate this to 32 or 64 characters." />
+										<if name="proformainvoice_number_format" type="showhide" operator="regexp" value="\[NUMBER(?::[A-Z0-9:]*)?\]" valuetype="const:string">
+											<param name="proformainvoice_number_next"  mode="show"    default="1 (this is the default first number for the [NUMBER] substitution for the next proforma invoice as it has not yet been set nor used)"   type="private" class="cbpaidParamsExt" method="data" label="Next Proforma invoice [NUMBER] that will be used"    description="This shows the next proforma invoice number substitution for [NUMBER] that will be used. To set it to something else, use the field below.">
+												<data name="sequencenumber"  as="proformainvoice_number_next" type="sql:field" table="#__cbsubs_config" class="cbpaidPaymentNumber">
+													<where>
+														<column name="type"  operator="=" value="number.proformainvoice" type="sql:field" valuetype="const:string" />
+													</where>
+													<orderby >
+														<field name="id" ordering="ASC" />
+													</orderby>
+												</data>
+											</param>
+											<param name="proformainvoice_number_starting" type="int" size="6" default="" onsave="cbpaidPaymentNumber::setStartingNumber" key="proformainvoice" nosave="true" label="Reset next Proforma Invoice [NUMBER] to" description="WARNING: This is to override the number of the next proforma invoice number. Leave blank for no change." />
+											<if name="proformainvoice_number_starting" operator="!=" value="" valuetype="const:string" type="showhide">
+												<param name="proformainvoice_numbering_restart_warning" type="spacer" cssclass="cbSmallWarning" label="WARNING" default="If you keep that field, you will be resetting/setting the next proforma invoice number that will be generated to that value. Please be sure that you really want to do that." />
+											</if>
+											<param name="proformainvoice_number_increment" type="int" size="6" default="1" label="Increment each consecutive Proforma Invoice [NUMBER] by" description="This is the amount by which proforma invoice numbers increment each time. Default is 1." />
+										</if>
+										<param name="proformainvoice_title_format"  type="text" size="70" default="Proforma Invoice [INVOICENUMBER]" label="Proforma Invoice title format" description="This is the complete title for the proforma invoice title text and number. [INVOICENUMBER] will be replaced by the proforma invoice number." />
+									</fieldset>
+								</if>
+								<fieldset name="fieldset_invoices_numberings" label="Paid Invoices numbering" description="">
+									<param name="invoice_number_format"  type="text" size="70" default="[PREFIX_TEXT][NUMBER]" label="Invoice number format" description="This is the invoice number format for the invoice numbering as displayed. If there is a proforma invoice number too, this number will be assigned only after payment is processed and visible to the user, but not in the payment processor, which will keep the proforma number only. If there is no proform invoices, it will be forwarded to the payment processor. It will there also be presented to user and/or emailed to user by the payment gateway, depending on gateway and its settings. WARNING: most do truncate this to 32 or 64 characters." />
+									<if name="invoice_number_format" type="showhide" operator="regexp" value="\[NUMBER(?::[A-Z0-9:]*)?\]" valuetype="const:string">
+										<param name="invoice_number_next"  mode="show"   default="1 (this is the default first number for the [NUMBER] substitution for the next invoice as it has not yet been set nor used)"   type="private" class="cbpaidParamsExt" method="data" label="Next invoice [NUMBER] that will be used"    description="This shows the next invoice number substitution for [NUMBER] that will be used. To set it to something else, use the field below.">
+											<data name="sequencenumber"  as="invoice_number_next" type="sql:field" table="#__cbsubs_config" class="cbpaidPaymentNumber">
+												<where>
+													<column name="type"  operator="=" value="number.invoice" type="sql:field" valuetype="const:string" />
+												</where>
+												<orderby >
+													<field name="id" ordering="ASC" />
+												</orderby>
+											</data>
+										</param>
+										<param name="invoice_number_starting" type="int" size="6" default="" onsave="cbpaidPaymentNumber::setStartingNumber" key="invoice" nosave="true" label="Reset next Invoice [NUMBER] to" description="This is to override the number of the next invoice number. Leave blank for no change." />
+										<if name="invoice_number_starting" operator="!=" value="" valuetype="const:string" type="showhide">
+											<param name="invoice_numbering_restart_warning" type="spacer" cssclass="cbSmallWarning" label="WARNING" default="If you keep that field, you will be resetting/setting the next invoice number that will be generated to that value. Please be sure that you really want to do that." />
+										</if>
+										<param name="invoice_number_increment" type="int" size="6" default="1" label="Increment each consecutive Invoice [NUMBER] by" description="This is the amount by which proforma invoice numbers increment each time. Default is 1." />
+									</if>
+									<param name="invoice_title_format"  type="text" size="70" default="Invoice [INVOICENUMBER]" label="Invoice title format" description="This is the complete title for the invoice title text and number. [INVOICENUMBER] will be replaced by the invoice number." />
+								</fieldset>
+								<fieldset name="fieldset_invoices_numberings_help" label="Substitutions in Invoice number format" description="You can substitute text in Proforma Invoice number format and in Invoice number format using following strings:">
+									<param type="spacer" label="[PREFIX_TEXT]" default="Letter depending on payment type: N for new subscriptions during registration, R for Renewing an existing subscription, U for Upgrade to a new subscription." />
+									<param type="spacer" label="[NUMBER]" default="[NUMBER] for strictly incrementing unique numbers for the corresponding type of invoice number starting at 1 (or the number displayed above that can be reset to a given value)." />
+									<param type="spacer" label="[NUMBER:firstnumber]" default="This is same as [NUMBER], except that you can set the format [NUMBER:1] starting at 1 (where 1 can be replaced by the starting number of your choice, and a fixed number of filler 0s can be added in front: e.g. [NUMBER:000012] will display invoice 211 as 000211)." />
+									<param type="spacer" label="[NUMBER:firstnumber:RESTART:period]" default="Optionally a numbering restart time can be set with :RESART:period (no spaces), e.g. [NUMBER:1:RESTART:YEARLY], where instead of YEARLY, MONTHLY and DAILY are also supported." />
+									<param type="spacer" label="[YEAR], [YEARSHORT], [MONTH] and [DAY]" default="[YEAR] with 4 digit year, [YEARSHORT] with 2 digits year, [MONTH] and [DAY] of invoice creation (for proforma) or of payment (for final invoice) can also be used." />
+									<param type="spacer" label="[GROWING_ID], [UNIQ_ID]" default="The [GROWING_ID] replacement can be used for a time-dependant, microsecond-resolution, 16-digits decimal uniqid(), which is always increasing, while [UNIQ_ID] can be used as a unique 16-digits id that looks random." />
+									<param type="spacer" label="[ARTNUMS], [SITENAME], [SITEURL], [USERNAME], [NAME], [EMAIL], [cb_fieldname]" default="You can also use: [ARTNUMS] for article ids, [SITENAME], [SITEURL], [USERNAME], [NAME], [EMAIL] and any [cb_fieldname]." />
+									<param type="spacer" label="Example 1: Year + Number in year: 2013-0001" default="If you want to start at invoice number 2012-0051, where 2012 is the current year, and 0051 the invoice number to be reset to 1 every new year:&lt;br /&gt; Enter &quot;[YEAR]-[NUMBER:0001:RESTART:YEARLY]&quot; in the &quot;Invoice number format&quot; field, and &quot;51&quot; in the &quot;Invoice reset starting number to&quot; field once at begin.&lt;br /&gt; First invoce number will then be &quot;2012-0051&quot; and then increment whole year. First invoice of 2013 will then be &quot;2013-0001&quot; and then increment from there." />
+									<param type="spacer" label="Example 2: Date + Number in day: INV-2012-04-28-1" default="If you want the date included in the invoice number and restart numbering each day, you can use for instance:&lt;br /&gt; &quot;INV-[YEAR]-[MONTH]-[DAY]-[NUMBER:0001:RESTART:DAYLY]&quot; which will give e.g. &quot;INV-2012-04-28-1&quot; as first invoice on that day." />
+								</fieldset>
+							</fieldset>
+							<fieldset label="Invoice totalizers ordering" description="Here you can set in which order the totalizers are computed and displayed in baskets and invoices:">
+								<param name="baskettotalizerordering[subtotal1]" type="int" size="4" maxlength="3" default="10" label="Subtotal 1" description="Subtotal on items, default 10. Set to 0 to never display." />
+								<param name="baskettotalizerordering[subtotal2]" type="int" size="4" maxlength="3" default="0" label="Subtotal 2" description="Subtotal on items, default 0. Set to 0 to never display." />
+								<showview name="integrationsglobals" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.]" action="" path="baskettotalizerorderingsetting" />
+								<param name="baskettotalizerordering[subtotal3]" type="int" size="4" maxlength="3" default="0" label="Subtotal 3" description="Subtotal on items, default 0. Set to 0 to never display." />
+								<param name="baskettotalizerordering[subtotal4]" type="int" size="4" maxlength="3" default="0" label="Subtotal 4" description="Subtotal on items, default 0. Set to 0 to never display." />
+								<param name="baskettotalizerordering[grandtotal]" type="int" size="4" maxlength="3" default="100" label="Grand Total" description="Grand Total at bottom, default 100. Set to 0 to never display." />
+							</fieldset>
+							<fieldset label="Invoice totalizers labelling" description="Here you can set how the totalizers are displayed in baskets and invoices:">
+								<if name="baskettotalizerordering[subtotal1]" type="showhide" operator="!=" value="0" valuetype="const:int">
+									<fieldset name="labellingsubtotal1" label="Sub-Total 1 labelling" description="">
+										<param name="totalizer_artnum_subtotal1" type="text" size="10" default="" label="Subtotal 1 article number" description="Subtotal short article number. Set to empty to never display." />
+										<param name="totalizer_description_subtotal1" type="text" size="40" default="Sub-Total" label="Subtotal 1 article description" description="Subtotal description text. Set to empty to never display." />
+									</fieldset>
+								</if>
+								<if name="baskettotalizerordering[subtotal2]" type="showhide" operator="!=" value="0" valuetype="const:int">
+									<fieldset name="labellingsubtotal2" label="Sub-Total 2 labelling" description="">
+										<param name="totalizer_artnum_subtotal2" type="text" size="10" default="" label="Subtotal article number" description="Subtotal short article number. Set to empty to never display." />
+										<param name="totalizer_description_subtotal2" type="text" size="40" default="Sub-Total" label="Subtotal article description" description="Subtotal description text. Set to empty to never display." />
+									</fieldset>
+								</if>
+								<showview name="integrationsglobals" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.]" action="" path="baskettotalizerlabellingsetting" />
+								<if name="baskettotalizerordering[subtotal3]" type="showhide" operator="!=" value="0" valuetype="const:int">
+									<fieldset name="labellingsubtotal3" label="Sub-Total 3 labelling" description="">
+										<param name="totalizer_artnum_subtotal3" type="text" size="10" default="" label="Subtotal article number" description="Subtotal short article number. Set to empty to never display." />
+										<param name="totalizer_description_subtotal3" type="text" size="40" default="Sub-Total" label="Subtotal article description" description="Subtotal description text. Set to empty to never display." />
+									</fieldset>
+								</if>
+								<if name="baskettotalizerordering[subtotal4]" type="showhide" operator="!=" value="0" valuetype="const:int">
+									<fieldset name="labellingsubtotal4" label="Sub-Total 4 labelling" description="">
+										<param name="totalizer_artnum_subtotal4" type="text" size="10" default="" label="Subtotal article number" description="Subtotal short article number. Set to empty to never display." />
+										<param name="totalizer_description_subtotal4" type="text" size="40" default="Sub-Total" label="Subtotal article description" description="Subtotal description text. Set to empty to never display." />
+									</fieldset>
+								</if>
+								<if name="baskettotalizerordering[grandtotal]" type="showhide" operator="!=" value="0" valuetype="const:int">
+									<fieldset name="labellinggrandtotal" label="Grand Total labelling" description="">
+										<param name="totalizer_artnum_grandtotal" type="text" size="10" default="" label="Grand Total article number" description="Grand Total short article number. Set to empty to never display." />
+										<param name="totalizer_description_grandtotal" type="text" size="40" default="[AUTOMATIC]" label="Grand Total article description" description="Grand Total description text. Default: &quot;[AUTOMATIC]&quot; (recommended) means: depending of the basket, it will display text and prices nicely (translated) &quot;Total&quot;, &quot;Total for first payment&quot;, or &quot;Total per payment&quot;. Set to empty to never display." />
+									</fieldset>
+								</if>
+							</fieldset>
+							<fieldset name="invoice_frontend" label="Frontend invoice display settings">
+								<fieldset name="invoice_addressing" label="Customer invoicing address">
+									<param name="invoicing_address_query" type="list" size="1" default="1" label="Invoicing address handling at payment time" description="If the invoicing address is shown and required, proposed or not at payment time.">
+										<option value="0">No invoicing address shown</option>
+										<option value="1">Non-mandatory invoicing address</option>
+										<option value="2">Mandatory invoicing address</option>
+									</param>
+									<if name="invoicing_address_query" type="showhide" operator="=" value="2" valuetype="const:int">
+										<param name="invoicing_address_required_into_text" type="htmlarea" height="170" cols="40" rows="10" default="We need your complete address to be able to provide you with an invoice after your payment. Please complete your invoicing address below. This address will be used only for the invoicing and will not appear on your user profile." label="Introduction text when requiring invoicing address" description="Leave empty, or enter text or HTML code." />
+									</if>
+									<if name="invoicing_address_query" type="showhide" operator="&gt;" value="0" valuetype="const:int">
+										<fieldset name="invoicing_address" label="CB fields for first invoicing address of customer" description="These CB fields will be used, if existing and configured, only as first default invoicing address of the user. A plugin-specific, separate, latest invoicing address is stored in his user profile. During the first purchase, and at each invoicing address edit, this latest invoicing address will be automatically updated. On further purchases, the latest invoicing address will then automatically be proposed to the user.">
+											<param name="invoice_cb_field_name" type="field" size="" default="name" label="Name field" description="" />
+											<param name="invoice_cb_field_company" type="field" size="" default="cb_company" label="Company field" description="" />
+											<param name="invoice_cb_field_address" type="field" size="" default="cb_address" label="Address field" description="" />
+											<param name="invoice_cb_field_city" type="field" size="" default="cb_city" label="City field" description="" />
+											<param name="invoice_cb_field_state" type="field" size="" default="cb_state" label="State field" description="" />
+											<param name="invoice_cb_field_zipcode" type="field" size="" default="cb_zipcode" label="Zipcode field" description="" />
+											<param name="invoice_cb_field_country" type="field" size="" default="cb_country" label="Country field" description="" />
+											<param name="invoice_cb_field_phone" type="field" size="" default="cb_phone" label="Phone field" description="" />
+											<param name="invoice_cb_field_vat_number" type="field" size="" default="" label="VAT number" description="" />
+										</fieldset>
+									</if>
+								</fieldset>
+								<param name="show_invoices" type="xml:yesno" default="1" label="Show invoices" description="Whether you want the users to be able to display their pending and completed invoices." />
+								<if name="show_invoices" type="showhide" operator="=" value="1" valuetype="const:int">
+									<param name="invoices_show_period" type="xml:relative_time" size="1" default="0000-06-00 00:00:00" label="Show in user profile subscription tab invoices of last" description="Invoices will be shown for this number of days. 0 for no history of invoices shown except of just after payment." />
+									<fieldset name="invoice_styling" label="Invoice content and styling settings for System owner">
+										<param name="invoice_header" type="htmlarea" height="170" cols="40" rows="10" default="&lt;h2&gt;[SITENAME]&lt;/h2&gt;&lt;h3&gt;[SITEURL]&lt;/h3&gt;&lt;address&gt;your address&lt;br /&gt;your town / country&lt;/address&gt;" label="Custom header image/html" description="Leave empty, enter HTML code, or just enter relative URL of a custom invoice logo/header image (.gif, .jpg or .bmp)." />
+										<param name="invoice_header_alt_text" type="text" size="60" default="Invoice header image: Text in this image is: ..." label="Custom Header Image Alt Text (if image in header)" description="If you use an image, you should input here a meaningful alternative text for the accessibility of blind users or users not displaying images. E.g. write in this all the text which is in the image. This text will be translated by the language manager." />
+										<param name="invoice_header_align" type="list" size="1" default="left" label="Custom Header Image Alignment" description="">
+											<option value="">Separately using CSS stylesheet</option>
+											<option value="left">Left</option>
+											<option value="center">Center</option>
+											<option value="right">Right</option>
+										</param>
+										<param name="invoicer_address" type="htmlarea" height="170" cols="40" rows="10" default="&lt;address&gt;BestSite&lt;br /&gt;Address&lt;br /&gt;Town&lt;br /&gt;VAT id #:&lt;br /&gt;&lt;/address&gt;" label="Address of site owner (seller)" description="Text to display the address of the owner." />
+										<param name="invoice_address_format" type="htmlarea" height="170" cols="40" rows="10" default="&lt;strong&gt;[ADDRESS_COMPANY]&lt;/strong&gt;&lt;br /&gt;[ADDRESS_FIRST_NAME] [ADDRESS_LAST_NAME]&lt;br /&gt;[ADDRESS_STREET]&lt;br /&gt;[ADDRESS_CITY] [ADDRESS_STATE]&lt;br /&gt;[ADDRESS_ZIPCODE]&lt;br /&gt;[ADDRESS_COUNTRY]" label="Customer address format" description="replacement tags available: see below." />
+										<param name="invoice_conditions" type="htmlarea" height="170" cols="60" rows="10" default="Use of our website and of any purchase is subject to our general conditions available on this website [SITEURL]." label="Custom text for 'Terms and conditions'" description="Leave empty, or enter text or HTML code, you can also enter a link using the 'a' html tags." />
+										<param name="invoice_footer" type="htmlarea" height="170" cols="40" rows="10" default="" label="Custom footer image" description="Leave empty, enter HTML code, or just enter relative URL of a custom invoice footer image (.gif, .jpg or .bmp)." />
+										<param name="invoice_footer_alt_text" type="text" size="60" default="Invoice footer image: Text in this image is: ..." label="Custom footer image alt text (if image in footer)" description="If you use an image, you should input here a meaningful alternative text for the accessibility of blind users or users not displaying images. This text will be translated by the language manager." />
+										<param name="invoice_footer_align" type="list" size="1" default="center" label="Custom Footer Image Alignment" description="">
+											<option value="">Separately using CSS stylesheet</option>
+											<option value="left">Left</option>
+											<option value="center">Center</option>
+											<option value="right">Right</option>
+										</param>
+										<param type="spacer" label="Substitutions in all fields of invoice" default="[SITENAME], [SITEURL]&lt;br /&gt;[INVOICE_NO], [PROFORMA_INVOICE_NO] (populated only after payment), [INVOICE_ID], [ITEMS_NAME], [ITEMS_NUMBERS]&lt;br /&gt;[PAYMENT_STATUS], [PAYMENT_METHOD], [TRANSACTION_ID], [TRANSACTION_TYPE]&lt;br /&gt;[DATE_ORDERED], [DATE_TIME_ORDERED], [DATE_PAID]&lt;br /&gt;[CURRENCY], [TOTAL_PRICE], [TAX_AMOUNT]&lt;br /&gt;[ADDRESS_COMPANY], [ADDRESS_FIRST_NAME], [ADDRESS_LAST_NAME], [ADDRESS_STREET], [ADDRESS_CITY], [ADDRESS_STATE], [ADDRESS_ZIPCODE], [ADDRESS_COUNTRY], [ADDRESS_PHONE], [ADDRESS_VAT_NUMBER]&lt;br /&gt;[EMAIL] of user, [PAYER_EMAIL] of paypal payer, [USERNAME], [NAME], [cb_anycbfieldname]" description="Substitutions allow to personalize the invoice. WARNING: However, for now, the invoice will always show the latest values, as substitution happens at display time." />
+									</fieldset>
+									<fieldset name="website_items_display_invoice_view" label="Invoice payment items lines content displayed inside the invoice" description="">
+										<param name="invoice_items_view_type" type="list" default="0" label="Columns displayed on invoice" description="You can leave default columns or set specifc ones">
+											<option value="0">Default display</option>
+											<option value="1">Custom</option>
+										</param>
+										<if name="invoice_items_view_type" operator="=" value="1" valuetype="const:int" type="showhide">
+											<fieldset name="finvoice_item_line1_columns" label="Items columns line 1" description="">
+												<param name="invoice_item_line1_columns"      type="xml:basket_item_columns" cols="1" multiple="true" class="cbregautoheight" default="description|*|first_rate|*|second_rate"          label="Items columns line 1" description="Columns in first line of items displayed in invoice view" />
+												<param name="invoice_item_display_empty_columns" type="list" default="0" label="Display columns even if empty" description="Bye default, empty columns are not displayed at all, but you can still mandatorily display them">
+													<option value="0">Do not display completely empty columns (default)</option>
+													<option value="1">Display columns even if nothing to display in them</option>
+												</param>
+											</fieldset>
+											<!--
+												<fieldset name="finvoice_item_line2_columns" label="Items columns line 2" description="">
+												<param name="invoice_item_line2_columns"      type="xml:basket_item_columns" cols="1" multiple="true" class="cbregautoheight" default="validity_period"                                 label="Items columns line 2" description="Columns in second line of items displayed in invoice view. * second period information only displayed if any item is recurring in the invoice" />
+												</fieldset>
+											-->
+											<fieldset name="finvoice_totalizer_line1_columns" label="Totalizers columns line 1" description="">
+												<param name="invoice_totalizer_line1_columns" type="xml:basket_item_columns" cols="1" multiple="true" class="cbregautoheight" default="artnum|*|description|*|validity_period|*|first_rate|*|second_rate" label="Totalizers columns line 1" description="Columns in first line of totalizers displayed in invoice view" />
+												<param name="invoice_totalizer_display_empty_columns" type="list" default="0" label="Display columns even if empty" description="Bye default, empty columns are not displayed at all, but you can still mandatorily display them">
+													<option value="0">Do not display completely empty columns (default)</option>
+													<option value="1">Display columns even if nothing to display in them</option>
+												</param>
+											</fieldset>
+											<!--
+												<fieldset name="finvoice_totalizer_line2_columns" label="Totalizers columns line 2" description="">
+												<param name="invoice_totalizer_line2_columns" type="xml:basket_item_columns" cols="1" multiple="true" class="cbregautoheight" default=""                                                label="Totalizers columns line 2" description="Columns in second line of totalizers displayed in invoice view" />
+												</fieldset>
+											-->
+										</if>
+									</fieldset>
+								</if>
+							</fieldset>
+						</tabpanetab>
+						<tabpanetab name="unsubscribedisplaying" label="Unsubscribe" description="General settings for presenting plans unsubscriptions">
+							<param name="showUnsubscribeButtons" type="xml:yesno" default="1" label="Show Unsubscribe buttons" description="Whether you want to display unsubscribe buttons with subscribed subscription plans." />
+							<if name="showUnsubscribeButtons" type="showhide" operator="&gt;" value="0" valuetype="const:int">
+								<fieldset name="unsubscribe_texts_fieldset" label="Website unsubscription information surrounding texts" description="These texts are only enabled if the unsubscription buttons are set to be shown in the frontend">
+									<param name="unsubscribe_intro_text" type="htmlarea" height="200" cols="40" rows="5" default="We are sorry to see you unsubscribing. Please contact us first if you feel we can improve our service. Otherwise simply confirm your immediate subscription cancellation below" label="Unsubscription Intro Text" description="Text above the unsubscription confirmation button (optional). Any custom code to be inserted. It can be formatting elements (HTML) or text." />
+									<param name="unsubscribe_confirmation_text" type="htmlarea" height="200" cols="40" rows="5" default="We are confirming your unsubscription from our %s subscription. Thank you for your time spent with us and hope to see you again soon." label="Unsubscription Confirmation Text" description="Text shown to confirm the unsubscription (optional). %s will be replaced by the name of the plan which is unsubscribed. Any custom code to be inserted. It can be formatting elements (HTML) or text." />
+								</fieldset>
+							</if>
+						</tabpanetab>
+						<tabpanetab name="expirationdisplaying" label="Expiration" description="General settings for presenting expiration of subscriptions">
+							<fieldset name="expiration_texts_fieldset" label="Messages on expiration and restricted access" description="These texts are displayed in the frontend as an error div when user subscription memberships expire:">
+								<param name="subscriptionExpiredText" type="htmlarea" height="200" cols="40" rows="5" default="Your membership has expired." label="Error text for expired existing memberships" description="Text displayed to an existing user above choices for reactivation or upgrades. Any custom code to be inserted. It can be formatting elements (HTML) or text. Languages are supported too." />
+								<param name="subscriptionNeededText" type="htmlarea" height="200" cols="40" rows="5" default="A membership is needed for access." label="Error text shown to registered users on a site now requiring subscriptions" description="This is the text shown to existing registered users without any subscription but on a site that now requires subscriptions. Any custom code to be inserted. It can be formatting elements (HTML) or text." />
+							</fieldset>
+							<fieldset name="expirationredirects" label="Expiration and restricted access redirects" description="Instead of showing the possibilities for reactivation or upgrades, you can display your custom page here.">
+								<param name="subscriptionExpiredRedirectLink" type="text" size="40" default="" label="Membership expired redirect URL" description="In case of an existing but expired membership: Redirection to this URL (start with non-sef url index.php?.. if on same site). Default: empty. WARNING: use only if you know what you do." />
+								<param name="subscriptionNeededRedirectLink" type="text" size="40" default="" label="Membership needed for access redirect URL for existing users" description="In case of no existing expired membership: Redirection to this URL (start with non-sef url index.php?.. if on same site). Default: empty. WARNING: use only if you know what you do." />
+							</fieldset>
+						</tabpanetab>
+						<tabpanetab name="templatetab" label="Template" description="General settings for the template. Each plan can use a different CBSubs Template. Also CMS templates can override the views in their &lt;br /&gt;folder &quot;templates/[cmsTemplateName]/html/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/[viewname]/[layout].php&quot;">
+							<param name="template" type="xml:templates_list" default="default" label="CBSubs Template for displaying style" description="You can choose the template for all general views of CBSubs. Those can also be chosen by product in Plan edit" />
+							<if name="template" operator="!=" value="template" valuetype="param:string" type="showhide">
+								<param name="warning_maintemplate_changed" type="spacer" label="Template settings" cssclass="cbSmallWarning" default="As selected template changed, first apply configuration to set the specific settings of the template." />
+							</if>
+							<if name="template" operator="!=" value="" valuetype="const:string" type="condition">
+								<extend toxpathnode=".." fromxpathnode="/cbxml/templateglobalsettings/*" file="templates/{template}/xml/edit.template" mandatory="true" />
+							</if>
+						</tabpanetab>
+					</tabpane>
+				</tabpanetab>
+				<tabpanetab name="ccards" label="Credit-cards" description="Credit-cards display formats settings:">
+					<fieldset label="Credit card forms presentation" description="This is only needs to be configured for on-site credit-card payments, such as Authorize.net AIM.">
+						<param name="show_cc_ccv" type="xml:yesno" default="1" label="Ask for CCV2/CVC2/CID" description="Whether you must or want to ask for the CCV2 / CVC2 / CID codes." />
+						<param name="keep_http_session" type="list" default="0" label="User login session on https switchover" description="Whether you must or want to keep user logged-in twice, once for http and once for https when the credit-card form is shown (more user-friendly). Or if you want to logout user from http when switching to https (more secure).">
+							<option value="0">Logout user from http on https switchover</option>
+							<option value="1">Keep user logged-in also in http</option>
+						</param>
+						<param name="security_logos_and_seals" type="htmlarea" height="200" rows="9" cols="50" default="" label="Security logos and seals HTML code" description="Insert here the authorize.net seal and SSL verification logo if you want to display it below the payment form on your site to increase customer trust." />
+						<param name="cc_http_test_mode" type="list" default="https" label="Credit-Card Form http(s) mode" description="Sometimes https ssl secured modes are not available on test-servers and this mode allows you to do the tests, but only with test-servers.">
+							<option value="https">HTTPS (normal secure mode required for normal credit-cards)</option>
+							<option value="http">HTTP (insecure mode for test only (not allowed for real use)</option>
+						</param>
+					</fieldset>
+				</tabpanetab>
+				<showview name="integrationssettings" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.]" action="" path="paysettingstabpanetabs" />
+				<if name="api" nametype="cmsversion:int" operator="&gt;=" value="2" valuetype="const:int" type="condition">
+					<if name="permission:core.admin" nametype="pluginparams:int" operator="=" value="1" valuetype="const:int" type="condition">
+						<tabpanetab name="perms" label="Permissions" description="Global CBSubs permissions">
+							<extend toxpathnode="../param[@name=&quot;permissions_access&quot;]" fromxpathnode="/cbxml/globalcbsubspermissions/*" file="plugin/*/xml/edit.cbsubs,../user/*/xml/edit.cbsubs,processors/*/edit.gateway" mandatory="false" mode="replaceorappend" keyattribute="name" />
+							<param name="permissions_access" type="permissions" assetname="com_cbsubs" default="" label="" title="CBSubs" description="">
+								<permission name="core.admin" label="Configure these CBSubs permissions" description="Sets who has the right to configure these permissions of CBSubs for groups" />
+								<permission name="core.manage" label="Access CBSubs in administration area" beforelabel="ⓘ" description="Sets who has the right to access CBSubs administration area at all (needed for any other permission in CBSubs administration area, sometimes called administration site backend). NOTE: in CB, the permission Access Administration Interface is also needed to access CBSubs." />
+								<permission name="cbsubs.settings" label="Manage CBSubs general settings" description="Sets who has the right to configure general CBSubs Settings and access History logs" />
+								<permission name="cbsubs.gateways" label="Manage Gateways settings" description="Sets who has the right to configure CBSubs Gateways and access Notifications and History logs" />
+								<permission name="cbsubs.sales" label="Manage Sales operations" description="Manage daily sales operations allows access to baskets, individual invoices, payments and notifications in CBSubs administration area" />
+								<permission name="cbsubs.recordpayments" label="Record payment transactions" beforelabel="├" description="This permission allows to record payments for offline purchases on site and in CBSubs administration area (requires Manage Sales Operations permission). It also allows imports of subscriptions, e.g. for existing subscriptions, which are already paid earlier or by other means." />
+								<permission name="cbsubs.refunds" label="Refund from within CBSubs" beforelabel="└" description="This permission allows to initiate refunds for payments from within CBSubs administration area (requires Manage Sales Operations permission)" />
+								<permission name="cbsubs.usersubscriptionview" label="View User Subscriptions" description="View user subscriptions on site and in CBSubs administration area and in CB User manager" />
+								<permission name="cbsubs.usersubscriptionmanage" label="Manage User Subscriptions" beforelabel="└" description="Manage user subscriptions in CBSubs administration area and user subscriptions tab in site front-end (requires View permission)" />
+								<permission name="cbsubs.merchandiseview" label="View Merchandise purchases" description="View Merchandise purchases in CBSubs administration area" />
+								<permission name="cbsubs.merchandisemanage" label="Manage Merchandise purchases" beforelabel="└" description="Manage Merchandise purchases in CBSubs administration area (requires View permission)" />
+								<permission name="cbsubs.donationview" label="View Donations" description="View Donations in CBSubs administration area" />
+								<permission name="cbsubs.donationmanage" label="Manage Donations" beforelabel="└" description="Manage Donations in CBSubs administration area (requires View permission)" />
+								<permission name="cbsubs.marketing" label="Manage Marketing operations" description="Manage Marketing operations: Plans, currencies, and following integration plugins: mailers and promotions in CBSubs administration area" />
+								<permission name="cbsubs.financial" label="Manage Financial operations" description="Manage Financial operations and access to financial agregated figures: View sales totals in baskets and payments lists, access statistics, access and manage sales taxes/VAT, currencies, view baskets and payments with totals, single and multiple invoices view and printing in CBSubs administration area" />
+							</param>
+						</tabpanetab>
+					</if>
+				</if>
+				<tabpanetab name="integrations_globals" label="Integrations" description="Integrations settings (if integrating plugins are loaded):">
+					<!-- <params name="integrationsglobals" type="params"> -->
+						<tabpane name="cpayintegrations">
+							<showview name="integrationsglobals" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.]" action="" path="payintegrationglobals" />
+						</tabpane>
+						<!-- <showview name="integrationsglobals" mode="edit" type="private" class="cbpaidParamsExt" method="viewintegrations" />  -->
+					<!-- </params> -->
+				</tabpanetab>
+			</tabpane>
+			<param type="hidden" label="" name="lastsavedversion" value="">
+				<attributes>
+					<attribute name="value">
+						<param name="value" type="private" class="cbpaidApp" method="version" />
+					</attribute>
+				</attributes>
+			</param>
+		</view>
+	</views>
+</cbxml>

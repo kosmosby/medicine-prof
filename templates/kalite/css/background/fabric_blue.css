@@ -1,0 +1,27 @@
+/* Background: Fabric Blue
+----------------------------------------------------------------------------------------------------*/
+
+body#page { background: #4a535a url(../../images/background/fabric_blue/page.jpg) 0 0 repeat; }
+
+@media only screen and (min-device-width: 769px) {
+
+	#page-bg {
+		background: url(../../images/background/fabric_blue/gradient.svg) 50% 0 repeat-y fixed;
+		background-size: 100% 1500px;
+	}
+	
+	.wrapper {
+		-moz-box-shadow: 0 0 25px rgba(0,0,0,1);
+		-webkit-box-shadow: 0 0 25px rgba(0,0,0,1);
+		box-shadow: 0 0 25px rgba(0,0,0,1);
+	}
+	
+}
+/* WidgetKit
+----------------------------------------------------------------------------------------------------*/
+
+/* Slideshow */
+.wk-slideshow-downtown .nav span { background-image: url(../../images/widgetkit/color/blue/nav.png); }
+
+.wk-slideshow-downtown > div .next,
+.wk-slideshow-downtown > div .prev { background-image: url(../../images/widgetkit/color/blue/buttons.png); }

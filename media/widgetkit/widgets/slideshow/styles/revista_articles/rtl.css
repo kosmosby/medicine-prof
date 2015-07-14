@@ -1,0 +1,31 @@
+/*
+ * RTL Style Sheet
+ */
+ 
+ .wk-slideshow-revista-articles .nav {
+	right: auto;
+	left: 0;
+}
+
+.wk-slideshow-revista-articles .prev + .nav { left: 36px; right: auto; }
+
+.wk-slideshow-revista-articles .nav li {
+	margin-left: 0;
+	margin-right: 3px;
+}
+.wk-slideshow-revista-articles .nav li:first-child { margin-right: 0; }
+
+.wk-slideshow-revista-articles > div .prev {
+	left: 14px;
+	right: auto;
+	background-position: 0 -60px;
+}
+.wk-slideshow-revista-articles > div .prev:hover { background-position: 0 -80px; }
+.wk-slideshow-revista-articles > div .prev:active { background-position: 0 -100px; }
+.wk-slideshow-revista-articles > div .next {
+	right: auto;
+	left: 0;
+	background-position: 0 0;
+}
+.wk-slideshow-revista-articles > div .next:hover { background-position: 0 -20px; }
+.wk-slideshow-revista-articles > div .next:active { background-position: 0 -40px; }

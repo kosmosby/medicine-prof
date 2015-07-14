@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form addrulepath="/administrator/components/com_judownload/models/rules">
+    <fieldset name="details">
+        <field name="id"
+               type="text"
+               default="0"
+               readonly="true"
+               class="readonly"
+               description="COM_JUDOWNLOAD_FIELD_ID_DESC"
+               label="COM_JUDOWNLOAD_FIELD_ID_LABEL"
+                />
+
+        <field
+                name="title"
+                type="text"
+                required="true"
+                class="required"
+                default=""
+                filter="raw"
+                size="30"
+                label="COM_JUDOWNLOAD_FIELD_TITLE_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_TITLE_DESC"
+                />
+
+        <field
+                name="tooltips"
+                type="textarea"
+                default=""
+                cols="30"
+                rows="3"
+                filter="raw"
+                label="COM_JUDOWNLOAD_FIELD_TOOLTIPS_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_TOOLTIPS_DESC"
+                />
+
+        <field
+                name="group_id"
+                type="criteriagroup"
+                required="true"
+                class="required"
+                label="COM_JUDOWNLOAD_FIELD_CRITERIA_GROUP_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_CRITERIA_GROUP_DESC"
+                />
+
+        <field
+                name="weights"
+                type="text"
+                class="validate-positiveInteger required"
+                validate="positiveInteger"
+                filter="integer"
+                default="1"
+                required="true"
+                label="COM_JUDOWNLOAD_FIELD_WEIGHTS_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_WEIGHTS_DESC"
+                />
+
+        <field
+                name="required"
+                type="radio"
+                default="1"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_REQUIRED_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_REQUIRED_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field
+                name="ordering"
+                type="juordering"
+                table="criterias"
+                label="COM_JUDOWNLOAD_FIELD_ORDERING_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_ORDERING_DESC"
+                />
+
+        <field
+                name="published"
+                type="radio"
+                default="1"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_PUBLISHED_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_PUBLISHED_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+    </fieldset>
+
+    <fieldset name="publishing">
+        <field name="created"
+               type="calendar"
+               class="inputbox"
+               default=""
+               label="COM_JUDOWNLOAD_FIELD_CREATED_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_CREATED_DESC"
+               format="%Y-%m-%d %H:%M:%S"
+               filter="user_utc"
+                />
+
+        <field
+                name="created_by"
+                type="user"
+                label="COM_JUDOWNLOAD_FIELD_CREATED_BY_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_CREATED_BY_DESC"
+                />
+
+        <field name="modified"
+               type="calendar"
+               class="readonly"
+               readonly="true"
+               format="%Y-%m-%d %H:%M:%S"
+               filter="user_utc"
+               label="COM_JUDOWNLOAD_FIELD_MODIFIED_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_MODIFIED_DESC"
+                />
+
+        <field name="modified_by"
+               type="user"
+               class="readonly"
+               readonly="true"
+               filter="unset"
+               label="COM_JUDOWNLOAD_FIELD_MODIFIED_BY_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_MODIFIED_BY_DESC"
+                />
+    </fieldset>
+</form>

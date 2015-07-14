@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0" type="plugin" group="user">
+	<name>CB Med Izd</name>
+	<author>Mara</author>
+	<creationDate>2015-06-04</creationDate>
+	<copyright>(C) 2004-2014 www.joomlapolis.com / Lightning MultiCom SA - and its licensors, all rights reserved</copyright>
+	<license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2</license>
+	<authorEmail>krileon@joomlapolis.com</authorEmail>
+	<description>Component plugin allowing users to add medical products.</description>
+	<version>2.0</version>
+	<release>4.0.2</release>
+	<files>
+		<filename plugin="cbmedizd">cbmedizd.php</filename>
+		<filename>component.cbmedizd.php</filename>
+		<filename>index.html</filename>
+		<foldername>templates</foldername>
+		<foldername>xml</foldername>
+		<foldername>language</foldername>
+	</files>
+	<delete>
+		<filename>templates/default/template.css</filename>
+		<filename>admin.cbmedizd.css</filename>
+		<filename>admin.cbmedizd.html.php</filename>
+		<filename>admin.cbmedizd.php</filename>
+		<filename>cbmedizd.class.php</filename>
+		<filename>field.cbmedizd.php</filename>
+		<filename>plugin.cbmedizd.php</filename>
+		<filename>tab.cbmedizd.php</filename>
+		<filename>toolbar.cbmedizd.html.php</filename>
+		<filename>toolbar.cbmedizd.php</filename>
+		<foldername>images</foldername>
+		<foldername>templates/default/images</foldername>
+	</delete>
+	<tabs>
+		
+		<tab name="Medicine Products" description="" class="cbmedizdTab" fields="0" position="cb_tabmain" displaytype="tab" ordering_register="1">
+			<params>
+				<param name="tab_paging" type="yesno" default="1" label="Paging" description="Enable or disable usage of paging on tab articles." yes="Enable" no="Disable" />
+				<if name="tab_paging" type="showhide" operator="=" value="1" valuetype="const:int">
+					<param name="tab_limit" type="int" default="15" size="5" label="Page Limit" description="Input page limit on tab articles. Page limit determines how many articles are displayed per page." />
+				</if>
+				<param name="tab_search" type="yesno" default="1" label="Search" description="Enable or disable usage of search on tab articles." yes="Enable" no="Disable" />
+			</params>
+		</tab>
+	</tabs>
+	<database version="1">
+		<table name="#__comprofiler_plugin_cbmedizd" class="cbinvitesMedizdTable" strict="true" drop="never">
+			<columns strict="true" drop="never">
+				<column name="id" type="sql:int(11)" unsigned="true" auto_increment="1" />
+				<column name="user_id" type="sql:int(11)" />
+                                <column name="code" type="sql:varchar(255)" null="true" />
+				<column name="category" type="sql:int(11)" />
+				<column name="name" type="sql:varchar(255)" null="true" />
+				<column name="description" type="sql:text" null="true" />
+				<column name="proizvoditel" type="sql:varchar(255)" null="true" />
+                                <column name="country" type="sql:varchar(255)" />
+                                <column name="price" type="sql:float(11)" />
+				<column name="created" type="sql:datetime" default="0000-00-00 00:00:00" />
+				
+			</columns>
+			<indexes strict="true" drop="never">
+				<index name="PRIMARY" type="primary">
+					<column name="id" />
+				</index>
+				<index name="user_id">
+					<column name="user_id" />
+				</index>
+				
+			</indexes>
+			<engine type="InnoDB" sameastable="#__comprofiler" strict="updatewithtable" />
+		</table>
+                <table name="#__comprofiler_plugin_cbmedizd_categories" class="cbinvitesMedizdCategoriesTable" strict="true" drop="never">
+                    <columns strict="true" drop="never">
+                            <column name="id" type="sql:int(11)" unsigned="true" auto_increment="1" />
+                            <column name="parent_id" type="sql:int(11)" />
+                            <column name="name" type="sql:varchar(255)" null="true" />
+                            
+
+                    </columns>
+                    <indexes strict="true" drop="never">
+                            <index name="PRIMARY" type="primary">
+                                    <column name="id" />
+                            </index>
+
+                    </indexes>
+                    <engine type="InnoDB" sameastable="#__comprofiler" strict="updatewithtable" />
+		</table>
+	</database>
+</cbinstall>

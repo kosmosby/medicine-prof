@@ -1,0 +1,28 @@
+// Core variables and mixins without output available outside .koowa scope
+@import "../../../../../koowa/code/media/koowa/com_koowa/scss/bootstrap/variables";
+@import "../../../../../koowa/code/media/koowa/com_koowa/scss/bootstrap/mixins";
+
+// Costom variables and mixins
+@import "generic/variables";
+@import "generic/mixins";
+
+// Import Nooku
+@import "../../../../../koowa/code/media/koowa/com_koowa/scss/koowa";
+
+// Import user interface
+@import "../../../../../koowa/code/media/koowa/com_koowa/scss/site";
+
+// Namespacing with Koowa
+.koowa .mod_docman {
+
+  // Custom classes
+  @import "generic/mixins";
+
+  // Module specific
+  @import "module/documents";
+
+  // RTL
+  &.koowa--rtl {
+    @import "module/rtl";
+  }
+}

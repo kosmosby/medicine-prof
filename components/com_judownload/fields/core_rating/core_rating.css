@@ -1,0 +1,7 @@
+#judl-rating-loading {
+    display: block;
+    min-height: 24px;
+    min-width: 24px;
+    text-align: center;
+    background: url(images/loading.gif) no-repeat;
+}

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="shownotificationdetails" type="params" ui="admin" label="Notification details" description="This are the details of the logged notification:" viewformatting="table">
+			<toolbarmenu>
+				<menu name="back" action="back" label="Back" href="" />
+			</toolbarmenu>
+			<fieldset name="notification" label="Notification's details">
+				<param name="id"                 type="int"       label="Notification Id" />
+				<param name="ip_addresses"       type="string"    label="IP Address" />
+				<param name="log_type"    type="xml:log_type" label="Notification type" description="Notifications can come from the payment processor or from return/redirect URLs from the payment processor back to the website. Any notification which could affect the payment status is logged as notification.">
+					<attributes>
+						<attribute name="class">
+							<param name="error_cssclass" type="sql:parentfield" />
+						</attribute>
+					</attributes>
+				</param>
+				<param name="time_received" type="datetime" label="Log date" description="Date of logging the notification"  />
+				<param name="user_name"   type="private" class="cbpaidParamsExt" method="data"  link="cb_action:show_usersubscription" parameters="cid" paramvalues="user_id"    title="Edit this user and his subscriptions" label="Username">
+					<data name="user_name" type="sql:function" operator="IF">
+						<data name="" type="sql:operator" operator="=">
+							<data name="user_id" type="ext:int:modelofdata" />
+							<data name="0" type="const:int" />
+						</data>
+						<data name="System" type="const:string" translate="yes" />
+						<!-- This is here for translation tool to translate above correctly:
+							<field label="System" />
+						-->
+						<data name="username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="user_id" valuetype="ext:int:modelofdata" />
+					</data>
+				</param>
+				<param name="user_full_name"   type="private" class="cbpaidParamsExt" method="data"  link="cb_action:show_usersubscription" parameters="cid" paramvalues="user_id"    title="Edit this user and his subscriptions" label="Full name">
+					<data name="user_full_name" type="sql:function" operator="IF">
+						<data name="" type="sql:operator" operator="=">
+							<data name="user_id" type="ext:int:modelofdata" />
+							<data name="0" type="const:int" />
+						</data>
+						<data name="System" type="const:string" translate="yes" />
+						<!-- This is here for translation tool to translate above correctly:
+							<field label="System" />
+						-->
+						<data name="name" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="user_id" valuetype="ext:int:modelofdata" />
+					</data>
+				</param>
+				<param name="user_id"            type="int"  label="User Id" />
+			</fieldset>
+			<fieldset name="amounts" label="Amounts and Currency">
+				<param name="mc_currency"        type="text"                  width="3%"  label="Currency" description="Currency of payment basket"  align="right" />
+				<param name="mc_gross"           type="text"                  width="4%"  label="Amount: single" description="Amount for single payment in currency of payment basket. Full amount of the customer's payment, before transaction fee is subtracted."  align="right" />
+				<param name="mc_amount1"         type="text"                  width="3%"  label="first" description="First amount of payment subscription in currency of payment basket"  align="right" />
+				<param name="mc_amount3"         type="text"                  width="3%"  label="recurring" description="Recurring amount of payment subscription in currency of payment basket"  align="right" />
+				<param name="tax"                type="text"                  width="3%"  label="Tax" description="as received in notification"  align="right" />
+				<param name="mc_shipping"        type="text"                  width="3%"  label="Shipping" description="as received in notification"  align="right" />
+				<param name="mc_handling"        type="text"                  width="3%"  label="Handling" description="as received in notification"  align="right" />
+				<param name="mc_fee"             type="text"                  width="3%"  label="Gateway fee" description="as received in notification"  align="right" />
+				<param name="exchange_rate"      type="text"                  width="3%"  label="Exchange rate" description="Exchange rate used if a currency conversion occurred, as received in notification"  align="right" />
+				<param name="settle_amount"      type="text"                  width="3%"  label="Settle amount" description="Amount that is deposited into the account's primary balance after a currency conversion from automatic conversion through your Payment Receiving Preferences or manual conversion through manually accepting a payment, as received in notification"  align="right" />
+				<param name="settle_currency"    type="text"                  width="3%"  label="Settle currency" description="Currency of the Settle amount, as received in notification"  align="right" />
+			</fieldset>
+			<fieldset name="method" label="Payment Method and Transaction details">
+				<param name="payment_method"     type="xml:payment_method"    width="8%"  label="Payment method" description="Method used for payment" />
+				<param name="gateway_accnt_name" type="text"                  width="8%" label="Gateway account" description="Gateway account used for payment">
+					<data name="name" as="gateway_accnt_name" type="sql:field" table="#__cbsubs_gateway_accounts" class="cbpaidGatewaysAccountsMgr::gatewayAccountObjects" key="id" value="gateway_account" />
+				</param>
+				<param name="txn_type"           type="string"                width="8%"  label="Type" description="Type of transaction" />
+				<param name="txn_id"             type="string"                width="8%"  label="Transaction id (txn_id)" description="as stated in notification" />
+				<param name="parent_txn_id"      type="string"                width="8%"  label="Parent Transaction id" description="as stated in notification" />
+				<param name="sale_id"            type="string"                width="8%"  label="Sale id (sale_id)" description="as stated in notification (not used by most gateways)" />
+				<param name="auth_id"            type="string"                width="8%"  label="Auth id" description="Authorization id (as stated in notification, not used by most gateways)" />
+				<param name="payment_date"       type="string"                width="8%"  label="Payment date (as received)" description="as stated in notification" />
+				<param name="pending_type"       type="string"                width="8%"  label="Payment type" description="as stated in notification" />
+				<param name="payment_status"     type="string"                width="7%"  label="Payment status" description="Current status of payment." /><!-- xml:payment_status -->
+				<param name="pending_reason"     type="string"                width="8%"  label="Pending reason" description="Reason of pending state, if pending" />
+				<param name="reason_code"        type="string"                width="8%"  label="Reason code"    description="Code of Reason of pending state, if pending" />
+				<param name="test_ipn"           type="string"    label="Test payment notification" description="Corresponds to test_ipn of sandbox payment gateways." />
+			</fieldset>
+			<fieldset name="buyer" label="Buyer details">
+				<param name="first_name"         type="text"                  width="5%"  label="First name"     description="First name as stated in notification" />
+				<param name="last_name"          type="text"                  width="5%"  label="Last name"      description="Last name as stated in notification" />
+				<param name="payer_business_name" type="text"                 width="5%"  label="Company name"   description="Payer Business (company) name as stated in notification" />
+				<param name="address_name"       type="text"                  width="5%"  label="Address: Name"  description="Address as stated in notification" />
+				<param name="address_street"     type="text"                  width="5%"  label="Address: Street" description="Address as stated in notification" />
+				<param name="address_city"       type="text"                  width="5%"  label="Address: City"   description="Address as stated in notification" />
+				<param name="address_state"      type="text"                  width="5%"  label="Address: State"  description="Address as stated in notification" />
+				<param name="address_zip"        type="text"                  width="5%"  label="Address: Zipcode" description="Address as stated in notification" />
+				<param name="address_country"    type="text"                  width="5%"  label="Address: Country" description="Address as stated in notification" />
+				<param name="address_country_code" type="text"                width="5%"  label="Address: Country code" description="Address as stated in notification" />
+				<param name="address_status"     type="text"                  width="5%"  label="Address confirmation status" description="Address status as stated in notification" />
+				<param name="payer_email"        type="text"                  width="5%"  label="Email"          description="Email as stated in notification" />
+				<param name="payer_id"           type="text"                  width="5%"  label="Payer id"       description="Payer id as stated in notification" />
+				<param name="payer_status"       type="text"                  width="5%"  label="Payer status"   description="Payer status as stated in notification" />
+				<param name="residence_country"  type="text"                  width="5%"  label="Country of residence"   description="Payer country of residence as stated in notification" />
+				<param name="contact_phone"      type="text"                  width="5%"  label="Contact phone of payer"   description="Payer contact phone (if gateway support this and has been configured to ask user and provide here) as stated in notification" />
+				<param name="vat_number"         type="text"                  width="5%"  label="VAT number of payer"   description="Payer VAT number (if gateway support this and has been configured to ask user and provide here) as stated in notification" />
+			</fieldset>
+			<fieldset name="seller" label="Seller details">
+				<param name="business"           type="text"                  width="5%"  label="Business id of receiving account"   description="Email address or account ID of the payment recipient (i.e., the merchant), as stated in notification" />
+				<param name="receiver_email"     type="text"                  width="5%"  label="Email of receiving account"   description="Primary email address of the payment recipient (i.e., the merchant). If the payment is sent to a non-primary email address on your PayPal account, the receiver_email will still be your primary email, as stated in notification" />
+				<param name="receiver_id"        type="text"                  width="5%"  label="Payment Receiver id"   description="as stated in notification" />
+			</fieldset>
+			<fieldset name="sales" label="Sale's details">
+				<param name="invoice"            type="text"                  width="5%"  label="Invoice number"   description="as stated in notification" />
+				<param name="memo"               type="text"                  width="5%"  label="Memo from payer"   description="Memo from payer (if gateway support this and has been configured to ask user and provide here) as stated in notification" />
+				<param name="item_number"        type="text"      link="cb_action:show_notifications" parameters="notificationsbrowser[filter_payment_basket_id]" paramvalues="payment_basket_id" title="Show all the notifications for the corresponding payment basket" width="5%"  label="Item number"   description="item number of payment. Click to see notifications for same basket" />
+				<param name="payment_basket_id"  type="int"       link="cb_action:show_paymentbaskets" parameters="paymentbasketsbrowser[filter_id]" paramvalues="payment_basket_id" title="Show corresponding payment basket" width="3%"  align="right" label="Payment basket" description="Id of payment basket. Click to see the payment basket" />
+			</fieldset>
+			<fieldset name="rawdata" label="Notification's raw data">
+				<param name="raw_result"         type="textarea"    label="Raw result" />
+				<param name="raw_data"           type="textarea"    label="Raw data" />
+			</fieldset>
+			<field name="error_cssclass" type="hidden" width="0px">
+				<data name="" type="sql:operator" operator="OR">
+					<data name="error_cssclass" type="sql:function" operator="IF">
+						<data name="" type="sql:operator" operator="=">
+							<data name="event_type" type="sql:field" />
+							<data name="I" type="const:string" />
+						</data>
+						<data name="" type="sql:operator" operator="=">
+							<data name="event_type" type="sql:field" />
+							<data name="R" type="const:string" />
+						</data>
+					</data>
+					<data name="cbEnabled" type="const:string" />
+					<data name="cbDisabled" type="const:string" />
+				</data>
+			</field>
+		</view>
+	</views>
+</cbxml>

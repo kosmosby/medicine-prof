@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="showimport" type="params" ui="admin" label="Import subscriptions" description="Here you can create new subscriptions by importing from a file. This is an import function. It is not a mass-update function for existing subscriptions. Existing subscriptions will not be changed by this function, except if they are exclusive and would be upgraded by the new imported subscription.">
+			<toolbarmenu>
+				<menu name="upload"  action="custom" task="savePlugin" label="Import" icon="upload" iconover="upload_f2.png" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="close"   action="cancel" task="cancelPluginAction" label="Close" />
+			</toolbarmenu>
+			<fieldset name="importsource" label="Import Source" description="">
+				<param name="import_type" type="list" default="0" blanktext="--- Choose source ---" label="Import users from" description="Select the source of the users-list to import.">
+					<option value="file_uid">File (single line of comma-separated user-ids)</option>
+					<option value="file_uid_plan_exp">File (each line: userid,planid,status,subscription date)</option>
+					<option value="cms_acl">All users from a given CMS ACL group</option>
+					<option value="subscription">All users from a given subscription plan</option>
+				</param>
+				<if name="import_type" type="showhide" operator="regexp" value="^file_.*$" valuetype="const:string">
+					<param name="userfile"        type="private" class="cbpaidParamsExt" method="fileupload" default=""  label="File (formatted as selected above)"    description="Select the file from your computer." />
+				</if>
+				<if name="import_type" type="showhide" operator="=" value="file_uid" valuetype="const:string">
+					<param name="info_file_uid"          type="spacer" label="File format"    default="This text file is simply a comma-separated list on a single line of the user ids for which the subscriptions should be created. &lt;br /&gt;Example: 63,64,65,102" />
+				</if>
+				<if name="import_type" type="showhide" operator="=" value="file_uid_plan_exp" valuetype="const:string">
+					<param name="info_file_uid_plan_exp" type="spacer" label="File format"    default="This text file is multiple lines (one line per user) comma-separated list with following format: userid,planid,statusSingleChar,SubscriptionDateISO.&lt;br /&gt;Status: A = Active, X = Expired, C= Unsubscribed/Cancelled.&lt;br /&gt;Example: 63,1,A,2009-01-01 00:00:00" />
+				</if>
+				<if name="import_type" type="showhide" operator="=" value="cms_acl" valuetype="const:string">
+					<param name="usergroup" type="usergroup" size="1" default="0" label="User Group" description="" />
+				</if>
+				<if name="import_type" type="showhide" operator="=" value="subscription" valuetype="const:string">
+					<param name="from_plan"            type="private" class="cbpaidParamsExt" method="datalist"   default=""  label="Source Subscription plan" blanktext="--- Choose plan ---"    description="The plan subscribed">
+						<data name="plansidsnames" type="sql:multiplerows" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id">
+							<rows>
+								<field name="id" as="value" />
+								<field name="name" as="text" />
+								<!-- For the cbpaidPlansMgr::productObjects instanciator: -->
+								<field name="item_type" type="sql:field" />
+							</rows>
+							<orderby>
+								<field name="ordering" ordering="ASC" />
+							</orderby>
+						</data>
+					</param>
+					<if name="from_plan" type="showhide" operator="!=" value="" valuetype="const:string">
+						<param name="from_sub_status" type="xml:subscription_status" size="8" multiple="true" default="A" label="Status" description="Current status of subscription" />
+					</if>
+				</if>
+			</fieldset>
+			<fieldset name="importdestination" label="Import Destination" description="">
+				<if name="import_type" type="showhide" operator="!=" value="file_uid_plan_exp" valuetype="const:string">
+					<param name="plan"            type="private" class="cbpaidParamsExt" method="datalist"   default=""  label="Destination Subscription plan" blanktext="--- Choose plan ---"    description="The plan subscribed">
+						<data name="plansidsnames" type="sql:multiplerows" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id">
+							<rows>
+								<field name="id" as="value" />
+								<field name="name" as="text" />
+								<!-- For the cbpaidPlansMgr::productObjects instanciator: -->
+								<field name="item_type" type="sql:field" />
+							</rows>
+							<orderby>
+								<field name="ordering" ordering="ASC" />
+							</orderby>
+						</data>
+					</param>
+					<param name="state" type="xml:import_subscription_status" default="" label="Current state" blanktext="--- Choose subscription state ---" description="The state to give to the subscription" />
+					<param name="date"  type="datetime" showtime="1" default="0000-00-00 00:00:00" label="Subscription date"  description="The starting date of the subscription" />
+				</if>
+				<param name="remark"  type="spacer" label="Expiration Date"  default="Is computed automatically depending on subscription plan and subscription date chosen above" description="The expiration date of the subscription or lifetime if not expiring" />
+			</fieldset>
+			<fieldset name="importbehavior" label="Import Behavior" description="">
+				<param name="dryrun" type="list" label="Import" default="0" description="By selecting 'No' you can just test the import. Leave to 'Yes' to import normally">
+					<option value="0">Yes: Import and create subscription records</option>
+					<option value="1">No:  For testing effect only: No changes will be made</option>
+				</param>
+				<param name="remarkExistingSubs"  type="spacer" label="Remark"  default="Be careful to import valid combinations of subscriptions. Users which already have incompatible subscription won't be imported." description="" />
+			</fieldset>
+		</view>
+	</views>
+</cbxml>

@@ -1,0 +1,5575 @@
+/*!
+ * Bootstrap v2.3.2
+ *
+ * Copyright 2013 Twitter, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world by @mdo and @fat.
+ */
+.jubootstrap {
+	/* Allow for input prepend/append in search forms */
+	/* White icons with optional class, or on hover/focus/active states of certain elements */
+	/* move down carets for tabs */
+}
+
+.jubootstrap .clearfix {
+	*zoom : 1;
+}
+
+.jubootstrap .clearfix:before,
+.jubootstrap .clearfix:after {
+	display     : table;
+	line-height : 0;
+	content     : "";
+}
+
+.jubootstrap .clearfix:after {
+	clear : both;
+}
+
+.jubootstrap .hide-text {
+	font             : 0/0 a;
+	color            : transparent;
+	text-shadow      : none;
+	background-color : transparent;
+	border           : 0;
+}
+
+.jubootstrap .input-block-level {
+	display            : block;
+	width              : 100%;
+	min-height         : 30px;
+	-webkit-box-sizing : border-box;
+	-moz-box-sizing    : border-box;
+	box-sizing         : border-box;
+}
+
+.jubootstrap article,
+.jubootstrap aside,
+.jubootstrap details,
+.jubootstrap figcaption,
+.jubootstrap figure,
+.jubootstrap footer,
+.jubootstrap header,
+.jubootstrap hgroup,
+.jubootstrap nav,
+.jubootstrap section {
+	display : block;
+}
+
+.jubootstrap audio,
+.jubootstrap canvas,
+.jubootstrap video {
+	display  : inline-block;
+	*display : inline;
+	*zoom    : 1;
+}
+
+.jubootstrap audio:not([controls]) {
+	display : none;
+}
+
+.jubootstrap html {
+	font-size                : 100%;
+	-webkit-text-size-adjust : 100%;
+	-ms-text-size-adjust     : 100%;
+}
+
+.jubootstrap a:focus {
+	outline        : thin dotted #333;
+	outline        : 5px auto -webkit-focus-ring-color;
+	outline-offset : -2px;
+}
+
+.jubootstrap a:hover,
+.jubootstrap a:active {
+	outline : 0;
+}
+
+.jubootstrap sub,
+.jubootstrap sup {
+	position       : relative;
+	font-size      : 75%;
+	line-height    : 0;
+	vertical-align : baseline;
+}
+
+.jubootstrap sup {
+	top : -0.5em;
+}
+
+.jubootstrap sub {
+	bottom : -0.25em;
+}
+
+.jubootstrap img {
+	width                  : auto\9;
+	height                 : auto;
+	max-width              : 100%;
+	vertical-align         : middle;
+	border                 : 0;
+	-ms-interpolation-mode : bicubic;
+}
+
+.jubootstrap #map_canvas img,
+.jubootstrap .google-maps img {
+	max-width : none;
+}
+
+.jubootstrap button,
+.jubootstrap input,
+.jubootstrap select,
+.jubootstrap textarea {
+	margin         : 0;
+	font-size      : 100%;
+	vertical-align : middle;
+}
+
+.jubootstrap button,
+.jubootstrap input {
+	*overflow   : visible;
+	line-height : normal;
+}
+
+.jubootstrap button::-moz-focus-inner,
+.jubootstrap input::-moz-focus-inner {
+	padding : 0;
+	border  : 0;
+}
+
+.jubootstrap button,
+.jubootstrap html input[type="button"],
+.jubootstrap input[type="reset"],
+.jubootstrap input[type="submit"] {
+	cursor             : pointer;
+	-webkit-appearance : button;
+}
+
+.jubootstrap label,
+.jubootstrap select,
+.jubootstrap button,
+.jubootstrap input[type="button"],
+.jubootstrap input[type="reset"],
+.jubootstrap input[type="submit"],
+.jubootstrap input[type="radio"],
+.jubootstrap input[type="checkbox"] {
+	cursor : pointer;
+}
+
+.jubootstrap input[type="search"] {
+	-webkit-box-sizing : content-box;
+	-moz-box-sizing    : content-box;
+	box-sizing         : content-box;
+	-webkit-appearance : textfield;
+}
+
+.jubootstrap input[type="search"]::-webkit-search-decoration,
+.jubootstrap input[type="search"]::-webkit-search-cancel-button {
+	-webkit-appearance : none;
+}
+
+.jubootstrap textarea {
+	overflow       : auto;
+	vertical-align : top;
+}
+
+@media print {
+	.jubootstrap * {
+		color       : #000 !important;
+		text-shadow : none !important;
+		background  : transparent !important;
+		box-shadow  : none !important;
+	}
+
+	.jubootstrap a,
+	.jubootstrap a:visited {
+		text-decoration : underline;
+	}
+
+	.jubootstrap a[href]:after {
+		content : " (" attr(href) ")";
+	}
+
+	.jubootstrap abbr[title]:after {
+		content : " (" attr(title) ")";
+	}
+
+	.jubootstrap .ir a:after,
+	.jubootstrap a[href^="javascript:"]:after,
+	.jubootstrap a[href^="#"]:after {
+		content : "";
+	}
+
+	.jubootstrap pre,
+	.jubootstrap blockquote {
+		border            : 1px solid #999;
+		page-break-inside : avoid;
+	}
+
+	.jubootstrap thead {
+		display : table-header-group;
+	}
+
+	.jubootstrap tr,
+	.jubootstrap img {
+		page-break-inside : avoid;
+	}
+
+	.jubootstrap img {
+		max-width : 100% !important;
+	}
+
+	@page {
+		margin : 0.5cm;
+	}
+
+	.jubootstrap p,
+	.jubootstrap h2,
+	.jubootstrap h3 {
+		orphans : 3;
+		widows  : 3;
+	}
+
+	.jubootstrap h2,
+	.jubootstrap h3 {
+		page-break-after : avoid;
+	}
+}
+
+.jubootstrap body {
+	margin           : 0;
+	font-family      : "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size        : 14px;
+	line-height      : 20px;
+	color            : #333333;
+	background-color : #ffffff;
+}
+
+.jubootstrap a {
+	color           : #0088cc;
+	text-decoration : none;
+}
+
+.jubootstrap a:hover,
+.jubootstrap a:focus {
+	color           : #005580;
+	text-decoration : underline;
+}
+
+.jubootstrap .img-rounded {
+	-webkit-border-radius : 6px;
+	-moz-border-radius    : 6px;
+	border-radius         : 6px;
+}
+
+.jubootstrap .img-polaroid {
+	padding            : 4px;
+	background-color   : #fff;
+	border             : 1px solid #ccc;
+	border             : 1px solid rgba(0, 0, 0, 0.2);
+	-webkit-box-shadow : 0 1px 3px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow    : 0 1px 3px rgba(0, 0, 0, 0.1);
+	box-shadow         : 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.jubootstrap .img-circle {
+	-webkit-border-radius : 500px;
+	-moz-border-radius    : 500px;
+	border-radius         : 500px;
+}
+
+.jubootstrap .row {
+	margin-left : -20px;
+	*zoom       : 1;
+}
+
+.jubootstrap .row:before,
+.jubootstrap .row:after {
+	display     : table;
+	line-height : 0;
+	content     : "";
+}
+
+.jubootstrap .row:after {
+	clear : both;
+}
+
+.jubootstrap [class*="span"] {
+	float       : left;
+	min-height  : 1px;
+	margin-left : 20px;
+}
+
+.jubootstrap .container,
+.jubootstrap .navbar-static-top .container,
+.jubootstrap .navbar-fixed-top .container,
+.jubootstrap .navbar-fixed-bottom .container {
+	width : 940px;
+}
+
+.jubootstrap .span12 {
+	width : 940px;
+}
+
+.jubootstrap .span11 {
+	width : 860px;
+}
+
+.jubootstrap .span10 {
+	width : 780px;
+}
+
+.jubootstrap .span9 {
+	width : 700px;
+}
+
+.jubootstrap .span8 {
+	width : 620px;
+}
+
+.jubootstrap .span7 {
+	width : 540px;
+}
+
+.jubootstrap .span6 {
+	width : 460px;
+}
+
+.jubootstrap .span5 {
+	width : 380px;
+}
+
+.jubootstrap .span4 {
+	width : 300px;
+}
+
+.jubootstrap .span3 {
+	width : 220px;
+}
+
+.jubootstrap .span2 {
+	width : 140px;
+}
+
+.jubootstrap .span1 {
+	width : 60px;
+}
+
+.jubootstrap .offset12 {
+	margin-left : 980px;
+}
+
+.jubootstrap .offset11 {
+	margin-left : 900px;
+}
+
+.jubootstrap .offset10 {
+	margin-left : 820px;
+}
+
+.jubootstrap .offset9 {
+	margin-left : 740px;
+}
+
+.jubootstrap .offset8 {
+	margin-left : 660px;
+}
+
+.jubootstrap .offset7 {
+	margin-left : 580px;
+}
+
+.jubootstrap .offset6 {
+	margin-left : 500px;
+}
+
+.jubootstrap .offset5 {
+	margin-left : 420px;
+}
+
+.jubootstrap .offset4 {
+	margin-left : 340px;
+}
+
+.jubootstrap .offset3 {
+	margin-left : 260px;
+}
+
+.jubootstrap .offset2 {
+	margin-left : 180px;
+}
+
+.jubootstrap .offset1 {
+	margin-left : 100px;
+}
+
+.jubootstrap .row-fluid {
+	width : 100%;
+	*zoom : 1;
+}
+
+.jubootstrap .row-fluid:before,
+.jubootstrap .row-fluid:after {
+	display     : table;
+	line-height : 0;
+	content     : "";
+}
+
+.jubootstrap .row-fluid:after {
+	clear : both;
+}
+
+.jubootstrap .row-fluid [class*="span"] {
+	display            : block;
+	float              : left;
+	width              : 100%;
+	min-height         : 30px;
+	margin-left        : 2.127659574468085%;
+	*margin-left       : 2.074468085106383%;
+	-webkit-box-sizing : border-box;
+	-moz-box-sizing    : border-box;
+	box-sizing         : border-box;
+}
+
+.jubootstrap .row-fluid [class*="span"]:first-child {
+	margin-left : 0;
+}
+
+.jubootstrap .row-fluid .controls-row [class*="span"] + [class*="span"] {
+	margin-left : 2.127659574468085%;
+}
+
+.jubootstrap .row-fluid .span12 {
+	width  : 100%;
+	*width : 99.94680851063829%;
+}
+
+.jubootstrap .row-fluid .span11 {
+	width  : 91.48936170212765%;
+	*width : 91.43617021276594%;
+}
+
+.jubootstrap .row-fluid .span10 {
+	width  : 82.97872340425532%;
+	*width : 82.92553191489361%;
+}
+
+.jubootstrap .row-fluid .span9 {
+	width  : 74.46808510638297%;
+	*width : 74.41489361702126%;
+}
+
+.jubootstrap .row-fluid .span8 {
+	width  : 65.95744680851064%;
+	*width : 65.90425531914893%;
+}
+
+.jubootstrap .row-fluid .span7 {
+	width  : 57.44680851063829%;
+	*width : 57.39361702127659%;
+}
+
+.jubootstrap .row-fluid .span6 {
+	width  : 48.93617021276595%;
+	*width : 48.88297872340425%;
+}
+
+.jubootstrap .row-fluid .span5 {
+	width  : 40.42553191489362%;
+	*width : 40.37234042553192%;
+}
+
+.jubootstrap .row-fluid .span4 {
+	width  : 31.914893617021278%;
+	*width : 31.861702127659576%;
+}
+
+.jubootstrap .row-fluid .span3 {
+	width  : 23.404255319148934%;
+	*width : 23.351063829787233%;
+}
+
+.jubootstrap .row-fluid .span2 {
+	width  : 14.893617021276595%;
+	*width : 14.840425531914894%;
+}
+
+.jubootstrap .row-fluid .span1 {
+	width  : 6.382978723404255%;
+	*width : 6.329787234042553%;
+}
+
+.jubootstrap .row-fluid .offset12 {
+	margin-left  : 104.25531914893617%;
+	*margin-left : 104.14893617021275%;
+}
+
+.jubootstrap .row-fluid .offset12:first-child {
+	margin-left  : 102.12765957446808%;
+	*margin-left : 102.02127659574467%;
+}
+
+.jubootstrap .row-fluid .offset11 {
+	margin-left  : 95.74468085106382%;
+	*margin-left : 95.6382978723404%;
+}
+
+.jubootstrap .row-fluid .offset11:first-child {
+	margin-left  : 93.61702127659574%;
+	*margin-left : 93.51063829787232%;
+}
+
+.jubootstrap .row-fluid .offset10 {
+	margin-left  : 87.23404255319149%;
+	*margin-left : 87.12765957446807%;
+}
+
+.jubootstrap .row-fluid .offset10:first-child {
+	margin-left  : 85.1063829787234%;
+	*margin-left : 84.99999999999999%;
+}
+
+.jubootstrap .row-fluid .offset9 {
+	margin-left  : 78.72340425531914%;
+	*margin-left : 78.61702127659572%;
+}
+
+.jubootstrap .row-fluid .offset9:first-child {
+	margin-left  : 76.59574468085106%;
+	*margin-left : 76.48936170212764%;
+}
+
+.jubootstrap .row-fluid .offset8 {
+	margin-left  : 70.2127659574468%;
+	*margin-left : 70.10638297872339%;
+}
+
+.jubootstrap .row-fluid .offset8:first-child {
+	margin-left  : 68.08510638297872%;
+	*margin-left : 67.9787234042553%;
+}
+
+.jubootstrap .row-fluid .offset7 {
+	margin-left  : 61.70212765957446%;
+	*margin-left : 61.59574468085106%;
+}
+
+.jubootstrap .row-fluid .offset7:first-child {
+	margin-left  : 59.574468085106375%;
+	*margin-left : 59.46808510638297%;
+}
+
+.jubootstrap .row-fluid .offset6 {
+	margin-left  : 53.191489361702125%;
+	*margin-left : 53.085106382978715%;
+}
+
+.jubootstrap .row-fluid .offset6:first-child {
+	margin-left  : 51.063829787234035%;
+	*margin-left : 50.95744680851063%;
+}
+
+.jubootstrap .row-fluid .offset5 {
+	margin-left  : 44.68085106382979%;
+	*margin-left : 44.57446808510638%;
+}
+
+.jubootstrap .row-fluid .offset5:first-child {
+	margin-left  : 42.5531914893617%;
+	*margin-left : 42.4468085106383%;
+}
+
+.jubootstrap .row-fluid .offset4 {
+	margin-left  : 36.170212765957444%;
+	*margin-left : 36.06382978723405%;
+}
+
+.jubootstrap .row-fluid .offset4:first-child {
+	margin-left  : 34.04255319148936%;
+	*margin-left : 33.93617021276596%;
+}
+
+.jubootstrap .row-fluid .offset3 {
+	margin-left  : 27.659574468085104%;
+	*margin-left : 27.5531914893617%;
+}
+
+.jubootstrap .row-fluid .offset3:first-child {
+	margin-left  : 25.53191489361702%;
+	*margin-left : 25.425531914893618%;
+}
+
+.jubootstrap .row-fluid .offset2 {
+	margin-left  : 19.148936170212764%;
+	*margin-left : 19.04255319148936%;
+}
+
+.jubootstrap .row-fluid .offset2:first-child {
+	margin-left  : 17.02127659574468%;
+	*margin-left : 16.914893617021278%;
+}
+
+.jubootstrap .row-fluid .offset1 {
+	margin-left  : 10.638297872340425%;
+	*margin-left : 10.53191489361702%;
+}
+
+.jubootstrap .row-fluid .offset1:first-child {
+	margin-left  : 8.51063829787234%;
+	*margin-left : 8.404255319148938%;
+}
+
+.jubootstrap [class*="span"].hide,
+.jubootstrap .row-fluid [class*="span"].hide {
+	display : none;
+}
+
+.jubootstrap [class*="span"].pull-right,
+.jubootstrap .row-fluid [class*="span"].pull-right {
+	float : right;
+}
+
+.jubootstrap .container {
+	margin-right : auto;
+	margin-left  : auto;
+	*zoom        : 1;
+}
+
+.jubootstrap .container:before,
+.jubootstrap .container:after {
+	display     : table;
+	line-height : 0;
+	content     : "";
+}
+
+.jubootstrap .container:after {
+	clear : both;
+}
+
+.jubootstrap .container-fluid {
+	padding-right : 20px;
+	padding-left  : 20px;
+	*zoom         : 1;
+}
+
+.jubootstrap .container-fluid:before,
+.jubootstrap .container-fluid:after {
+	display     : table;
+	line-height : 0;
+	content     : "";
+}
+
+.jubootstrap .container-fluid:after {
+	clear : both;
+}
+
+.jubootstrap p {
+	margin : 0 0 10px;
+}
+
+.jubootstrap .lead {
+	margin-bottom : 20px;
+	font-size     : 21px;
+	font-weight   : 200;
+	line-height   : 30px;
+}
+
+.jubootstrap small {
+	font-size : 85%;
+}
+
+.jubootstrap strong {
+	font-weight : bold;
+}
+
+.jubootstrap em {
+	font-style : italic;
+}
+
+.jubootstrap cite {
+	font-style : normal;
+}
+
+.jubootstrap .muted {
+	color : #999999;
+}
+
+.jubootstrap a.muted:hover,
+.jubootstrap a.muted:focus {
+	color : #808080;
+}
+
+.jubootstrap .text-warning {
+	color : #c09853;
+}
+
+.jubootstrap a.text-warning:hover,
+.jubootstrap a.text-warning:focus {
+	color : #a47e3c;
+}
+
+.jubootstrap .text-error {
+	color : #b94a48;
+}
+
+.jubootstrap a.text-error:hover,
+.jubootstrap a.text-error:focus {
+	color : #953b39;
+}
+
+.jubootstrap .text-info {
+	color : #3a87ad;
+}
+
+.jubootstrap a.text-info:hover,
+.jubootstrap a.text-info:focus {
+	color : #2d6987;
+}
+
+.jubootstrap .text-success {
+	color : #468847;
+}
+
+.jubootstrap a.text-success:hover,
+.jubootstrap a.text-success:focus {
+	color : #356635;
+}
+
+.jubootstrap .text-left {
+	text-align : left;
+}
+
+.jubootstrap .text-right {
+	text-align : right;
+}
+
+.jubootstrap .text-center {
+	text-align : center;
+}
+
+.jubootstrap h1,
+.jubootstrap h2,
+.jubootstrap h3,
+.jubootstrap h4,
+.jubootstrap h5,
+.jubootstrap h6 {
+	margin         : 10px 0;
+	font-family    : inherit;
+	font-weight    : bold;
+	line-height    : 20px;
+	color          : inherit;
+	text-rendering : optimizelegibility;
+}
+
+.jubootstrap h1 small,
+.jubootstrap h2 small,
+.jubootstrap h3 small,
+.jubootstrap h4 small,
+.jubootstrap h5 small,
+.jubootstrap h6 small {
+	font-weight : normal;
+	line-height : 1;
+	color       : #999999;
+}
+
+.jubootstrap h1,
+.jubootstrap h2,
+.jubootstrap h3 {
+	line-height : 40px;
+}
+
+.jubootstrap h1 {
+	font-size : 38.5px;
+}
+
+.jubootstrap h2 {
+	font-size : 31.5px;
+}
+
+.jubootstrap h3 {
+	font-size : 24.5px;
+}
+
+.jubootstrap h4 {
+	font-size : 17.5px;
+}
+
+.jubootstrap h5 {
+	font-size : 14px;
+}
+
+.jubootstrap h6 {
+	font-size : 11.9px;
+}
+
+.jubootstrap h1 small {
+	font-size : 24.5px;
+}
+
+.jubootstrap h2 small {
+	font-size : 17.5px;
+}
+
+.jubootstrap h3 small {
+	font-size : 14px;
+}
+
+.jubootstrap h4 small {
+	font-size : 14px;
+}
+
+.jubootstrap .page-header {
+	padding-bottom : 9px;
+	margin         : 20px 0 30px;
+	border-bottom  : 1px solid #eeeeee;
+}
+
+.jubootstrap ul,
+.jubootstrap ol {
+	padding : 0;
+	margin  : 0 0 10px 25px;
+}
+
+.jubootstrap ul ul,
+.jubootstrap ul ol,
+.jubootstrap ol ol,
+.jubootstrap ol ul {
+	margin-bottom : 0;
+}
+
+.jubootstrap li {
+	line-height : 20px;
+}
+
+.jubootstrap ul.unstyled,
+.jubootstrap ol.unstyled {
+	margin-left : 0;
+	list-style  : none;
+}
+
+.jubootstrap ul.inline,
+.jubootstrap ol.inline {
+	margin-left : 0;
+	list-style  : none;
+}
+
+.jubootstrap ul.inline > li,
+.jubootstrap ol.inline > li {
+	display       : inline-block;
+	*display      : inline;
+	padding-right : 5px;
+	padding-left  : 5px;
+	*zoom         : 1;
+}
+
+.jubootstrap dl {
+	margin-bottom : 20px;
+}
+
+.jubootstrap dt,
+.jubootstrap dd {
+	line-height : 20px;
+}
+
+.jubootstrap dt {
+	font-weight : bold;
+}
+
+.jubootstrap dd {
+	margin-left : 10px;
+}
+
+.jubootstrap .dl-horizontal {
+	*zoom : 1;
+}
+
+.jubootstrap .dl-horizontal:before,
+.jubootstrap .dl-horizontal:after {
+	display     : table;
+	line-height : 0;
+	content     : "";
+}
+
+.jubootstrap .dl-horizontal:after {
+	clear : both;
+}
+
+.jubootstrap .dl-horizontal dt {
+	float         : left;
+	width         : 160px;
+	overflow      : hidden;
+	clear         : left;
+	text-align    : right;
+	text-overflow : ellipsis;
+	white-space   : nowrap;
+}
+
+.jubootstrap .dl-horizontal dd {
+	margin-left : 180px;
+}
+
+.jubootstrap hr {
+	margin        : 20px 0;
+	border        : 0;
+	border-top    : 1px solid #eeeeee;
+	border-bottom : 1px solid #ffffff;
+}
+
+.jubootstrap abbr[title],
+.jubootstrap abbr[data-original-title] {
+	cursor        : help;
+	border-bottom : 1px dotted #999999;
+}
+
+.jubootstrap abbr.initialism {
+	font-size      : 90%;
+	text-transform : uppercase;
+}
+
+.jubootstrap blockquote {
+	padding     : 0 0 0 15px;
+	margin      : 0 0 20px;
+	border-left : 5px solid #eeeeee;
+}
+
+.jubootstrap blockquote p {
+	margin-bottom : 0;
+	font-size     : 17.5px;
+	font-weight   : 300;
+	line-height   : 1.25;
+}
+
+.jubootstrap blockquote small {
+	display     : block;
+	line-height : 20px;
+	color       : #999999;
+}
+
+.jubootstrap blockquote small:before {
+	content : '\2014 \00A0';
+}
+
+.jubootstrap blockquote.pull-right {
+	float         : right;
+	padding-right : 15px;
+	padding-left  : 0;
+	border-right  : 5px solid #eeeeee;
+	border-left   : 0;
+}
+
+.jubootstrap blockquote.pull-right p,
+.jubootstrap blockquote.pull-right small {
+	text-align : right;
+}
+
+.jubootstrap blockquote.pull-right small:before {
+	content : '';
+}
+
+.jubootstrap blockquote.pull-right small:after {
+	content : '\00A0 \2014';
+}
+
+.jubootstrap q:before,
+.jubootstrap q:after,
+.jubootstrap blockquote:before,
+.jubootstrap blockquote:after {
+	content : "";
+}
+
+.jubootstrap address {
+	display       : block;
+	margin-bottom : 20px;
+	font-style    : normal;
+	line-height   : 20px;
+}
+
+.jubootstrap code,
+.jubootstrap pre {
+	padding               : 0 3px 2px;
+	font-family           : Monaco, Menlo, Consolas, "Courier New", monospace;
+	font-size             : 12px;
+	color                 : #333333;
+	-webkit-border-radius : 3px;
+	-moz-border-radius    : 3px;
+	border-radius         : 3px;
+}
+
+.jubootstrap code {
+	padding          : 2px 4px;
+	color            : #d14;
+	white-space      : nowrap;
+	background-color : #f7f7f9;
+	border           : 1px solid #e1e1e8;
+}
+
+.jubootstrap pre {
+	display               : block;
+	padding               : 9.5px;
+	margin                : 0 0 10px;
+	font-size             : 13px;
+	line-height           : 20px;
+	word-break            : break-all;
+	word-wrap             : break-word;
+	white-space           : pre;
+	white-space           : pre-wrap;
+	background-color      : #f5f5f5;
+	border                : 1px solid #ccc;
+	border                : 1px solid rgba(0, 0, 0, 0.15);
+	-webkit-border-radius : 4px;
+	-moz-border-radius    : 4px;
+	border-radius         : 4px;
+}
+
+.jubootstrap pre.prettyprint {
+	margin-bottom : 20px;
+}
+
+.jubootstrap pre code {
+	padding          : 0;
+	color            : inherit;
+	white-space      : pre;
+	white-space      : pre-wrap;
+	background-color : transparent;
+	border           : 0;
+}
+
+.jubootstrap .pre-scrollable {
+	max-height : 340px;
+	overflow-y : scroll;
+}
+
+.jubootstrap form {
+	margin : 0 0 20px;
+}
+
+.jubootstrap fieldset {
+	padding : 0;
+	margin  : 0;
+	border  : 0;
+}
+
+.jubootstrap legend {
+	display       : block;
+	width         : 100%;
+	padding       : 0;
+	margin-bottom : 20px;
+	font-size     : 21px;
+	line-height   : 40px;
+	color         : #333333;
+	border        : 0;
+	border-bottom : 1px solid #e5e5e5;
+}
+
+.jubootstrap legend small {
+	font-size : 15px;
+	color     : #999999;
+}
+
+.jubootstrap label,
+.jubootstrap input,
+.jubootstrap button,
+.jubootstrap select,
+.jubootstrap textarea {
+	font-size   : 14px;
+	font-weight : normal;
+	line-height : 20px;
+}
+
+.jubootstrap input,
+.jubootstrap button,
+.jubootstrap select,
+.jubootstrap textarea {
+	font-family : "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.jubootstrap label {
+	display       : block;
+	margin-bottom : 5px;
+}
+
+.jubootstrap select,
+.jubootstrap textarea,
+.jubootstrap input[type="text"],
+.jubootstrap input[type="password"],
+.jubootstrap input[type="datetime"],
+.jubootstrap input[type="datetime-local"],
+.jubootstrap input[type="date"],
+.jubootstrap input[type="month"],
+.jubootstrap input[type="time"],
+.jubootstrap input[type="week"],
+.jubootstrap input[type="number"],
+.jubootstrap input[type="email"],
+.jubootstrap input[type="url"],
+.jubootstrap input[type="search"],
+.jubootstrap input[type="tel"],
+.jubootstrap input[type="color"],
+.jubootstrap .uneditable-input {
+	display               : inline-block;
+	height                : 20px;
+	padding               : 4px 6px;
+	margin-bottom         : 10px;
+	font-size             : 14px;
+	line-height           : 20px;
+	color                 : #555555;
+	vertical-align        : middle;
+	-webkit-border-radius : 4px;
+	-moz-border-radius    : 4px;
+	border-radius         : 4px;
+}
+
+.jubootstrap input,
+.jubootstrap textarea,
+.jubootstrap .uneditable-input {
+	width : 206px;
+}
+
+.jubootstrap textarea {
+	height : auto;
+}
+
+.jubootstrap textarea,
+.jubootstrap input[type="text"],
+.jubootstrap input[type="password"],
+.jubootstrap input[type="datetime"],
+.jubootstrap input[type="datetime-local"],
+.jubootstrap input[type="date"],
+.jubootstrap input[type="month"],
+.jubootstrap input[type="time"],
+.jubootstrap input[type="week"],
+.jubootstrap input[type="number"],
+.jubootstrap input[type="email"],
+.jubootstrap input[type="url"],
+.jubootstrap input[type="search"],
+.jubootstrap input[type="tel"],
+.jubootstrap input[type="color"],
+.jubootstrap .uneditable-input {
+	background-color   : #ffffff;
+	border             : 1px solid #cccccc;
+	-webkit-box-shadow : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-moz-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	box-shadow         : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-webkit-transition : border linear 0.2s, box-shadow linear 0.2s;
+	-moz-transition    : border linear 0.2s, box-shadow linear 0.2s;
+	-o-transition      : border linear 0.2s, box-shadow linear 0.2s;
+	transition         : border linear 0.2s, box-shadow linear 0.2s;
+}
+
+.jubootstrap textarea:focus,
+.jubootstrap input[type="text"]:focus,
+.jubootstrap input[type="password"]:focus,
+.jubootstrap input[type="datetime"]:focus,
+.jubootstrap input[type="datetime-local"]:focus,
+.jubootstrap input[type="date"]:focus,
+.jubootstrap input[type="month"]:focus,
+.jubootstrap input[type="time"]:focus,
+.jubootstrap input[type="week"]:focus,
+.jubootstrap input[type="number"]:focus,
+.jubootstrap input[type="email"]:focus,
+.jubootstrap input[type="url"]:focus,
+.jubootstrap input[type="search"]:focus,
+.jubootstrap input[type="tel"]:focus,
+.jubootstrap input[type="color"]:focus,
+.jubootstrap .uneditable-input:focus {
+	border-color       : rgba(82, 168, 236, 0.8);
+	outline            : 0;
+	outline            : thin dotted \9;
+	/* IE6-9 */
+	-webkit-box-shadow : inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+	-moz-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+	box-shadow         : inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+.jubootstrap input[type="radio"],
+.jubootstrap input[type="checkbox"] {
+	margin      : 4px 0 0;
+	margin-top  : 1px \9;
+	*margin-top : 0;
+	line-height : normal;
+}
+
+.jubootstrap input[type="file"],
+.jubootstrap input[type="image"],
+.jubootstrap input[type="submit"],
+.jubootstrap input[type="reset"],
+.jubootstrap input[type="button"],
+.jubootstrap input[type="radio"],
+.jubootstrap input[type="checkbox"] {
+	width : auto;
+}
+
+.jubootstrap select,
+.jubootstrap input[type="file"] {
+	height      : 30px;
+	/* In IE7, the height of the select element cannot be changed by height, only font-size */
+	*margin-top : 4px;
+	/* For IE7, add top margin to align select with labels */
+	line-height : 30px;
+}
+
+.jubootstrap select {
+	width            : 220px;
+	background-color : #ffffff;
+	border           : 1px solid #cccccc;
+}
+
+.jubootstrap select[multiple],
+.jubootstrap select[size] {
+	height : auto;
+}
+
+.jubootstrap select:focus,
+.jubootstrap input[type="file"]:focus,
+.jubootstrap input[type="radio"]:focus,
+.jubootstrap input[type="checkbox"]:focus {
+	outline        : thin dotted #333;
+	outline        : 5px auto -webkit-focus-ring-color;
+	outline-offset : -2px;
+}
+
+.jubootstrap .uneditable-input,
+.jubootstrap .uneditable-textarea {
+	color              : #999999;
+	cursor             : not-allowed;
+	background-color   : #fcfcfc;
+	border-color       : #cccccc;
+	-webkit-box-shadow : inset 0 1px 2px rgba(0, 0, 0, 0.025);
+	-moz-box-shadow    : inset 0 1px 2px rgba(0, 0, 0, 0.025);
+	box-shadow         : inset 0 1px 2px rgba(0, 0, 0, 0.025);
+}
+
+.jubootstrap .uneditable-input {
+	overflow    : hidden;
+	white-space : nowrap;
+}
+
+.jubootstrap .uneditable-textarea {
+	width  : auto;
+	height : auto;
+}
+
+.jubootstrap input:-moz-placeholder,
+.jubootstrap textarea:-moz-placeholder {
+	color : #999999;
+}
+
+.jubootstrap input:-ms-input-placeholder,
+.jubootstrap textarea:-ms-input-placeholder {
+	color : #999999;
+}
+
+.jubootstrap input::-webkit-input-placeholder,
+.jubootstrap textarea::-webkit-input-placeholder {
+	color : #999999;
+}
+
+.jubootstrap .radio,
+.jubootstrap .checkbox {
+	min-height   : 20px;
+	padding-left : 20px;
+}
+
+.jubootstrap .radio input[type="radio"],
+.jubootstrap .checkbox input[type="checkbox"] {
+	float       : left;
+	margin-left : -20px;
+}
+
+.jubootstrap .controls > .radio:first-child,
+.jubootstrap .controls > .checkbox:first-child {
+	padding-top : 5px;
+}
+
+.jubootstrap .radio.inline,
+.jubootstrap .checkbox.inline {
+	display        : inline-block;
+	padding-top    : 5px;
+	margin-bottom  : 0;
+	vertical-align : middle;
+}
+
+.jubootstrap .radio.inline + .radio.inline,
+.jubootstrap .checkbox.inline + .checkbox.inline {
+	margin-left : 10px;
+}
+
+.jubootstrap .input-mini {
+	width : 60px;
+}
+
+.jubootstrap .input-small {
+	width : 90px;
+}
+
+.jubootstrap .input-medium {
+	width : 150px;
+}
+
+.jubootstrap .input-large {
+	width : 210px;
+}
+
+.jubootstrap .input-xlarge {
+	width : 270px;
+}
+
+.jubootstrap .input-xxlarge {
+	width : 530px;
+}
+
+.jubootstrap input[class*="span"],
+.jubootstrap select[class*="span"],
+.jubootstrap textarea[class*="span"],
+.jubootstrap .uneditable-input[class*="span"],
+.jubootstrap .row-fluid input[class*="span"],
+.jubootstrap .row-fluid select[class*="span"],
+.jubootstrap .row-fluid textarea[class*="span"],
+.jubootstrap .row-fluid .uneditable-input[class*="span"] {
+	float       : none;
+	margin-left : 0;
+}
+
+.jubootstrap .input-append input[class*="span"],
+.jubootstrap .input-append .uneditable-input[class*="span"],
+.jubootstrap .input-prepend input[class*="span"],
+.jubootstrap .input-prepend .uneditable-input[class*="span"],
+.jubootstrap .row-fluid input[class*="span"],
+.jubootstrap .row-fluid select[class*="span"],
+.jubootstrap .row-fluid textarea[class*="span"],
+.jubootstrap .row-fluid .uneditable-input[class*="span"],
+.jubootstrap .row-fluid .input-prepend [class*="span"],
+.jubootstrap .row-fluid .input-append [class*="span"] {
+	display : inline-block;
+}
+
+.jubootstrap input,
+.jubootstrap textarea,
+.jubootstrap .uneditable-input {
+	margin-left : 0;
+}
+
+.jubootstrap .controls-row [class*="span"] + [class*="span"] {
+	margin-left : 20px;
+}
+
+.jubootstrap input.span12,
+.jubootstrap textarea.span12,
+.jubootstrap .uneditable-input.span12 {
+	width : 926px;
+}
+
+.jubootstrap input.span11,
+.jubootstrap textarea.span11,
+.jubootstrap .uneditable-input.span11 {
+	width : 846px;
+}
+
+.jubootstrap input.span10,
+.jubootstrap textarea.span10,
+.jubootstrap .uneditable-input.span10 {
+	width : 766px;
+}
+
+.jubootstrap input.span9,
+.jubootstrap textarea.span9,
+.jubootstrap .uneditable-input.span9 {
+	width : 686px;
+}
+
+.jubootstrap input.span8,
+.jubootstrap textarea.span8,
+.jubootstrap .uneditable-input.span8 {
+	width : 606px;
+}
+
+.jubootstrap input.span7,
+.jubootstrap textarea.span7,
+.jubootstrap .uneditable-input.span7 {
+	width : 526px;
+}
+
+.jubootstrap input.span6,
+.jubootstrap textarea.span6,
+.jubootstrap .uneditable-input.span6 {
+	width : 446px;
+}
+
+.jubootstrap input.span5,
+.jubootstrap textarea.span5,
+.jubootstrap .uneditable-input.span5 {
+	width : 366px;
+}
+
+.jubootstrap input.span4,
+.jubootstrap textarea.span4,
+.jubootstrap .uneditable-input.span4 {
+	width : 286px;
+}
+
+.jubootstrap input.span3,
+.jubootstrap textarea.span3,
+.jubootstrap .uneditable-input.span3 {
+	width : 206px;
+}
+
+.jubootstrap input.span2,
+.jubootstrap textarea.span2,
+.jubootstrap .uneditable-input.span2 {
+	width : 126px;
+}
+
+.jubootstrap input.span1,
+.jubootstrap textarea.span1,
+.jubootstrap .uneditable-input.span1 {
+	width : 46px;
+}
+
+.jubootstrap .controls-row {
+	*zoom : 1;
+}
+
+.jubootstrap .controls-row:before,
+.jubootstrap .controls-row:after {
+	display     : table;
+	line-height : 0;
+	content     : "";
+}
+
+.jubootstrap .controls-row:after {
+	clear : both;
+}
+
+.jubootstrap .controls-row [class*="span"],
+.jubootstrap .row-fluid .controls-row [class*="span"] {
+	float : left;
+}
+
+.jubootstrap .controls-row .checkbox[class*="span"],
+.jubootstrap .controls-row .radio[class*="span"] {
+	padding-top : 5px;
+}
+
+.jubootstrap input[disabled],
+.jubootstrap select[disabled],
+.jubootstrap textarea[disabled],
+.jubootstrap input[readonly],
+.jubootstrap select[readonly],
+.jubootstrap textarea[readonly] {
+	cursor           : not-allowed;
+	background-color : #eeeeee;
+}
+
+.jubootstrap input[type="radio"][disabled],
+.jubootstrap input[type="checkbox"][disabled],
+.jubootstrap input[type="radio"][readonly],
+.jubootstrap input[type="checkbox"][readonly] {
+	background-color : transparent;
+}
+
+.jubootstrap .control-group.warning .control-label,
+.jubootstrap .control-group.warning .help-block,
+.jubootstrap .control-group.warning .help-inline {
+	color : #c09853;
+}
+
+.jubootstrap .control-group.warning .checkbox,
+.jubootstrap .control-group.warning .radio,
+.jubootstrap .control-group.warning input,
+.jubootstrap .control-group.warning select,
+.jubootstrap .control-group.warning textarea {
+	color : #c09853;
+}
+
+.jubootstrap .control-group.warning input,
+.jubootstrap .control-group.warning select,
+.jubootstrap .control-group.warning textarea {
+	border-color       : #c09853;
+	-webkit-box-shadow : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-moz-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	box-shadow         : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.jubootstrap .control-group.warning input:focus,
+.jubootstrap .control-group.warning select:focus,
+.jubootstrap .control-group.warning textarea:focus {
+	border-color       : #a47e3c;
+	-webkit-box-shadow : inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #dbc59e;
+	-moz-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #dbc59e;
+	box-shadow         : inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #dbc59e;
+}
+
+.jubootstrap .control-group.warning .input-prepend .add-on,
+.jubootstrap .control-group.warning .input-append .add-on {
+	color            : #c09853;
+	background-color : #fcf8e3;
+	border-color     : #c09853;
+}
+
+.jubootstrap .control-group.error .control-label,
+.jubootstrap .control-group.error .help-block,
+.jubootstrap .control-group.error .help-inline {
+	color : #b94a48;
+}
+
+.jubootstrap .control-group.error .checkbox,
+.jubootstrap .control-group.error .radio,
+.jubootstrap .control-group.error input,
+.jubootstrap .control-group.error select,
+.jubootstrap .control-group.error textarea {
+	color : #b94a48;
+}
+
+.jubootstrap .control-group.error input,
+.jubootstrap .control-group.error select,
+.jubootstrap .control-group.error textarea {
+	border-color       : #b94a48;
+	-webkit-box-shadow : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-moz-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	box-shadow         : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.jubootstrap .control-group.error input:focus,
+.jubootstrap .control-group.error select:focus,
+.jubootstrap .control-group.error textarea:focus {
+	border-color       : #953b39;
+	-webkit-box-shadow : inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+	-moz-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+	box-shadow         : inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+}
+
+.jubootstrap .control-group.error .input-prepend .add-on,
+.jubootstrap .control-group.error .input-append .add-on {
+	color            : #b94a48;
+	background-color : #f2dede;
+	border-color     : #b94a48;
+}
+
+.jubootstrap .control-group.success .control-label,
+.jubootstrap .control-group.success .help-block,
+.jubootstrap .control-group.success .help-inline {
+	color : #468847;
+}
+
+.jubootstrap .control-group.success .checkbox,
+.jubootstrap .control-group.success .radio,
+.jubootstrap .control-group.success input,
+.jubootstrap .control-group.success select,
+.jubootstrap .control-group.success textarea {
+	color : #468847;
+}
+
+.jubootstrap .control-group.success input,
+.jubootstrap .control-group.success select,
+.jubootstrap .control-group.success textarea {
+	border-color       : #468847;
+	-webkit-box-shadow : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-moz-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	box-shadow         : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.jubootstrap .control-group.success input:focus,
+.jubootstrap .control-group.success select:focus,
+.jubootstrap .control-group.success textarea:focus {
+	border-color       : #356635;
+	-webkit-box-shadow : inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b;
+	-moz-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b;
+	box-shadow         : inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b;
+}
+
+.jubootstrap .control-group.success .input-prepend .add-on,
+.jubootstrap .control-group.success .input-append .add-on {
+	color            : #468847;
+	background-color : #dff0d8;
+	border-color     : #468847;
+}
+
+.jubootstrap .control-group.info .control-label,
+.jubootstrap .control-group.info .help-block,
+.jubootstrap .control-group.info .help-inline {
+	color : #3a87ad;
+}
+
+.jubootstrap .control-group.info .checkbox,
+.jubootstrap .control-group.info .radio,
+.jubootstrap .control-group.info input,
+.jubootstrap .control-group.info select,
+.jubootstrap .control-group.info textarea {
+	color : #3a87ad;
+}
+
+.jubootstrap .control-group.info input,
+.jubootstrap .control-group.info select,
+.jubootstrap .control-group.info textarea {
+	border-color       : #3a87ad;
+	-webkit-box-shadow : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-moz-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	box-shadow         : inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.jubootstrap .control-group.info input:focus,
+.jubootstrap .control-group.info select:focus,
+.jubootstrap .control-group.info textarea:focus {
+	border-color       : #2d6987;
+	-webkit-box-shadow : inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
+	-moz-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
+	box-shadow         : inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
+}
+
+.jubootstrap .control-group.info .input-prepend .add-on,
+.jubootstrap .control-group.info .input-append .add-on {
+	color            : #3a87ad;
+	background-color : #d9edf7;
+	border-color     : #3a87ad;
+}
+
+.jubootstrap input:focus:invalid,
+.jubootstrap textarea:focus:invalid,
+.jubootstrap select:focus:invalid {
+	color        : #b94a48;
+	border-color : #ee5f5b;
+}
+
+.jubootstrap input:focus:invalid:focus,
+.jubootstrap textarea:focus:invalid:focus,
+.jubootstrap select:focus:invalid:focus {
+	border-color       : #e9322d;
+	-webkit-box-shadow : 0 0 6px #f8b9b7;
+	-moz-box-shadow    : 0 0 6px #f8b9b7;
+	box-shadow         : 0 0 6px #f8b9b7;
+}
+
+.jubootstrap .form-actions {
+	padding          : 19px 20px 20px;
+	margin-top       : 20px;
+	margin-bottom    : 20px;
+	background-color : #f5f5f5;
+	border-top       : 1px solid #e5e5e5;
+	*zoom            : 1;
+}
+
+.jubootstrap .form-actions:before,
+.jubootstrap .form-actions:after {
+	display     : table;
+	line-height : 0;
+	content     : "";
+}
+
+.jubootstrap .form-actions:after {
+	clear : both;
+}
+
+.jubootstrap .help-block,
+.jubootstrap .help-inline {
+	color : #595959;
+}
+
+.jubootstrap .help-block {
+	display       : block;
+	margin-bottom : 10px;
+}
+
+.jubootstrap .help-inline {
+	display        : inline-block;
+	*display       : inline;
+	padding-left   : 5px;
+	vertical-align : middle;
+	*zoom          : 1;
+}
+
+.jubootstrap .input-append,
+.jubootstrap .input-prepend {
+	display        : inline-block;
+	margin-bottom  : 10px;
+	font-size      : 0;
+	white-space    : nowrap;
+	vertical-align : middle;
+}
+
+.jubootstrap .input-append input,
+.jubootstrap .input-prepend input,
+.jubootstrap .input-append select,
+.jubootstrap .input-prepend select,
+.jubootstrap .input-append .uneditable-input,
+.jubootstrap .input-prepend .uneditable-input,
+.jubootstrap .input-append .dropdown-menu,
+.jubootstrap .input-prepend .dropdown-menu,
+.jubootstrap .input-append .popover,
+.jubootstrap .input-prepend .popover {
+	font-size : 14px;
+}
+
+.jubootstrap .input-append input,
+.jubootstrap .input-prepend input,
+.jubootstrap .input-append select,
+.jubootstrap .input-prepend select,
+.jubootstrap .input-append .uneditable-input,
+.jubootstrap .input-prepend .uneditable-input {
+	position              : relative;
+	margin-bottom         : 0;
+	*margin-left          : 0;
+	vertical-align        : top;
+	-webkit-border-radius : 0 4px 4px 0;
+	-moz-border-radius    : 0 4px 4px 0;
+	border-radius         : 0 4px 4px 0;
+}
+
+.jubootstrap .input-append input:focus,
+.jubootstrap .input-prepend input:focus,
+.jubootstrap .input-append select:focus,
+.jubootstrap .input-prepend select:focus,
+.jubootstrap .input-append .uneditable-input:focus,
+.jubootstrap .input-prepend .uneditable-input:focus {
+	z-index : 2;
+}
+
+.jubootstrap .input-append .add-on,
+.jubootstrap .input-prepend .add-on {
+	display          : inline-block;
+	width            : auto;
+	height           : 20px;
+	min-width        : 16px;
+	padding          : 4px 5px;
+	font-size        : 14px;
+	font-weight      : normal;
+	line-height      : 20px;
+	text-align       : center;
+	text-shadow      : 0 1px 0 #ffffff;
+	background-color : #eeeeee;
+	border           : 1px solid #ccc;
+}
+
+.jubootstrap .input-append .add-on,
+.jubootstrap .input-prepend .add-on,
+.jubootstrap .input-append .btn,
+.jubootstrap .input-prepend .btn,
+.jubootstrap .input-append .btn-group > .dropdown-toggle,
+.jubootstrap .input-prepend .btn-group > .dropdown-toggle {
+	vertical-align        : top;
+	-webkit-border-radius : 0;
+	-moz-border-radius    : 0;
+	border-radius         : 0;
+}
+
+.jubootstrap .input-append .active,
+.jubootstrap .input-prepend .active {
+	background-color : #a9dba9;
+	border-color     : #46a546;
+}
+
+.jubootstrap .input-prepend .add-on,
+.jubootstrap .input-prepend .btn {
+	margin-right : -1px;
+}
+
+.jubootstrap .input-prepend .add-on:first-child,
+.jubootstrap .input-prepend .btn:first-child {
+	-webkit-border-radius : 4px 0 0 4px;
+	-moz-border-radius    : 4px 0 0 4px;
+	border-radius         : 4px 0 0 4px;
+}
+
+.jubootstrap .input-append input,
+.jubootstrap .input-append select,
+.jubootstrap .input-append .uneditable-input {
+	-webkit-border-radius : 4px 0 0 4px;
+	-moz-border-radius    : 4px 0 0 4px;
+	border-radius         : 4px 0 0 4px;
+}
+
+.jubootstrap .input-append input + .btn-group .btn:last-child,
+.jubootstrap .input-append select + .btn-group .btn:last-child,
+.jubootstrap .input-append .uneditable-input + .btn-group .btn:last-child {
+	-webkit-border-radius : 0 4px 4px 0;
+	-moz-border-radius    : 0 4px 4px 0;
+	border-radius         : 0 4px 4px 0;
+}
+
+.jubootstrap .input-append .add-on,
+.jubootstrap .input-append .btn,
+.jubootstrap .input-append .btn-group {
+	margin-left : -1px;
+}
+
+.jubootstrap .input-append .add-on:last-child,
+.jubootstrap .input-append .btn:last-child,
+.jubootstrap .input-append .btn-group:last-child > .dropdown-toggle {
+	-webkit-border-radius : 0 4px 4px 0;
+	-moz-border-radius    : 0 4px 4px 0;
+	border-radius         : 0 4px 4px 0;
+}
+
+.jubootstrap .input-prepend.input-append input,
+.jubootstrap .input-prepend.input-append select,
+.jubootstrap .input-prepend.input-append .uneditable-input {
+	-webkit-border-radius : 0;
+	-moz-border-radius    : 0;
+	border-radius         : 0;
+}
+
+.jubootstrap .input-prepend.input-append input + .btn-group .btn,
+.jubootstrap .input-prepend.input-append select + .btn-group .btn,
+.jubootstrap .input-prepend.input-append .uneditable-input + .btn-group .btn {
+	-webkit-border-radius : 0 4px 4px 0;
+	-moz-border-radius    : 0 4px 4px 0;
+	border-radius         : 0 4px 4px 0;
+}
+
+.jubootstrap .input-prepend.input-append .add-on:first-child,
+.jubootstrap .input-prepend.input-append .btn:first-child {
+	margin-right          : -1px;
+	-webkit-border-radius : 4px 0 0 4px;
+	-moz-border-radius    : 4px 0 0 4px;
+	border-radius         : 4px 0 0 4px;
+}
+
+.jubootstrap .input-prepend.input-append .add-on:last-child,
+.jubootstrap .input-prepend.input-append .btn:last-child {
+	margin-left           : -1px;
+	-webkit-border-radius : 0 4px 4px 0;
+	-moz-border-radius    : 0 4px 4px 0;
+	border-radius         : 0 4px 4px 0;
+}
+
+.jubootstrap .input-prepend.input-append .btn-group:first-child {
+	margin-left : 0;
+}
+
+.jubootstrap input.search-query {
+	padding-right         : 14px;
+	padding-right         : 4px \9;
+	padding-left          : 14px;
+	padding-left          : 4px \9;
+	/* IE7-8 doesn't have border-radius, so don't indent the padding */
+	margin-bottom         : 0;
+	-webkit-border-radius : 15px;
+	-moz-border-radius    : 15px;
+	border-radius         : 15px;
+}
+
+.jubootstrap .form-search .input-append .search-query,
+.jubootstrap .form-search .input-prepend .search-query {
+	-webkit-border-radius : 0;
+	-moz-border-radius    : 0;
+	border-radius         : 0;
+}
+
+.jubootstrap .form-search .input-append .search-query {
+	-webkit-border-radius : 14px 0 0 14px;
+	-moz-border-radius    : 14px 0 0 14px;
+	border-radius         : 14px 0 0 14px;
+}
+
+.jubootstrap .form-search .input-append .btn {
+	-webkit-border-radius : 0 14px 14px 0;
+	-moz-border-radius    : 0 14px 14px 0;
+	border-radius         : 0 14px 14px 0;
+}
+
+.jubootstrap .form-search .input-prepend .search-query {
+	-webkit-border-radius : 0 14px 14px 0;
+	-moz-border-radius    : 0 14px 14px 0;
+	border-radius         : 0 14px 14px 0;
+}
+
+.jubootstrap .form-search .input-prepend .btn {
+	-webkit-border-radius : 14px 0 0 14px;
+	-moz-border-radius    : 14px 0 0 14px;
+	border-radius         : 14px 0 0 14px;
+}
+
+.jubootstrap .form-search input,
+.jubootstrap .form-inline input,
+.jubootstrap .form-horizontal input,
+.jubootstrap .form-search textarea,
+.jubootstrap .form-inline textarea,
+.jubootstrap .form-horizontal textarea,
+.jubootstrap .form-search select,
+.jubootstrap .form-inline select,
+.jubootstrap .form-horizontal select,
+.jubootstrap .form-search .help-inline,
+.jubootstrap .form-inline .help-inline,
+.jubootstrap .form-horizontal .help-inline,
+.jubootstrap .form-search .uneditable-input,
+.jubootstrap .form-inline .uneditable-input,
+.jubootstrap .form-horizontal .uneditable-input,
+.jubootstrap .form-search .input-prepend,
+.jubootstrap .form-inline .input-prepend,
+.jubootstrap .form-horizontal .input-prepend,
+.jubootstrap .form-search .input-append,
+.jubootstrap .form-inline .input-append,
+.jubootstrap .form-horizontal .input-append {
+	display        : inline-block;
+	*display       : inline;
+	margin-bottom  : 0;
+	vertical-align : middle;
+	*zoom          : 1;
+}
+
+.jubootstrap .form-search .hide,
+.jubootstrap .form-inline .hide,
+.jubootstrap .form-horizontal .hide {
+	display : none;
+}
+
+.jubootstrap .form-search label,
+.jubootstrap .form-inline label,
+.jubootstrap .form-search .btn-group,
+.jubootstrap .form-inline .btn-group {
+	display : inline-block;
+}
+
+.jubootstrap .form-search .input-append,
+.jubootstrap .form-inline .input-append,
+.jubootstrap .form-search .input-prepend,
+.jubootstrap .form-inline .input-prepend {
+	margin-bottom : 0;
+}
+
+.jubootstrap .form-search .radio,
+.jubootstrap .form-search .checkbox,
+.jubootstrap .form-inline .radio,
+.jubootstrap .form-inline .checkbox {
+	padding-left   : 0;
+	margin-bottom  : 0;
+	vertical-align : middle;
+}
+
+.jubootstrap .form-search .radio input[type="radio"],
+.jubootstrap .form-search .checkbox input[type="checkbox"],
+.jubootstrap .form-inline .radio input[type="radio"],
+.jubootstrap .form-inline .checkbox input[type="checkbox"] {
+	float        : left;
+	margin-right : 3px;
+	margin-left  : 0;
+}
+
+.jubootstrap .control-group {
+	margin-bottom : 10px;
+}
+
+.jubootstrap legend + .control-group {
+	margin-top                  : 20px;
+	-webkit-margin-top-collapse : separate;
+}
+
+.jubootstrap .form-horizontal .control-group {
+	margin-bottom : 20px;
+	*zoom         : 1;
+}
+
+.jubootstrap .form-horizontal .control-group:before,
+.jubootstrap .form-horizontal .control-group:after {
+	display     : table;
+	line-height : 0;
+	content     : "";
+}
+
+.jubootstrap .form-horizontal .control-group:after {
+	clear : both;
+}
+
+.jubootstrap .form-horizontal .control-label {
+	float       : left;
+	width       : 160px;
+	padding-top : 5px;
+	text-align  : right;
+}
+
+.jubootstrap .form-horizontal .controls {
+	*display      : inline-block;
+	*padding-left : 20px;
+	margin-left   : 180px;
+	*margin-left  : 0;
+}
+
+.jubootstrap .form-horizontal .controls:first-child {
+	*padding-left : 180px;
+}
+
+.jubootstrap .form-horizontal .help-block {
+	margin-bottom : 0;
+}
+
+.jubootstrap .form-horizontal input + .help-block,
+.jubootstrap .form-horizontal select + .help-block,
+.jubootstrap .form-horizontal textarea + .help-block,
+.jubootstrap .form-horizontal .uneditable-input + .help-block,
+.jubootstrap .form-horizontal .input-prepend + .help-block,
+.jubootstrap .form-horizontal .input-append + .help-block {
+	margin-top : 10px;
+}
+
+.jubootstrap .form-horizontal .form-actions {
+	padding-left : 180px;
+}
+
+.jubootstrap table {
+	max-width        : 100%;
+	background-color : transparent;
+	border-collapse  : collapse;
+	border-spacing   : 0;
+}
+
+.jubootstrap .table {
+	width         : 100%;
+	margin-bottom : 20px;
+}
+
+.jubootstrap .table th,
+.jubootstrap .table td {
+	padding        : 8px;
+	line-height    : 20px;
+	text-align     : left;
+	vertical-align : top;
+	border-top     : 1px solid #dddddd;
+}
+
+.jubootstrap .table th {
+	font-weight : bold;
+}
+
+.jubootstrap .table thead th {
+	vertical-align : bottom;
+}
+
+.jubootstrap .table caption + thead tr:first-child th,
+.jubootstrap .table caption + thead tr:first-child td,
+.jubootstrap .table colgroup + thead tr:first-child th,
+.jubootstrap .table colgroup + thead tr:first-child td,
+.jubootstrap .table thead:first-child tr:first-child th,
+.jubootstrap .table thead:first-child tr:first-child td {
+	border-top : 0;
+}
+
+.jubootstrap .table tbody + tbody {
+	border-top : 2px solid #dddddd;
+}
+
+.jubootstrap .table .table {
+	background-color : #ffffff;
+}
+
+.jubootstrap .table-condensed th,
+.jubootstrap .table-condensed td {
+	padding : 4px 5px;
+}
+
+.jubootstrap .table-bordered {
+	border                : 1px solid #dddddd;
+	border-collapse       : separate;
+	*border-collapse      : collapse;
+	border-left           : 0;
+	-webkit-border-radius : 4px;
+	-moz-border-radius    : 4px;
+	border-radius         : 4px;
+}
+
+.jubootstrap .table-bordered th,
+.jubootstrap .table-bordered td {
+	border-left : 1px solid #dddddd;
+}
+
+.jubootstrap .table-bordered caption + thead tr:first-child th,
+.jubootstrap .table-bordered caption + tbody tr:first-child th,
+.jubootstrap .table-bordered caption + tbody tr:first-child td,
+.jubootstrap .table-bordered colgroup + thead tr:first-child th,
+.jubootstrap .table-bordered colgroup + tbody tr:first-child th,
+.jubootstrap .table-bordered colgroup + tbody tr:first-child td,
+.jubootstrap .table-bordered thead:first-child tr:first-child th,
+.jubootstrap .table-bordered tbody:first-child tr:first-child th,
+.jubootstrap .table-bordered tbody:first-child tr:first-child td {
+	border-top : 0;
+}
+
+.jubootstrap .table-bordered thead:first-child tr:first-child > th:first-child,
+.jubootstrap .table-bordered tbody:first-child tr:first-child > td:first-child,
+.jubootstrap .table-bordered tbody:first-child tr:first-child > th:first-child {
+	-webkit-border-top-left-radius : 4px;
+	border-top-left-radius         : 4px;
+	-moz-border-radius-topleft     : 4px;
+}
+
+.jubootstrap .table-bordered thead:first-child tr:first-child > th:last-child,
+.jubootstrap .table-bordered tbody:first-child tr:first-child > td:last-child,
+.jubootstrap .table-bordered tbody:first-child tr:first-child > th:last-child {
+	-webkit-border-top-right-radius : 4px;
+	border-top-right-radius         : 4px;
+	-moz-border-radius-topright     : 4px;
+}
+
+.jubootstrap .table-bordered thead:last-child tr:last-child > th:first-child,
+.jubootstrap .table-bordered tbody:last-child tr:last-child > td:first-child,
+.jubootstrap .table-bordered tbody:last-child tr:last-child > th:first-child,
+.jubootstrap .table-bordered tfoot:last-child tr:last-child > td:first-child,
+.jubootstrap .table-bordered tfoot:last-child tr:last-child > th:first-child {
+	-webkit-border-bottom-left-radius : 4px;
+	border-bottom-left-radius         : 4px;
+	-moz-border-radius-bottomleft     : 4px;
+}
+
+.jubootstrap .table-bordered thead:last-child tr:last-child > th:last-child,
+.jubootstrap .table-bordered tbody:last-child tr:last-child > td:last-child,
+.jubootstrap .table-bordered tbody:last-child tr:last-child > th:last-child,
+.jubootstrap .table-bordered tfoot:last-child tr:last-child > td:last-child,
+.jubootstrap .table-bordered tfoot:last-child tr:last-child > th:last-child {
+	-webkit-border-bottom-right-radius : 4px;
+	border-bottom-right-radius         : 4px;
+	-moz-border-radius-bottomright     : 4px;
+}
+
+.jubootstrap .table-bordered tfoot + tbody:last-child tr:last-child td:first-child {
+	-webkit-border-bottom-left-radius : 0;
+	border-bottom-left-radius         : 0;
+	-moz-border-radius-bottomleft     : 0;
+}
+
+.jubootstrap .table-bordered tfoot + tbody:last-child tr:last-child td:last-child {
+	-webkit-border-bottom-right-radius : 0;
+	border-bottom-right-radius         : 0;
+	-moz-border-radius-bottomright     : 0;
+}
+
+.jubootstrap .table-bordered caption + thead tr:first-child th:first-child,
+.jubootstrap .table-bordered caption + tbody tr:first-child td:first-child,
+.jubootstrap .table-bordered colgroup + thead tr:first-child th:first-child,
+.jubootstrap .table-bordered colgroup + tbody tr:first-child td:first-child {
+	-webkit-border-top-left-radius : 4px;
+	border-top-left-radius         : 4px;
+	-moz-border-radius-topleft     : 4px;
+}
+
+.jubootstrap .table-bordered caption + thead tr:first-child th:last-child,
+.jubootstrap .table-bordered caption + tbody tr:first-child td:last-child,
+.jubootstrap .table-bordered colgroup + thead tr:first-child th:last-child,
+.jubootstrap .table-bordered colgroup + tbody tr:first-child td:last-child {
+	-webkit-border-top-right-radius : 4px;
+	border-top-right-radius         : 4px;
+	-moz-border-radius-topright     : 4px;
+}
+
+.jubootstrap .table-striped tbody > tr:nth-child(odd) > td,
+.jubootstrap .table-striped tbody > tr:nth-child(odd) > th {
+	background-color : #f9f9f9;
+}
+
+.jubootstrap .table-hover tbody tr:hover > td,
+.jubootstrap .table-hover tbody tr:hover > th {
+	background-color : #f5f5f5;
+}
+
+.jubootstrap table td[class*="span"],
+.jubootstrap table th[class*="span"],
+.jubootstrap .row-fluid table td[class*="span"],
+.jubootstrap .row-fluid table th[class*="span"] {
+	display     : table-cell;
+	float       : none;
+	margin-left : 0;
+}
+
+.jubootstrap .table td.span1,
+.jubootstrap .table th.span1 {
+	float       : none;
+	width       : 44px;
+	margin-left : 0;
+}
+
+.jubootstrap .table td.span2,
+.jubootstrap .table th.span2 {
+	float       : none;
+	width       : 124px;
+	margin-left : 0;
+}
+
+.jubootstrap .table td.span3,
+.jubootstrap .table th.span3 {
+	float       : none;
+	width       : 204px;
+	margin-left : 0;
+}
+
+.jubootstrap .table td.span4,
+.jubootstrap .table th.span4 {
+	float       : none;
+	width       : 284px;
+	margin-left : 0;
+}
+
+.jubootstrap .table td.span5,
+.jubootstrap .table th.span5 {
+	float       : none;
+	width       : 364px;
+	margin-left : 0;
+}
+
+.jubootstrap .table td.span6,
+.jubootstrap .table th.span6 {
+	float       : none;
+	width       : 444px;
+	margin-left : 0;
+}
+
+.jubootstrap .table td.span7,
+.jubootstrap .table th.span7 {
+	float       : none;
+	width       : 524px;
+	margin-left : 0;
+}
+
+.jubootstrap .table td.span8,
+.jubootstrap .table th.span8 {
+	float       : none;
+	width       : 604px;
+	margin-left : 0;
+}
+
+.jubootstrap .table td.span9,
+.jubootstrap .table th.span9 {
+	float       : none;
+	width       : 684px;
+	margin-left : 0;
+}
+
+.jubootstrap .table td.span10,
+.jubootstrap .table th.span10 {
+	float       : none;
+	width       : 764px;
+	margin-left : 0;
+}
+
+.jubootstrap .table td.span11,
+.jubootstrap .table th.span11 {
+	float       : none;
+	width       : 844px;
+	margin-left : 0;
+}
+
+.jubootstrap .table td.span12,
+.jubootstrap .table th.span12 {
+	float       : none;
+	width       : 924px;
+	margin-left : 0;
+}
+
+.jubootstrap .table tbody tr.success > td {
+	background-color : #dff0d8;
+}
+
+.jubootstrap .table tbody tr.error > td {
+	background-color : #f2dede;
+}
+
+.jubootstrap .table tbody tr.warning > td {
+	background-color : #fcf8e3;
+}
+
+.jubootstrap .table tbody tr.info > td {
+	background-color : #d9edf7;
+}
+
+.jubootstrap .table-hover tbody tr.success:hover > td {
+	background-color : #d0e9c6;
+}
+
+.jubootstrap .table-hover tbody tr.error:hover > td {
+	background-color : #ebcccc;
+}
+
+.jubootstrap .table-hover tbody tr.warning:hover > td {
+	background-color : #faf2cc;
+}
+
+.jubootstrap .table-hover tbody tr.info:hover > td {
+	background-color : #c4e3f3;
+}
+
+.jubootstrap .dropup,
+.jubootstrap .dropdown {
+	position : relative;
+}
+
+.jubootstrap .dropdown-toggle {
+	*margin-bottom : -3px;
+}
+
+.jubootstrap .dropdown-toggle:active,
+.jubootstrap .open .dropdown-toggle {
+	outline : 0;
+}
+
+.jubootstrap .caret {
+	display        : inline-block;
+	width          : 0;
+	height         : 0;
+	vertical-align : top;
+	border-top     : 4px solid #000000;
+	border-right   : 4px solid transparent;
+	border-left    : 4px solid transparent;
+	content        : "";
+}
+
+.jubootstrap .dropdown .caret {
+	margin-top  : 8px;
+	margin-left : 2px;
+}
+
+.jubootstrap .dropdown-menu {
+	position                : absolute;
+	top                     : 100%;
+	left                    : 0;
+	z-index                 : 1000;
+	display                 : none;
+	float                   : left;
+	min-width               : 160px;
+	padding                 : 5px 0;
+	margin                  : 2px 0 0;
+	list-style              : none;
+	background-color        : #ffffff;
+	border                  : 1px solid #ccc;
+	border                  : 1px solid rgba(0, 0, 0, 0.2);
+	*border-right-width     : 2px;
+	*border-bottom-width    : 2px;
+	-webkit-border-radius   : 6px;
+	-moz-border-radius      : 6px;
+	border-radius           : 6px;
+	-webkit-box-shadow      : 0 5px 10px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow         : 0 5px 10px rgba(0, 0, 0, 0.2);
+	box-shadow              : 0 5px 10px rgba(0, 0, 0, 0.2);
+	-webkit-background-clip : padding-box;
+	-moz-background-clip    : padding;
+	background-clip         : padding-box;
+}
+
+.jubootstrap .dropdown-menu.pull-right {
+	right : 0;
+	left  : auto;
+}
+
+.jubootstrap .dropdown-menu .divider {
+	*width           : 100%;
+	height           : 1px;
+	margin           : 9px 1px;
+	*margin          : -5px 0 5px;
+	overflow         : hidden;
+	background-color : #e5e5e5;
+	border-bottom    : 1px solid #ffffff;
+}
+
+.jubootstrap .dropdown-menu > li > a {
+	display     : block;
+	padding     : 3px 20px;
+	clear       : both;
+	font-weight : normal;
+	line-height : 20px;
+	color       : #333333;
+	white-space : nowrap;
+}
+
+.jubootstrap .dropdown-menu > li > a:hover,
+.jubootstrap .dropdown-menu > li > a:focus,
+.jubootstrap .dropdown-submenu:hover > a,
+.jubootstrap .dropdown-submenu:focus > a {
+	color             : #ffffff;
+	text-decoration   : none;
+	background-color  : #0081c2;
+	background-image  : -moz-linear-gradient(top, #0088cc, #0077b3);
+	background-image  : -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
+	background-image  : -webkit-linear-gradient(top, #0088cc, #0077b3);
+	background-image  : -o-linear-gradient(top, #0088cc, #0077b3);
+	background-image  : linear-gradient(to bottom, #0088cc, #0077b3);
+	background-repeat : repeat-x;
+	filter            : progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0);
+}
+
+.jubootstrap .dropdown-menu > .active > a,
+.jubootstrap .dropdown-menu > .active > a:hover,
+.jubootstrap .dropdown-menu > .active > a:focus {
+	color             : #ffffff;
+	text-decoration   : none;
+	background-color  : #0081c2;
+	background-image  : -moz-linear-gradient(top, #0088cc, #0077b3);
+	background-image  : -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
+	background-image  : -webkit-linear-gradient(top, #0088cc, #0077b3);
+	background-image  : -o-linear-gradient(top, #0088cc, #0077b3);
+	background-image  : linear-gradient(to bottom, #0088cc, #0077b3);
+	background-repeat : repeat-x;
+	outline           : 0;
+	filter            : progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0);
+}
+
+.jubootstrap .dropdown-menu > .disabled > a,
+.jubootstrap .dropdown-menu > .disabled > a:hover,
+.jubootstrap .dropdown-menu > .disabled > a:focus {
+	color : #999999;
+}
+
+.jubootstrap .dropdown-menu > .disabled > a:hover,
+.jubootstrap .dropdown-menu > .disabled > a:focus {
+	text-decoration  : none;
+	cursor           : default;
+	background-color : transparent;
+	background-image : none;
+	filter           : progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.jubootstrap .open {
+	*z-index : 1000;
+}
+
+.jubootstrap .open > .dropdown-menu {
+	display : block;
+}
+
+.jubootstrap .dropdown-backdrop {
+	position : fixed;
+	top      : 0;
+	right    : 0;
+	bottom   : 0;
+	left     : 0;
+	z-index  : 990;
+}
+
+.jubootstrap .pull-right > .dropdown-menu {
+	right : 0;
+	left  : auto;
+}
+
+.jubootstrap .dropup .caret,
+.jubootstrap .navbar-fixed-bottom .dropdown .caret {
+	border-top    : 0;
+	border-bottom : 4px solid #000000;
+	content       : "";
+}
+
+.jubootstrap .dropup .dropdown-menu,
+.jubootstrap .navbar-fixed-bottom .dropdown .dropdown-menu {
+	top           : auto;
+	bottom        : 100%;
+	margin-bottom : 1px;
+}
+
+.jubootstrap .dropdown-submenu {
+	position : relative;
+}
+
+.jubootstrap .dropdown-submenu > .dropdown-menu {
+	top                   : 0;
+	left                  : 100%;
+	margin-top            : -6px;
+	margin-left           : -1px;
+	-webkit-border-radius : 0 6px 6px 6px;
+	-moz-border-radius    : 0 6px 6px 6px;
+	border-radius         : 0 6px 6px 6px;
+}
+
+.jubootstrap .dropdown-submenu:hover > .dropdown-menu {
+	display : block;
+}
+
+.jubootstrap .dropup .dropdown-submenu > .dropdown-menu {
+	top                   : auto;
+	bottom                : 0;
+	margin-top            : 0;
+	margin-bottom         : -2px;
+	-webkit-border-radius : 5px 5px 5px 0;
+	-moz-border-radius    : 5px 5px 5px 0;
+	border-radius         : 5px 5px 5px 0;
+}
+
+.jubootstrap .dropdown-submenu > a:after {
+	display           : block;
+	float             : right;
+	width             : 0;
+	height            : 0;
+	margin-top        : 5px;
+	margin-right      : -10px;
+	border-color      : transparent;
+	border-left-color : #cccccc;
+	border-style      : solid;
+	border-width      : 5px 0 5px 5px;
+	content           : " ";
+}
+
+.jubootstrap .dropdown-submenu:hover > a:after {
+	border-left-color : #ffffff;
+}
+
+.jubootstrap .dropdown-submenu.pull-left {
+	float : none;
+}
+
+.jubootstrap .dropdown-submenu.pull-left > .dropdown-menu {
+	left                  : -100%;
+	margin-left           : 10px;
+	-webkit-border-radius : 6px 0 6px 6px;
+	-moz-border-radius    : 6px 0 6px 6px;
+	border-radius         : 6px 0 6px 6px;
+}
+
+.jubootstrap .dropdown .dropdown-menu .nav-header {
+	padding-right : 20px;
+	padding-left  : 20px;
+}
+
+.jubootstrap .typeahead {
+	z-index               : 1051;
+	margin-top            : 2px;
+	-webkit-border-radius : 4px;
+	-moz-border-radius    : 4px;
+	border-radius         : 4px;
+}
+
+.jubootstrap .well {
+	min-height            : 20px;
+	padding               : 19px;
+	margin-bottom         : 20px;
+	background-color      : #f5f5f5;
+	border                : 1px solid #e3e3e3;
+	-webkit-border-radius : 4px;
+	-moz-border-radius    : 4px;
+	border-radius         : 4px;
+	-webkit-box-shadow    : inset 0 1px 1px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow       : inset 0 1px 1px rgba(0, 0, 0, 0.05);
+	box-shadow            : inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.jubootstrap .well blockquote {
+	border-color : #ddd;
+	border-color : rgba(0, 0, 0, 0.15);
+}
+
+.jubootstrap .well-large {
+	padding               : 24px;
+	-webkit-border-radius : 6px;
+	-moz-border-radius    : 6px;
+	border-radius         : 6px;
+}
+
+.jubootstrap .well-small {
+	padding               : 9px;
+	-webkit-border-radius : 3px;
+	-moz-border-radius    : 3px;
+	border-radius         : 3px;
+}
+
+.jubootstrap .fade {
+	opacity            : 0;
+	-webkit-transition : opacity 0.15s linear;
+	-moz-transition    : opacity 0.15s linear;
+	-o-transition      : opacity 0.15s linear;
+	transition         : opacity 0.15s linear;
+}
+
+.jubootstrap .fade.in {
+	opacity : 1;
+}
+
+.jubootstrap .collapse {
+	position           : relative;
+	height             : 0;
+	overflow           : hidden;
+	-webkit-transition : height 0.35s ease;
+	-moz-transition    : height 0.35s ease;
+	-o-transition      : height 0.35s ease;
+	transition         : height 0.35s ease;
+}
+
+.jubootstrap .collapse.in {
+	height : auto;
+}
+
+.jubootstrap .close {
+	float       : right;
+	font-size   : 20px;
+	font-weight : bold;
+	line-height : 20px;
+	color       : #000000;
+	text-shadow : 0 1px 0 #ffffff;
+	opacity     : 0.2;
+	filter      : alpha(opacity=20);
+}
+
+.jubootstrap .close:hover,
+.jubootstrap .close:focus {
+	color           : #000000;
+	text-decoration : none;
+	cursor          : pointer;
+	opacity         : 0.4;
+	filter          : alpha(opacity=40);
+}
+
+.jubootstrap button.close {
+	padding            : 0;
+	cursor             : pointer;
+	background         : transparent;
+	border             : 0;
+	-webkit-appearance : none;
+}
+
+.jubootstrap .btn {
+	display               : inline-block;
+	*display              : inline;
+	padding               : 4px 12px;
+	margin-bottom         : 0;
+	*margin-left          : .3em;
+	font-size             : 14px;
+	line-height           : 20px;
+	color                 : #333333;
+	text-align            : center;
+	text-shadow           : 0 1px 1px rgba(255, 255, 255, 0.75);
+	vertical-align        : middle;
+	cursor                : pointer;
+	background-color      : #f5f5f5;
+	*background-color     : #e6e6e6;
+	background-image      : -moz-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image      : -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+	background-image      : -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image      : -o-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image      : linear-gradient(to bottom, #ffffff, #e6e6e6);
+	background-repeat     : repeat-x;
+	border                : 1px solid #cccccc;
+	*border               : 0;
+	border-color          : #e6e6e6 #e6e6e6 #bfbfbf;
+	border-color          : rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	border-bottom-color   : #b3b3b3;
+	-webkit-border-radius : 4px;
+	-moz-border-radius    : 4px;
+	border-radius         : 4px;
+	filter                : progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+	filter                : progid:DXImageTransform.Microsoft.gradient(enabled=false);
+	*zoom                 : 1;
+	-webkit-box-shadow    : inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow       : inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+	box-shadow            : inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.jubootstrap .btn:hover,
+.jubootstrap .btn:focus,
+.jubootstrap .btn:active,
+.jubootstrap .btn.active,
+.jubootstrap .btn.disabled,
+.jubootstrap .btn[disabled] {
+	color             : #333333;
+	background-color  : #e6e6e6;
+	*background-color : #d9d9d9;
+}
+
+.jubootstrap .btn:active,
+.jubootstrap .btn.active {
+	background-color : #cccccc \9;
+}
+
+.jubootstrap .btn:first-child {
+	*margin-left : 0;
+}
+
+.jubootstrap .btn:hover,
+.jubootstrap .btn:focus {
+	color               : #333333;
+	text-decoration     : none;
+	background-position : 0 -15px;
+	-webkit-transition  : background-position 0.1s linear;
+	-moz-transition     : background-position 0.1s linear;
+	-o-transition       : background-position 0.1s linear;
+	transition          : background-position 0.1s linear;
+}
+
+.jubootstrap .btn:focus {
+	outline        : thin dotted #333;
+	outline        : 5px auto -webkit-focus-ring-color;
+	outline-offset : -2px;
+}
+
+.jubootstrap .btn.active,
+.jubootstrap .btn:active {
+	background-image   : none;
+	outline            : 0;
+	-webkit-box-shadow : inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow    : inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+	box-shadow         : inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.jubootstrap .btn.disabled,
+.jubootstrap .btn[disabled] {
+	cursor             : default;
+	background-image   : none;
+	opacity            : 0.65;
+	filter             : alpha(opacity=65);
+	-webkit-box-shadow : none;
+	-moz-box-shadow    : none;
+	box-shadow         : none;
+}
+
+.jubootstrap .btn-large {
+	padding               : 11px 19px;
+	font-size             : 17.5px;
+	-webkit-border-radius : 6px;
+	-moz-border-radius    : 6px;
+	border-radius         : 6px;
+}
+
+.jubootstrap .btn-large [class^="icon-"],
+.jubootstrap .btn-large [class*=" icon-"] {
+	margin-top : 4px;
+}
+
+.jubootstrap .btn-small {
+	padding               : 2px 10px;
+	font-size             : 11.9px;
+	-webkit-border-radius : 3px;
+	-moz-border-radius    : 3px;
+	border-radius         : 3px;
+}
+
+.jubootstrap .btn-small [class^="icon-"],
+.jubootstrap .btn-small [class*=" icon-"] {
+	margin-top : 0;
+}
+
+.jubootstrap .btn-mini [class^="icon-"],
+.jubootstrap .btn-mini [class*=" icon-"] {
+	margin-top : -1px;
+}
+
+.jubootstrap .btn-mini {
+	padding               : 0 6px;
+	font-size             : 10.5px;
+	-webkit-border-radius : 3px;
+	-moz-border-radius    : 3px;
+	border-radius         : 3px;
+}
+
+.jubootstrap .btn-block {
+	display            : block;
+	width              : 100%;
+	padding-right      : 0;
+	padding-left       : 0;
+	-webkit-box-sizing : border-box;
+	-moz-box-sizing    : border-box;
+	box-sizing         : border-box;
+}
+
+.jubootstrap .btn-block + .btn-block {
+	margin-top : 5px;
+}
+
+.jubootstrap input[type="submit"].btn-block,
+.jubootstrap input[type="reset"].btn-block,
+.jubootstrap input[type="button"].btn-block {
+	width : 100%;
+}
+
+.jubootstrap .btn-primary.active,
+.jubootstrap .btn-warning.active,
+.jubootstrap .btn-danger.active,
+.jubootstrap .btn-success.active,
+.jubootstrap .btn-info.active,
+.jubootstrap .btn-inverse.active {
+	color : rgba(255, 255, 255, 0.75);
+}
+
+.jubootstrap .btn-primary {
+	color             : #ffffff;
+	text-shadow       : 0 -1px 0 rgba(0, 0, 0, 0.25);
+	background-color  : #006dcc;
+	*background-color : #0044cc;
+	background-image  : -moz-linear-gradient(top, #0088cc, #0044cc);
+	background-image  : -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+	background-image  : -webkit-linear-gradient(top, #0088cc, #0044cc);
+	background-image  : -o-linear-gradient(top, #0088cc, #0044cc);
+	background-image  : linear-gradient(to bottom, #0088cc, #0044cc);
+	background-repeat : repeat-x;
+	border-color      : #0044cc #0044cc #002a80;
+	border-color      : rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	filter            : progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
+	filter            : progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.jubootstrap .btn-primary:hover,
+.jubootstrap .btn-primary:focus,
+.jubootstrap .btn-primary:active,
+.jubootstrap .btn-primary.active,
+.jubootstrap .btn-primary.disabled,
+.jubootstrap .btn-primary[disabled] {
+	color             : #ffffff;
+	background-color  : #0044cc;
+	*background-color : #003bb3;
+}
+
+.jubootstrap .btn-primary:active,
+.jubootstrap .btn-primary.active {
+	background-color : #003399 \9;
+}
+
+.jubootstrap .btn-warning {
+	color             : #ffffff;
+	text-shadow       : 0 -1px 0 rgba(0, 0, 0, 0.25);
+	background-color  : #faa732;
+	*background-color : #f89406;
+	background-image  : -moz-linear-gradient(top, #fbb450, #f89406);
+	background-image  : -webkit-gradient(linear, 0 0, 0 100%, from(#fbb450), to(#f89406));
+	background-image  : -webkit-linear-gradient(top, #fbb450, #f89406);
+	background-image  : -o-linear-gradient(top, #fbb450, #f89406);
+	background-image  : linear-gradient(to bottom, #fbb450, #f89406);
+	background-repeat : repeat-x;
+	border-color      : #f89406 #f89406 #ad6704;
+	border-color      : rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	filter            : progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffbb450', endColorstr='#fff89406', GradientType=0);
+	filter            : progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.jubootstrap .btn-warning:hover,
+.jubootstrap .btn-warning:focus,
+.jubootstrap .btn-warning:active,
+.jubootstrap .btn-warning.active,
+.jubootstrap .btn-warning.disabled,
+.jubootstrap .btn-warning[disabled] {
+	color             : #ffffff;
+	background-color  : #f89406;
+	*background-color : #df8505;
+}
+
+.jubootstrap .btn-warning:active,
+.jubootstrap .btn-warning.active {
+	background-color : #c67605 \9;
+}
+
+.jubootstrap .btn-danger {
+	color             : #ffffff;
+	text-shadow       : 0 -1px 0 rgba(0, 0, 0, 0.25);
+	background-color  : #da4f49;
+	*background-color : #bd362f;
+	background-image  : -moz-linear-gradient(top, #ee5f5b, #bd362f);
+	background-image  : -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#bd362f));
+	background-image  : -webkit-linear-gradient(top, #ee5f5b, #bd362f);
+	background-image  : -o-linear-gradient(top, #ee5f5b, #bd362f);
+	background-image  : linear-gradient(to bottom, #ee5f5b, #bd362f);
+	background-repeat : repeat-x;
+	border-color      : #bd362f #bd362f #802420;
+	border-color      : rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	filter            : progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffee5f5b', endColorstr='#ffbd362f', GradientType=0);
+	filter            : progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.jubootstrap .btn-danger:hover,
+.jubootstrap .btn-danger:focus,
+.jubootstrap .btn-danger:active,
+.jubootstrap .btn-danger.active,
+.jubootstrap .btn-danger.disabled,
+.jubootstrap .btn-danger[disabled] {
+	color             : #ffffff;
+	background-color  : #bd362f;
+	*background-color : #a9302a;
+}
+
+.jubootstrap .btn-danger:active,
+.jubootstrap .btn-danger.active {
+	background-color : #942a25 \9;
+}
+
+.jubootstrap .btn-success {
+	color             : #ffffff;
+	text-shadow       : 0 -1px 0 rgba(0, 0, 0, 0.25);
+	background-color  : #5bb75b;
+	*background-color : #51a351;
+	background-image  : -moz-linear-gradient(top, #62c462, #51a351);
+	background-image  : -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#51a351));
+	background-image  : -webkit-linear-gradient(top, #62c462, #51a351);
+	background-image  : -o-linear-gradient(top, #62c462, #51a351);
+	background-image  : linear-gradient(to bottom, #62c462, #51a351);
+	background-repeat : repeat-x;
+	border-color      : #51a351 #51a351 #387038;
+	border-color      : rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	filter            : progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff51a351', GradientType=0);
+	filter            : progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.jubootstrap .btn-success:hover,
+.jubootstrap .btn-success:focus,
+.jubootstrap .btn-success:active,
+.jubootstrap .btn-success.active,
+.jubootstrap .btn-success.disabled,
+.jubootstrap .btn-success[disabled] {
+	color             : #ffffff;
+	background-color  : #51a351;
+	*background-color : #499249;
+}
+
+.jubootstrap .btn-success:active,
+.jubootstrap .btn-success.active {
+	background-color : #408140 \9;
+}
+
+.jubootstrap .btn-info {
+	color             : #ffffff;
+	text-shadow       : 0 -1px 0 rgba(0, 0, 0, 0.25);
+	background-color  : #49afcd;
+	*background-color : #2f96b4;
+	background-image  : -moz-linear-gradient(top, #5bc0de, #2f96b4);
+	background-image  : -webkit-gradient(linear, 0 0, 0 100%, from(#5bc0de), to(#2f96b4));
+	background-image  : -webkit-linear-gradient(top, #5bc0de, #2f96b4);
+	background-image  : -o-linear-gradient(top, #5bc0de, #2f96b4);
+	background-image  : linear-gradient(to bottom, #5bc0de, #2f96b4);
+	background-repeat : repeat-x;
+	border-color      : #2f96b4 #2f96b4 #1f6377;
+	border-color      : rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	filter            : progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5bc0de', endColorstr='#ff2f96b4', GradientType=0);
+	filter            : progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.jubootstrap .btn-info:hover,
+.jubootstrap .btn-info:focus,
+.jubootstrap .btn-info:active,
+.jubootstrap .btn-info.active,
+.jubootstrap .btn-info.disabled,
+.jubootstrap .btn-info[disabled] {
+	color             : #ffffff;
+	background-color  : #2f96b4;
+	*background-color : #2a85a0;
+}
+
+.jubootstrap .btn-info:active,
+.jubootstrap .btn-info.active {
+	background-color : #24748c \9;
+}
+
+.jubootstrap .btn-inverse {
+	color             : #ffffff;
+	text-shadow       : 0 -1px 0 rgba(0, 0, 0, 0.25);
+	background-color  : #363636;
+	*background-color : #222222;
+	background-image  : -moz-linear-gradient(top, #444444, #222222);
+	background-image  : -webkit-gradient(linear, 0 0, 0 100%, from(#444444), to(#222222));
+	background-image  : -webkit-linear-gradient(top, #444444, #222222);
+	background-image  : -o-linear-gradient(top, #444444, #222222);
+	background-image  : linear-gradient(to bottom, #444444, #222222);
+	background-repeat : repeat-x;
+	border-color      : #222222 #222222 #000000;
+	border-color      : rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	filter            : progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff444444', endColorstr='#ff222222', GradientType=0);
+	filter            : progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.jubootstrap .btn-inverse:hover,
+.jubootstrap .btn-inverse:focus,
+.jubootstrap .btn-inverse:active,
+.jubootstrap .btn-inverse.active,
+.jubootstrap .btn-inverse.disabled,
+.jubootstrap .btn-inverse[disabled] {
+	color             : #ffffff;
+	background-color  : #222222;
+	*background-color : #151515;
+}
+
+.jubootstrap .btn-inverse:active,
+.jubootstrap .btn-inverse.active {
+	background-color : #080808 \9;
+}
+
+.jubootstrap button.btn,
+.jubootstrap input[type="submit"].btn {
+	*padding-top    : 3px;
+	*padding-bottom : 3px;
+}
+
+.jubootstrap button.btn::-moz-focus-inner,
+.jubootstrap input[type="submit"].btn::-moz-focus-inner {
+	padding : 0;
+	border  : 0;
+}
+
+.jubootstrap button.btn.btn-large,
+.jubootstrap input[type="submit"].btn.btn-large {
+	*padding-top    : 7px;
+	*padding-bottom : 7px;
+}
+
+.jubootstrap button.btn.btn-small,
+.jubootstrap input[type="submit"].btn.btn-small {
+	*padding-top    : 3px;
+	*padding-bottom : 3px;
+}
+
+.jubootstrap button.btn.btn-mini,
+.jubootstrap input[type="submit"].btn.btn-mini {
+	*padding-top    : 1px;
+	*padding-bottom : 1px;
+}
+
+.jubootstrap .btn-link,
+.jubootstrap .btn-link:active,
+.jubootstrap .btn-link[disabled] {
+	background-color   : transparent;
+	background-image   : none;
+	-webkit-box-shadow : none;
+	-moz-box-shadow    : none;
+	box-shadow         : none;
+}
+
+.jubootstrap .btn-link {
+	color                 : #0088cc;
+	cursor                : pointer;
+	border-color          : transparent;
+	-webkit-border-radius : 0;
+	-moz-border-radius    : 0;
+	border-radius         : 0;
+}
+
+.jubootstrap .btn-link:hover,
+.jubootstrap .btn-link:focus {
+	color            : #005580;
+	text-decoration  : underline;
+	background-color : transparent;
+}
+
+.jubootstrap .btn-link[disabled]:hover,
+.jubootstrap .btn-link[disabled]:focus {
+	color           : #333333;
+	text-decoration : none;
+}
+
+.jubootstrap .btn-group {
+	position       : relative;
+	display        : inline-block;
+	*display       : inline;
+	*margin-left   : .3em;
+	font-size      : 0;
+	white-space    : nowrap;
+	vertical-align : middle;
+	*zoom          : 1;
+}
+
+.jubootstrap .btn-group:first-child {
+	*margin-left : 0;
+}
+
+.jubootstrap .btn-group + .btn-group {
+	margin-left : 5px;
+}
+
+.jubootstrap .btn-toolbar {
+	margin-top    : 10px;
+	margin-bottom : 10px;
+	font-size     : 0;
+}
+
+.jubootstrap .btn-toolbar > .btn + .btn,
+.jubootstrap .btn-toolbar > .btn-group + .btn,
+.jubootstrap .btn-toolbar > .btn + .btn-group {
+	margin-left : 5px;
+}
+
+.jubootstrap .btn-group > .btn {
+	position              : relative;
+	-webkit-border-radius : 0;
+	-moz-border-radius    : 0;
+	border-radius         : 0;
+}
+
+.jubootstrap .btn-group > .btn + .btn {
+	margin-left : -1px;
+}
+
+.jubootstrap .btn-group > .btn,
+.jubootstrap .btn-group > .dropdown-menu,
+.jubootstrap .btn-group > .popover {
+	font-size : 14px;
+}
+
+.jubootstrap .btn-group > .btn-mini {
+	font-size : 10.5px;
+}
+
+.jubootstrap .btn-group > .btn-small {
+	font-size : 11.9px;
+}
+
+.jubootstrap .btn-group > .btn-large {
+	font-size : 17.5px;
+}
+
+.jubootstrap .btn-group > .btn:first-child {
+	margin-left                       : 0;
+	-webkit-border-bottom-left-radius : 4px;
+	border-bottom-left-radius         : 4px;
+	-webkit-border-top-left-radius    : 4px;
+	border-top-left-radius            : 4px;
+	-moz-border-radius-bottomleft     : 4px;
+	-moz-border-radius-topleft        : 4px;
+}
+
+.jubootstrap .btn-group > .btn:last-child,
+.jubootstrap .btn-group > .dropdown-toggle {
+	-webkit-border-top-right-radius    : 4px;
+	border-top-right-radius            : 4px;
+	-webkit-border-bottom-right-radius : 4px;
+	border-bottom-right-radius         : 4px;
+	-moz-border-radius-topright        : 4px;
+	-moz-border-radius-bottomright     : 4px;
+}
+
+.jubootstrap .btn-group > .btn.large:first-child {
+	margin-left                       : 0;
+	-webkit-border-bottom-left-radius : 6px;
+	border-bottom-left-radius         : 6px;
+	-webkit-border-top-left-radius    : 6px;
+	border-top-left-radius            : 6px;
+	-moz-border-radius-bottomleft     : 6px;
+	-moz-border-radius-topleft        : 6px;
+}
+
+.jubootstrap .btn-group > .btn.large:last-child,
+.jubootstrap .btn-group > .large.dropdown-toggle {
+	-webkit-border-top-right-radius    : 6px;
+	border-top-right-radius            : 6px;
+	-webkit-border-bottom-right-radius : 6px;
+	border-bottom-right-radius         : 6px;
+	-moz-border-radius-topright        : 6px;
+	-moz-border-radius-bottomright     : 6px;
+}
+
+.jubootstrap .btn-group > .btn:hover,
+.jubootstrap .btn-group > .btn:focus,
+.jubootstrap .btn-group > .btn:active,
+.jubootstrap .btn-group > .btn.active {
+	z-index : 2;
+}
+
+.jubootstrap .btn-group .dropdown-toggle:active,
+.jubootstrap .btn-group.open .dropdown-toggle {
+	outline : 0;
+}
+
+.jubootstrap .btn-group > .btn + .dropdown-toggle {
+	*padding-top       : 5px;
+	padding-right      : 8px;
+	*padding-bottom    : 5px;
+	padding-left       : 8px;
+	-webkit-box-shadow : inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow    : inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+	box-shadow         : inset 1px 0 0 rgba(255, 255, 255, 0.125), inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.jubootstrap .btn-group > .btn-mini + .dropdown-toggle {
+	*padding-top    : 2px;
+	padding-right   : 5px;
+	*padding-bottom : 2px;
+	padding-left    : 5px;
+}
+
+.jubootstrap .btn-group > .btn-small + .dropdown-toggle {
+	*padding-top    : 5px;
+	*padding-bottom : 4px;
+}
+
+.jubootstrap .btn-group > .btn-large + .dropdown-toggle {
+	*padding-top    : 7px;
+	padding-right   : 12px;
+	*padding-bottom : 7px;
+	padding-left    : 12px;
+}
+
+.jubootstrap .btn-group.open .dropdown-toggle {
+	background-image   : none;
+	-webkit-box-shadow : inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow    : inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+	box-shadow         : inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.jubootstrap .btn-group.open .btn.dropdown-toggle {
+	background-color : #e6e6e6;
+}
+
+.jubootstrap .btn-group.open .btn-primary.dropdown-toggle {
+	background-color : #0044cc;
+}
+
+.jubootstrap .btn-group.open .btn-warning.dropdown-toggle {
+	background-color : #f89406;
+}
+
+.jubootstrap .btn-group.open .btn-danger.dropdown-toggle {
+	background-color : #bd362f;
+}
+
+.jubootstrap .btn-group.open .btn-success.dropdown-toggle {
+	background-color : #51a351;
+}
+
+.jubootstrap .btn-group.open .btn-info.dropdown-toggle {
+	background-color : #2f96b4;
+}
+
+.jubootstrap .btn-group.open .btn-inverse.dropdown-toggle {
+	background-color : #222222;
+}
+
+.jubootstrap .btn .caret {
+	margin-top  : 8px;
+	margin-left : 0;
+}
+
+.jubootstrap .btn-large .caret {
+	margin-top : 6px;
+}
+
+.jubootstrap .btn-large .caret {
+	border-top-width   : 5px;
+	border-right-width : 5px;
+	border-left-width  : 5px;
+}
+
+.jubootstrap .btn-mini .caret,
+.jubootstrap .btn-small .caret {
+	margin-top : 8px;
+}
+
+.jubootstrap .dropup .btn-large .caret {
+	border-bottom-width : 5px;
+}
+
+.jubootstrap .btn-primary .caret,
+.jubootstrap .btn-warning .caret,
+.jubootstrap .btn-danger .caret,
+.jubootstrap .btn-info .caret,
+.jubootstrap .btn-success .caret,
+.jubootstrap .btn-inverse .caret {
+	border-top-color    : #ffffff;
+	border-bottom-color : #ffffff;
+}
+
+.jubootstrap .btn-group-vertical {
+	display  : inline-block;
+	*display : inline;
+	/* IE7 inline-block hack */
+	*zoom    : 1;
+}
+
+.jubootstrap .btn-group-vertical > .btn {
+	display               : block;
+	float                 : none;
+	max-width             : 100%;
+	-webkit-border-radius : 0;
+	-moz-border-radius    : 0;
+	border-radius         : 0;
+}
+
+.jubootstrap .btn-group-vertical > .btn + .btn {
+	margin-top  : -1px;
+	margin-left : 0;
+}
+
+.jubootstrap .btn-group-vertical > .btn:first-child {
+	-webkit-border-radius : 4px 4px 0 0;
+	-moz-border-radius    : 4px 4px 0 0;
+	border-radius         : 4px 4px 0 0;
+}
+
+.jubootstrap .btn-group-vertical > .btn:last-child {
+	-webkit-border-radius : 0 0 4px 4px;
+	-moz-border-radius    : 0 0 4px 4px;
+	border-radius         : 0 0 4px 4px;
+}
+
+.jubootstrap .btn-group-vertical > .btn-large:first-child {
+	-webkit-border-radius : 6px 6px 0 0;
+	-moz-border-radius    : 6px 6px 0 0;
+	border-radius         : 6px 6px 0 0;
+}
+
+.jubootstrap .btn-group-vertical > .btn-large:last-child {
+	-webkit-border-radius : 0 0 6px 6px;
+	-moz-border-radius    : 0 0 6px 6px;
+	border-radius         : 0 0 6px 6px;
+}
+
+.jubootstrap .alert {
+	padding               : 8px 35px 8px 14px;
+	margin-bottom         : 20px;
+	text-shadow           : 0 1px 0 rgba(255, 255, 255, 0.5);
+	background-color      : #fcf8e3;
+	border                : 1px solid #fbeed5;
+	-webkit-border-radius : 4px;
+	-moz-border-radius    : 4px;
+	border-radius         : 4px;
+}
+
+.jubootstrap .alert,
+.jubootstrap .alert h4 {
+	color : #c09853;
+}
+
+.jubootstrap .alert h4 {
+	margin : 0;
+}
+
+.jubootstrap .alert .close {
+	position    : relative;
+	top         : -2px;
+	right       : -21px;
+	line-height : 20px;
+}
+
+.jubootstrap .alert-success {
+	color            : #468847;
+	background-color : #dff0d8;
+	border-color     : #d6e9c6;
+}
+
+.jubootstrap .alert-success h4 {
+	color : #468847;
+}
+
+.jubootstrap .alert-danger,
+.jubootstrap .alert-error {
+	color            : #b94a48;
+	background-color : #f2dede;
+	border-color     : #eed3d7;
+}
+
+.jubootstrap .alert-danger h4,
+.jubootstrap .alert-error h4 {
+	color : #b94a48;
+}
+
+.jubootstrap .alert-info {
+	color            : #3a87ad;
+	background-color : #d9edf7;
+	border-color     : #bce8f1;
+}
+
+.jubootstrap .alert-info h4 {
+	color : #3a87ad;
+}
+
+.jubootstrap .alert-block {
+	padding-top    : 14px;
+	padding-bottom : 14px;
+}
+
+.jubootstrap .alert-block > p,
+.jubootstrap .alert-block > ul {
+	margin-bottom : 0;
+}
+
+.jubootstrap .alert-block p + p {
+	margin-top : 5px;
+}
+
+.jubootstrap .nav {
+	margin-bottom : 20px;
+	margin-left   : 0;
+	list-style    : none;
+}
+
+.jubootstrap .nav > li > a {
+	display : block;
+}
+
+.jubootstrap .nav > li > a:hover,
+.jubootstrap .nav > li > a:focus {
+	text-decoration  : none;
+	background-color : #eeeeee;
+}
+
+.jubootstrap .nav > li > a > img {
+	max-width : none;
+}
+
+.jubootstrap .nav > .pull-right {
+	float : right;
+}
+
+.jubootstrap .nav-header {
+	display        : block;
+	padding        : 3px 15px;
+	font-size      : 11px;
+	font-weight    : bold;
+	line-height    : 20px;
+	color          : #999999;
+	text-shadow    : 0 1px 0 rgba(255, 255, 255, 0.5);
+	text-transform : uppercase;
+}
+
+.jubootstrap .nav li + .nav-header {
+	margin-top : 9px;
+}
+
+.jubootstrap .nav-list {
+	padding-right : 15px;
+	padding-left  : 15px;
+	margin-bottom : 0;
+}
+
+.jubootstrap .nav-list > li > a,
+.jubootstrap .nav-list .nav-header {
+	margin-right : -15px;
+	margin-left  : -15px;
+	text-shadow  : 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.jubootstrap .nav-list > li > a {
+	padding : 3px 15px;
+}
+
+.jubootstrap .nav-list > .active > a,
+.jubootstrap .nav-list > .active > a:hover,
+.jubootstrap .nav-list > .active > a:focus {
+	color            : #ffffff;
+	text-shadow      : 0 -1px 0 rgba(0, 0, 0, 0.2);
+	background-color : #0088cc;
+}
+
+.jubootstrap .nav-list [class^="icon-"],
+.jubootstrap .nav-list [class*=" icon-"] {
+	margin-right : 2px;
+}
+
+.jubootstrap .nav-list .divider {
+	*width           : 100%;
+	height           : 1px;
+	margin           : 9px 1px;
+	*margin          : -5px 0 5px;
+	overflow         : hidden;
+	background-color : #e5e5e5;
+	border-bottom    : 1px solid #ffffff;
+}
+
+.jubootstrap .nav-tabs,
+.jubootstrap .nav-pills {
+	*zoom : 1;
+}
+
+.jubootstrap .nav-tabs:before,
+.jubootstrap .nav-pills:before,
+.jubootstrap .nav-tabs:after,
+.jubootstrap .nav-pills:after {
+	display     : table;
+	line-height : 0;
+	content     : "";
+}
+
+.jubootstrap .nav-tabs:after,
+.jubootstrap .nav-pills:after {
+	clear : both;
+}
+
+.jubootstrap .nav-tabs > li,
+.jubootstrap .nav-pills > li {
+	float : left;
+}
+
+.jubootstrap .nav-tabs > li > a,
+.jubootstrap .nav-pills > li > a {
+	padding-right : 12px;
+	padding-left  : 12px;
+	margin-right  : 2px;
+	line-height   : 14px;
+}
+
+.jubootstrap .nav-tabs {
+	border-bottom : 1px solid #ddd;
+}
+
+.jubootstrap .nav-tabs > li {
+	margin-bottom : -1px;
+}
+
+.jubootstrap .nav-tabs > li > a {
+	padding-top           : 8px;
+	padding-bottom        : 8px;
+	line-height           : 20px;
+	border                : 1px solid transparent;
+	-webkit-border-radius : 4px 4px 0 0;
+	-moz-border-radius    : 4px 4px 0 0;
+	border-radius         : 4px 4px 0 0;
+}
+
+.jubootstrap .nav-tabs > li > a:hover,
+.jubootstrap .nav-tabs > li > a:focus {
+	border-color : #eeeeee #eeeeee #dddddd;
+}
+
+.jubootstrap .nav-tabs > .active > a,
+.jubootstrap .nav-tabs > .active > a:hover,
+.jubootstrap .nav-tabs > .active > a:focus {
+	color               : #555555;
+	cursor              : default;
+	background-color    : #ffffff;
+	border              : 1px solid #ddd;
+	border-bottom-color : transparent;
+}
+
+.jubootstrap .nav-pills > li > a {
+	padding-top           : 8px;
+	padding-bottom        : 8px;
+	margin-top            : 2px;
+	margin-bottom         : 2px;
+	-webkit-border-radius : 5px;
+	-moz-border-radius    : 5px;
+	border-radius         : 5px;
+}
+
+.jubootstrap .nav-pills > .active > a,
+.jubootstrap .nav-pills > .active > a:hover,
+.jubootstrap .nav-pills > .active > a:focus {
+	color            : #ffffff;
+	background-color : #0088cc;
+}
+
+.jubootstrap .nav-stacked > li {
+	float : none;
+}
+
+.jubootstrap .nav-stacked > li > a {
+	margin-right : 0;
+}
+
+.jubootstrap .nav-tabs.nav-stacked {
+	border-bottom : 0;
+}
+
+.jubootstrap .nav-tabs.nav-stacked > li > a {
+	border                : 1px solid #ddd;
+	-webkit-border-radius : 0;
+	-moz-border-radius    : 0;
+	border-radius         : 0;
+}
+
+.jubootstrap .nav-tabs.nav-stacked > li:first-child > a {
+	-webkit-border-top-right-radius : 4px;
+	border-top-right-radius         : 4px;
+	-webkit-border-top-left-radius  : 4px;
+	border-top-left-radius          : 4px;
+	-moz-border-radius-topright     : 4px;
+	-moz-border-radius-topleft      : 4px;
+}
+
+.jubootstrap .nav-tabs.nav-stacked > li:last-child > a {
+	-webkit-border-bottom-right-radius : 4px;
+	border-bottom-right-radius         : 4px;
+	-webkit-border-bottom-left-radius  : 4px;
+	border-bottom-left-radius          : 4px;
+	-moz-border-radius-bottomright     : 4px;
+	-moz-border-radius-bottomleft      : 4px;
+}
+
+.jubootstrap .nav-tabs.nav-stacked > li > a:hover,
+.jubootstrap .nav-tabs.nav-stacked > li > a:focus {
+	z-index      : 2;
+	border-color : #ddd;
+}
+
+.jubootstrap .nav-pills.nav-stacked > li > a {
+	margin-bottom : 3px;
+}
+
+.jubootstrap .nav-pills.nav-stacked > li:last-child > a {
+	margin-bottom : 1px;
+}
+
+.jubootstrap .nav-tabs .dropdown-menu {
+	-webkit-border-radius : 0 0 6px 6px;
+	-moz-border-radius    : 0 0 6px 6px;
+	border-radius         : 0 0 6px 6px;
+}
+
+.jubootstrap .nav-pills .dropdown-menu {
+	-webkit-border-radius : 6px;
+	-moz-border-radius    : 6px;
+	border-radius         : 6px;
+}
+
+.jubootstrap .nav .dropdown-toggle .caret {
+	margin-top          : 6px;
+	border-top-color    : #0088cc;
+	border-bottom-color : #0088cc;
+}
+
+.jubootstrap .nav .dropdown-toggle:hover .caret,
+.jubootstrap .nav .dropdown-toggle:focus .caret {
+	border-top-color    : #005580;
+	border-bottom-color : #005580;
+}
+
+.jubootstrap .nav-tabs .dropdown-toggle .caret {
+	margin-top : 8px;
+}
+
+.jubootstrap .nav .active .dropdown-toggle .caret {
+	border-top-color    : #fff;
+	border-bottom-color : #fff;
+}
+
+.jubootstrap .nav-tabs .active .dropdown-toggle .caret {
+	border-top-color    : #555555;
+	border-bottom-color : #555555;
+}
+
+.jubootstrap .nav > .dropdown.active > a:hover,
+.jubootstrap .nav > .dropdown.active > a:focus {
+	cursor : pointer;
+}
+
+.jubootstrap .nav-tabs .open .dropdown-toggle,
+.jubootstrap .nav-pills .open .dropdown-toggle,
+.jubootstrap .nav > li.dropdown.open.active > a:hover,
+.jubootstrap .nav > li.dropdown.open.active > a:focus {
+	color            : #ffffff;
+	background-color : #999999;
+	border-color     : #999999;
+}
+
+.jubootstrap .nav li.dropdown.open .caret,
+.jubootstrap .nav li.dropdown.open.active .caret,
+.jubootstrap .nav li.dropdown.open a:hover .caret,
+.jubootstrap .nav li.dropdown.open a:focus .caret {
+	border-top-color    : #ffffff;
+	border-bottom-color : #ffffff;
+	opacity             : 1;
+	filter              : alpha(opacity=100);
+}
+
+.jubootstrap .tabs-stacked .open > a:hover,
+.jubootstrap .tabs-stacked .open > a:focus {
+	border-color : #999999;
+}
+
+.jubootstrap .tabbable {
+	*zoom : 1;
+}
+
+.jubootstrap .tabbable:before,
+.jubootstrap .tabbable:after {
+	display     : table;
+	line-height : 0;
+	content     : "";
+}
+
+.jubootstrap .tabbable:after {
+	clear : both;
+}
+
+.jubootstrap .tab-content {
+	overflow : auto;
+}
+
+.jubootstrap .tabs-below > .nav-tabs,
+.jubootstrap .tabs-right > .nav-tabs,
+.jubootstrap .tabs-left > .nav-tabs {
+	border-bottom : 0;
+}
+
+.jubootstrap .tab-content > .tab-pane,
+.jubootstrap .pill-content > .pill-pane {
+	display : none;
+}
+
+.jubootstrap .tab-content > .active,
+.jubootstrap .pill-content > .active {
+	display : block;
+}
+
+.jubootstrap .tabs-below > .nav-tabs {
+	border-top : 1px solid #ddd;
+}
+
+.jubootstrap .tabs-below > .nav-tabs > li {
+	margin-top    : -1px;
+	margin-bottom : 0;
+}
+
+.jubootstrap .tabs-below > .nav-tabs > li > a {
+	-webkit-border-radius : 0 0 4px 4px;
+	-moz-border-radius    : 0 0 4px 4px;
+	border-radius         : 0 0 4px 4px;
+}
+
+.jubootstrap .tabs-below > .nav-tabs > li > a:hover,
+.jubootstrap .tabs-below > .nav-tabs > li > a:focus {
+	border-top-color    : #ddd;
+	border-bottom-color : transparent;
+}
+
+.jubootstrap .tabs-below > .nav-tabs > .active > a,
+.jubootstrap .tabs-below > .nav-tabs > .active > a:hover,
+.jubootstrap .tabs-below > .nav-tabs > .active > a:focus {
+	border-color : transparent #ddd #ddd #ddd;
+}
+
+.jubootstrap .tabs-left > .nav-tabs > li,
+.jubootstrap .tabs-right > .nav-tabs > li {
+	float : none;
+}
+
+.jubootstrap .tabs-left > .nav-tabs > li > a,
+.jubootstrap .tabs-right > .nav-tabs > li > a {
+	min-width     : 74px;
+	margin-right  : 0;
+	margin-bottom : 3px;
+}
+
+.jubootstrap .tabs-left > .nav-tabs {
+	float        : left;
+	margin-right : 19px;
+	border-right : 1px solid #ddd;
+}
+
+.jubootstrap .tabs-left > .nav-tabs > li > a {
+	margin-right          : -1px;
+	-webkit-border-radius : 4px 0 0 4px;
+	-moz-border-radius    : 4px 0 0 4px;
+	border-radius         : 4px 0 0 4px;
+}
+
+.jubootstrap .tabs-left > .nav-tabs > li > a:hover,
+.jubootstrap .tabs-left > .nav-tabs > li > a:focus {
+	border-color : #eeeeee #dddddd #eeeeee #eeeeee;
+}
+
+.jubootstrap .tabs-left > .nav-tabs .active > a,
+.jubootstrap .tabs-left > .nav-tabs .active > a:hover,
+.jubootstrap .tabs-left > .nav-tabs .active > a:focus {
+	border-color        : #ddd transparent #ddd #ddd;
+	*border-right-color : #ffffff;
+}
+
+.jubootstrap .tabs-right > .nav-tabs {
+	float       : right;
+	margin-left : 19px;
+	border-left : 1px solid #ddd;
+}
+
+.jubootstrap .tabs-right > .nav-tabs > li > a {
+	margin-left           : -1px;
+	-webkit-border-radius : 0 4px 4px 0;
+	-moz-border-radius    : 0 4px 4px 0;
+	border-radius         : 0 4px 4px 0;
+}
+
+.jubootstrap .tabs-right > .nav-tabs > li > a:hover,
+.jubootstrap .tabs-right > .nav-tabs > li > a:focus {
+	border-color : #eeeeee #eeeeee #eeeeee #dddddd;
+}
+
+.jubootstrap .tabs-right > .nav-tabs .active > a,
+.jubootstrap .tabs-right > .nav-tabs .active > a:hover,
+.jubootstrap .tabs-right > .nav-tabs .active > a:focus {
+	border-color       : #ddd #ddd #ddd transparent;
+	*border-left-color : #ffffff;
+}
+
+.jubootstrap .nav > .disabled > a {
+	color : #999999;
+}
+
+.jubootstrap .nav > .disabled > a:hover,
+.jubootstrap .nav > .disabled > a:focus {
+	text-decoration  : none;
+	cursor           : default;
+	background-color : transparent;
+}
+
+.jubootstrap .navbar {
+	*position     : relative;
+	*z-index      : 2;
+	margin-bottom : 20px;
+	overflow      : visible;
+}
+
+.jubootstrap .navbar-inner {
+	min-height            : 40px;
+	padding-right         : 20px;
+	padding-left          : 20px;
+	background-color      : #fafafa;
+	background-image      : -moz-linear-gradient(top, #ffffff, #f2f2f2);
+	background-image      : -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f2f2f2));
+	background-image      : -webkit-linear-gradient(top, #ffffff, #f2f2f2);
+	background-image      : -o-linear-gradient(top, #ffffff, #f2f2f2);
+	background-image      : linear-gradient(to bottom, #ffffff, #f2f2f2);
+	background-repeat     : repeat-x;
+	border                : 1px solid #d4d4d4;
+	-webkit-border-radius : 4px;
+	-moz-border-radius    : 4px;
+	border-radius         : 4px;
+	filter                : progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff2f2f2', GradientType=0);
+	*zoom                 : 1;
+	-webkit-box-shadow    : 0 1px 4px rgba(0, 0, 0, 0.065);
+	-moz-box-shadow       : 0 1px 4px rgba(0, 0, 0, 0.065);
+	box-shadow            : 0 1px 4px rgba(0, 0, 0, 0.065);
+}
+
+.jubootstrap .navbar-inner:before,
+.jubootstrap .navbar-inner:after {
+	display     : table;
+	line-height : 0;
+	content     : "";
+}
+
+.jubootstrap .navbar-inner:after {
+	clear : both;
+}
+
+.jubootstrap .navbar .container {
+	width : auto;
+}
+
+.jubootstrap .nav-collapse.collapse {
+	height   : auto;
+	overflow : visible;
+}
+
+.jubootstrap .navbar .brand {
+	display     : block;
+	float       : left;
+	padding     : 10px 20px 10px;
+	margin-left : -20px;
+	font-size   : 20px;
+	font-weight : 200;
+	color       : #777777;
+	text-shadow : 0 1px 0 #ffffff;
+}
+
+.jubootstrap .navbar .brand:hover,
+.jubootstrap .navbar .brand:focus {
+	text-decoration : none;
+}
+
+.jubootstrap .navbar-text {
+	margin-bottom : 0;
+	line-height   : 40px;
+	color         : #777777;
+}
+
+.jubootstrap .navbar-link {
+	color : #777777;
+}
+
+.jubootstrap .navbar-link:hover,
+.jubootstrap .navbar-link:focus {
+	color : #333333;
+}
+
+.jubootstrap .navbar .divider-vertical {
+	height       : 40px;
+	margin       : 0 9px;
+	border-right : 1px solid #ffffff;
+	border-left  : 1px solid #f2f2f2;
+}
+
+.jubootstrap .navbar .btn,
+.jubootstrap .navbar .btn-group {
+	margin-top : 5px;
+}
+
+.jubootstrap .navbar .btn-group .btn,
+.jubootstrap .navbar .input-prepend .btn,
+.jubootstrap .navbar .input-append .btn,
+.jubootstrap .navbar .input-prepend .btn-group,
+.jubootstrap .navbar .input-append .btn-group {
+	margin-top : 0;
+}
+
+.jubootstrap .navbar-form {
+	margin-bottom : 0;
+	*zoom         : 1;
+}
+
+.jubootstrap .navbar-form:before,
+.jubootstrap .navbar-form:after {
+	display     : table;
+	line-height : 0;
+	content     : "";
+}
+
+.jubootstrap .navbar-form:after {
+	clear : both;
+}
+
+.jubootstrap .navbar-form input,
+.jubootstrap .navbar-form select,
+.jubootstrap .navbar-form .radio,
+.jubootstrap .navbar-form .checkbox {
+	margin-top : 5px;
+}
+
+.jubootstrap .navbar-form input,
+.jubootstrap .navbar-form select,
+.jubootstrap .navbar-form .btn {
+	display       : inline-block;
+	margin-bottom : 0;
+}
+
+.jubootstrap .navbar-form input[type="image"],
+.jubootstrap .navbar-form input[type="checkbox"],
+.jubootstrap .navbar-form input[type="radio"] {
+	margin-top : 3px;
+}
+
+.jubootstrap .navbar-form .input-append,
+.jubootstrap .navbar-form .input-prepend {
+	margin-top  : 5px;
+	white-space : nowrap;
+}
+
+.jubootstrap .navbar-form .input-append input,
+.jubootstrap .navbar-form .input-prepend input {
+	margin-top : 0;
+}
+
+.jubootstrap .navbar-search {
+	position      : relative;
+	float         : left;
+	margin-top    : 5px;
+	margin-bottom : 0;
+}
+
+.jubootstrap .navbar-search .search-query {
+	padding               : 4px 14px;
+	margin-bottom         : 0;
+	font-family           : "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size             : 13px;
+	font-weight           : normal;
+	line-height           : 1;
+	-webkit-border-radius : 15px;
+	-moz-border-radius    : 15px;
+	border-radius         : 15px;
+}
+
+.jubootstrap .navbar-static-top {
+	position      : static;
+	margin-bottom : 0;
+}
+
+.jubootstrap .navbar-static-top .navbar-inner {
+	-webkit-border-radius : 0;
+	-moz-border-radius    : 0;
+	border-radius         : 0;
+}
+
+.jubootstrap .navbar-fixed-top,
+.jubootstrap .navbar-fixed-bottom {
+	position      : fixed;
+	right         : 0;
+	left          : 0;
+	z-index       : 1030;
+	margin-bottom : 0;
+}
+
+.jubootstrap .navbar-fixed-top .navbar-inner,
+.jubootstrap .navbar-static-top .navbar-inner {
+	border-width : 0 0 1px;
+}
+
+.jubootstrap .navbar-fixed-bottom .navbar-inner {
+	border-width : 1px 0 0;
+}
+
+.jubootstrap .navbar-fixed-top .navbar-inner,
+.jubootstrap .navbar-fixed-bottom .navbar-inner {
+	padding-right         : 0;
+	padding-left          : 0;
+	-webkit-border-radius : 0;
+	-moz-border-radius    : 0;
+	border-radius         : 0;
+}
+
+.jubootstrap .navbar-static-top .container,
+.jubootstrap .navbar-fixed-top .container,
+.jubootstrap .navbar-fixed-bottom .container {
+	width : 940px;
+}
+
+.jubootstrap .navbar-fixed-top {
+	top : 0;
+}
+
+.jubootstrap .navbar-fixed-top .navbar-inner,
+.jubootstrap .navbar-static-top .navbar-inner {
+	-webkit-box-shadow : 0 1px 10px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow    : 0 1px 10px rgba(0, 0, 0, 0.1);
+	box-shadow         : 0 1px 10px rgba(0, 0, 0, 0.1);
+}
+
+.jubootstrap .navbar-fixed-bottom {
+	bottom : 0;
+}
+
+.jubootstrap .navbar-fixed-bottom .navbar-inner {
+	-webkit-box-shadow : 0 -1px 10px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow    : 0 -1px 10px rgba(0, 0, 0, 0.1);
+	box-shadow         : 0 -1px 10px rgba(0, 0, 0, 0.1);
+}
+
+.jubootstrap .navbar .nav {
+	position : relative;
+	left     : 0;
+	display  : block;
+	float    : left;
+	margin   : 0 10px 0 0;
+}
+
+.jubootstrap .navbar .nav.pull-right {
+	float        : right;
+	margin-right : 0;
+}
+
+.jubootstrap .navbar .nav > li {
+	float : left;
+}
+
+.jubootstrap .navbar .nav > li > a {
+	float           : none;
+	padding         : 10px 15px 10px;
+	color           : #777777;
+	text-decoration : none;
+	text-shadow     : 0 1px 0 #ffffff;
+}
+
+.jubootstrap .navbar .nav .dropdown-toggle .caret {
+	margin-top : 8px;
+}
+
+.jubootstrap .navbar .nav > li > a:focus,
+.jubootstrap .navbar .nav > li > a:hover {
+	color            : #333333;
+	text-decoration  : none;
+	background-color : transparent;
+}
+
+.jubootstrap .navbar .nav > .active > a,
+.jubootstrap .navbar .nav > .active > a:hover,
+.jubootstrap .navbar .nav > .active > a:focus {
+	color              : #555555;
+	text-decoration    : none;
+	background-color   : #e5e5e5;
+	-webkit-box-shadow : inset 0 3px 8px rgba(0, 0, 0, 0.125);
+	-moz-box-shadow    : inset 0 3px 8px rgba(0, 0, 0, 0.125);
+	box-shadow         : inset 0 3px 8px rgba(0, 0, 0, 0.125);
+}
+
+.jubootstrap .navbar .btn-navbar {
+	display            : none;
+	float              : right;
+	padding            : 7px 10px;
+	margin-right       : 5px;
+	margin-left        : 5px;
+	color              : #ffffff;
+	text-shadow        : 0 -1px 0 rgba(0, 0, 0, 0.25);
+	background-color   : #ededed;
+	*background-color  : #e5e5e5;
+	background-image   : -moz-linear-gradient(top, #f2f2f2, #e5e5e5);
+	background-image   : -webkit-gradient(linear, 0 0, 0 100%, from(#f2f2f2), to(#e5e5e5));
+	background-image   : -webkit-linear-gradient(top, #f2f2f2, #e5e5e5);
+	background-image   : -o-linear-gradient(top, #f2f2f2, #e5e5e5);
+	background-image   : linear-gradient(to bottom, #f2f2f2, #e5e5e5);
+	background-repeat  : repeat-x;
+	border-color       : #e5e5e5 #e5e5e5 #bfbfbf;
+	border-color       : rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	filter             : progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff2f2f2', endColorstr='#ffe5e5e5', GradientType=0);
+	filter             : progid:DXImageTransform.Microsoft.gradient(enabled=false);
+	-webkit-box-shadow : inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.075);
+	-moz-box-shadow    : inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.075);
+	box-shadow         : inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.075);
+}
+
+.jubootstrap .navbar .btn-navbar:hover,
+.jubootstrap .navbar .btn-navbar:focus,
+.jubootstrap .navbar .btn-navbar:active,
+.jubootstrap .navbar .btn-navbar.active,
+.jubootstrap .navbar .btn-navbar.disabled,
+.jubootstrap .navbar .btn-navbar[disabled] {
+	color             : #ffffff;
+	background-color  : #e5e5e5;
+	*background-color : #d9d9d9;
+}
+
+.jubootstrap .navbar .btn-navbar:active,
+.jubootstrap .navbar .btn-navbar.active {
+	background-color : #cccccc \9;
+}
+
+.jubootstrap .navbar .btn-navbar .icon-bar {
+	display               : block;
+	width                 : 18px;
+	height                : 2px;
+	background-color      : #f5f5f5;
+	-webkit-border-radius : 1px;
+	-moz-border-radius    : 1px;
+	border-radius         : 1px;
+	-webkit-box-shadow    : 0 1px 0 rgba(0, 0, 0, 0.25);
+	-moz-box-shadow       : 0 1px 0 rgba(0, 0, 0, 0.25);
+	box-shadow            : 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.jubootstrap .btn-navbar .icon-bar + .icon-bar {
+	margin-top : 3px;
+}
+
+.jubootstrap .navbar .nav > li > .dropdown-menu:before {
+	position            : absolute;
+	top                 : -7px;
+	left                : 9px;
+	display             : inline-block;
+	border-right        : 7px solid transparent;
+	border-bottom       : 7px solid #ccc;
+	border-left         : 7px solid transparent;
+	border-bottom-color : rgba(0, 0, 0, 0.2);
+	content             : '';
+}
+
+.jubootstrap .navbar .nav > li > .dropdown-menu:after {
+	position      : absolute;
+	top           : -6px;
+	left          : 10px;
+	display       : inline-block;
+	border-right  : 6px solid transparent;
+	border-bottom : 6px solid #ffffff;
+	border-left   : 6px solid transparent;
+	content       : '';
+}
+
+.jubootstrap .navbar-fixed-bottom .nav > li > .dropdown-menu:before {
+	top              : auto;
+	bottom           : -7px;
+	border-top       : 7px solid #ccc;
+	border-bottom    : 0;
+	border-top-color : rgba(0, 0, 0, 0.2);
+}
+
+.jubootstrap .navbar-fixed-bottom .nav > li > .dropdown-menu:after {
+	top           : auto;
+	bottom        : -6px;
+	border-top    : 6px solid #ffffff;
+	border-bottom : 0;
+}
+
+.jubootstrap .navbar .nav li.dropdown > a:hover .caret,
+.jubootstrap .navbar .nav li.dropdown > a:focus .caret {
+	border-top-color    : #333333;
+	border-bottom-color : #333333;
+}
+
+.jubootstrap .navbar .nav li.dropdown.open > .dropdown-toggle,
+.jubootstrap .navbar .nav li.dropdown.active > .dropdown-toggle,
+.jubootstrap .navbar .nav li.dropdown.open.active > .dropdown-toggle {
+	color            : #555555;
+	background-color : #e5e5e5;
+}
+
+.jubootstrap .navbar .nav li.dropdown > .dropdown-toggle .caret {
+	border-top-color    : #777777;
+	border-bottom-color : #777777;
+}
+
+.jubootstrap .navbar .nav li.dropdown.open > .dropdown-toggle .caret,
+.jubootstrap .navbar .nav li.dropdown.active > .dropdown-toggle .caret,
+.jubootstrap .navbar .nav li.dropdown.open.active > .dropdown-toggle .caret {
+	border-top-color    : #555555;
+	border-bottom-color : #555555;
+}
+
+.jubootstrap .navbar .pull-right > li > .dropdown-menu,
+.jubootstrap .navbar .nav > li > .dropdown-menu.pull-right {
+	right : 0;
+	left  : auto;
+}
+
+.jubootstrap .navbar .pull-right > li > .dropdown-menu:before,
+.jubootstrap .navbar .nav > li > .dropdown-menu.pull-right:before {
+	right : 12px;
+	left  : auto;
+}
+
+.jubootstrap .navbar .pull-right > li > .dropdown-menu:after,
+.jubootstrap .navbar .nav > li > .dropdown-menu.pull-right:after {
+	right : 13px;
+	left  : auto;
+}
+
+.jubootstrap .navbar .pull-right > li > .dropdown-menu .dropdown-menu,
+.jubootstrap .navbar .nav > li > .dropdown-menu.pull-right .dropdown-menu {
+	right                 : 100%;
+	left                  : auto;
+	margin-right          : -1px;
+	margin-left           : 0;
+	-webkit-border-radius : 6px 0 6px 6px;
+	-moz-border-radius    : 6px 0 6px 6px;
+	border-radius         : 6px 0 6px 6px;
+}
+
+.jubootstrap .navbar-inverse .navbar-inner {
+	background-color  : #1b1b1b;
+	background-image  : -moz-linear-gradient(top, #222222, #111111);
+	background-image  : -webkit-gradient(linear, 0 0, 0 100%, from(#222222), to(#111111));
+	background-image  : -webkit-linear-gradient(top, #222222, #111111);
+	background-image  : -o-linear-gradient(top, #222222, #111111);
+	background-image  : linear-gradient(to bottom, #222222, #111111);
+	background-repeat : repeat-x;
+	border-color      : #252525;
+	filter            : progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222', endColorstr='#ff111111', GradientType=0);
+}
+
+.jubootstrap .navbar-inverse .brand,
+.jubootstrap .navbar-inverse .nav > li > a {
+	color       : #999999;
+	text-shadow : 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.jubootstrap .navbar-inverse .brand:hover,
+.jubootstrap .navbar-inverse .nav > li > a:hover,
+.jubootstrap .navbar-inverse .brand:focus,
+.jubootstrap .navbar-inverse .nav > li > a:focus {
+	color : #ffffff;
+}
+
+.jubootstrap .navbar-inverse .brand {
+	color : #999999;
+}
+
+.jubootstrap .navbar-inverse .navbar-text {
+	color : #999999;
+}
+
+.jubootstrap .navbar-inverse .nav > li > a:focus,
+.jubootstrap .navbar-inverse .nav > li > a:hover {
+	color            : #ffffff;
+	background-color : transparent;
+}
+
+.jubootstrap .navbar-inverse .nav .active > a,
+.jubootstrap .navbar-inverse .nav .active > a:hover,
+.jubootstrap .navbar-inverse .nav .active > a:focus {
+	color            : #ffffff;
+	background-color : #111111;
+}
+
+.jubootstrap .navbar-inverse .navbar-link {
+	color : #999999;
+}
+
+.jubootstrap .navbar-inverse .navbar-link:hover,
+.jubootstrap .navbar-inverse .navbar-link:focus {
+	color : #ffffff;
+}
+
+.jubootstrap .navbar-inverse .divider-vertical {
+	border-right-color : #222222;
+	border-left-color  : #111111;
+}
+
+.jubootstrap .navbar-inverse .nav li.dropdown.open > .dropdown-toggle,
+.jubootstrap .navbar-inverse .nav li.dropdown.active > .dropdown-toggle,
+.jubootstrap .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle {
+	color            : #ffffff;
+	background-color : #111111;
+}
+
+.jubootstrap .navbar-inverse .nav li.dropdown > a:hover .caret,
+.jubootstrap .navbar-inverse .nav li.dropdown > a:focus .caret {
+	border-top-color    : #ffffff;
+	border-bottom-color : #ffffff;
+}
+
+.jubootstrap .navbar-inverse .nav li.dropdown > .dropdown-toggle .caret {
+	border-top-color    : #999999;
+	border-bottom-color : #999999;
+}
+
+.jubootstrap .navbar-inverse .nav li.dropdown.open > .dropdown-toggle .caret,
+.jubootstrap .navbar-inverse .nav li.dropdown.active > .dropdown-toggle .caret,
+.jubootstrap .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle .caret {
+	border-top-color    : #ffffff;
+	border-bottom-color : #ffffff;
+}
+
+.jubootstrap .navbar-inverse .navbar-search .search-query {
+	color              : #ffffff;
+	background-color   : #515151;
+	border-color       : #111111;
+	-webkit-box-shadow : inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.15);
+	-moz-box-shadow    : inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.15);
+	box-shadow         : inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.15);
+	-webkit-transition : none;
+	-moz-transition    : none;
+	-o-transition      : none;
+	transition         : none;
+}
+
+.jubootstrap .navbar-inverse .navbar-search .search-query:-moz-placeholder {
+	color : #cccccc;
+}
+
+.jubootstrap .navbar-inverse .navbar-search .search-query:-ms-input-placeholder {
+	color : #cccccc;
+}
+
+.jubootstrap .navbar-inverse .navbar-search .search-query::-webkit-input-placeholder {
+	color : #cccccc;
+}
+
+.jubootstrap .navbar-inverse .navbar-search .search-query:focus,
+.jubootstrap .navbar-inverse .navbar-search .search-query.focused {
+	padding            : 5px 15px;
+	color              : #333333;
+	text-shadow        : 0 1px 0 #ffffff;
+	background-color   : #ffffff;
+	border             : 0;
+	outline            : 0;
+	-webkit-box-shadow : 0 0 3px rgba(0, 0, 0, 0.15);
+	-moz-box-shadow    : 0 0 3px rgba(0, 0, 0, 0.15);
+	box-shadow         : 0 0 3px rgba(0, 0, 0, 0.15);
+}
+
+.jubootstrap .navbar-inverse .btn-navbar {
+	color             : #ffffff;
+	text-shadow       : 0 -1px 0 rgba(0, 0, 0, 0.25);
+	background-color  : #0e0e0e;
+	*background-color : #040404;
+	background-image  : -moz-linear-gradient(top, #151515, #040404);
+	background-image  : -webkit-gradient(linear, 0 0, 0 100%, from(#151515), to(#040404));
+	background-image  : -webkit-linear-gradient(top, #151515, #040404);
+	background-image  : -o-linear-gradient(top, #151515, #040404);
+	background-image  : linear-gradient(to bottom, #151515, #040404);
+	background-repeat : repeat-x;
+	border-color      : #040404 #040404 #000000;
+	border-color      : rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	filter            : progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff151515', endColorstr='#ff040404', GradientType=0);
+	filter            : progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.jubootstrap .navbar-inverse .btn-navbar:hover,
+.jubootstrap .navbar-inverse .btn-navbar:focus,
+.jubootstrap .navbar-inverse .btn-navbar:active,
+.jubootstrap .navbar-inverse .btn-navbar.active,
+.jubootstrap .navbar-inverse .btn-navbar.disabled,
+.jubootstrap .navbar-inverse .btn-navbar[disabled] {
+	color             : #ffffff;
+	background-color  : #040404;
+	*background-color : #000000;
+}
+
+.jubootstrap .navbar-inverse .btn-navbar:active,
+.jubootstrap .navbar-inverse .btn-navbar.active {
+	background-color : #000000 \9;
+}
+
+.jubootstrap .breadcrumb {
+	padding               : 8px 15px;
+	margin                : 0 0 20px;
+	list-style            : none;
+	background-color      : #f5f5f5;
+	-webkit-border-radius : 4px;
+	-moz-border-radius    : 4px;
+	border-radius         : 4px;
+}
+
+.jubootstrap .breadcrumb > li {
+	display     : inline-block;
+	*display    : inline;
+	text-shadow : 0 1px 0 #ffffff;
+	*zoom       : 1;
+}
+
+.jubootstrap .breadcrumb > li > .divider {
+	padding : 0 5px;
+	color   : #ccc;
+}
+
+.jubootstrap .breadcrumb > .active {
+	color : #999999;
+}
+
+.jubootstrap .pagination {
+	margin : 20px 0;
+}
+
+.jubootstrap .pagination ul {
+	display               : inline-block;
+	*display              : inline;
+	margin-bottom         : 0;
+	margin-left           : 0;
+	-webkit-border-radius : 4px;
+	-moz-border-radius    : 4px;
+	border-radius         : 4px;
+	*zoom                 : 1;
+	-webkit-box-shadow    : 0 1px 2px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow       : 0 1px 2px rgba(0, 0, 0, 0.05);
+	box-shadow            : 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.jubootstrap .pagination ul > li {
+	display : inline;
+}
+
+.jubootstrap .pagination ul > li > a,
+.jubootstrap .pagination ul > li > span {
+	float             : left;
+	padding           : 4px 12px;
+	line-height       : 20px;
+	text-decoration   : none;
+	background-color  : #ffffff;
+	border            : 1px solid #dddddd;
+	border-left-width : 0;
+}
+
+.jubootstrap .pagination ul > li > a:hover,
+.jubootstrap .pagination ul > li > a:focus,
+.jubootstrap .pagination ul > .active > a,
+.jubootstrap .pagination ul > .active > span {
+	background-color : #f5f5f5;
+}
+
+.jubootstrap .pagination ul > .active > a,
+.jubootstrap .pagination ul > .active > span {
+	color  : #999999;
+	cursor : default;
+}
+
+.jubootstrap .pagination ul > .disabled > span,
+.jubootstrap .pagination ul > .disabled > a,
+.jubootstrap .pagination ul > .disabled > a:hover,
+.jubootstrap .pagination ul > .disabled > a:focus {
+	color            : #999999;
+	cursor           : default;
+	background-color : transparent;
+}
+
+.jubootstrap .pagination ul > li:first-child > a,
+.jubootstrap .pagination ul > li:first-child > span {
+	border-left-width                 : 1px;
+	-webkit-border-bottom-left-radius : 4px;
+	border-bottom-left-radius         : 4px;
+	-webkit-border-top-left-radius    : 4px;
+	border-top-left-radius            : 4px;
+	-moz-border-radius-bottomleft     : 4px;
+	-moz-border-radius-topleft        : 4px;
+}
+
+.jubootstrap .pagination ul > li:last-child > a,
+.jubootstrap .pagination ul > li:last-child > span {
+	-webkit-border-top-right-radius    : 4px;
+	border-top-right-radius            : 4px;
+	-webkit-border-bottom-right-radius : 4px;
+	border-bottom-right-radius         : 4px;
+	-moz-border-radius-topright        : 4px;
+	-moz-border-radius-bottomright     : 4px;
+}
+
+.jubootstrap .pagination-centered {
+	text-align : center;
+}
+
+.jubootstrap .pagination-right {
+	text-align : right;
+}
+
+.jubootstrap .pagination-large ul > li > a,
+.jubootstrap .pagination-large ul > li > span {
+	padding   : 11px 19px;
+	font-size : 17.5px;
+}
+
+.jubootstrap .pagination-large ul > li:first-child > a,
+.jubootstrap .pagination-large ul > li:first-child > span {
+	-webkit-border-bottom-left-radius : 6px;
+	border-bottom-left-radius         : 6px;
+	-webkit-border-top-left-radius    : 6px;
+	border-top-left-radius            : 6px;
+	-moz-border-radius-bottomleft     : 6px;
+	-moz-border-radius-topleft        : 6px;
+}
+
+.jubootstrap .pagination-large ul > li:last-child > a,
+.jubootstrap .pagination-large ul > li:last-child > span {
+	-webkit-border-top-right-radius    : 6px;
+	border-top-right-radius            : 6px;
+	-webkit-border-bottom-right-radius : 6px;
+	border-bottom-right-radius         : 6px;
+	-moz-border-radius-topright        : 6px;
+	-moz-border-radius-bottomright     : 6px;
+}
+
+.jubootstrap .pagination-mini ul > li:first-child > a,
+.jubootstrap .pagination-small ul > li:first-child > a,
+.jubootstrap .pagination-mini ul > li:first-child > span,
+.jubootstrap .pagination-small ul > li:first-child > span {
+	-webkit-border-bottom-left-radius : 3px;
+	border-bottom-left-radius         : 3px;
+	-webkit-border-top-left-radius    : 3px;
+	border-top-left-radius            : 3px;
+	-moz-border-radius-bottomleft     : 3px;
+	-moz-border-radius-topleft        : 3px;
+}
+
+.jubootstrap .pagination-mini ul > li:last-child > a,
+.jubootstrap .pagination-small ul > li:last-child > a,
+.jubootstrap .pagination-mini ul > li:last-child > span,
+.jubootstrap .pagination-small ul > li:last-child > span {
+	-webkit-border-top-right-radius    : 3px;
+	border-top-right-radius            : 3px;
+	-webkit-border-bottom-right-radius : 3px;
+	border-bottom-right-radius         : 3px;
+	-moz-border-radius-topright        : 3px;
+	-moz-border-radius-bottomright     : 3px;
+}
+
+.jubootstrap .pagination-small ul > li > a,
+.jubootstrap .pagination-small ul > li > span {
+	padding   : 2px 10px;
+	font-size : 11.9px;
+}
+
+.jubootstrap .pagination-mini ul > li > a,
+.jubootstrap .pagination-mini ul > li > span {
+	padding   : 0 6px;
+	font-size : 10.5px;
+}
+
+.jubootstrap .pager {
+	margin     : 20px 0;
+	text-align : center;
+	list-style : none;
+	*zoom      : 1;
+}
+
+.jubootstrap .pager:before,
+.jubootstrap .pager:after {
+	display     : table;
+	line-height : 0;
+	content     : "";
+}
+
+.jubootstrap .pager:after {
+	clear : both;
+}
+
+.jubootstrap .pager li {
+	display : inline;
+}
+
+.jubootstrap .pager li > a,
+.jubootstrap .pager li > span {
+	display               : inline-block;
+	padding               : 5px 14px;
+	background-color      : #fff;
+	border                : 1px solid #ddd;
+	-webkit-border-radius : 15px;
+	-moz-border-radius    : 15px;
+	border-radius         : 15px;
+}
+
+.jubootstrap .pager li > a:hover,
+.jubootstrap .pager li > a:focus {
+	text-decoration  : none;
+	background-color : #f5f5f5;
+}
+
+.jubootstrap .pager .next > a,
+.jubootstrap .pager .next > span {
+	float : right;
+}
+
+.jubootstrap .pager .previous > a,
+.jubootstrap .pager .previous > span {
+	float : left;
+}
+
+.jubootstrap .pager .disabled > a,
+.jubootstrap .pager .disabled > a:hover,
+.jubootstrap .pager .disabled > a:focus,
+.jubootstrap .pager .disabled > span {
+	color            : #999999;
+	cursor           : default;
+	background-color : #fff;
+}
+
+.jubootstrap .modal-backdrop {
+	position         : fixed;
+	top              : 0;
+	right            : 0;
+	bottom           : 0;
+	left             : 0;
+	z-index          : 1040;
+	background-color : #000000;
+}
+
+.jubootstrap .modal-backdrop.fade {
+	opacity : 0;
+}
+
+.jubootstrap .modal-backdrop,
+.jubootstrap .modal-backdrop.fade.in {
+	opacity : 0.8;
+	filter  : alpha(opacity=80);
+}
+
+.jubootstrap .modal {
+	position                : fixed;
+	top                     : 10%;
+	left                    : 50%;
+	z-index                 : 1050;
+	width                   : 560px;
+	margin-left             : -280px;
+	background-color        : #ffffff;
+	border                  : 1px solid #999;
+	border                  : 1px solid rgba(0, 0, 0, 0.3);
+	*border                 : 1px solid #999;
+	-webkit-border-radius   : 6px;
+	-moz-border-radius      : 6px;
+	border-radius           : 6px;
+	outline                 : none;
+	-webkit-box-shadow      : 0 3px 7px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow         : 0 3px 7px rgba(0, 0, 0, 0.3);
+	box-shadow              : 0 3px 7px rgba(0, 0, 0, 0.3);
+	-webkit-background-clip : padding-box;
+	-moz-background-clip    : padding-box;
+	background-clip         : padding-box;
+}
+
+.jubootstrap .modal.fade {
+	top                : -25%;
+	-webkit-transition : opacity 0.3s linear, top 0.3s ease-out;
+	-moz-transition    : opacity 0.3s linear, top 0.3s ease-out;
+	-o-transition      : opacity 0.3s linear, top 0.3s ease-out;
+	transition         : opacity 0.3s linear, top 0.3s ease-out;
+}
+
+.jubootstrap .modal.fade.in {
+	top : 10%;
+}
+
+.jubootstrap .modal-header {
+	padding       : 9px 15px;
+	border-bottom : 1px solid #eee;
+}
+
+.jubootstrap .modal-header .close {
+	margin-top : 2px;
+}
+
+.jubootstrap .modal-header h3 {
+	margin      : 0;
+	line-height : 30px;
+}
+
+.jubootstrap .modal-body {
+	position   : relative;
+	max-height : 400px;
+	padding    : 15px;
+	overflow-y : auto;
+}
+
+.jubootstrap .modal-form {
+	margin-bottom : 0;
+}
+
+.jubootstrap .modal-footer {
+	padding               : 14px 15px 15px;
+	margin-bottom         : 0;
+	text-align            : right;
+	background-color      : #f5f5f5;
+	border-top            : 1px solid #ddd;
+	-webkit-border-radius : 0 0 6px 6px;
+	-moz-border-radius    : 0 0 6px 6px;
+	border-radius         : 0 0 6px 6px;
+	*zoom                 : 1;
+	-webkit-box-shadow    : inset 0 1px 0 #ffffff;
+	-moz-box-shadow       : inset 0 1px 0 #ffffff;
+	box-shadow            : inset 0 1px 0 #ffffff;
+}
+
+.jubootstrap .modal-footer:before,
+.jubootstrap .modal-footer:after {
+	display     : table;
+	line-height : 0;
+	content     : "";
+}
+
+.jubootstrap .modal-footer:after {
+	clear : both;
+}
+
+.jubootstrap .modal-footer .btn + .btn {
+	margin-bottom : 0;
+	margin-left   : 5px;
+}
+
+.jubootstrap .modal-footer .btn-group .btn + .btn {
+	margin-left : -1px;
+}
+
+.jubootstrap .modal-footer .btn-block + .btn-block {
+	margin-left : 0;
+}
+
+.jubootstrap .tooltip {
+	position    : absolute;
+	z-index     : 1030;
+	display     : block;
+	font-size   : 11px;
+	line-height : 1.4;
+	opacity     : 0;
+	filter      : alpha(opacity=0);
+	visibility  : visible;
+}
+
+.jubootstrap .tooltip.in {
+	opacity : 0.8;
+	filter  : alpha(opacity=80);
+}
+
+.jubootstrap .tooltip.top {
+	padding    : 5px 0;
+	margin-top : -3px;
+}
+
+.jubootstrap .tooltip.right {
+	padding     : 0 5px;
+	margin-left : 3px;
+}
+
+.jubootstrap .tooltip.bottom {
+	padding    : 5px 0;
+	margin-top : 3px;
+}
+
+.jubootstrap .tooltip.left {
+	padding     : 0 5px;
+	margin-left : -3px;
+}
+
+.jubootstrap .tooltip-inner {
+	max-width             : 200px;
+	padding               : 8px;
+	color                 : #ffffff;
+	text-align            : center;
+	text-decoration       : none;
+	background-color      : #000000;
+	-webkit-border-radius : 4px;
+	-moz-border-radius    : 4px;
+	border-radius         : 4px;
+}
+
+.jubootstrap .tooltip-arrow {
+	position     : absolute;
+	width        : 0;
+	height       : 0;
+	border-color : transparent;
+	border-style : solid;
+}
+
+.jubootstrap .tooltip.top .tooltip-arrow {
+	bottom           : 0;
+	left             : 50%;
+	margin-left      : -5px;
+	border-top-color : #000000;
+	border-width     : 5px 5px 0;
+}
+
+.jubootstrap .tooltip.right .tooltip-arrow {
+	top                : 50%;
+	left               : 0;
+	margin-top         : -5px;
+	border-right-color : #000000;
+	border-width       : 5px 5px 5px 0;
+}
+
+.jubootstrap .tooltip.left .tooltip-arrow {
+	top               : 50%;
+	right             : 0;
+	margin-top        : -5px;
+	border-left-color : #000000;
+	border-width      : 5px 0 5px 5px;
+}
+
+.jubootstrap .tooltip.bottom .tooltip-arrow {
+	top                 : 0;
+	left                : 50%;
+	margin-left         : -5px;
+	border-bottom-color : #000000;
+	border-width        : 0 5px 5px;
+}
+
+.jubootstrap .popover {
+	position                : absolute;
+	top                     : 0;
+	left                    : 0;
+	z-index                 : 1010;
+	display                 : none;
+	max-width               : 276px;
+	padding                 : 1px;
+	text-align              : left;
+	white-space             : normal;
+	background-color        : #ffffff;
+	border                  : 1px solid #ccc;
+	border                  : 1px solid rgba(0, 0, 0, 0.2);
+	-webkit-border-radius   : 6px;
+	-moz-border-radius      : 6px;
+	border-radius           : 6px;
+	-webkit-box-shadow      : 0 5px 10px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow         : 0 5px 10px rgba(0, 0, 0, 0.2);
+	box-shadow              : 0 5px 10px rgba(0, 0, 0, 0.2);
+	-webkit-background-clip : padding-box;
+	-moz-background-clip    : padding;
+	background-clip         : padding-box;
+}
+
+.jubootstrap .popover.top {
+	margin-top : -10px;
+}
+
+.jubootstrap .popover.right {
+	margin-left : 10px;
+}
+
+.jubootstrap .popover.bottom {
+	margin-top : 10px;
+}
+
+.jubootstrap .popover.left {
+	margin-left : -10px;
+}
+
+.jubootstrap .popover-title {
+	padding               : 8px 14px;
+	margin                : 0;
+	font-size             : 14px;
+	font-weight           : normal;
+	line-height           : 18px;
+	background-color      : #f7f7f7;
+	border-bottom         : 1px solid #ebebeb;
+	-webkit-border-radius : 5px 5px 0 0;
+	-moz-border-radius    : 5px 5px 0 0;
+	border-radius         : 5px 5px 0 0;
+}
+
+.jubootstrap .popover-title:empty {
+	display : none;
+}
+
+.jubootstrap .popover-content {
+	padding : 9px 14px;
+}
+
+.jubootstrap .popover .arrow,
+.jubootstrap .popover .arrow:after {
+	position     : absolute;
+	display      : block;
+	width        : 0;
+	height       : 0;
+	border-color : transparent;
+	border-style : solid;
+}
+
+.jubootstrap .popover .arrow {
+	border-width : 11px;
+}
+
+.jubootstrap .popover .arrow:after {
+	border-width : 10px;
+	content      : "";
+}
+
+.jubootstrap .popover.top .arrow {
+	bottom              : -11px;
+	left                : 50%;
+	margin-left         : -11px;
+	border-top-color    : #999;
+	border-top-color    : rgba(0, 0, 0, 0.25);
+	border-bottom-width : 0;
+}
+
+.jubootstrap .popover.top .arrow:after {
+	bottom              : 1px;
+	margin-left         : -10px;
+	border-top-color    : #ffffff;
+	border-bottom-width : 0;
+}
+
+.jubootstrap .popover.right .arrow {
+	top                : 50%;
+	left               : -11px;
+	margin-top         : -11px;
+	border-right-color : #999;
+	border-right-color : rgba(0, 0, 0, 0.25);
+	border-left-width  : 0;
+}
+
+.jubootstrap .popover.right .arrow:after {
+	bottom             : -10px;
+	left               : 1px;
+	border-right-color : #ffffff;
+	border-left-width  : 0;
+}
+
+.jubootstrap .popover.bottom .arrow {
+	top                 : -11px;
+	left                : 50%;
+	margin-left         : -11px;
+	border-bottom-color : #999;
+	border-bottom-color : rgba(0, 0, 0, 0.25);
+	border-top-width    : 0;
+}
+
+.jubootstrap .popover.bottom .arrow:after {
+	top                 : 1px;
+	margin-left         : -10px;
+	border-bottom-color : #ffffff;
+	border-top-width    : 0;
+}
+
+.jubootstrap .popover.left .arrow {
+	top                : 50%;
+	right              : -11px;
+	margin-top         : -11px;
+	border-left-color  : #999;
+	border-left-color  : rgba(0, 0, 0, 0.25);
+	border-right-width : 0;
+}
+
+.jubootstrap .popover.left .arrow:after {
+	right              : 1px;
+	bottom             : -10px;
+	border-left-color  : #ffffff;
+	border-right-width : 0;
+}
+
+.jubootstrap .thumbnails {
+	margin-left : -20px;
+	list-style  : none;
+	*zoom       : 1;
+}
+
+.jubootstrap .thumbnails:before,
+.jubootstrap .thumbnails:after {
+	display     : table;
+	line-height : 0;
+	content     : "";
+}
+
+.jubootstrap .thumbnails:after {
+	clear : both;
+}
+
+.jubootstrap .row-fluid .thumbnails {
+	margin-left : 0;
+}
+
+.jubootstrap .thumbnails > li {
+	float         : left;
+	margin-bottom : 20px;
+	margin-left   : 20px;
+}
+
+.jubootstrap .thumbnail {
+	display               : block;
+	padding               : 4px;
+	line-height           : 20px;
+	border                : 1px solid #ddd;
+	-webkit-border-radius : 4px;
+	-moz-border-radius    : 4px;
+	border-radius         : 4px;
+	-webkit-box-shadow    : 0 1px 3px rgba(0, 0, 0, 0.055);
+	-moz-box-shadow       : 0 1px 3px rgba(0, 0, 0, 0.055);
+	box-shadow            : 0 1px 3px rgba(0, 0, 0, 0.055);
+	-webkit-transition    : all 0.2s ease-in-out;
+	-moz-transition       : all 0.2s ease-in-out;
+	-o-transition         : all 0.2s ease-in-out;
+	transition            : all 0.2s ease-in-out;
+}
+
+.jubootstrap a.thumbnail:hover,
+.jubootstrap a.thumbnail:focus {
+	border-color       : #0088cc;
+	-webkit-box-shadow : 0 1px 4px rgba(0, 105, 214, 0.25);
+	-moz-box-shadow    : 0 1px 4px rgba(0, 105, 214, 0.25);
+	box-shadow         : 0 1px 4px rgba(0, 105, 214, 0.25);
+}
+
+.jubootstrap .thumbnail > img {
+	display      : block;
+	max-width    : 100%;
+	margin-right : auto;
+	margin-left  : auto;
+}
+
+.jubootstrap .thumbnail .caption {
+	padding : 9px;
+	color   : #555555;
+}
+
+.jubootstrap .media,
+.jubootstrap .media-body {
+	overflow  : hidden;
+	*overflow : visible;
+	zoom      : 1;
+}
+
+.jubootstrap .media,
+.jubootstrap .media .media {
+	margin-top : 15px;
+}
+
+.jubootstrap .media:first-child {
+	margin-top : 0;
+}
+
+.jubootstrap .media-object {
+	display : block;
+}
+
+.jubootstrap .media-heading {
+	margin : 0 0 5px;
+}
+
+.jubootstrap .media > .pull-left {
+	margin-right : 10px;
+}
+
+.jubootstrap .media > .pull-right {
+	margin-left : 10px;
+}
+
+.jubootstrap .media-list {
+	margin-left : 0;
+	list-style  : none;
+}
+
+.jubootstrap .label,
+.jubootstrap .badge {
+	display          : inline-block;
+	padding          : 2px 4px;
+	font-size        : 11.844px;
+	font-weight      : bold;
+	line-height      : 14px;
+	color            : #ffffff;
+	text-shadow      : 0 -1px 0 rgba(0, 0, 0, 0.25);
+	white-space      : nowrap;
+	vertical-align   : baseline;
+	background-color : #999999;
+}
+
+.jubootstrap .label {
+	-webkit-border-radius : 3px;
+	-moz-border-radius    : 3px;
+	border-radius         : 3px;
+}
+
+.jubootstrap .badge {
+	padding-right         : 9px;
+	padding-left          : 9px;
+	-webkit-border-radius : 9px;
+	-moz-border-radius    : 9px;
+	border-radius         : 9px;
+}
+
+.jubootstrap .label:empty,
+.jubootstrap .badge:empty {
+	display : none;
+}
+
+.jubootstrap a.label:hover,
+.jubootstrap a.label:focus,
+.jubootstrap a.badge:hover,
+.jubootstrap a.badge:focus {
+	color           : #ffffff;
+	text-decoration : none;
+	cursor          : pointer;
+}
+
+.jubootstrap .label-important,
+.jubootstrap .badge-important {
+	background-color : #b94a48;
+}
+
+.jubootstrap .label-important[href],
+.jubootstrap .badge-important[href] {
+	background-color : #953b39;
+}
+
+.jubootstrap .label-warning,
+.jubootstrap .badge-warning {
+	background-color : #f89406;
+}
+
+.jubootstrap .label-warning[href],
+.jubootstrap .badge-warning[href] {
+	background-color : #c67605;
+}
+
+.jubootstrap .label-success,
+.jubootstrap .badge-success {
+	background-color : #468847;
+}
+
+.jubootstrap .label-success[href],
+.jubootstrap .badge-success[href] {
+	background-color : #356635;
+}
+
+.jubootstrap .label-info,
+.jubootstrap .badge-info {
+	background-color : #3a87ad;
+}
+
+.jubootstrap .label-info[href],
+.jubootstrap .badge-info[href] {
+	background-color : #2d6987;
+}
+
+.jubootstrap .label-inverse,
+.jubootstrap .badge-inverse {
+	background-color : #333333;
+}
+
+.jubootstrap .label-inverse[href],
+.jubootstrap .badge-inverse[href] {
+	background-color : #1a1a1a;
+}
+
+.jubootstrap .btn .label,
+.jubootstrap .btn .badge {
+	position : relative;
+	top      : -1px;
+}
+
+.jubootstrap .btn-mini .label,
+.jubootstrap .btn-mini .badge {
+	top : 0;
+}
+
+@-webkit-keyframes progress-bar-stripes {
+	from {
+		background-position : 40px 0;
+	}
+	to {
+		background-position : 0 0;
+	}
+}
+
+@-moz-keyframes progress-bar-stripes {
+	from {
+		background-position : 40px 0;
+	}
+	to {
+		background-position : 0 0;
+	}
+}
+
+@-ms-keyframes progress-bar-stripes {
+	from {
+		background-position : 40px 0;
+	}
+	to {
+		background-position : 0 0;
+	}
+}
+
+@-o-keyframes progress-bar-stripes {
+	from {
+		background-position : 0 0;
+	}
+	to {
+		background-position : 40px 0;
+	}
+}
+
+@keyframes progress-bar-stripes {
+	from {
+		background-position : 40px 0;
+	}
+	to {
+		background-position : 0 0;
+	}
+}
+
+.jubootstrap .progress {
+	height                : 20px;
+	margin-bottom         : 20px;
+	overflow              : hidden;
+	background-color      : #f7f7f7;
+	background-image      : -moz-linear-gradient(top, #f5f5f5, #f9f9f9);
+	background-image      : -webkit-gradient(linear, 0 0, 0 100%, from(#f5f5f5), to(#f9f9f9));
+	background-image      : -webkit-linear-gradient(top, #f5f5f5, #f9f9f9);
+	background-image      : -o-linear-gradient(top, #f5f5f5, #f9f9f9);
+	background-image      : linear-gradient(to bottom, #f5f5f5, #f9f9f9);
+	background-repeat     : repeat-x;
+	-webkit-border-radius : 4px;
+	-moz-border-radius    : 4px;
+	border-radius         : 4px;
+	filter                : progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', endColorstr='#fff9f9f9', GradientType=0);
+	-webkit-box-shadow    : inset 0 1px 2px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow       : inset 0 1px 2px rgba(0, 0, 0, 0.1);
+	box-shadow            : inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.jubootstrap .progress .bar {
+	float              : left;
+	width              : 0;
+	height             : 100%;
+	font-size          : 12px;
+	color              : #ffffff;
+	text-align         : center;
+	text-shadow        : 0 -1px 0 rgba(0, 0, 0, 0.25);
+	background-color   : #0e90d2;
+	background-image   : -moz-linear-gradient(top, #149bdf, #0480be);
+	background-image   : -webkit-gradient(linear, 0 0, 0 100%, from(#149bdf), to(#0480be));
+	background-image   : -webkit-linear-gradient(top, #149bdf, #0480be);
+	background-image   : -o-linear-gradient(top, #149bdf, #0480be);
+	background-image   : linear-gradient(to bottom, #149bdf, #0480be);
+	background-repeat  : repeat-x;
+	filter             : progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff149bdf', endColorstr='#ff0480be', GradientType=0);
+	-webkit-box-shadow : inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+	-moz-box-shadow    : inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+	box-shadow         : inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+	-webkit-box-sizing : border-box;
+	-moz-box-sizing    : border-box;
+	box-sizing         : border-box;
+	-webkit-transition : width 0.6s ease;
+	-moz-transition    : width 0.6s ease;
+	-o-transition      : width 0.6s ease;
+	transition         : width 0.6s ease;
+}
+
+.jubootstrap .progress .bar + .bar {
+	-webkit-box-shadow : inset 1px 0 0 rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+	-moz-box-shadow    : inset 1px 0 0 rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+	box-shadow         : inset 1px 0 0 rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+}
+
+.jubootstrap .progress-striped .bar {
+	background-color        : #149bdf;
+	background-image        : -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+	background-image        : -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+	background-image        : -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+	background-image        : -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+	background-image        : linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+	-webkit-background-size : 40px 40px;
+	-moz-background-size    : 40px 40px;
+	-o-background-size      : 40px 40px;
+	background-size         : 40px 40px;
+}
+
+.jubootstrap .progress.active .bar {
+	-webkit-animation : progress-bar-stripes 2s linear infinite;
+	-moz-animation    : progress-bar-stripes 2s linear infinite;
+	-ms-animation     : progress-bar-stripes 2s linear infinite;
+	-o-animation      : progress-bar-stripes 2s linear infinite;
+	animation         : progress-bar-stripes 2s linear infinite;
+}
+
+.jubootstrap .progress-danger .bar,
+.jubootstrap .progress .bar-danger {
+	background-color  : #dd514c;
+	background-image  : -moz-linear-gradient(top, #ee5f5b, #c43c35);
+	background-image  : -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#c43c35));
+	background-image  : -webkit-linear-gradient(top, #ee5f5b, #c43c35);
+	background-image  : -o-linear-gradient(top, #ee5f5b, #c43c35);
+	background-image  : linear-gradient(to bottom, #ee5f5b, #c43c35);
+	background-repeat : repeat-x;
+	filter            : progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffee5f5b', endColorstr='#ffc43c35', GradientType=0);
+}
+
+.jubootstrap .progress-danger.progress-striped .bar,
+.jubootstrap .progress-striped .bar-danger {
+	background-color : #ee5f5b;
+	background-image : -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+	background-image : -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+	background-image : -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+	background-image : -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+	background-image : linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+.jubootstrap .progress-success .bar,
+.jubootstrap .progress .bar-success {
+	background-color  : #5eb95e;
+	background-image  : -moz-linear-gradient(top, #62c462, #57a957);
+	background-image  : -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#57a957));
+	background-image  : -webkit-linear-gradient(top, #62c462, #57a957);
+	background-image  : -o-linear-gradient(top, #62c462, #57a957);
+	background-image  : linear-gradient(to bottom, #62c462, #57a957);
+	background-repeat : repeat-x;
+	filter            : progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff57a957', GradientType=0);
+}
+
+.jubootstrap .progress-success.progress-striped .bar,
+.jubootstrap .progress-striped .bar-success {
+	background-color : #62c462;
+	background-image : -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+	background-image : -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+	background-image : -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+	background-image : -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+	background-image : linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+.jubootstrap .progress-info .bar,
+.jubootstrap .progress .bar-info {
+	background-color  : #4bb1cf;
+	background-image  : -moz-linear-gradient(top, #5bc0de, #339bb9);
+	background-image  : -webkit-gradient(linear, 0 0, 0 100%, from(#5bc0de), to(#339bb9));
+	background-image  : -webkit-linear-gradient(top, #5bc0de, #339bb9);
+	background-image  : -o-linear-gradient(top, #5bc0de, #339bb9);
+	background-image  : linear-gradient(to bottom, #5bc0de, #339bb9);
+	background-repeat : repeat-x;
+	filter            : progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5bc0de', endColorstr='#ff339bb9', GradientType=0);
+}
+
+.jubootstrap .progress-info.progress-striped .bar,
+.jubootstrap .progress-striped .bar-info {
+	background-color : #5bc0de;
+	background-image : -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+	background-image : -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+	background-image : -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+	background-image : -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+	background-image : linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+.jubootstrap .progress-warning .bar,
+.jubootstrap .progress .bar-warning {
+	background-color  : #faa732;
+	background-image  : -moz-linear-gradient(top, #fbb450, #f89406);
+	background-image  : -webkit-gradient(linear, 0 0, 0 100%, from(#fbb450), to(#f89406));
+	background-image  : -webkit-linear-gradient(top, #fbb450, #f89406);
+	background-image  : -o-linear-gradient(top, #fbb450, #f89406);
+	background-image  : linear-gradient(to bottom, #fbb450, #f89406);
+	background-repeat : repeat-x;
+	filter            : progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffbb450', endColorstr='#fff89406', GradientType=0);
+}
+
+.jubootstrap .progress-warning.progress-striped .bar,
+.jubootstrap .progress-striped .bar-warning {
+	background-color : #fbb450;
+	background-image : -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+	background-image : -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+	background-image : -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+	background-image : -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+	background-image : linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+
+.jubootstrap .accordion {
+	margin-bottom : 20px;
+}
+
+.jubootstrap .accordion-group {
+	margin-bottom         : 2px;
+	border                : 1px solid #e5e5e5;
+	-webkit-border-radius : 4px;
+	-moz-border-radius    : 4px;
+	border-radius         : 4px;
+}
+
+.jubootstrap .accordion-heading {
+	border-bottom : 0;
+}
+
+.jubootstrap .accordion-heading .accordion-toggle {
+	display : block;
+	padding : 8px 15px;
+}
+
+.jubootstrap .accordion-toggle {
+	cursor : pointer;
+}
+
+.jubootstrap .accordion-inner {
+	padding    : 9px 15px;
+	border-top : 1px solid #e5e5e5;
+}
+
+.jubootstrap .carousel {
+	position      : relative;
+	margin-bottom : 20px;
+	line-height   : 1;
+}
+
+.jubootstrap .carousel-inner {
+	position : relative;
+	width    : 100%;
+	overflow : hidden;
+}
+
+.jubootstrap .carousel-inner > .item {
+	position           : relative;
+	display            : none;
+	-webkit-transition : 0.6s ease-in-out left;
+	-moz-transition    : 0.6s ease-in-out left;
+	-o-transition      : 0.6s ease-in-out left;
+	transition         : 0.6s ease-in-out left;
+}
+
+.jubootstrap .carousel-inner > .item > img,
+.jubootstrap .carousel-inner > .item > a > img {
+	display     : block;
+	line-height : 1;
+}
+
+.jubootstrap .carousel-inner > .active,
+.jubootstrap .carousel-inner > .next,
+.jubootstrap .carousel-inner > .prev {
+	display : block;
+}
+
+.jubootstrap .carousel-inner > .active {
+	left : 0;
+}
+
+.jubootstrap .carousel-inner > .next,
+.jubootstrap .carousel-inner > .prev {
+	position : absolute;
+	top      : 0;
+	width    : 100%;
+}
+
+.jubootstrap .carousel-inner > .next {
+	left : 100%;
+}
+
+.jubootstrap .carousel-inner > .prev {
+	left : -100%;
+}
+
+.jubootstrap .carousel-inner > .next.left,
+.jubootstrap .carousel-inner > .prev.right {
+	left : 0;
+}
+
+.jubootstrap .carousel-inner > .active.left {
+	left : -100%;
+}
+
+.jubootstrap .carousel-inner > .active.right {
+	left : 100%;
+}
+
+.jubootstrap .carousel-control {
+	position              : absolute;
+	top                   : 40%;
+	left                  : 15px;
+	width                 : 40px;
+	height                : 40px;
+	margin-top            : -20px;
+	font-size             : 60px;
+	font-weight           : 100;
+	line-height           : 30px;
+	color                 : #ffffff;
+	text-align            : center;
+	background            : #222222;
+	border                : 3px solid #ffffff;
+	-webkit-border-radius : 23px;
+	-moz-border-radius    : 23px;
+	border-radius         : 23px;
+	opacity               : 0.5;
+	filter                : alpha(opacity=50);
+}
+
+.jubootstrap .carousel-control.right {
+	right : 15px;
+	left  : auto;
+}
+
+.jubootstrap .carousel-control:hover,
+.jubootstrap .carousel-control:focus {
+	color           : #ffffff;
+	text-decoration : none;
+	opacity         : 0.9;
+	filter          : alpha(opacity=90);
+}
+
+.jubootstrap .carousel-indicators {
+	position   : absolute;
+	top        : 15px;
+	right      : 15px;
+	z-index    : 5;
+	margin     : 0;
+	list-style : none;
+}
+
+.jubootstrap .carousel-indicators li {
+	display          : block;
+	float            : left;
+	width            : 10px;
+	height           : 10px;
+	margin-left      : 5px;
+	text-indent      : -999px;
+	background-color : #ccc;
+	background-color : rgba(255, 255, 255, 0.25);
+	border-radius    : 5px;
+}
+
+.jubootstrap .carousel-indicators .active {
+	background-color : #fff;
+}
+
+.jubootstrap .carousel-caption {
+	position   : absolute;
+	right      : 0;
+	bottom     : 0;
+	left       : 0;
+	padding    : 15px;
+	background : #333333;
+	background : rgba(0, 0, 0, 0.75);
+}
+
+.jubootstrap .carousel-caption h4,
+.jubootstrap .carousel-caption p {
+	line-height : 20px;
+	color       : #ffffff;
+}
+
+.jubootstrap .carousel-caption h4 {
+	margin : 0 0 5px;
+}
+
+.jubootstrap .carousel-caption p {
+	margin-bottom : 0;
+}
+
+.jubootstrap .hero-unit {
+	padding               : 60px;
+	margin-bottom         : 30px;
+	font-size             : 18px;
+	font-weight           : 200;
+	line-height           : 30px;
+	color                 : inherit;
+	background-color      : #eeeeee;
+	-webkit-border-radius : 6px;
+	-moz-border-radius    : 6px;
+	border-radius         : 6px;
+}
+
+.jubootstrap .hero-unit h1 {
+	margin-bottom  : 0;
+	font-size      : 60px;
+	line-height    : 1;
+	letter-spacing : -1px;
+	color          : inherit;
+}
+
+.jubootstrap .hero-unit li {
+	line-height : 30px;
+}
+
+.jubootstrap .pull-right {
+	float : right;
+}
+
+.jubootstrap .pull-left {
+	float : left;
+}
+
+.jubootstrap .hide {
+	display : none;
+}
+
+.jubootstrap .show {
+	display : block;
+}
+
+.jubootstrap .invisible {
+	visibility : hidden;
+}
+
+.jubootstrap .affix {
+	position : fixed;
+}

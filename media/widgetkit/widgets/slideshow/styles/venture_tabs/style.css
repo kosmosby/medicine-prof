@@ -1,0 +1,94 @@
+/*
+ * Widgetkit Slideshow: Venture Tabs Style
+ */
+
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-tabs-venture .nav,
+.wk-slideshow-tabs-venture .nav li,
+.wk-slideshow-tabs-venture .nav span { float: left; }
+
+.wk-slideshow-tabs-venture .nav li {
+	border: 1px solid transparent;
+	margin-left: 20px;
+	color: #888;
+	text-shadow: 0 1px 0 rgba(255,255,255,1);
+}
+.wk-slideshow-tabs-venture .nav li:first-child { margin-left: 0; }
+
+.wk-slideshow-tabs-venture .nav span {
+	padding: 7px 15px 5px 15px;
+	overflow: hidden;
+}
+
+.wk-slideshow-tabs-venture .nav li:hover { color: #666; }
+
+.wk-slideshow-tabs-venture .nav li.active {
+	border-color: #d8d8d8;
+	border-top-color: #cacaca;
+	border-color: rgba(0,0,0,0.07);
+	border-top-color: rgba(0,0,0,0.15);
+	border-radius: 4px;
+	background: #e8e8e8;
+	background: rgba(0,0,0,0.03);
+	box-shadow: 0 1px 2px rgba(0,0,0,0.08) inset,
+				0 1px 0 rgba(255,255,255,0.5);
+	color: #222;
+}
+
+
+/* Content
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-tabs-venture .slides-container {
+	min-height: 150px;
+	margin-top: 20px;
+	background: url(images/slides.png) 50% 0 no-repeat;
+	background-size: contain;
+}
+
+.wk-slideshow-tabs-venture .slides > li > article {
+	margin-top: 20px;
+	color: #666;
+	text-shadow: 0 1px 0 rgba(255,255,255,1);
+}
+
+.wk-slideshow-tabs-venture .slides > li > article strong { font-weight: normal; }
+
+
+/* Alignment: Navigation
+---------------------------------------------------------------------------------------------------*/
+
+/* Center */
+.wk-slideshow-tabs-venture .nav-container.nav-center { overflow: hidden; }
+
+.wk-slideshow-tabs-venture .nav-center .nav {
+	position: relative;
+	left: 50%;
+}
+
+.wk-slideshow-tabs-venture .nav-center .nav li {
+	position: relative;
+	left: -50%;
+}
+
+/* Right */
+.wk-slideshow-tabs-venture .nav-right .nav { float: right; }
+
+
+/* Responsive
+----------------------------------------------------------------------------------------------------*/
+
+/* Only Phones */
+@media (max-width: 767px) {
+
+	.wk-slideshow-tabs-venture .nav span {
+		padding-left: 10px;
+		padding-right: 10px;
+		font-size: 10px;
+		line-height: 14px;
+	}
+
+}

@@ -1,0 +1,35 @@
+.judl-unpublished-doc .judl-frontend-toolbar {
+    margin : 10px 0;
+}
+
+.judl-unpublished-doc table {
+    clear      : both;
+    margin-top : 10px;
+}
+
+.judl-unpublished-doc .center {
+    text-align : center !important;
+}
+
+.judl-unpublished-doc .judl-pagination #limit {
+    width: auto;
+}
+
+tr td.title .title-wrapper {
+    position: relative;
+}
+
+tr td.title .private-actions{
+    opacity: 0;
+    transition:all 0.2s ease 0.1s;
+    -webkit-transition:all 0.2s ease 0.1s;
+    -moz-transition:all 0.2s ease 0.1s;
+    -o-transition:all 0.2s ease 0.1s;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+tr td.title:hover .private-actions, tr td.title .private-actions.open{
+    opacity: 1;
+}

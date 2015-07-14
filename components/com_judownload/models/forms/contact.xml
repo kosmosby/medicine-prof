@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form addrulepath="/administrator/components/com_judownload/models/rules">
+    <fieldset name="contact">
+        <field name="name"
+               type="text"
+               default=""
+               required="true"
+               labelclass="control-label"
+               label="COM_JUDOWNLOAD_FIELD_NAME_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_NAME_DESC"
+                />
+
+        <field
+                name="email"
+                type="email"
+                default=""
+                required="true"
+                labelclass="control-label"
+                validate="email"
+                class="email"
+                label="COM_JUDOWNLOAD_FIELD_EMAIL_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_EMAIL_DESC"
+                />
+
+        <field
+                name="message"
+                type="textarea"
+                default=""
+                labelclass="control-label"
+                rows="10"
+                cols="80"
+                required="true"
+                label="COM_JUDOWNLOAD_FIELD_MESSAGE_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_MESSAGE_DESC"
+                />
+
+        <field
+                name="sendcopy"
+                type="checkbox"
+                labelclass="control-label"
+                value="1"
+                default="0"
+                label="COM_JUDOWNLOAD_SEND_ME_A_COPY_LABEL"
+                description="COM_JUDOWNLOAD_SEND_ME_A_COPY_DESC"
+                />
+    </fieldset>
+</form>

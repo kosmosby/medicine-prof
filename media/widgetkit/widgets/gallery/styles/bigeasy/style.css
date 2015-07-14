@@ -1,0 +1,158 @@
+/*
+ * Widgetkit Gallery: Showcase Style
+ */
+
+
+/* Slideshow: Buttons
+----------------------------------------------------------------------------------------------------*/
+
+.wk-gallery-showcase-bigeasy .slides-container { position: relative; }
+
+.wk-gallery-showcase-bigeasy .slides-container:hover .next,
+.wk-gallery-showcase-bigeasy .slides-container:hover .prev {
+	top: 50%;
+	width: 45px;
+	height: 45px;
+	margin-top: -25px;
+	background: url(images/buttons.png) 0 50px no-repeat;
+}
+
+.wk-gallery-showcase-bigeasy .slides-container:hover .next {
+	right: 30px;
+	background-position: 0 0;
+}
+
+.wk-gallery-showcase-bigeasy .slides-container:hover .prev {
+	left: 30px;
+	background-position: 0 -100px;
+}
+
+.wk-gallery-showcase-bigeasy .slides-container:hover .next:hover { background-position: 0 -50px; }
+.wk-gallery-showcase-bigeasy .slides-container:hover .prev:hover { background-position: 0 -150px; }
+
+
+/* Slideset: Caption
+----------------------------------------------------------------------------------------------------*/
+
+.wk-gallery-showcase-bigeasy .wk-slideshow .caption,
+.wk-gallery-showcase-bigeasy .wk-slideshow .caption a {	background: none; }
+.wk-ie .wk-gallery-showcase-bigeasy div.caption { filter: none; }
+
+.wk-gallery-showcase-bigeasy .wk-slideshow .caption h1 {
+	float: left;
+	margin: 0 0 0 -10px;
+	padding: 0 20px;
+	color: #000;
+	line-height: 60px;
+	background: #fff;
+}
+
+.wk-gallery-showcase-bigeasy .wk-slideshow .caption h1 + span {
+	display: block;
+	float: left;
+	margin-left: -10px;
+	padding: 0 20px;
+	font-size: 16px;
+	line-height: 45px;
+	background: #000;
+	clear: both;
+}
+
+
+/* Slideset: Container
+----------------------------------------------------------------------------------------------------*/
+
+.wk-gallery-showcase-bigeasy .wk-slideset > div { padding: 0 60px; }
+.wk-gallery-showcase-bigeasy .wk-slideset.no-buttons > div { padding: 0; }
+
+.wk-gallery-showcase-bigeasy .wk-slideset .sets { 
+	margin: 0 -7px;
+	line-height: 0;
+	padding: 10px 0 0 0;
+}
+
+
+/* Slideset: Content
+----------------------------------------------------------------------------------------------------*/
+
+.wk-gallery-showcase-bigeasy .wk-slideset .set > li > div {
+	position: relative;
+	margin: 0 7px;
+	cursor: pointer;
+}
+
+.wk-gallery-showcase-bigeasy .wk-slideset .set > li > div:after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	content: "";
+	display: block;
+}
+
+.wk-ie8 .wk-gallery-showcase-bigeasy .wk-slideset .set { width: 100%; }
+.wk-ie8 .wk-gallery-showcase-bigeasy .wk-slideset .set li { z-index: 1; }
+.wk-ie8 .wk-gallery-showcase-bigeasy .wk-slideset .set li img {
+	position: relative;
+	z-index: -1;
+}
+
+.wk-gallery-showcase-bigeasy .wk-slideset .set > li > div > img { display: block; }
+
+/* Hover */
+.wk-gallery-showcase-bigeasy .wk-slideset .set > li > div:hover { outline: none; }
+
+/* Active */
+.wk-gallery-showcase-bigeasy .wk-slideset .set > li.active  > div { outline: none; }
+
+
+/* Slideset: Buttons
+----------------------------------------------------------------------------------------------------*/
+
+.wk-gallery-showcase-bigeasy .wk-slideset > div { position: relative; }
+
+.wk-gallery-showcase-bigeasy .wk-slideset > div .next,
+.wk-gallery-showcase-bigeasy .wk-slideset > div .prev {
+	top: 50%;
+	width: 35px;
+	height: 35px;
+	margin-top: -13px;
+	background: url(images/navigation_buttons.png) 0 30px no-repeat;
+}
+
+.wk-gallery-showcase-bigeasy .wk-slideset > div .next {
+	right: 5px;
+	background-position: 0 0;
+}
+
+.wk-gallery-showcase-bigeasy .wk-slideset > div .prev {
+	left: 5px;
+	background-position: 0 -100px;
+}
+
+
+.wk-gallery-showcase-bigeasy .wk-slideset > div .next:hover { background-position: 0 -50px; }
+.wk-gallery-showcase-bigeasy .wk-slideset > div .prev:hover { background-position: 0 -150px; }
+
+
+
+.wk-gallery-showcase-bigeasy .slides-container:hover .next,
+.wk-gallery-showcase-bigeasy .slides-container:hover .prev { background-image: url(images/buttons.png); }
+
+.wk-gallery-showcase-bigeasy .wk-slideset .set > li > div:hover:after { background: url(images/hover.png); }
+.wk-gallery-showcase-bigeasy .wk-slideset .set > li.active > div:after { border: 5px solid #fff; }
+
+.wk-gallery-showcase-bigeasy .wk-slideset > div .next,
+.wk-gallery-showcase-bigeasy .wk-slideset > div .prev {	background-image: url(images/navigation_buttons.png); }
+
+/* Responsive
+----------------------------------------------------------------------------------------------------*/
+
+/* Only Touch Devices */
+@media (max-device-width: 1024px) {
+
+	.wk-gallery-showcase-bigeasy .slides-container .next,
+	.wk-gallery-showcase-bigeasy .slides-container .prev { display: none; }
+
+}

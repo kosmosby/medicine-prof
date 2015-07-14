@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="selectproductinformation" type="params" ui="admin">
+			<fieldset name="fieldset_info_merchandise" label="Merchandise" description="">
+				<param name="info_merchandise" type="spacer" label="" default="A merchandise is a one-time payment item without expiration." />
+			</fieldset>
+		</view>
+		
+		<view name="editmerchandise" type="params" ui="admin" >
+			<extend toxpathnode="/cbxml/views" fromxpathnode="/*/views/view" file="xml/views/library/view.editgenericproduct"/>
+			<inherit name="productinherit" from="/*/views/view[@name='editgenericproduct']">
+				<if name="id" operator="!=" value="" valuetype="const:int" type="condition">
+					<param name="merchandises_count"  mode="show"      type="private" class="cbpaidParamsExt" method="data" label="Merchandise records with this plan"    description="">
+						<data  name="merchandises_count" type="sql:count" table="#__cbsubs_merchandises" class="cbpaidMerchandiseRecord">
+							<where>
+								<column name="plan_id"  operator="=" value="id" type="sql:field" valuetype="ext:int:modelofdata" />
+							</where>
+						</data>
+					</param>
+					<param name="merchandises_count_active"  mode="show"      type="private" class="cbpaidParamsExt" method="data" label="Completed merchandise with this plan"    description="">
+						<data  name="merchandises_count_active" type="sql:count" table="#__cbsubs_merchandises" class="cbpaidMerchandiseRecord">
+							<where>
+								<column name="status" operator="=" value="A" type="sql:field" valuetype="const:string" />
+								<column name="plan_id"  operator="=" value="id" type="sql:field" valuetype="ext:int:modelofdata" />
+							</where>
+						</data>
+					</param>
+					<param name="plan_accessurl" type="private" method="renderUrlOfProduct" key="id" label="Url of plan to display only this plan ('-' to display multiple plans)" description="This is the url of plan to display only this plan (use '-' to display multiple plans, e.g. &amp;plans=1-3-6)." />
+					<param name="subs_change_warning" type="spacer" label="Warning" default="Changing a merchandise plan with existing merchandise will change these merchandise-descriptions too. If you need to make changes, it's better to create a new plan, and not allow new merchandise with the old plan." />
+				</if>
+				<tabpane name="cpayeditplan">
+					<tabpanetab name="plan_presentation" label="Presentation" description="Plan settings:" />
+					<tabpanetab name="plan_pricing" label="Pricing" description="Plan settings: Pricing and validity:">
+						<param name="currency" type="xml:currencies" default="" label="Currency" description="The currency you are going to receive.">
+							<option value="">Same as global configuration</option>
+						</param>
+						<fieldset label="Pricing" description="">
+							<param name="rate" type="float" size="40" default="" label="Regular Price of plan" description="The rate (number) in the defined currency for each period including subsequent renewal or auto-renewal. 0 for free access. If a different first period and/or payment is defined, this is not added or used for the first payment." />
+						</fieldset>
+						<param name="prorate" type="xml:yesno" default="1" label="Prorate value of merchandise when upgrading" description="Take in account the merchandise when upgrading to another plan."/>
+						<param name="autorecurring" type="hidden" value="0" />
+						<fieldset label="Payment invoice item text" description="Settings for item text when presenting the invoice to the user, as well as the description text sent to the payment processor: You can substitute text using strings below.">
+							<param name="item_text"  type="text" size="70" default="[PREFIX_TEXT] [ITEM_NAME] for [USERNAME]" label="Payment item text" description="This is the item line on invoice presented to user (as well as transmitted to payment processor, if so configured)" />
+							<param name="item_alias" type="text" size="30" default="[PREFIX_TEXT] [ITEM_ALIAS]" label="Payment processor item text (short)" description="This is the short item text for the payment processor items list" />
+							<fieldset name="substitutionshelp" label="Substitutions in Thank You messages and workflow Emails" description="Substitutions allow to personalize the Thank You messages and in workflow emails subject and body. Following substitutions can be used:">
+								<param type="spacer" name="substitutionshelp_item" label="Payment item substitutions"         default="[PREFIX_TEXT] (depending on payment: can be empty for new subscriptions, or Renew, Upgrade), [ITEM_NAME], [ITEM_ALIAS], [ITEM_DESCRIPTION], [PLANS_TITLE], [SITENAME], [SITEURL] and any [cb_fieldname]" description="" />
+								<param type="spacer" name="substitutionshelp_user" label="User fields substitutions"          default="[USERNAME], [NAME], [EMAIL], [cb_anycbfieldname]" description="" />
+								<param type="spacer" name="substitutionshelp_plans" label="Plan/Product substitutions"        default="[PLAN_NAME], [PLAN_ALIAS], [PLAN_DESCRIPTION], [PLAN_REGISTRATION_PRICE] and [PLAN_UPGRADE_PRICE] (both display period and price), [PLAN_PRICE] (display generic period and price for plan, or amount donated for donation with currency, or price with currency of product for a merchandise), [PLAN_RATE] and [PLAN_FIRST_RATE] are numeric values, and in case of donations, the donation amount converted into the donation plan's currency" description="" />
+							</fieldset>
+						</fieldset>
+						<showview name="integrations" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.],user/plug_cbpaidsubscriptions/processors" action="" path="payproductsettingspricing" />
+						<param name="owner"            type="text"   size="40" default="0"  label="Owner id (only supported: 0 for now)" description="owner of this merchandise, used to determine the payment gateway account (only system = 0 supported for now)" />
+					</tabpanetab>
+					<showview name="integrations" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.],user/plug_cbpaidsubscriptions/processors" action="" path="payproductsettingsafterpricing" />
+					<tabpanetab name="plan_workflows" label="Workflows" description="Plan settings: Registration and profile workflows:" />
+				</tabpane>
+			</inherit>
+		</view>
+	</views>
+</cbxml>

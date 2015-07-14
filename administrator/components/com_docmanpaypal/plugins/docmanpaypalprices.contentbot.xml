@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="plugin" version="1.5" group="docman">
+	<name>DOCman PayPal Prices</name>
+	<license>GNU GPL</license>
+	<author>Deian Motov</author>
+	<authorEmail>deian@motov.net</authorEmail>
+	<authorUrl>http://www.motov.net</authorUrl>
+	<creationDate>2008-07-08</creationDate>
+	<copyright>(C) 2008-2010 Deian Motov</copyright>
+	<version>1</version>
+	<description>When activated this plugin will show the prices from the DOCman PayPal component in product description.</description>
+	<files>
+		<filename plugin="docmanpaypalprices.contentbot">docmanpaypalprices.contentbot.php</filename>
+	</files> 
+	
+	
+	<params>
+		<param name="download" type="radio" default="1" label="Show Download" description="This will hide the button for this task when browsing in the front-end. Please note that will not prevent access to this task." >
+	        <option value="0">No</option>
+	        <option value="1">Yes</option>
+	   	</param>
+		<param name="buynow" type="radio" default="1" label="Show Buy Now" description="This will hide the button for this task when browsing in the front-end. Please note that will not prevent access to this task." >
+	        <option value="0">No</option>
+	        <option value="1">Yes</option>
+	   	</param>
+	   	<param name="view" type="radio" default="1" label="Show View" description="This will hide the button for this task when browsing in the front-end. Please note that will not prevent access to this task." >
+	        <option value="0">No</option>
+	        <option value="1">Yes</option>
+	   	</param>
+	   	<param name="details" type="radio" default="1" label="Show Details" description="This will hide the button for this task when browsing in the front-end. Please note that will not prevent access to this task." >
+	        <option value="0">No</option>
+	        <option value="1">Yes</option>
+	   	</param>
+
+	   	<param name="edit" type="radio" default="1" label="Show Edit" description="This will hide the button for this task when browsing in the front-end. Please note that will not prevent access to this task." >
+	        <option value="0">No</option>
+	        <option value="1">Yes</option>
+	   	</param>
+	   	<param name="move" type="radio" default="1" label="Show Move" description="This will hide the button for this task when browsing in the front-end. Please note that will not prevent access to this task." >
+	        <option value="0">No</option>
+	        <option value="1">Yes</option>
+	   	</param>
+	   	<param name="delete" type="radio" default="1" label="Show Delete" description="This will hide the button for this task when browsing in the front-end. Please note that will not prevent access to this task." >
+	        <option value="0">No</option>
+	        <option value="1">Yes</option>
+	   	</param>
+	   	<param name="update" type="radio" default="1" label="Show Update" description="This will hide the button for this task when browsing in the front-end. Please note that will not prevent access to this task." >
+	        <option value="0">No</option>
+	        <option value="1">Yes</option>
+	   	</param>
+
+	   	<param name="reset" type="radio" default="1" label="Show Reset" description="This will hide the button for this task when browsing in the front-end. Please note that will not prevent access to this task." >
+	        <option value="0">No</option>
+	        <option value="1">Yes</option>
+	   	</param>
+	   	<param name="checkout" type="radio" default="1" label="Show Checkin/Checkout" description="This will hide the button for this task when browsing in the front-end. Please note that will not prevent access to this task." >
+	        <option value="0">No</option>
+	        <option value="1">Yes</option>
+	   	</param>
+	   	<param name="approve" type="radio" default="1" label="Show Approve" description="This will hide the button for this task when browsing in the front-end. Please note that will not prevent access to this task." >
+	        <option value="0">No</option>
+	        <option value="1">Yes</option>
+	   	</param>
+	   	<param name="publish" type="radio" default="1" label="Show Publish/Unpublish" description="This will hide the button for this task when browsing in the front-end. Please note that will not prevent access to this task." >
+	        <option value="0">No</option>
+	        <option value="1">Yes</option>
+	   	</param>
+	   	<param name="priceInBuyNow" type="radio" default="1" label="Show Price in Buy Now button" description="This will make the price show up in the buy now button." >
+	        <option value="0">No</option>
+	        <option value="1">Yes</option>
+	   	</param>
+	   	<param name="priceInTitle" type="radio" default="1" label="Show Price in Title" description="This will make the price show up in the title of the document." >
+	        <option value="0">No</option>
+	        <option value="1">Yes</option>
+	   	</param>
+
+	</params>
+	
+	
+</install>

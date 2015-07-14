@@ -1,0 +1,26 @@
+.bids_navigation_path {
+    float: left;
+}
+
+.bids_navigation_children_arrow {
+    width: 9px;
+    height: 9px;
+    float: left;
+    margin-top: 5px;
+    cursor: pointer;
+    background: url("../img/arrow_right.gif") no-repeat;
+}
+.bids_navigation_children_arrow_hover {
+    cursor: pointer;
+    background: url("../img/arrow_down.gif") no-repeat;
+}
+
+.bids_navigation_children {
+    display: none;
+    margin-top:10px;
+    border: solid 1px #808080;
+    position: absolute;
+    background-color: #EDEDED;
+    padding: 5px 3px 3px 3px;
+    z-index: 1000;
+}

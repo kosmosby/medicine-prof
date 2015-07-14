@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fields name="filter">
+        <field
+                name="search"
+                type="text"
+                label="COM_JUDOWNLOAD_FILTER_SEARCH_DESC"
+                hint="JSEARCH_FILTER"
+                />
+
+        <field
+                name="state"
+                type="list"
+                label="COM_JUDOWNLOAD_FILTER_STATE"
+                extension="com_content"
+                description="COM_JUDOWNLOAD_FILTER_STATE_DESC"
+                onchange="this.form.submit();"
+                >
+            <option value="">COM_JUDOWNLOAD_SELECT_STATE</option>
+            <option value="0">COM_JUDOWNLOAD_ENABLED</option>
+            <option value="1">COM_JUDOWNLOAD_DISABLED</option>
+        </field>
+    </fields>
+
+    <fields name="list">
+        <field
+                name="fullordering"
+                type="list"
+                label="COM_JUDOWNLOAD_LIST_FULL_ORDERING"
+                description="COM_JUDOWNLOAD_LIST_FULL_ORDERING_DESC"
+                onchange="this.form.submit();"
+                default="ua.name ASC"
+                >
+            <option value="">COM_JUDOWNLOAD_SORT_BY</option>
+            <option value="ua.name ASC">COM_JUDOWNLOAD_SORT_BY_USERNAME_ASC</option>
+            <option value="ua.name DESC">COM_JUDOWNLOAD_SORT_BY_USERNAME_DESC</option>
+            <option value="m.published ASC">COM_JUDOWNLOAD_SORT_BY_STATE_ASC</option>
+            <option value="m.published DESC">COM_JUDOWNLOAD_SORT_BY_STATE_DESC</option>
+            <option value="m.document_view ASC">COM_JUDOWNLOAD_SORT_BY_DOCUMENT_VIEW_ASC</option>
+            <option value="m.document_view DESC">COM_JUDOWNLOAD_SORT_BY_DOCUMENT_VIEW_DESC</option>
+            <option value="m.document_view_unpublished ASC">COM_JUDOWNLOAD_SORT_BY_DOCUMENT_VIEW_UNPUBLISHED_ASC
+            </option>
+            <option value="m.document_view_unpublished DESC">COM_JUDOWNLOAD_SORT_BY_DOCUMENT_VIEW_UNPUBLISHED_DESC
+            </option>
+            <option value="m.document_create ASC">COM_JUDOWNLOAD_SORT_BY_DOCUMENT_CREATE_ASC</option>
+            <option value="m.document_create DESC">COM_JUDOWNLOAD_SORT_BY_DOCUMENT_CREATE_DESC</option>
+            <option value="m.document_edit ASC">COM_JUDOWNLOAD_SORT_BY_DOCUMENT_EDIT_ASC</option>
+            <option value="m.document_edit DESC">COM_JUDOWNLOAD_SORT_BY_DOCUMENT_EDIT_DESC</option>
+            <option value="m.document_edit_state ASC">COM_JUDOWNLOAD_SORT_BY_DOCUMENT_EDIT_STATE_ASC</option>
+            <option value="m.document_edit_state DESC">COM_JUDOWNLOAD_SORT_BY_DOCUMENT_EDIT_STATE_DESC</option>
+            <option value="m.document_edit_own ASC">COM_JUDOWNLOAD_SORT_BY_DOCUMENT_EDIT_OWN_ASC</option>
+            <option value="m.document_edit_own DESC">COM_JUDOWNLOAD_SORT_BY_DOCUMENT_EDIT_OWN_DESC</option>
+            <option value="m.document_delete ASC">COM_JUDOWNLOAD_SORT_BY_DOCUMENT_DELETE_ASC</option>
+            <option value="m.document_delete DESC">COM_JUDOWNLOAD_SORT_BY_DOCUMENT_DELETE_DESC</option>
+            <option value="m.document_delete_own ASC">COM_JUDOWNLOAD_SORT_BY_DOCUMENT_DELETE_OWN_ASC</option>
+            <option value="m.document_delete_own DESC">COM_JUDOWNLOAD_SORT_BY_DOCUMENT_DELETE_OWN_DESC</option>
+            <option value="m.document_download ASC">COM_JUDOWNLOAD_SORT_BY_DOCUMENT_DOWNLOAD_ASC</option>
+            <option value="m.document_download DESC">COM_JUDOWNLOAD_SORT_BY_DOCUMENT_DOWNLOAD_DESC</option>
+            <option value="m.document_approve ASC">COM_JUDOWNLOAD_SORT_BY_DOCUMENT_APPROVE_ASC</option>
+            <option value="m.document_approve DESC">COM_JUDOWNLOAD_SORT_BY_DOCUMENT_APPROVE_DESC</option>
+            <option value="m.comment_edit ASC">COM_JUDOWNLOAD_SORT_BY_COMMENT_EDIT_ASC</option>
+            <option value="m.comment_edit DESC">COM_JUDOWNLOAD_SORT_BY_COMMENT_EDIT_DESC</option>
+            <option value="m.comment_edit_state ASC">COM_JUDOWNLOAD_SORT_BY_COMMENT_EDIT_STATE_ASC</option>
+            <option value="m.comment_edit_state DESC">COM_JUDOWNLOAD_SORT_BY_COMMENT_EDIT_STATE_DESC</option>
+            <option value="m.comment_delete ASC">COM_JUDOWNLOAD_SORT_BY_COMMENT_DELETE_ASC</option>
+            <option value="m.comment_delete DESC">COM_JUDOWNLOAD_SORT_BY_COMMENT_DELETE_DESC</option>
+            <option value="m.comment_approve ASC">COM_JUDOWNLOAD_SORT_BY_COMMENT_APPROVE_ASC</option>
+            <option value="m.comment_approve DESC">COM_JUDOWNLOAD_SORT_BY_COMMENT_APPROVE_DESC</option>
+            <option value="m.id ASC">COM_JUDOWNLOAD_SORT_BY_ID_ASC</option>
+            <option value="m.id DESC">COM_JUDOWNLOAD_SORT_BY_ID_DESC</option>
+        </field>
+
+        <field
+                name="limit"
+                type="limitbox"
+                class="inputbox input-mini"
+                default="25"
+                label="COM_JUDOWNLOAD_LIST_LIMIT"
+                description="COM_JUDOWNLOAD_LIST_LIMIT_DESC"
+                onchange="this.form.submit();"
+                />
+    </fields>
+</form>

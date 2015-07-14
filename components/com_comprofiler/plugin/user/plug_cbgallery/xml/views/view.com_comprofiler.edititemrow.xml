@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../../../validation/ahawow.xsd">
+	<views>
+		<view name="edititem" type="params" ui="admin" label="Item" icon="file-o" viewformatting="div">
+			<toolbarmenu>
+				<menu name="apply" action="apply" task="act=apply" label="Save" />
+				<menu name="save" action="save" task="act=save" label="Save &amp; Close" />
+				<menu name="savenew" action="custom" task="act=savenew" label="Save &amp; New" icon="save-new" />
+				<menu name="cancel" action="linkAction" task="cancel" link="cb_action:itemrows" label="Cancel" />
+			</toolbarmenu>
+			<param name="published" type="published" label="Published" description="Select publish status of the item. If unpublished the item will not be visible to the public." />
+			<if name="id" nametype="param:int" operator="=" value="0" valuetype="const:int" type="condition">
+				<then>
+					<param name="type" type="xml:item_type" default="photos" translate-default="no" label="Type" description="Select the item type. Note the type can not be changed once saved." />
+				</then>
+				<else>
+					<param name="type" type="xml:item_type" label="Type" description="The item type. Existing items type can not be changed." mode="show" />
+				</else>
+			</if>
+			<if name="id" nametype="param:int" operator="!=" value="0" valuetype="const:int" type="condition">
+				<field name="" type="text" label="" mode="show" link="cb_action:itemdownload" parameters="itemid" paramvalues="id" target="_blank">
+					<attributes>
+						<attribute name="link">
+							<if name="" nametype="data:string" operator="!=" value="" valuetype="const:string" type="condition">
+								<left>
+									<param name="" type="private" method="getLinkDomain" />
+								</left>
+								<then>
+									<param name="value" type="string" />
+								</then>
+								<else>
+									<param name="" default="cb_action:itemdownload" translate-default="no" type="string" />
+								</else>
+							</if>
+						</attribute>
+						<attribute name="default">
+							<if name="file" nametype="param:string" operator="!=" value="" valuetype="const:string" type="condition">
+								<then>
+									<param name="file" type="string" label="" />
+								</then>
+								<else>
+									<param name="value" type="string" label="" />
+								</else>
+							</if>
+						</attribute>
+					</attributes>
+				</field>
+			</if>
+			<param name="title" type="text" label="Title" size="25" description="Optionally input a title. If no title is provided the date will be displayed as the title." />
+			<param name="folder" type="list" default="0" label="Folder" description="Select the folder for this item. User folders can be selected after save.">
+				<option value="0">Uncategorized</option>
+				<if name="id" nametype="param:int" operator="!=" value="0" valuetype="const:int" type="condition">
+					<data name="folders" type="sql:multiplerows" table="#__comprofiler_plugin_gallery_folders" key="id">
+						<rows>
+							<field name="id" as="value" />
+							<field name="title" as="text" />
+						</rows>
+						<where>
+							<column name="type" operator="=" value="type" type="sql:field" valuetype="ext:string:modelofdata" />
+							<column name="user_id" operator="=" value="user_id" type="sql:field" valuetype="ext:int:modelofdata" />
+						</where>
+						<orderby>
+							<field name="date" ordering="DESC" />
+						</orderby>
+					</data>
+				</if>
+			</param>
+			<param name="method" type="list" default="0" label="File">
+				<if name="id" nametype="param:int" operator="!=" value="0" valuetype="const:int" type="condition">
+					<option value="0">No Change</option>
+				</if>
+				<option value="1">Upload</option>
+				<option value="2">Link</option>
+			</param>
+			<if name="method" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+				<param name="file" type="uploadfile" label="" validate="required" description="Select the file to upload." />
+			</if>
+			<if name="method" nametype="param:int" operator="=" value="2" valuetype="const:int" type="showhide">
+				<param name="value" type="text" label="" size="40" validate="required" description="Input the URL to the file to link." />
+			</if>
+			<param name="description" type="textarea" label="Description" cols="40" rows="5" description="Optionally input a description." />
+			<if name="id" nametype="param:int" operator="=" value="0" valuetype="const:int" type="condition">
+				<then>
+					<param name="user_id" type="user" label="Owner" size="5" validate="required" description="Input owner as single integer user_id. Note the owner can not be changed once saved." />
+				</then>
+				<else>
+					<param name="user_id" type="sql" label="Owner" mode="show" description="The item owner. Existing items owner can not be changed.">
+						<data name="username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="user_id" valuetype="ext:int:modelofdata" />
+					</param>
+				</else>
+			</if>
+		</view>
+	</views>
+</cbxml>

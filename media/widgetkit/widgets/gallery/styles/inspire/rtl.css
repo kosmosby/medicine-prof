@@ -1,0 +1,28 @@
+/*
+ * RTL Style Sheet
+ */
+
+.wk-slideset-inspire-gallery .nav.icon li {
+	margin-left: 0;
+	margin-right: 5px;
+}
+.wk-slideset-inspire-gallery .nav.text li {
+	margin-left: 0;
+	margin-right: 40px;
+}
+.wk-slideset-inspire-gallery .nav li:first-child { margin-right: 0; }
+
+.wk-slideset-inspire-gallery > div .next {
+	right: auto;
+	left: -75px;
+	background-position: 0 0;
+}
+
+.wk-slideset-inspire-gallery > div .prev {
+	left: auto;
+	right: -75px;
+	background-position: 0 -60px;
+}
+
+.wk-slideset-inspire-gallery > div .next:hover { background-position: 0 -120px; }
+.wk-slideset-inspire-gallery > div .prev:hover { background-position: 0 -180px; }

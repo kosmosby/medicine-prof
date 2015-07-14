@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="1.6.0" method="upgrade">
+	<name>Auction Factory Tag Cloud</name>
+	<author>thefactory.ro</author>
+	<creationDate>October 2008</creationDate>
+	<copyright>(C) 2008 comercial.</copyright>
+	<license>comercial</license>
+	<authorEmail>thefactory.ro</authorEmail>
+	<authorUrl>www.thefactory.ro</authorUrl>
+	<version>1.5.0</version>
+	<description>Auction Tag Clouds generates a Cloud of the most ocurrences auctions tags.</description>
+	<files>
+		<filename module="mod_bidscloud">mod_bidscloud.php</filename>
+		<filename>index.html</filename>
+		<filename>helper.php</filename>
+		<folder>tmpl</folder>
+	</files>
+	<config>
+		<fields name="fields">
+			<fieldset name="basic">	
+				<field name="max_tags" type="text" default="40" label="Maximum number of Tags to display" description="The maximum number of tags to display" />
+				<field name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="fieldMODULECLASSSUFFIX" />
+			</fieldset>
+			<fieldset name="advanced">	
+				<field name="cache" type="list" default="1" label="Caching" description="Select whether to cache the content of this module">
+					<option value="1">Use global</option>
+					<option value="0">No caching</option>
+				</field>
+				<field name="cache_time" type="text" default="900" label="Cache Time" description="The time before the module is recached" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

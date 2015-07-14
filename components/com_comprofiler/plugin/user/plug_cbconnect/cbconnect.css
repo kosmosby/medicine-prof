@@ -1,0 +1,15 @@
+.cbConnectButtons {
+	display: inline-block;
+}
+
+.cbConnectButtons > .cbConnectButton {
+	text-align: left;
+}
+
+.cbConnectButtons > .cbConnectButton:not(.btn-block) {
+	margin-bottom: 5px;
+}
+
+.cbConnectButtons > .cbConnectButton > .cbConnectButtonPrefix {
+	width: 20px;
+}

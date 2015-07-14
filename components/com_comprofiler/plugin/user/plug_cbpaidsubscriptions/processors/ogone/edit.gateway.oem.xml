@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+
+	<views>
+		<view name="editgatewayogoneoem" type="params" ui="admin">
+			<inherit name="editgatewayinherit" from="/*/views/view[@name='editgenericgateway']">
+				<fieldset name="fieldset_for_gateway" label="{PSP} Payment Service Provider (PSP) E-Payments" description="{PSP} PSP E-Payments services settings:">
+					<param name="enabled" type="list" default="0" label="Enable {PSP} E-Payments" description="Whether you want to offer payments through {PSP}.">
+						<option value="0">No</option>
+						<option value="1">Enable single payments</option>
+						<option value="2">Enable auto-recurring payments (Alias Manager and DirectLink options needed)</option>
+						<option value="3">Enable single and auto-recurring payments at user's choice</option>
+					</param>
+					<param name="normal_gateway" type="list" default="1" label="{PSP} server" description="Select the payments gateway to use.">
+						<option value="1">Normal {PSP} server</option>
+						<option value="0">Test server</option>
+						<option value="2">Other server compatible with {PSP}</option>
+					</param>
+					<if name="normal_gateway" type="showhide" operator="=" value="2" valuetype="const:int">
+						<params name="params" type="params">
+							<param name="gateway_psp_url" type="text" size="60" default="" label="Server submission URL" description="This should be the {PSP}-compatible-server equivalent of {PSPPRODURL}" />
+						</params>
+					</if>
+					<if name="normal_gateway" type="showhide" operator="=" value="9" valuetype="const:int">
+						<params name="params" type="params">
+							<param name="psp_normal_url" type="hidden" label="" value="{PSPPRODURL}" />
+							<param name="psp_test_url" type="hidden" label=""   value="{PSPTESTURL}" />
+						</params>
+					</if>
+					<params name="params" type="params">
+						<param name="pspid" type="text" size="30" default="" label="{PSP} Shop id (PSPID)" description="Your {PSP} shop id (case sensitive) as confirmed by {PSP}." />
+						<param name="sha_signature" type="text" size="30" default="" label="{PSP} e-Commerce SHA Pass phrase (SHA-IN)" description="Your {PSP} e-Commerce SHA Pass phrase as set in {PSP} admin area under Technical Information - Data and origin verification tab." />
+						<param name="sha_algorithm" type="list" default="sha1" label="{PSP} SHA (SHA-IN) Hash algorithm" description="Your setting for the Hash algorithm as set in {PSP} admin area under Technical Information - Global security parameters tab. Note: in same tab, &quot;Compose the string to be hashed by concatenating the value of&quot; must be set to &quot;Each parameter followed by the pass phrase.&quot;">
+							<option value="sha1">SHA-1</option>
+							<option value="sha256">SHA-256</option>
+							<option value="sha512">SHA-512</option>
+						</param>
+						<param name="sha_signature_out" type="text" size="30" default="" label="{PSP} SHA Pass phrase (SHA-OUT)" description="Your {PSP} SHA-OUT Pass phrase as set in {PSP} admin area under Technical Information - Transaction feedback tab - All transaction submission modes - Security for request parameters - SHA-OUT Pass phrase. Note: also set &quot;HTTP request for status changes&quot; to &quot;For each offline status change (payment, cancellation...).&quot; for maximal automation" />
+					</params>
+					<param name="id" type="private" class="cbpaidGatewayAccountogoneoem" method="renderNotifyUrl" key="id" label="URL to set into {PSP} admin area in Technical Information - Transaction feedback tab - &quot;Direct HTTP server-to-server request&quot; and &quot;HTTP request for status changes&quot; - &quot;URL on which the merchant wishes to get a deferred HTTP request, should the status of a transaction change offline&quot;" default="First fill-in parameters above, then &quot;Apply&quot; this new gateway settings: Then this URL %s will be computed and displayed." description="This is the URL to paste into {PSP} admin area. As that field is really tiny (max 150 chars!) you can ommit &amp;format=raw (and if present, &amp;no_html=1 ) if you can't paste all" />
+					<params name="params" type="params">
+						<param name="operation" type="list" default="SAL" label="Paymment type" description="Immediate payment or defered payment (deferred payments can be changed or rejected, but this must be done through {PSP} admin area).">
+							<option value="SAL">Immediate sale</option>
+							<option value="RES">Only reservation, Deferred sale</option>
+						</param>
+						<param name="language" type="list" default="en_US" label="{PSP} user interface language" description="Language shown to the user (later we might add multilingual support).">
+							<option value="en_US">English</option>
+							<option value="ar_AR">Arabic</option>
+							<option value="cs_CZ">Czech</option>
+							<option value="dk_DK">Danish</option>
+							<option value="de_DE">German</option>
+							<option value="el_GR">Greek</option>
+							<option value="es_ES">Spanish</option>
+							<option value="fi_FI">Finnish</option>
+							<option value="fr_FR">French</option>
+							<option value="he_IL">Hebrew</option>
+							<option value="hu_HU">Hungarian</option>
+							<option value="it_IT">Italian</option>
+							<option value="ja_JP">Japanese</option>
+							<option value="ko_KR">Korean</option>
+							<option value="nl_BE">Flemish</option>
+							<option value="nl_NL">Dutch</option>
+							<option value="no_NO">Norwegian</option>
+							<option value="pl_PL">Polish</option>
+							<option value="pt_PT">Portugese</option>
+							<option value="ru_RU">Russian</option>
+							<option value="se_SE">Swedish</option>
+							<option value="sk_SK">Slovak</option>
+							<option value="tr_TR">Turkish</option>
+							<option value="zh_CN">Simplified Chinese</option>
+						</param>
+						<param name="accept_payment_condition" type="list" default="captured" label="Accept payment once" description="This option allows to set when a payment is deemed as completed by CBSubs. Credit-card authorization is usually immediate, except if acquirer is offline. In some cases you want to defer capture.">
+							<option value="pending">Even if payment is pending authorization, authorized or captured</option>
+							<option value="authorized">Payment is authorized, but do not necessarily captured</option>
+							<option value="captured">Payment is authorized and captured (means completed)</option>
+						</param>
+						<fieldset name="fieldset_for_antifraud" label="Anti-Fraud-helping hidden fields" description="If the invoicing address corresponds to credit card invoicing address, sending these in hidden fields to {PSP} might help for anti-fraud:">
+							<param name="givedescription" type="xml:yesno" default="1" label="Send short description line of purchase" description="This is the bought items description line that has been shown to customer. If this is enabled, it will be transmitted to acquirer and to merchant, possibly to customer too (depending on acquirer)." />
+							<param name="givehiddenemail" type="xml:yesno" default="1" label="Send customers email address" description="" />
+							<param name="givehiddenaddress" type="xml:yesno" default="1" label="Send customers invoicing address" description="" />
+							<param name="givehiddentelno" type="xml:yesno" default="1" label="Send customers phone number" description="" />
+						</fieldset>
+						<fieldset name="fieldset_for_alias_manager" label="Alias Manager Option" description="The &quot;Alias Manager&quot; feature allows to store safely the Credit Card at the payment server and to reference it in future payments. If you have subscribed to the &quot;Alias Manager&quot; feature at {PSP}, you can activate and configure it here:">
+							<param name="alias_manager" type="list" default="0" label="Enable Alias Manager feature" description="Enable this only if you subscribed this feature and need it.">
+								<option value="0">Disabled</option>
+								<option value="1">Enabled only for recurring payments (if not auto-recurring, you can trigger payments from the e-Terminal)</option>
+								<option value="2">Enabled for all payments</option>
+							</param>
+							<if name="alias_manager" type="showhide" operator="&gt;" value="0" valuetype="const:string">
+								<param name="fieldset_for_alias_manager_explain" type="spacer" label="" default="The customer will be displayed the reason you give below, with a checkbox just below with text: &quot;I allow to store my financial coodinates. It will be used by my merchant to request recurring payments.&quot;" />
+								<param name="aliasusage" type="text" size="60" default="" label="Text explaining to customer the reason for asking to store the financial coordinates" description="Must be text. We recommend to format it as a title and include information on how to unsubscribe." />
+								<param name="aliasusage_already_existing" type="text" size="60" default="" label="Text shown to customer above the restored hidden financial information" description="Must be text. If empty, same text as on previous stored payment will be displayed. We recommend to format it as a title and explain to user that he can leave the financial coordinates as presented (masked) to pay with the same payment method/credit card. You should also include information on how to unsubscribe." />
+								<param name="aliasdeterminedby" type="list" default="psp" label="Alias name determined by" description="Recommended default value: By Payment Service Provider">
+									<option value="psp">By Payment Service Provider</option>
+									<option value="us">By CBSubs (format: cbsubs_customer_[user_id]_card_1</option>
+								</param>
+							</if>
+						</fieldset>
+						<fieldset name="fieldset_for_directlink" label="DirectLink Option" description="The &quot;DirectLink&quot; feature is needed to be able to do refunds from within CBSubs administrator area and also allows to execute payments from your server using Alias Manager payment method aliases for auto-recurring payments. If you have subscribed to the &quot;DirectLink&quot; feature at {PSP}, you can activate and configure it here:">
+							<param name="directlink" type="list" default="0" label="Enable DirectLink feature" description="Enable this only if you subscribed this feature and need it.">
+								<option value="0">Disabled</option>
+								<option value="1">Enabled for refunds and/or auto-recurring payments</option>
+							</param>
+							<if name="directlink" type="showhide" operator="&gt;" value="0" valuetype="const:string">
+								<param name="directlink_showserverip"  mode="show"      type="private" class="cbpaidParamsExt" method="data" label="Current IP address of this server (See 'i')"    description="This is the current IP address of this server as provided by the server. Warning: some servers can have multiple IP addresses, you should check with your hoster for complete list.">
+									<data name="SERVER_ADDR" type="server:string" />
+								</param>
+								<param name="sha_signature_directlink" type="text" size="30" default="" label="{PSP} DirectLink and Ogone Batch (Automatic) SHA-IN Pass phrase (See 'i')" description="Unless you are sure to never use non-ISO8859-1 characters, you should not set this because of an Ogone bug. Security-wise this is not really needed. This is your {PSP} DirectLink and {PSP} Batch (Automatic) SHA-IN Pass phrase as set in {PSP} admin area under Technical Information - Data and origin verification tab - Checks for {PSP} DirectLink and {PSP} Batch (Automatic)." />
+								<param name="directlink_userid" type="text" size="30" default="" label="{PSP} DirectLink API User name" description="{PSP} DirectLink requires an API user. Enter the USERID Name of your application (API) user. Please refer to the {PSP} User Manager documentation and FAQ (What is a 'user for API'?) to create an API user." />
+								<param name="directlink_pswd" type="text" size="30" default="" label="{PSP} DirectLink API user password" description="Your {PSP} DirectLink ()USERID) password PSWD." />
+								<!-- <param name="givehiddenipaddr" type="xml:yesno" default="1" label="Send customers IP address for address verification" description="" />  -->
+							</if>
+						</fieldset>
+					</params>
+				</fieldset>
+				<fieldset name="fieldset_for_presentation" label="Presentation on this site" description="">
+					<params name="params" type="params">
+						<param name="payment_methods_selection" type="list" default="gateway" label="Selection of payment method" description="">
+							<option value="gateway">all methods available at the payment service provider</option>
+							<option value="list">only following payment methods of the payment service provider</option>
+							<option value="onsite">on this site using buttons</option>
+						</param>
+						<if name="payment_methods_selection" type="showhide" operator="=" value="list" valuetype="const:string">
+							<param name="pmlist" type="text" size="60" default="" label="Payment methods list" description="enter a comma &quot;,&quot; separated list of payment methods, e.g.: CreditCard,PostFinance Card,PostFinance e-finance,PAYPAL,UNEUROCOM,CBC Online,CENTEA Online,Dexia Direct Net,eDankort,EPS,giropay,iDEAL,ING HomePay,KBC Online,MPASS,paysafecard,Direct Debits AT,Direct Debits DE,Direct Debits NL,Acceptgiro,Bank transfer,Payment on Delivery,InterSolve,MiniTix,PingPing,TUNZ,Wallie" />
+							<else action="set" name="pmlist" value="" type="const:string" />
+						</if>
+						<if name="payment_methods_selection" type="showhide" operator="!=" value="gateway" valuetype="const:string">
+							<if name="pmlist" type="regexp" operator="=" value="^(?!\s*,\s*).+$" valuetype="const:string">
+								<param name="show_back_button" type="xml:yesno" default="1" label="Show a &quot;back&quot; button on payment mask" description="If there is only one payment method, then you can show a &quot;back&quot; button on the payment form for the customer to be able to come back to your site to choose another payment method/gateway. Otherwise, only the &quot;Cancel&quot; button will be displayed, which cancels the transaction and basket." />
+							</if>
+						</if>
+						<if name="payment_method_selection_type" operator="=" value="radios" type="condition" nametype="pluginparams:string" valuetype="const:string">
+							<extend toxpathnode="../following-sibling::*[1]/param[1]" fromxpathnode="/cbxml/views/view[@name=&quot;radiosettings&quot;]/*" file="xml/admin.lib.processors" mode="prepend">
+								<replaces>
+									<replace attribute="name" from="{SUBMETHOD}" to="psp" translate="yes" />
+									<replace attribute="label" from="{SUBMETHOD_TEXT}" to="Payments radio text" translate="yes" />
+									<replace attribute="default" from="{SUBMETHOD_DEFAULT_TEXT}" to="Credit Card" translate="yes" />
+								</replaces>
+							</extend>
+							<extend toxpathnode="../following-sibling::*[1]/fieldset[@name=&quot;psp_radios_fieldset&quot;]/param[@name=&quot;psp_radio_cardtypes&quot;]/*[6]" fromxpathnode="./replacements/replacement/param[@name=&quot;single_radio_cardtypes&quot;]/*" file="" mode="insertafter">
+								<replacements>
+									<replacement>
+										<param name="single_radio_cardtypes" type="checkbox" default="/processors/twocheckout/icons/horizontal_tiny_2co.jpg" rows="" cols="5" label="Images for accepted payment methods" description="Cards will display in the Name of the radio button">
+											<option value="swisspostfinance">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_swisspostfinance.gif" alt="Swiss PostFinance" /&gt;</option>
+										</param>
+									</replacement> 
+								</replacements>
+							</extend>
+						</if>
+						<if name="payment_methods_selection" type="showhide" operator="!=" value="onsite" valuetype="const:string">
+							<param name="image" type="radio" default="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_pay.gif" label="Payment Button" description="The payment button (visible only if an Intro Text is present or more than one payment processor enabled.">
+								<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_pay.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_pay.gif" alt="" /&gt;</option>
+								<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_subscribe.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_subscribe.gif" alt="" /&gt;</option>
+								<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_amex_pay.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_amex_pay.gif" alt="" /&gt;</option>
+								<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_am_subscribe.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_am_subscribe.gif" alt="" /&gt;</option>
+								<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_postfinance.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_visa_mc_postfinance.gif" alt="" /&gt;</option>
+								<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_swisspostfinance.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_swisspostfinance.gif" alt="" /&gt;</option>
+								<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_pay_now.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_pay_now.gif" alt="" /&gt;</option>
+								<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_pay_now.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_pay_now.gif" alt="" /&gt;</option>
+								<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_buy_now.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_buy_now.gif" alt="" /&gt;</option>
+								<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_buy_now.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_buy_now.gif" alt="" /&gt;</option>
+								<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_subscribe.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_orange_subscribe.gif" alt="" /&gt;</option>
+								<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_subscribe.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_subscribe.gif" alt="" /&gt;</option>
+								<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_click_subscribe.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_orange_click_subscribe.gif" alt="" /&gt;</option>
+							</param>
+							<param name="custom_image" type="text" size="40" default="" label="Custom Button Text or Image" description="Either text of button or URL of a custom image (.gif, .jpg or .bmp), overwites selection above." />
+						</if>
+						<if name="payment_methods_selection" type="showhide" operator="=" value="onsite" valuetype="const:string">
+							<param name="cardtypes" type="checkbox" rows="" default="visa|*|mastercard" cols="3" label="Accepted payment methods" description="Credit cards accepted shows in buttons">
+								<option value="visa:CreditCard:VISA">Visa&lt;br/&gt;&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_3d_visa.png" alt="" /&gt;</option>
+								<option value="mastercard:CreditCard:MasterCard">Mastercard&lt;br/&gt;&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_3d_mastercard.png" alt="" /&gt;</option>
+								<option value="amexco:CreditCard:American Express">American Express&lt;br/&gt;&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_3d_amexco.png" alt="" /&gt;</option>
+								<option value="diners:CreditCard:Diners Club">Diners Club International&lt;br/&gt;&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_3d_diners.png" alt="" /&gt;</option>
+								<option value="discover:CreditCard:Discover">Discover&lt;br/&gt;&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_3d_discover.png" alt="" /&gt;</option>
+								<option value="jcb:CreditCard:JCB">JCB&lt;br/&gt;&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_3d_jcb.png" alt="" /&gt;</option>
+								<option value="maestro:CreditCard:Maestro">Maestro&lt;br/&gt;&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_3d_maestro.png" alt="" /&gt;</option>
+								<option value="visaelectron:CreditCard:VISA">Visa Electron&lt;br/&gt;&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_3d_visaelectron.png" alt="" /&gt;</option>
+								<option value="vpay:CreditCard:VISA">V Pay&lt;br/&gt;&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_3d_vpay.png" alt="" /&gt;</option>
+								<option value="solo:CreditCard:SOLO">Solo&lt;br/&gt;&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_3d_solo.png" alt="" /&gt;</option>
+								<option value="directdebitde:Direct Debits DE:Direct Debits DE">Direct Debits DE (ELV)&lt;br/&gt;&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_3d_directdebitde.png" alt="" /&gt;</option>
+								<option value="swisspostfinancecard:PostFinance Card:PostFinance + card">PostFinance Card&lt;br/&gt;&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_3d_swisspostfinance.png" alt="" /&gt;</option>
+								<option value="swisspostfinance:PostFinance e-finance:PostFinance e-finance">PostFinance e-finance&lt;br/&gt;&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_3d_swisspostfinance.png" alt="" /&gt;</option>
+								<option value="paypal:PAYPAL:PAYPAL">PayPal via {PSP} PSP Services&lt;br/&gt;&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_3d_paypal.png" alt="" /&gt;</option>
+							</param>
+							<if name="allow_select_currency" operator="!=" value="0" type="condition" nametype="pluginparams:string" valuetype="const:string">
+								<fieldset name="ogone_currencies_fieldset" label="Currencies accepted for each payment method" description="Below you can configure for each payment method the currencies accepted, as well as the text to display in case the customer is asked to convert his payment basket.">
+									<if name="cardtypes" type="showhide" operator="regexp" value="visa:CreditCard:VISA" valuetype="const:string">
+										<fieldset name="visa_currencies_fieldset" label="Visa" description="">
+											<param name="visa_currencies"  type="xml:currencies" multiple="true" default="" blanktext="- All currencies (To restrict from list below: CTR/CMD-click: Multiple) -" label="Accepted Currencies" description="The currencies accepted by this payment method." />
+											<param name="visa_currencies_description" type="textarea" cols="40" rows="2" maxlength="255" label="Text displayed to ask for currency conversion" default="" description="This allows to explain why this payment method only accepts these currencies and to ask the customer if he wants to convert his order currency for payment." />
+										</fieldset>
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="mastercard:CreditCard:MasterCard" valuetype="const:string">
+										<fieldset name="mastercard_currencies_fieldset" label="MasterCard" description="">
+											<param name="mastercard_currencies"  type="xml:currencies" multiple="true" default="" blanktext="- All currencies (To restrict from list below: CTR/CMD-click: Multiple) -" label="Accepted Currencies" description="The currencies accepted by this payment method." />
+											<param name="mastercard_currencies_description" type="textarea" cols="40" rows="2" maxlength="255" label="Text displayed to ask for currency conversion" default="" description="This allows to explain why this payment method only accepts these currencies and to ask the customer if he wants to convert his order currency for payment." />
+										</fieldset>
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="amexco:CreditCard:American Express" valuetype="const:string">
+										<fieldset name="amexco_currencies_fieldset" label="" description="American Express">
+											<param name="amexco_currencies"  type="xml:currencies" multiple="true" default="" blanktext="- All currencies (To restrict from list below: CTR/CMD-click: Multiple) -" label="Accepted Currencies" description="The currencies accepted by this payment method." />
+											<param name="amexco_currencies_description" type="textarea" cols="40" rows="2" maxlength="255" label="Text displayed to ask for currency conversion" default="" description="This allows to explain why this payment method only accepts these currencies and to ask the customer if he wants to convert his order currency for payment." />
+										</fieldset>
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="diners:CreditCard:Diners Club" valuetype="const:string">
+										<fieldset name="diners_currencies_fieldset" label="Diners Club" description="">
+											<param name="diners_currencies"  type="xml:currencies" multiple="true" default="" blanktext="- All currencies (To restrict from list below: CTR/CMD-click: Multiple) -" label="Accepted Currencies" description="The currencies accepted by this payment method." />
+											<param name="diners_currencies_description" type="textarea" cols="40" rows="2" maxlength="255" label="Text displayed to ask for currency conversion" default="" description="This allows to explain why this payment method only accepts these currencies and to ask the customer if he wants to convert his order currency for payment." />
+										</fieldset>
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="discover:CreditCard:Discover" valuetype="const:string">
+										<fieldset name="discover_currencies_fieldset" label="Discover" description="">
+											<param name="discover_currencies"  type="xml:currencies" multiple="true" default="" blanktext="- All currencies (To restrict from list below: CTR/CMD-click: Multiple) -" label="Accepted Currencies" description="The currencies accepted by this payment method." />
+											<param name="discover_currencies_description" type="textarea" cols="40" rows="2" maxlength="255" label="Text displayed to ask for currency conversion" default="" description="This allows to explain why this payment method only accepts these currencies and to ask the customer if he wants to convert his order currency for payment." />
+										</fieldset>
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="jcb:CreditCard:JCB" valuetype="const:string">
+										<fieldset name="jcb_currencies_fieldset" label="JCB" description="">
+											<param name="jcb_currencies"  type="xml:currencies" multiple="true" default="" blanktext="- All currencies (To restrict from list below: CTR/CMD-click: Multiple) -" label="Accepted Currencies" description="The currencies accepted by this payment method." />
+											<param name="jcb_currencies_description" type="textarea" cols="40" rows="2" maxlength="255" label="Text displayed to ask for currency conversion" default="" description="This allows to explain why this payment method only accepts these currencies and to ask the customer if he wants to convert his order currency for payment." />
+										</fieldset>
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="maestro:CreditCard:Maestro" valuetype="const:string">
+										<fieldset name="maestro_currencies_fieldset" label="Maestro" description="">
+											<param name="maestro_currencies"  type="xml:currencies" multiple="true" default="" blanktext="- All currencies (To restrict from list below: CTR/CMD-click: Multiple) -" label="Accepted Currencies" description="The currencies accepted by this payment method." />
+											<param name="maestro_currencies_description" type="textarea" cols="40" rows="2" maxlength="255" label="Text displayed to ask for currency conversion" default="" description="This allows to explain why this payment method only accepts these currencies and to ask the customer if he wants to convert his order currency for payment." />
+										</fieldset>
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="visaelectron:CreditCard:VISA" valuetype="const:string">
+										<fieldset name="visaelectron_currencies_fieldset" label="VISA Electron" description="">
+											<param name="visaelectron_currencies"  type="xml:currencies" multiple="true" default="" blanktext="- All currencies (To restrict from list below: CTR/CMD-click: Multiple) -" label="Accepted Currencies" description="The currencies accepted by this payment method." />
+											<param name="visaelectron_currencies_description" type="textarea" cols="40" rows="2" maxlength="255" label="Text displayed to ask for currency conversion" default="" description="This allows to explain why this payment method only accepts these currencies and to ask the customer if he wants to convert his order currency for payment." />
+										</fieldset>
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="vpay:CreditCard:VISA" valuetype="const:string">
+										<fieldset name="vpay_currencies_fieldset" label="V PAY" description="">
+											<param name="vpay_currencies"  type="xml:currencies" multiple="true" default="" blanktext="- All currencies (To restrict from list below: CTR/CMD-click: Multiple) -" label="Accepted Currencies" description="The currencies accepted by this payment method." />
+											<param name="vpay_currencies_description" type="textarea" cols="40" rows="2" maxlength="255" label="Text displayed to ask for currency conversion" default="" description="This allows to explain why this payment method only accepts these currencies and to ask the customer if he wants to convert his order currency for payment." />
+										</fieldset>
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="solo:CreditCard:SOLO" valuetype="const:string">
+										<fieldset name="solo_currencies_fieldset" label="SOLO" description="">
+											<param name="solo_currencies"  type="xml:currencies" multiple="true" default="" blanktext="- All currencies (To restrict from list below: CTR/CMD-click: Multiple) -" label="Accepted Currencies" description="The currencies accepted by this payment method." />
+											<param name="solo_currencies_description" type="textarea" cols="40" rows="2" maxlength="255" label="Text displayed to ask for currency conversion" default="" description="This allows to explain why this payment method only accepts these currencies and to ask the customer if he wants to convert his order currency for payment." />
+										</fieldset>
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="directdebitde:Direct Debits DE:Direct Debits DE" valuetype="const:string">
+										<fieldset name="directdebitde_currencies_fieldset" label="Direct Debits DE" description="">
+											<param name="directdebitde_currencies"  type="xml:currencies" multiple="true" default="" blanktext="- All currencies (To restrict from list below: CTR/CMD-click: Multiple) -" label="Accepted Currencies" description="The currencies accepted by this payment method." />
+											<param name="directdebitde_currencies_description" type="textarea" cols="40" rows="2" maxlength="255" label="Text displayed to ask for currency conversion" default="" description="This allows to explain why this payment method only accepts these currencies and to ask the customer if he wants to convert his order currency for payment." />
+										</fieldset>
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="swisspostfinancecard:PostFinance Card:PostFinance \+ card" valuetype="const:string">
+										<fieldset name="swisspostfinancecard_currencies_fieldset" label="PostFinance Card" description="">
+											<param name="swisspostfinancecard_currencies"  type="xml:currencies" multiple="true" default="" blanktext="- All currencies (To restrict from list below: CTR/CMD-click: Multiple) -" label="Accepted Currencies" description="The currencies accepted by this payment method." />
+											<param name="swisspostfinancecard_currencies_description" type="textarea" cols="40" rows="2" maxlength="255" label="Text displayed to ask for currency conversion" default="" description="This allows to explain why this payment method only accepts these currencies and to ask the customer if he wants to convert his order currency for payment." />
+										</fieldset>
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="swisspostfinance:PostFinance e-finance:PostFinance e-finance" valuetype="const:string">
+										<fieldset name="swisspostfinance_currencies_fieldset" label="PostFinance e-finance" description="">
+											<param name="swisspostfinance_currencies"  type="xml:currencies" multiple="true" default="" blanktext="- All currencies (To restrict from list below: CTR/CMD-click: Multiple) -" label="Accepted Currencies" description="The currencies accepted by this payment method." />
+											<param name="swisspostfinance_currencies_description" type="textarea" cols="40" rows="2" maxlength="255" label="Text displayed to ask for currency conversion" default="" description="This allows to explain why this payment method only accepts these currencies and to ask the customer if he wants to convert his order currency for payment." />
+										</fieldset>
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="paypal:PAYPAL:PAYPAL" valuetype="const:string">
+										<fieldset name="paypal_currencies_fieldset" label="PayPal" description="">
+											<param name="paypal_currencies"  type="xml:currencies" multiple="true" default="" blanktext="- All currencies (To restrict from list below: CTR/CMD-click: Multiple) -" label="Accepted Currencies" description="The currencies accepted by this payment method." />
+											<param name="paypal_currencies_description" type="textarea" cols="40" rows="2" maxlength="255" label="Text displayed to ask for currency conversion" default="" description="This allows to explain why this payment method only accepts these currencies and to ask the customer if he wants to convert his order currency for payment." />
+										</fieldset>
+									</if>
+								</fieldset>
+							</if>
+							<if name="payment_method_selection_type" operator="=" value="radios" type="condition" nametype="pluginparams:string" valuetype="const:string">
+								<fieldset name="ogone_radios_fieldset" label="Radios selection method texts" description="These will display only if Settings - Display - Baskets - Display Payment Methods has been configured to radios">
+									<if name="cardtypes" type="showhide" operator="regexp" value="visa:CreditCard:VISA" valuetype="const:string">
+										<param name="visa_radio_name" type="text" label="Label for Visa" size="60" default="Visa" description="Name to display for that payment method." />
+										<param name="visa_radio_description" type="textarea" cols="40" rows="2" label="Description for Visa" default="" description="This allows to add instructions, or special conditions for that payment method." />
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="mastercard:CreditCard:MasterCard" valuetype="const:string">
+										<param name="mastercard_radio_name" type="text" label="Label for MasterCard" size="60" default="MasterCard" description="Name to display for that payment method." />
+										<param name="mastercard_radio_description" type="textarea" cols="40" rows="2" label="Description for MasterCard" default="" description="This allows to add instructions, or special conditions for that payment method." />
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="amexco:CreditCard:American Express" valuetype="const:string">
+										<param name="amexco_radio_name" type="text" label="Label for American Express" size="60" default="American Express" description="Name to display for that payment method." />
+										<param name="amexco_radio_description" type="textarea" cols="40" rows="2" label="Description for American Express" default="" description="This allows to add instructions, or special conditions for that payment method." />
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="diners:CreditCard:Diners Club" valuetype="const:string">
+										<param name="diners_radio_name" type="text" label="Label for Diners Club" size="60" default="Diners Club" description="Name to display for that payment method." />
+										<param name="diners_radio_description" type="textarea" cols="40" rows="2" label="Description for Diners Club" default="" description="This allows to add instructions, or special conditions for that payment method." />
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="discover:CreditCard:Discover" valuetype="const:string">
+										<param name="discover_radio_name" type="text" label="Label for Discover" size="60" default="Discover" description="Name to display for that payment method." />
+										<param name="discover_radio_description" type="textarea" cols="40" rows="2" label="Description for Discover" default="" description="This allows to add instructions, or special conditions for that payment method." />
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="jcb:CreditCard:JCB" valuetype="const:string">
+										<param name="jcb_radio_name" type="text" label="Label for JCB" size="60" default="JCB" description="Name to display for that payment method." />
+										<param name="jcb_radio_description" type="textarea" cols="40" rows="2" label="Description for JCB" default="" description="This allows to add instructions, or special conditions for that payment method." />
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="maestro:CreditCard:Maestro" valuetype="const:string">
+										<param name="maestro_radio_name" type="text" label="Label for Maestro" size="60" default="Maestro" description="Name to display for that payment method." />
+										<param name="maestro_radio_description" type="textarea" cols="40" rows="2" label="Description for Maestro" default="" description="This allows to add instructions, or special conditions for that payment method." />
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="visaelectron:CreditCard:VISA" valuetype="const:string">
+										<param name="visaelectron_radio_name" type="text" label="Label for VISA Electron" size="60" default="VISA Electron" description="Name to display for that payment method." />
+										<param name="visaelectron_radio_description" type="textarea" cols="40" rows="2" label="Description for VISA Electron" default="" description="This allows to add instructions, or special conditions for that payment method." />
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="vpay:CreditCard:VISA" valuetype="const:string">
+										<param name="vpay_radio_name" type="text" label="Label for V PAY" size="60" default="V PAY" description="Name to display for that payment method." />
+										<param name="vpay_radio_description" type="textarea" cols="40" rows="2" label="Description for V PAY" default="" description="This allows to add instructions, or special conditions for that payment method." />
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="solo:CreditCard:SOLO" valuetype="const:string">
+										<param name="solo_radio_name" type="text" label="Label for SOLO" size="60" default="SOLO" description="Name to display for that payment method." />
+										<param name="solo_radio_description" type="textarea" cols="40" rows="2" label="Description for SOLO" default="" description="This allows to add instructions, or special conditions for that payment method." />
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="directdebitde:Direct Debits DE:Direct Debits DE" valuetype="const:string">
+										<param name="directdebitde_radio_name" type="text" label="Label for Direct Debits DE" size="60" default="Elektronisches Lastschriftverfahren (Deutschland)" description="Name to display for that payment method." />
+										<param name="directdebitde_radio_description" type="textarea" cols="40" rows="2" label="Description for Direct Debits DE" default="" description="This allows to add instructions, or special conditions for that payment method." />
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="swisspostfinancecard:PostFinance Card:PostFinance \+ card" valuetype="const:string">
+										<param name="swisspostfinancecard_radio_name" type="text" label="Label for PostFinance Card" size="60" default="PostFinance Card" description="Name to display for that payment method." />
+										<param name="swisspostfinancecard_radio_description" type="textarea" cols="40" rows="2" label="Description for PostFinance Card" default="" description="This allows to add instructions, or special conditions for that payment method." />
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="swisspostfinance:PostFinance e-finance:PostFinance e-finance" valuetype="const:string">
+										<param name="swisspostfinance_radio_name" type="text" label="Label for PostFinance e-finance" size="60" default="PostFinance e-finance" description="Name to display for that payment method." />
+										<param name="swisspostfinance_radio_description" type="textarea" cols="40" rows="2" label="Description for PostFinance e-finance" default="" description="This allows to add instructions, or special conditions for that payment method." />
+									</if>
+									<if name="cardtypes" type="showhide" operator="regexp" value="paypal:PAYPAL:PAYPAL" valuetype="const:string">
+										<param name="paypal_radio_name" type="text" label="Label for PayPal" size="60" default="PayPal" description="Name to display for that payment method." />
+										<param name="paypal_radio_description" type="textarea" cols="40" rows="2" label="Description for PayPal" default="" description="This allows to add instructions, or special conditions for that payment method." />
+									</if>
+								</fieldset>
+							</if>
+						</if>
+						<param name="button_title_text" type="text" size="60" default="Pay safely with %s" label="Button hover (title) text" description="Must be text, %s is replaced with the name of the payment method chosen" />
+						<if name="payment_methods_selection" type="showhide" operator="!=" value="onsite" valuetype="const:string">
+							<param name="psp_human_name" type="text" label="Name of payment provider to show to your customers" value="" default="{PSP}, our PCI-certified payment service provider" description="This is the name of the payment provider to show to your customers in title of payment button and in feedbacks" />
+						</if>
+					</params>
+				</fieldset>
+				<fieldset name="fieldset_for_psp_presentation" label="Presentation at the Payment Service Provider" description="This is for the styling of the static payment page at the Payment Service Provider:">
+					<params name="params" type="params">
+						<param name="payment_template_type" type="list" default="static" label="Payment template type" description="You need to contact {PSP} and study their advanced documentation if you want to change this from static to dynamic.">
+							<option value="static">Standard static payment template</option>
+							<option value="dynamic">Dynamic payment template from your site</option>
+						</param>
+						<if name="payment_template_type" type="showhide" operator="=" value="dynamic" valuetype="const:string">
+							<fieldset name="fieldset_for_dynamic_page" label="Dynamic payment page" description="This page is fetched from your site by the payment server and displayed in https, so all its references must be through valid https.">
+								<param name="tp" type="text" size="60" default="" label="URL of your html template page" description="http or https URL of your template page with &quot;$$$PAYMENT ZONE$$$&quot; in it. The URL must be absolute (contain the full path), it cannot be relative. Only standard ports 80 and 443 are supported." />
+							</fieldset>
+						</if>
+						<param name="title" type="text" size="60" default="" label="Title text" description="Must be text" />
+						<param name="logo" type="text" size="60" default="" label="https:URL or filename of the logo to display at the top left" description="URL/filename of the logo you want to display at the top of the payment page next to the title. The URL must be absolute (contain the full path), it cannot be relative and must start with https://. The logo needs to be stored on a secure server. If you do not have a secure environment to store your image, you can ask {PSP} to activate the “Logo Hosting” option in your Account. If the logo is stored on the {PSP} servers, you only need to enter the filename, not the whole URL." />
+						<if name="payment_template_type" type="showhide" operator="=" value="static" valuetype="const:string">
+							<fieldset name="fieldset_for_static_styles" label="Static payment page colors and text font" description="">
+								<param name="bgcolor" type="text" size="30" default="" label="Background color" description="Can be a CSS color name (e.g. white) or value (e.g. #ffffff), default: white." />
+								<param name="txtcolor" type="text" size="30" default="" label="Text color" description="Can be a CSS color name (e.g. white) or value (e.g. #ffffff), default: black." />
+								<param name="tblbgcolor" type="text" size="30" default="" label="Table background color" description="Can be a CSS color name (e.g. white) or value (e.g. #ffffff), default: white." />
+								<param name="tbltxtcolor" type="text" size="30" default="" label="Table text color" description="Can be a CSS color name (e.g. white) or value (e.g. #ffffff), default: black." />
+								<param name="buttonbgcolor" type="text" size="30" default="" label="Button background color" description="Can be a CSS color name (e.g. white) or value (e.g. #ffffff), default: white." />
+								<param name="buttontxtcolor" type="text" size="30" default="" label="Button text color" description="Can be a CSS color name (e.g. white) or value (e.g. #ffffff), default: black." />
+								<param name="fonttype" type="text" size="30" default="" label="Font Family" description="Must be a web font family (arial, verdana, times or generic serif, sans-serif, cursive, fantasy, monospace). The font-family property specifies the font and can hold several comma-delimited font names as a fallback-system. If the browser does not support the first font, it tries the next font, default: Verdana." />
+							</fieldset>
+						</if>
+						<param name="iphonespecificlayout" type="xml:yesno" default="1" label="iPhone-specific static default layout on iPhones" description="Present an iPhone-specific layout making payments easier on iPhone and iPod" />
+						<fieldset name="fieldset_for_treed" label="3D Secure presentation" description="Where to display the 3-D Secure window. Note: MasterCard and Maestro authentication are only possible in the main window.">
+							<param name="win3ds" type="list" default="" label="3-D Secure identification page display" description="If you are working with 3-D Secure, you can choose how you want the identification page to be displayed to the customer ">
+								<option value="">Default (in the main window)</option>
+								<option value="MAINW">in the main window (recommended by VISA/MasterCard)</option>
+								<option value="POPUP">in a POPUP window and return to main window at the end</option>
+							</param>
+						</fieldset>
+					</params>
+				</fieldset>
+			</inherit>
+		</view>
+	</views>
+</cbxml>

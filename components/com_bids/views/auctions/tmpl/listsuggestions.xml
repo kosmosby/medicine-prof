@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="Show Suggestions">
+            <message>
+                    <![CDATA[List Suggestions Layout]]>
+            </message>
+    </layout>
+	<state>
+		<name>Auctions Factory Auction Suggestions List</name>
+		<description>Auctions Factory Suggestions List</description>
+        <url>
+            <param name="task" type="hidden" default="suggestions"/>
+        </url>
+	</state>
+    <fields name="request">
+        <fieldset name="request" label="Basic Parameters">
+            <field name="task" type="hidden" default="suggestions" />
+        </fieldset>
+    </fields>
+</metadata>

@@ -1,0 +1,56 @@
+/*
+ * RTL Style Sheet
+ */
+
+.wk-slideshow-sync .nav { 
+	left: 15px;
+	right: auto; 
+}
+
+.wk-slideshow-sync .nav li {
+	margin-left: 5px;
+	margin-right: 0;
+}
+
+.wk-slideshow-sync .nav li:first-child { margin-left: 5px; }
+
+.wk-slideshow-sync > div .next,
+.wk-slideshow-sync > div:hover .next {
+	right: auto;
+	left: -40px;
+	background-position: 0 0;
+}
+
+.wk-slideshow-sync > div .next:hover { background-position: 0 -41px; }
+.wk-slideshow-sync > div .next:active { background-position: 0 -82px; }
+
+.wk-slideshow-sync > div .prev,
+.wk-slideshow-sync > div:hover .prev {
+	left: auto;
+	right: -40px;
+	background-position: 0 -123px;
+}
+
+.wk-slideshow-sync > div .prev:hover { background-position: 0 -164px; }
+.wk-slideshow-sync > div .prev:active { background-position: 0 -205px; }
+
+
+/* Responsive
+----------------------------------------------------------------------------------------------------*/
+
+/* Only Phones and Tablets (Portrait) */
+@media (max-width: 959px) {
+
+	.wk-slideshow-sync > div .prev,
+	.wk-slideshow-sync > div:hover .prev { 
+		right: 10px;
+		left: auto; 
+	}
+
+	.wk-slideshow-sync > div .next,
+	.wk-slideshow-sync > div:hover .next { 
+		left: 10px;
+		right: auto; 
+	}
+
+}

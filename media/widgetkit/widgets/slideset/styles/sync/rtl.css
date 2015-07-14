@@ -1,0 +1,40 @@
+/*
+ * RTL Style Sheet
+ */
+
+.wk-slideset-sync .nav.icon li {
+	margin-left: 5px;
+	margin-right: 0;
+}
+.wk-slideset-sync .nav.text li {
+	margin-left: 10px;
+	margin-right: 0;
+}
+.wk-slideset-sync .nav li:first-child { margin-right: 0; }
+
+.wk-slideset-sync > div:hover .next {
+	right: auto;
+	left: 0;
+	background-position: 0 0;
+}
+
+.wk-slideset-sync > div .next:hover { background-position: 0 -20px; }
+.wk-slideset-sync > div .next:active { background-position: 0 -40px; }
+
+.wk-slideset-sync > div:hover .prev {
+	left: auto;
+	right: 0;
+	background-position: 0 -60px;
+}
+
+.wk-slideset-sync > div .prev:hover { background-position: 0 -80px; }
+.wk-slideset-sync > div .prev:active { background-position: 0 -100px; }
+
+/* Responsive
+----------------------------------------------------------------------------------------------------*/
+
+/* Only Phones */
+@media (max-width: 767px) {
+	.wk-slideset-sync .nav.text li { margin-right: 10px; }
+	.wk-slideset-sync .nav.text li:first-child { margin-right: 0; }
+}

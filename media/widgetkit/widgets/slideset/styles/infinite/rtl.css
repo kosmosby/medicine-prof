@@ -1,0 +1,48 @@
+/*
+ * RTL Style Sheet
+ */
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-infinite .nav.icon li {
+	margin-left: 0;
+	margin-right: 5px;
+}
+.wk-slideset-infinite .nav.text li {
+	margin-left: 0;
+	margin-right: 40px;
+}
+
+.wk-slideset-infinte .nav li:first-child { margin-right: 0; }
+
+
+/* Buttons
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-infinite > div .next {
+	left: 0;
+	right: auto; 
+	background-position: 0 -200px; 
+}
+
+.wk-slideset-infinite > div .prev { 
+	left: auto;
+	right: 0;
+	background-position: 0 0; 
+}
+
+.wk-slideset-infinite > div .next:hover { background-position: 0 -300px; }
+.wk-slideset-infinite > div .prev:hover { background-position: 0 -100px; }
+
+
+/* Responsive
+----------------------------------------------------------------------------------------------------*/
+
+/* Only Phones */
+@media (max-width: 767px) {
+
+	.wk-slideset-default .nav.text li { margin-right: 10px; }
+	.wk-slideset-default .nav.text li:first-child { margin-right: 0; }
+
+}

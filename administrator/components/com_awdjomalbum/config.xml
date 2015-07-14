@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+  <fieldset name="setting" label="Info Tab Setting" >
+    <field name="display_personaltab" type="list" default="1" label="Display Personal Info Tab" description="Display Personal Info Tab">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </field>
+    <field name="display_socialtab" type="list" default="1" label="Display Social Info Tab" description="Display Social Info Tab">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </field>
+    <field name="display_contacttab" type="list" default="1" label="Display Contact Info Tab" description="Display Contact Info Tab">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </field>
+    <field name="display_othertab" type="list" default="1" label="Display Other Info Tab" description="Display Other Info Tab">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </field>
+    <field name="display_birthdayfield" type="list" default="1" label="Display Birthday" description="Display Birthday Field">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </field>
+  </fieldset>
+</config>

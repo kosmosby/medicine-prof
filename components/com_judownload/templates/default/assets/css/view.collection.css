@@ -1,0 +1,26 @@
+.judl-collection-info .collection-image {
+    float: left;
+    margin: 0 15px 15px 0;
+    overflow: hidden;
+}
+
+.judl-collection-info .collection-title {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+/*
+Edit layout
+*/
+.judl-container fieldset label {
+    float: left;
+    margin-top: 3px;
+}
+
+.judl-container fieldset input {
+    clear: both;
+}
+
+.judl-submit-buttons {
+    margin-top: 10px;
+}

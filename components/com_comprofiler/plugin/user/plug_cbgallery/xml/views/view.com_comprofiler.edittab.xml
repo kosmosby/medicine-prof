@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../../../validation/ahawow.xsd">
+	<views>
+		<view name="cbGalleryTabPhotos" type="params" ui="admin">
+			<tabpane name="photos">
+				<tabpanetab label="Display">
+					<param name="tab_photos_download" type="yesno" default="0" label="Download" description="Enable or disable display of download link." yes="Enable" no="Disable" />
+					<param name="tab_photos_width" type="int" default="200" size="5" label="Box Width" description="Input the item box width in pixels. Leave blank for 200 width. Note you can have a minimum box width of 100." />
+					<param name="tab_photos_folders" type="yesno" default="1" label="Folders" description="Enable or disable display of folders." yes="Enable" no="Disable" />
+					<if name="tab_photos_folders" type="showhide" operator="=" value="1" valuetype="const:int">
+						<param name="tab_photos_uncategorized" type="yesno" default="1" label="Uncategorized" description="Enable or disable display of uncategories items. If disabled uncategorized items will be placed in a uncategorized folder. Note if folders are disabled uncategorized items will always display." yes="Enable" no="Disable" />
+					</if>
+				</tabpanetab>
+				<tabpanetab label="Items">
+					<tabpane name="photositems">
+						<tabpanetab label="Display">
+							<param name="tab_photos_items_date_format" type="text" default="M j, Y" translate-default="no" label="Date Format" description="Optionally input custom PHP date function format to format date values. If blank default CB date format will be used." />
+							<param name="tab_photos_items_time_display" type="yesno" default="0" label="Display Time" description="Enable or disable display of times. Note exact datetime will always display on mouseover." yes="Enable" no="Disable" />
+							<if name="tab_photos_items_time_display" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_photos_items_time_format" type="text" default=" g:h A" translate-default="no" label="Time Format" description="Optionally input custom PHP date function format to format time values. If blank default CB time format will be used." />
+							</if>
+						</tabpanetab>
+						<tabpanetab label="Paging">
+							<param name="tab_photos_items_paging" type="yesno" default="1" label="Paging" description="Enable or disable usage of paging." yes="Enable" no="Disable" />
+							<if name="tab_photos_items_paging" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_photos_items_limit" type="int" default="15" size="5" label="Page Limit" description="Input page limit. Page limit determines how many rows are displayed per page." />
+							</if>
+							<param name="tab_photos_items_search" type="yesno" default="1" label="Search" description="Enable or disable usage of search on rows." yes="Enable" no="Disable" />
+							<param name="tab_photos_items_orderby" type="xml:gallery_item_orderby" default="date_desc" translate-default="no" label="Order By" description="Select how to order the rows." />
+						</tabpanetab>
+					</tabpane>
+				</tabpanetab>
+				<tabpanetab label="Folders">
+					<tabpane name="photosfolders">
+						<tabpanetab label="Display">
+							<param name="tab_photos_folders_date_format" type="text" default="M j, Y" translate-default="no" label="Date Format" description="Optionally input custom PHP date function format to format date values. If blank default CB date format will be used." />
+							<param name="tab_photos_folders_time_display" type="yesno" default="0" label="Display Time" description="Enable or disable display of times. Note exact datetime will always display on mouseover." yes="Enable" no="Disable" />
+							<if name="tab_photos_folders_time_display" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_photos_folders_time_format" type="text" default=" g:h A" translate-default="no" label="Time Format" description="Optionally input custom PHP date function format to format time values. If blank default CB time format will be used." />
+							</if>
+						</tabpanetab>
+						<tabpanetab label="Paging">
+							<param name="tab_photos_folders_paging" type="yesno" default="1" label="Paging" description="Enable or disable usage of paging." yes="Enable" no="Disable" />
+							<if name="tab_photos_folders_paging" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_photos_folders_limit" type="int" default="15" size="5" label="Page Limit" description="Input page limit. Page limit determines how many rows are displayed per page." />
+							</if>
+							<param name="tab_photos_folders_search" type="yesno" default="1" label="Search" description="Enable or disable usage of search on rows." yes="Enable" no="Disable" />
+							<param name="tab_photos_folders_orderby" type="xml:gallery_folder_orderby" default="date_desc" translate-default="no" label="Order By" description="Select how to order the rows." />
+						</tabpanetab>
+					</tabpane>
+				</tabpanetab>
+				<tabpanetab label="Folder Items">
+					<tabpane name="photosfolderitems">
+						<tabpanetab label="Display">
+							<param name="tab_photos_folder_items_date_format" type="text" default="F j, Y" translate-default="no" label="Date Format" description="Optionally input custom PHP date function format to format date values. If blank default CB date format will be used." />
+							<param name="tab_photos_folder_items_time_display" type="yesno" default="0" label="Display Time" description="Enable or disable display of times. Note exact datetime will always display on mouseover." yes="Enable" no="Disable" />
+							<if name="tab_photos_folder_items_time_display" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_photos_folder_items_time_format" type="text" default=" g:h A" translate-default="no" label="Time Format" description="Optionally input custom PHP date function format to format time values. If blank default CB time format will be used." />
+							</if>
+						</tabpanetab>
+						<tabpanetab label="Paging">
+							<param name="tab_photos_folder_items_paging" type="yesno" default="1" label="Paging" description="Enable or disable usage of paging." yes="Enable" no="Disable" />
+							<if name="tab_photos_folder_items_paging" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_photos_folder_items_limit" type="int" default="30" size="5" label="Page Limit" description="Input page limit. Page limit determines how many rows are displayed per page." />
+							</if>
+							<param name="tab_photos_folder_items_search" type="yesno" default="1" label="Search" description="Enable or disable usage of search on rows." yes="Enable" no="Disable" />
+							<param name="tab_photos_folder_items_orderby" type="xml:gallery_item_orderby" default="date_desc" translate-default="no" label="Order By" description="Select how to order the rows." />
+						</tabpanetab>
+					</tabpane>
+				</tabpanetab>
+			</tabpane>
+		</view>
+		<view name="cbGalleryTabFiles" type="params" ui="admin">
+			<tabpane name="files">
+				<tabpanetab label="Display">
+					<param name="tab_files_folders" type="yesno" default="1" label="Folders" description="Enable or disable display of folders." yes="Enable" no="Disable" />
+					<if name="tab_files_folders" type="showhide" operator="=" value="1" valuetype="const:int">
+						<param name="tab_files_uncategorized" type="yesno" default="1" label="Uncategorized" description="Enable or disable display of uncategories items. If disabled uncategorized items will be placed in a uncategorized folder. Note if folders are disabled uncategorized items will always display." yes="Enable" no="Disable" />
+					</if>
+				</tabpanetab>
+				<tabpanetab label="Items">
+					<tabpane name="filesitems">
+						<tabpanetab label="Display">
+							<param name="tab_files_items_date_format" type="text" default="M j, Y" translate-default="no" label="Date Format" description="Optionally input custom PHP date function format to format date values. If blank default CB date format will be used." />
+							<param name="tab_files_items_time_display" type="yesno" default="0" label="Display Time" description="Enable or disable display of times. Note exact datetime will always display on mouseover." yes="Enable" no="Disable" />
+							<if name="tab_files_items_time_display" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_files_items_time_format" type="text" default=" g:h A" translate-default="no" label="Time Format" description="Optionally input custom PHP date function format to format time values. If blank default CB time format will be used." />
+							</if>
+						</tabpanetab>
+						<tabpanetab label="Paging">
+							<param name="tab_files_items_paging" type="yesno" default="1" label="Paging" description="Enable or disable usage of paging." yes="Enable" no="Disable" />
+							<if name="tab_files_items_paging" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_files_items_limit" type="int" default="15" size="5" label="Page Limit" description="Input page limit. Page limit determines how many rows are displayed per page." />
+							</if>
+							<param name="tab_files_items_search" type="yesno" default="1" label="Search" description="Enable or disable usage of search on rows." yes="Enable" no="Disable" />
+							<param name="tab_files_items_orderby" type="xml:gallery_item_orderby" default="date_desc" translate-default="no" label="Order By" description="Select how to order the rows." />
+						</tabpanetab>
+					</tabpane>
+				</tabpanetab>
+				<tabpanetab label="Folders">
+					<tabpane name="filesfolders">
+						<tabpanetab label="Display">
+							<param name="tab_files_folders_date_format" type="text" default="M j, Y" translate-default="no" label="Date Format" description="Optionally input custom PHP date function format to format date values. If blank default CB date format will be used." />
+							<param name="tab_files_folders_time_display" type="yesno" default="0" label="Display Time" description="Enable or disable display of times. Note exact datetime will always display on mouseover." yes="Enable" no="Disable" />
+							<if name="tab_files_folders_time_display" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_files_folders_time_format" type="text" default=" g:h A" translate-default="no" label="Time Format" description="Optionally input custom PHP date function format to format time values. If blank default CB time format will be used." />
+							</if>
+						</tabpanetab>
+						<tabpanetab label="Paging">
+							<param name="tab_files_folders_paging" type="yesno" default="1" label="Paging" description="Enable or disable usage of paging." yes="Enable" no="Disable" />
+							<if name="tab_files_folders_paging" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_files_folders_limit" type="int" default="15" size="5" label="Page Limit" description="Input page limit. Page limit determines how many rows are displayed per page." />
+							</if>
+							<param name="tab_files_folders_search" type="yesno" default="1" label="Search" description="Enable or disable usage of search on rows." yes="Enable" no="Disable" />
+							<param name="tab_files_folders_orderby" type="xml:gallery_folder_orderby" default="date_desc" translate-default="no" label="Order By" description="Select how to order the rows." />
+						</tabpanetab>
+					</tabpane>
+				</tabpanetab>
+				<tabpanetab label="Folder Items">
+					<tabpane name="filesfolderitems">
+						<tabpanetab label="Display">
+							<param name="tab_files_folder_items_date_format" type="text" default="F j, Y" translate-default="no" label="Date Format" description="Optionally input custom PHP date function format to format date values. If blank default CB date format will be used." />
+							<param name="tab_files_folder_items_time_display" type="yesno" default="0" label="Display Time" description="Enable or disable display of times. Note exact datetime will always display on mouseover." yes="Enable" no="Disable" />
+							<if name="tab_files_folder_items_time_display" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_files_folder_items_time_format" type="text" default=" g:h A" translate-default="no" label="Time Format" description="Optionally input custom PHP date function format to format time values. If blank default CB time format will be used." />
+							</if>
+						</tabpanetab>
+						<tabpanetab label="Paging">
+							<param name="tab_files_folder_items_paging" type="yesno" default="1" label="Paging" description="Enable or disable usage of paging." yes="Enable" no="Disable" />
+							<if name="tab_files_folder_items_paging" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_files_folder_items_limit" type="int" default="30" size="5" label="Page Limit" description="Input page limit. Page limit determines how many rows are displayed per page." />
+							</if>
+							<param name="tab_files_folder_items_search" type="yesno" default="1" label="Search" description="Enable or disable usage of search on rows." yes="Enable" no="Disable" />
+							<param name="tab_files_folder_items_orderby" type="xml:gallery_item_orderby" default="date_desc" translate-default="no" label="Order By" description="Select how to order the rows." />
+						</tabpanetab>
+					</tabpane>
+				</tabpanetab>
+			</tabpane>
+		</view>
+		<view name="cbGalleryTabVideos" type="params" ui="admin">
+			<tabpane name="videos">
+				<tabpanetab label="Display">
+					<param name="tab_videos_download" type="yesno" default="0" label="Download" description="Enable or disable display of download link." yes="Enable" no="Disable" />
+					<param name="tab_videos_width" type="int" default="" size="5" label="Player Width" description="Input the item player maximum width in pixels. Leave blank for 100% width." />
+					<param name="tab_videos_folders" type="yesno" default="1" label="Folders" description="Enable or disable display of folders." yes="Enable" no="Disable" />
+					<if name="tab_videos_folders" type="showhide" operator="=" value="1" valuetype="const:int">
+						<param name="tab_videos_uncategorized" type="yesno" default="1" label="Uncategorized" description="Enable or disable display of uncategories items. If disabled uncategorized items will be placed in a uncategorized folder. Note if folders are disabled uncategorized items will always display." yes="Enable" no="Disable" />
+					</if>
+				</tabpanetab>
+				<tabpanetab label="Items">
+					<tabpane name="videositems">
+						<tabpanetab label="Display">
+							<param name="tab_videos_items_date_format" type="text" default="M j, Y" translate-default="no" label="Date Format" description="Optionally input custom PHP date function format to format date values. If blank default CB date format will be used." />
+							<param name="tab_videos_items_time_display" type="yesno" default="0" label="Display Time" description="Enable or disable display of times. Note exact datetime will always display on mouseover." yes="Enable" no="Disable" />
+							<if name="tab_videos_items_time_display" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_videos_items_time_format" type="text" default=" g:h A" translate-default="no" label="Time Format" description="Optionally input custom PHP date function format to format time values. If blank default CB time format will be used." />
+							</if>
+						</tabpanetab>
+						<tabpanetab label="Paging">
+							<param name="tab_videos_items_paging" type="yesno" default="1" label="Paging" description="Enable or disable usage of paging." yes="Enable" no="Disable" />
+							<if name="tab_videos_items_paging" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_videos_items_limit" type="int" default="15" size="5" label="Page Limit" description="Input page limit. Page limit determines how many rows are displayed per page." />
+							</if>
+							<param name="tab_videos_items_search" type="yesno" default="1" label="Search" description="Enable or disable usage of search on rows." yes="Enable" no="Disable" />
+							<param name="tab_videos_items_orderby" type="xml:gallery_item_orderby" default="date_desc" translate-default="no" label="Order By" description="Select how to order the rows." />
+						</tabpanetab>
+					</tabpane>
+				</tabpanetab>
+				<tabpanetab label="Folders">
+					<tabpane name="videosfolders">
+						<tabpanetab label="Display">
+							<param name="tab_videos_folders_date_format" type="text" default="M j, Y" translate-default="no" label="Date Format" description="Optionally input custom PHP date function format to format date values. If blank default CB date format will be used." />
+							<param name="tab_videos_folders_time_display" type="yesno" default="0" label="Display Time" description="Enable or disable display of times. Note exact datetime will always display on mouseover." yes="Enable" no="Disable" />
+							<if name="tab_videos_folders_time_display" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_videos_folders_time_format" type="text" default=" g:h A" translate-default="no" label="Time Format" description="Optionally input custom PHP date function format to format time values. If blank default CB time format will be used." />
+							</if>
+						</tabpanetab>
+						<tabpanetab label="Paging">
+							<param name="tab_videos_folders_paging" type="yesno" default="1" label="Paging" description="Enable or disable usage of paging." yes="Enable" no="Disable" />
+							<if name="tab_videos_folders_paging" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_videos_folders_limit" type="int" default="15" size="5" label="Page Limit" description="Input page limit. Page limit determines how many rows are displayed per page." />
+							</if>
+							<param name="tab_videos_folders_search" type="yesno" default="1" label="Search" description="Enable or disable usage of search on rows." yes="Enable" no="Disable" />
+							<param name="tab_videos_folders_orderby" type="xml:gallery_folder_orderby" default="date_desc" translate-default="no" label="Order By" description="Select how to order the rows." />
+						</tabpanetab>
+					</tabpane>
+				</tabpanetab>
+				<tabpanetab label="Folder Items">
+					<tabpane name="videosfolderitems">
+						<tabpanetab label="Display">
+							<param name="tab_videos_folder_items_date_format" type="text" default="F j, Y" translate-default="no" label="Date Format" description="Optionally input custom PHP date function format to format date values. If blank default CB date format will be used." />
+							<param name="tab_videos_folder_items_time_display" type="yesno" default="0" label="Display Time" description="Enable or disable display of times. Note exact datetime will always display on mouseover." yes="Enable" no="Disable" />
+							<if name="tab_videos_folder_items_time_display" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_videos_folder_items_time_format" type="text" default=" g:h A" translate-default="no" label="Time Format" description="Optionally input custom PHP date function format to format time values. If blank default CB time format will be used." />
+							</if>
+						</tabpanetab>
+						<tabpanetab label="Paging">
+							<param name="tab_videos_folder_items_paging" type="yesno" default="1" label="Paging" description="Enable or disable usage of paging." yes="Enable" no="Disable" />
+							<if name="tab_videos_folder_items_paging" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_videos_folder_items_limit" type="int" default="30" size="5" label="Page Limit" description="Input page limit. Page limit determines how many rows are displayed per page." />
+							</if>
+							<param name="tab_videos_folder_items_search" type="yesno" default="1" label="Search" description="Enable or disable usage of search on rows." yes="Enable" no="Disable" />
+							<param name="tab_videos_folder_items_orderby" type="xml:gallery_item_orderby" default="date_desc" translate-default="no" label="Order By" description="Select how to order the rows." />
+						</tabpanetab>
+					</tabpane>
+				</tabpanetab>
+			</tabpane>
+		</view>
+		<view name="cbGalleryTabMusic" type="params" ui="admin">
+			<tabpane name="music">
+				<tabpanetab label="Display">
+					<param name="tab_music_download" type="yesno" default="0" label="Download" description="Enable or disable display of download link." yes="Enable" no="Disable" />
+					<param name="tab_music_width" type="int" default="" size="5" label="Player Width" description="Input the item player maximum width in pixels. Leave blank for 100% width." />
+					<param name="tab_music_folders" type="yesno" default="1" label="Folders" description="Enable or disable display of folders." yes="Enable" no="Disable" />
+					<if name="tab_music_folders" type="showhide" operator="=" value="1" valuetype="const:int">
+						<param name="tab_music_uncategorized" type="yesno" default="1" label="Uncategorized" description="Enable or disable display of uncategories items. If disabled uncategorized items will be placed in a uncategorized folder. Note if folders are disabled uncategorized items will always display." yes="Enable" no="Disable" />
+					</if>
+				</tabpanetab>
+				<tabpanetab label="Items">
+					<tabpane name="musicitems">
+						<tabpanetab label="Display">
+							<param name="tab_music_items_date_format" type="text" default="M j, Y" translate-default="no" label="Date Format" description="Optionally input custom PHP date function format to format date values. If blank default CB date format will be used." />
+							<param name="tab_music_items_time_display" type="yesno" default="0" label="Display Time" description="Enable or disable display of times. Note exact datetime will always display on mouseover." yes="Enable" no="Disable" />
+							<if name="tab_music_items_time_display" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_music_items_time_format" type="text" default=" g:h A" translate-default="no" label="Time Format" description="Optionally input custom PHP date function format to format time values. If blank default CB time format will be used." />
+							</if>
+						</tabpanetab>
+						<tabpanetab label="Paging">
+							<param name="tab_music_items_paging" type="yesno" default="1" label="Paging" description="Enable or disable usage of paging." yes="Enable" no="Disable" />
+							<if name="tab_music_items_paging" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_music_items_limit" type="int" default="15" size="5" label="Page Limit" description="Input page limit. Page limit determines how many rows are displayed per page." />
+							</if>
+							<param name="tab_music_items_search" type="yesno" default="1" label="Search" description="Enable or disable usage of search on rows." yes="Enable" no="Disable" />
+							<param name="tab_music_items_orderby" type="xml:gallery_item_orderby" default="date_desc" translate-default="no" label="Order By" description="Select how to order the rows." />
+						</tabpanetab>
+					</tabpane>
+				</tabpanetab>
+				<tabpanetab label="Folders">
+					<tabpane name="musicfolders">
+						<tabpanetab label="Display">
+							<param name="tab_music_folders_date_format" type="text" default="M j, Y" translate-default="no" label="Date Format" description="Optionally input custom PHP date function format to format date values. If blank default CB date format will be used." />
+							<param name="tab_music_folders_time_display" type="yesno" default="0" label="Display Time" description="Enable or disable display of times. Note exact datetime will always display on mouseover." yes="Enable" no="Disable" />
+							<if name="tab_music_folders_time_display" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_music_folders_time_format" type="text" default=" g:h A" translate-default="no" label="Time Format" description="Optionally input custom PHP date function format to format time values. If blank default CB time format will be used." />
+							</if>
+						</tabpanetab>
+						<tabpanetab label="Paging">
+							<param name="tab_music_folders_paging" type="yesno" default="1" label="Paging" description="Enable or disable usage of paging." yes="Enable" no="Disable" />
+							<if name="tab_music_folders_paging" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_music_folders_limit" type="int" default="15" size="5" label="Page Limit" description="Input page limit. Page limit determines how many rows are displayed per page." />
+							</if>
+							<param name="tab_music_folders_search" type="yesno" default="1" label="Search" description="Enable or disable usage of search on rows." yes="Enable" no="Disable" />
+							<param name="tab_music_folders_orderby" type="xml:gallery_folder_orderby" default="date_desc" translate-default="no" label="Order By" description="Select how to order the rows." />
+						</tabpanetab>
+					</tabpane>
+				</tabpanetab>
+				<tabpanetab label="Folder Items">
+					<tabpane name="musicfolderitems">
+						<tabpanetab label="Display">
+							<param name="tab_music_folder_items_date_format" type="text" default="F j, Y" translate-default="no" label="Date Format" description="Optionally input custom PHP date function format to format date values. If blank default CB date format will be used." />
+							<param name="tab_music_folder_items_time_display" type="yesno" default="0" label="Display Time" description="Enable or disable display of times. Note exact datetime will always display on mouseover." yes="Enable" no="Disable" />
+							<if name="tab_music_folder_items_time_display" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_music_folder_items_time_format" type="text" default=" g:h A" translate-default="no" label="Time Format" description="Optionally input custom PHP date function format to format time values. If blank default CB time format will be used." />
+							</if>
+						</tabpanetab>
+						<tabpanetab label="Paging">
+							<param name="tab_music_folder_items_paging" type="yesno" default="1" label="Paging" description="Enable or disable usage of paging." yes="Enable" no="Disable" />
+							<if name="tab_music_folder_items_paging" type="showhide" operator="=" value="1" valuetype="const:int">
+								<param name="tab_music_folder_items_limit" type="int" default="30" size="5" label="Page Limit" description="Input page limit. Page limit determines how many rows are displayed per page." />
+							</if>
+							<param name="tab_music_folder_items_search" type="yesno" default="1" label="Search" description="Enable or disable usage of search on rows." yes="Enable" no="Disable" />
+							<param name="tab_music_folder_items_orderby" type="xml:gallery_item_orderby" default="date_desc" translate-default="no" label="Order By" description="Select how to order the rows." />
+						</tabpanetab>
+					</tabpane>
+				</tabpanetab>
+			</tabpane>
+		</view>
+	</views>
+</cbxml>

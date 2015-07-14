@@ -1,0 +1,16 @@
+.cbAjaxContainer .cbAjaxValue {
+	position: relative;
+	cursor: pointer;
+}
+
+.cbAjaxContainer .cbAjaxValue:before {
+	display: none;
+	position: absolute;
+	left: -18px;
+	top: 50%;
+	transform: translateY( -50% );
+}
+
+.cbAjaxContainer .cbAjaxValue:hover:before {
+	display: inline-block;
+}

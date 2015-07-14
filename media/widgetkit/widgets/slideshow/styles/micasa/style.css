@@ -1,0 +1,91 @@
+/* Widgetkit Slideshow: MiCasa Style */
+
+.wk-slideshow-micasa .slides { 
+	border: 1px solid #EBEBEB;
+	border-radius: 9px;
+}
+
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-micasa .nav li {
+	display: inline-block;
+	margin-left: 5px;
+}
+
+.wk-slideshow-micasa .nav li:first-child { margin-left: 0; }
+
+.wk-slideshow-micasa .nav span {
+	width: 10px;
+	height: 10px;
+	background: url(images/nav.png) 0 0 no-repeat;
+	overflow: hidden;
+}
+
+.wk-slideshow-micasa .nav span:hover { background-position: 0 -40px; }
+.wk-slideshow-micasa .nav .active span { background-position: 0 -20px; }
+
+.wk-slideshow-micasa #nav-wrapper { 
+	position: absolute;
+	bottom: 15px;
+	text-align: center;
+	z-index: 4;
+	left: 0;
+	right: 0;
+}
+
+/* Buttons
+----------------------------------------------------------------------------------------------------*/
+
+
+.wk-slideshow-micasa > div { position: relative; }
+
+.wk-slideshow-micasa > div .next,
+.wk-slideshow-micasa > div .prev {
+	top: 50%;
+	width: 50px;
+	height: 50px;
+	margin-top: -25px;
+	background-image: url(images/buttons.png);
+	background-position: 0 50px;
+	background-repeat: no-repeat;
+}
+
+.wk-slideshow-micasa > div .next { 
+	right: 15px;
+	background-position: 0 -120px;
+}
+
+.wk-slideshow-micasa > div .prev {
+	left: 15px;
+	background-position: 0 -180px; 
+}
+
+.wk-slideshow-micasa > div .next,
+.wk-slideshow-micasa > div .prev {
+	opacity: 0;
+	-moz-transition: opacity 0.3s linear 0s;
+	-webkit-transition: opacity 0.3s linear 0s;
+	-o-transition: opacity 0.3s linear 0s;
+}
+
+.wk-slideshow-micasa > div:hover .next,
+.wk-slideshow-micasa > div:hover .prev { opacity: 1; }
+
+.wk-slideshow-micasa > div:hover .next:hover { background-position: 0 -360px; }
+.wk-slideshow-micasa > div:hover .next:active { background-position: 0 -480px; }
+.wk-slideshow-micasa > div:hover .prev:hover { background-position: 0 -420px; }
+.wk-slideshow-micasa > div:hover .prev:active { background-position: 0 -540px; }
+
+
+/* Responsive
+----------------------------------------------------------------------------------------------------*/
+
+/* Only Touch Devices */
+@media (max-device-width: 1024px) {
+
+	.wk-slideshow-micasa .next,
+	.wk-slideshow-micasa .prev { display: none; }
+
+}

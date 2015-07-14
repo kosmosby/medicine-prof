@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<extension type="plugin" group="system" version="1.6" method="upgrade">
+	<name>cbpaidsubsbot</name>
+	<productName>CB Paid Subs bot</productName>
+	<creationDate>2014-10-09</creationDate>
+	<version>4.0.0-rc.1</version>
+	<author>Joomlapolis.com</author>
+	<authorName>Beat</authorName>
+	<authorEmail>beat@joomlapolis.com</authorEmail>
+	<authorUrl>www.joomlapolis.com</authorUrl>
+	<description>This plugin checks for access rights to content and extensions depending on active subscriptions.</description>
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU/GPL version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<scriptfile>script.cbpaidsubsbot.php</scriptfile>
+	<files>
+		<filename plugin="cbpaidsubsbot">cbpaidsubsbot.php</filename>
+		<filename>index.html</filename>
+	</files>
+  	<queries>
+  	</queries>
+	<config>
+		<fields name="params">
+		</fields>
+	</config>
+</extension>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<types>
+		<type name="gateway_type" base="list" valuetype="string">
+			<option value="processors.offline">Off-line</option>
+		</type>
+		<type name="payment_method" base="list" valuetype="string">
+			<option value="offline">Off-line</option>
+		</type>
+	</types>
+	<views>
+		<view name="selectgatewayinformation" type="params" ui="admin">
+			<fieldset name="fieldset_getofflineLinks" label="Offline payments" description="Offline payments are manual payments handled outside CBSubs.">
+				<param name="twocheckoutinfolink" type="spacer" label="Information" default="Offline payments are recorded manually by the administrators in the administration area in CBSubs Payment Baskets." />
+			</fieldset>
+		</view>
+
+		<view name="paymentstatusinformation" type="params" ui="admin">
+			<showview view="paymentrefundbutton" mode="view" type="view" />
+		</view>
+
+		<view name="editgatewayoffline" type="params" ui="admin">
+			<inherit name="editgatewayofflineinherit" from="/*/views/view[@name='editgenericgateway']">
+				<fieldset name="fieldset_for_gateway" label="Offline" description="Offline payments per post or phone settings:">
+					<param name="enabled" type="xml:yesno" default="0" label="Enable Offline payments" description="Whether you want to offer offline (e.g. checks or bank wire-transfer) payments." />
+					<params name="params" type="params">
+						<param name="pending_payment_state" type="list" default="Pending" label="Payment selection leads to following order state" description="">
+							<option value="Pending">Pending (Recommended) with completion in CBSubs admin area Payment Baskets</option>
+							<option value="Completed">Completed, giving immediate access WITHOUT PAYMENT!</option>
+						</param>
+						<if name="pending_payment_state" type="showhide" operator="=" value="Pending" valuetype="const:string">
+							<param name="thanks_message_pending" type="textarea" cols="55" rows="3" default="Your offline payment request has been recorded and your subscription will be activated when backoffice receives and confirms payment." label="Text to thank for a pending offline payment" description="This is the text to show to your customers once they have committed to pay, and that CBSubs marks the payment as Pending." />
+						</if>
+						<if name="pending_payment_state" type="showhide" operator="=" value="Completed" valuetype="const:string">
+							<param name="thanks_message_completed" type="textarea" cols="55" rows="3" default="Your offline payment request has been noted and your subscription is now active. Please make sure actual payment has been processed from your end in order to avoid subscription interruption." label="Text to thank for a completed offline payment" description="This is the text to show to your customers once they have committed to pay, and that CBSubs marks the payment as Completed immediately." />
+						</if>
+					</params>
+					<param name="normal_gateway" type="hidden" label="" default="1" />
+				</fieldset>
+				<params name="params" type="params">
+					<param name="button_title_text" type="text" size="60" default="Pay us offline" label="Button hover (title) text" description="This is the text to show to your customers in title of payment button" />
+					<if name="payment_method_selection_type" operator="=" value="radios" type="condition" nametype="pluginparams:string" valuetype="const:string">
+						<extend toxpathnode="../following-sibling::*[1]" fromxpathnode="/cbxml/views/view[@name=&quot;radiosettings&quot;]/*" file="xml/admin.lib.processors" mode="prepend">
+							<replaces>
+								<replace attribute="name" from="{SUBMETHOD}" to="single" translate="yes" />
+								<replace attribute="label" from="{SUBMETHOD_TEXT}" to="Offline Payment" translate="yes" />
+								<replace attribute="default" from="{SUBMETHOD_DEFAULT_TEXT}" to="Pay offline" translate="no" />
+								<replace attribute="default" from="visa|*|mastercard" to="offline" translate="no" />
+							</replaces>
+						</extend>
+					</if>
+					<fieldset name="fieldset_for_presentation" label="Presentation" description="">
+						<param name="offline_image" type="radio" default="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/normal/pay-offline.gif" label="Payment Button" description="The payment button (visible only if an Intro Text is present or more than one payment processor enabled.">
+							<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_offline.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_big_offline.gif" alt="" /&gt;</option>
+							<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/normal/pay-offline.gif">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/normal/pay-offline.gif" alt="" /&gt;</option>
+						</param>
+						<param name="custom_offline_image" type="text" size="40" default="" label="Custom Button Text or Image" description="Either text of button or URL of a custom image (.gif, .jpg or .bmp), overwites selection above." />
+					</fieldset>
+					<fieldset name="fieldset_for_instructions" label="Presentation of payment instructions" description="">
+						<param name="regOfflineInstructions" type="htmlarea" height="350" cols="40" rows="10" default="&lt;p&gt;You can pay us with a check using regular post. Please print out and enclose also the payment slip by clicking on the button below and then selecting print. Please allow 3-10 days for the post and to cash-in the check. Our postal address is as follows:&lt;/p&gt;\n&lt;address&gt;BestSite&lt;br /&gt;\nAddress&lt;br /&gt;\nTown&lt;br /&gt;\n&lt;/address&gt;\n&lt;p&gt;Alternatively, you can wire-transfer us the payment (all bank charges to your cost). Our account:&lt;/p&gt;\n&lt;code&gt;Account #: &lt;br /&gt;\nSWIFT: &lt;br /&gt;\nBIC: &lt;br /&gt;\n&lt;/code&gt;" label="Instructions Text" description="Text to display the address to where to send the check." />
+						<param name="slip_link_text" type="text" size="100" default="Click here to confirm that you are paying off-line and to display the Payment slip to print" label="Payment slip link text" description="Click here to confirm that you are paying off-line and to display the Payment slip to print" />
+						<param name="slip_link_areyousure_text" type="textarea" rows="4" cols="60" default="This will lock this transaction for offline payment. Please continue now only if you are preparing the payment now. Are you paying now ?" label="Payment &quot;are you sure?&quot; popup text (blank to disable popup)" description="This will lock this transaction for offline payment. Please continue now only if you are preparing the payment now. Are you paying now ?" />
+					</fieldset>
+					<fieldset name="fieldset_for_slip" label="Presentation of payment slip" description="">
+						<param name="slip_popup_window" type="list" default="1" label="Payment slip opens in" description="Payment slips can open in a pop-up window that is printable (with PRINT and CLOSE buttons), or just stay in the site.">
+							<option value="1">Pop-up window with PRINT and CLOSE buttons</option>
+							<option value="0">Stays in same window within the site, optionally with PRINT button</option>
+						</param>
+						<if name="slip_popup_window" type="showhide" operator="=" value="0" valuetype="const:string">
+							<param name="slip_print_button" type="list" default="1" label="Payment slip within same window has PRINT button" description="">
+								<option value="1">PRINT button to open Pop-up window</option>
+								<option value="0">No PRINT button</option>
+							</param>
+						</if>
+						<param name="slip_html_pure" type="list" default="0" label="Content of payment slip" description="Here you can choose between a standard customizable presentation, or a full custom one.">
+							<option value="0">Standard presentation</option>
+							<option value="1">Custom presentation</option>
+						</param>
+						<if name="slip_html_pure" type="showhide" operator="=" value="0" valuetype="const:string">
+							<fieldset name="fieldset_for_standard_slip" label="Standard Presentation of payment slip" description="Empty texts will lead to not display the corresponding item.">
+								<param name="slip_html_title" type="text" size="100" default="Payment Slip No. " label="Payment slip title text" description="Payment Slip No. " />
+								<param name="slip_html_for_site" type="text" size="100" default="For website:" label="Payment slip site text" description="For website:" />
+								<param name="slip_site_url" type="xml:yesno" default="1" label="Show site URL" description="Show site url on offline payment slip." />
+								<param name="slip_html_for_item" type="text" size="100" default="For item:" label="Payment slip site text" description="For item:" />
+								<param name="slip_html_for_member" type="text" size="100" default="For member:" label="Payment slip site text" description="For member:" />
+								<param name="slip_html_reference" type="text" size="100" default="Important: include our reference with your payment:" label="Payment slip site text" description="Important: include our reference with your payment:" />
+								<param name="slip_reference_site" type="xml:yesno" default="1" label="Show also site URL in reference number" description="Show site URL in reference number" />
+								<param name="slip_html_conclusion" type="htmlarea" height="350" cols="40" rows="10" default="&lt;p&gt;If you pay by check, please print and enclose this page with your check.&lt;/p&gt;" label="Instructions Text" description="If you pay by check, please print and enclose this page with your check." />
+							</fieldset>
+						</if>
+						<if name="slip_html_pure" type="showhide" operator="=" value="1" valuetype="const:string">
+							<fieldset name="fieldset_for_custom_slip" label="Custom Presentation of payment slip" description="Following substitutions can be used: [order_id], [item_number], [item_description], [user_id], [username], [address_name], [address_street], [address_city], [address_state], [address_zip], [address_country], [address_country_code], [first_name], [last_name], [order_table], [sitename], [live_site]">
+								<param name="slip_html_custom" type="htmlarea" height="350" cols="40" rows="10" default="&lt;h2&gt;Payment Slip No. [order_id]&lt;/h2&gt;&lt;h3 id=&quot;cbpaidWebsite&quot;&gt;For website: [sitename]&lt;/h3&gt;&lt;p id=&quot;cbpaidAddress&quot;&gt;&lt;address&gt;[live_site]&lt;/address&gt;&lt;/p&gt;&lt;h3 id=&quot;cbpaidItem&quot;&gt;For item: [item_number]&lt;/h3&gt;&lt;h3 id=&quot;cbpaidUser&quot;&gt;For member: [first_name] [last_name]&lt;/h3&gt;&lt;div&gt;[order_table]&lt;/div&gt;&lt;p id=&quot;cbpaidReference&quot;&gt;&lt;strong&gt;Important: include our reference with your payment: &amp;nbsp;&lt;u style=\&quot;font-size:125%\&quot;&gt;Number [order_id] / [live_site]&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p id=\&quot;cbpaidCheck\&quot;&gt;If you pay by check, please print and enclose this page with your check.&lt;/p&gt;" label="Custom HTML" description="" />
+							</fieldset>
+						</if>
+					</fieldset>
+				</params>
+			</inherit>
+		</view>
+
+	</views>
+</cbxml>

@@ -1,0 +1,37 @@
+/*
+ * RTL Style Sheet
+ */
+
+.wk-slideshow-tabs-steam .nav,
+.wk-slideshow-tabs-steam .nav li,
+.wk-slideshow-tabs-steam .nav span { float: right; }
+
+.wk-slideshow-tabs-steam .nav li {
+	margin-left: 0;
+	margin-right: 5px;
+}
+.wk-slideshow-tabs-steam .nav li:first-child { margin-right: 0; }
+
+
+/* Content
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-tabs-steam .slides > li > article { text-align: right; }
+
+
+/* Alignment: Navigation
+---------------------------------------------------------------------------------------------------*/
+
+/* Center */
+.wk-slideshow-tabs-steam .nav-center .nav {
+	left: auto;
+	right: 50%;
+}
+
+.wk-slideshow-tabs-steam .nav-center .nav li {
+	left: auto;
+	right: -50%;
+}
+
+/* Right */
+.wk-slideshow-tabs-steam .nav-right .nav { float: left; }

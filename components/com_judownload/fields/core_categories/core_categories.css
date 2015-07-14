@@ -1,0 +1,45 @@
+.categories {
+    float: left;
+}
+
+.categories .main-cat-list {
+    float: left;
+    clear: both;
+    margin-bottom: 2px;
+}
+
+.categories .remove-secondary-cat {
+    display: inline-block;
+    margin-left: 5px;
+    line-height: 15px;
+}
+
+.categories .secondary-cat-list {
+    float: left;
+    clear: both;
+    margin-bottom: 10px;
+}
+
+.categories .secondary-cat-list li {
+    float: left;
+    clear: both;
+}
+
+.categories .category_selection {
+    display: block;
+    clear: both;
+}
+
+.categories .change_categories {
+    float: left;
+    clear: both;
+    margin-bottom: 5px;
+}
+
+.categories .browse_cat {
+    min-width: 250px;
+}
+
+button.update-main-cat {
+    margin-right: 5px;
+}

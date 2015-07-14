@@ -1,0 +1,177 @@
+$spacing:                       10px !default;
+$carousel-padding:              10px !default;
+$dots-spacing:                  40px !default;
+$dotsize--smaller:              30px !default;
+$arrowsize--smaller:            $dotsize--smaller / 3 !default;
+$arrowsize--smaller--small:     $arrowsize--smaller * .75 !default;
+
+.koowa_media--gallery {
+
+  .koowa_media_wrapper {
+    overflow: visible;
+  }
+
+  .koowa_media_contents {
+    padding: 0;
+    border: none;
+    background: transparent;
+    display: block;
+
+    // Border box sizing
+    &, * {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    // Responsive columns
+    &.columns-2,
+    &.columns-3,
+    &.columns-4,
+    &.columns-5,
+    &.columns-6,
+    &.columns-7,
+    &.columns-8,
+    &.columns-9,
+    &.columns-10 {
+      max-width: none;
+    }
+
+    &.columns-2 .koowa_media__item  {width: 50%;}
+    &.columns-3 .koowa_media__item  {width: 33.3333333333%;}
+    &.columns-4 .koowa_media__item  {width: 25%;}
+    &.columns-5 .koowa_media__item  {width: 20%;}
+    &.columns-6 .koowa_media__item  {width: 16.6666666667%;}
+    &.columns-7 .koowa_media__item  {width: 14.28%;}
+    &.columns-8 .koowa_media__item  {width: 12.5%;}
+    &.columns-9 .koowa_media__item  {width: 11.1111111111%;}
+    &.columns-10 .koowa_media__item  {width: 10%;}
+    &.columns-11 .koowa_media__item  {width: 9.0909090909%;}
+    &.columns-12 .koowa_media__item  {width: 8.3333333333%;}
+    &.columns-13 .koowa_media__item  {width: 7.6923076923%;}
+    &.columns-14 .koowa_media__item  {width: 7.1428571429%;}
+    &.columns-15 .koowa_media__item  {width: 6.6666666667%;}
+    &.columns-16 .koowa_media__item  {width: 6.25%;}
+    &.columns-17 .koowa_media__item  {width: 5.8823529412%;}
+    &.columns-18 .koowa_media__item  {width: 5.5555555556%;}
+    &.columns-19 .koowa_media__item  {width: 5.2631578947%;}
+    &.columns-20 .koowa_media__item  {width: 5%;}
+  }
+
+  // Gallery item
+  .koowa_media__item {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 100%;
+  }
+
+  .koowa_media__item__content {
+    padding: $spacing;
+    display: block;
+    max-width: 100%;
+  }
+
+  // Gallery link
+  .koowa_media__item__link {
+    display: inline-block;
+    max-width: 100%;
+  }
+
+  // Item label
+  .koowa_header {
+    margin: 0;
+    display: block;
+    clear: both;
+    padding: 0;
+    @include wrap_words;
+  }
+
+  // Item thumbnail
+  .koowa_media__item__thumbnail {
+    &, img {
+      display: inline-block;
+      vertical-align: middle;
+      max-width: 100%;
+    }
+  }
+
+  // Overflow ellipsis
+  .overflow_container {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    white-space: normal;
+  }
+}
+
+// @at-root to move outside of koowa namespace
+@at-root html.koowa-js-enabled .koowa_media_wrapper {
+  overflow: hidden;
+  height: 100px;
+  position: relative;
+
+  &:before,
+  &:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    content: "Loading...";
+    transform: translate(-50%, -50%);
+  }
+
+  .koowa_media_contents {
+    opacity: 0;
+    transition: all 1s ease;
+  }
+
+  &[class*=initialized] {
+    height: auto;
+    overflow: visible;
+
+    &:before,
+    &:after {
+      display: none;
+    }
+
+    .koowa_media_contents {
+      opacity: 1;
+    }
+  }
+}
+
+// Gallery styling
+.koowa_media__item__thumbnail,
+.koowa_media__item__icon {
+  border-radius: 5px;
+  padding: 8px;
+  vertical-align: middle;
+  // Styling with rgba (94% browser market at this time of coding)
+  // to make sure that the gallery looks good on most templates
+  background: rgba(0,0,0,.05);
+  background: -moz-radial-gradient(center, ellipse cover, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0.11) 100%); /* FF3.6+ */
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(0,0,0,0.02)), color-stop(100%,rgba(0,0,0,0.11))); /* Chrome,Safari4+ */
+  background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0.02) 0%,rgba(0,0,0,0.11) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-radial-gradient(center, ellipse cover, rgba(0,0,0,0.02) 0%,rgba(0,0,0,0.11) 100%); /* Opera 12+ */
+  background: -ms-radial-gradient(center, ellipse cover, rgba(0,0,0,0.02) 0%,rgba(0,0,0,0.11) 100%); /* IE10+ */
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.02) 0%,rgba(0,0,0,0.11) 100%); /* W3C */
+  border: 1px solid rgba(0,0,0,.15);
+  box-shadow: inset 0 0 1px rgba(255,255,255,.05);
+}
+
+.koowa_media__item__icon {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.koowa_media_wrapper--documents {
+  .koowa_media__item {
+    text-align: center;
+  }
+
+  .koowa_media__item__label {
+    margin-top: 10px;
+  }
+}

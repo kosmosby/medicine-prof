@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+
+    <field
+            name="changeTemplateStyleAction"
+            type="radio"
+            default="1"
+            class="btn-group"
+            label="COM_JUDOWNLOAD_FIELD_SET_DEFAULT_TEMPLATE_STYLE_ACTION_LABEL"
+            >
+        <option value="0">COM_JUDOWNLOAD_USING_NEW_DEFAULT_TEMPLATE_STYLE_AND_DELETE_OLD_DATA</option>
+        <option value="1">COM_JUDOWNLOAD_KEEP_OLD_TEMPLATE_STYLE</option>
+    </field>
+
+    <fieldset name="details"
+              addfieldpath="/administrator/components/com_judownload/models/fields">
+        <field
+                name="id"
+                type="hidden"
+                default="0"
+                required="true"
+                readonly="true"
+                class="readonly"
+                label="COM_JUDOWNLOAD_FIELD_ID_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_ID_DESC"
+                />
+
+        <field
+                name="title"
+                type="text"
+                required="true"
+                class="required"
+                default=""
+                label="COM_JUDOWNLOAD_FIELD_TITLE_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_TITLE_DESC"
+                />
+
+        <field
+                name="template_id"
+                type="template"
+                required="true"
+                class="required"
+                ignore="root"
+                label="COM_JUDOWNLOAD_FIELD_TEMPLATE_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_TEMPLATE_DESC"
+                >
+            <option value="">COM_JUDOWNLOAD_SELECT_TEMPLATE</option>
+        </field>
+
+        <field
+                name="parent_id"
+                type="style"
+                required="true"
+                class="required"
+                label="COM_JUDOWNLOAD_FIELD_PARENT_STYLE_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_PARENT_STYLE_DESC"
+                >
+            <option value="">COM_JUDOWNLOAD_SELECT_PARENT_STYLE</option>
+        </field>
+
+        <field
+                name="home"
+                type="homeforstyle"
+                label="COM_JUDOWNLOAD_FIELD_HOME_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_HOME_DESC"
+                default="0">
+            <option value="0">JNO</option>
+            <option value="1">JALL</option>
+        </field>
+
+        <field
+                name="categories"
+                type="categoriestoassignstyle"
+                label="COM_JUDOWNLOAD_FIELD_ASSIGNED_CATEGORIES_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_ASSIGNED_CATEGORIES_DESC"
+                />
+    </fieldset>
+
+    <fieldset name="publishing">
+        <field name="created"
+               type="calendar"
+               class="inputbox"
+               default=""
+               format="%Y-%m-%d %H:%M:%S"
+               filter="user_utc"
+               label="COM_JUDOWNLOAD_FIELD_CREATED_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_CREATED_DESC"
+                />
+
+        <field
+                name="created_by"
+                type="user"
+                label="COM_JUDOWNLOAD_FIELD_CREATED_BY_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_CREATED_BY_DESC"
+                />
+
+        <field name="modified"
+               type="calendar"
+               class="readonly"
+               readonly="true"
+               format="%Y-%m-%d %H:%M:%S"
+               filter="user_utc"
+               label="COM_JUDOWNLOAD_FIELD_MODIFIED_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_MODIFIED_DESC"
+                />
+
+        <field name="modified_by"
+               type="user"
+               class="readonly"
+               readonly="true"
+               filter="unset"
+               label="COM_JUDOWNLOAD_FIELD_MODIFIED_BY_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_MODIFIED_BY_DESC"
+                />
+    </fieldset>
+
+    <fields name="params">
+        <fieldset name="params">
+        </fieldset>
+    </fields>
+</form>

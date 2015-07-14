@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<actions ui="admin" permission="core.manage" permissionasset="com_cbsubs">
+		<action name="show_subscriptions" request="action table" action="showtable subscriptions" requestparameters="subscriptionsbrowser[filter_plan_id] " permission="cbsubs.usersubscriptionview">
+			<showview view="showsubscriptions" mode="show" type="xml" file="products/usersubscription/xml/views/edit.productitems" path="/*/views/view[@name=&quot;showsubscriptions&quot;]" mandatory="true">
+				<!-- because_it_loads_full_table_for_nothing_since_table_browser_is_doing_it + where not yet implemented:
+    			<data name="subscriptions" type="sql:multiplerows" table="#__cbsubs_subscriptions" class="cbpaidUsersubscriptionRecord" key="plan_id" value="subscriptionsbrowser[filter_plan_id]" valuetype="request:int" />
+		   		-->
+	   		</showview>
+		</action>
+		<action name="edit_subscription" request="action table" action="editrow subscriptionsbrowser" requestparameters="sid" permission="cbsubs.usersubscriptionmanage">
+			<showview view="editsubscription" mode="edit" type="xml" file="products/usersubscription/xml/views/edit.productitem" path="/*/views/view[@name=&quot;editsubscription&quot;]" mandatory="true">
+				<data name="subscriptionrow" type="sql:row" table="#__cbsubs_subscriptions" class="cbpaidUsersubscriptionRecord" key="id" value="sid" valuetype="request:int" />
+			</showview>
+		</action>
+		<action name="show_usersubscription" request="task tab" action="edit getcbpaidsubscriptionsTab" requestparameters="cid" permission="cbsubs.usersubscriptionview" />
+	</actions>
+
+</cbxml>

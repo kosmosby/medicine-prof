@@ -1,0 +1,4 @@
+views->paypal
+controllers->paypal
+models->paypal (no need actually)
+cpu-> oseMethods

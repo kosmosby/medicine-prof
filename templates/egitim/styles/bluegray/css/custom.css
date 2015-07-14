@@ -1,0 +1,7 @@
+/*
+ * Custom Style Sheet - Use this file to style your content
+ */
+
+@import url(../../../css/custom.css);
+
+.custom-logo { background-image: url(../../../../../images/yootheme/logo_bluegray.png); }

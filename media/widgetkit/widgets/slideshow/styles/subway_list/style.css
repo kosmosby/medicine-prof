@@ -1,0 +1,76 @@
+/*
+ * Widgetkit Slideshow: List Style
+ */
+
+.wk-slideshow-subway-list > div,
+.wk-slideshow-subway-list .nav { background: url(images/bg.png) 0 0 repeat; }
+
+
+.wk-slideshow-subway-list > div { 
+	color: #fff;
+	box-shadow: 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-subway-list .nav {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 160px;
+	padding: 10px;
+}
+
+.wk-slideshow-subway-list .nav li {
+	border: 1px solid transparent;
+	border: 1px solid rgba(255,255,255,0);
+	font-size: 22px;
+	color: #8C8C8C;
+	color: rgba(255,255,255,1);
+}
+
+.wk-slideshow-subway-list .nav li:hover {
+	border: 1px solid #fff;
+	border: 1px solid rgba(255,255,255,0.6);
+}
+
+.wk-slideshow-subway-list .nav span {
+	padding: 9px;
+	overflow: hidden;
+	opacity: 0.6;
+}
+
+.wk-slideshow-subway-list .nav li:hover span,
+.wk-slideshow-subway-list .nav li.active span {
+	color: #fff;
+	opacity: 1;
+}
+
+/* Content
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-subway-list .slides-container { margin-left: 180px; }
+
+.wk-slideshow-subway-list .slides > li > article { padding: 20px; }
+
+
+/* Navigation Width
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-subway-list .nav-100 { width: 80px; }
+.wk-slideshow-subway-list .nav-100 + .slides-container { margin-left: 100px; }
+
+.wk-slideshow-subway-list .nav-150 { width: 130px; }
+.wk-slideshow-subway-list .nav-150 + .slides-container { margin-left: 150px; }
+
+.wk-slideshow-subway-list .nav-250 { width: 230px; }
+.wk-slideshow-subway-list .nav-250 + .slides-container { margin-left: 250px; }
+
+
+/* IE7 Fix
+----------------------------------------------------------------------------------------------------*/
+
+.wk-ie7 .wk-slideshow-subway-list .nav li { zoom: 1; }

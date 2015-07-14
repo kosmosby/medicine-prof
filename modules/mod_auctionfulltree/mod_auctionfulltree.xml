@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="1.6.0" method="upgrade">
+	<name>Auction Factory Category Tree</name>
+	<author>The Factory Team</author>
+	<creationDate>September 2007</creationDate>
+	<copyright>(C) 2007 The Factory . All rights reserved.</copyright>
+	<license>Commercial</license>
+	<authorEmail>contact@thefactory.ro</authorEmail>
+	<authorUrl>http://www.thefactory.ro</authorUrl>
+	<version>2.0.0</version>
+	<description>Module for auctionFactory</description>
+	<files>
+		<filename module="mod_auctionfulltree">mod_auctionfulltree.php</filename>
+		<filename>index.html</filename>
+		<filename>helper.php</filename>
+	</files>
+	<config>
+        <fields name="params">
+            <fieldset name="basic">
+            	<field name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="A suffix to be applied to the css class of the module (table.moduletable), this allows individual module styling" />
+				<field name="fold_speed" type="text" default="250" label="Folding speed (miliseconds)" />
+				
+            	<field name="category_counter" type="radio" default="0" label="Enable Category Counter">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="display_subcategories_nr" type="radio" default="0" label="Enable Subcategories Counter" description="Display no of Subcategories">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="theming" type="list" default="0" label="Choose Theme">
+					<option value="default">Default</option>
+					<option value="azuro">Azuro</option>
+					<option value="green">Green</option>
+					<option value="red">Red</option>
+				</field>
+            </fieldset>            
+        </fields>
+    </config>
+</extension>

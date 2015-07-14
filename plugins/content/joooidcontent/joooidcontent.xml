@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.7" type="plugin" group="content">
+	<name>Joooid Content</name>
+	<author>Weracle</author>
+	<creationDate>October 2013</creationDate>
+	<copyright>Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>stefano.norcia@gmail.com</authorEmail>
+	<authorUrl>www.joooid.org</authorUrl>
+	<version>2.6.0</version>
+	<description>Article Date plugin</description>
+	<files>
+		<filename plugin="joooidcontent">joooidcontent.php</filename>
+		<filename>index.html</filename>
+		<filename>JSON.php</filename>
+	</files>
+	<updateservers>
+	   <server type="extension" priority="1" name="Joooid Content Plugin">http://www.joooid.com/updates/update_content_plugin.xml</server>
+	</updateservers>
+</extension>
+ 

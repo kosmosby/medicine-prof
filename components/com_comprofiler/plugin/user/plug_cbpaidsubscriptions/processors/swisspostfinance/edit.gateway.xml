@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<types>
+		<type name="gateway_type" base="list" valuetype="string">
+			<option value="processors.swisspostfinance">Swiss PostFinance</option>
+		</type>
+		<type name="payment_method" base="list" valuetype="string">
+			<option value="swisspostfinance">Swiss PostFinance</option>
+		</type>
+	</types>
+	<views>
+		<view name="selectgatewayinformation" type="params" ui="admin">
+			<fieldset name="fieldset_getswisspostfinanceLinks" label="Swiss PostFinance" description="Swiss PostFinance Payment Service provider product is only available to companies located in Switzerland with a Swiss Post account. If you need Alias Manager support, we recommend using Ogone PSP services instead (see above), which supports Swiss PostFinance PostCard acquiring services too.">
+				<param name="swisspostfinanceinfolink" type="spacer" label="Information about Swiss PostFinance E-payments" default="&lt;a target=&quot;_blank&quot; href=&quot;https://www.postfinance.ch/en/biz/prod/eserv/epay/providing/offer.html&quot; /&gt;&lt;strong&gt;Swiss PostFinance E-Payment website page&lt;/strong&gt;&lt;/a&gt;" />
+			</fieldset>
+		</view>
+
+		<view name="paymentstatusinformation" type="params" ui="admin">
+			<showview view="paymentrefundbutton" mode="view" type="view" />
+		</view>
+
+		<view name="editgatewayswisspostfinance" type="params" ui="admin">
+			<extend toxpathnode=".." fromxpathnode="/cbxml/views/view[@name=&quot;editgatewayogoneoem&quot;]/*" file="processors/ogone/edit.gateway.oem">
+				<replaces>
+					<replace attribute="label"       from="{PSP}" to="Swiss PostFinance" translate="yes" />
+					<replace attribute="description" from="{PSP}" to="Swiss PostFinance" translate="yes" />
+					<replace attribute="default"     from="{PSP}" to="Swiss PostFinance" translate="yes" />
+					<replace attribute="[DATA]"      from="{PSP}" to="Swiss PostFinance" translate="yes" />
+					<replace attribute="description" from="{PSPPRODURL}" to="e-payment.postfinance.ch/ncol/prod/orderstandard.asp" translate="no" />		<!-- from="secure.ogone.com/ncol/prod/orderstandard.asp" -->
+					<replace attribute="value"       from="{PSPPRODURL}" to="e-payment.postfinance.ch/ncol/prod/orderstandard.asp" translate="no" />		<!-- from="secure.ogone.com/ncol/prod/orderstandard.asp" -->
+					<replace attribute="value"       from="{PSPTESTURL}" to="e-payment.postfinance.ch/ncol/test/orderstandard.asp" translate="no" />		<!-- from="secure.ogone.com/ncol/test/orderstandard.asp" -->
+				</replaces>
+			</extend>
+			<extend toxpathnode="../inherit/fieldset/params/if/param[@name=&quot;image&quot;]" fromxpathnode="./nodes/*" file="">
+				<nodes>
+					<option value="components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_3d_swisspostfinance.png">&lt;img src="../components/com_comprofiler/plugin/user/plug_cbpaidsubscriptions/icons/cards/cc_3d_swisspostfinance.png" alt="Postfinance Card 3d" /&gt;</option>
+				</nodes>
+			</extend>
+		</view>
+	</views>
+</cbxml>

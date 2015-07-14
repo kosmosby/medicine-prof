@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="plugin" group="user">
+	<name>User - Jomwall (Delete Post of deleted Users</name>
+	<author>AWDsolution.com</author>
+	<creationDate>Dec 2010</creationDate>
+	<copyright>AWDsolution.com</copyright>
+	<license>@license GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>	
+	<authorEmail>support@awdsolution.com</authorEmail>
+	<authorUrl>http://www.awdsolution.com</authorUrl>
+	<version>3.0</version>
+	<description><![CDATA[Delete Post of Deleted Users]]></description>
+	<files>
+		<filename plugin="plgawdwalldeletepost">plgawdwalldeletepost.php</filename>
+	</files>
+</extension>

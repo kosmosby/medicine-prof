@@ -1,0 +1,22 @@
+.jubootstrap.component .nav.nav-tabs {
+	margin: 10px 0;
+}
+
+.jubootstrap.component .input-append input {
+	float: left;
+}
+
+ul.tagit li.tagit-new input {
+	border: medium none;
+	box-shadow: none;
+	box-sizing: border-box;
+	display: block;
+	float: left !important;
+	height: 25px;
+	padding: 0 6px;
+	width: 70px !important;
+}
+
+ul.tagit{
+	border-radius: 4px;
+}

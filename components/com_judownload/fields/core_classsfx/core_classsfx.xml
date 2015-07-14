@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="file" method="upgrade" judlplugintype="field">
+    <name>Core Class suffix</name>
+    <author>JoomUltra</author>
+    <creationDate>18 July 2014</creationDate>
+    <authorEmail>admin@joomultra.com</authorEmail>
+    <version>1.0</version>
+    <license>GNU/GPL</license>
+    <website>http://www.joomultra.com</website>
+    <description></description>
+    <folder>core_classsfx</folder>
+    <core>1</core>
+    <default>1</default>
+    <fileset>
+        <files target="components/com_judownload/fields/core_classsfx">
+            <file>core_classsfx.xml</file>
+            <file>core_classsfx.php</file>
+            <file>index.html</file>
+        </files>
+    </fileset>
+    <config>
+        <field name="size"
+               type="text"
+               label="COM_JUDOWNLOAD_FIELD_SIZE_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_SIZE_DESC"
+               default="32"
+                />
+
+        <field name="placeholder"
+               type="text"
+               label="COM_JUDOWNLOAD_FIELD_PLACEHOLDER_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_PLACEHOLDER_DESC"
+               default=""
+                />
+
+        <field
+                name="auto_suggest"
+                type="radio"
+                default="0"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_AUTO_SUGGEST_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_AUTO_SUGGEST_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+    </config>
+</extension>

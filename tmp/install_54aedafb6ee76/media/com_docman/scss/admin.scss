@@ -1,0 +1,60 @@
+// Core variables and mixins without output available outside .koowa scope
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+// Overwrite variables
+$koowaPath: '../../koowa/com_koowa';
+
+// Mixins
+@import "koowa/generic/mixins";
+
+// Koowa behaviors
+@import "koowa/generic/select2";
+@import "koowa/generic/select2--custom";
+@import "koowa/generic/modal";
+@import "koowa/generic/datepicker";
+@import "koowa/generic/icons";
+@import "koowa/generic/general";
+@import "koowa/generic/koowa_template";
+@import "koowa/admin/admin";
+@import "koowa/admin/admin3x";
+
+// Keep outside .koowa for it to work properly everywhere
+@import "generic/dropdowngrid";
+@import "admin/global_overrides";
+@import "admin/joomla3sidebar";
+
+.koowa {
+
+  // Koowa behaviours
+  @import "koowa/generic/dialog";
+  @import "koowa/generic/inputgroups";
+  @import "koowa/generic/tree";
+  @import "koowa/generic/pagination";
+  @import "koowa/generic/variables";
+  @import "koowa/generic/sidebar-nav";
+  @import "koowa/admin/table";
+
+  // Com files
+  @import "koowa/files";
+  @import "admin/files";
+
+  // Generic
+  @import "generic/footable";
+  @import "generic/iconpicker";
+  @import "generic/layout";
+  @import "generic/mixins";
+  @import "generic/oldie";
+  @import "generic/select2";
+  @import "generic/tooltip";
+  @import "generic/validator";
+
+  // Admin
+  @import "admin/admin";
+  @import "admin/joomla3";
+
+  // RTL
+  &.koowa--rtl {
+    @import "admin/rtl";
+  }
+}

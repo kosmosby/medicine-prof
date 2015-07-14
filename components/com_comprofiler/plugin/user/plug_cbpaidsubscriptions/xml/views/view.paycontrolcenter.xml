@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="paycontrolcenter" type="params" ui="admin" label="Payments Center" description="CB Payments Control Center is the starting point for settings and payment information.">
+			<toolbarmenu>
+				<menu name="close" action="cancel" task="cancelPlugin" label="Close" />
+			</toolbarmenu>
+			<param name="versioncheck"        type="private" class="cbpaidParamsExt" method="ajaxversioncheck" label=""  align="center" default="always" description="" />
+			<param name="botversioncheck"        type="private" class="cbpaidParamsExt" method="checkSystemsVersions" label=""  align="center" default="always" description="" />
+			<param name="currencyconvertercheck"        type="private" class="cbpaidParamsExt" method="currencyconvertercheck" label=""  align="center" description="" />
+			<tablebrowser name="totalsbrowser" table="#__cbsubs_payments" class="cbpaidPayment" label="Last 7 days payments" description="" permission="cbsubs.financial" permissionasset="com_cbsubs">
+				<quicksearchfields>
+				</quicksearchfields>
+				<filters>
+				</filters>
+				<orderby>
+					<field name="time_paid_date" ordering="DESC" />
+				</orderby>
+				<groupby>
+					<field name="time_paid_date" />
+				</groupby>
+				<listfields>
+					<header type="standard" />
+					<paging type="" />
+					<rows type="standard" height="auto" limit="7" limits="7,14,21,28,29,30,31">
+						<field name="time_paid_date"     type="datetime"  timezone="RAW" showtime="0"  link="cb_action:show_payments" parameters="paymentsbrowser[filter_time_paid_date]" paramvalues="time_paid_date" title="Show the payments for this payment basket" width="6%" label="Paid on"        description="Date of the payment" />
+						<field name="number"             type="int"       width="5%"  align="right" label="Transactions" description="Number of transactions.">
+							<data name="number"          type="sql:count" distinct="id" />
+						</field>
+						<field name="paid_mc_gross_total" type="private"   method="renderCurrencyAmount"  link="cb_action:show_payments" parameters="paymentsbrowser[filter_payment_status] paymentsbrowser[filter_time_paid_date]" paramvalues="Completed time_paid_date" paramvaluestypes="const:string sql:field"  width="4%"  label="Completed" description="Amount for payments completed, converted in main currency of site at today's rate."  align="right">
+							<data name="paid_mc_gross_total"  type="sql:function" operator="SUM">
+								<data name="" type="sql:operator" operator="*">
+									<data name="mc_gross" type="sql:field" />
+									<data name="" type="sql:operator" operator="/">
+										<data name="rate" type="sql:field" table="#__cbsubs_currencies" key="currency" value="currency_code"    valuetype="param:string" />
+										<data name="rate" type="sql:field" table="#__cbsubs_currencies" key="currency" value="mc_currency" valuetype="sql:field" />
+									</data>
+									<data name="" type="sql:function" operator="IF">
+										<data name="" type="sql:operator" operator="AND">
+											<data name="" type="sql:operator" operator="=">
+												<data name="payment_status" type="sql:field" />
+												<data name="Completed" type="const:string" />
+											</data>
+											<data name="" type="sql:operator" operator="OR">
+												<data name="" type="sql:operator" operator="=">
+													<data name="ordering" type="sql:field" table="#__cbsubs_payment_items" class="cbpaidPayment">
+														<joinkeys dogroupby="false">
+															<column name="reason"   operator="=" value="N" type="sql:field" valuetype="const:string" />
+															<column name="payment_basket_id" operator="=" value="payment_basket_id" type="sql:field" valuetype="sql:field" />
+														</joinkeys>
+													</data>
+													<data name="1" type="const:int" />
+												</data>
+												<data name="" type="sql:operator" operator="=">
+													<data name="ordering" type="sql:field" table="#__cbsubs_payment_items" class="cbpaidPayment">
+														<joinkeys dogroupby="false">
+															<column name="reason"   operator="=" value="U" type="sql:field" valuetype="const:string" />
+															<column name="payment_basket_id" operator="=" value="payment_basket_id" type="sql:field" valuetype="sql:field" />
+														</joinkeys>
+													</data>
+													<data name="1" type="const:int" />
+												</data>
+												<data name="" type="sql:operator" operator="=">
+													<data name="ordering" type="sql:field" table="#__cbsubs_payment_items" class="cbpaidPayment">
+														<joinkeys dogroupby="false">
+															<column name="reason"   operator="=" value="R" type="sql:field" valuetype="const:string" />
+															<column name="payment_basket_id" operator="=" value="payment_basket_id" type="sql:field" valuetype="sql:field" />
+														</joinkeys>
+													</data>
+													<data name="1" type="const:int" />
+												</data>
+											</data>
+										</data>
+										<data name="1" type="const:int" />
+										<data name="0" type="const:int" />
+									</data>
+								</data>
+							</data>
+						</field>
+						<field name="graph_paid_amounts" type="bargraph"  key="paid_mc_gross_total"  width="10%"  label="Completed" description="Relative amount to other days displayed."  align="left">
+							<data name="0" type="const:int" />
+						</field>
+						<field name="pending_mc_gross_total" type="private"   method="renderCurrencyAmount"  link="cb_action:show_payments" parameters="paymentsbrowser[filter_payment_status] paymentsbrowser[filter_time_paid_date]" paramvalues="Pending time_paid_date" paramvaluestypes="const:string sql:field"     width="4%"  label="Pending" description="Amount for single payment in currency of payment"  align="right">
+							<data name="pending_mc_gross_total"  type="sql:function" operator="SUM">
+								<data name="" type="sql:operator" operator="*">
+									<data name="mc_gross" type="sql:field" />
+									<data name="" type="sql:operator" operator="/">
+										<data name="rate" type="sql:field" table="#__cbsubs_currencies" class="cbpaidCurrency" key="currency" value="currency_code"    valuetype="param:string" />
+										<data name="rate" type="sql:field" table="#__cbsubs_currencies" class="cbpaidCurrency" key="currency" value="mc_currency" valuetype="sql:field" />
+									</data>
+									<data name="" type="sql:function" operator="IF">
+										<data name="" type="sql:operator" operator="AND">
+											<data name="" type="sql:operator" operator="=">
+												<data name="payment_status" type="sql:field" />
+												<data name="Pending" type="const:string" />
+											</data>
+											<data name="" type="sql:operator" operator="OR">
+												<data name="" type="sql:operator" operator="=">
+													<data name="ordering" type="sql:field" table="#__cbsubs_payment_items" class="cbpaidPayment">
+														<joinkeys dogroupby="false">
+															<column name="reason"   operator="=" value="N" type="sql:field" valuetype="const:string" />
+															<column name="payment_basket_id" operator="=" value="payment_basket_id" type="sql:field" valuetype="sql:field" />
+														</joinkeys>
+													</data>
+													<data name="1" type="const:int" />
+												</data>
+												<data name="" type="sql:operator" operator="=">
+													<data name="ordering" type="sql:field" table="#__cbsubs_payment_items" class="cbpaidPayment">
+														<joinkeys dogroupby="false">
+															<column name="reason"   operator="=" value="U" type="sql:field" valuetype="const:string" />
+															<column name="payment_basket_id" operator="=" value="payment_basket_id" type="sql:field" valuetype="sql:field" />
+														</joinkeys>
+													</data>
+													<data name="1" type="const:int" />
+												</data>
+												<data name="" type="sql:operator" operator="=">
+													<data name="ordering" type="sql:field" table="#__cbsubs_payment_items" class="cbpaidPayment">
+														<joinkeys dogroupby="false">
+															<column name="reason"   operator="=" value="R" type="sql:field" valuetype="const:string" />
+															<column name="payment_basket_id" operator="=" value="payment_basket_id" type="sql:field" valuetype="sql:field" />
+														</joinkeys>
+													</data>
+													<data name="1" type="const:int" />
+												</data>
+											</data>
+										</data>
+										<data name="1" type="const:int" />
+										<data name="0" type="const:int" />
+									</data>
+								</data>
+							</data>
+						</field>
+						<field name="newregs"    type="int"  link="cb_action:show_payments" parameters="paymentsbrowser[filter_newregs] paymentsbrowser[filter_time_paid_date]" paramvalues="1 time_paid_date" paramvaluestypes="const:string sql:field"    width="5%"  align="right" label="New Registrations" description="Total of new plans registered on that day">
+							<data name="newregs" type="sql:count" distinct="id"  table="#__cbsubs_payment_items" class="cbpaidPayment">
+								<joinkeys dogroupby="false">
+									<column name="reason"   operator="=" value="N" type="sql:field" valuetype="const:string" />
+									<column name="payment_basket_id" operator="=" value="payment_basket_id" type="sql:field" valuetype="sql:field" />
+								</joinkeys>
+							</data>
+						</field>
+						<field name="upgrades"    type="int"  link="cb_action:show_payments" parameters="paymentsbrowser[filter_upgrades] paymentsbrowser[filter_time_paid_date]" paramvalues="1 time_paid_date" paramvaluestypes="const:string sql:field"      width="5%"  align="right" label="Upgrades" description="Total of plans upgraded to new plans on that day">
+							<data name="upgrades" type="sql:count" distinct="id"  table="#__cbsubs_payment_items" class="cbpaidPayment">
+								<joinkeys dogroupby="false">
+									<column name="reason"   operator="=" value="U" type="sql:field" valuetype="const:string" />
+									<column name="payment_basket_id" operator="=" value="payment_basket_id" type="sql:field" valuetype="sql:field" />
+								</joinkeys>
+							</data>
+						</field>
+						<field name="renewals"    type="int"  link="cb_action:show_payments" parameters="paymentsbrowser[filter_renewals] paymentsbrowser[filter_time_paid_date]" paramvalues="1 time_paid_date" paramvaluestypes="const:string sql:field"      width="5%"  align="right" label="Renewals" description="Total of plans renewed to same plan on that day">
+							<data name="renewals" type="sql:count" distinct="id"  table="#__cbsubs_payment_items" class="cbpaidPayment">
+								<joinkeys dogroupby="false">
+									<column name="reason"   operator="=" value="R" type="sql:field" valuetype="const:string" />
+									<column name="payment_basket_id" operator="=" value="payment_basket_id" type="sql:field" valuetype="sql:field" />
+								</joinkeys>
+							</data>
+						</field>
+						<field name="id" type="plot" rowspan="all" class="cbregAdminTotalGraph" width="50%" label="Graph" description="This graph shows the table content in a graphical way">
+							<plot name="front_plot">
+								<series>
+									<serie label="New">
+										<data missing="0">
+											<y name="newregs" type="int" />
+											<x name="time_paid_date" type="date" />
+										</data>
+										<lines show="true" />
+										<points show="true" />
+									</serie>
+									<serie label="Upgrades">
+										<data missing="0">
+											<y name="upgrades" type="int" />
+											<x name="time_paid_date" type="date" />
+										</data>
+										<lines show="true" />
+										<points show="true" />
+									</serie>
+									<serie label="Renewals">
+										<data missing="0">
+											<y name="renewals" type="int" />
+											<x name="time_paid_date" type="date" />
+										</data>
+										<lines show="true" />
+										<points show="true" />
+									</serie>
+									<serie label="Transactions">
+										<data missing="0">
+											<y name="number" type="int" />
+											<x name="time_paid_date" type="date" />
+										</data>
+										<bars show="true" barWidth="28800000" align="left" />
+									</serie>
+								</series>
+								<format>
+									<yaxis min="0" tickDecimals="0" />
+									
+									<xaxis mode="time" timeformat="%d %b %y">
+<!--										<ticks type="function" name="cbPlotTicksDate" />
+-->
+									</xaxis>
+									<grid markings="cbPlotWeekends" />
+									<legend noColumns="4" position="nw" container="th.cbregAdminTotalGraph" />
+								</format>
+								
+							</plot>
+						</field>
+					</rows>
+				</listfields>
+			</tablebrowser>
+			<menugroup name="controlmenu" type="buttonMenu" label="Main menu" description="You can view current status in the buttons, and click on the buttons for details and to manage paid subscriptions.">
+				<menu name="settings"      action="cb_action:show_params"                  label="Settings"           description="Show and edit settings">
+					<fields>
+						<field name="configstatetext" label=" " type="private" class="cbpaidParamsExt" method="configstatetext" value="configstatetext" />
+					</fields>
+				</menu>
+				<menu name="gateways"      action="cb_action:show_gateways"                label="Payment Gateways"   description="Show and edit payment gateways">
+					<fields>
+						<field name="gateway_accounts_count" label="enabled gateways" type="int">
+							<data  name="gateway_accounts_count" type="sql:count" table="#__cbsubs_gateway_accounts" class="cbpaidGatewayAccount">
+								<where>
+									<column name="enabled" operator="&gt;" value="0" type="sql:field" valuetype="const:int" />
+								</where>
+							</data>
+						</field>
+						<field name="gateway_accounts_count_testmode" label="gateways in testmode" type="int">
+							<data  name="gateway_accounts_count_testmode" type="sql:count" table="#__cbsubs_gateway_accounts" class="cbpaidGatewayAccount">
+								<where>
+									<column name="enabled" operator="&gt;" value="0" type="sql:field" valuetype="const:int" />
+									<column name="normal_gateway" operator="=" value="0" type="sql:field" valuetype="const:int" />
+								</where>
+							</data>
+						</field>
+					</fields>
+				</menu>
+				<menu name="plans"         action="cb_action:show_plan"                    label="Plans"              description="Show and edit plans">
+					<fields>
+						<field name="plans_count" label="published plans" type="int">
+							<data  name="plans_count" type="sql:count" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="published" value="1" valuetype="const:int">
+								<where>
+									<column name="published" operator="=" value="1" type="sql:field" valuetype="const:int" />
+								</where>
+							</data>
+						</field>
+					</fields>
+				</menu>
+				<showview name="products1" mode="view" type="xml" file="products/*/xml/views/edit.menu" path="/*/views/view[@name=&quot;productmenus1&quot;]" mandatory="false" />
+				<menu name="baskets"       action="cb_action:show_paymentbaskets"          label="Baskets"       description="Show payment baskets">
+					<fields>
+						<field name="paymentbaskets_count" label="completed orders" type="int">
+							<data  name="paymentbaskets_count" type="sql:count" table="#__cbsubs_payment_baskets" class="cbpaidPaymentBasket">
+								<where>
+									<column name="payment_status" operator="=" value="Completed" type="sql:field" valuetype="const:string" />
+								</where>
+							</data>
+						</field>
+						<field name="paymentbaskets_pending" label="payments pending" type="int">
+							<data  name="paymentbaskets_pending" type="sql:count" table="#__cbsubs_payment_baskets" class="cbpaidPaymentBasket" key="payment_status" value="Pending" valuetype="const:string">
+								<where>
+									<column name="payment_status" operator="=" value="Pending" type="sql:field" valuetype="const:string" />
+								</where>
+							</data>
+						</field>
+					</fields>
+				</menu>
+				<menu name="payments"       action="cb_action:show_payments"          label="Payments"       description="Show payments received">
+					<fields>
+						<field name="payments_count" label="completed payments" type="int">
+							<data  name="payments_count" type="sql:count" table="#__cbsubs_payments" class="cbpaidPayment">
+								<where>
+									<column name="payment_status" operator="=" value="Completed" type="sql:field" valuetype="const:string" />
+								</where>
+							</data>
+						</field>
+						<field name="payments_week" label="in last 7 days" type="int">
+							<data  name="payments_week" type="sql:count" table="#__cbsubs_payments" class="cbpaidPayment" key="id">
+								<where>
+									<column name="payment_status" operator="=" value="Completed" type="sql:field" valuetype="const:string" />
+									<column name="time_paid" operator="&gt;" value="DATE_SUB( CURDATE(), INTERVAL 7 DAY )" type="sql:field" valuetype="sql:formula" />
+								</where>
+							</data>
+						</field>
+					</fields>
+				</menu>
+				<menu name="notifications"       action="cb_action:show_notifications"          label="Notifications"       description="Show payments received">
+					<fields>
+						<field name="notifications_count" label="notifications today" type="int">
+							<data  name="notifications_count" type="sql:count" table="#__cbsubs_notifications" class="cbpaidPaymentNotification">
+								<where>
+									<column name="time_received" operator="&gt;" value="DATE_SUB( NOW(), INTERVAL 1 DAY )" type="sql:field" valuetype="sql:formula" />
+								</where>
+							</data>
+						</field>
+						<field name="notifications_ipn_count" label="IPN notifications" type="int">
+							<data  name="notifications_ipn_count" type="sql:count" table="#__cbsubs_notifications" class="cbpaidPaymentNotification">
+								<where>
+									<column name="log_type" operator="=" value="I" type="sql:field" valuetype="const:string" />
+									<column name="time_received" operator="&gt;" value="DATE_SUB( NOW(), INTERVAL 1 DAY )" type="sql:field" valuetype="sql:formula" />
+								</where>
+							</data>
+						</field>
+					</fields>
+				</menu>
+				<menu name="currencies"    action="cb_action:show_currencies"              label="Currencies"    description="Show currency rates">
+					<fields>
+						<field name="mainrate"  type="private"   class="cbpaidPaymentCurrencyInfo" method="renderMainRate" label=" " description="Updates normally automatically once a day" />
+						<field name="last_updated_date" type="datetime" timezone="RAW" showtime="0" label="Last updated %s" description="Updates normally automatically once a day">
+							<data  name="last_updated_date" type="sql:field" table="#__cbsubs_currencies" class="cbpaidCurrency">
+								<where>
+									<column name="currency" operator="=" value="USD" type="sql:field" valuetype="const:string" />
+								</where>
+							</data>
+						</field>
+					</fields>
+				</menu>
+				<menu name="statistics"    action="cb_action:show_statistics"              label="Statistics"    description="Show statistics">
+					<fields>
+						<field name="this_week_sales" type="int" label="sales last 7 days" description="Completed sales in last 7 days">
+							<data  name="this_week_sales" type="sql:count" table="#__cbsubs_payment_baskets" class="cbpaidPaymentBasket">
+								<where>
+									<column name="payment_status" operator="=" value="Completed" type="sql:field" valuetype="const:string" />
+									<column name="time_completed" operator="&gt;" value="DATE_SUB( NOW(), INTERVAL 7 DAY )" type="sql:field" valuetype="sql:formula" />
+								</where>
+							</data>
+						</field>
+						<field name="last_week_sales" type="int" label="sales the 7 days before" description="Completed sales in the 7 days before">
+							<data  name="last_week_sales" type="sql:count" table="#__cbsubs_payment_baskets" class="cbpaidPaymentBasket">
+								<where>
+									<column name="payment_status" operator="=" value="Completed" type="sql:field" valuetype="const:string" />
+									<column name="time_completed" operator="&lt;" value="DATE_SUB( NOW(), INTERVAL 7 DAY )" type="sql:field" valuetype="sql:formula" />
+									<column name="time_completed" operator="&gt;" value="DATE_SUB( NOW(), INTERVAL 14 DAY )" type="sql:field" valuetype="sql:formula" />
+								</where>
+							</data>
+						</field>
+					</fields>
+				</menu>
+				<showview name="products2" mode="view" type="xml" file="products/*/xml/views/edit.menu" path="/*/views/view[@name=&quot;productmenus2&quot;]" mandatory="false" />
+				<showview name="products3" mode="view" type="xml" file="products/*/xml/views/edit.menu" path="/*/views/view[@name=&quot;productmenus3&quot;]" mandatory="false" />
+				<menu name="import"        action="cb_action:show_import"                  label="Import"        description="Import subscriptions" />
+				<!-- <menu name="export"        action="cb_action:show_export"                  label="Export"        description="Export data" />  -->
+				<menu name="history"       action="cb_action:show_history"                 label="History Logs"  description="Show history and logs">
+					<fields>
+						<field name="history_count" label="records today" type="int">
+							<data  name="history_count" type="sql:count" table="#__cbsubs_history" class="cbpaidHistory">
+								<where>
+									<column name="event_type" operator="=" value="2" type="sql:field" valuetype="const:int" />
+									<column name="event_time" operator="&gt;" value="DATE_SUB( NOW(), INTERVAL 1 DAY )" type="sql:field" valuetype="sql:formula" />
+								</where>
+							</data>
+						</field>
+						<field name="history_count_today" label="error logs today" type="int">
+							<data  name="history_count_today" type="sql:count" table="#__cbsubs_history" class="cbpaidHistory">
+								<where>
+									<column name="event_type" operator="=" value="1" type="sql:field" valuetype="const:int" />
+									<column name="event_time" operator="&gt;" value="DATE_SUB( NOW(), INTERVAL 1 DAY )" type="sql:field" valuetype="sql:formula" />
+								</where>
+							</data>
+						</field>
+					</fields>
+				</menu>
+			<!--
+				<menu name="tabs"          action="cb_action:show_tabs"                    label="Tabs"          description="Community Builder Tabs" />
+				<menu name="users"          action="cb_action:show_users"                    label="Users"          description="Community Builder Users" />
+			-->
+				<showview name="integrationsglobals" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.]" action="" path="payintegrationmainmenu" />
+			</menugroup>
+			<status>
+				<!--
+				<tablebrowser name="paycontrolcenterstats" table="#__cbsubs_payment_baskets" class="cbpaidPaymentBasket" label="Main figures" description="List of main figures">
+					<statistics>
+						<statistic name="total_paid" type="fields">
+							<where>
+								<column name="payment_status" operator="=" value="Completed" type="sql:field" valuetype="const:string" />
+							</where>
+							<model>
+								<data name="paid_quantity" type="sql:count" />
+								<data name="paid_mc_gross_total" type="sql:function" operator="SUM">
+									<data name="" type="sql:operator" operator="*">
+										<data name="mc_gross" type="sql:field" />
+										<data name="" type="sql:operator" operator="/">
+											<data name="rate" type="sql:field" table="#__cbsubs_currencies" class="cbpaidCurrency" key="currency" value="currency_code"    valuetype="param:string" />
+											<data name="rate" type="sql:field" table="#__cbsubs_currencies" class="cbpaidCurrency" key="currency" value="mc_currency" valuetype="sql:field" />
+										</data>
+									</data>
+								</data>
+							</model>
+							<view type="statistic" name="total_paid" label="Total payments completed to date at current currency exchange rates.">
+								<field name="paid_quantity" type="int" link="cb_action:show_paymentbaskets" parameters="paymentbasketsbrowser[filter_payment_status]" paramvalues="Completed" paramvaluestypes="const:string" title="Show these payment baskets" align="right" label="Paid baskets" description="Number of payment baskets in this selection which have payment completed." />
+								<fieldset label="Amount">
+									<field name="currency"   type="param"     value="currency_code" label="Currency of total" description="This is the main currency as set in the parameters." />
+									<field name="paid_mc_gross_total" type="private"   method="renderAmount" align="right" label="Total payment amount received" description="This is the total of payments completed, converted into main currency at current currency exchange rates." />
+								</fieldset>
+							</view>
+						</statistic>
+						<statistic name="total_pending" type="fields">
+							<where>
+								<column name="payment_status" operator="=" value="Pending" type="sql:field" valuetype="const:string" />
+							</where>
+							<model>
+								<data name="pending_quantity" type="sql:count" />
+								<data name="pending_mc_gross_total" type="sql:function" operator="SUM">
+									<data name="" type="sql:operator" operator="*">
+										<data name="mc_gross" type="sql:field" />
+										<data name="" type="sql:operator" operator="/">
+											<data name="rate" type="sql:field" table="#__cbsubs_currencies" class="cbpaidCurrency" key="currency" value="currency_code"    valuetype="param:string" />
+											<data name="rate" type="sql:field" table="#__cbsubs_currencies" class="cbpaidCurrency" key="currency" value="mc_currency" valuetype="sql:field" />
+										</data>
+									</data>
+								</data>
+							</model>
+							<view type="statistic" name="total_pending" label="Total of pending payments to date at current currency exchange rates.">
+								<field name="pending_quantity" type="int" link="cb_action:show_paymentbaskets" parameters="paymentbasketsbrowser[filter_payment_status]" paramvalues="Pending" paramvaluestypes="const:string" title="Show these payment baskets" align="right" label="Pending baskets" description="Number of payment baskets in this selection which have payment pending." />
+								<fieldset label="Amount">
+									<field name="currency"   type="param"     value="currency_code" label="Currency of total" description="This is the main currency as set in the parameters." />
+									<field name="pending_mc_gross_total" type="private"   method="renderAmount" align="right" label="Total payment amount pending" description="This is the total of payments pending completion, converted into main currency at current currency exchange rates." />
+								</fieldset>
+							</view>
+						</statistic>
+					</statistics>
+				</tablebrowser>
+				-->
+				<param name="expiredsubs" mode="show"   type="private" class="cbpaidParamsExt" method="checkAllSubscriptions" label="Just expired subscriptions / baskets" description="Subscriptions and baskets that just got mass-expired right now." />
+			</status>
+		</view>
+	</views>
+	
+</cbxml>

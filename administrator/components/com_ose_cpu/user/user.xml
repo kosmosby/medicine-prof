@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<code>OSE Member Management Code:201006231645</code>
+	<classes>
+		<class path="" extend="test">user</class>
+	</classes>
+	<files>
+	</files>
+</document>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<colors>
+<params group="colors">
+	<param name="color1" class="color" type="text" default="FFFFFF" label="Color 1" description="" />
+	<param name="color2" class="color" type="text" default="111111" label="Color 2" description="" />
+	<param name="color3" class="color" type="text" default="333333" label="Color 3" description="" />
+	<param name="color4" class="color" type="text" default="8C8C8C" label="Color 4" description="" />
+	<param name="color5" class="color" type="text" default="EAE7E0" label="Color 5" description="" />
+	<param name="color6" class="color" type="text" default="111111" label="Color 6" description="" />
+	<param name="color7" class="color" type="text" default="FFFFFF" label="Color 7" description="" />
+	<param name="color8" class="color" type="text" default="111111" label="Color 8" description="" />
+	<param name="color9" class="color" type="text" default="EAE7E0" label="Color 9" description="" />
+	<param name="color10" class="color" type="text" default="FFFFFF" label="Color 10" description="" />
+	<param name="color11" class="color" type="text" default="475875" label="Color 11" description="" />
+	<param name="color12" class="color" type="text" default="FFFFFF" label="Color 12" description="" />
+	<param name="color13" class="color" type="text" default="B0C3C5" label="Color 13" description="" />
+	<param name="color14" class="color" type="text" default="E1DFD9" label="Color 14" description="" />
+</params>
+</colors> 

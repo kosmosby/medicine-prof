@@ -1,0 +1,12 @@
+// Core variables and mixins without output available outside .koowa scope
+@import "../../../../../koowa/code/media/koowa/com_koowa/scss/bootstrap/variables";
+@import "../../../../../koowa/code/media/koowa/com_koowa/scss/bootstrap/mixins";
+
+// Variables
+$koowaPath: '../../koowa/com_koowa';
+
+// Import Nooku
+@import "../../../../../koowa/code/media/koowa/com_koowa/scss/koowa/koowa";
+
+// Import user interface
+@import "../../../../../koowa/code/media/koowa/com_koowa/scss/admin";

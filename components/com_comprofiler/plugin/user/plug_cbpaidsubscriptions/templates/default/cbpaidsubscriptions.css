@@ -1,0 +1,187 @@
+/* Default CSS of CBSubs: */
+#cbregTitle 				{	}
+#cbregField					{	}
+.cbregPlansList				{	width:100%;		border:0px;		margin:0px;	}
+.cbregPlansList	.cbregPlanSelector					{	margin-bottom: 6px;	clear: both; cursor: default; }
+.cbregPlansList	.cbregPlanSelector	.cbregTick		{	float: left;	width: 2%;	vertical-align: baseline;	margin-top: 3px;	margin-right: 8px; }
+.cbregPlansList	.cbregPlanSelector	.cbRegNameDesc	{	float: left;	width: 88%; }
+.cbregName					{	padding-bottom: 2px;	font-size: 115%;	}
+.cbregDescription, .cbregAfterSubDescription		{	padding-bottom: 4px;	}
+.cbregTimeframe				{	font-weight: bold;	}
+.cbregRate					{	font-weight: bold;	}
+.cbregDiscountRate			{	font-weight: bold;		color: green; }
+#cbregSubscribed, #cbregUpgradePossibilities			{	font-size: 130%;	margin-top: 20px;	margin-bottom: 10px;	}
+#cbregSubscr .cbregDescription, #cbregSubscr .cbregAfterSubDescription, #cbregSubscr .cbregValidity, #cbregSubscr .cbregSubPlanSelector	{	margin-left: 35px;	}
+td.fieldTitle.fieldTitleTwoLines	{	padding-bottom: 1px;	}
+.cbregName span		{ margin-left: 15px;	}
+.cbregUpgradeButtonDiv		{	clear: both;	}
+.cbregButton				{	margin: 5px 0px; }
+.cbregIntro, .cbregConcl	{	margin: 0px;	 }
+.cbregTerms					{	margin: 10px;	 }
+.cbpaidCCimageInput			{	border: 0px;	 }
+
+.cbregBasket				{	border: 1px solid #888;		margin-top: 20px;	margin-bottom: 10px;	}
+.cbregBasket td, .cbregBasket th	{	padding: 3px;	}
+.cbregBasket  table			{	width: 98%;		margin: 1%;	border-collapse:collapse;	}
+.cbregBasket  table	caption {	font-size: 150%;	font-weight: bold;	margin: 10px;	}
+.cbregBasketItemLine, .cbregBasketTotalizerLine 				{	text-align: left;	vertical-align:baseline;	}
+.cbregBaItrate, .cbregBaItFColrate	{	text-align: right;	vertical-align:baseline;	}
+.cbregBasket	tfoot .cbregBaItFLinetotal, .cbregBasket	tfoot .cbregBaItFLinegrandtotal		{	font-weight: bold;	}
+.cbregBasket table > tfoot > tr:first-child td { border-top: 1px solid #444; }
+.cbregBasket table > thead > tr th { border-bottom: 1px solid #444; }
+
+.cbpayBasketView .cbregPaymentCurrencyChoice	{	float:right;	margin-right: 2%;	}
+.cbpayBasketView .cbregPaymentCurrencyChoice .cpayCurrencyLabel	{	font-weight: bold;	padding-right: 10px;	}
+
+.cbpayBasketView .cbregInvoicingAddress	{	margin-top: 20px;	}
+.cbpayBasketView .cbregintformdiv1		{	margin-top: 20px;	}
+.cbpayBasketView .cbregConcl			{	margin-top: 20px;	}
+
+.cbregfrontendform	{	width: 100%; margin: 0px; padding: 0px;	}
+.cbregfrontendform	table.adminform		{	width: 100%; margin: 0px; padding: 0px; 		}
+.cbregfrontendform	table.adminform		tr,	.cbregfrontendform	table.adminform		td	{	border-width: 0px;	}
+
+.cbreginvoice		{	padding: 10px;	clear: both;	}
+.cbreginvoice div	{	padding: 0px;	}
+.cbreginvoice .cbreginvoiceHeader, .cbreginvoice .cbreginvoiceFooter	{	width: 100%;	clear: both;	}
+.cbreginvoice .cbregInvTitle	{	font-weight: bold;	}
+.cbreginvoice .cbregInvField	{	}
+.cbreginvoice .cbregInvoiceDate	{	margin-top: 16px;	margin-bottom: 10px;	}
+.cbreginvoice .cbreginvoicedaddress	{	font-size: 130%;	margin-top: 20px;	margin-bottom: 10px;	margin-left: 10px;	}
+.cbreginvoice .cbregInvoiceNumber	{	width: 100%;	text-align: center;	font-size: 200%;	font-weight: bold;	}
+.cbreginvoice .cbregBasket	{	border: 0px;	}
+.cbreginvoice .cbregInvoicePaymentType, .cbreginvoice .cbregInvoiceConditions	{	margin-top: 4px;	margin-bottom: 6px;	}
+.cbreginvoice #cbpaidPrint, .cbreginvoice #cbpaidClose	{	width: 100%;	text-align: center;	margin-bottom: 6px;	}
+@media screen {
+	#cbAdminFormForm .cbreginvoice	{	margin: 20px;	}
+}
+#cbAdminFormForm .cbregmultipage .cbreginvoice #cbpaidPrint, #cbAdminFormForm .cbregmultipage .cbreginvoice #cbpaidClose	{	display: none;	}
+
+#cbregInvoicesTitle	{	clear: both;	margin-top: 20px;	}
+.cbregInvoicesList table#cbregInvListTable	{	width: 95%;	margin: 10px;	border-collapse:collapse;	}
+.cbregInvoicesList table#cbregInvListTable th, .cbregInvoicesList table#cbregInvListTable td	{	padding: 4px;	}
+
+@media print {
+	@page	{	margin: 2cm 2.2cm 2cm 2.7cm;	}
+	body	{	margin: 0cm !important;	padding: 0cm !important;	}
+	.cbreginvoiceBody	{	min-height: 21.0cm;	min-width: 16cm; 	}
+	#cbpaidPrint, #cbpaidClose, #system-message-container	{	display: none;	}
+	.cbreginvoice .cbreginvoiceFooter	{	min-height: 1.5cm;	vertical-align: bottom;	}
+	.cbregmultipage hr.cbregpagebreak	{	display: none; }
+	.cbregmultipage .cbreginvoice	{	page-break-after: always;	}
+}
+
+/* invoicing address presentation: */
+.cbpayBasketView .adminform					{	width: 95%;	padding: 10px;	border-collapse: collapse;	background-color: #F9F9F9;	margin: 0px 10px 20px 0px;	}
+.cbpayBasketView .adminform fieldset			{	text-align: left;	}
+.cbpayBasketView .adminform fieldset legend	{	font-size: 1.1em;	font-weight: bold;	}
+.cbpayBasketView .adminform .paramlist td	{	padding: 3px;	}
+.cbpayBasketView .adminform .paramlist td	{	padding: 3px;	}
+.cbpayBasketView .cbregInvoiceLinks			{	padding: 3px;	}
+.cbpayBasketView .cbControlButtonsLine		{	margin: 5px 10px 25px 10px;	text-align: center;	}
+
+.cbregPriceCur	{	white-space: nowrap;	}
+
+.cbpaySlip					{	width: auto;	text-align: center;		margin-top: 6px;	margin-bottom: 12px;	}
+.cbpaySlip a				{	display: block;	width: auto; margin: auto;	padding: 5px;	border: 2px red solid;	font-weight:bold;	font-size:125%;	}
+div.cbpayChoices			{	width: 100%;			margin-left: auto;	margin-right: auto;	text-align: center; /* border: 2px solid #4F4; */	}
+
+div.cbpayChoices div.cbpaidCCbutton		{	float:left;	width: auto;	margin-left: auto;	margin-right: auto;	text-align: left;	padding: 10px;	 /* border: 2px solid #F00; */	}
+
+div.cbregDonationValue		{	vertical-align: baseline;	}
+
+div.cbregCCnumexp { border: 2px solid black; margin: 0px; padding: 0px 15px 15px 15px; text-align: left; }
+div.cbregCCnumexp div#cbregCardDetails { border: 2px #444 solid; border-radius: 35px 35px; -moz-border-radius: 35px 35px; -webkit-border-radius: 35px 35px; background-color: #E8E8FF; padding: 0px 15px 15px 15px; margin: 10px auto 10px auto; width: 70%; }
+div.cbregCCnumexp .cbregLabel, div.cbregCCnumexp fieldset.cbregCCexp legend.cbregLabel { display: block; font-weight: bold; margin: 15px auto 4px 0px; color: #000; text-align: left; }
+div.cbregCCnumexp div.cbregCCtype { text-align: center !important; }
+div.cbregCCnumexp div.cbregCCtype label img { border: 1px #888 solid; vertical-align: middle; }
+div.cbregCCnumexp div.cbregCCtype label { margin-right: 12px; }
+div.cbregCCnumexp div.cbregCCfirstname , div.cbregCCnumexp div.cbregCClastname { float: left; margin-right: 15px; }
+div.cbregCCnumexp div.cbregCCcvv { margin-top: 15px; }
+div.cbregCCnumexp div.cbregCCcvv div, div.cbregCCnumexp div.cbregCCcvv label { display: inline; }
+div.cbregCCnumexp fieldset.cbregCCinvoicingaddress label.cbregLabel { display: inline; margin: 0px; vertical-align: baseline; }
+div.cbregCCnumexp fieldset.cbregCCinvoicingaddress div.cbregField { display: inline; vertical-align: baseline; }
+div.cbregCCnumexp fieldset.cbregCCinvoicingaddress div.cbregField input { vertical-align: baseline; }
+div.cbregCCnumexp div.cbregCCcvv .cbregLabel { margin-right: 20px; }
+div.cbregCCnumexp div.cbregCCcvv img { vertical-align: bottom; margin-left: 2px; }
+div.cbregCCnumexp fieldset.cbregCCexp { display: block; margin: 15px auto 0px; border: 0px; padding: 0px; background: none; }
+div.cbregCCnumexp fieldset.cbregCCexp legend.cbregLabel { border: 0px; margin: 0px auto 4px; padding: 0px; background: none; }
+div.cbregCCnumexp fieldset.cbregCCexp label.cbregLabel { display: none; }
+div.cbregCCnumexp div.cbregCCbutton { vertical-align: middle; min-height: 38px; text-align: center !important; }
+div.cbregCCnumexp div#cbpayWheel { margin: 4px 25px; vertical-align: middle; min-height: 38px; text-align: center !important; }
+/* Loading Image */
+.cbregAjLoading {
+	background-image:	url(../../icons/hot/wheel_pay.gif);
+	background-repeat:	no-repeat;
+	background-position: 100px 30px;
+	width:				130px;
+	height:				60px;
+}
+.cbregAjLoadingCentered {
+	margin: auto;
+	vertical-align: middle;
+}
+/* default color styles for products and plans: */
+/*
+.cbregPlanStatus.cbreg_green .captionCell.cbregName		{ color: green; }
+.cbregPlanStatus.cbreg_green .fieldCell.cbregParagraph	{ color: green; }
+tr.cbregPlanSelector.cbreg_green		{ background-color: #AAFFAA; }
+*/
+div.cbregPlanStatus.cbreg_green,	.cbregPlanSelector.cbreg_green		{ color: #008800;	background-color: #AAFFAA; }
+div.cbregPlanStatus.cbreg_red,		.cbregPlanSelector.cbreg_red		{ color: #880000;	background-color: #FFAAAA; }
+div.cbregPlanStatus.cbreg_blue,	.cbregPlanSelector.cbreg_blue		{ color: #000088;	background-color: #AAAAFF; }
+div.cbregPlanStatus.cbreg_yellow,	.cbregPlanSelector.cbreg_yellow	{ color: #442211;	background-color: yellow; }
+div.cbregPlanStatus.cbreg_cyan,	.cbregPlanSelector.cbreg_cyan		{ color: #222244;	background-color: #00FFFF; }
+div.cbregPlanStatus.cbreg_magenta,	.cbregPlanSelector.cbreg_magenta	{ color: #440044;	background-color: #FF00FF; }
+div.cbregPlanStatus.cbreg_orange,	.cbregPlanSelector.cbreg_orange	{ color: #442200;	background-color: orange; }
+div.cbregPlanStatus.cbreg_gold,	.cbregPlanSelector.cbreg_gold		{ color: #000000;	background-color: #D9D919; }
+div.cbregPlanStatus.cbreg_silver,	.cbregPlanSelector.cbreg_silver	{ color: #000000;	background-color: #E6E8FA; }
+div.cbregPlanStatus.cbreg_bronze,	.cbregPlanSelector.cbreg_bronze	{ color: #000000;	background-color: #A67D3D; }
+.cbregPlanSelector .odd .cbreg_lime,		.cbregPlanSelector .odd.cbreg_lime		  { color: #000000;	background: #f0eccb;}
+.cbregPlanSelector .odd .cbreg_turquoise_1, .cbregPlanSelector .odd.cbreg_turquoise_1 { color: #000000;	background: #d0e5c0;}
+.cbregPlanSelector .odd .cbreg_turquoise_2, .cbregPlanSelector .odd.cbreg_turquoise_2 { color: #000000;	background: #b8e0ba;}
+.cbregPlanSelector .odd .cbreg_turquoise_3, .cbregPlanSelector .odd.cbreg_turquoise_3 { color: #000000;	background: #b0dccf;}
+.cbregPlanSelector .odd .cbreg_turquoise_4, .cbregPlanSelector .odd.cbreg_turquoise_4 { color: #000000;	background: #b2d8e0;}
+.cbregPlanSelector .odd .cbreg_turquoise_5, .cbregPlanSelector .odd.cbreg_turquoise_5 { color: #000000;	background: #b6def0;}
+div.cbregPlanStatus.cbreg_lime,	.cbregPlanSelector.cbreg_lime,						.cbregPlanSelector .even .cbreg_lime, .cbregPlanSelector .even.cbreg_lime,					#cbAdminMainWrapper .cbreg_admin_lime		 { color: #000000;	background: #fdfbe2;}
+div.cbregPlanStatus.cbreg_turquoise_1,	.cbregPlanSelector.cbreg_turquoise_1,		.cbregPlanSelector .even .cbreg_turquoise_1, .cbregPlanSelector .even.cbreg_turquoise_1,	#cbAdminMainWrapper .cbreg_admin_turquoise_1 { color: #000000;	background: #e4f1d8;}
+div.cbregPlanStatus.cbreg_turquoise_2,	.cbregPlanSelector.cbreg_turquoise_2,		.cbregPlanSelector .even .cbreg_turquoise_2, .cbregPlanSelector .even.cbreg_turquoise_2,	#cbAdminMainWrapper .cbreg_admin_turquoise_2 { color: #000000;	background: #d0ecd2;}
+div.cbregPlanStatus.cbreg_turquoise_3,	.cbregPlanSelector.cbreg_turquoise_3,		.cbregPlanSelector .even .cbreg_turquoise_3, .cbregPlanSelector .even.cbreg_turquoise_3,	#cbAdminMainWrapper .cbreg_admin_turquoise_3 { color: #000000;	background: #cde8de;}
+div.cbregPlanStatus.cbreg_turquoise_4,	.cbregPlanSelector.cbreg_turquoise_4,		.cbregPlanSelector .even .cbreg_turquoise_4, .cbregPlanSelector .even.cbreg_turquoise_4,	#cbAdminMainWrapper .cbreg_admin_turquoise_4 { color: #000000;	background: #cee8ee;}
+div.cbregPlanStatus.cbreg_turquoise_5,	.cbregPlanSelector.cbreg_turquoise_5,		.cbregPlanSelector .even .cbreg_turquoise_5, .cbregPlanSelector .even.cbreg_turquoise_5,	#cbAdminMainWrapper .cbreg_admin_turquoise_5 { color: #000000;	background: #d3eefc;}
+
+/* Credit Card choice with radios */
+div.cbregPaymentMethodChoice ul.cbregPaymentMethodChoiceList li { list-style-type: none; padding-left: 10px !important; }
+.cbregCCselInput label { padding-left: 10px; }
+.cbregCCselInput label img.cbregCCimgSel { position: relative; top: 10px; }
+.cbregCCselInput label span { padding-left: 12px; font-size: 130%; }
+/* CC radios highlighting of choice: */
+.cbregCCselDescription { margin: 5px 10px 0px 22px; padding: 6px; }
+li.cbregCCradioLi, li.cbregCCradioLi div { position: relative; top : 0; left : 0; }
+li.cbregCCradioSelected div.cbregCCradioLiBg { background-color: #eeb; border-radius: 10px; opacity: 0.6; filter:alpha(opacity=60); -moz-opacity:0.6;-khtml-opacity: 0.6; position: absolute; top : 0; left : 0; width: 100%; height: 100%; }
+li.cbregCCradioLi:hover div.cbregCCradioLiBg { background-color: #eeb; border-radius: 10px; opacity: 0.4; filter:alpha(opacity=40); -moz-opacity:0.4;-khtml-opacity: 0.4; position: absolute; top : 0; left : 0; width: 100%; height: 100%; }
+
+/* Promotions SALE display in plans */
+.cpayPromotionPrice			{  }
+.cpayPromotionRegularPrice	{ text-decoration: line-through; color: #aaa; }
+.cpayPromotionSaleText		{ color: #D11A0A; font-weight: bold; font-size: 120%; font-style: italic; position: relative; top: -3px; }
+.cpayPromotionSpecialPrice	{ font-weight: bold; font-size: 110%; position: relative; top: -3px; }
+
+/* Backend plans browser: */
+#cbAdminMainWrapper .cbreg_admin_green		{ background-color: #66FF66; }
+#cbAdminMainWrapper .cbreg_admin_red		{ background-color: #FF6666; }
+#cbAdminMainWrapper .cbreg_admin_blue		{ background-color: #6666FF; }
+#cbAdminMainWrapper .cbreg_admin_yellow		{ background-color: yellow; }
+#cbAdminMainWrapper .cbreg_admin_cyan		{ background-color: #00FFFF; }
+#cbAdminMainWrapper .cbreg_admin_magenta	{ background-color: #FF00FF; }
+#cbAdminMainWrapper .cbreg_admin_orange		{ background-color: orange; }
+#cbAdminMainWrapper .cbreg_admin_gold		{ background-color: #D9D919; }
+#cbAdminMainWrapper .cbreg_admin_silver		{ background-color: #E6E8FA; }
+#cbAdminMainWrapper .cbreg_admin_bronze		{ background-color: #A67D3D; }
+.cbregHidden	{ display: none; }
+
+/* Fix J2.5 Beez template: */
+#contentarea #wrapper2 .cbregfrontendform fieldset,			fieldset#cbfr_invoicing_address			{ border: 1px solid #CCC; padding: 0.75em; }
+#contentarea #wrapper2 .cbregfrontendform fieldset label,	fieldset#cbfr_invoicing_address  label		{ font-weight: bold; }
+#contentarea #wrapper2 .cbregBasket thead tr, #contentarea #wrapper2 .cbregBasket .cbregBasketItemLine, #contentarea #wrapper2 .cbregBasket .cbregBasketTotalizerLine td	{ border-width: 0px; }
+#contentarea #wrapper2 .cbregBasket tr.cbregBasketTotalizerLine	{ border-width: 1px 0px 0px 0px; }

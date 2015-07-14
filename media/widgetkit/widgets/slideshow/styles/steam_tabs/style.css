@@ -1,0 +1,64 @@
+/*
+ * Widgetkit Slideshow: Steam Tabs Style
+ */
+
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-tabs-steam .nav,
+.wk-slideshow-tabs-steam .nav li,
+.wk-slideshow-tabs-steam .nav span { float: left; }
+
+.wk-slideshow-tabs-steam .nav li {
+	margin: 0 0 0 5px;
+	color: #555;
+}
+.wk-slideshow-tabs-steam .nav li:first-child { margin-left: 0; }
+
+.wk-slideshow-tabs-steam .nav span {
+	padding: 2px 10px;
+	overflow: hidden;
+	font-size: 14px;
+	text-transform: uppercase;
+}
+
+.wk-slideshow-tabs-steam .nav li:hover { color: #333; }
+
+.wk-slideshow-tabs-steam .nav li.active {
+	border-radius: 2px;
+	background: #666;
+	box-shadow: 0 2px 0 rgba(0,0,0,0.1);
+	color: #fff;
+}
+
+
+/* Content
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-tabs-steam .slides > li > article {
+	padding: 15px;
+	text-align: left;
+}
+
+.wk-slideshow-tabs-steam .slides > li > article li h5 { margin: 0; }
+
+.wk-slideshow-tabs-steam .slides > li > article li { padding: 15px 0 10px 0; }
+
+
+/* Alignment: Navigation
+---------------------------------------------------------------------------------------------------*/
+
+/* Center */
+.wk-slideshow-tabs-steam .nav-center .nav {
+	position: relative;
+	left: 50%;
+}
+
+.wk-slideshow-tabs-steam .nav-center .nav li {
+	position: relative;
+	left: -50%;
+}
+
+/* Right */
+.wk-slideshow-tabs-steam .nav-right .nav { float: right; }

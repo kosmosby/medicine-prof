@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Licensed under the Apache License, Version 2.0 (the "License"); you 
+	may not use this file except in compliance with the License. You may obtain 
+	a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless 
+	required by applicable law or agreed to in writing, software distributed 
+	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
+	the specific language governing permissions and limitations under the License. -->
+<extension type="component" version="2.5.0" method="upgrade">
+	<name>com_openmeetings</name>
+	<!-- The following elements are optional and free of formatting conttraints -->
+	<creationDate>2013-02</creationDate>
+	<author>Maxim Solodovnik</author>
+	<authorEmail>solomax@apache.org</authorEmail>
+	<license>Apache License, Version 2.0</license>
+	<!-- The version string is recorded in the components table -->
+	<version>1.1.0</version>
+	<!-- The description is optional and defaults to the name -->
+	<description>COM_OPENMEETINGS_DESC</description>
+
+	<install> <!-- Runs on install -->
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+	<uninstall> <!-- Runs on uninstall -->
+		<sql>
+			<file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	</uninstall>
+	<update> <!-- Runs on update; New in 1.6 -->
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql</schemapath>
+		</schemas>
+	</update>
+
+
+	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.com_openmeetings.ini
+		</language>
+		<language tag="ru-RU">language/ru-RU/ru-RU.com_openmeetings.ini
+		</language>
+	</languages>
+
+	<files folder="site">
+		<filename>index.html</filename>
+		<filename>openmeetings.php</filename>
+		<filename>controller.php</filename>
+		<folder>models</folder>
+		<folder>views</folder>
+		<folder>libs</folder>
+		<folder>uploads</folder>
+	</files>
+
+	<media destination="com_openmeetings" folder="media">
+		<filename>index.html</filename>
+		<folder>images</folder>
+	</media>
+
+	<administration>
+		<menu img="class:openmeetings" link="option=com_openmeetings">com_openmeetings</menu>
+		<files folder="admin">
+			<filename>config.xml</filename>
+			<filename>index.html</filename>
+			<filename>openmeetings.php</filename>
+			<filename>controller.php</filename>
+			<folder>sql</folder>
+			<folder>models</folder>
+			<folder>views</folder>
+			<folder>css</folder>
+			<folder>om_gateway</folder>
+		</files>
+		<languages folder="admin">
+			<language tag="en-GB">language/en-GB/en-GB.com_openmeetings.ini
+			</language>
+			<language tag="en-GB">language/en-GB/en-GB.com_openmeetings.sys.ini
+			</language>
+			<language tag="ru-RU">language/ru-RU/ru-RU.com_openmeetings.ini
+			</language>
+			<language tag="ru-RU">language/ru-RU/ru-RU.com_openmeetings.sys.ini
+			</language>
+		</languages>
+	</administration>
+
+</extension>
+

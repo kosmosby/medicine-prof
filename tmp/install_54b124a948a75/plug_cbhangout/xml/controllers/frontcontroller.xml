@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" group="user" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../../../validation/ahawow.xsd">
+	<types />
+	<actions ui="admin" permission="core.manage" permissionasset="com_comprofiler">
+		<action name="hangout" request="view action" action="editPlugin showhangout" permission="core.admin">
+			<showview view="showhangout" mode="show" />
+		</action>
+
+		<action name="hangout" request="view table action" action="editPlugin hangoutbrowser editrow" requestparameters="blogid" permission="core.admin">
+			<extend toxpathnode="/cbxml/types" fromxpathnode="/*/types/type" file="xml/models/model.hangout" mandatory="true" />
+			<showview view="edithangout" mode="edit">
+				<data name="blogrow" type="class" class="cbhangoutBlogTable" key="id" value="blogid" valuetype="request:int" />
+			</showview>
+		</action>
+	</actions>
+	<views>
+		<view name="pluginmenu" type="params" ui="admin" label="" viewformatting="none">
+			<param name="hangout" type="button" default="Hangout" buttonclass="default" buttonsize="xsmall" link="cb_action:hangout" parameters="cid" paramvalues="id" label="" />
+		</view>
+	</views>
+</cbxml>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="selectproductinformation" type="params" ui="admin">
+			<fieldset name="fieldset_info_usersubscription" label="User subscription" description="">
+				<param name="info_usersubscription" type="spacer" label="" default="A User subscription is a recurring or one-time payment for a membership with a possible expiry date or time and renewals." />
+			</fieldset>
+		</view>
+		
+		<view name="editusersubscription" type="params" ui="admin">
+			<extend toxpathnode="/cbxml/views" fromxpathnode="/*/views/view" file="xml/views/library/view.editgenericproduct"/>
+			<inherit name="productinherit" from="/*/views/view[@name='editgenericproduct']">
+				<if name="id" operator="!=" value="" valuetype="const:int" type="condition">
+					<param name="subscriptions_count"  mode="show"      type="private" class="cbpaidParamsExt" method="data" label="Subscriptions with this plan"    description="">
+						<data  name="subscriptions_count" type="sql:count" table="#__cbsubs_subscriptions" class="cbpaidUsersubscriptionRecord">
+							<where>
+								<column name="plan_id"  operator="=" value="id" type="sql:field" valuetype="ext:int:modelofdata" />
+							</where>
+						</data>
+					</param>
+					<param name="subscriptions_count_active"  mode="show"      type="private" class="cbpaidParamsExt" method="data" label="Active subscriptions with this plan"    description="">
+						<data  name="subscriptions_count_active" type="sql:count" table="#__cbsubs_subscriptions" class="cbpaidUsersubscriptionRecord">
+							<where>
+								<column name="status" operator="=" value="A" type="sql:field" valuetype="const:string" />
+								<column name="plan_id"  operator="=" value="id" type="sql:field" valuetype="ext:int:modelofdata" />
+							</where>
+						</data>
+					</param>
+					<param name="subscriptions_count_expired"  mode="show"      type="private" class="cbpaidParamsExt" method="data" label="Expired subscriptions with this plan"    description="">
+						<data  name="subscriptions_count_expired" type="sql:count" table="#__cbsubs_subscriptions" class="cbpaidUsersubscriptionRecord">
+							<where>
+								<column name="status" operator="=" value="X" type="sql:field" valuetype="const:string" />
+								<column name="plan_id"  operator="=" value="id" type="sql:field" valuetype="ext:int:modelofdata" />
+							</where>
+						</data>
+					</param>
+					<param name="subscriptions_count_upgraded"  mode="show"      type="private" class="cbpaidParamsExt" method="data" label="Subscriptions with this plan that have been upgraded to another plan"    description="">
+						<data  name="subscriptions_count_upgraded" type="sql:count" table="#__cbsubs_subscriptions" class="cbpaidUsersubscriptionRecord">
+							<where>
+								<column name="status" operator="=" value="U" type="sql:field" valuetype="const:string" />
+								<column name="plan_id"  operator="=" value="id" type="sql:field" valuetype="ext:int:modelofdata" />
+							</where>
+						</data>
+					</param>
+					<param name="plan_accessurl" type="private" method="renderUrlOfProduct" key="id" label="Url of plan to display only this plan ('-' to display multiple plans)" description="This is the url of plan to display only this plan (use '-' to display multiple plans, e.g. &amp;plans=1-3-6. When using multiple plans URL, add a &quot;s&quot; after the plan id to pre-select it manually, e.g. &amp;plans=1s-3s-6 will display 1, 3 and 6, but only first two will be preselected)." />
+					<param name="subs_change_warning" type="spacer" label="Warning" default="Changing a plan with existing subscriptions will change these subscriptions, except for the current expiry date of active ones. If you need to make changes, it's better to create a new plan, and not allow new subscriptions to the old plan." />
+				</if>
+				<tabpane name="cpayeditplan">
+					<tabpanetab name="plan_presentation" label="Presentation" description="Plan settings:" />
+					<tabpanetab name="plan_pricing" label="Pricing" description="Plan settings: Pricing and validity:">
+						<param name="currency" type="xml:currencies" default="" label="Currency" description="The currency you are going to receive.">
+							<option value="">Same as global configuration</option>
+						</param>
+						<fieldset label="Pricing and validity" description="">
+							<param name="first_different" type="list" default="0" label="Is the first amount and period different" description="If the first amount and period is different from recurring ones.">
+								<option value="0">Always same period and price</option>
+								<option value="1">Different first period and price for Registration only</option>
+								<option value="2">Different first period and price for Upgrade only</option>
+								<option value="3">Different first period and price for Registration and Upgrade</option>
+							</param>
+							<if name="first_different" type="showhide" operator="&gt;=" value="1" valuetype="const:int">
+								<fieldset name="firstperiodset" label="First period pricing and validity" description="">
+									<param name="first_rate" type="float" size="40" default="" label="First payment price of plan" description="The rate (price) of first payment in the defined currency. 0 for free access. Leave blank for same rate as initial rate." />
+									<param name="first_validity" type="xml:first_validity" default="" label="Initial validity duration" description="The initial expiration length of plan. Corresponds to the time between subscription or upgrade to this plan and first renewal or auto-renewal." />
+									<if name="first_validity" type="showhide" operator="=" value="0000-00-00 00:00:00" valuetype="const:string">
+										<param name="first_validity_error" type="spacer" label="ERROR" cssclass="cbSmallWarning" default="ERROR in Initial validity duration: You chose an initial period, but did not select its duration. Please select a duration above." />
+									</if>
+									<if name="first_validity" type="showhide" operator="regexp" value="^U:\d{4}-00-00 00:00:00$" valuetype="const:string">
+										<param name="first_calstart" type="datetime" dateformat="MM-DD" default="01-01" label="Start date of first calendar year" description="In case of calendar year period, you can set here the start date of the calendar year." />
+									</if>
+								</fieldset>
+								<else action="set" name="first_rate" value="-9999" type="const:float" />
+								<else action="set" name="first_validity" value="0000-00-00 00:00:00" type="const:string" />
+							</if>
+							<fieldset label="Regular Plan pricing and validity" description="">
+								<param name="rate" type="float" size="40" default="" label="Regular Price of plan" description="The rate (number) in the defined currency for each period including subsequent renewal or auto-renewal. 0 for free access. If a different first period and/or payment is defined, this is not added or used for the first payment." />
+								<param name="validity" type="xml:validity" default="0001-00-00 00:00:00" label="Regular Validity duration" description="The regular expiration length of plan. Corresponds to the time between renewals or auto-renewals." />
+								<if name="validity" type="showhide" operator="regexp" value="^U:\d{4}-00-00 00:00:00$" valuetype="const:string">
+									<param name="calstart" type="datetime" dateformat="MM-DD" default="01-01" label="Start date of calendar year" description="In case of calendar year period, you can set here the start date of the calendar year." />
+								</if>
+								<param name="recurring_max_times" type="int" size="40" default="0" label="Total number of occurrences of regular validity/price (0=unlimitted)" description="The total number of manual or automatic recurring billing occurrences for the regular validity and rate. Total term will be displayed if non-zero. Leave 0 to set to maximum (expiry will be depending of credit-card expiration date with ARB). Maximum depends of payment processor." />
+								<if name="recurring_max_times" type="showhide" operator="!=" value="0" valuetype="const:int">
+									<param name="action_at_last_recurring" type="list" default="0" label="Action after last recurring (for limitted recurrings)" description="What happens when maximum recurrings are used. If subscription expires, the subscription will be presented as a limited period subscription. If subscription is lifetime thereafter, the payments will be presented as a partial payments plan.">
+										<option value="0">Expire subscription</option>
+										<option value="1">Subscription stays free for rest of lifetime</option>
+									</param>
+									<else action="set" name="action_at_last_recurring" value="0" type="const:int" />
+								</if>
+							</fieldset>
+							<if name="validity" type="showhide" operator="regexp" value="^U:.*$" valuetype="const:string">
+								<param name="cal_promo_prorating_explain" type="spacer" label="Prorate missed part or markup late subscription to this calendar plan" default="You can set this in Promotions Setup, Edit Promotion, Timing and Basic tabs. (Install and publish Promotions and required Taxes CBSubs integration plugins first)." />
+							</if>
+							<param name="prorate" type="xml:yesno" default="1" label="Prorate remaining value of this plan when upgrading" description="Take in account the remaining value of this plan when upgrading to another plan."/>
+							<if name="validity" type="showhide" operator="regexp" value="^U:.*$" valuetype="const:string">
+								<param name="bonustime" type="xml:bonustime" default="0000-00-00 00:00:00" label="Bonus time before expiry (for calendar-based durations)" description="If calendar expiry: bonus period. Example: if subscribed in last 3 months of current year, they can be included in yearly subscription for next year." />
+								<else action="set" name="bonustime" value="0000-00-00 00:00:00" type="const:string" />
+							</if>
+							<param name="renewableinadvanceby" type="xml:renewableinadvanceby" default="0001-00-00 00:00:00" label="Renewable in advance by" description="How long in advance can this plan be renewed by its next validity period, or in case of auto-recurring renewals, by the next validity period * auto-renewal occurances." />
+							<param name="graceperiod" type="xml:relative_time" default="0000-00-00 00:00:00" label="Grace period before real expiration" description="The grace period before shutting down the plan once it expires.">
+								<option value="0000-00-00 00:00:00">none</option>
+							</param>
+							<param name="renewal_start" type="list" default="0" label="Manual renewal extends expiration date as follows" description="Here you can set how the subscription expiry date is extended when the user renews manually, depending on expiration date and on payment date and on the renewal period. Auto-renewing subscriptions will always extend subscription from its previous date, without gap or overlap.">
+								<option value="0">Renewal starts at expiration date or at payment date - whichever happens last (allows free gap)</option>
+								<option value="1">Renewal extends expiration date (without gap or overlap)</option>
+								<option value="2">Renewal starts at payment date (allows overlap or free gap)</option>
+								<option value="3">Renewal starts at expiration date or at payment date - whichever happens first (allow overlap but no free gap)</option>
+							</param>
+						</fieldset>
+						<fieldset label="Auto-renewals with auto-recurring payments" description="Some payment processors allow for automatic recurring payments (ARB) or automated subscriptions payments. If your payment processor supports this feature and it is implemented and enabled in the payment gateway settings, you can select following options:">
+							<param name="autorecurring" type="list" default="0" label="Auto-recurring renewals (*):" description="(*): this only applies if payment processor(s) is/are also configured for it.">
+								<option value="0">No: single payments at a time</option>
+								<option value="1">Yes: subscribe user to automatic recurring payments (*)</option>
+								<option value="2">User's choice: leave choice to user (*)</option>
+							</param>
+							<if name="autorecurring" operator="&gt;" value="0" valuetype="const:int" type="showhide">
+								<fieldset name="autorecurring_warnings">
+									<param type="spacer" label="Note" default="Your payment processor needs to support the periods that you set here. E.g. authorize.net ARB has a minimum of 7 days between occurrences. Please test in front-end your settings." />
+									<if name="recurring_max_times" operator="=" value="1" valuetype="const:string" type="showhide">
+										<param name="autorecurring_error_recurring_max_times" type="spacer" label="WARNING" cssclass="cbSmallWarning" default="WARNING: Paypal does not support auto-renewing payment subscriptions with only one payment." />
+									</if>
+									<if name="first_validity" operator="regexp" value="^.+\s.*[^0:].*$" valuetype="const:string" type="showhide">
+										<param name="autorecurring_error_first_validity" type="spacer" label="ERROR" cssclass="cbSmallWarning" default="ERROR in first validity time: No payment processor supports auto-recurring payments which are not at least days" />
+									</if>
+									<if name="validity" operator="regexp" value="^.+\s.*[^0:].*$" valuetype="const:string" type="showhide">
+										<param name="autorecurring_error_validity" type="spacer" label="ERROR" cssclass="cbSmallWarning" default="ERROR in validity time: No payment processor supports auto-recurring payments which are not at least days" />
+									</if>
+								</fieldset>
+							</if>
+						</fieldset>
+						<fieldset label="Payment invoice item text" description="Settings for item text when presenting the invoice to the user, as well as the description text sent to the payment processor: You can substitute text using strings below.">
+							<param name="item_text"  type="text" size="80" default="[PREFIX_TEXT] [PLANS_TITLE]: [ITEM_NAME][VALIDITY_IF_NOT_AUTORECURRING] for [USERNAME]" label="Payment item text" description="This is the item line on invoice presented to user (as well as transmitted to payment processor, if so configured)" />
+							<param name="item_alias" type="text" size="80" default="[PREFIX_TEXT] [ITEM_ALIAS][VALIDITY_IF_NOT_AUTORECURRING]" label="Payment processor item text (short)" description="This is the short item text for the payment processor items list" />
+							<fieldset name="substitutionshelp" label="Substitutions in Payment item text and Payment processor item text" description="">
+								<param type="spacer" name="substitutionshelp_item" label="Payment item substitutions"        default="[PREFIX_TEXT] (depending on payment: can be empty for new subscriptions, or Renew, Upgrade), [ITEM_NAME], [ITEM_ALIAS], [ITEM_DESCRIPTION], [PLANS_TITLE], [SITENAME], [SITEURL] and any [cb_fieldname]" description="" />
+								<param type="spacer" name="substitutionshelp_user" label="User fields substitutions"         default="[USERNAME], [NAME], [EMAIL], [cb_anycbfieldname]" description="" />
+								<param type="spacer" name="substitutionshelp_plans" label="Plan/Product substitutions"       default="[PLAN_NAME], [PLAN_ALIAS], [PLAN_DESCRIPTION], [PLAN_REGISTRATION_PRICE] and [PLAN_UPGRADE_PRICE] (both display period and price), [PLAN_PRICE] (display generic period and price for plan, or amount donated for donation with currency, or price with currency of product for a merchandise), [PLAN_RATE] and [PLAN_FIRST_RATE] are numeric values, and in case of donations, the donation amount converted into the donation plan's currency" description="" />
+								<param type="spacer" name="substitutionshelp_subscr" label="User Subscription substitutions" default="[VALIDITY] (displays duration of plan, not recommended as it displays also for auto-recurring plans), [VALIDITY_IF_NOT_AUTORECURRING], [EXPIRY] (not recommended as it displays also for auto-recurring plans, displays expiry date/time (if configured), [EXPIRING_IF_NOT_AUTORECURRING] (displays expiring on date +time if configured to display time, formatted by CB date format),&lt;br /&gt;[SUBSCRIPTION_SIGNUP_DATE], [SUBSCRIPTION_EXPIRY_DATE], [SUBSCRIPTION_LAST_RENEWAL_DATE], [SUBSCRIPTION_VALIDITY_PERIOD_REMAINING], [SUBSCRIPTION_EXPIRY_DATE_IF_RENEWED], [SUBSCRIPTION_VALIDITY_PERIOD_IF_RENEWED], [SUBSCRIPTION_RENEWAL_PRICE] (displays period and price)" description="" />
+							</fieldset>
+						</fieldset>
+						<showview name="integrations" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.],user/plug_cbpaidsubscriptions/processors" action="" path="payproductsettingspricing" />
+						<param name="owner"            type="text"   size="40" default="0"  label="Owner id (only supported: 0 for now)" description="owner of this plan, used to determine the payment gateway account (only system = 0 supported for now)" />
+					</tabpanetab>
+					<showview name="integrations" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.],user/plug_cbpaidsubscriptions/processors" action="" path="payproductsettingsafterpricing" />
+					<tabpanetab name="plan_workflows" label="Workflows" description="Plan settings: Registration and profile workflows:">
+						<param name="multiple" type="list" default="0" label="Multiple subscriptions per user" description="If the user may have multiple subscriptions to this plan active same time. Recommended: Only one subscription at a time for each user.">
+							<option value="0">Only one subscription at a time</option>
+							<option value="1">Multiple subscriptions per user allowed</option>
+						</param>
+					</tabpanetab>
+					<tabpanetab name="plan_access" label="Access" description="Plan settings:">
+						<fieldset label="Subscribers User access level settings" description="">
+							<param name="usergroup" type="usergroup" size="1" default="0" label="User Group" hidechoices="-&amp;nbsp;USERS,-&amp;nbsp;Users,Public" blanktext="No change of usergroup" description="The user group to assign to users of this plan (default user group for registered users is `Registered`)." />
+						</fieldset>
+					</tabpanetab>
+				</tabpane>
+			</inherit>
+		</view>
+	</views>
+</cbxml>

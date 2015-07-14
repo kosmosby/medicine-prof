@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.6" type="plugin" group="authentication">
+	<name>Authentication - OSE Facebook</name>
+	<creationDate>04 Mar 2013</creationDate>
+	<author>Open Source Excellence</author>
+	<copyright>Copyright (C) 2008-2013 Open Source Excellence. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authoremail>info@opensource-excellence.com</authoremail>
+	<authorurl>www.opensource-excellence.com</authorurl>
+	<version>6.0+</version>
+	<description>OSE Facebook authentication plugin</description>
+	<files>
+		<filename plugin="osefacebook">osefacebook.php</filename>
+		<filename plugin="osefacebook">index.html</filename>
+		<folder>sdk</folder>
+	</files>
+	
+	<languages folder="language">
+		<language tag="en-GB">en-GB.plg_authentication_osefacebook.ini</language>
+	</languages>
+
+	<config>
+		<fields name="params">
+
+			<fieldset name="basic">
+				<field name="auto_register" type="list" default="0" description="PLG_GK_FACEBOOK_AUTO_REGISTER_DESC" label="PLG_GK_FACEBOOK_AUTO_REGISTER">
+					<option value="1">PLG_GK_FACEBOOK_ENABLED</option>
+					<option value="0">PLG_GK_FACEBOOK_DISABLED</option>
+				</field>
+			</fieldset>
+
+		</fields>
+	</config>
+</extension>

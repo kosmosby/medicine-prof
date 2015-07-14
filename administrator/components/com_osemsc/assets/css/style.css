@@ -1,0 +1,285 @@
+.container {
+	width: 98%;
+}
+#ose-member-list .x-panel-header  {
+	background: url(../images/xfn-friend.png) no-repeat 2px 12px #FFF;
+}
+#ose-member-menu .x-panel-header  {
+	background: url(../images/user-pencil.png) no-repeat 2px 12px #FFF;
+}
+
+#osemsc-order .x-panel-header  {
+	background: url(../images/shopping-basket.png) no-repeat 2px 12px #FFF;
+}
+
+#coupons-list .x-panel-header
+{
+background: url(../images/tags-label.png) no-repeat 2px 12px #FFF;
+}
+
+#osemsc--coupon-params .x-panel-header
+{
+background: url(../images/tag-pencil.png) no-repeat 2px 12px #FFF;
+}
+
+#oseMsc-history .x-panel-header
+{
+background: url(../images/tags.png) no-repeat 2px 12px #FFF;
+}
+
+#ose-email-list .x-panel-header
+{
+background: url(../images/mail-open-image.png) no-repeat 2px 12px #FFF;
+}
+
+
+#msc-panel,
+#msc-content,
+#msc-bridge,
+#osemsc-mem-basic-panel,
+#osemsc-mem-extra-panel
+{
+width: 100%;
+margin-left: 10px;
+margin-right: 10px;
+margin-top: 10px;
+vertical-align: top;
+display:block;
+clear: both;
+}
+
+#msc-panel .ose-menu-header,
+#msc-content ose-menu-header,
+#msc-bridge ose-menu-header,
+#osemsc-mem-basic-panel .ose-menu-header,
+#osemsc-mem-extra-panel .ose-menu-header
+{
+margin-bottom:5px;
+font-weight: bold;
+}
+
+#msc-panel .x-panel-header,
+#msc-content .x-panel-header,
+#msc-bridge .x-panel-header,
+#osemsc-mem-basic-panel .x-panel-header,
+#osemsc-mem-extra-panel .x-panel-header
+{
+border-bottom:1px dotted #CCCCCC;
+color:#333333;
+font-size:92%;
+font-weight:700;
+padding:0 0 5px;
+background: none;
+margin-top: 10px;
+margin-left: 5px;
+}
+
+#msc-panel ul li,
+#msc-content ul li,
+#msc-bridge ul li,
+#ose-member-menu ul li
+{
+list-style-type:none;
+text-align: center;
+min-height: 48px;
+width: 80px;
+font: 11px Arial,Helvetica,sans-serif;
+padding:64px 0 0 0px;
+float: left;
+margin-right: 10px;
+cursor: pointer;
+}
+
+
+#msc-panel ul li.ose-icon-basic
+{
+background:url("../images/basic_info.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-panel ul li.ose-icon-msc
+{
+background:url("../images/msc_setting.png") no-repeat scroll 15px 5px transparent;
+}
+
+#msc-panel ul li.ose-icon-payment,
+#msc-panel ul li.ose-icon-paymentAdv
+{
+background:url("../images/payments.png") no-repeat scroll 8px 0px transparent;
+}
+
+#msc-bridge ul li.ose-icon-acymailing
+{
+background:url("../images/acymailing.png") no-repeat scroll 8px 5px transparent;
+}
+
+#msc-bridge ul li.ose-icon-jgroup
+{
+background:url("../images/joomla.png") no-repeat scroll 8px 5px transparent;
+}
+
+#msc-bridge ul li.ose-icon-mailchimp
+{
+background:url("../images/mailchimp.png") no-repeat scroll 8px 5px transparent;
+}
+
+#msc-bridge ul li.ose-icon-jspt
+{
+background:url("../images/jspt.png") no-repeat scroll 8px 5px transparent;
+}
+
+#msc-bridge ul li.ose-icon-phpbb
+{
+background:url("../images/phpbb.png") no-repeat scroll 8px 10px transparent;
+}
+
+#msc-bridge ul li.ose-icon-vm
+{
+background:url("../images/virtuemart.gif") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-bridge ul li.ose-icon-lic,
+#msc-bridge ul li.ose-icon-licseat
+{
+background:url("../images/oselicensesmall.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-bridge ul li.ose-icon-osecredit
+{
+background:url("../images/logo.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-bridge ul li.ose-icon-docman
+{
+background:url("../images/docman.png") no-repeat scroll 15px 5px transparent;
+}
+
+#msc-content ul li.ose-icon-menu
+{
+background:url("../images/icon-48-menumgr.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-content ul li.ose-icon-jdownloads
+{
+background:url("../images/jdownloads.jpg") no-repeat scroll 8px 5px transparent;
+}
+
+#msc-content ul li.ose-icon-module
+{
+background:url("../images/icon-48-module.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-content ul li.ose-icon-zoocat
+{
+background:url("../images/zoo.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-content ul li.ose-icon-component
+{
+background:url("../images/icon-48-component.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-content ul li.ose-icon-jcontent,
+#msc-content ul li.ose-icon-jcontent_sequential
+{
+background:url("../images/icon-48-article.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-content ul li.ose-icon-sobi2
+{
+background:url("../images/sobi2.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-content ul li.ose-icon-mtree
+{
+background:url("../images/mtree.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-content ul li.ose-icon-phoca
+{
+background:url("../images/phocadownload.png") no-repeat scroll 15px 5px transparent;
+}
+
+#msc-bridges ul li.ose-icon-k2group,
+#msc-content ul li.ose-icon-k2item,
+#msc-content ul li.ose-icon-k2cat
+{
+background:url("../images/k2.png") no-repeat scroll 15px 20px transparent;
+}
+
+#msc-content ul li.ose-icon-hwdvideo
+{
+background:url("../images/hwdVideoShare.jpg") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-juser
+{
+background:url("../images/user_info.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-mailing
+{
+background:url("../images/mail.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-profile
+{
+background:url("../images/additional_info.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-msc
+{
+background:url("../images/membership_active.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-billinginfo
+{
+background:url("../images/billing_info.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-company
+{
+background:url("../images/company_info.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-licuser
+{
+background:url("../images/licensed_users_info.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-directory
+{
+background:url("../images/directory.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-order
+{
+background:url("../images/billing_history.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-panel ul li a,
+#msc-content ul li a,
+#msc-bridge ul li a
+{
+color: #238DB4;
+text-decoration: none;
+font: 11px Arial,Helvetica,sans-serif;
+}
+
+.addon-item .title,
+.addon-item .item
+{
+	text-align: left; 
+	padding-left: 15px;
+}
+
+.control-group
+{
+	width: 100%;
+	float: left;
+}
+
+.x-box-mc h3
+{
+	width: 100%;
+	float: left;
+}

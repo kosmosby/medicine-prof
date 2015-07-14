@@ -1,0 +1,12 @@
+/* Header: Silver
+----------------------------------------------------------------------------------------------------*/
+
+#headerbar { }
+#headerbar > div {
+	color: #333;
+}
+
+#headerbar a:hover { color: #111; }
+
+/* Logo Overwrite */
+#page #logo .custom-logo { background: url(../../../../images/yootheme/logo_black.png) 0 0 no-repeat; }

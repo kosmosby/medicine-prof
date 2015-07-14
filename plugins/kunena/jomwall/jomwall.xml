@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE extension>
+<extension version="2.5" type="plugin" group="kunena" method="upgrade">
+	<name>PLG_KUNENA_JOMWALL</name>
+	<version>2.0.0</version>
+	<creationDate>2012-06-27</creationDate>
+	<author>Kunena Team</author>
+	<authorEmail>Kunena@kunena.org</authorEmail>
+	<authorUrl>http://www.kunena.org</authorUrl>
+	<copyright>www.kunena.org</copyright>
+	<license>GNU/GPLv3 or later</license>
+	<description>PLG_KUNENA_JOMWALL_DESCRIPTION</description>
+	<files>
+		<filename plugin="jomwall">jomwall.php</filename>
+		<filename>index.html</filename>
+		<folder>jomwall</folder>
+		<folder>language</folder>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="activity" type="radio" default="1" label="PLG_KUNENA_JOMWALL_ACTIVITY" description="PLG_KUNENA_JOMWALL_ACTIVITY_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="avatar" type="radio" default="1" label="PLG_KUNENA_JOMWALL_AVATAR" description="PLG_KUNENA_JOMWALL_AVATAR_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="activity_stream_limit" type="text" default="0" label="PLG_KUNENA_JOMWALL_ACTIVITY_STREAM_LIMIT" description="PLG_KUNENA_JOMWALL_ACTIVITY_STREAM_LIMIT_DESC"/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

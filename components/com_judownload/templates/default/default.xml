@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="file" method="upgrade" judlplugintype="template">
+  <name>Default</name>
+  <author>JoomUltra</author>
+  <creationDate>01 Feb 2015</creationDate>
+  <authorEmail>admin@joomultra.com</authorEmail>
+  <version>1.1.1</version>
+  <license>GNU/GPL</license>
+  <authorUrl>http://www.joomultra.com</authorUrl>
+  <description>Default JU Download template</description>
+  <folder>default</folder>
+  <information><![CDATA[
+			Default JUDownload Template
+		]]></information>
+  <fileset>
+    <files target="components/com_judownload/templates/default">
+      <file>default.xml</file>
+      <file>load_assets.php</file>
+      <file>template_helper.php</file>
+      <file>template_preview.png</file>
+      <file>template_thumbnail.png</file>
+      <folder>advsearch</folder>
+      <folder>assets</folder>
+      <folder>categories</folder>
+      <folder>category</folder>
+      <folder>collection</folder>
+      <folder>collections</folder>
+      <folder>commenttree</folder>
+      <folder>contact</folder>
+      <folder>dashboard</folder>
+      <folder>document</folder>
+      <folder>documents</folder>
+      <folder>downloaderror</folder>
+      <folder>embeddocument</folder>
+      <folder>featured</folder>
+      <folder>fields</folder>
+      <folder>form</folder>
+      <folder>license</folder>
+      <folder>listall</folder>
+      <folder>listalpha</folder>
+      <folder>maintenance</folder>
+      <folder>modcomment</folder>
+      <folder>modcomments</folder>
+      <folder>moddocuments</folder>
+      <folder>modpendingcomments</folder>
+      <folder>modpendingdocuments</folder>
+      <folder>modpermission</folder>
+      <folder>modpermissions</folder>
+      <folder>profile</folder>
+      <folder>report</folder>
+      <folder>search</folder>
+      <folder>searchby</folder>
+      <folder>subscribe</folder>
+      <folder>tag</folder>
+      <folder>tags</folder>
+      <folder>themes</folder>
+      <folder>topcomments</folder>
+      <folder>topdocuments</folder>
+      <folder>tree</folder>
+      <folder>usercomments</folder>
+      <folder>userdocuments</folder>
+      <folder>usersubscriptions</folder>
+    </files>
+  </fileset>
+  <languages>
+    <language tag="en-GB" client="administrator">en-GB.com_judownload_tpl_default.ini</language>
+  </languages>
+  <config>
+    <fieldset name="advanced">
+      <field name="load_bootstrap" type="list" default="2" label="COM_JUDOWNLOAD_TPL_DEFAULT_LOAD_BOOTSTRAP_LABEL" description="COM_JUDOWNLOAD_TPL_DEFAULT_LOAD_BOOTSTRAP_DESC">
+        <option value="0">JNO</option>
+        <option value="1">JYES</option>
+        <option value="2">COM_JUDOWNLOAD_AUTO</option>
+      </field>
+    </fieldset>
+  </config>
+  <cat_config>
+    </cat_config>
+  <doc_config>
+    </doc_config>
+</extension>

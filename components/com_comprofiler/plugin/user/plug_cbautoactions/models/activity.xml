@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../../../validation/ahawow.xsd">
+	<types>
+		<type name="autoaction_type" base="xml:autoaction_type">
+			<option value="activity">CB Activity</option>
+		</type>
+		<type name="autoaction_triggers" base="xml:autoaction_triggers">
+			<optgroup label="CB Activity">
+				<option value="activity_onAfterCreateAction">After Create Action</option>
+				<option value="activity_onAfterCreateActivity">After Create Activity</option>
+				<option value="activity_onAfterCreateComment">After Create Comment</option>
+				<option value="activity_onAfterCreateEmote">After Create Emote</option>
+				<option value="activity_onAfterCreateHidden">After Create Hidden</option>
+				<option value="activity_onAfterCreateTag">After Create Tag</option>
+				<option value="activity_onAfterDeleteAction">After Delete Action</option>
+				<option value="activity_onAfterDeleteActivity">After Delete Activity</option>
+				<option value="activity_onAfterDeleteComment">After Delete Comment</option>
+				<option value="activity_onAfterDeleteEmote">After Delete Emote</option>
+				<option value="activity_onAfterDeleteHidden">After Delete Hidden</option>
+				<option value="activity_onAfterDeleteTag">After Delete Tag</option>
+				<option value="activity_onAfterDisplayActivity">After Display Activity</option>
+				<option value="activity_onAfterDisplayComments">After Display Comments</option>
+				<option value="activity_onAfterDisplayTags">After Display Tags</option>
+				<option value="activity_onAfterUpdateAction">After Update Action</option>
+				<option value="activity_onAfterUpdateActivity">After Update Activity</option>
+				<option value="activity_onAfterUpdateComment">After Update Comment</option>
+				<option value="activity_onAfterUpdateEmote">After Update Emote</option>
+				<option value="activity_onAfterUpdateHidden">After Update Hidden</option>
+				<option value="activity_onAfterUpdateTag">After Update Tag</option>
+				<option value="activity_onBeforeCreateAction">Before Create Action</option>
+				<option value="activity_onBeforeCreateActivity">Before Create Activity</option>
+				<option value="activity_onBeforeCreateComment">Before Create Comment</option>
+				<option value="activity_onBeforeCreateEmote">Before Create Emote</option>
+				<option value="activity_onBeforeCreateHidden">Before Create Hidden</option>
+				<option value="activity_onBeforeCreateTag">Before Create Tag</option>
+				<option value="activity_onBeforeDeleteAction">Before Delete Action</option>
+				<option value="activity_onBeforeDeleteActivity">Before Delete Activity</option>
+				<option value="activity_onBeforeDeleteComment">Before Delete Comment</option>
+				<option value="activity_onBeforeDeleteEmote">Before Delete Emote</option>
+				<option value="activity_onBeforeDeleteHidden">Before Delete Hidden</option>
+				<option value="activity_onBeforeDeleteTag">Before Delete Tag</option>
+				<option value="activity_onBeforeDisplayActivity">Before Display Activity</option>
+				<option value="activity_onBeforeDisplayComments">Before Display Comments</option>
+				<option value="activity_onBeforeDisplayTags">Before Display Tags</option>
+				<option value="activity_onBeforeUpdateAction">Before Update Action</option>
+				<option value="activity_onBeforeUpdateActivity">Before Update Activity</option>
+				<option value="activity_onBeforeUpdateComment">Before Update Comment</option>
+				<option value="activity_onBeforeUpdateEmote">Before Update Emote</option>
+				<option value="activity_onBeforeUpdateHidden">Before Update Hidden</option>
+				<option value="activity_onBeforeUpdateTag">Before Update Tag</option>
+				<option value="activity_onDisplayActivity">Display Activity</option>
+				<option value="activity_onDisplayActivityAttachments">Display Activity Attachments</option>
+				<option value="activity_onDisplayActivityCreate">Display Activity Create</option>
+				<option value="activity_onDisplayActivityEdit">Display Activity Edit</option>
+				<option value="activity_onDisplayComment">Display Comment</option>
+				<option value="activity_onDisplayCommentCreate">Display Comment Create</option>
+				<option value="activity_onDisplayCommentEdit">Display Comment Edit</option>
+				<option value="activity_onLoadActivity">Load Activity</option>
+				<option value="activity_onLoadComments">Load Comments</option>
+				<option value="activity_onLoadTags">Load Tags</option>
+				<option value="activity_onParse">Parse</option>
+				<option value="activity_onQueryActivity">Query Activity</option>
+				<option value="activity_onQueryComments">Query Comments</option>
+				<option value="activity_onQueryTags">Query Tags</option>
+			</optgroup>
+		</type>
+	</types>
+	<views>
+		<view name="actiontype_activity" type="params" ui="admin">
+			<param name="" type="spacer" display="2lines" label="" default="Creates customized activity." />
+			<if name="" nametype="data:int" operator="=" value="1" valuetype="const:int" type="condition">
+				<left>
+					<param name="" type="private" class="cbautoactionsActionActivity" method="installed" />
+				</left>
+				<then>
+					<params name="activity" type="params" repeat="true" label="" display="2lines">
+						<param name="mode" type="list" default="activity" translate-default="no" label="Mode" description="Select the activity action mode.">
+							<option value="activity">Activity</option>
+							<option value="comment">Comment</option>
+							<option value="tag">Tag</option>
+							<option value="hidden">Hidden</option>
+							<option value="stream">Stream</option>
+						</param>
+						<if name="mode" nametype="param:string" operator="in" value="activity|*|comment|*|tag|*|hidden" valuetype="const:string" type="showhide">
+							<param name="method" type="list" default="create" label="Method" blanktext="" description="Select the activity action method. Delete will load by owner, type, item, subtype and parent if supplied.">
+								<option value="create">Create</option>
+								<option value="delete">Delete</option>
+							</param>
+						</if>
+						<if name="mode" nametype="param:string" operator="=" value="stream" valuetype="const:string" type="showhide">
+							<param name="stream" type="list" default="activity" label="Stream" blanktext="" description="Select the type of stream to display.">
+								<option value="activity">Activity</option>
+								<option value="comments">Comment</option>
+							</param>
+							<param name="source" type="text" label="Source" size="25" description="Optionally input the substitution supported stream source (e.g. profile, recent, module)." />
+						</if>
+						<param name="type" type="text" label="Type" size="25" description="Optionally input the substitution supported type. Note this is required for all modes except Stream and Delete method." />
+						<if name="mode" nametype="param:string" operator="!=" value="hidden" valuetype="const:string" type="showhide">
+							<param name="subtype" type="text" label="Sub-Type" size="25" description="Optionally input the substitution supported subtype." />
+						</if>
+						<if name="mode" nametype="param:string" operator="=" value="activity" valuetype="const:string" type="showhide">
+							<if name="method" nametype="param:string" operator="!=" value="delete" valuetype="const:string" type="showhide">
+								<param name="title" type="text" label="Title" description="Optionally input substitution supported title." size="50" />
+							</if>
+						</if>
+						<if name="mode" nametype="param:string" operator="in" value="activity|*|comment" valuetype="const:string" type="showhide">
+							<if name="method" nametype="param:string" operator="!=" value="delete" valuetype="const:string" type="showhide">
+								<param name="message" type="textarea" rows="5" label="Message" description="Optionally input substitution supported message." cssclass="input-block" />
+							</if>
+						</if>
+						<param name="item" type="text" label="Item" size="15" description="Optionally input the substitution supported item id." />
+						<if name="mode" nametype="param:string" operator="!=" value="hidden" valuetype="const:string" type="showhide">
+							<param name="parent" type="text" label="Parent" size="15" description="Optionally input the parent id." />
+						</if>
+						<param name="owner" type="text" label="Owner" size="15" description="Input substitution supported owner as single integer user_id. Leave blank to use trigger user as the owner." />
+						<if name="mode" nametype="param:string" operator="=" value="activity" valuetype="const:string" type="showhide">
+							<if name="method" nametype="param:string" operator="!=" value="delete" valuetype="const:string" type="showhide">
+								<fieldset name="actiondata" label="Action">
+									<params name="action" type="params">
+										<param name="id" type="list" label="Action" blanktext="- Select Action -" description="Optionally select an action.">
+											<data name="" type="sql:multiplerows" table="#__comprofiler_plugin_activity_actions" key="id">
+												<rows>
+													<field name="id" as="value" />
+													<field name="value" as="text" />
+												</rows>
+												<orderby>
+													<field name="ordering" ordering="ASC" />
+												</orderby>
+											</data>
+										</param>
+										<if name="id" nametype="param:string" operator="!=" value="" valuetype="const:string" type="showhide">
+											<param name="message" type="text" label="Message" size="60" validate="required" description="Input a substitution supported message for this action." />
+											<param name="emote" type="list" label="Emote" blanktext="- Select Emote -" description="Optionally select the emote.">
+												<data name="" type="sql:multiplerows" table="#__comprofiler_plugin_activity_emotes" key="id">
+													<rows>
+														<field name="id" as="value" />
+														<field name="value" as="text" />
+													</rows>
+													<orderby>
+														<field name="ordering" ordering="ASC" />
+													</orderby>
+												</data>
+											</param>
+										</if>
+									</params>
+								</fieldset>
+								<fieldset name="linksdata" label="Links">
+									<params name="links" type="params" repeat="true" repeatordering="false" label="" display="2lines">
+										<param name="type" type="text" label="Type" size="40" description="Input the substitution supported link type. Type determines how the link will display." />
+										<if name="type" nametype="param:string" operator="!=" value="" valuetype="const:string" type="showhide">
+											<param name="url" type="text" label="URL" size="60" validate="required" description="Input the substitution supported link URL for this link." />
+											<if name="url" nametype="param:string" operator="!=" value="" valuetype="const:string" type="showhide">
+												<param name="text" type="text" label="Text" size="60" description="Optionally input a substitution supported text for this link. This will be displayed instead of the URL." />
+												<param name="title" type="text" label="Title" size="60" description="Optionally input a substitution supported title for this link." />
+												<param name="description" type="textarea" label="Description" rows="3" cols="65" description="Optionally input a substitution supported description for this link." />
+												<if name="type" nametype="param:string" operator="=" value="url" valuetype="const:string" type="showhide">
+													<param name="thumbnail" type="yesno" default="1" label="Thumbnail" description="Enable or disable display of URL thumbnail." yes="Enable" no="Disable" />
+												</if>
+												<param name="internal" type="yesno" default="0" label="Internal" description="Enable or disable internal link. Internal links will suppress the display of the URL." yes="Enable" no="Disable" />
+												<if name="type" nametype="param:string" operator="=" value="custom" valuetype="const:string" type="showhide">
+													<fieldset name="mediadata1" label="Media">
+														<params name="media" type="params">
+															<param name="custom" type="textarea" label="Custom" rows="3" cols="65" description="Optionally input a substitution supported custom media display." />
+														</params>
+													</fieldset>
+												</if>
+												<if name="type" nametype="param:string" operator="!=" value="custom" valuetype="const:string" type="showhide">
+													<fieldset name="mediadata2" label="Media">
+														<params name="media" type="params">
+															<param name="url" type="text" label="URL" size="60" description="Input the substitution supported media URL (e.g. URL to an image, video, or audio file)" />
+															<if name="url" nametype="param:string" operator="!=" value="" valuetype="const:string" type="showhide">
+																<param name="mimetype" type="text" label="MimeType" size="30" description="Input the substitution supported media mimetype (e.g. image/jpeg, video/youtube). This is necessary for video and audio media." />
+																<param name="extension" type="text" label="Extension" size="30" description="Input the substitution supported media extension (e.g. jpg)." />
+															</if>
+														</params>
+													</fieldset>
+												</if>
+											</if>
+										</if>
+									</params>
+								</fieldset>
+							</if>
+						</if>
+						<if name="mode" nametype="param:string" operator="=" value="stream" valuetype="const:string" type="showhide">
+							<if name="stream" nametype="param:string" operator="=" value="activity" valuetype="const:string" type="showhide">
+								<param name="comments" type="yesno" default="0" label="Comments" description="Enable or disable display of comments." yes="Enable" no="Disable" />
+							</if>
+							<param name="replies" type="yesno" default="0" label="Replies" description="Enable or disable display of comment replies." yes="Enable" no="Disable" />
+							<param name="direction" type="list" default="0" label="Direction" blanktext="" description="Select the direction the stream displays.">
+								<option value="0">Down</option>
+								<option value="1">Up</option>
+							</param>
+							<param name="paging" type="yesno" default="1" label="Paging" description="Enable or disable usage of paging." yes="Enable" no="Disable" />
+							<param name="limit" type="int" default="30" size="5" label="Page Limit" description="Input substitution supported page limit. Page limit determines how many rows are displayed per page. If paging is disabled this can still be used to limit the number of rows displayed." />
+							<param name="output" type="list" default="echo" label="Output" blanktext="" description="Select how to output the stream display.">
+								<option value="echo">Echo</option>
+								<option value="return">Return</option>
+							</param>
+						</if>
+					</params>
+				</then>
+				<else>
+					<param name="" type="spacer" display="2lines" label="" default="CB Activity installation not found!" />
+				</else>
+			</if>
+		</view>
+	</views>
+</cbxml>

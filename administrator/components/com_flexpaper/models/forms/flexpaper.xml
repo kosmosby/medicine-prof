@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field
+			name="id"
+			type="hidden"
+		/>
+		<field
+			name="name"
+			type="text"
+			label="COM_FLEXPAPER_HEADING_JUSTNAME"
+			description="description of name"
+			size="80"
+			class="inputbox"
+			default=""
+            required="true"
+		/>
+        <field
+            name="catid"
+            type="category"
+            extension="com_flexpaper"
+            class="inputbox"
+            default=""
+            label="COM_FLEXPAPER_HEADING_CATEGORY"
+            description="Category"
+            required="true"
+            >
+            <option value="0">JOPTION_SELECT_CATEGORY</option>
+        </field>
+
+        <field name="swffile" type="filelist" default=""
+               label="COM_FLEXPAPER_SELECT_SWF_FILE" description=""
+               directory="/docs/swf"
+               filter="" exclude="" stripext=""
+                />
+        <field name="pdffile" type="filelist" default=""
+               label="COM_FLEXPAPER_SELECT_PDF_FILE" description=""
+               directory="/docs/pdf"
+               filter="" exclude="" stripext=""
+                />
+        <field
+                name="membership_list_id"
+                type="sql"
+                class="inputbox"
+                default=""
+                label="COM_FLEXPAPER_MEMBERSHIP_LIST"
+                description="COM_FLEXPAPER_MEMBERSHIP_LIST"
+                required="true"
+                query="select id as value, title as membership_list_id from #__osemsc_acl WHERE published = 1 ORDER BY title"
+                />
+	</fieldset>
+</form>

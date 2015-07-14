@@ -1,0 +1,1056 @@
+/* Dashboard */
+div.cpanel-left {
+	float : left;
+	width : 54%;
+}
+
+div.cpanel-right {
+	float : right;
+	width : 45%;
+}
+
+.cpanel .icon-wrapper {
+    width : auto;
+    height : auto;
+    float: left;
+}
+
+div#position-icon.pane-sliders .icon {
+	background : none repeat scroll 0 0 #FFFFFF;
+}
+
+.cpanel div.icon, #cpanel div.icon {
+	float         : left;
+	margin-bottom : 15px;
+	margin-right  : 15px;
+	text-align    : center;
+}
+
+.cpanel {
+	float : left;
+}
+
+#cpanel img, .cpanel img {
+	margin  : 0 auto;
+	padding : 10px 0;
+}
+
+.cpanel div.icon a, #cpanel div.icon a {
+	background-color    : #FFFFFF;
+	background-position : -30px center;
+	border              : 1px solid #CCCCCC;
+	border-radius       : 5px;
+	color               : #565656;
+	display             : block;
+	float               : left;
+	height              : 97px;
+	text-decoration     : none;
+	transition-duration : 0.8s;
+	transition-property : background-position, -moz-border-radius-bottomleft, -moz-box-shadow;
+	vertical-align      : middle;
+	width               : 108px;
+}
+
+.cpanel div.icon a, #cpanel div.icon a {
+	color : #565656;
+}
+
+#cpanel span, .cpanel span {
+	display    : block;
+	text-align : center;
+}
+
+#cpanel div.icon a:hover, #cpanel div.icon a:focus, #cpanel div.icon a:active, .cpanel div.icon a:hover, .cpanel div.icon a:focus, .cpanel div.icon a:active {
+	background-position       : 0 center;
+	border-bottom-left-radius : 50% 20px;
+	box-shadow                : -5px 10px 15px rgba(0, 0, 0, 0.25);
+	position                  : relative;
+	z-index                   : 10;
+}
+
+.cpanel div.icon a, #cpanel div.icon a {
+	background-color    : #FFFFFF;
+	background-position : -30px center;
+	border              : 1px solid #CCCCCC;
+	border-radius       : 5px;
+	color               : #565656;
+	display             : block;
+	float               : left;
+	height              : 97px;
+	text-decoration     : none;
+	transition-duration : 0.8s;
+	transition-property : background-position, -moz-border-radius-bottomleft, -moz-box-shadow;
+	vertical-align      : middle;
+	width               : 108px;
+}
+
+#cpanel span, .cpanel span {
+    font-size   : 11px;
+    white-space : nowrap;
+}
+
+.cpanel span.update-badge {
+	background-image : -moz-linear-gradient(center bottom, #FF0000 41%, #FC7E7E 79%);
+    background-image: -webkit-gradient(linear, left bottom, right top, color-stop(41%,#FF0000), color-stop(79%,#FC7E7E));
+    border           : 2px solid #FFFFFF;
+	border-radius    : 1.5em;
+	color            : #FFFFFF;
+	display          : block;
+	float            : left;
+	font-size        : 11px;
+	font-weight      : bold;
+	height           : 1.2em;
+	left             : 60px;
+	min-width        : 1em;
+	padding          : 0 0.1em;
+	position         : relative;
+	top              : -74px;
+}
+
+/* Top menu in all views */
+#jumenu .navbar-inner {
+    margin-bottom : 10px;
+}
+
+/* Breadcrumb path in list cats */
+.breadcrumb > li + li:before {
+	content : "/\00a0";
+	padding : 0 5px;
+	color   : #ccc;
+}
+
+/* Fix calendar button of calendar field */
+.input-append .icon-calendar {
+	cursor : pointer;
+}
+
+/* Textarea field in document edit page */
+.field-textarea textarea {
+    float: left;
+}
+
+.field-textarea #editor-xtd-buttons {
+    clear: both;
+    float       : left;
+}
+
+/* Global config */
+.judownload-config .jusplit-column {
+	clear  : none;
+	float  : left;
+	margin : 0;
+}
+
+.judownload-config .jusplit-column-list {
+	margin  : 0;
+	padding : 0;
+}
+
+.judownload-config {
+	clear : both;
+}
+
+.judownload-config .tab-pane ul > li {
+	list-style : none outside none;
+}
+
+.judownload-config fieldset.adminForm legend {
+	background    : none repeat scroll 0 0 #F5F5F5;
+	border        : 1px solid #CCCCCC;
+	border-radius : 2px;
+	color         : #555555;
+	display       : inline-block;
+	font          : 700 11px/1.2 Tahoma, Arial, sans-serif !important;
+	left          : auto;
+	margin-bottom : 10px;
+	padding       : 5px 10px;
+	position      : relative;
+	top           : 1px;
+	width         : auto;
+}
+
+.judownload-config fieldset.adminForm {
+	border        : 1px solid #CCCCCC !important;
+	border-radius : 2px;
+	margin        : 0 10px 20px !important;
+	overflow      : visible;
+	padding       : 10px;
+}
+
+.judownload-config ul li.jusplit-column {
+	clear  : none;
+	float  : left;
+	margin : 0;
+}
+
+.judownload-config ul.jusplit-column-list {
+	margin  : 0;
+	padding : 0;
+}
+
+/* Category fields ordering in global config */
+.category-fieldorder {
+	float : left;
+}
+
+.category-fieldorder > li {
+	clear   : none !important;
+	float   : left;
+	padding : 3px !important;
+	margin  : 2px !important;
+	border  : 1px solid #ccc;
+}
+
+.category-fieldorder > li.placeHolder {
+	border : 1px dashed #CCC;
+}
+
+.category-fieldorder > li span.field-name {
+	display : block;
+}
+
+/* Global config in top cat */
+input.juoverride {
+    margin: 0 0 5px !important;
+}
+
+#global-config .control-label > label {
+    display: inline;
+}
+
+/* Backend permissions */
+.group-permission-wrap {
+	width   : 100%;
+	display : inline-block;
+}
+
+.group-permission-label-div {
+	min-width : 150px;
+	width     : 17%;
+	float     : left;
+}
+
+.group-permission-label-div ul {
+	list-style : none;
+	margin     : 0 !important;
+}
+
+.group-permission-label-div ul li {
+	float   : none;
+	display : inline-block;
+	width   : 100%;
+	height  : 26px;
+}
+
+.group-permission-label-div ul span {
+	float : left;
+}
+
+.group-permission-label-div li.header {
+	height        : 77px;
+	padding       : 0;
+	border        : none;
+	margin-bottom : 8px;
+	background    : none;
+}
+
+.group-permission-label-div li.header span {
+	margin-top : 30px;
+}
+
+.group-permission-label-div li span.group {
+	width    : 40%;
+	overflow : hidden;
+}
+
+.group-permission-label-div li span.group label {
+	white-space : nowrap;
+}
+
+.group-permission-label-div li span.view {
+	width      : 20%;
+	text-align : center;
+}
+
+.group-permission-label-div li span.manage {
+	width      : 20%;
+	text-align : center;
+}
+
+.group-permission-label-div li span.delete {
+	width      : 20%;
+	text-align : center;
+}
+
+.group-permission-div {
+	border-left    : 1px solid #ddd;
+	float          : left;
+	margin-left    : -1px;
+	overflow-y     : auto;
+	padding-bottom : 25px;
+	width          : 83%;
+}
+
+.group-permission-div .header, .group-permission-label-div .header {
+	height     : 50px;
+	background : none;
+}
+
+.group-permission-label .center, .group-permission .center {
+	text-align : center;
+}
+
+.group-permission-label .center > div {
+	margin-top : 7px;
+	display    : inline-block;
+}
+
+.group-permission-label .center > div label {
+	padding : 0;
+	margin  : 0;
+}
+
+.group-permission-div .group-permission {
+	border-collapse : inherit;
+}
+
+.group-permission tr > th {
+	min-width      : 65px;
+	height         : 75px;
+	vertical-align : bottom;
+}
+
+.group-permission tr {
+
+}
+
+.group-permission .center > div {
+	margin-top : 10px;
+}
+
+.group-permission th.center label, .group-permission-label th.center label {
+	width     : auto;
+	min-width : 0;
+	float     : none;
+	padding   : 0 5px;
+}
+
+.group-permission th.center label span {
+	font-weight : bold;
+}
+
+.group-permission .center label {
+	width : 100%;
+}
+
+.group-permission .center input, .group-permission-label .center input {
+	float : none !important;
+}
+
+/* Field ordering in category edit page*/
+.field-lists {
+    margin-left : 0;
+	margin-top : 3px;
+	float      : left;
+}
+
+.field-lists li {
+	border  : 1px solid #dddddd;
+	clear   : none !important;
+	display : inline-block;
+	float   : left;
+	margin  : 2px !important;
+	padding : 3px !important;
+}
+
+.field-lists li span {
+	display : block;
+}
+
+/* DOCUMENT EDIT PAGE */
+/* Category selection */
+.category_selection .browse_cat {
+    width         : 100% !important;
+    margin-bottom : 10px !important;
+}
+
+.category_selection .cat_action {
+    margin-bottom : 10px;
+}
+
+.active_pathway {
+    min-height : 26px;
+}
+
+.active_pathway .breadcrumb {
+    margin-bottom : 0 !important;
+    padding       : 3px 5px !important;
+}
+
+/* Add image gallery button */
+.add_images {
+    float : left;
+    clear : both;
+}
+
+/* File list */
+.judl-files .file-list li {
+    width: 390px;
+    height: 200px;
+    float: left;
+    border: 1px solid #E7E7E7;
+    margin: 0 10px 10px 0;
+}
+
+.judl-files .file-list li.placeHolder {
+    float: left;
+    border : 1px dashed #cccccc;
+}
+
+.file-item {
+	-webkit-box-sizing : border-box;
+	-moz-box-sizing    : border-box;
+	box-sizing         : border-box;
+	display       : inline-block;
+    padding: 10px 10px 10px 15px;
+	position      : relative;
+	width         : 100%;
+}
+
+.file-item .move {
+    font-size: 12px;
+    position: absolute;
+    top: 50%;
+    margin-top: -10px;
+    left: 0;
+}
+
+.file-item .file-row {
+    margin-bottom: 10px;
+}
+
+.file-item .file-name-info {
+    margin: 0;
+}
+
+.file-item .file-name {
+    width: 280px;
+}
+
+.file-item .input-append .file-size {
+    min-width: 58px;
+    font-size: 12px;
+}
+
+.file-item .file-title {
+    width: 280px;
+}
+
+.file-item .file-downloads {
+    width: 52px;
+}
+
+.file-item .file-description {
+    width: 350px;
+}
+
+.file-item a, .file-item a:hover, .file-item a:focus {
+    text-decoration: none;
+}
+
+.file-item .upload-progress {
+    position: relative;
+}
+
+.file-item .upload-file-name {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.file-item .upload-file-name .file {
+    font-size: 10px;
+    color: #333;
+    padding: 0 5px;
+    text-shadow: none;
+}
+
+.judl-files {
+	margin-bottom : 20px;
+}
+
+/* Changelog list */
+.judl-changelogs .add_changelog {
+	margin-bottom: 5px;
+}
+
+.changelog-list {
+    padding: 0;
+    margin: 0;
+}
+
+.changelog-list li {
+    list-style: none outside none;
+    border: 1px solid #E7E7E7;
+    margin-bottom: 20px;
+}
+
+.changelog-list li.placeHolder {
+    border : 1px dashed #cccccc;
+}
+
+.changelog-item {
+	-webkit-box-sizing : border-box;
+	-moz-box-sizing    : border-box;
+	box-sizing         : border-box;
+	padding       : 10px 10px 15px;
+	position      : relative;
+	width         : 100%;
+}
+
+.changelog-item .move {
+	font-size : 12px;
+	left      : -1px;
+	position  : absolute;
+	top       : 50%;
+    margin-top: -10px;
+}
+
+.changelog-item .changelog-date > span {
+	cursor : pointer;
+}
+
+.changelog-item .changelog-description textarea {
+	-webkit-box-sizing : border-box;
+	-moz-box-sizing    : border-box;
+	box-sizing         : border-box;
+	margin     : 5px 0 0;
+	width      : 100%;
+}
+
+/* File versions */
+.judl-versions {
+    max-height: 1500px;
+    overflow: auto;
+}
+
+.file-version-item .file-replace-uploader {
+    margin-top: 5px;
+    border: 1px dashed #e7e7e7;
+    padding: 5px;
+}
+
+.file-version-item:hover .file-replace-uploader {
+    border: 1px dashed #ddd;
+}
+
+.file-version-item a, .file-version-item a:hover, .file-version-item a:focus {
+    text-decoration: none;
+}
+
+.file-version-item .upload-progress {
+    position: relative;
+}
+
+.file-version-item .upload-file-name {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.file-version-item .upload-file-name .file {
+    font-size: 10px;
+    color: #333;
+    padding: 0 5px;
+    text-shadow: none;
+}
+
+/* Related documents */
+.related-document-list .related-documents {
+    float  : left;
+    margin : 0;
+    width  : 100%;
+}
+
+.related-document-list .related-documents li {
+    border   : 1px solid #ccc;
+    clear    : none !important;
+    float    : left;
+    height   : 180px;
+    margin   : 5px !important;
+    overflow : hidden;
+    padding  : 5px !important;
+    position : relative;
+    width    : 140px;
+}
+
+.related-document-list .related-documents li.placeHolder {
+    border : 1px dashed #ccc;
+}
+
+.related-document-list .related-documents li .document-inner {
+    display  : inline-block;
+    overflow : hidden;
+    height   : 100%;
+    width    : 100%;
+}
+
+.related-document-list .related-documents li .remove-rel-document {
+    display : block;
+}
+
+.related-document-list .related-documents li img {
+    margin     : 0;
+    max-height : 135px;
+    max-width  : 135px;
+    min-height : 50px;
+    min-width  : 50px;
+    padding    : 3px;
+}
+
+.related-document-list .rel-document-title {
+    clear : both;
+    float : left;
+}
+
+.related-document-list .remove-rel-document {
+    background  : url("../img/delete-icon.png") no-repeat scroll 0 0 transparent;
+    height      : 16px;
+    position    : absolute;
+    right       : 10px;
+    text-indent : -999em;
+    top         : 10px;
+    width       : 16px;
+    z-index     : 2;
+}
+
+/* Document gallery */
+.jugallery-holder {
+	min-height    : 20px;
+	margin-bottom : 10px;
+	display       : inline-block;
+}
+
+.jugallery-holder, .jugallery {
+	display    : inline-block;
+	/*  float: left;*/
+	margin     : 0 !important;
+	min-height : 50px;
+	overflow   : hidden;
+	padding    : 0 !important;
+	position   : relative;
+	text-align : center;
+	width      : 100%;
+}
+
+.jugallery-holder .gallery-browser {
+	clear: both;
+	float: left;
+	margin: 0 0 10px;
+}
+
+.jugallery-holder .jugallery li {
+	display : inline-block;
+	float   : left;
+}
+
+.jugallery-holder .jugallery li div.unpublished {
+	opacity : 0.5;
+}
+
+.jugallery-holder .jugallery li div .view-image {
+	background  : url("../img/view-icon.png") no-repeat scroll 0 0 transparent;
+	height      : 16px;
+	position    : absolute;
+	right       : 60px;
+	text-indent : -999em;
+	top         : 5px;
+	width       : 16px;
+}
+
+.jugallery-holder .jugallery li div .published-image {
+	background  : url("../img/published-icon.png") no-repeat scroll 0 0 transparent;
+	height      : 16px;
+	position    : absolute;
+	right       : 40px;
+	text-indent : -999em;
+	top         : 5px;
+	width       : 16px;
+}
+
+.jugallery-holder .jugallery li div.unpublished .published-image {
+	background  : url("../img/unpublished-icon.png") no-repeat scroll 0 0 transparent;
+	height      : 16px;
+	position    : absolute;
+	right       : 40px;
+	text-indent : -999em;
+	top         : 5px;
+	width       : 16px;
+}
+
+.jugallery-holder .jugallery li div .remove-image {
+	background  : url("../img/delete-icon.png") no-repeat scroll 0 0 transparent;
+	height      : 16px;
+	position    : absolute;
+	right       : 22px;
+	text-indent : -999em;
+	top         : 5px;
+	width       : 16px;
+	z-index     : 2;
+}
+
+.jugallery-holder .jugallery li div.unremove .remove-image {
+	background  : url("../img/undelete-icon.png") no-repeat scroll 0 0 transparent;
+	height      : 16px;
+	position    : absolute;
+	right       : 22px;
+	text-indent : -999em;
+	top         : 5px;
+	width       : 16px;
+}
+
+.jugallery-holder .jugallery li div .edit-image {
+	background  : url("../img/edit-icon.png") no-repeat scroll 0 0 transparent;
+	height      : 16px;
+	position    : absolute;
+	right       : 3px;
+	text-indent : -999em;
+	top         : 5px;
+	width       : 16px;
+}
+
+.jugallery-holder .jugallery li {
+	clear      : none;
+	display    : inline-block;
+	float      : left;
+	height     : auto;
+	list-style : none outside none;
+	margin     : 5px;
+	padding    : 0;
+	width      : auto;
+}
+
+.jugallery-holder .jugallery li div.img-element {
+	background : none repeat scroll 0 0 #ffffff;
+	border     : 1px solid #ee9900;
+	display    : inline-block;
+	float      : left;
+	overflow   : hidden;
+	position   : relative;
+	text-align : center;
+	transition : all 0.2s ease 0s;
+}
+
+.jugallery-holder .jugallery li div.img-element .img-item {
+    display    : block;
+	min-height : 50px;
+	min-width  : 50px;
+	padding    : 3px;
+}
+
+.jugallery-holder .jugallery li div.remove-image-mask {
+	border     : 0 none;
+	display    : none;
+	height     : 100%;
+	left       : 0;
+	position   : absolute;
+	top        : 0;
+	width      : 100%;
+	z-index    : 1;
+    background : #FFF;
+    opacity    : 0.8;
+}
+
+/* Category list in category edit view */
+.category_list li {
+    clear: both;
+}
+
+.category_list .removeitem {
+    display: inline-block;
+    margin-left: 5px;
+    line-height: 15px;
+}
+
+/* Priority direction button in field list view */
+.jgrid .text {
+	display : none;
+}
+
+.jgrid span.sort {
+	display : inline-block;
+	height  : 16px;
+	width   : 16px;
+}
+
+.jgrid span.asc-direction {
+	background-image : url(../img/sort-ascending-icon.png);
+}
+
+.jgrid span.desc-direction {
+	background-image : url(../img/sort-descending-icon.png);
+}
+
+/* Category tree moderator */
+#moderator-assign {
+	display: inline-block;
+}
+
+#moderator-assign ul {
+	clear       : both;
+	overflow    : auto;
+	width       : 300px;
+	max-height  : 250px;
+	margin-top  : 5px;
+	margin-left : 0;
+}
+
+#moderator-assign ul li {
+	clear : both;
+	float : left;
+}
+
+#moderator-assign ul li label {
+	clear     : none;
+	float     : left;
+	margin    : 0 0 0 3px;
+	min-width : 0;
+}
+
+/* Category assign to email */
+.categoriestoassignemail {
+	display: inline-block;
+}
+
+.categoriestoassignemail ul {
+	float       : left;
+	clear       : both;
+	margin-top  : 5px;
+	margin-left : 0;
+	max-height  : 250px;
+	overflow    : auto;
+	width       : 300px;
+}
+
+.categoriestoassignemail ul li {
+	clear       : both;
+	float       : left;
+	height      : 18px;
+	line-height : 18px;
+}
+
+.categoriestoassignemail ul li input, .categoriestoassignemail ul li label {
+	float        : left;
+	margin       : 0;
+	line-height  : 1;
+	margin-right : 5px;
+}
+
+.categoriestoassignemail ul li label {
+	margin-top   : 1px;
+	margin-right : 0;
+}
+
+/* Category assign to style */
+.categoriestoassignstyle {
+	display: inline-block;
+}
+
+.categoriestoassignstyle ul {
+	float       : left;
+	clear       : both;
+	overflow    : auto;
+	width       : 300px;
+	max-height  : 250px;
+	margin-top  : 5px;
+	margin-left : 0;
+}
+
+.categoriestoassignstyle ul li {
+	clear : both;
+	float : left;
+}
+
+.categoriestoassignstyle ul li input {
+	float      : left;
+	margin-top : 0;
+}
+
+.categoriestoassignstyle ul li label {
+	clear     : none;
+	float     : left;
+	margin    : 0 0 0 3px;
+	min-width : 0;
+}
+
+.categoriestoassignstyle ul li .style-title {
+	color       : #dd0000;
+	font-size   : 10px;
+	font-weight : bold;
+}
+
+.categoriestoassignstyle ul li .inherited-value {
+	font-size : 10px;
+}
+
+/* Field group assign to cat */
+.categoriestoassignfieldgroup {
+	display: inline-block;
+}
+
+.categoriestoassignfieldgroup ul {
+	float       : left;
+	clear       : both;
+	margin-top  : 5px;
+	margin-left : 0;
+	max-height  : 250px;
+	overflow    : auto;
+	width       : 300px;
+}
+
+.categoriestoassignfieldgroup ul li {
+	clear : both;
+	float : left;
+}
+
+.categoriestoassignfieldgroup ul li input {
+	float      : left;
+	margin-top : 0;
+}
+
+.categoriestoassignfieldgroup ul li label {
+	clear     : none;
+	float     : left;
+	margin    : 0 0 0 3px;
+	min-width : 0;
+}
+
+/* Categories assign to criteria group */
+.categoriestoassigncriteriagroup {
+	display: inline-block;
+}
+
+.categoriestoassigncriteriagroup ul {
+	float       : left;
+	clear       : both;
+	margin-top  : 5px;
+	margin-left : 0;
+	max-height  : 250px;
+	overflow    : auto;
+	width       : 300px;
+}
+
+.categoriestoassigncriteriagroup ul li {
+	clear : both;
+	float : left;
+}
+
+.categoriestoassigncriteriagroup ul li input {
+	float      : left;
+	margin-top : 0;
+}
+
+.categoriestoassigncriteriagroup ul li label {
+	clear     : none;
+	float     : left;
+	margin    : 0 0 0 3px;
+	min-width : 0;
+}
+
+/* Moderator assign to category in moderator edit page */
+.moderator-assign input.select-cat {
+    float : left;
+}
+
+/* Email body textarea*/
+#jform_body_text {
+	width : 600px;
+}
+
+.control-group.hiddenfield {
+	background: none repeat scroll 0 0 #fafafa;
+	border: 1px dashed #d5d5d5;
+	opacity: 0.9;
+	padding: 5px;
+	-webkit-box-sizing : border-box;
+	-moz-box-sizing    : border-box;
+	box-sizing         : border-box;
+}
+
+/* Accordion in right side panel(span4-5) */
+.span4 .accordion input[type="text"], .span4 .accordion textarea, .span4 .accordion .uneditable-input {
+    width: 175px;
+}
+
+/* Fix width for all form-horizontal in JU Download*/
+.form-horizontal .control-label {
+    max-width: 150px !important;
+}
+
+.form-horizontal .controls {
+    margin-left: 150px !important;
+}
+
+/* Multi select boostrap */
+button.multiselect {
+	margin-right: 5px;
+}
+
+button.multiselect .caret {
+	margin: 7px 0;
+}
+
+/* Fix all ul/li in adminformlist */
+ul.adminformlist {
+    margin : 0;
+}
+
+ul.adminformlist li {
+    list-style : none outside none;
+}
+
+/* Item alias in list view*/
+p.small {
+    margin : 0;
+}
+
+p.small span {
+    color : #a0a0a0;
+}
+
+/* Others */
+#iframe-help {
+    display : none;
+    height  : 300px;
+}
+
+.drag-icon {
+    background   : url("../img/drag-icon.png") no-repeat scroll left center rgba(0, 0, 0, 0);
+    cursor       : pointer;
+    float        : left;
+    height       : 20px;
+    margin-right : 10px;
+    width        : 5px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.jubootstrap .from{
+    margin-right: 5px;
+}
+.jubootstrap .to{
+    margin: 0 5px;
+}
+
+.pro-version {
+    color: #d50000;
+    font-size: 10px;
+    font-weight: normal;
+    vertical-align: super;
+}

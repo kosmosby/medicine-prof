@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension type="package" version="1.7" method="upgrade">
+    <name>Auction Factory Package</name>
+    <packagename>bids</packagename>
+    <version>3.2.6</version>
+    <url>http://www.thefactory.ro</url>
+    <packager>TheFactory</packager>
+    <packagerurl>http://www.thefactory.ro</packagerurl>
+    <description>Auction Factory Install Package</description>
+    <update>http://www.thefactory.ro</update>
+    <scriptfile>install.package.php</scriptfile>
+    <files>
+        <file type="component" id="com_bids" >bids_3.2.6.zip</file>
+        <file type="module" id="mod_bidsnavigation" client="site">mod_bidsnavigation.zip</file>
+        <file type="module" id="mod_auctionfulltree" client="site">mod_auctionfulltree.zip</file>
+        <file type="module" id="mod_auctionsearch" client="site">mod_auctionsearch.zip</file>
+        <file type="module" id="mod_bidrate" client="site">mod_bidrate.zip</file>
+        <file type="module" id="mod_bids" client="site">mod_bids.zip</file>
+        <file type="module" id="mod_bidscloud" client="site">mod_bidscloud.zip</file>
+        <file type="plugin" id="bids" client="site" group="search">plg_search_bids.zip</file>
+        <file type="plugin" id="bids" client="site" group="system">plg_system_bids.zip</file>
+        <file type="plugin" id="bids" client="site" group="user">plg_user_bids.zip</file>
+    </files>
+</extension>
+ 

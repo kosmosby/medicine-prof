@@ -1,0 +1,200 @@
+// Overrides
+.help-block {
+  margin-top: 9px; // Adding a top margin to the help block so it won't stick to the forms
+}
+
+#extension_groups {
+  @include clearfix;
+  margin: 0;
+
+  li {
+    float: left;
+    margin-left: 20px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    span {
+      display: block;
+    }
+  }
+}
+
+// Secondary container for form elements
+.docman_secondary_container {
+  @media screen and (min-width: $queryWidthMedium) {
+    background: #f5f5f5;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 0 20px;
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+
+  @media screen and (min-width: 980px) {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+}
+
+.koowa_template_container .docman_secondary_container {
+  @media screen and (min-width: $queryWidthMedium) {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+}
+
+.docman_container {
+  @include clearfix;
+  margin: 0 auto;
+  max-width: 1020px;
+  padding: 15px 0 0;
+
+  @media screen and (min-width: $maxWidth) {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+#document_list .docman_grid__item {
+  margin-bottom: 30px;
+
+  td {
+    @include wrap_words();
+  }
+}
+
+.docman_grid {
+  @include clearfix;
+  clear: both;
+
+  @media screen and (min-width: $queryWidthMedium) {
+    margin: 0;
+
+    .docman_grid {
+      margin: 0;
+    }
+  }
+
+  // JCE fix
+  .mceLayout {
+    max-width: 100%;
+    width: 99%;
+    @include box-sizing(border-box);
+  }
+}
+
+.docman_grid__item {
+  float: left;
+  display: block;
+  width: 100%;
+  @include box-sizing(border-box);
+
+  &:first-child {
+    padding-left: 0;
+  }
+
+  fieldset {
+    float: left;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    @include box-sizing(border-box);
+  }
+
+  @media screen and (min-width: $queryWidthMedium) {
+    padding-left: $koowaGutterWidthSecondLevel;
+  }
+
+  @media screen and (min-width: $maxWidth) {
+    padding-left: $koowaGutterWidthFirstLevel;
+  }
+
+  @media screen and (min-width: $queryWidthMedium) {
+    &.one-third {
+      width: 33.333%;
+    }
+
+    &.two-thirds {
+      width: 66.666%;
+    }
+
+    &.one-half {
+      width: 50%;
+    }
+
+    &.one-whole {
+      width: 100%;
+    }
+  }
+}
+
+.control-group, .controls {
+  @include clearfix;
+}
+
+.control-group {
+  margin-bottom: 16px;
+}
+
+.control-label {
+  margin-bottom: 6px;
+}
+
+.select2-container {
+  margin-bottom: 9px;
+  max-width: 100%;
+}
+
+.docman_grid .select2-container,
+.documents-filters .select2-container {
+  max-width: none;
+}
+
+.docman_grid legend + .control-group {
+  margin-top: 0;
+}
+
+.docman_grid {
+  .controls {
+    min-height: 40px;
+  }
+
+  .description_container .controls {
+    max-width: 100%;
+    overflow: auto;
+  }
+}
+
+.docman_grid .thumbnail-picker {
+  @include clearfix;
+
+  li {
+    margin-bottom: 8px;
+  }
+}
+
+.btn-group.radio {
+  padding: 0;
+}
+
+.docman_grid label.control-label {
+  font-weight: bold;
+}
+
+.input-block-level {
+  min-height: 28px;
+}
+
+legend {
+  @include clearfix();
+}
+
+label {
+  cursor: auto;
+
+  &[for] {
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" group="user" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../../../validation/ahawow.xsd">
+	<types />
+	<actions ui="admin" permission="core.manage" permissionasset="com_comprofiler">
+		<action name="folderrows" request="view action" action="editPlugin showfolders" permission="core.admin">
+			<extend toxpathnode="/cbxml/types" fromxpathnode="/*/types/type" file="xml/models/model.folder" mandatory="true" />
+			<extend toxpathnode="/cbxml/types" fromxpathnode="/*/types/type" file="xml/models/model.item" mandatory="true" />
+			<showview view="showfolders" mode="show" />
+		</action>
+
+		<action name="itemrows" request="view action" action="editPlugin showitems" permission="core.admin">
+			<extend toxpathnode="/cbxml/types" fromxpathnode="/*/types/type" file="xml/models/model.folder" mandatory="true" />
+			<extend toxpathnode="/cbxml/types" fromxpathnode="/*/types/type" file="xml/models/model.item" mandatory="true" />
+			<showview view="showitems" mode="show" />
+		</action>
+
+		<action name="folderrow" request="view table action" action="editPlugin folderbrowser editrow" requestparameters="folderid" permission="core.admin">
+			<extend toxpathnode="/cbxml/types" fromxpathnode="/*/types/type" file="xml/models/model.folder" mandatory="true" />
+			<extend toxpathnode="/cbxml/types" fromxpathnode="/*/types/type" file="xml/models/model.item" mandatory="true" />
+			<showview view="editfolder" mode="edit">
+				<data name="" type="sql:row" table="#__comprofiler_plugin_gallery_folders" class="cbgalleryFolderTable" key="id" value="folderid" valuetype="request:int" />
+			</showview>
+		</action>
+
+		<action name="itemrow" request="view table action" action="editPlugin itembrowser editrow" requestparameters="itemid" permission="core.admin">
+			<extend toxpathnode="/cbxml/types" fromxpathnode="/*/types/type" file="xml/models/model.folder" mandatory="true" />
+			<extend toxpathnode="/cbxml/types" fromxpathnode="/*/types/type" file="xml/models/model.item" mandatory="true" />
+			<showview view="edititem" mode="edit">
+				<data name="" type="sql:row" table="#__comprofiler_plugin_gallery_items" class="cbgalleryItemTable" key="id" value="itemid" valuetype="request:int" />
+			</showview>
+		</action>
+
+		<action name="itemdownload" request="view table action format" action="editPlugin itembrowser downloadrow raw" requestparameters="itemid" permission="core.admin">
+			<showview view="downloaditem" mode="show">
+				<data name="" type="sql:row" table="#__comprofiler_plugin_gallery_items" class="cbgalleryItemTable" key="id" value="itemid" valuetype="request:int" />
+			</showview>
+		</action>
+
+		<action name="itempreview" request="view table action format" action="editPlugin itembrowser previewrow raw" requestparameters="itemid" permission="core.admin">
+			<showview view="previewitem" mode="show">
+				<data name="" type="sql:row" table="#__comprofiler_plugin_gallery_items" class="cbgalleryItemTable" key="id" value="itemid" valuetype="request:int" />
+			</showview>
+		</action>
+	</actions>
+	<views>
+		<view name="pluginmenu" type="params" ui="admin" label="" viewformatting="none">
+			<param name="folders" type="button" default="Folders" buttonclass="default" buttonsize="xsmall" link="cb_action:folderrows" parameters="cid" paramvalues="id" label="" />
+			<param name="items" type="button" default="Items" buttonclass="default" buttonsize="xsmall" link="cb_action:itemrows" parameters="cid" paramvalues="id" label="" />
+		</view>
+	</views>
+</cbxml>

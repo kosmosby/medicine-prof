@@ -1,0 +1,43 @@
+@charset "utf-8";
+/* CSS Document */
+#awd-mainarea .round {
+width:99%!important;
+margin:0px!important;
+padding:0px!important;
+}
+	.postButton_small{
+	
+	}
+
+#awd-mainarea  .wallheading {
+background:#555555;
+}
+
+.jplist .filter .placeholder-parent{
+	margin: 0px 0px 0px 25px!important;
+	position: relative!important;
+	float: left!important;
+}
+
+.jplist .filter .placeholder{
+	position: absolute!important;
+	top: 0px!important;
+	left: 0px!important;
+	padding: 0px 0px 0px 15px!important;
+	border-radius: 3px!important;
+}
+
+.jplist .filter .placeholder-parent input{
+	margin: 0px 0px 0px 0px;
+	width:110px!important;
+}
+.jplist .hidden{
+	display: none;
+}
+.jplist .panel{
+overflow:hidden;
+}
+.jplist .filter{
+width:170px!important;
+overflow:hidden!important;
+}

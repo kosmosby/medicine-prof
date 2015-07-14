@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field
+			name="id"
+			type="hidden"
+		/>
+        <field
+                name="membership_list_id"
+                type="sql"
+                class="inputbox"
+                default=""
+                label="COM_FLEXPAPER_QUIZ_COURSE_NAME"
+                description="COM_FLEXPAPER_QUIZ_COURSE_NAME"
+                required="true"
+                query="SELECT id AS value, title as membership_list_id FROM #__osemsc_acl"
+                />
+        <field
+                name="catid"
+                type="category"
+                extension="com_flexpaper"
+                class="inputbox"
+                default=""
+                label="COM_FLEXPAPER_HEADING_CATEGORY"
+                description="Category"
+                required="true"
+                >
+            <option value="0">JOPTION_SELECT_CATEGORY</option>
+        </field>
+
+        <field
+                name="content_id"
+                type="sql"
+                class="inputbox"
+                default=""
+                label="COM_FLEXPAPER_MENU_NAME"
+                description="COM_FLEXPAPER_MENU_NAME"
+                required="true"
+                query="select id as value, title as content_id from #__menu WHERE client_id = 0 AND id > 1 AND published = 1 ORDER BY title"
+                />
+
+        <field name="show_module" type="radio" default="0" label="COM_FLEXPAPER_SHOW_IN_MODULE" description="">
+            <option value="1">COM_FLEXPAPER_YES</option>
+            <option value="0">COM_FLEXPAPER_NO</option>
+        </field>
+
+
+        <field type="spacer" name="myspacer" label="" />
+
+        <field
+                name="description"
+                label ="COM_FLEXPAPER_COURSE_DESCRIPTION"
+                type="editor"
+                width="300"
+
+                />
+
+
+        <field
+                name="image"
+                type="filelist"
+                default=""
+                label="COM_FLEXPAPER_SELECT_FILE"
+                description=""
+                directory="/images/egitimler"
+                filter=""
+                exclude=""
+                stripext=""
+                />
+
+    </fieldset>
+</form>

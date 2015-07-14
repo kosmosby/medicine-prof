@@ -1,0 +1,39 @@
+/* CSS Document */
+div #awdWallVideo{
+text-align:left;}
+div #thumb{
+text-align:center;
+ }
+
+div #thumb img{
+width:112px;
+}
+
+div #title{
+text-align:center;
+padding-top:5px;}
+
+div #title a{
+font-size:14px; text-align:justify;
+}
+
+div #descr{ 
+padding:5px; text-align:center;}
+
+div #thumbGroup{
+float:left; border:1px #CCCCCC solid; padding:3px; margin:2px; cursor:pointer;
+  height:30px;  
+}
+
+div #thumbGroup img{ 
+height:30px;
+}
+
+ 
+ div #viewall{
+ clear:both;  
+ }
+ 
+.link{ 
+ font-size:11px;
+}

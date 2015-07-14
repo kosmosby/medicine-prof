@@ -1,0 +1,66 @@
+.judl-form-topcomments .sort-pagination select {
+    float: left;
+    height: auto;
+    margin-bottom: 0;
+    margin-left: 5px;
+    width: auto;
+}
+
+.comment-list li.comment-item {
+    margin: 10px 0;
+}
+
+.comment-list .comment-box {
+    border: 1px solid #eee;
+    padding: 5px;
+}
+
+.comment-list .comment-item .comment-user {
+    float: left;
+    margin-right: 10px;
+    min-width: 100px;
+    overflow: hidden;
+    position: relative;
+}
+
+.comment-list .comment-item .comment-username {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.comment-list .comment-item .comment-text {
+    overflow: hidden;
+    position: relative;
+    width: auto;
+}
+
+.comment-list .comment-item .comment-title {
+    margin: 0 0 5px;
+}
+
+.comment-list .comment-item .comment-metadata {
+    color: #a0a0a0;
+    font-size: 11px;
+}
+
+.comment-list .comment-item .comment-content {
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.comment-list .comment-item .see-more, .comment-list .comment-item .see-less {
+    display: block;
+    padding-top: 10px;
+    text-align: center;
+    box-sizing         : border-box;
+    -moz-box-sizing    : border-box;
+    -webkit-box-sizing : border-box;
+    cursor: pointer;
+}
+
+.comment-list .comment-item .see-more, .comment-list .comment-item blockquote {
+    font-size: 100%;
+    font-style: italic;
+}

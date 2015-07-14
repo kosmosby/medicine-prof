@@ -1,0 +1,22 @@
+.icon-paypal {
+	background:url('../images/paypal-icon.png');
+	background-position-y: 0px;
+	background-repeat: no-repeat;
+	margin-bottom:-3px;
+}
+.icon-shopping-cart {
+	background:url('../images/cart-icon.png');
+	background-position-y: 0px;
+	background-repeat: no-repeat;
+	margin-bottom:-3px;
+}
+.icon-paypal-white {
+	background:url('../images/paypal-icon-white.png');
+	background-position-y: 0px;
+	background-repeat: no-repeat;
+}
+.icon-shopping-cart-white {
+	background:url('../images/cart-icon-white.png');
+	background-position-y: 0px;
+	background-repeat: no-repeat;
+}

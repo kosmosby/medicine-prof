@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="paybasket" type="params" ui="admin" label="Pay the basket manually" description="">
+			<extend toxpathnode="/cbxml/types" fromxpathnode="/*/types/type" file="xml/edit.front.recordpayment" />
+			<showview name="paybasketview" mode="edit" type="xml" file="xml/edit.front.recordpayment" path="/*/views/view[@name=&quot;showrecordpayment&quot;]" mandatory="true" />
+		</view>
+	</views>
+</cbxml>

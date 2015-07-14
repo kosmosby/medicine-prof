@@ -1,0 +1,147 @@
+.osereceipt
+{
+	margin-left: 50px;
+	line-height: 1;
+	color: #666;
+	font-family: times new roman,times;
+	background: white;
+}
+
+.receipt-content
+{
+	margin-top: 20px;
+	margin-left: 10px;
+	display: block;
+	font-family: Arial;
+	font-weight: bold;
+}
+.receipt-content .invoice-header,
+.invoice-header
+{
+	font-family: times;
+	font-size: 36pt;
+	font-weight: bold;
+}
+
+.receipt-content .date,
+.receipt-content .invoice-number,
+.receipt-content .billing-info
+{
+	font-family: Arial;
+	font-size: 10pt;
+	font-weight: bold;
+}
+
+.receipt-content .billing-info
+{
+	font-weight: normal;
+}
+
+.receipt-content .billing-info .billing-header
+{
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+
+.receipt-content .customer-ref
+{
+	background: #EEFECB none repeat scroll 0 0;
+	border:1px solid #82BF3B;
+	color: #666;
+	padding: 5px;
+	width: 300px;
+	font-family: Arial;
+	font-size: 10pt;
+	font-weight: normal;
+}
+
+.receipt-content .receipt-list
+{
+	border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+	font-family: Arial;
+	font-size: 10pt;
+	font-weight: normal;
+}
+
+.receipt-content .receipt-list .rows
+{
+	border: 0px solid transparent;
+}
+
+.receipt-content .receipt-list .rows .header
+{
+ 	padding-top: 5px;
+ 	padding-left: 5px;
+ 	padding-right: 5px;
+ 	padding-bottom: 5px;
+	border-left: 0px solid #eee;
+    border-right: 0px solid #eee;
+    border-top: 1px dotted #eee;
+    border-bottom: 0px solid #eee;
+    color: #006699;
+    font-weight: bold;
+    background-color: #e8f1fa;
+}
+
+.receipt-content .receipt-list .rows .items
+{
+ 	padding-top: 5px;
+ 	padding-left: 5px;
+ 	padding-right: 5px;
+ 	padding-bottom: 5px;
+	border-left: 0px solid #eee;
+    border-right: 0px solid #eee;
+    border-top: 0px solid #eee;
+    border-bottom: 0px solid #eee;
+    color: #666;
+    font-weight: bold;
+    background-color: #fff;
+    vertical-align: middle;
+}
+
+.receipt-content .receipt-list .rows .subtotal
+{
+	padding-top: 5px;
+ 	padding-left: 5px;
+ 	padding-right: 5px;
+ 	padding-bottom: 5px;
+	border-left: 0px solid #eee;
+    border-right: 0px solid #eee;
+    border-top: 0px solid #eee;
+    border-bottom: 0px solid #eee;
+    color: #006699;
+    font-weight: bold;
+    background-color: #fff;
+	float: right;
+}
+
+.osereceipt .thank-you
+{
+	margin-left: 10px;
+	margin-top: 10px;
+	margin-right: 10px;
+	text-align: center;
+	width: 100%;
+	font-family: Arial;
+	font-size: 10pt;
+	font-weight: bold;
+}
+
+
+.osereceipt .slogan
+{
+	margin-left: 10px;
+	margin-top: 20px;
+	margin-right: 10px;
+	text-align: center;
+	width: 100%;
+	font-family: Arial;
+	font-size: 20pt;
+	font-weight: bold;
+	font-style: italic;
+	vertical-align: middle;
+}

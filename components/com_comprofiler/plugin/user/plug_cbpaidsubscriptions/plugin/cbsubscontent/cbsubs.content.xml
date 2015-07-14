@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0" type="plugin" group="user/plug_cbpaidsubscriptions/plugin"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		   xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<name>CBSubs Content</name>
+	<author>Beat</author>
+	<creationDate>2014-10-09</creationDate>
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<authorEmail>beat@joomlapolis.com</authorEmail>
+	<authorUrl>www.joomlapolis.com</authorUrl>
+	<version>2.0.0</version>
+	<release>4.0.0-rc.1</release>
+	<cbsubsversion version="4.0.0-rc.1" />
+	<description>CBSubs Content integration CB plugin: Provides paid access integration between CBSubs plugin and CMS content. WARNING: you also need to install and publish the CBSubs Bot CMS mambot/plugin.</description>
+	<files>
+		<filename plugin="cbsubs.content">cbsubs.content.php</filename>
+		<filename>cbsubs.content_access.php</filename>
+		<filename>cbsubs.content_helper.php</filename>
+		<filename>cbsubs.content_deniedview.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<params>
+		<param name="remark"  type="spacer" label="Parameters settings"  default="Settings are done from within the paid subscriptions plugin in the general settings and in each plan/product." description="" />
+	</params>
+	<tabs>
+	</tabs>
+	<payintegrationglobals>
+		<tabpanetab name="integration_cpaycontent" label="Content/Extensions" description="CMS Content and Extensions access depending on subscription:">
+			<param name="cbpaidsubsbot_install_check" type="private" class="cbpaidParamsExt" method="checkifpluginInstalled" value="cbpaidsubsbot" label="Latest version message"    description="This integration plugin requires the cbsubsbot to be installed." />
+			<fieldset name="access_articles_intro" label="Articles access" description="The following setting is valid for all articles, sections, and categories access protection:">			
+				<param name="integration_cpaycontent_allowIntro" type="list" default="0" label="Still show intro text for articles" description="If the settings is yes, the Introduction part of articles will remain visible without subscription to controlling plan. If no, the article content won't be visible, only the title, author and date depending on settings.">
+					<option value="0">No: access to articles introduction is also restricted</option>
+					<option value="1">Yes: articles introductions remain always visible</option>
+					<option value="2">Depends: articles introductions are visible only if there is also a &quot;read more&quot; main text</option>
+				</param>
+			</fieldset>
+			<fieldset name="access_set" label="Full access granted for" description="The following ACL groups have access to all content and extensions, independantly of plans settings:">
+				<param name="integration_cpaycontent_access" type="usergroup" multiple="true" size="9" default="Administrator|*|Superadministrator" label="No access restriction for Groups" description="These user groups have no access restrictions depending on plan (default: Administrators and Super Administrators user groups)." />
+			</fieldset>
+			<param name="subscriptionNeededRedirectLinkHint" type="spacer" label="Alternate URL redirect when a membership is needed for access" default="This setting is in CBSubs settings - Display tab - Expiration tab - Membership needed for access redirect URL for existing users" description="In case of no existing expired membership: Redirection to this URL (start with non-sef url index.php?.. if on same site). Default: empty. WARNING: use only if you know what you do." />
+		</tabpanetab>
+	</payintegrationglobals>
+	<!--
+	<payintegrationmainmenu>
+		<menu name="accesscontrol"       action="cb_action:show_history"                 label="Access Control"  description="Show access control overview" />
+	</payintegrationmainmenu>
+	-->
+	<payintegration>
+		<tabpanetab name="integration_cpaycontent" label="Content" description="CMS Content access depending on subscription:">
+			<param name="cbpaidsubsbot_install_check" type="private" class="cbpaidParamsExt" method="checkifpluginInstalled" value="cbpaidsubsbot" label="CBSubs bot installation check"    description="This integration plugin requires the cbsubsbot to be installed." />
+			<fieldset name="cpaycontent_read" label="For read access" description="The following settings control the read access to content:">
+				<if name="api" nametype="cmsversion:int" operator="&lt;=" value="1" valuetype="const:int" type="condition">
+					<fieldset name="cpaycontent_by_section" label="READ: By Content Section" description="">
+						<param name="cpaycontent_sections" type="mos_section" multiple="true" default="" label="Sections which access rights depend on this plan" description="Select sections which can be accessed only if this subscription is active. Leave unselected for no effect (access allowed or depending on other plans)." />
+						<param name="cpaycontent_sections_list" type="xml:yesno" default="1" label="Also control the Content Section/Categories Lists" description="This means that if access to a section above is controlled by this plan, the corresponding section lists will also be controlled. For content sections blogs, please use the corresponding menu item below to control them." />
+					</fieldset>
+				</if>
+				<fieldset name="cpaycontent_by_category" label="READ: By Content Category" description="">
+					<param name="cpaycontent_categories" type="mos_category" multiple="true" blanktext="" filteringselect="true" default="" label="Categories which access rights depend on this plan" description="Select categories which can be accessed only if this subscription is active. Leave unselected for no effect (access allowed or depending on other plans)." />
+					<param name="cpaycontent_categories_list" type="xml:yesno" default="1" label="Also control the Content Categories Lists" description="This means that if access to a category above is controlled by this plan, the corresponding category lists will also be controlled. For content categories blogs, please use the corresponding menu item below to control them." />
+				</fieldset>
+				<fieldset name="cpaycontent_by_content" label="READ: By Content" description="">
+					<param name="cpaycontent_contents" type="mos_content" multiple="true" blanktext="" filteringselect="true" default="" label="Contents which access rights depend on this plan" description="Select contents which can be accessed only if this subscription is active. Leave unselected for no effect (access allowed or depending on other plans)." />
+				</fieldset>
+			</fieldset>
+			<if name="api" nametype="cmsversion:int" operator="&lt;=" value="1" valuetype="const:int" type="condition">
+				<fieldset name="cpaycontent_author" label="For author access" description="The following settings control the authoring access to content: this plan will allow users to &lt;strong&gt;add content or edit their own content&lt;/strong&gt;">
+					<fieldset name="cpaycontent_by_section_canEditOwnContent" label="AUTHOR: By Content Section" description="">
+						<param name="cpaycontent_sections_canEditOwnContent" type="mos_section" multiple="true" default="" label="Sections which AUTHORING rights depend on this plan" description="Select sections which can be authored only if this subscription is active. Leave unselected for no effect (access allowed or depending on other plans)." />
+					</fieldset>
+					<fieldset name="cpaycontent_by_category_canEditOwnContent" label="AUTHOR: By Content Category" description="">
+						<param name="cpaycontent_categories_canEditOwnContent" type="mos_category" multiple="true" blanktext="" filteringselect="true" default="" label="Categories which AUTHORING rights depend on this plan" description="Select categories which can be authored only if this subscription is active. Leave unselected for no effect (access allowed or depending on other plans)." />
+					</fieldset>
+					<fieldset name="cpaycontent_by_content_canEditOwnContent" label="AUTHOR: By Content" description="">
+						<param name="cpaycontent_contents_canEditOwnContent" type="mos_content" multiple="true" filteringselect="true" blanktext="" default="" label="Contents which AUTHORING rights depend on this plan" description="Select contents which can be authored only if this subscription is active. Leave unselected for no effect (access allowed or depending on other plans)." />
+					</fieldset>
+				</fieldset>
+				<fieldset name="cpaycontent_editor" label="For editor access" description="The following settings control the editing access to content: this plan will allow users to &lt;strong&gt;add content or edit any content&lt;/strong&gt;">
+					<fieldset name="cpaycontent_by_section_canEditAllContent" label="EDITOR: By Content Section" description="">
+						<param name="cpaycontent_sections_canEditAllContent" type="mos_section" multiple="true" default="" label="Sections which EDITING rights depend on this plan" description="Select sections which can be edited only if this subscription is active. Leave unselected for no effect (access allowed or depending on other plans)." />
+					</fieldset>
+					<fieldset name="cpaycontent_by_category_canEditAllContent" label="EDITOR: By Content Category" description="">
+						<param name="cpaycontent_categories_canEditAllContent" type="mos_category" multiple="true" blanktext="" filteringselect="true" default="" label="Categories which EDITING rights depend on this plan" description="Select categories which can be edited only if this subscription is active. Leave unselected for no effect (access allowed or depending on other plans)." />
+					</fieldset>
+					<fieldset name="cpaycontent_by_content_canEditAllContent" label="EDITOR: By Content" description="">
+						<param name="cpaycontent_contents_canEditAllContent" type="mos_content" multiple="true" filteringselect="true" blanktext="" default="" label="Contents which EDITING rights depend on this plan" description="Select contents which can be edited only if this subscription is active. Leave unselected for no effect (access allowed or depending on other plans)." />
+					</fieldset>
+				</fieldset>
+				<fieldset name="cpaycontent_publisher" label="For publisher access" description="The following settings control the publishing access to content: this plan will allow users to &lt;strong&gt;publish any content&lt;/strong&gt;">
+					<fieldset name="cpaycontent_by_section_canPublishContent" label="PUBLISHER: By Content Section" description="">
+						<param name="cpaycontent_sections_canPublishContent" type="mos_section" multiple="true" default="" label="Sections which PUBLISHING rights depend on this plan" description="Select sections which can be published only if this subscription is active. Leave unselected for no effect (access allowed or depending on other plans)." />
+					</fieldset>
+					<fieldset name="cpaycontent_by_category_canPublishContent" label="PUBLISHER: By Content Category" description="">
+						<param name="cpaycontent_categories_canPublishContent" type="mos_category" multiple="true" blanktext="" filteringselect="true" default="" label="Categories which PUBLISHING rights depend on this plan" description="Select categories which can be published only if this subscription is active. Leave unselected for no effect (access allowed or depending on other plans)." />
+					</fieldset>
+					<fieldset name="cpaycontent_by_content_canPublishContent" label="PUBLISHER: By Content" description="">
+						<param name="cpaycontent_contents_canPublishContent" type="mos_content" multiple="true" filteringselect="true" blanktext="" default="" label="Contents which PUBLISHING rights depend on this plan" description="Select contents which can be published only if this subscription is active. Leave unselected for no effect (access allowed or depending on other plans)." />
+					</fieldset>
+				</fieldset>
+			</if>
+			<fieldset name="cpaycontent_by_menu" label="By Menu" description="">
+				<param name="cpaycontent_menus" type="mos_menu_item" multiple="true" blanktext="" default="" label="Menus which Itemid access depends on this plan" description="Select menus which can be accessed only if this subscription is active. Itemid is required in link (if not sefed) for this to work. Leave unselected for no effect (access allowed or depending on other plans)." />
+			</fieldset>
+		</tabpanetab>
+		<tabpanetab name="integration_cpayextensions" label="Extensions" description="CMS Extensions access depending on subscription:">
+			<param name="cbpaidsubsbot_install_checkb" type="private" class="cbpaidParamsExt" method="checkifpluginInstalled" value="cbpaidsubsbot" label="Latest version message"    description="This integration plugin requires the cbsubsbot to be installed." />
+			<fieldset name="cpaycontent_by_component" label="By Component" description="">
+				<param name="cpaycontent_components" type="mos_component" multiple="true" default="" label="Components which access depends on this plan" description="Select components which can be accessed only if this subscription is active. Leave unselected for no effect (access allowed or depending on other plans)." />
+			</fieldset>
+			<fieldset name="cpaycontent_by_module" label="By Module" description="">
+				<param name="cpaycontent_modules" type="mos_module" multiple="true" default="" label="Modules which access depends on this plan" description="Select modules which can be accessed only if this subscription is active. Leave unselected for no effect (access allowed or depending on other plans)." />
+			</fieldset>
+			<fieldset name="cpaycontent_by_url" label="By URL parts" description="">
+				<param name="cpaycontent_urls" type="textarea" rows="12" cols="60" default="" label="URL parts (non-SEFed)" description="Type-in one filtering criteria per line in format: option=com_xyz&amp;amp;task=abc (to use regexp: format is to add // around the value, e.g.: option=com_xyz&amp;amp;task=/abc(def)?/)" />
+			</fieldset>
+		</tabpanetab>
+	</payintegration>
+	<install>
+		<queries>
+		</queries>
+	</install>
+	<uninstall>
+		<queries>
+		</queries>
+	</uninstall>
+	<database>
+	</database>
+</cbinstall>

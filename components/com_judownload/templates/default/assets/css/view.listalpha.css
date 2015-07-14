@@ -1,0 +1,38 @@
+.judl-alpha-list {
+	text-align    : center;
+}
+
+.judl-alpha-list a {
+
+	padding :0px 6px  !important;
+}
+
+.judl-alpha-list ul li {
+	display : inline;
+    border: 0 !important;
+}
+
+.judl-category-list {
+	width    : 100%;
+	overflow : hidden;
+	margin   : 20px 0 0;
+}
+
+.judl-category-list ul {
+	width            : 100%;
+	float            : left;
+	margin           : 0;
+}
+
+.judl-category-list li {
+	width            : 25%;
+	float            : left;
+	display          : block;
+	margin           : 0;
+}
+
+.judl-category-list ul li a {
+	display         : inline-block;
+	text-align      : center;
+	padding         : 5px;
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0" type="plugin" group="user">
+	<name>awdwallactivity</name>
+	<author>Awdsolution</author>
+	<creationDate>9/12/2010</creationDate>
+	<copyright>AWDsolution.com</copyright>
+	<license>Comercial</license>
+	<authorEmail>AwdSolution.com</authorEmail>
+	<authorUrl>http://wwww.awdsolution.com</authorUrl>
+	<version>1.0</version>
+	<description>AWDwall Activity -CB Plugin.</description>
+	<files>
+		<filename plugin="cb.awdwallactivity">cb.awdwallactivity.php</filename>		
+	</files>
+    <tabs>
+	</tabs>
+</cbinstall>

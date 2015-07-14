@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field
+			name="id"
+			type="hidden"
+		/>
+		<field
+			name="name"
+			type="text"
+			label="Name"
+			description="description of name"
+			size="80"
+			class="inputbox"
+			default=""
+            required="true"
+		/>
+
+        <field
+                name="published"
+                type="hidden"
+                default="1"
+                />
+	</fieldset>
+</form>

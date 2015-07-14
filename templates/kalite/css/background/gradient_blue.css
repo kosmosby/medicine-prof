@@ -1,0 +1,12 @@
+/* Background: Gradient Blue
+----------------------------------------------------------------------------------------------------*/
+
+body#page {
+	background: #fff url(../../images/background/gradient_blue/body_bg.jpg);
+	width: 100% !important;
+	overflow: visible !important;
+
+	}
+	
+	.wrapper {
+	}

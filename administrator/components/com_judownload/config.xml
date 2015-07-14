@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config addfieldpath="/administrator/components/com_judownload/models/fields/">
+    <fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
+        <field name="rules" type="JUDLRules" label="JCONFIG_PERMISSIONS_LABEL" class="inputbox"
+               filter="rules" component="com_judownload" section="component"/>
+    </fieldset>
+
+    <fieldset name="category_permissions" label="COM_JUDOWNLOAD_PERMISSION_CATEGORY_LABEL"
+              description="COM_JUDOWNLOAD_PERMISSION_CATEGORY_DESC">
+        <field name="category_rules" type="JUDLRules" label="" class="inputbox"
+               validate="rules" filter="rules" component="com_judownload" section="component_category"/>
+    </fieldset>
+
+    <fieldset name="document_permissions" label="COM_JUDOWNLOAD_PERMISSION_DOCUMENT_LABEL"
+              description="COM_JUDOWNLOAD_PERMISSION_DOCUMENT_DESC">
+        <field name="document_rules" type="JUDLRules" label="" class="inputbox"
+               validate="rules" filter="rules" component="com_judownload" section="component_document"/>
+    </fieldset>
+    <fieldset name="comment_permissions" label="COM_JUDOWNLOAD_PERMISSION_COMMENT_LABEL"
+              description="COM_JUDOWNLOAD_PERMISSION_COMMENT_DESC">
+        <field name="comment_rules" type="JUDLRules" label="" class="inputbox"
+               validate="rules" filter="rules" component="com_judownload" section="component_comment"/>
+    </fieldset>
+    <fieldset name="single_rating_permissions" label="COM_JUDOWNLOAD_PERMISSION_SINGLE_RATING_LABEL"
+              description="COM_JUDOWNLOAD_PERMISSION_SINGLE_RATING_DESC">
+        <field name="single_rating_rules" type="JUDLRules" label="" class="inputbox"
+               validate="rules" filter="rules" component="com_judownload" section="component_single_rating"/>
+    </fieldset>
+    <fieldset name="criteria_permissions" label="COM_JUDOWNLOAD_PERMISSION_CRITERIA_LABEL"
+              description="COM_JUDOWNLOAD_PERMISSION_CRITERIA_DESC">
+        <field name="criteria_rules" type="JUDLRules" label="" class="inputbox"
+               validate="rules" filter="rules" component="com_judownload" section="component_criteria"/>
+    </fieldset>
+    <fieldset name="moderator_permissions" label="COM_JUDOWNLOAD_PERMISSION_MODERATOR_LABEL"
+              description="COM_JUDOWNLOAD_PERMISSION_MODERATOR_DESC">
+        <field name="moderator_rules" type="JUDLRules" label="" class="inputbox"
+               validate="rules" filter="rules" component="com_judownload" section="component_moderator"/>
+    </fieldset>
+    <fieldset name="field_value_permissions" label="COM_JUDOWNLOAD_PERMISSION_FIELD_VALUE_LABEL"
+              description="COM_JUDOWNLOAD_PERMISSION_FIELD_VALUE_DESC">
+        <field name="field_value_rules" type="JUDLRules" label="" class="inputbox"
+               validate="rules" filter="rules" component="com_judownload" section="component_field_value"/>
+    </fieldset>
+</config>

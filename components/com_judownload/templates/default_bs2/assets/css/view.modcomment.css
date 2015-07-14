@@ -1,0 +1,33 @@
+.judl-edit-comment .judl-submit-buttons {
+	margin-top : 10px;
+}
+
+.judl-edit-comment .judl-submit-buttons button {
+	float        : left;
+	margin-right : 5px;
+}
+
+.judl-edit-comment .main-form {
+	clear      : both;
+	overflow   : hidden;
+	margin-top : 20px;
+}
+
+.judl-edit-comment .main-form ul li {
+	list-style : none;
+	overflow   : hidden;
+	margin-top : 10px !important;
+}
+
+.judl-edit-comment .main-form ul li .flabel {
+	float     : left;
+	min-width : 200px;
+}
+
+.judl-edit-comment .main-form ul li .finput {
+	overflow : hidden;
+}
+
+.judl-edit-comment .main-form ul li .finput.comment {
+	clear : left;
+}

@@ -1,0 +1,55 @@
+#CategoryBrowser .jxTreeIcon {
+  width: 16px;
+  height: 16px;
+  background-image: url(images/);
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
+
+#CategoryBrowser .jxTreeLabel {
+  vertical-align: middle;
+  line-height: 16px;
+  padding-left: 4px;
+}
+
+#CategoryBrowser .itemTools {
+  position: absolute;
+  display: none;
+  right: 18px;
+  top: 0;
+  height: 20px;
+  width: auto;
+}
+
+#CategoryBrowser .jxHover > a > .itemTools {
+  display: block;
+}
+
+#CategoryBrowser .itemTools img {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  margin-bottom: 1px;
+}
+
+#CategoryBrowser .itemTools img.toolEdit {
+    background-image: url(images/edit.gif);
+}
+
+#CategoryBrowser .itemTools img.toolDelete {
+    background-image: url(images/delete.gif);
+}
+
+#CategoryBrowser .itemTools img.toolAdd {
+    background-image: url(images/new.gif);
+}
+
+#categoryEditDialog em.required {
+    color: red;
+}
+
+
+/** JxLib Default overrides **/
+#CategoryBrowser a.jxTreeItem {
+    margin: 0px 1px 0px 0px;
+}

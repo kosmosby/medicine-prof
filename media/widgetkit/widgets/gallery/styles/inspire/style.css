@@ -1,0 +1,91 @@
+/*
+ * Widgetkit Slideset: Default Style
+ */
+
+
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-inspire-gallery .nav {
+	margin-top: 10px;
+	text-align: center;
+}
+
+.wk-slideset-inspire-gallery .nav li { display: inline-block; }
+.wk-slideset-inspire-gallery .nav.icon li { margin-left: 5px; }
+.wk-slideset-inspire-gallery .nav.text li { margin-left: 40px; }
+
+.wk-slideset-inspire-gallery .nav li:first-child { margin-left: 0; }
+
+.wk-slideset-inspire-gallery .nav.icon span {
+	width: 17px;
+	height: 17px;
+	background: url(images/nav.png) 0 0 no-repeat;
+	overflow: hidden;
+}
+.wk-slideset-inspire-gallery .nav.icon span:hover { background-position: 0 -40px; }
+.wk-slideset-inspire-gallery .nav.icon span:active { background-position: 0 -60px; }
+.wk-slideset-inspire-gallery .nav.icon .active span { background-position: 0 -20px; }
+
+.wk-slideset-inspire-gallery .nav.text span { padding: 0 11px; }
+.wk-slideset-inspire-gallery .nav.text .active span {
+	padding: 0 10px;
+	border: 1px solid rgba(0,0,0,0.1);
+	border-radius: 4px;
+	background: rgba(0,0,0,0.05);
+	
+}
+
+
+/* Buttons
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-inspire-gallery > div { position: relative; }
+
+.wk-slideset-inspire-gallery > div .next,
+.wk-slideset-inspire-gallery > div .prev {
+	top: 50%;
+	width: 55px;
+	height: 55px;
+	margin-top: -27px;
+	background: url(images/buttons.png) 0 0 no-repeat;
+}
+
+.wk-slideset-inspire-gallery > div .next {
+	right: -75px;
+	background-position: 0 -60px;
+}
+
+.wk-slideset-inspire-gallery > div .prev { left: -75px; }
+
+.wk-slideset-inspire-gallery > div .next:hover { background-position: 0 -180px; }
+
+.wk-slideset-inspire-gallery > div .prev:hover { background-position: 0 -120px; }
+
+
+/* Title
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-inspire-gallery .sets { margin: 0 -2px; }
+.wk-slideset-inspire-gallery article { margin: 0 2px; }
+
+.wk-slideset-inspire-gallery article + strong.title { font-weight: normal; }
+
+
+/* Lightbox
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-inspire-gallery .spotlight .overlay-default { background-image: url(images/magnifier.png); }
+ 
+
+/* IE7 Fixes */
+
+.wk-ie7 .wk-slideset-inspire-gallery .nav li,
+.wk-ie7 .wk-slideset-inspire-gallery .nav span { display: inline; }
+.wk-ie7 .wk-slideset-inspire-gallery .nav span { zoom: 1; }
+
+body.wk-ie7 .wk-slideset-inspire-gallery {
+	overflow: visible;
+	zoom: 1;
+}

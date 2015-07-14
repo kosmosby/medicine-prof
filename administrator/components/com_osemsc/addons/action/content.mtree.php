@@ -1,0 +1,266 @@
+<?php
+defined('_JEXEC') or die(";)");
+
+class oseMscAddonActionContentMtree extends oseMscAddon
+{
+	public static function save($params)
+	{
+		
+		
+	}
+	
+	public static function delete($params)
+	{
+		
+	}
+	
+	function &getList()
+	{
+		$db = oseDB::instance();
+	
+		$search	= JRequest::getString('search',null);
+		$search	= JString::strtolower( $search );
+		
+		$msc_id = JRequest::getInt('msc_id',0);
+		$start = JRequest::getInt('start',0);
+		$limit = JRequest::getInt('limit',20);
+		$levellimit = JRequest::getInt('levellimit',10);
+		$levellimit = empty($levellimit)?10:$levellimit;
+		$where = array();
+		$where[] = 'm.`cat_published` = 1';
+		$where[] = 'm.`cat_parent` != -1';
+		if($search)
+		{
+			$searchQuery = ' LOWER(m.`cat_name`) LIKE '.$db->Quote('%'.$search.'%')
+			 			  .' OR LOWER(m.`alias`) LIKE '.$db->Quote('%'.$search.'%') ;
+			$where[] =  $searchQuery;
+			$where = ( count( $where ) ? ' WHERE (' . implode( ') AND (', $where ) . ')' : '' );
+			
+            $query = 'SELECT m.`cat_id`' . ' FROM `#__mt_cats` AS m' 
+            		. $where
+            		;
+            $db->setQuery($query);
+            $search_rows = $db->loadResultArray();
+
+		}
+		
+		$access = oseMscJaccess::get_msc_aid(25);
+
+
+		if (!empty($access))
+		{
+     		//$where[] = "m.access <= {$access} ";
+		}			
+		//Added in V 4.4, menu access levels
+
+		// Generate where query
+
+		//$where = ( count( $where ) ? ' WHERE (' . implode( ') AND (', $where ) . ')' : '' );
+
+		$query = ' SELECT m.*' 
+				.' FROM `#__mt_cats` AS m' 
+				.' WHERE m.`cat_published` = 1 AND m.`cat_parent` != -1'
+				.' ORDER BY m.`cat_id`'
+				;
+
+		$db->setQuery( $query );
+//oseExit($db->_sql);
+		$rows = oseDB::loadList('obj');
+		
+		$total = count($rows);
+		
+		// establish the hierarchy of the cats
+
+		$children = array();
+
+		// first pass - collect children
+
+
+        if (!empty($rows))
+        {
+	      	foreach ($rows as $v )
+			{
+				$pt = $v->cat_parent;
+				
+				$list = @$children[$pt] ? $children[$pt] : array();
+
+				array_push( $list, $v );
+
+				$children[$pt] = $list;
+			}
+		}
+
+		// second pass - get an indent list of the items
+
+		$list = self::treerecurse(0, '', array(), $children, max(0, $levellimit - 1));
+		// eventually only pick out the searched items
+
+		if ($search)
+        {
+            $list1 = array();
+            
+            foreach ($search_rows as $sid)
+            { 
+                foreach ($list as $item)
+                {
+                    if ($item->cat_id == $sid)
+                    {
+                        $list1[] = $item;
+                    }
+                }
+            } 
+            // replace full list with found items
+            $list = $list1;
+        }
+		
+		// slice out elements based on limits
+		$list = array_slice( $list, $start, $limit );
+		
+
+		foreach($list as $item)
+		{
+			$obj = oseRegistry::call('content')->getInstance('msc')->getItem('mtree','category',$item->cat_id,'msc',$msc_id,null,'obj');
+			$item->type = empty($obj->content_type)?'category':$obj->content_type;
+			$controlled = empty($obj)?0:$obj->status;
+		
+			if($controlled == '1')
+			{
+				$item->controlled = JText::_('SHOW_TO_MEMBERS');
+			}
+			elseif($controlled == '-1')
+			{
+				$item->controlled = JText::_('HIDE_TO_MEMBERS');
+			}
+			else
+			{
+				$item->controlled = JText::_('SHOW_TO_ALL');
+			}
+		}
+
+		$items = array_values($list);
+		
+		$result = array();
+		$result['total'] = $total;
+		$result['results'] = $items;
+		return $result;
+
+	}
+	
+  function treerecurse($id, $indent, $list, &$children, $maxlevel = 9999, $level = 0, $type = 1)
+    {
+        if (@$children[$id] && $level <= $maxlevel)
+        {
+            foreach ($children[$id] as $v)
+            {
+                $id = $v->cat_id;
+                if ($type)
+                {
+                    $pre = '<sup>|_</sup>&nbsp;';
+                    $spacer = '.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+                } else
+                {
+                    $pre = '- ';
+                    $spacer = '&nbsp;&nbsp;';
+                }
+                if ($v->cat_parent == 0)
+                {
+                    $txt = $v->cat_name;
+                } else
+                {
+                    $txt = $pre . $v->cat_name;
+                }
+                $pt = $v->cat_parent;
+                $list[$id] = $v;
+                $list[$id]->treename = "$indent$txt";
+                $list[$id]->children = count(@$children[$id]);
+                $list = $this->TreeRecurse($id, $indent . $spacer, $list, $children, $maxlevel, $level + 1, $type);
+            }
+        }
+        return $list;
+    }
+	
+	function changeStatus()
+	{
+		$db = oseDB::instance();
+		
+		$msc_id = JRequest::getInt('msc_id',0);
+		
+		$catids = JRequest::getVar('catids',array());
+		
+		$newStatus = JRequest::getInt('status',0);
+		$content= oseRegistry :: call('content')->getInstance('msc');
+		$where = array();
+		
+		foreach($catids as $catid)
+		{
+			$where[] = "node.lft BETWEEN parent.lft AND parent.rgt";
+			$where[] = "node.lft BETWEEN sub_parent.lft AND sub_parent.rgt";
+			$where[] = "sub_parent.cat_id = sub_tree.cat_id";
+			
+			$qwhere = oseDB::implodeWhere($where);
+			
+			$query = " SELECT node.*, (COUNT(parent.cat_id) - (sub_tree.depth + 1)) AS depth"
+					." FROM `#__mt_cats` AS node,"
+					." `#__mt_cats` AS parent,"
+					." `#__mt_cats` AS sub_parent,"
+					."("
+					."		SELECT node.cat_id, (COUNT(parent.cat_id) - 1) AS depth"
+					." 		FROM `#__mt_cats` AS node,"
+					."		`#__mt_cats` AS parent"
+					."		WHERE node.lft BETWEEN parent.lft AND parent.rgt"
+					."		AND node.cat_parent = {$catid}"
+					."		GROUP BY node.cat_id"
+					."		ORDER BY node.lft"
+					.") AS sub_tree"
+					.$qwhere 
+					." GROUP BY node.cat_id"
+					." HAVING depth <= 99"
+					." ORDER BY node.lft;"
+					;
+					
+			$db->setQuery($query);
+			//oseExit($db->getQuery());
+			$objs = oseDB::loadList('obj');
+			
+			$contentIds = array();
+			$contentIds[] = $catid;
+			foreach($objs as  $obj)
+			{
+				$contentIds[] = $obj->cat_id;
+			}
+			
+			foreach($contentIds as  $content_id)
+			{
+				$item= $content->getItem('mtree', 'category', $content_id, 'msc', $msc_id, '', 'obj');
+				if(empty($item)) {
+					$updated= $content->insert('mtree', 'category', $content_id, 'msc', $msc_id, $newStatus);
+					if(!$updated) {
+						$result= array();
+						$result['success']= false;
+						$result['title']= JText::_('ERROR');
+						$result['content']= JText::_('ERROR');
+						return $result;
+					}
+				} else {
+					$status= $item->status;
+					if($status != $newStatus) {
+						$updated= $content->update($item, $newStatus);
+						if(!$updated) {
+							$result= array();
+							$result['success']= false;
+							$result['title']= JText::_('ERROR');
+							$result['content']= JText::_('ERROR');
+							return $result;
+						}
+					}
+				}
+			}
+		}
+		$result = array();
+		$result['success'] = true;
+		$result['title'] = JText::_('DONE');
+		$result['content'] = JText::_('SUCCESSFULLY');
+		return $result;
+	}
+}
+?>

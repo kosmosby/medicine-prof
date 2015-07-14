@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.6" type="plugin" group="user">
+	<name>User - OSE V5 User</name>
+    <author>Open Source Excellence</author>
+    <creationDate>28-Jan-2011</creationDate>
+    <copyright>(C) 2008 - 2010 Open Source Excellence. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <authorEmail>info@opensource-excellence.com</authorEmail>
+	<authorUrl>www.opensource-excellence.com</authorUrl>
+    <version>5.0</version>
+	<description>OSE Membership V5 User Plugin</description>
+	<files>
+		<filename plugin="oseuser">oseuser.php</filename>
+	</files>
+	<config>
+	    <fields name="params">
+	    	<fieldset name="Basic">
+				<field name="autoUpdate" type="radio" default="0" label="User Membership Auto Update Upon Registration" description="Turn on/off User Membership Auto Update function so users will be added to a membership plan automatically when they sign up through any components.">
+						<option value="0">Off</option>
+						<option value="1">On</option>
+				</field>
+				<field name="autoUpdateOnLogin" type="radio" default="0" label="Auto Update Membership Group On User Logs in" description="If this is enabled, users will be automatically updated to the user group set in the above parameter.">
+						<option value="0">Off</option>
+						<option value="1">On</option>
+				</field>
+				<field name="autoUpdateGroup" type="sql" label="Auto Update Membership Group" default="" description="Select the default Membership for new registered users" query="SELECT id AS value, CONCAT('[',id,'] ', title) AS autoUpdateGroup FROM #__osemsc_acl" />
+				<field name="singleLogin" type="list" default="0" label="Turn on Single Login Mode" description="Turn on/off Single Login Mode"	>
+						<option value="0">Off</option>
+						<option value="1">Kick-out existing login user</option>
+						<option value="2">Restrict second user from login</option>
+				</field>
+				<field name="slredmenuid" type="sql" default="" label="Single Login Redirect URL " description="A URL that redirects the members if the account is logged in by other users."  query="SELECT id AS value, CONCAT('[',id,'] ', title)  AS slredmenuid FROM #__menu WHERE`id` != 1 AND client_id = 0 AND `published` =1 ORDER BY title ASC" />
+				<field name="loginRedirect" type="radio" default="0" label="Login Redirection" description="Redirect users to the login landing page that is configured in the membership basic information.">
+							<option value="0">Off</option>
+							<option value="1">On</option>
+				</field>
+				<field name="redmenuid" type="sql" default="" label="Non-members Login Redirect URL " description="A URL that redirects non-members after they loign."  query="SELECT id AS value, CONCAT('[',id,'] ', title)  AS redmenuid FROM #__menu WHERE`id` != 1 AND client_id = 0 AND `published` =1 ORDER BY title ASC" />
+				<field name="expmem_redmenuid" type="sql" default="" label="Expired-members Login Redirect URL " description="A URL that redirects expired-members after they loign."  query="SELECT id AS value, CONCAT('[',id,'] ', title)  AS expmem_redmenuid FROM #__menu WHERE`id` != 1 AND client_id = 0 AND `published` =1 ORDER BY title ASC" />
+				<field name="sefroutemethod" type="radio" default="0" label="SEF Routing Method for the Redirection function" description="Use default full URL or alias in JRoute function.">
+									<option value="0">Non-SEF</option>
+									<option value="1">Full URL</option>
+									<option value="2">Alias</option>
+				</field>
+
+				<field name="logoutRedirect" type="radio" default="0" label="Logout Redirection" description="Turn on/off Logout Redirection">
+						<option value="0">Off</option>
+						<option value="1">On</option>
+				</field>
+			    <field name="logoutredmenuid" type="sql" default="" label="Redirect URL " description="A URL that redirects users when they logout"  query="SELECT id AS value, CONCAT('[',id,'] ', title)  AS logoutredmenuid FROM #__menu WHERE `id` != 1 AND client_id = 0 AND `published` =1 ORDER BY title ASC" />
+
+
+			</fieldset>
+			<fieldset name="Advanced">
+				<field name="enableCBUser" type="radio" default="0" label="Enable CB User" description="Enable the user in Community Builder if the user is blocked after registration.">
+				<option value="0">Off</option>
+				<option value="1">On</option>
+				</field>
+
+				<field name="enableVMUser" type="radio" default="0" label="Enable VM Billing Integration" description="Copies VM Billing Information to OSE when a new user is created .">
+				<option value="0">Off</option>
+				<option value="1">On</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

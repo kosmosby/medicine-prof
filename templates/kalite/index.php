@@ -1,0 +1,11 @@
+<?php
+defined('_JEXEC') or die('Restricted access');
+
+// include config	
+include_once(dirname(__FILE__).'/config.php');
+
+// get warp
+$warp = Warp::getInstance();
+
+// load main template file, located in /layouts/template.php
+echo $warp['template']->render('template');

@@ -1,0 +1,164 @@
+.judl-form-documents {
+    border-top: 1px solid #DDDDDD;
+    margin-top: 20px;
+    padding-top: 10px;
+}
+
+.judl-form-documents .sort-pagination select {
+    float: left;
+    height: auto;
+    margin-bottom: 0;
+    margin-left: 5px;
+    width: auto;
+}
+
+.judl-doc-list {
+	clear : both;
+	width : 100%;
+}
+
+.judl-doc-list .judl-doc {
+	box-sizing         : border-box;
+	-moz-box-sizing    : border-box;
+	-webkit-box-sizing : border-box;
+    float: left;
+    margin-top: 30px;
+    overflow: hidden;
+	position: relative;
+}
+
+
+.judl-doc-list .judl-doc .doc-icon {
+    float: left;
+    margin: 0 10px 10px 0;
+}
+
+.judl-doc-list .judl-doc .doc-icon a {
+	display : block;
+}
+
+.action .dropdown-toggle .icon-cog {
+	margin-top: 3px;
+}
+
+.judl-doc .private-actions {
+	opacity: 0;
+	transition:all 0.2s ease 0.1s;
+	-webkit-transition:all 0.2s ease 0.1s;
+	-moz-transition:all 0.2s ease 0.1s;
+	-o-transition:all 0.2s ease 0.1s;
+	position: relative;
+	right: 0;
+	top: 5px;
+}
+
+.judl-doc:hover .private-actions, .judl-doc .private-actions.open {
+	opacity: 1;
+}
+
+.judl-doc-list .judl-doc ul.doc-meta {
+    color: #666;
+    font-size: 12px;
+    list-style: outside none none;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.judl-doc-list .judl-doc .doc-meta li {
+    display: inline;
+    margin-right: 5px;
+}
+
+.judl-doc-list .judl-doc .doc-meta li .caption {
+	display:inline-block;
+}
+
+.judl-doc-list .judl-doc .doc-meta li .value{
+	display:inline-block;
+}
+
+.judl-doc-list .judl-doc .doc-title {
+	font-size: 125%;
+    line-height: 1.2;
+    margin: 5px 0 0 !important;
+    text-align: left;
+}
+
+.judl-doc-list .judl-doc .actions {
+	margin-top : 10px;
+}
+
+.judl-doc-list .judl-doc .doc-introtext {
+	margin: 10px 0;
+}
+
+.judl-doc-list .judl-doc .doc-tags {
+	margin-top : 10px;
+}
+
+.judl-doc-list .judl-doc .doc-tags .caption {
+    float: left;
+    font-size: 16px;
+    margin: 0 10px 0 0;
+    width: 20px;
+}
+
+.judl-doc-list .judl-doc .doc-tags ul {
+    display: inline-block;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.judl-doc-list .judl-doc .doc-tags ul li {
+	display      : inline-block;
+	list-style   : none outside none;
+	margin-right : 10px !important;
+	text-align   : center;
+}
+
+.judl-doc-list .judl-doc .doc-tags ul li a {
+	background    : none repeat scroll 0 0 #F0F0F0;
+	border-radius : 10px 10px 10px 10px;
+	color         : #666666;
+	display       : block;
+	line-height   : 1;
+	padding       : 4px 10px;
+	transition    : background-color 0.3s ease-in 0s;
+}
+
+.judl-doc-list .judl-doc .doc-tags ul li a:hover {
+	background: none repeat scroll 0 0 #DDDDDD;
+}
+
+.judl-doc-list .judl-doc .doc-actions {
+	margin-top : 10px;
+}
+
+.judl-doc-list .judl-doc .doc-summary {
+	margin        : 20px 0 0 !important;
+	background    : none repeat scroll 0 0 #F5F5F5;
+	border-bottom : 3px solid #E3E3E3;
+	clear         : both;
+	display       : inline-block;
+	padding       : 10px 0 !important;
+	width         : 100%;
+
+}
+
+.judl-doc-list .judl-doc .doc-summary .doc-field {
+	float       : left;
+	margin : 0 10px !important;
+}
+
+.judl-doc-list .judl-doc .doc-summary .doc-field .caption {
+	float : left;
+	margin-right: 8px;
+}
+
+.judl-doc-list .judl-doc .doc-summary .doc-field .value {
+	float        : left;
+}
+
+.judl-filter-document select{
+    margin-right: 5px;
+}

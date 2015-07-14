@@ -1,0 +1,74 @@
+/*
+ * Widgetkit Slideshow: Pace Tabs Style
+ */
+
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-pacetabs .nav { 
+	width: 100%;
+	background: #f7f7f7;
+	color: #c6c6c6;
+	text-shadow: 0 1px 0 #fff;
+}
+
+.wk-slideshow-pacetabs .nav,
+.wk-slideshow-pacetabs .nav li { float: left; }
+
+.wk-slideshow-pacetabs .nav li {
+	border-width: 1px 0 1px 1px;
+	border-style: solid;
+	border-color: #e2e2e2;
+	box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset,
+				1px -1px 0 rgba(255,255,255,0.9) inset;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 18px;
+}
+.wk-slideshow-pacetabs .nav li:first-child { border-width: 1px 0; }
+
+.wk-slideshow-pacetabs .nav li > span {
+	padding: 20px;
+	overflow: hidden;
+}
+
+.wk-slideshow-pacetabs .nav li:hover,
+.wk-slideshow-pacetabs .nav li.active { 
+	background: #efefef;
+	color: #666;
+	text-shadow: none;
+}
+
+
+/* Content
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-pacetabs .slides-container {
+	background: #fff;
+	border-radius: 3px 3px 0 0;
+}
+
+
+/* Animation
+---------------------------------------------------------------------------------------------------*/
+
+/* Transition */
+.wk-slideshow-pacetabs .nav li {
+	-moz-transition: all 0.2s ease-in-out;
+	-webkit-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+
+
+/* Responsive
+----------------------------------------------------------------------------------------------------*/	
+
+/* Only Phones */
+@media (max-width: 767px) {
+
+	.wk-slideshow-pacetabs .nav li { border-width: 0 0 1px 0; }
+
+}

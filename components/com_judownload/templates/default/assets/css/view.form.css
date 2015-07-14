@@ -1,0 +1,559 @@
+/* File list */
+ul.file-list li {
+    -webkit-box-sizing : content-box;
+    -moz-box-sizing    : content-box;
+    box-sizing         : content-box;
+    width: 380px;
+    height: 205px;
+    float: left;
+    border: 1px solid #E7E7E7;
+    margin: 0 10px 10px 0;
+}
+
+.file-item.header {
+    border     : 0 none;
+    padding    : 0;
+    background : none;
+}
+
+.file-list li.placeHolder {
+    float: left;
+    border : 1px dashed #cccccc;
+}
+
+.file-item {
+    -webkit-box-sizing : border-box;
+    -moz-box-sizing    : border-box;
+    box-sizing         : border-box;
+    display       : inline-block;
+    padding: 10px 10px 10px 15px;
+    position      : relative;
+    width         : 100%;
+}
+
+.file-item .move {
+    font-size: 14px;
+    position: absolute;
+    top: 50%;
+    margin-top: -10px;
+    left: 5px;
+}
+
+.file-item .file-row {
+    clear: both;
+    margin-bottom: 10px;
+}
+
+.file-item .file-name-info {
+    margin: 0;
+}
+
+.file-item .file-name {
+    width: 280px;
+}
+
+.file-item .input-append .file-size {
+    min-width: 70px;
+    font-size: 12px;
+}
+
+.file-item .file-title {
+    width: 280px;
+    float: left;
+    margin-right: 5px;
+}
+
+.file-item .file-downloads {
+    width: 64px;
+}
+
+.file-item .file-description {
+    width: 350px;
+    height: 55px;
+}
+
+.file-item a, .file-item a:hover, .file-item a:focus {
+    text-decoration: none;
+}
+
+.file-item .upload-progress {
+    position: relative;
+}
+
+.file-item .upload-file-name {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.file-item .upload-file-name .file {
+    font-size: 10px;
+    color: #333;
+    padding: 0 5px;
+    text-shadow: none;
+}
+
+.judl-files {
+    margin-bottom : 20px;
+}
+
+/* Changelog list */
+.judl-changelogs .add_changelog {
+    margin-bottom: 5px;
+}
+
+.changelog-list {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+.changelog-list li {
+    float: left;
+    list-style: none outside none;
+    border: 1px solid #E7E7E7;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.changelog-list li.placeHolder {
+    border : 1px dashed #cccccc;
+}
+
+.changelog-item {
+    -webkit-box-sizing : border-box;
+    -moz-box-sizing    : border-box;
+    box-sizing         : border-box;
+    float: left;
+    padding       : 10px 10px 15px;
+    position      : relative;
+    width         : 100%;
+}
+
+.changelog-item .move {
+    font-size : 14px;
+    left      : 3px;
+    position  : absolute;
+    top       : 50%;
+    margin-top: -10px;
+}
+
+.changelog-item .changelog-date > span {
+    cursor : pointer;
+}
+
+.changelog-item .changelog-description textarea {
+    -webkit-box-sizing : border-box;
+    -moz-box-sizing    : border-box;
+    box-sizing         : border-box;
+    margin     : 5px 0 0;
+    width      : 100%;
+    height: 100px;
+}
+
+.adminform div.left {
+    float : left;
+    width : 500px;
+}
+
+.adminform div.right {
+    float : left;
+    width : auto;
+}
+
+.jugallery-holder, .jugallery {
+    /*3.x dont use*/
+    /*display    : inline-block;
+    float      : left;*/
+    margin     : 0 !important;
+    padding    : 0 !important;
+    position   : relative;
+    overflow   : hidden;
+    text-align : center;
+    width      : 100%;
+}
+
+.jugallery-holder .browser-images {
+    margin: 0 0 10px 0;
+}
+
+.jugallery-holder .jugallery li {
+    display : inline-block;
+    float   : left;
+}
+
+.jugallery-holder .jugallery li div.unpublished {
+    opacity : 0.5;
+}
+
+.jugallery-holder .jugallery li div .view-image {
+    background  : url("../img/view-icon.png") no-repeat scroll 0 0 transparent;
+    height      : 16px;
+    right       : 60px;
+    position    : absolute;
+    text-indent : -999em;
+    top         : 5px;
+    width       : 16px;
+}
+
+.jugallery-holder .jugallery li div .published-image {
+    background  : url("../img/published-icon.png") no-repeat scroll 0 0 transparent;
+    height      : 16px;
+    right       : 40px;
+    position    : absolute;
+    text-indent : -999em;
+    top         : 5px;
+    width       : 16px;
+}
+
+.jugallery-holder .jugallery li div.unpublished .published-image {
+    background  : url("../img/unpublished-icon.png") no-repeat scroll 0 0 transparent;
+    height      : 16px;
+    right       : 40px;
+    position    : absolute;
+    text-indent : -999em;
+    top         : 5px;
+    width       : 16px;
+}
+
+.jugallery-holder .jugallery li div .remove-image {
+    background  : url("../img/delete-icon.png") no-repeat scroll 0 0 transparent;
+    height      : 16px;
+    right       : 22px;
+    position    : absolute;
+    text-indent : -999em;
+    top         : 5px;
+    width       : 16px;
+    z-index     : 2;
+}
+
+.jugallery-holder .jugallery li div.unremove .remove-image {
+    background  : url("../img/undelete-icon.png") no-repeat scroll 0 0 transparent;
+    height      : 16px;
+    right       : 22px;
+    position    : absolute;
+    text-indent : -999em;
+    top         : 5px;
+    width       : 16px;
+}
+
+.jugallery-holder .jugallery li div .edit-image {
+    background  : url("../img/edit-icon.png") no-repeat scroll 0 0 transparent;
+    height      : 16px;
+    position    : absolute;
+    text-indent : -999em;
+    right       : 3px;
+    top         : 5px;
+    width       : 16px;
+}
+
+.jugallery-holder .jugallery li {
+    clear      : none;
+    display    : inline-block;
+    float      : left;
+    height     : auto;
+    list-style : none outside none;
+    margin     : 5px;
+    padding    : 0;
+    width      : auto;
+}
+
+.jugallery-holder .jugallery li div.img-element {
+    background         : none repeat scroll 0 0 #FFFFFF;
+    border             : 1px solid #EE9900;
+    display            : inline-block;
+    float              : left;
+    overflow           : hidden;
+    position           : relative;
+    text-align         : center;
+    transition         : all 0.2s ease 0s;
+    -webkit-transition : all 0.2s ease 0s;
+}
+
+.jugallery-holder .jugallery li div.img-element .img-item {
+    padding    : 3px;
+    min-width  : 50px;
+    min-height : 50px;
+}
+
+.jugallery-holder .jugallery li div.remove-image-mask {
+    display  : none;
+    width    : 100%;
+    height   : 100%;
+    top      : 0;
+    left     : 0;
+    z-index  : 1;
+    border   : 0;
+    position : absolute;
+    background : #FFF;
+    opacity    : 0.8;
+}
+
+.plupload_view_switch .ui-button {
+    clear     : none;
+    display   : inline-block;
+    min-width : 30px;
+    width     : 30px;
+}
+
+.resize {
+    float    : left;
+    width    : 50%;
+    position : relative;
+}
+
+.total {
+    display : none;
+}
+
+.current dd {
+    display : none;
+}
+
+.jgrid .disabled {
+    opacity : 0.5;
+    cursor  : default;
+}
+
+.jgrid span.sort {
+    display : inline-block;
+    height  : 16px;
+    width   : 16px;
+}
+
+.jgrid span.asc-direction {
+    background-image : url(../img/sort-ascending-icon.png);
+}
+
+.jgrid span.desc-direction {
+    background-image : url(../img/sort-descending-icon.png);
+}
+
+.jgrid span.publish-pending {
+    background-image : url(../img/publish-pending.png);
+}
+
+.inherited-value {
+    float            : left;
+    line-height      : 25px;
+    margin           : 5px 0 0 0;
+    background-image : url(../img/inherited-value.png);
+    width            : 20px;
+    height           : 20px;
+    text-indent      : -999px;
+    display          : block;
+}
+
+.field_preview {
+    position   : relative;
+    width      : 482px;
+    background : white;
+    border     : 1px solid #cccccc;
+    padding    : 5px;
+    left       : -11px;
+}
+
+.related-document-list .related-documents {
+	float : left;
+	margin: 0;
+	width : 100%;
+}
+
+.related-document-list .related-documents li {
+	border: 1px solid #ccc;
+	clear: none !important;
+	float: left;
+	height: 180px;
+	margin: 5px !important;
+	overflow: hidden;
+	padding: 5px !important;
+	position: relative;
+	width: 140px;
+}
+
+.related-document-list .related-documents li.placeHolder {
+	border   : 1px dashed #ccc;
+}
+
+.related-document-list .related-documents li .document-inner {
+	display: inline-block;
+	overflow: hidden;
+	height: 100%;
+	width: 100%;
+}
+
+.related-document-list .related-documents li .remove-rel-document {
+	display : block;
+}
+
+.related-document-list .related-documents li img {
+	margin: 0;
+	max-height: 135px;
+	max-width: 135px;
+	min-height: 50px;
+	min-width: 50px;
+	padding: 3px;
+}
+
+.related-document-list .modal.add-document {
+	display: block;
+	float: left;
+}
+
+.related-document-list .rel-document-title {
+	clear: both;
+	float: left;
+}
+
+.related-document-list .remove-rel-document {
+	background: url("../img/delete-icon.png") no-repeat scroll 0 0 transparent;
+	height: 16px;
+	position: absolute;
+	right: 10px;
+	text-indent: -999em;
+	top: 10px;
+	width: 16px;
+	z-index: 2;
+}
+
+.related-document-list .button2-left {
+	margin-top : 7px;
+}
+
+.secondary-cat-list li, .category_list li {
+    display : inline-block;
+    float   : left;
+}
+
+.secondary-cat-list span, .category_list span {
+    float : left;
+}
+
+.secondary-cat-list a.remove-secondary-cat, .secondary-cat-list a.removeitem, .category_list a.removeitem {
+    float       : left;
+    font-size: 12px;
+    margin-left : 5px;
+    padding     : 2px;
+}
+
+.add_images {
+    float : left;
+    clear : both;
+}
+
+.browser-images li {
+    float  : left;
+    clear  : both;
+    width  : 100%;
+    height : auto;
+}
+
+.browser-images li input {
+    float : left;
+}
+
+.browser-images li .remove_image {
+    float  : left;
+    margin : 7px 0 0 5px;
+}
+
+.category_selection {
+    width : 100%;
+}
+
+.category_selection .browse_cat {
+    width : 100% !important;
+}
+
+.category_selection .cat_action {
+    margin : 5px 0;
+}
+
+.category_selection .cat_action button{
+    margin-right : 5px;
+}
+
+.active_pathway {
+    min-height : 26px;
+}
+
+.active_pathway .breadcrumb {
+    margin-bottom : 0 !important;
+    padding       : 3px 5px !important;
+}
+
+
+.tabs-left > .nav-tabs {
+	float: left;
+	margin-right: 19px;
+	border-right: 1px solid #ddd;
+}
+
+.tabs-left > .nav-tabs > li{
+	float: none;
+	margin-bottom: -1px;
+}
+
+.tabs-left > .nav-tabs .active > a, .tabs-left > .nav-tabs .active > a:hover, .tabs-left > .nav-tabs .active > a:focus {
+	border-color: #ddd transparent #ddd #ddd;
+}
+
+.tabs-left > .nav-tabs > li > a:hover, .tabs-left > .nav-tabs > li > a:focus {
+	border-color: #eee #ddd #eee #eee;
+	background-color: #eee;
+	text-decoration: none;
+}
+
+.tabs-left > .nav-tabs > li > a {
+	margin-right: -1px;
+	-webkit-border-radius: 4px 0 0 4px;
+	-moz-border-radius: 4px 0 0 4px;
+	border-radius: 4px 0 0 4px;
+}
+
+.tabs-left .tab-content {
+	overflow: auto;
+}
+
+.tabs-left .tab-content select.input-small {
+	width: auto;
+	float: left;
+}
+
+.tabs-left .tab-content label{
+	font-weight: normal;
+}
+
+.tabs-left .tab-content .label-important {
+	background-color: #b94a48;
+}
+.tabs-left .tab-content .label-warning {
+	background-color: #f89406;
+}
+
+.tabs-left .tab-content .label-success{
+	background-color: #468847;
+}
+
+.tabs-left .tab-content .label-info {
+	background-color: #3a87ad;
+}
+
+.tabs-left .tab-content .label-inverse{
+	background-color: #333;
+}
+
+.remote-file input{
+	display: inline;
+}
+
+.categories .drag-icon {
+    background: url("../img/drag-icon.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+    display: inline-block;
+    float: left;
+    height: 18px;
+    margin-right: 4px;
+    padding: 0;
+    width: 4px;
+}

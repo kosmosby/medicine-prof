@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../../../validation/ahawow.xsd">
+	<types>
+		<type name="autoaction_type" base="xml:autoaction_type">
+			<option value="loginlogout">Login/Logout</option>
+		</type>
+	</types>
+	<views>
+		<view name="actiontype_loginlogout" type="params" ui="admin">
+			<param name="" type="spacer" display="2lines" label="" default="Login or logout a user." />
+			<params name="loginlogout" type="params" label="" display="2lines">
+				<param name="mode" type="list" default="1" label="Mode" description="Select login/logout mode. Mode determines what type of action is performed automatically.">
+					<option value="0">Logout</option>
+					<option value="1">Login</option>
+				</param>
+				<if name="mode" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+					<param name="method" type="list" default="1" label="Method" description="Select how a user is logged in.">
+						<option value="0">Email</option>
+						<option value="1">Username</option>
+					</param>
+					<if name="method" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+						<param name="username" type="text" label="Username" description="Input substitution supported username to be used for login. Leave blank to use trigger user username." size="50" />
+					</if>
+					<if name="method" nametype="param:int" operator="=" value="0" valuetype="const:int" type="showhide">
+						<param name="email" type="text" label="Email" description="Input substitution supported email to be used for login. Leave blank to use trigger user email." size="50" />
+					</if>
+				</if>
+				<param name="redirect" type="text" label="Redirect" description="Optionally input substitution supported redirect URL (e.g. index.php?option=com_comprofiler)." size="80" />
+				<param name="message" type="textarea" rows="5" label="Message" description="Optionally input substitution supported redirect success message." cssclass="input-block" />
+			</params>
+		</view>
+	</views>
+</cbxml>

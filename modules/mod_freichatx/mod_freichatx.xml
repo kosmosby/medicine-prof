@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.0.0">
+	<name>FreiChat-I</name>
+	<author>Avinash and Adesh D'silva</author>
+	<creationDate>3 - MAY - 2011</creationDate>
+	<copyright>Codologic</copyright>
+	<license>GNU GPL V3 or later</license>
+	<authorEmail>admin@codologic.com</authorEmail>
+	<authorUrl>http://codologic.com</authorUrl>
+	<version>1.0.0</version>
+	<description>A simple AjaX based CHAT</description>	
+		
+	<files>
+         <filename module="mod_freichatx">mod_freichatx.php</filename>
+     </files>
+</extension>

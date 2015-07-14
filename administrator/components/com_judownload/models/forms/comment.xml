@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form addrulepath="/administrator/components/com_judownload/models/rules">
+    <fieldset name="details">
+        <field name="id"
+               type="text"
+               default="0"
+               required="true"
+               readonly="true"
+               class="readonly"
+               label="COM_JUDOWNLOAD_FIELD_ID_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_ID_DESC"
+                />
+
+        <field
+                name="title"
+                type="text"
+                default=""
+                size="30"
+                label="COM_JUDOWNLOAD_FIELD_TITLE_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_TITLE_DESC"
+                required="true"
+                />
+
+        <field
+                name="comment"
+                type="juwysibb"
+                default=""
+                width="550"
+                height="300"
+                filter="raw"
+                label="COM_JUDOWNLOAD_FIELD_COMMENT_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_COMMENT_DESC"
+                required="true"
+                />
+
+        <field
+                name="doc_id"
+                type="commentdocument"
+                label="COM_JUDOWNLOAD_FIELD_DOCUMENT_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_DOCUMENT_DESC"
+                required="true"
+                />
+
+        <field
+                name="lft"
+                type="hidden"
+                filter="unset"
+                />
+
+        <field
+                name="rgt"
+                type="hidden"
+                filter="unset"
+                />
+
+        <field
+                name="level"
+                type="hidden"
+                filter="unset"
+                />
+
+        <field
+                name="parent_id"
+                type="commentparent"
+                label="COM_JUDOWNLOAD_FIELD_PARENT_COMMENT_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_PARENT_COMMENT_DESC"
+                required="true"
+                />
+
+        <field
+                name="website"
+                type="text"
+                default=""
+                size="30"
+                label="COM_JUDOWNLOAD_FIELD_WEBSITE_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_WEBSITE_DESC"
+                />
+
+        <field
+                name="total_votes"
+                type="text"
+                default="0"
+                size="10"
+                filter="integer"
+                class="validate-numeric"
+                label="COM_JUDOWNLOAD_FIELD_TOTAL_VOTES_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_TOTAL_VOTES_DESC"
+                required="true"
+                />
+
+        <field
+                name="helpful_votes"
+                type="text"
+                default="0"
+                size="10"
+                filter="integer"
+                class="validate-numeric"
+                label="COM_JUDOWNLOAD_FIELD_HELPFUL_VOTES_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_HELPFUL_VOTES_DESC"
+                required="true"
+                />
+
+        <field
+                name="ip_address"
+                type="text"
+                default=""
+                size="30"
+                label="COM_JUDOWNLOAD_FIELD_IP_ADDRESS_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_IP_ADDRESS_DESC"
+                required="true"
+                />
+
+        <field name="language"
+               type="contentlanguage"
+               class="inputbox"
+               label="COM_JUDOWNLOAD_FIELD_LANGUAGE_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_LANGUAGE_DESC">
+            <option value="*">JALL</option>
+        </field>
+
+        <field
+                name="approved"
+                type="list"
+                default="1"
+                readonly="true"
+                label="COM_JUDOWNLOAD_FIELD_APPROVED_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_APPROVED_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+
+        <field
+                name="published"
+                type="radio"
+                default="1"
+                class="btn-group"
+                label="COM_JUDOWNLOAD_FIELD_PUBLISHED_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_PUBLISHED_DESC">
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+    </fieldset>
+
+    <fieldset name="publishing">
+        <field name="approved_time"
+               type="calendar"
+               class="readonly"
+               readonly="true"
+               filter="unset"
+               label="COM_JUDOWNLOAD_FIELD_APPROVED_TIME_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_APPROVED_TIME_DESC"
+                />
+
+        <field name="approved_by"
+               type="user"
+               class="readonly"
+               readonly="true"
+               filter="unset"
+               label="COM_JUDOWNLOAD_FIELD_APPROVED_BY_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_APPROVED_BY_DESC"
+                />
+
+        <field name="modified"
+               type="calendar"
+               class="readonly"
+               readonly="true"
+               filter="unset"
+               label="COM_JUDOWNLOAD_FIELD_MODIFIED_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_MODIFIED_DESC"
+                />
+
+        <field name="modified_by"
+               type="user"
+               class="readonly"
+               readonly="true"
+               filter="unset"
+               label="COM_JUDOWNLOAD_FIELD_MODIFIED_BY_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_MODIFIED_BY_DESC"
+                />
+
+        <field name="created"
+               type="calendar"
+               class="inputbox"
+               default=""
+               filter="user_utc"
+               required="true"
+               format="%d-%m-%Y %H:%M:%S"
+               label="COM_JUDOWNLOAD_FIELD_CREATED_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_CREATED_DESC"
+                />
+
+        <field
+                name="user_id"
+                type="user"
+                label="COM_JUDOWNLOAD_FIELD_USER_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_USER_DESC"
+                />
+
+        <field
+                name="guest_name"
+                type="text"
+                default=""
+                size="30"
+                label="COM_JUDOWNLOAD_FIELD_GUEST_NAME_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_GUEST_NAME_DESC"
+                />
+
+        <field
+                name="guest_email"
+                type="text"
+                default=""
+                size="30"
+                label="COM_JUDOWNLOAD_FIELD_GUEST_EMAIL_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_GUEST_EMAIL_DESC"
+                />
+    </fieldset>
+</form>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="editdonationrecord" type="params" ui="admin" label="Donation record" description="A Donation record is automatically created and administered. Don't touch things here. This pannel is only provided for information, no warranty on effects of changes.">
+			<toolbarmenu>
+				<menu name="save"    action="save"   task="savePlugin"   label="Save" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="apply "  action="apply"  task="applyPlugin"  label="Apply" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="back"    action="back"   href=""             label="Back" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="close"   action="linkAction" task="cancel" link="cb_action:show_donations" label="Close" />
+			</toolbarmenu>
+			<tabpane name="cpayeditdonation">
+				<tabpanetab name="donation_presentation" label="Donation" description="Donation record:">
+					<param name="user_id"            type="text"   size="40" default=""  label="User id" description="id of the user who donated" />
+					<param name="plan_id"            type="private" class="cbpaidParamsExt" method="datalist"  default=""  label="Plan"    description="The plan subscribed">
+						<data name="plansidsnames" type="sql:multiplerows" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id">
+							<rows>
+								<field name="id" as="value" />
+								<field name="name" as="text" />
+								<!-- For the cbpaidPlansMgr::productObjects instanciator: -->
+								<field name="item_type" type="sql:field" />
+							</rows>
+							<where>
+								<column name="item_type" operator="=" value="donation" type="sql:field" valuetype="const:string" />
+							</where>
+							<orderby>
+								<field name="ordering" ordering="ASC" />
+								<field name="parent_ordering_comment" type="sql:int" ordering="ASC">
+									<data name="ordering" type="sql:field" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id" value="parent" />
+								</field>
+								<field name="ordering" type="sql:field" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id" value="parent" />
+							</orderby>
+						</data>
+					</param>
+					<param name="currency"            type="xml:currencies"  default="params:"   label="Currency" description="Currency of the donation"  align="right" />
+					<param name="amount"              type="float"     size="20" default="0"   label="Amount" description="Amount of the donation in currency"  align="right" />
+					<param name="payment_date"        type="text"      size="40" default="" label="Donation date" description="Date of the donation payment (if active)" />
+					<param name="status"              type="xml:subscription_status"  size="1" default="" label="Status" description="Current status of subscription" />
+					<param name="ip_addresses"        type="textarea"  cols="40" rows="5" default=""  label="IP address(es)" description="IP address(es) at subscription time" />
+					<param name="parent_plan"         type="hidden" />
+					<param name="parent_subscription" type="hidden" />
+				</tabpanetab>
+			</tabpane>
+		</view>
+	</views>
+</cbxml>

@@ -1,0 +1,1007 @@
+div.icon-48-logo {
+  background: url(../images/logo.png) no-repeat;
+}
+
+div.icon-48-plugin {
+  background: url(../images/plugin.png) no-repeat;
+}
+
+div.icon-48-add {
+  background: url(../images/add.png) no-repeat;
+}
+
+div.icon-48-config {
+  background: url(../images/config.png) no-repeat;
+}
+
+div.icon-48-upgrade {
+  background: url(../images/upgrade.png) no-repeat;
+}
+
+div.icon-48-member {
+  background: url(../images/icon-48-user.png) no-repeat;
+}
+
+div.icon-48-article {
+  background: url(../images/icon-48-article.png) no-repeat;
+}
+
+div.icon-48-menu {
+  background: url(../images/icon-48-menumgr.png) no-repeat;
+}
+
+div.icon-48-module {
+  background: url(../images/icon-48-module.png) no-repeat;
+}
+
+
+div.icon-48-category {
+  background: url(../images/icon-48-category.png) no-repeat;
+}
+
+div.icon-48-section {
+  background: url(../images/icon-48-section.png) no-repeat;
+}
+
+span.icon-32-member {
+  background: url(../images/member.png) no-repeat;
+}
+
+span.icon-32-article {
+  background: url(../images/article.png) no-repeat;
+}
+
+span.icon-32-menu {
+  background: url(../images/menu.png) no-repeat;
+}
+
+span.icon-32-module {
+  background: url(../images/module.png) no-repeat;
+}
+
+span.icon-32-component {
+  background: url(../images/component.png) no-repeat;
+}
+span.icon-32-category {
+  background: url(../images/category.png) no-repeat;
+}
+
+span.icon-32-section {
+  background: url(../images/section.png) no-repeat;
+}
+
+span.icon-32-tools {
+  background: url(../images/lock.png) no-repeat;
+}
+
+span.return {
+  background: url(../images/back.png) no-repeat;
+}
+
+.button-next {
+  height: 34px;
+  line-height: 34px;
+  width: 200px;
+  text-align: center;
+  font-weight: 700;
+  color: #333;
+  background: #9c3;
+  border: solid 1px #690;
+  cursor: pointer;
+}
+
+#oseframe {
+  padding: 20px;
+  border: 1px solid #9c3;
+  background: #fff;
+  font-family: Verdana, Arial, Helvetica, sans-serif
+}
+
+.osebackground {
+  background: #2A2A2A;
+}
+
+.status {
+background: #EEFECB none repeat scroll 0 0; border:1px solid #82BF3B; color: #333333;
+-moz-border-radius-bottomleft:4px;
+-moz-border-radius-bottomright:4px;
+-moz-border-radius-topleft:4px;
+-moz-border-radius-topright:4px;
+padding: 10px 10px 10px 10px;
+}
+
+.results {
+background: #BDEFFD none repeat scroll 0 0; border:1px solid #34A6C7; color: #34A6C7;font-weight: bold;
+-moz-border-radius-bottomleft:4px;
+-moz-border-radius-bottomright:4px;
+-moz-border-radius-topleft:4px;
+-moz-border-radius-topright:4px;
+padding: 10px 10px 10px 10px;
+}
+
+.warning {
+background: #FECBE7 none repeat scroll 0 0; border:1px solid #C63581; color: #C63581; font-weight: bold;
+-moz-border-radius-bottomleft:4px;
+-moz-border-radius-bottomright:4px;
+-moz-border-radius-topleft:4px;
+-moz-border-radius-topright:4px;
+padding: 10px 10px 10px 10px;
+}
+
+.report_warning {
+background: #FECBE7 none repeat scroll 0 0; border:1px solid #C63581; color: #C63581; font-weight: bold;
+-moz-border-radius-bottomleft:4px;
+-moz-border-radius-bottomright:4px;
+-moz-border-radius-topleft:4px;
+-moz-border-radius-topright:4px;
+padding: 5px 5px 5px 5px;
+}
+
+.report_low {
+background: #BDEFFD none repeat scroll 0 0; border:1px solid #34A6C7; color: #34A6C7;
+-moz-border-radius-bottomleft:4px;
+-moz-border-radius-bottomright:4px;
+-moz-border-radius-topleft:4px;
+-moz-border-radius-topright:4px;
+padding: 5px 5px 5px 5px;
+}
+
+.report_medium {
+background: #FFFFAA none repeat scroll 0 0; border:1px solid #FF8E1B;
+-moz-border-radius-bottomleft:4px;
+-moz-border-radius-bottomright:4px;
+-moz-border-radius-topleft:4px;
+-moz-border-radius-topright:4px;
+padding: 5px 5px 5px 5px;
+}
+
+
+/* Global setting */
+input:focus
+{
+	border: 1px;
+	border-color: #B5B8C8;
+}
+
+.button, button {
+border-radius:5px 5px 5px 5px;
+-moz-border-radius:5px 5px 5px 5px;
+-webkit-border-radius:5px 5px 5px 5px;
+}
+
+input, .inputbox {
+background:none repeat scroll 0 0 #FFFFFF;
+border:1px solid #D6E4EC;
+}
+
+input, select, textarea, .inputbox {
+font-family:Arial,Helvetica,sans-serif;
+padding:4px 5px;
+}
+
+input, select, textarea, .inputbox {
+font-size:100%;
+}
+
+.x-btn-mc, .osebutton, .button, button {
+background:url("../images/readon-bg.gif") repeat-x scroll left bottom transparent;
+border:1px solid #DDDDDD;
+font-weight:bold;
+padding:2px 5px;
+text-shadow:0 1px 1px #FFFFFF;
+color: #238DB4;
+cursor: pointer;
+font-size: 12px;
+-moz-border-radius:5px 5px 5px 5px;
+border-radius:5px 5px 5px 5px;
+-webkit-border-radius:5px 5px 5px 5px;
+text-transform: uppercase;
+}
+
+.ose-button
+{
+ float:right;
+}
+
+.ose-button-list .osejoinbutton
+{
+width: 330px;
+float: left;
+}
+
+.ose-button-list .oseloginbutton{
+margin-left: 340px;
+}
+
+#oseregister
+{
+ margin-right: 10px;
+}
+
+#oselogin
+{
+ margin-right: 10px;
+}
+
+.ose-clear{
+	clear:both;
+	margin-top: 10px;
+	border-bottom: 1px dotted #dddddd;
+	height: 10px;
+}
+
+#osemsc-reg .x-form,
+#ose-payment .x-form,
+#ose-my-account .x-form
+{
+margin-top: 10px;
+}
+
+#mscSetting-panelWin img{
+max-width: 80px;
+max-height: 160px;
+}
+
+#oseMsc.config.paymentForm fieldset
+{
+width: 900px;
+}
+
+#osemsc-email-form  x-html-editor-wrap
+{
+margin-left: 300px;
+}
+
+#osemsc-order .x-toolbar-left
+{
+margin-left: -10px;
+padding-right: 40px;
+}
+
+.x-fieldset
+{
+margin-top: 5px;
+margin-left: 0px;
+margin-right: 0px;
+border-color:#C1C1C1;
+background:none repeat scroll 0 0 #E8F1FA;
+padding: 8px;
+width: 100%;
+color: #333333;
+}
+
+.x-fieldset legend,
+fieldset legend
+{
+background:none repeat scroll 0 0 #fff;
+border-top:1px solid #C1C1C1;
+border-left:1px solid #C1C1C1;
+border-right:1px solid #C1C1C1;
+border-bottom:1px solid #ddd;
+border: 1px solid #C1C1C1;
+margin-top: 10px;
+margin-left: -10px;
+margin-right: -10px;
+margin: 10px -10px 0px -10px;
+padding:8px 10px 8px 8px;
+width: 100%;
+color: #333333;
+font: bold 14px Arial,sans-serif;
+}
+
+#mscSetting-panelWin .x-fieldset legend
+{
+margin-left: 0px;
+width: 96%;
+}
+
+.x-combo-list-item{
+text-align:left !important;
+}
+
+#ose-my-account fieldset legend
+{
+margin-bottom: 25px;
+}
+
+#osemsc-reg .x-form-item-label,
+#osemsc-reg .x-form-cb-label,
+#ose-payment .x-form-item-label,
+#ose-payment .x-form-cb-label,
+#ose-my-account .x-form-item-label,
+#ose-my-account .x-form-cb-label,
+#ose-my-account .x-box-item
+{
+color: #555555;
+}
+
+#ose-my-account .x-box-item
+{
+font-size: 10px;
+}
+
+#x-form-el-oseemailbody
+{
+padding-left: 200px;
+}
+
+.x-window  .x-form-element
+{
+padding: 5px 0px 5px 0px;
+}
+
+.osefooter a
+{
+font-size: 10px;
+color: #238DB4;
+}
+
+#ose-my-account
+{
+margin: 0 0 0 5px;
+width: auto;
+}
+
+#ose-login-box .x-panel-header
+{
+	background: url(../images/grad-d1.gif) repeat-x left top #238db4;
+	color: #fff;
+	font-size: 110%;
+	font-family: "Segoe UI", Helvetica, sans-serif;
+	text-transform: uppercase;
+	font-weight: bold;
+	margin: 0;
+	padding: 10px 15px;
+	-moz-border-radius:8px 8px 0 0;
+	border-radius:8px 8px 0 0;
+	-webkit-border-radius:8px 8px 0 0;
+	text-shadow:0 -1px 0 rgba(0, 0, 0, 0.6);
+}
+
+#msc-panel,
+#msc-content,
+#msc-bridge,
+#osemsc-mem-basic-panel,
+#osemsc-mem-extra-panel
+{
+width: 100%;
+margin-left: 10px;
+margin-right: 10px;
+margin-top: 10px;
+vertical-align: top;
+display:block;
+clear: both;
+}
+
+#msc-panel .ose-menu-header,
+#msc-content ose-menu-header,
+#msc-bridge ose-menu-header,
+#osemsc-mem-basic-panel .ose-menu-header,
+#osemsc-mem-extra-panel .ose-menu-header
+{
+margin-bottom:5px;
+font-weight: bold;
+}
+
+#msc-panel .x-panel-header,
+#msc-content .x-panel-header,
+#msc-bridge .x-panel-header,
+#osemsc-mem-basic-panel .x-panel-header,
+#osemsc-mem-extra-panel .x-panel-header
+{
+border-bottom:1px dotted #CCCCCC;
+color:#333333;
+font-size:92%;
+font-weight:700;
+padding:0 0 5px;
+background: none;
+margin-top: 10px;
+margin-left: 5px;
+}
+
+#msc-panel ul li,
+#msc-content ul li,
+#msc-bridge ul li,
+#ose-member-menu ul li
+{
+list-style-type:none;
+text-align: center;
+min-height: 48px;
+width: 80px;
+font-family: "Segoe UI", Helvetica, sans-serif;
+padding:64px 0 0 0px;
+float: left;
+margin-right: 10px;
+cursor: pointer;
+}
+
+
+#msc-panel ul li.ose-icon-basic
+{
+background:url("../images/basic_info.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-panel ul li.ose-icon-msc
+{
+background:url("../images/msc_setting.png") no-repeat scroll 15px 5px transparent;
+}
+
+#msc-panel ul li.ose-icon-payment,
+#msc-panel ul li.ose-icon-paymentAdv
+{
+background:url("../images/payments.png") no-repeat scroll 8px 0px transparent;
+}
+
+#msc-bridge ul li.ose-icon-acymailing
+{
+background:url("../images/acymailing.png") no-repeat scroll 8px 5px transparent;
+}
+
+#msc-bridge ul li.ose-icon-phpbb
+{
+background:url("../images/phpbb.png") no-repeat scroll 8px 10px transparent;
+}
+
+#msc-bridge ul li.ose-icon-vm
+{
+background:url("../images/virtuemart.gif") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-bridge ul li.ose-icon-lic
+{
+background:url("../images/logo.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-content ul li.ose-icon-menu
+{
+background:url("../images/icon-48-menumgr.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-content ul li.ose-icon-module
+{
+background:url("../images/icon-48-module.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-content ul li.ose-icon-component
+{
+background:url("../images/icon-48-component.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-content ul li.ose-icon-jcontent
+{
+background:url("../images/icon-48-article.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-content ul li.ose-icon-phoca
+{
+background:url("../images/phocadownload.png") no-repeat scroll 15px 5px transparent;
+}
+
+#msc-content ul li.ose-icon-k2item
+{
+background:url("../images/k2.png") no-repeat scroll 15px 20px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-juser
+{
+background:url("../images/user_info.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-msc
+{
+background:url("../images/membership_active.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-billinginfo
+{
+background:url("../images/billing_info.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-company
+{
+background:url("../images/company_info.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-licuser
+{
+background:url("../images/licensed_users_info.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-directory
+{
+background:url("../images/directory.png") no-repeat scroll 15px 0px transparent;
+}
+
+#ose-member-menu ul li.ose-icon-order
+{
+background:url("../images/billing_history.png") no-repeat scroll 15px 0px transparent;
+}
+
+#msc-panel ul li a,
+#msc-content ul li a,
+#msc-bridge ul li a
+{
+color: #238DB4;
+text-decoration: none;
+font-family:tahoma,arial,verdana,sans-serif;
+}
+
+#my-memberships .x-fieldset
+{
+margin-left:0px;
+}
+
+#my-memberships-fieldset .x-fieldset-body
+{
+margin-top: 0px;
+padding:0;
+}
+
+#ose-my-account .hello
+{
+	margin-top: 5px;
+	padding-bottom: 20px;
+	height: auto !important;
+	background: none;
+	font-weight: bold;
+	font-size: 200%;
+	border-bottom: 1px dotted #CCCCCC;
+}
+
+#ose-my-account .notice {
+border-radius:3px 3px 3px 3px;
+-moz-border-radius:3px 3px 3px 3px;
+-webkit-border-radius:3px 3px 3px 3px;
+background-color:#FFFAEA;
+border:2px solid #FB8200;
+color:#BF4900;
+margin-top:5px;
+margin-bottom:10px;
+overflow:hidden;
+padding:10px;
+}
+
+.ose-selected-heading {
+	margin: 10px 0px 10px 10px; ;
+	padding: 0px 0px 10px 0px;
+	height: auto !important;
+	background: none;
+	font-weight: bold;
+	font-size: 150%;
+	border-bottom: 1px dotted #CCCCCC;
+	text-align: center;
+}
+
+.msc-first-title-leaf{
+	margin: 10px 0px 10px 10px; ;
+	padding: 0px 0px 10px 0px;
+	font-size: 150%;
+	color: #238DB4;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.msc-price,
+.msc-period {
+	margin: 10px 0px 10px 20px; ;
+	padding: 0px 0px 10px 0px;
+	font-size: 120%;
+	color: #666666;
+	text-align: center;
+}
+
+.x-panel-footer
+{
+border-top:1px dotted #DDDDDD;
+}
+
+/* ExtJS modifications */
+
+.x-window-tc
+{
+	background: url(../images/grad-d1.gif) repeat-x left top #238db4;
+	color: #fff;
+	font-size: 100%;
+	font-family: "Segoe UI", Helvetica, sans-serif;
+	text-transform: uppercase;
+	font-weight: bold;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding: 10px 10px;
+	-moz-border-radius:8px 8px 0 0;
+	border-radius:8px 8px 0 0;
+	-webkit-border-radius:8px 8px 0 0;
+	text-shadow:0 -1px 0 rgba(0, 0, 0, 0.6);
+}
+body.x-body-masked .x-window-plain .x-window-mc,
+.x-window-plain .x-window-mc,
+.x-window-mc,
+.x-window-plain .x-window-bc
+{
+background-image: none;
+background-color: #fff;
+height: auto;
+}
+
+
+.x-window-bc
+{
+background-image: none;
+height: auto;
+}
+
+.x-window-body .x-dlg-icon
+{
+margin-top: 10px;
+margin-left: 10px;
+}
+
+.x-window-dlg .x-dlg-icon .ext-mb-content  {
+width: 85%;
+}
+
+.x-window-dlg .ext-mb-text, .x-window-dlg {
+font-size: 14px;
+font-family: "Segoe UI", Helvetica, sans-serif;
+}
+
+.x-window-dlg .ext-mb-question {
+background-image:url("../images/lightbulb.png");
+}
+
+.x-window-tl, .x-window-ml, .x-window-bl,.x-window-br, .x-panel-nofooter, .x-window-mr, .x-window-tr {
+background: none;
+}
+
+.x-window .x-window-bl, .x-panel-nofooter{
+	/* height:0px; */
+}
+
+.x-window-dlg .x-window-bl, .x-panel-nofooter{
+    height: auto;
+}
+
+.x-window-tl .x-window-header {
+color: #fff;
+}
+
+.x-window-mc, .x-toolbar
+{
+background: none repeat-x left top #fff;
+}
+
+.ext-gecko .x-btn button, .ext-webkit .x-btn button, .x-btn-small,
+.ext-gecko .x-btn-over button, .ext-webkit .x-btn-over button
+{
+font-weight:bold;
+padding-left:10px;
+padding-right:10px;
+padding-top: 2px;
+padding-bottom: 5px;
+text-shadow:0 1px 1px #FFFFFF;
+color: #238DB4;
+cursor: pointer;
+font-size: 12px;
+-moz-border-radius:5px 5px 5px 5px;
+border-radius:5px 5px 5px 5px;
+-webkit-border-radius:5px 5px 5px 5px;
+float: right;
+min-height: 20px;
+}
+
+.x-btn-text-icon .x-btn-icon-small-left .x-btn-text {
+padding-left:10px;
+padding-right:10px;
+
+}
+
+.x-small-editor .x-btn button, .x-small-editor .x-btn button, .x-btn-small,
+.x-small-editor .x-btn-over button, .x-small-editor .x-btn-over button,
+.x-toolbar-cell button
+{
+background-color: #FFF !important;
+font-weight:bold;
+padding-left:0px;
+padding-right:0px;
+padding-top: 2px;
+padding-bottom: 5px;
+text-shadow:0 1px 1px #FFFFFF;
+color: #238DB4;
+cursor: pointer;
+font-size: 12px;
+border-radius:5px 5px 5px 5px;
+-moz-border-radius:5px 5px 5px 5px;
+-webkit-border-radius:5px 5px 5px 5px;
+float: right;
+min-height: 20px;
+}
+
+.x-btn-over button,
+.x-btn-over .x-btn-tl,
+.x-btn-over .x-btn-tc,
+.x-btn-over .x-btn-tr,
+.x-btn-over .x-btn-bl,
+.x-btn-over .x-btn-bc,
+.x-btn-over .x-btn-br,
+.x-btn-over .x-btn-mr,
+.x-btn-over .x-btn-mc,
+.x-btn-over .x-btn-ml,
+.x-btn-tl,
+.x-btn-tc,
+.x-btn-tr,
+.x-btn-bl,
+.x-btn-bc,
+.x-btn-br,
+.x-btn-mr,
+.x-btn-mc,
+.x-btn-ml
+{
+background: none;
+height: 0px;
+}
+
+.x-grid3-row-table tr{
+height: 30px;
+}
+
+.x-grid3-row-table td{
+font-size: 12px;
+vertical-align: middle;
+}
+
+.x-grid3-hd-row,
+.x-grid3-hd-over
+{
+height: 25px;
+}
+
+.x-window-bc .x-window-footer {
+font-size:0;
+line-height:0;
+padding-bottom:6px;
+background-color: #fff;
+margin-left: 1px;
+}
+
+.x-grid3-row-selected {
+	background-color: #E8F1FA !important;
+	background-image: none;
+	border-color:#a3bae9;
+	color: #238DB4;
+	font-weight: bold;
+}
+
+.x-tab-strip-top .x-tab-right, .x-tab-strip-top .x-tab-left, .x-tab-strip-top .x-tab-strip-inner {
+background-image:none;
+}
+
+ul.x-tab-strip-top {
+background-color:#FFF;
+background-image:none;
+border-bottom-color:transparent;
+}
+
+#ose-account-menus{
+margin-left: -10px;
+}
+.x-tab-strip-wrap{
+background-color: #fff;
+height: 35px;
+border:0px
+}
+
+#osemsc-config .x-tab-panel-header
+{
+border:0px
+}
+.x-tab-strip-top
+{
+margin-top:10px;
+padding-top: 10px;
+height: 15px;
+}
+.x-tab-strip-top .x-tab-strip-inner {
+background:none;
+}
+
+.x-tab-strip a, .x-tab-strip span, .x-tab-strip em {
+display:inline;
+color: #238DB4;
+}
+
+.x-tab-strip-inner{
+-moz-border-radius:3px 3px 0px 0px;
+border-radius:3px 3px 0px 0px;
+-webkit-border-radius:3px 3px 0px 0px;
+background:none repeat scroll 0 0 #E8F1FA;
+border-top:1px solid #D6E5EC;
+border-left:1px solid #D6E5EC;
+border-right:1px solid #D6E5EC;
+border-bottom:0px solid #D6E5EC;
+margin: 10px -10px 25px -10px;
+padding:5px 10px 10px 10px;
+width: 90%;
+color: #238DB4;
+}
+
+.x-tab-strip span.x-tab-strip-text {
+color: #238DB4;
+font:11px Arial,sans-serif;
+}
+
+.x-tab-strip-active span.x-tab-strip-text {
+color: #238DB4;
+font: bold 13px Arial,sans-serif;
+}
+
+.x-form-item
+{
+font: normal 12px Arial,sans-serif;
+border-bottom: 1px dotted #D6E5EC;
+}
+
+.x-form-element
+{
+border-bottom: 0px solid #D6E5EC;
+}
+
+.x-form-item-label
+{
+font: bold 12px Arial,sans-serif;
+margin-left: 0px;
+margin-top: 5px;
+width: 200px;
+}
+
+.x-panel-header  {
+	background: url(../images/grad-d1.gif) repeat-x left top #238db4;
+	color: #fff;
+	font-size: 110%;
+	font-family: "Segoe UI", Helvetica, sans-serif;
+	font-weight: bold;
+	margin: 0;
+	padding: 10px 15px;
+	text-transform: uppercase;
+	-moz-border-radius:8px 8px 0 0;
+	border-radius:8px 8px 0 0;
+	-webkit-border-radius:8px 8px 0 0;
+	text-shadow:0 -1px 0 rgba(0, 0, 0, 0.6);
+}
+
+#ose-member-menu .x-panel-header,
+.x-panel-header-noborder
+{
+-moz-border-radius:8px 8px 0 0;
+border-radius:8px 8px 0 0;
+-webkit-border-radius:8px 8px 0 0;
+background: none repeat-x left top #fff;
+background-image: none;
+background-color: #fff;
+color: #238DB4;
+font-weight: bold;
+padding: 7px;
+text-shadow:none;
+border-color:none;
+}
+
+#ose-member-menu .x-accordion-hd {
+border-top:1px solid;
+}
+.x-grid3-viewport
+{
+margin: 0px -2px 0px -2px;
+border-left:1px solid #99BBE8;
+border-right:1px solid #99BBE8;
+}
+
+.x-border-layout-ct {
+background-color:#eee;
+}
+
+.x-grid3-hd-row2{
+-moz-border-radius:9px 9px 9px 9px;
+border-radius:9px 9px 9px 9px;
+-webkit-border-radius:9px 9px 9px 9px;
+-moz-box-shadow:0 1px 3px rgba(0, 0, 0, 0.7);
+box-shadow:0 1px 3px rgba(0, 0, 0, 0.7);
+-webkit-box-shadow:0 1px 3px rgba(0, 0, 0, 0.7);
+background:-moz-linear-gradient(center top , #555555, #222222) repeat scroll 0 0 transparent;
+color:#FFFFFF;
+font-family:"Helvetica Neue",Arial,sans-serif;
+font-size:14px;
+padding:20px 0 0;
+position:relative;
+}
+
+#ose-member-list .x-panel-header  {
+	margin: 0;
+	padding: 10px 15px;
+	text-transform: uppercase;
+	-moz-border-radius:8px 8px 0 0;
+	border-radius:8px 8px 0 0;
+	-webkit-border-radius:8px 8px 0 0;
+	text-shadow:0 -1px 0 rgba(0, 0, 0, 0.6);
+	background:-moz-linear-gradient(center top , #666666, #333333) repeat scroll 0 0 transparent;
+	color:#FFFFFF;
+	font-size: 110%;
+	font-family: "Segoe UI", Helvetica, sans-serif;
+	font-weight: bold;
+	border-width: 1px;
+	border-color: #555555;
+}
+
+#ose-membership-list .x-panel-noborder .x-panel-body-noborder {
+border-width:1px;
+}
+
+#osemsc-emails-grid
+{/*
+margin-left: -10px;
+*/
+}
+#ose-msc-basicinfo-tips
+{
+border: 0px;
+}
+.tips
+{
+	background: url(../images/icon-tips.png) no-repeat scroll 5px 5px transparent;
+	padding-left:25px !important;
+	position:relative;
+	color: #E58C00;
+	border-color:#E58C00;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-right: 10px;
+}
+
+.x-menu-floating {
+border-color:#238DB4;
+border:1px solid #efefef;
+}
+
+.x-menu {
+background-color:#FFF;
+background:none repeat-y scroll 0 0 #fff;
+}
+
+
+.ext-el-mask-msg div {
+	margin: 0;
+	padding: 10px 15px;
+	text-transform: uppercase;
+	-moz-border-radius:8px 8px 8px 8px;
+	border-radius: 8px 8px 8px 8px;
+	-webkit-border-radius: 8px 8px 8px 8px;
+	text-shadow:0 -1px 0 rgba(0, 0, 0, 0.6);
+	background:-moz-linear-gradient(center top , #666666, #333333) repeat scroll 0 0 #333333;
+	background-color: #666666;
+	color:#FFFFFF;
+	font-size: 12px;
+	font-family: "Segoe UI", Helvetica, sans-serif;
+	font-weight: bold;
+	border-width: 1px;
+	border-color: #555555;
+}
+
+.ext-el-mask-msg div {
+border:0px solid;
+cursor:wait;
+padding:5px 10px;
+}
+
+.ext-el-mask-msg {
+background-color:transparent;
+background-image:none;
+border-color:transparent;
+}
+
+.ext-el-mask-msg {
+background:none repeat-x scroll 0 -16px transparent;
+border:0px solid;
+left:0;
+padding:2px;
+position:absolute;
+top:0;
+z-index:20001;
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<metadata>
+
+	<layout title="Mywall Layout">
+
+		<message>
+
+			<![CDATA[AWDWALL MYWALL LAYOUT DESCRIPTION]]>
+
+		</message>
+
+	</layout>
+
+	<state>
+
+		<name>Mywall Layout</name>
+
+		<description>Mywall Layout</description>
+
+        <url></url>
+
+		<params> 
+		</params> 
+		<advanced> 
+		</advanced> 
+	</state>
+
+</metadata>

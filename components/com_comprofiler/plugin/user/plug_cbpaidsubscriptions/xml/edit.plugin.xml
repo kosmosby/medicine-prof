@@ -1,0 +1,1008 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../cb/validation/ahawow.xsd">
+	<types>
+		<type name="relative_time" base="list" valuetype="string">
+			<option value="0000-00-00 00:05:00">5 minutes</option>
+			<option value="0000-00-00 00:10:00">10 minutes</option>
+			<option value="0000-00-00 00:15:00">15 minutes</option>
+			<option value="0000-00-00 00:30:00">30 minutes</option>
+			<option value="0000-00-00 01:00:00">1 hour</option>
+			<option value="0000-00-00 01:30:00">1 hour 30 minutes</option>
+			<option value="0000-00-00 02:00:00">2 hours</option>
+			<option value="0000-00-00 04:00:00">4 hours</option>
+			<option value="0000-00-00 08:00:00">8 hours</option>
+			<option value="0000-00-00 12:00:00">12 hours</option>
+			<option value="0000-00-01 00:00:00">1 day (24 hours)</option>
+			<option value="0000-00-02 00:00:00">2 days (48 hours)</option>
+			<option value="0000-00-03 00:00:00">3 days</option>
+			<option value="0000-00-10 00:00:00">10 days</option>
+			<option value="0000-00-20 00:00:00">20 days</option>
+			<option value="0000-00-30 00:00:00">30 days</option>
+			<option value="0000-00-60 00:00:00">60 days</option>
+			<option value="0000-00-90 00:00:00">90 days</option>
+			<option value="0000-00-07 00:00:00">1 week (7 days)</option>
+			<option value="0000-00-14 00:00:00">2 weeks (14 days)</option>
+			<option value="0000-00-21 00:00:00">3 weeks (21 days)</option>
+			<option value="0000-00-28 00:00:00">4 weeks (28 days)</option>
+			<option value="0000-01-00 00:00:00">1 month</option>
+			<option value="0000-02-00 00:00:00">2 months</option>
+			<option value="0000-03-00 00:00:00">3 months</option>
+			<option value="0000-04-00 00:00:00">4 months</option>
+			<option value="0000-06-00 00:00:00">6 months</option>
+			<option value="0000-09-00 00:00:00">9 months</option>
+			<option value="0001-00-00 00:00:00">1 year</option>
+			<option value="0002-00-00 00:00:00">2 years</option>
+			<option value="0003-00-00 00:00:00">3 years</option>
+			<option value="0005-00-00 00:00:00">5 years</option>
+			<option value="0010-00-00 00:00:00">10 years</option>
+		</type>
+		<type name="validity_base" base="xml:relative_time" insertbase="before">
+			<option value="U:0000-00-01 00:00:00">Today (up to midnight)</option>
+			<option value="U:0000-00-02 00:00:00">Today and Tomorrow up to midnight</option>
+			<option value="U:0000-00-03 00:00:00">Today and Next 2 calendar days</option>
+			<option value="U:0000-00-07 00:00:00">Today and Next 6 calendar days</option>
+			<option value="U:0000-00-08 00:00:00">Today and Next 7 calendar days</option>
+			<option value="U:0000-00-31 00:00:00">Today and Next 30 calendar days</option>
+			<option value="U:0000-01-00 00:00:00">This calendar month</option>
+			<option value="U:0000-02-00 00:00:00">This and next calendar month</option>
+			<option value="U:0000-03-00 00:00:00">This and next 2 calendar months</option>
+			<option value="U:0000-04-00 00:00:00">This and next 3 calendar months</option>
+			<option value="U:0000-06-00 00:00:00">This and next 5 calendar months</option>
+			<option value="U:0000-07-00 00:00:00">This and next 6 calendar months</option>
+			<option value="U:0001-00-00 00:00:00">This calendar year</option>
+			<option value="U:0002-00-00 00:00:00">This and next calendar year</option>
+			<option value="U:0003-00-00 00:00:00">This and next 2 calendar years</option>
+			<option value="U:0004-00-00 00:00:00">This and next 3 calendar years</option>
+			<option value="U:0005-00-00 00:00:00">This and next 4 calendar years</option>
+			<option value="U:0006-00-00 00:00:00">This and next 5 calendar years</option>
+			<option value="U:0010-00-00 00:00:00">This and next 9 calendar years</option>
+			<option value="U:0011-00-00 00:00:00">This and next 10 calendar years</option>
+		</type>
+		<type name="validity" base="xml:validity_base" insertbase="before">
+			<option value="0000-00-00 00:00:00">Lifetime subscription</option>
+		</type>
+		<type name="first_validity" base="xml:validity_base">
+			<option value="0000-00-00 00:00:00">No initial validity</option>
+		</type>
+	    <type name="bonustime" base="list" valuetype="string">
+			<option value="0000-00-00 01:00:00">1 hour</option>
+			<option value="0000-00-00 09:00:00">9 hours</option>
+			<option value="0000-00-00 12:00:00">12 hours</option>
+			<option value="0000-00-00 18:00:00">18 hours</option>
+			<option value="0000-00-01 00:00:00">1 day</option>
+			<option value="0000-00-01 12:00:00">1 day and 12 hours</option>
+			<option value="0000-00-02 00:00:00">2 days</option>
+			<option value="0000-00-02 12:00:00">2 days and 12 hours</option>
+			<option value="0000-00-03 00:00:00">3 days</option>
+			<option value="0000-00-30 00:00:00">30 days</option>
+			<option value="0000-00-07 00:00:00">1 week</option>
+			<option value="0000-00-14 00:00:00">2 weeks</option>
+			<option value="0000-01-00 00:00:00">1 month</option>
+			<option value="0000-01-07 00:00:00">1 month and 1 week</option>
+			<option value="0000-01-14 00:00:00">1 month and 2 weeks</option>
+			<option value="0000-02-00 00:00:00">2 months</option>
+			<option value="0000-02-07 00:00:00">2 months and 1 week</option>
+			<option value="0000-02-14 00:00:00">2 months and 2 weeks</option>
+			<option value="0000-03-00 00:00:00">3 months</option>
+			<option value="0000-03-07 00:00:00">3 months and 1 week</option>
+			<option value="0000-03-14 00:00:00">3 months and 2 weeks</option>
+			<option value="0000-04-00 00:00:00">4 months</option>
+			<option value="0000-06-00 00:00:00">6 months</option>
+			<option value="0000-06-07 00:00:00">6 months and 1 week</option>
+			<option value="0000-06-14 00:00:00">6 months and 2 weeks</option>
+			<option value="0000-09-00 00:00:00">9 months</option>
+			<option value="0001-00-00 00:00:00">1 year</option>
+			<option value="0001-01-00 00:00:00">1 year and 1 month</option>
+			<option value="0001-03-00 00:00:00">1 year and 3 months</option>
+			<option value="0001-06-00 00:00:00">1 year and 6 months</option>
+			<option value="0002-00-00 00:00:00">2 years</option>
+			<option value="0002-03-00 00:00:00">2 years and 3 months</option>
+			<option value="0003-00-00 00:00:00">3 years</option>
+			<option value="0000-00-00 00:00:00">No bonus</option>
+		</type>
+	    <type name="renewableinadvanceby" base="list" valuetype="string">
+			<option value="0000-00-00 01:00:00">1 hour</option>
+			<option value="0000-00-00 12:00:00">12 hours</option>
+			<option value="0000-00-01 00:00:00">24 hours</option>
+			<option value="0000-00-03 00:00:00">3 days</option>
+			<option value="0000-00-30 00:00:00">30 days</option>
+			<option value="0000-00-07 00:00:00">1 week</option>
+			<option value="0000-00-14 00:00:00">2 weeks</option>
+			<option value="0000-01-00 00:00:00">1 month</option>
+			<option value="0000-02-00 00:00:00">2 months</option>
+			<option value="0000-03-00 00:00:00">3 months</option>
+			<option value="0000-04-00 00:00:00">4 months</option>
+			<option value="0000-06-00 00:00:00">6 months</option>
+			<option value="0000-09-00 00:00:00">9 months</option>
+			<option value="0001-00-00 00:00:00">1 year</option>
+			<option value="0002-00-00 00:00:00">2 years</option>
+			<option value="0003-00-00 00:00:00">3 years</option>
+			<option value="0000-00-00 00:00:00">Only after expiration</option>
+			<option value="9999-99-99 99:99:99">Non-renewable</option>
+		</type>
+		<type name="last_duration_submonth" base="list" valuetype="sql:formula">
+			<option value="date_sub(NOW(), INTERVAL 4 WEEK)"   index="4W">last 4 weeks</option>
+			<option value="date_sub(NOW(), INTERVAL 3 WEEK)"   index="3W">last 3 weeks</option>
+			<option value="date_sub(NOW(), INTERVAL 2 WEEK)"   index="2W">last 2 weeks</option>
+			<option value="date_sub(NOW(), INTERVAL 1 WEEK)"   index="1W">last 1 week</option>
+			<option value="date_sub(NOW(), INTERVAL 7 DAY)"    index="7D">last 7 days</option>
+			<option value="date_sub(NOW(), INTERVAL 6 DAY)"    index="6D">last 6 days</option>
+			<option value="date_sub(NOW(), INTERVAL 5 DAY)"    index="5D">last 5 days</option>
+			<option value="date_sub(NOW(), INTERVAL 4 DAY)"    index="4D">last 4 days</option>
+			<option value="date_sub(NOW(), INTERVAL 3 DAY)"    index="3D">last 3 days</option>
+			<option value="date_sub(NOW(), INTERVAL 2 DAY)"    index="2D">last 2 days</option>
+			<option value="date_sub(NOW(), INTERVAL 1 DAY)"    index="1D">last 24 hours</option>
+			<option value="date_sub(NOW(), INTERVAL 18 HOUR)"  index="18h">last 18 hours</option>
+			<option value="date_sub(NOW(), INTERVAL 12 HOUR)"  index="12h">last 12 hours</option>
+			<option value="date_sub(NOW(), INTERVAL 6 HOUR)"   index="6h">last 6 hours</option>
+			<option value="date_sub(NOW(), INTERVAL 3 HOUR)"   index="3h">last 3 hours</option>
+			<option value="date_sub(NOW(), INTERVAL 2 HOUR)"   index="2h">last 2 hours</option>
+			<option value="date_sub(NOW(), INTERVAL 1 HOUR)"   index="1h">last hour</option>
+		</type>
+		<type name="last_duration" base="xml:last_duration_submonth">
+			<option value="date_sub(NOW(), INTERVAL 12 MONTH)" index="12M">last 12 months</option>
+			<option value="date_sub(NOW(), INTERVAL 9 MONTH)"  index="9M">last 9 months</option>
+			<option value="date_sub(NOW(), INTERVAL 6 MONTH)"  index="6M">last 6 months</option>
+			<option value="date_sub(NOW(), INTERVAL 3 MONTH)"  index="3M">last 3 months</option>
+			<option value="date_sub(NOW(), INTERVAL 2 MONTH)"  index="2M">last 2 months</option>
+			<option value="date_sub(NOW(), INTERVAL 1 MONTH)"  index="1M">last month</option>
+		</type>
+		<type name="relative_datetime" base="list" valuetype="sql:formula">
+			<option value="date_sub(NOW(), INTERVAL 5 YEAR)" index="-5Y">5 years ago</option>
+			<option value="date_sub(NOW(), INTERVAL 4 YEAR)" index="-4Y">4 years ago</option>
+			<option value="date_sub(NOW(), INTERVAL 3 YEAR)" index="-3Y">3 years ago</option>
+			<option value="date_sub(NOW(), INTERVAL 2 YEAR)" index="-2Y">2 years ago</option>
+			<option value="date_sub(NOW(), INTERVAL 18 MONTH)" index="-18M">18 months ago</option>
+			<option value="date_sub(NOW(), INTERVAL 12 MONTH)" index="-12M">12 months ago</option>
+			<option value="date_sub(NOW(), INTERVAL 9 MONTH)"  index="-9M">9 months ago</option>
+			<option value="date_sub(NOW(), INTERVAL 6 MONTH)"  index="-6M">6 months ago</option>
+			<option value="date_sub(NOW(), INTERVAL 3 MONTH)"  index="-3M">3 months ago</option>
+			<option value="date_sub(NOW(), INTERVAL 2 MONTH)"  index="-2M">2 months ago</option>
+			<option value="date_sub(NOW(), INTERVAL 1 MONTH)"  index="-1M">1 month ago</option>
+			<option value="date_sub(NOW(), INTERVAL 4 WEEK)"   index="-4W">4 weeks ago</option>
+			<option value="date_sub(NOW(), INTERVAL 3 WEEK)"   index="-3W">3 weeks ago</option>
+			<option value="date_sub(NOW(), INTERVAL 2 WEEK)"   index="-2W">2 weeks ago</option>
+			<option value="date_sub(NOW(), INTERVAL 1 WEEK)"   index="-1W">1 week ago</option>
+			<option value="date_sub(NOW(), INTERVAL 7 DAY)"    index="-7D">7 days ago</option>
+			<option value="date_sub(NOW(), INTERVAL 6 DAY)"    index="-6D">6 days ago</option>
+			<option value="date_sub(NOW(), INTERVAL 5 DAY)"    index="-5D">5 days ago</option>
+			<option value="date_sub(NOW(), INTERVAL 4 DAY)"    index="-4D">4 days ago</option>
+			<option value="date_sub(NOW(), INTERVAL 3 DAY)"    index="-3D">3 days ago</option>
+			<option value="date_sub(NOW(), INTERVAL 2 DAY)"    index="-2D">2 days ago</option>
+			<option value="date_sub(NOW(), INTERVAL 1 DAY)"    index="-1D">24 hours ago</option>
+			<option value="date_sub(NOW(), INTERVAL 18 HOUR)"  index="-18h">18 hours ago</option>
+			<option value="date_sub(NOW(), INTERVAL 12 HOUR)"  index="-12h">12 hours ago</option>
+			<option value="date_sub(NOW(), INTERVAL 6 HOUR)"   index="-6h">6 hours ago</option>
+			<option value="date_sub(NOW(), INTERVAL 3 HOUR)"   index="-3h">3 hours ago</option>
+			<option value="date_sub(NOW(), INTERVAL 2 HOUR)"   index="-2h">2 hours ago</option>
+			<option value="date_sub(NOW(), INTERVAL 1 HOUR)"   index="-1h">1 hour ago</option>
+			<option value="NOW()"   index="0h">now</option>
+			<option value="date_add(NOW(), INTERVAL 1 HOUR)"   index="1h">in 1 hour from now</option>
+			<option value="date_add(NOW(), INTERVAL 2 HOUR)"   index="2h">in 2 hours from now</option>
+			<option value="date_add(NOW(), INTERVAL 3 HOUR)"   index="3h">in 3 hours from now</option>
+			<option value="date_add(NOW(), INTERVAL 6 HOUR)"   index="6h">in 6 hours from now</option>
+			<option value="date_add(NOW(), INTERVAL 12 HOUR)"  index="12h">in 12 hours from now</option>
+			<option value="date_add(NOW(), INTERVAL 18 HOUR)"  index="18h">in 18 hours from now</option>
+			<option value="date_add(NOW(), INTERVAL 1 DAY)"    index="1D">in 24 hours from now</option>
+			<option value="date_add(NOW(), INTERVAL 2 DAY)"    index="2D">in 2 days from now</option>
+			<option value="date_add(NOW(), INTERVAL 3 DAY)"    index="3D">in 3 days from now</option>
+			<option value="date_add(NOW(), INTERVAL 4 DAY)"    index="4D">in 4 days from now</option>
+			<option value="date_add(NOW(), INTERVAL 5 DAY)"    index="5D">in 5 days from now</option>
+			<option value="date_add(NOW(), INTERVAL 6 DAY)"    index="6D">in 6 days from now</option>
+			<option value="date_add(NOW(), INTERVAL 1 WEEK)"   index="1W">in 1 week from now</option>
+			<option value="date_add(NOW(), INTERVAL 2 WEEK)"   index="2W">in 2 weeks from now</option>
+			<option value="date_add(NOW(), INTERVAL 3 WEEK)"   index="3W">in 3 weeks from now</option>
+			<option value="date_add(NOW(), INTERVAL 4 WEEK)"   index="4W">in 4 weeks from now</option>
+			<option value="date_add(NOW(), INTERVAL 1 MONTH)"  index="1M">in 1 month from now</option>
+			<option value="date_add(NOW(), INTERVAL 2 MONTH)"  index="2M">in 2 months from now</option>
+			<option value="date_add(NOW(), INTERVAL 3 MONTH)"  index="3M">in 3 months from now</option>
+			<option value="date_add(NOW(), INTERVAL 9 MONTH)"  index="9M">in 9 months from now</option>
+			<option value="date_add(NOW(), INTERVAL 12 MONTH)" index="12M">in 12 months from now</option>
+			<option value="date_add(NOW(), INTERVAL 18 MONTH)" index="18M">in 18 months from now</option>
+			<option value="date_add(NOW(), INTERVAL 2 YEAR)" index="2Y">in 2 years from now</option>
+			<option value="date_add(NOW(), INTERVAL 3 YEAR)" index="3Y">in 3 years from now</option>
+			<option value="date_add(NOW(), INTERVAL 4 YEAR)" index="4Y">in 4 years from now</option>
+			<option value="date_add(NOW(), INTERVAL 5 YEAR)" index="5Y">in 5 years from now</option>
+		</type>
+		<type name="day_of_week" base="list" valuetype="int">
+			<option value="1">Sunday</option>
+			<option value="2">Monday</option>
+			<option value="3">Tuesday</option>
+			<option value="4">Wednesday</option>
+			<option value="5">Thursday</option>
+			<option value="6">Friday</option>
+			<option value="7">Saturday</option>
+		</type>
+		<type name="currencies" base="list" valuetype="string">
+			<option value="USD">US Dollar</option>
+			<option value="EUR">Euro</option>
+			<option value="CAD">Canadian Dollar</option>
+			<option value="GBP">Pound Sterling</option>
+			<option value="CHF">Swiss Franc</option>
+			<option value="JPY">Japan Yen</option>
+			
+			<option value="AFA">Afghani</option>
+			<option value="ALL">Lek</option>
+			<option value="DZD">Algerian Dinar</option>
+			<option value="ADP">Andorran Peseta</option>
+			<option value="AON">New Kwanza</option>
+			<option value="ARS">Argentine Peso</option>
+			<option value="AMD">Armenian Dram</option>
+			<option value="AWG">Aruban Guilder</option>
+			<option value="AUD">Australian Dollar</option>
+			<option value="AZM">Azerbaijanian Manat </option>
+	
+			<option value="BSD">Bahamian Dollar</option>
+			<option value="BHD">Bahraini Dinar</option>
+			<option value="BDT">Taka</option>
+			<option value="BBD">Barbados Dollar</option>
+			<option value="BYB">Belarussian Ruble</option>
+			<option value="BEF">Belgian Franc</option>
+			<option value="BZD">Belize Dollar</option>
+			<option value="BMD">Bermudian Dollar</option>
+			<option value="BOB">Boliviano</option>
+			<option value="BAD">Bosnian Dinar</option>
+			<option value="BWP">Pula</option>
+			<option value="BRL">Brazilian Real</option>
+			<option value="BND">Brunei Dollar</option>
+			<option value="BGN">Bulgarian Lev</option>
+			<option value="XOF">CFA Franc BCEAO</option>
+			<option value="BIF">Burundi Franc</option>
+			<option value="KHR">Cambodia Riel</option>
+			<option value="XAF">CFA Franc BEAC</option>
+			
+			<option value="CVE">Cape Verde Escudo</option>
+			<option value="KYD">Cayman Islands Dollar</option>
+			<option value="CLP">Chilean Peso</option>
+			<option value="CNY">Chinese Yuan</option>
+			<option value="COP">Colombian Peso</option>
+			<option value="KMF">Comoro Franc</option>
+			<option value="BAM">Convertible Marks</option>
+			<option value="CRC">Costa Rican Colon</option>
+			<option value="HRK">Croatian Kuna</option>
+			<option value="CUP">Cuban Peso</option>
+			<option value="CYP">Cyprus Pound</option>
+			<option value="CZK">Czech Koruna</option>
+			<option value="DKK">Danish Krone</option>
+			<option value="DEM">Deutsche Mark</option>
+			<option value="DJF">Djibouti Franc</option>
+			<option value="XCD">East Caribbean Dollar</option>
+			<option value="DOP">Dominican Peso</option>
+			<option value="GRD">Drachma</option>
+			<option value="TPE">Timor Escudo</option>
+			<option value="ECS">Ecuador Sucre</option>
+			<option value="EGP">Egyptian Pound</option>
+			<option value="SVC">El Salvador Colon</option>
+			<option value="EEK">Kroon</option>
+			<option value="ETB">Ethiopian Birr</option>
+			<option value="FKP">Falkland Islands Pound</option>
+			<option value="FJD">Fiji Dollar</option>
+			<option value="XPF">CFP Franc</option>
+			<option value="FRF">Franc</option>
+			<option value="CDF">Franc Congolais</option>
+			<option value="GMD">Dalasi</option>
+			<option value="GHC">Cedi</option>
+			<option value="GIP">Gibraltar Pound</option>
+			<option value="GTQ">Quetzal</option>
+			<option value="GNF">Guinea Franc</option>
+			<option value="GWP">Guinea - Bissau Peso</option>
+			<option value="GYD">Guyana Dollar</option>
+			<option value="HTG">Gourde</option>
+			<option value="XAU">Gold</option>
+			<option value="HNL">Lempira</option>
+			<option value="HKD">Hong Kong Dollar</option>
+			<option value="HUF">Hungarian Forint</option>
+			<option value="ISK">Iceland Krona</option>
+			<option value="INR">Indian Rupee</option>
+			<option value="IDR">Indonesian Rupiah</option>
+			<option value="IRR">Iranian Rial</option>
+			<option value="IQD">Iraqi Dinar</option>
+			<option value="IEP">Irish Pound</option>
+			<option value="ITL">Italian Lira</option>
+			<option value="ILS">Israeli Shekel</option>
+			<option value="JMD">Jamaican Dollar</option>
+	
+			<option value="JOD">Jordanian Dinar</option>
+			<option value="KZT">Tenge</option>
+			<option value="KES">Kenyan Shilling</option>
+			<option value="KRW">South Korean Won</option>
+			<option value="KPW">North Korean Won</option>
+			<option value="KWD">Kuwaiti Dinar</option>
+			<option value="KGS">Som</option>
+			<option value="LAK">Kip</option>
+			<option value="GEL">Lari</option>
+			<option value="LVL">Latvian Lats</option>
+			<option value="LBP">Lebanese Pound</option>
+			<option value="LSL">Loti</option>
+			<option value="LRD">Liberian Dollar</option>
+			<option value="LYD">Libyan Dinar</option>
+			<option value="LTL">Lithuanian Litas</option>
+			<option value="LUF">Luxembourg Franc</option>
+			<option value="AOR">Kwanza Reajustado</option>
+			<option value="MOP">Pataca</option>
+			<option value="MKD">Denar</option>
+			<option value="MGF">Malagasy Franc</option>
+			<option value="MWK">Kwacha</option>
+			<option value="MYR">Malaysian Ringitt</option>
+			<option value="MVR">Rufiyaa</option>
+			<option value="MTL">Maltese Lira</option>
+			<option value="MRO">Ouguiya</option>
+			<option value="TMM">Manat</option>
+			<option value="FIM">Markka</option>
+			<option value="MUR">Mauritius Rupee</option>
+			<option value="MXN">Mexico Peso</option>
+			<option value="MXV">Mexican Unidad de Inversion</option>
+			<option value="MNT">Mongolia Tugrik</option>
+			<option value="MAD">Moroccan Dirham</option>
+			<option value="MDL">Moldovan Leu</option>
+			<option value="MZM">Metical</option>
+			<option value="BOV">Mvdol</option>
+			<option value="MMK">Myanmar Kyat</option>
+			<option value="ERN">Nakfa</option>
+			<option value="NAD">Namibian Dollar</option>
+			<option value="NPR">Nepalese Rupee</option>
+			<option value="ANG">Netherlands Antilles Guilder</option>
+			<option value="NLG">Netherlands Guilder</option>
+			<option value="NZD">New Zealand Dollar</option>
+			<option value="NIO">Cordoba Oro</option>
+			<option value="NGN">Naira</option>
+			<option value="BTN">Ngultrum</option>
+			<option value="NOK">Norwegian Krone</option>
+			<option value="OMR">Rial Omani</option>
+			<option value="PKR">Pakistan Rupee</option>
+			<option value="PAB">Balboa</option>
+			<option value="PGK">New Guinea Kina</option>
+			<option value="PYG">Guarani</option>
+			<option value="PEN">Nuevo Sol</option>
+			<option value="XPD">Palladium</option>
+			<option value="PHP">Philippine Peso</option>
+			<option value="XPT">Platinum</option>
+			<option value="PTE">Portuguese Escudo</option>
+			<option value="PLN">Polish Zloty</option>
+			<option value="QAR">Qatari Rial</option>
+			<option value="RON">Romanian Leu</option>
+			<option value="RUB">Russian Ruble</option>
+			<option value="RWF">Rwanda Franc</option>
+			<option value="WST">Tala</option>
+			<option value="STD">Dobra</option>
+			<option value="SAR">Saudi Riyal</option>
+			<option value="SCR">Seychelles Rupee</option>
+			<option value="SLL">Leone</option>
+			<option value="SGD">Singapore Dollar</option>
+			<option value="SKK">Slovak Koruna</option>
+			<option value="SIT">Tolar</option>
+			<option value="SBD">Solomon Islands Dollar</option>
+			<option value="SOS">Somalia Shilling</option>
+			<option value="ZAL">Rand (Financial)</option>
+			<option value="ZAR">South African Rand</option>
+			<option value="RUR">Russian Ruble</option>
+			<option value="ATS">Schilling</option>
+			<option value="XAG">Silver</option>
+			<option value="ESP">Spanish Peseta</option>
+			<option value="LKR">Sri Lanka Rupee</option>
+			<option value="SHP">St Helena Pound</option>
+			<option value="SDP">Sudanese Pound</option>
+			<option value="SDD">Sudanese Dinar</option>
+			<option value="SRG">Suriname Guilder</option>
+			<option value="SZL">Swaziland Lilangeni</option>
+			<option value="SEK">Sweden Krona</option>
+	
+			<option value="SYP">Syrian Pound</option>
+			<option value="TWD">New Taiwan Dollar</option>
+			<option value="TJR">Tajik Ruble</option>
+			<option value="TZS">Tanzanian Shilling</option>
+			<option value="TRL">Turkish Lira</option>
+			<option value="THB">Thai Baht</option>
+			<option value="TOP">Tonga Pa'anga</option>
+			<option value="TTD">Trinidad Tobago Dollar</option>
+			<option value="TND">Tunisian Dinar</option>
+			<option value="TRY">Turkish Lira</option>
+			<option value="UGX">Uganda Shilling</option>
+			<option value="UAH">Ukrainian Hryvnia</option>
+			<option value="ECV">Unidad de Valor Constante</option>
+			<option value="CLF">Unidades de fomento</option>
+			<option value="AED">United Arab Emirates Dirham</option>
+	
+			<option value="UYU">Uruguayan Peso</option>
+	
+			<option value="UZS">Uzbekistan Sum</option>
+			<option value="VUV">Vanuatu Vatu</option>
+			<option value="VEB">Venezuela Bolivar</option>
+			<option value="VND">Viet Nam Dong</option>
+			<option value="YER">Yemeni Rial</option>
+			<option value="YUM">Yugoslavian New Dinar</option>
+			<option value="ZRN">New Zaire</option>
+			<option value="ZMK">Zambian Kwacha</option>
+			<option value="ZWD">Zimbabwe Dollar</option>
+		</type>
+		
+		
+	    <type name="cbpworkflow" base="list" valuetype="int">
+			<option value="2">Default (CB setting)</option>
+			<option value="3">Yes, before payment (override CB)</option>
+			<option value="1">Yes, after payment (override CB)</option>
+			<option value="0">No (override CB)</option>
+		</type>
+	    <type name="yesno" base="list" valuetype="int">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</type>
+		<type name="import_subscription_status" base="list" valuetype="string">
+			<option value="A">Active</option>
+			<option value="X">Expired</option>
+			<option value="C">Unsubscribed</option>
+		</type>
+		<type name="subscription_status" base="list" valuetype="string">
+			<option value="A">Active</option>
+			<option value="R">Registered Unpaid</option>
+			<option value="X">Expired</option>
+			<option value="C">Unsubscribed</option>
+			<option value="U">Upgraded to other</option>
+			<option value="I">Invalid</option>
+		</type>
+		<type name="subscription_autorenew_type" base="list" valuetype="int">
+			<option value="0">Manual</option>
+			<option value="1">User-chosen</option>
+			<option value="2">Mandatory</option>
+		</type>
+		<type name="subscription_autorecurring_type" base="list" valuetype="int">
+			<option value="0">Not autorecurring</option>
+			<option value="1">Autorecurring without notifications</option>
+			<option value="2">Autorecurring with notifications</option>
+		</type>
+		<type name="payment_status" base="list" valuetype="string">
+			<option value="NotInitiated">Not initiated</option>
+			<option value="Pending">Pending</option>
+			<option value="Completed">Completed</option>
+			<option value="Processed">Processed</option>
+			<option value="Denied">Denied</option>
+			<option value="Refunded">Refunded</option>
+			<option value="Partially-Refunded">Partially Refunded</option>
+			<option value="Unsubscribed">Unsubscribed</option>
+			<option value="RegistrationCancelled">Registration Cancelled</option>
+			<!-- these ones might disapear for RC: TBD: -->
+			<option value="Canceled_Reversal">Canceled Reversal</option>
+			<option value="Expired">Expired</option>
+			<option value="Failed">Failed</option>
+			<option value="Voided">Voided</option>
+			<option value="Reversed">Reversed</option>
+			<option value="In-Progress">In Progress</option>
+		</type>
+		<type name="gateway_type" base="list" valuetype="string">
+			<!--
+			<option value="processors.paypal">Paypal</option>
+	    	<option value="processors.authorizenet">Authorize.net</option>
+	    	<option value="processors.yellowpay">YellowPay</option>
+	    	<option value="processors.offline">Off-line</option>
+			<option value="processors.dummy">Dumy test-gateway</option>
+			-->
+	    </type>
+		<type name="product_type" base="list" valuetype="string">
+			<!-- Is extended dynamically:
+			<option value="usersubscription">User Subscription Plan</option>
+			<option value="merchandise">Merchandise</option>
+			<option value="donation">Donation</option>
+			-->
+		</type>
+		<type name="payment_method" base="list" valuetype="string">
+	    	<option value="">Not initiated</option>
+	    	<!--
+	    	<option value="paypal">PayPal</option>
+	    	<option value="authorizenet">Authorize.net</option>
+	    	<option value="yellowpay">yellowPay</option>
+	    	<option value="offline">Off-line</option>
+	    	<option value="dummy">Dumy test-gateway</option>
+	    	<option value="freetrial">Free Trial</option>
+	    	-->
+	    </type>
+	    <type name="gateway_enable" base="list" valuetype="int">
+	    	<option value="0">Disabled</option>
+	    	<option value="1">Single billings</option>
+	    	<option value="2">Automated recurring billing</option>
+	    	<option value="3">Single and Recurring billings</option>
+	    </type>
+	    <type name="normal_gateway" base="list" valuetype="int">
+	    	<option value="0">Testmode gateway</option>
+	    	<option value="1">Normal gateway</option>
+	    </type>
+		<type name="templates_list" base="list" valuetype="string">
+			<!--
+				<option value="default">Default template</option>
+			-->
+		</type>
+		<type name="log_type" base="list" valuetype="string">
+			<!-- Taken: A-Z,0-5 -->
+	    	<option value="">None</option>
+	    	<option value="P">Payment</option>
+	    	<option value="A">Autorecurring payment</option>
+			<option value="3">Refund</option>
+			<option value="4">Partial refund</option>
+	    	<option value="R">PDT</option>
+	    	<option value="I">IPN</option>
+	    	<option value="S">No PDT and no IPN, but free first period</option>
+	    	<option value="H">IPN New case</option>
+	    	<option value="T">IPN Unexpected txn_type</option>
+	    	<option value="F">IPN Amount/item mismatch / Fraud attempt</option>
+	    	<option value="G">PDT Amount/item mismatch / Fraud attempt</option>
+	    	<option value="J">IPN Basket non-existant</option>
+	    	<option value="2">PDT Basket non-existant</option>
+	    	<option value="Q">Reference Id mismatch (single payment)</option>
+	    	<option value="U">Reference Id mismatch (autorecurring payment)</option>
+	    	<option value="V">Error returned by gateway (single payment)</option>
+	    	<option value="W">Error returned by gateway (autorecurring payment)</option>
+	    	<option value="X">Unknown response returned by gateway (single payment)</option>
+	    	<option value="Y">Unknown response returned by gateway (autorecurring payment)</option>
+	    	<option value="O">IPN notification invalid hash / Fraud attempt</option>
+	    	<option value="0">PDT notification invalid hash / Fraud attempt</option>
+	    	<option value="K">IPN notification not authenticating at payment gateway</option>
+	    	<option value="L">PDT notification not authenticating at payment gateway</option>
+	    	<option value="M">IPN notification authentication returned unexpected result from payment gateway</option>
+	    	<option value="N">PDT notification authentication returned unexpected result from payment gateway</option>
+	    	<option value="D">IPN payment gateway communication error</option>
+	    	<option value="E">PDT payment gateway communication error</option>
+	    	<option value="B">Payment gateway communication error (Single payment)</option>
+	    	<option value="C">Payment gateway communication error (Autorecurring payment)</option>
+	    	<option value="Z">Unsupported payment gateway feature (see history log for error)</option>
+	    	<option value="1">PDT notification not matching state at payment gateway</option>
+			<option value="5">Autorecurring unsubscription</option>
+	    </type>
+	    <type name="event_type" base="list" valuetype="int">
+	    	<option value="1">Error log</option>
+	    	<option value="2">Change log</option>
+	    </type>
+	    <type name="event_tables" base="list" valuetype="string">
+	    	<option value="#__cbsubs_gateway_accounts">Payment gateway accounts</option>
+	    	<option value="#__cbsubs_plans">Plans</option>
+	    	<option value="#__cbsubs_subscriptions">User subscriptions</option>
+	    	<option value="#__cbsubs_payment_baskets">Payment baskets</option>
+	    	<option value="#__cbsubs_payments">Payments</option>
+	    	<option value="#__cbsubs_currencies">Currencies</option>
+	    	<option value="#__cbsubs_merchandises">Merchandise</option>
+	    	<option value="#__cbsubs_donations">Donations</option>
+	    	<option value="#__cbsubs_notifications">Notifications</option>
+	    </type>
+	    <type name="log_priority" base="list" valuetype="int">
+	    	<option value="0">Emergency</option>
+	    	<option value="1">Alert</option>
+	    	<option value="2">Critical</option>
+	    	<option value="3">Error</option>
+	    	<option value="4">Warning</option>
+	    	<option value="5">Notice</option>
+	    	<option value="6">Info</option>
+	    	<option value="7">Debug</option>
+	    </type>
+	    <type name="password" base="sql:char(10)" valid="min:6;max:15;ereg:[a-zA-Z0-9]" />
+		<type name="email" base="sql:char(255)" valid="min:3;max:15;ereg:.+@.+" />
+		<type name="string" base="sql:varchar(255)" /> 
+		<type name="title" base="string" default="txt:No title" />
+		<type name="message" base="sql:text" />
+		<type name="date" base="sql:date">
+			<value name="default" value="sql:now()" />
+			<value name="yesterday" value="sql:DATE_SUB(NOW(),INTERVAL 1 DAY)" />
+		</type>
+		<type name="basket_item_columns" base="checkbox" valuetype="string">
+			<option value="ordering">Pos.</option>
+			<option value="quantity">Quantity</option>
+			<option value="artnum">Art. Num.</option>
+			<option value="description">Item description</option>
+			<option value="validity_period">Validity period</option>
+			<option value="discount_text">Discount text</option>
+			<option value="first_discount_amount">Discount amount</option>
+			<option value="second_discount_amount">Second period discount amount (if applicable)</option>
+			<option value="tax_rule_id">Tax rule code</option>
+			<option value="first_original_rate">Base (pre-tax amount) WORKS ONLY IN TOTALIZER</option>									<!-- //FIXME: only for totalizers -->
+			<option value="second_original_rate">Second base (second period Tax applied to amount, if any item is recurring) WORKS ONLY IN TOTALIZER</option>	<!-- //FIXME: only for totalizers -->
+			<option value="first_tax_amount">Tax amount</option>
+			<option value="second_tax_amount">Second period Tax amount (if any item is recurring)</option>
+			<option value="first_rate">Price</option>
+			<option value="second_rate">Second period price (if any item is recurring)</option>
+		</type>
+		<type name="condition_difference_time_base" base="list" valuetype="string">
+			<option value="=">A = B (Value A is equal to Value B)</option>
+			<option value="!=">A &lt;&gt; B (Value A is different from Value B)</option>
+			<option value="&lt;">A &lt; B (Value A is smaller than Value B)</option>
+			<option value="&gt;">A &gt; B (Value A is larger than Value B)</option>
+			<option value="E">Value A contains Value B</option>
+			<option value="!E">Value A does not contain Value B</option>
+			<option value="regexp">Regexp in Value A matches the value contained in Value B</option>
+			<option value="!regexp">Regexp in Value A does not match the value contained in Value B</option>
+			<option value="birthday">Birthday function: Date A Matches Month and Day but not Year of Date B</option>
+		</type>
+		<type name="condition_difference_time_after" base="xml:condition_difference_time_base" insertbase="before" valuetype="string">
+			<option value="-0020-00-00 00:00:00">For dates: Date A &gt; Date B - 20 years (Date A must be later than 20 years before Date B)</option>
+			<option value="-0019-00-00 00:00:00">For dates: Date A &gt; Date B - 19 years (Date A must be later than 19 years after Date B)</option>
+			<option value="-0018-00-00 00:00:00">For dates: Date A &gt; Date B - 18 years (Date A must be later than 18 years before Date B)</option>
+			<option value="-0017-00-00 00:00:00">For dates: Date A &gt; Date B - 17 years (Date A must be later than 17 years before Date B)</option>
+			<option value="-0016-00-00 00:00:00">For dates: Date A &gt; Date B - 16 years (Date A must be later than 16 years before Date B)</option>
+			<option value="-0015-00-00 00:00:00">For dates: Date A &gt; Date B - 15 years (Date A must be later than 15 years before Date B)</option>
+			<option value="-0014-00-00 00:00:00">For dates: Date A &gt; Date B - 14 years (Date A must be later than 14 years before Date B)</option>
+			<option value="-0013-00-00 00:00:00">For dates: Date A &gt; Date B - 13 years (Date A must be later than 13 years before Date B)</option>
+			<option value="-0012-00-00 00:00:00">For dates: Date A &gt; Date B - 12 years (Date A must be later than 12 years before Date B)</option>
+			<option value="-0011-00-00 00:00:00">For dates: Date A &gt; Date B - 11 years (Date A must be later than 11 years before Date B)</option>
+			<option value="-0010-00-00 00:00:00">For dates: Date A &gt; Date B - 10 years (Date A must be later than 10 years before Date B)</option>
+			<option value="-0009-00-00 00:00:00">For dates: Date A &gt; Date B - 9 years (Date A must be later than 9 years before Date B)</option>
+			<option value="-0008-00-00 00:00:00">For dates: Date A &gt; Date B - 8 years (Date A must be later than 8 years before Date B)</option>
+			<option value="-0007-00-00 00:00:00">For dates: Date A &gt; Date B - 7 years (Date A must be later than 7 years before Date B)</option>
+			<option value="-0006-00-00 00:00:00">For dates: Date A &gt; Date B - 6 years (Date A must be later than 6 years before Date B)</option>
+			<option value="-0005-00-00 00:00:00">For dates: Date A &gt; Date B - 5 years (Date A must be later than 5 years before Date B)</option>
+			<option value="-0004-00-00 00:00:00">For dates: Date A &gt; Date B - 4 years (Date A must be later than 4 years before Date B)</option>
+			<option value="-0003-00-00 00:00:00">For dates: Date A &gt; Date B - 3 years (Date A must be later than 3 years before Date B)</option>
+			<option value="-0002-00-00 00:00:00">For dates: Date A &gt; Date B - 2 years (Date A must be later than 2 years before Date B)</option>
+			<option value="-0001-00-00 00:00:00">For dates: Date A &gt; Date B - 1 year (Date A must be later than 1 year before Date B)</option>
+			<option value="-0000-11-00 00:00:00">For dates: Date A &gt; Date B - 11 months (Date A must be later than 11 months before Date B)</option>
+			<option value="-0000-10-00 00:00:00">For dates: Date A &gt; Date B - 10 months (Date A must be later than 10 months before Date B)</option>
+			<option value="-0000-09-00 00:00:00">For dates: Date A &gt; Date B - 9 months (Date A must be later than 9 months before Date B)</option>
+			<option value="-0000-08-00 00:00:00">For dates: Date A &gt; Date B - 8 months (Date A must be later than 8 months before Date B)</option>
+			<option value="-0000-07-00 00:00:00">For dates: Date A &gt; Date B - 7 months (Date A must be later than 7 months before Date B)</option>
+			<option value="-0000-06-00 00:00:00">For dates: Date A &gt; Date B - 6 months (Date A must be later than 6 months before Date B)</option>
+			<option value="-0000-05-00 00:00:00">For dates: Date A &gt; Date B - 5 months (Date A must be later than 5 months before Date B)</option>
+			<option value="-0000-04-00 00:00:00">For dates: Date A &gt; Date B - 4 months (Date A must be later than 4 months before Date B)</option>
+			<option value="-0000-03-00 00:00:00">For dates: Date A &gt; Date B - 3 months (Date A must be later than 3 months before Date B)</option>
+			<option value="-0000-02-00 00:00:00">For dates: Date A &gt; Date B - 2 months (Date A must be later than 2 months before Date B)</option>
+			<option value="-0000-01-00 00:00:00">For dates: Date A &gt; Date B - 1 month (Date A must be later than 1 month before Date B)</option>
+			<option value="-0000-00-90 00:00:00">For dates: Date A &gt; Date B - 90 days (Date A must be later than 90 days before Date B)</option>
+			<option value="-0000-00-60 00:00:00">For dates: Date A &gt; Date B - 60 days (Date A must be later than 60 days before Date B)</option>
+			<option value="-0000-00-30 00:00:00">For dates: Date A &gt; Date B - 30 days (Date A must be later than 30 days before Date B)</option>
+			<option value="-0000-00-28 00:00:00">For dates: Date A &gt; Date B - 28 days (4 weeks) (Date A must be later than 4 weeks (28 days) before Date B)</option>
+			<option value="-0000-00-21 00:00:00">For dates: Date A &gt; Date B - 21 days (3 weeks) (Date A must be later than 3 weeks (21 days) before Date B)</option>
+			<option value="-0000-00-20 00:00:00">For dates: Date A &gt; Date B - 20 days (Date A must be later than 20 days before Date B)</option>
+			<option value="-0000-00-14 00:00:00">For dates: Date A &gt; Date B - 14 days (2 weeks) (Date A must be later than 2 weeks (14 days) before Date B)</option>
+			<option value="-0000-00-10 00:00:00">For dates: Date A &gt; Date B - 10 days (Date A must be later than 10 days before Date B)</option>
+			<option value="-0000-00-07 00:00:00">For dates: Date A &gt; Date B - 7 days (1 week) (Date A must be later than 1 week (7 days) before Date B)</option>
+			<option value="-0000-00-03 00:00:00">For dates: Date A &gt; Date B - 3 days (Date A must be later than 3 days before Date B)</option>
+			<option value="-0000-00-02 00:00:00">For dates: Date A &gt; Date B - 2 days (48 hours) (Date A must be later than 2 days (48 hours) before Date B)</option>
+			<option value="-0000-00-01 00:00:00">For dates: Date A &gt; Date B - 1 day (24 hours) (Date A must be later than 1 day (24 hours) before Date B)</option>
+			<option value="-0000-00-00 12:00:00">For dates: Date A &gt; Date B - 12 hours (Date A must be later than 12 hours before Date B)</option>
+			<option value="-0000-00-00 08:00:00">For dates: Date A &gt; Date B - 8 hours (Date A must be later than 8 hours before Date B)</option>
+			<option value="-0000-00-00 04:00:00">For dates: Date A &gt; Date B - 4 hours (Date A must be later than 4 hours before Date B)</option>
+			<option value="-0000-00-00 02:00:00">For dates: Date A &gt; Date B - 2 hours (Date A must be later than 2 hours before Date B)</option>
+			<option value="-0000-00-00 01:30:00">For dates: Date A &gt; Date B - 1 hour 30 minutes (Date A must be later than 1 hour 30 minutes before Date B)</option>
+			<option value="-0000-00-00 01:00:00">For dates: Date A &gt; Date B - 1 hour (Date A must be later than 1 hour before Date B)</option>
+			<option value="-0000-00-00 00:30:00">For dates: Date A &gt; Date B - 30 minutes (Date A must be later than 30 minutes before Date B)</option>
+			<option value="-0000-00-00 00:15:00">For dates: Date A &gt; Date B - 15 minutes (Date A must be later than 15 minutes before Date B)</option>
+			<option value="-0000-00-00 00:10:00">For dates: Date A &gt; Date B - 10 minutes (Date A must be later than 10 minutes before Date B)</option>
+			<option value="-0000-00-00 00:05:00">For dates: Date A &gt; Date B - 5 minutes (Date A must be later than 5 minutes before Date B)</option>
+			<option value="+0000-00-00 00:00:00">For dates: Date A &gt; Date B (Date A must be later than Date B)</option>
+			<option value="+0000-00-00 00:05:00">For dates: Date A &gt; Date B + 5 minutes (Date A must be later than 5 minutes after Date B)</option>
+			<option value="+0000-00-00 00:10:00">For dates: Date A &gt; Date B + 10 minutes (Date A must be later than 10 minutes after Date B)</option>
+			<option value="+0000-00-00 00:15:00">For dates: Date A &gt; Date B + 15 minutes (Date A must be later than 15 minutes after Date B)</option>
+			<option value="+0000-00-00 00:30:00">For dates: Date A &gt; Date B + 30 minutes (Date A must be later than 30 minutes after Date B)</option>
+			<option value="+0000-00-00 01:00:00">For dates: Date A &gt; Date B + 1 hour (Date A must be later than 1 hour after Date B)</option>
+			<option value="+0000-00-00 01:30:00">For dates: Date A &gt; Date B + 1 hour 30 minutes (Date A must be later than 1 hour 30 minutes after Date B)</option>
+			<option value="+0000-00-00 02:00:00">For dates: Date A &gt; Date B + 2 hours (Date A must be later than 2 hours after Date B)</option>
+			<option value="+0000-00-00 04:00:00">For dates: Date A &gt; Date B + 4 hours (Date A must be later than 4 hours after Date B)</option>
+			<option value="+0000-00-00 08:00:00">For dates: Date A &gt; Date B + 8 hours (Date A must be later than 8 hours after Date B)</option>
+			<option value="+0000-00-00 12:00:00">For dates: Date A &gt; Date B + 12 hours (Date A must be later than 12 hours after Date B)</option>
+			<option value="+0000-00-01 00:00:00">For dates: Date A &gt; Date B + 1 day (24 hours) (Date A must be later than 1 day (24 hours) after Date B)</option>
+			<option value="+0000-00-02 00:00:00">For dates: Date A &gt; Date B + 2 days (48 hours) (Date A must be later than 2 days (48 hours) after Date B)</option>
+			<option value="+0000-00-03 00:00:00">For dates: Date A &gt; Date B + 3 days (Date A must be later than 3 days after Date B)</option>
+			<option value="+0000-00-07 00:00:00">For dates: Date A &gt; Date B + 7 days (1 week) (Date A must be later than 1 week (7 days) after Date B)</option>
+			<option value="+0000-00-10 00:00:00">For dates: Date A &gt; Date B + 10 days (Date A must be later than 10 days after Date B)</option>
+			<option value="+0000-00-14 00:00:00">For dates: Date A &gt; Date B + 14 days (2 weeks) (Date A must be later than 2 weeks (14 days) after Date B)</option>
+			<option value="+0000-00-20 00:00:00">For dates: Date A &gt; Date B + 20 days (Date A must be later than 20 days after Date B)</option>
+			<option value="+0000-00-21 00:00:00">For dates: Date A &gt; Date B + 21 days (3 weeks) (Date A must be later than 3 weeks (21 days) after Date B)</option>
+			<option value="+0000-00-28 00:00:00">For dates: Date A &gt; Date B + 28 days (4 weeks) (Date A must be later than 4 weeks (28 days) after Date B)</option>
+			<option value="+0000-00-30 00:00:00">For dates: Date A &gt; Date B + 30 days (Date A must be later than 30 days after Date B)</option>
+			<option value="+0000-00-60 00:00:00">For dates: Date A &gt; Date B + 60 days (Date A must be later than 60 days after Date B)</option>
+			<option value="+0000-00-90 00:00:00">For dates: Date A &gt; Date B + 90 days (Date A must be later than 90 days after Date B)</option>
+			<option value="+0000-01-00 00:00:00">For dates: Date A &gt; Date B + 1 month (Date A must be later than 1 month after Date B)</option>
+			<option value="+0000-02-00 00:00:00">For dates: Date A &gt; Date B + 2 months (Date A must be later than 2 months after Date B)</option>
+			<option value="+0000-03-00 00:00:00">For dates: Date A &gt; Date B + 3 months (Date A must be later than 3 months after Date B)</option>
+			<option value="+0000-04-00 00:00:00">For dates: Date A &gt; Date B + 4 months (Date A must be later than 4 months after Date B)</option>
+			<option value="+0000-05-00 00:00:00">For dates: Date A &gt; Date B + 5 months (Date A must be later than 5 months after Date B)</option>
+			<option value="+0000-06-00 00:00:00">For dates: Date A &gt; Date B + 6 months (Date A must be later than 6 months after Date B)</option>
+			<option value="+0000-07-00 00:00:00">For dates: Date A &gt; Date B + 7 months (Date A must be later than 7 months after Date B)</option>
+			<option value="+0000-08-00 00:00:00">For dates: Date A &gt; Date B + 8 months (Date A must be later than 8 months after Date B)</option>
+			<option value="+0000-09-00 00:00:00">For dates: Date A &gt; Date B + 9 months (Date A must be later than 9 months after Date B)</option>
+			<option value="+0000-10-00 00:00:00">For dates: Date A &gt; Date B + 10 months (Date A must be later than 10 months after Date B)</option>
+			<option value="+0000-11-00 00:00:00">For dates: Date A &gt; Date B + 11 months (Date A must be later than 11 months after Date B)</option>
+			<option value="+0001-00-00 00:00:00">For dates: Date A &gt; Date B + 1 year (Date A must be later than 1 year after Date B)</option>
+			<option value="+0002-00-00 00:00:00">For dates: Date A &gt; Date B + 2 years (Date A must be later than 2 years after Date B)</option>
+			<option value="+0003-00-00 00:00:00">For dates: Date A &gt; Date B + 3 years (Date A must be later than 3 years after Date B)</option>
+			<option value="+0004-00-00 00:00:00">For dates: Date A &gt; Date B + 4 years (Date A must be later than 4 years after Date B)</option>
+			<option value="+0005-00-00 00:00:00">For dates: Date A &gt; Date B + 5 years (Date A must be later than 5 years after Date B)</option>
+			<option value="+0006-00-00 00:00:00">For dates: Date A &gt; Date B + 6 years (Date A must be later than 6 years after Date B)</option>
+			<option value="+0007-00-00 00:00:00">For dates: Date A &gt; Date B + 7 years (Date A must be later than 7 years after Date B)</option>
+			<option value="+0008-00-00 00:00:00">For dates: Date A &gt; Date B + 8 years (Date A must be later than 8 years after Date B)</option>
+			<option value="+0009-00-00 00:00:00">For dates: Date A &gt; Date B + 9 years (Date A must be later than 9 years after Date B)</option>
+			<option value="+0010-00-00 00:00:00">For dates: Date A &gt; Date B + 10 years (Date A must be later than 10 years after Date B)</option>
+			<option value="+0011-00-00 00:00:00">For dates: Date A &gt; Date B + 11 years (Date A must be later than 11 years after Date B)</option>
+			<option value="+0012-00-00 00:00:00">For dates: Date A &gt; Date B + 12 years (Date A must be later than 12 years after Date B)</option>
+			<option value="+0013-00-00 00:00:00">For dates: Date A &gt; Date B + 13 years (Date A must be later than 13 years after Date B)</option>
+			<option value="+0014-00-00 00:00:00">For dates: Date A &gt; Date B + 14 years (Date A must be later than 14 years after Date B)</option>
+			<option value="+0015-00-00 00:00:00">For dates: Date A &gt; Date B + 15 years (Date A must be later than 15 years after Date B)</option>
+			<option value="+0016-00-00 00:00:00">For dates: Date A &gt; Date B + 16 years (Date A must be later than 16 years after Date B)</option>
+			<option value="+0017-00-00 00:00:00">For dates: Date A &gt; Date B + 17 years (Date A must be later than 17 years after Date B)</option>
+			<option value="+0018-00-00 00:00:00">For dates: Date A &gt; Date B + 18 years (Date A must be later than 18 years after Date B)</option>
+			<option value="+0019-00-00 00:00:00">For dates: Date A &gt; Date B + 19 years (Date A must be later than 19 years after Date B)</option>
+			<option value="+0020-00-00 00:00:00">For dates: Date A &gt; Date B + 20 years (Date A must be later than 20 years after Date B)</option>
+		</type>
+		<type name="condition_difference_time_before" base="list" valuetype="string">
+			<option value="-0020-00-00 00:00:00">For dates: Date A &lt; Date B - 20 years (Date A must be earlier than 20 years before Date B)</option>
+			<option value="-0019-00-00 00:00:00">For dates: Date A &lt; Date B - 19 years (Date A must be earlier than 19 years before Date B)</option>
+			<option value="-0018-00-00 00:00:00">For dates: Date A &lt; Date B - 18 years (Date A must be earlier than 18 years before Date B)</option>
+			<option value="-0017-00-00 00:00:00">For dates: Date A &lt; Date B - 17 years (Date A must be earlier than 17 years before Date B)</option>
+			<option value="-0016-00-00 00:00:00">For dates: Date A &lt; Date B - 16 years (Date A must be earlier than 16 years before Date B)</option>
+			<option value="-0015-00-00 00:00:00">For dates: Date A &lt; Date B - 15 years (Date A must be earlier than 15 years before Date B)</option>
+			<option value="-0014-00-00 00:00:00">For dates: Date A &lt; Date B - 14 years (Date A must be earlier than 14 years before Date B)</option>
+			<option value="-0013-00-00 00:00:00">For dates: Date A &lt; Date B - 13 years (Date A must be earlier than 13 years before Date B)</option>
+			<option value="-0012-00-00 00:00:00">For dates: Date A &lt; Date B - 12 years (Date A must be earlier than 12 years before Date B)</option>
+			<option value="-0011-00-00 00:00:00">For dates: Date A &lt; Date B - 11 years (Date A must be earlier than 11 years before Date B)</option>
+			<option value="-0010-00-00 00:00:00">For dates: Date A &lt; Date B - 10 years (Date A must be earlier than 10 years before Date B)</option>
+			<option value="-0009-00-00 00:00:00">For dates: Date A &lt; Date B - 9 years (Date A must be earlier than 9 years before Date B)</option>
+			<option value="-0008-00-00 00:00:00">For dates: Date A &lt; Date B - 8 years (Date A must be earlier than 8 years before Date B)</option>
+			<option value="-0007-00-00 00:00:00">For dates: Date A &lt; Date B - 7 years (Date A must be earlier than 7 years before Date B)</option>
+			<option value="-0006-00-00 00:00:00">For dates: Date A &lt; Date B - 6 years (Date A must be earlier than 6 years before Date B)</option>
+			<option value="-0005-00-00 00:00:00">For dates: Date A &lt; Date B - 5 years (Date A must be earlier than 5 years before Date B)</option>
+			<option value="-0004-00-00 00:00:00">For dates: Date A &lt; Date B - 4 years (Date A must be earlier than 4 years before Date B)</option>
+			<option value="-0003-00-00 00:00:00">For dates: Date A &lt; Date B - 3 years (Date A must be earlier than 3 years before Date B)</option>
+			<option value="-0002-00-00 00:00:00">For dates: Date A &lt; Date B - 2 years (Date A must be earlier than 2 years before Date B)</option>
+			<option value="-0001-00-00 00:00:00">For dates: Date A &lt; Date B - 1 year (Date A must be earlier than 1 year before Date B)</option>
+			<option value="-0000-11-00 00:00:00">For dates: Date A &lt; Date B - 11 months (Date A must be earlier than 11 months before Date B)</option>
+			<option value="-0000-10-00 00:00:00">For dates: Date A &lt; Date B - 10 months (Date A must be earlier than 10 months before Date B)</option>
+			<option value="-0000-09-00 00:00:00">For dates: Date A &lt; Date B - 9 months (Date A must be earlier than 9 months before Date B)</option>
+			<option value="-0000-08-00 00:00:00">For dates: Date A &lt; Date B - 8 months (Date A must be earlier than 8 months before Date B)</option>
+			<option value="-0000-07-00 00:00:00">For dates: Date A &lt; Date B - 7 months (Date A must be earlier than 7 months before Date B)</option>
+			<option value="-0000-06-00 00:00:00">For dates: Date A &lt; Date B - 6 months (Date A must be earlier than 6 months before Date B)</option>
+			<option value="-0000-05-00 00:00:00">For dates: Date A &lt; Date B - 5 months (Date A must be earlier than 5 months before Date B)</option>
+			<option value="-0000-04-00 00:00:00">For dates: Date A &lt; Date B - 4 months (Date A must be earlier than 4 months before Date B)</option>
+			<option value="-0000-03-00 00:00:00">For dates: Date A &lt; Date B - 3 months (Date A must be earlier than 3 months before Date B)</option>
+			<option value="-0000-02-00 00:00:00">For dates: Date A &lt; Date B - 2 months (Date A must be earlier than 2 months before Date B)</option>
+			<option value="-0000-01-00 00:00:00">For dates: Date A &lt; Date B - 1 month (Date A must be earlier than 1 month before Date B)</option>
+			<option value="-0000-00-90 00:00:00">For dates: Date A &lt; Date B - 90 days (Date A must be earlier than 90 days before Date B)</option>
+			<option value="-0000-00-60 00:00:00">For dates: Date A &lt; Date B - 60 days (Date A must be earlier than 60 days before Date B)</option>
+			<option value="-0000-00-30 00:00:00">For dates: Date A &lt; Date B - 30 days (Date A must be earlier than 30 days before Date B)</option>
+			<option value="-0000-00-28 00:00:00">For dates: Date A &lt; Date B - 28 days (4 weeks) (Date A must be earlier than 4 weeks (28 days) before Date B)</option>
+			<option value="-0000-00-21 00:00:00">For dates: Date A &lt; Date B - 21 days (3 weeks) (Date A must be earlier than 3 weeks (21 days) before Date B)</option>
+			<option value="-0000-00-20 00:00:00">For dates: Date A &lt; Date B - 20 days (Date A must be earlier than 20 days before Date B)</option>
+			<option value="-0000-00-14 00:00:00">For dates: Date A &lt; Date B - 14 days (2 weeks) (Date A must be earlier than 2 weeks (14 days) before Date B)</option>
+			<option value="-0000-00-10 00:00:00">For dates: Date A &lt; Date B - 10 days (Date A must be earlier than 10 days before Date B)</option>
+			<option value="-0000-00-07 00:00:00">For dates: Date A &lt; Date B - 7 days (1 week) (Date A must be earlier than 1 week (7 days) before Date B)</option>
+			<option value="-0000-00-03 00:00:00">For dates: Date A &lt; Date B - 3 days (Date A must be earlier than 3 days before Date B)</option>
+			<option value="-0000-00-02 00:00:00">For dates: Date A &lt; Date B - 2 days (48 hours) (Date A must be earlier than 2 days (48 hours) before Date B)</option>
+			<option value="-0000-00-01 00:00:00">For dates: Date A &lt; Date B - 1 day (24 hours) (Date A must be earlier than 1 day (24 hours) before Date B)</option>
+			<option value="-0000-00-00 12:00:00">For dates: Date A &lt; Date B - 12 hours (Date A must be earlier than 12 hours before Date B)</option>
+			<option value="-0000-00-00 08:00:00">For dates: Date A &lt; Date B - 8 hours (Date A must be earlier than 8 hours before Date B)</option>
+			<option value="-0000-00-00 04:00:00">For dates: Date A &lt; Date B - 4 hours (Date A must be earlier than 4 hours before Date B)</option>
+			<option value="-0000-00-00 02:00:00">For dates: Date A &lt; Date B - 2 hours (Date A must be earlier than 2 hours before Date B)</option>
+			<option value="-0000-00-00 01:30:00">For dates: Date A &lt; Date B - 1 hour 30 minutes (Date A must be earlier than 1 hour 30 minutes before Date B)</option>
+			<option value="-0000-00-00 01:00:00">For dates: Date A &lt; Date B - 1 hour (Date A must be earlier than 1 hour before Date B)</option>
+			<option value="-0000-00-00 00:30:00">For dates: Date A &lt; Date B - 30 minutes (Date A must be earlier than 30 minutes before Date B)</option>
+			<option value="-0000-00-00 00:15:00">For dates: Date A &lt; Date B - 15 minutes (Date A must be earlier than 15 minutes before Date B)</option>
+			<option value="-0000-00-00 00:10:00">For dates: Date A &lt; Date B - 10 minutes (Date A must be earlier than 10 minutes before Date B)</option>
+			<option value="-0000-00-00 00:05:00">For dates: Date A &lt; Date B - 5 minutes (Date A must be earlier than 5 minutes before Date B)</option>
+			<option value="+0000-00-00 00:00:00">For dates: Date A &lt; Date B (Date A must be earlier than Date B)</option>
+			<option value="+0000-00-00 00:05:00">For dates: Date A &lt; Date B + 5 minutes (Date A must be earlier than 5 minutes after Date B)</option>
+			<option value="+0000-00-00 00:10:00">For dates: Date A &lt; Date B + 10 minutes (Date A must be earlier than 10 minutes after Date B)</option>
+			<option value="+0000-00-00 00:15:00">For dates: Date A &lt; Date B + 15 minutes (Date A must be earlier than 15 minutes after Date B)</option>
+			<option value="+0000-00-00 00:30:00">For dates: Date A &lt; Date B + 30 minutes (Date A must be earlier than 30 minutes after Date B)</option>
+			<option value="+0000-00-00 01:00:00">For dates: Date A &lt; Date B + 1 hour (Date A must be earlier than 1 hour after Date B)</option>
+			<option value="+0000-00-00 01:30:00">For dates: Date A &lt; Date B + 1 hour 30 minutes (Date A must be earlier than 1 hour 30 minutes after Date B)</option>
+			<option value="+0000-00-00 02:00:00">For dates: Date A &lt; Date B + 2 hours (Date A must be earlier than 2 hours after Date B)</option>
+			<option value="+0000-00-00 04:00:00">For dates: Date A &lt; Date B + 4 hours (Date A must be earlier than 4 hours after Date B)</option>
+			<option value="+0000-00-00 08:00:00">For dates: Date A &lt; Date B + 8 hours (Date A must be earlier than 8 hours after Date B)</option>
+			<option value="+0000-00-00 12:00:00">For dates: Date A &lt; Date B + 12 hours (Date A must be earlier than 12 hours after Date B)</option>
+			<option value="+0000-00-01 00:00:00">For dates: Date A &lt; Date B + 1 day (24 hours) (Date A must be earlier than 1 day (24 hours) after Date B)</option>
+			<option value="+0000-00-02 00:00:00">For dates: Date A &lt; Date B + 2 days (48 hours) (Date A must be earlier than 2 days (48 hours) after Date B)</option>
+			<option value="+0000-00-03 00:00:00">For dates: Date A &lt; Date B + 3 days (Date A must be earlier than 3 days after Date B)</option>
+			<option value="+0000-00-07 00:00:00">For dates: Date A &lt; Date B + 7 days (1 week) (Date A must be earlier than 1 week (7 days) after Date B)</option>
+			<option value="+0000-00-10 00:00:00">For dates: Date A &lt; Date B + 10 days (Date A must be earlier than 10 days after Date B)</option>
+			<option value="+0000-00-14 00:00:00">For dates: Date A &lt; Date B + 14 days (2 weeks) (Date A must be earlier than 2 weeks (14 days) after Date B)</option>
+			<option value="+0000-00-20 00:00:00">For dates: Date A &lt; Date B + 20 days (Date A must be earlier than 20 days after Date B)</option>
+			<option value="+0000-00-21 00:00:00">For dates: Date A &lt; Date B + 21 days (3 weeks) (Date A must be earlier than 3 weeks (21 days) after Date B)</option>
+			<option value="+0000-00-28 00:00:00">For dates: Date A &lt; Date B + 28 days (4 weeks) (Date A must be earlier than 4 weeks (28 days) after Date B)</option>
+			<option value="+0000-00-30 00:00:00">For dates: Date A &lt; Date B + 30 days (Date A must be earlier than 30 days after Date B)</option>
+			<option value="+0000-00-60 00:00:00">For dates: Date A &lt; Date B + 60 days (Date A must be earlier than 60 days after Date B)</option>
+			<option value="+0000-00-90 00:00:00">For dates: Date A &lt; Date B + 90 days (Date A must be earlier than 90 days after Date B)</option>
+			<option value="+0000-01-00 00:00:00">For dates: Date A &lt; Date B + 1 month (Date A must be earlier than 1 month after Date B)</option>
+			<option value="+0000-02-00 00:00:00">For dates: Date A &lt; Date B + 2 months (Date A must be earlier than 2 months after Date B)</option>
+			<option value="+0000-03-00 00:00:00">For dates: Date A &lt; Date B + 3 months (Date A must be earlier than 3 months after Date B)</option>
+			<option value="+0000-04-00 00:00:00">For dates: Date A &lt; Date B + 4 months (Date A must be earlier than 4 months after Date B)</option>
+			<option value="+0000-05-00 00:00:00">For dates: Date A &lt; Date B + 5 months (Date A must be earlier than 5 months after Date B)</option>
+			<option value="+0000-06-00 00:00:00">For dates: Date A &lt; Date B + 6 months (Date A must be earlier than 6 months after Date B)</option>
+			<option value="+0000-07-00 00:00:00">For dates: Date A &lt; Date B + 7 months (Date A must be earlier than 7 months after Date B)</option>
+			<option value="+0000-08-00 00:00:00">For dates: Date A &lt; Date B + 8 months (Date A must be earlier than 8 months after Date B)</option>
+			<option value="+0000-09-00 00:00:00">For dates: Date A &lt; Date B + 9 months (Date A must be earlier than 9 months after Date B)</option>
+			<option value="+0000-10-00 00:00:00">For dates: Date A &lt; Date B + 10 months (Date A must be earlier than 10 months after Date B)</option>
+			<option value="+0000-11-00 00:00:00">For dates: Date A &lt; Date B + 11 months (Date A must be earlier than 11 months after Date B)</option>
+			<option value="+0001-00-00 00:00:00">For dates: Date A &lt; Date B + 1 year (Date A must be earlier than 1 year after Date B)</option>
+			<option value="+0002-00-00 00:00:00">For dates: Date A &lt; Date B + 2 years (Date A must be earlier than 2 years after Date B)</option>
+			<option value="+0003-00-00 00:00:00">For dates: Date A &lt; Date B + 3 years (Date A must be earlier than 3 years after Date B)</option>
+			<option value="+0004-00-00 00:00:00">For dates: Date A &lt; Date B + 4 years (Date A must be earlier than 4 years after Date B)</option>
+			<option value="+0005-00-00 00:00:00">For dates: Date A &lt; Date B + 5 years (Date A must be earlier than 5 years after Date B)</option>
+			<option value="+0006-00-00 00:00:00">For dates: Date A &lt; Date B + 6 years (Date A must be earlier than 6 years after Date B)</option>
+			<option value="+0007-00-00 00:00:00">For dates: Date A &lt; Date B + 7 years (Date A must be earlier than 7 years after Date B)</option>
+			<option value="+0008-00-00 00:00:00">For dates: Date A &lt; Date B + 8 years (Date A must be earlier than 8 years after Date B)</option>
+			<option value="+0009-00-00 00:00:00">For dates: Date A &lt; Date B + 9 years (Date A must be earlier than 9 years after Date B)</option>
+			<option value="+0010-00-00 00:00:00">For dates: Date A &lt; Date B + 10 years (Date A must be earlier than 10 years after Date B)</option>
+			<option value="+0011-00-00 00:00:00">For dates: Date A &lt; Date B + 11 years (Date A must be earlier than 11 years after Date B)</option>
+			<option value="+0012-00-00 00:00:00">For dates: Date A &lt; Date B + 12 years (Date A must be earlier than 12 years after Date B)</option>
+			<option value="+0013-00-00 00:00:00">For dates: Date A &lt; Date B + 13 years (Date A must be earlier than 13 years after Date B)</option>
+			<option value="+0014-00-00 00:00:00">For dates: Date A &lt; Date B + 14 years (Date A must be earlier than 14 years after Date B)</option>
+			<option value="+0015-00-00 00:00:00">For dates: Date A &lt; Date B + 15 years (Date A must be earlier than 15 years after Date B)</option>
+			<option value="+0016-00-00 00:00:00">For dates: Date A &lt; Date B + 16 years (Date A must be earlier than 16 years after Date B)</option>
+			<option value="+0017-00-00 00:00:00">For dates: Date A &lt; Date B + 17 years (Date A must be earlier than 17 years after Date B)</option>
+			<option value="+0018-00-00 00:00:00">For dates: Date A &lt; Date B + 18 years (Date A must be earlier than 18 years after Date B)</option>
+			<option value="+0019-00-00 00:00:00">For dates: Date A &lt; Date B + 19 years (Date A must be earlier than 19 years after Date B)</option>
+			<option value="+0020-00-00 00:00:00">For dates: Date A &lt; Date B + 20 years (Date A must be earlier than 20 years after Date B)</option>
+		</type>
+		<type name="condition_date_type" base="list" valuetype="string">
+			<option value="now">Order Date of the order wanting to use this promotion</option>
+			<option value="subscription_date">Subscription Date of existing user subscriptions above</option>
+			<option value="last_renewed_date">Last renewed Date of existing user subscriptions above</option>
+			<option value="expiry_date">Expiry Date of existing user subscriptions above</option>
+			<option value="payment_date">Payment Date of existing merchandises/donations above</option>
+			<option value="cbfield">Following CB field</option>
+			<option value="value">Constant Value or String (CB substitutions can be used)</option>
+		</type>
+	</types>
+	<actions ui="admin" permission="core.manage" permissionasset="com_cbsubs">
+		<action name="edit_subscription_plan" request="action table" action="editrow plansbrowser" requestparameters="tid" permission="cbsubs.marketing">
+	    	<showview view="editproduct" mode="edit" >
+	    		<data name="planrow" type="sql:row" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id" value="tid" valuetype="request:int" />
+	    	</showview>
+	    </action>
+		<action name="show_plan" request="action table" action="showtable plans" requestparameters="plansbrowser[filter_plan_id]" permission="cbsubs.marketing">
+	    	<showview view="showplans" mode="show">
+	    		<data name="planrow" type="parameters" />
+	    	</showview>
+	    </action>
+		<action name="show_paymentbaskets" request="action table" action="showtable paymentbaskets" requestparameters="paymentbasketsbrowser[filter_id]" permission="cbsubs.sales or cbsubs.financial">
+	    	<showview view="showpaymentbaskets" mode="show" />
+	    </action>
+		<action name="show_payments" request="action table" action="showtable payments" requestparameters="paymentsbrowser[filter_id]" permission="cbsubs.sales or cbsubs.financial">
+	    	<showview view="showpayments" mode="show" />
+	    </action>
+		<action name="show_notifications" request="action table" action="showtable notifications" requestparameters="notificationsbrowser[filter_id]" permission="cbsubs.settings or cbsubs.gateways or cbsubs.sales">
+			<showview view="shownotifications" mode="show" />
+		</action>
+		<action name="show_notification_details" request="action table" action="showdetail notification" requestparameters="nid" permission="cbsubs.settings or cbsubs.gateways or cbsubs.sales">
+			<showview view="shownotificationdetails" mode="show">
+				<data name="notificationrow" type="sql:row" table="#__cbsubs_notifications" class="cbpaidPaymentNotification" key="id" value="nid" valuetype="request:int" />
+			</showview>
+		</action>
+		<action name="edit_basket" request="action table" action="editrow paymentbasketsbrowser" requestparameters="bid" permission="cbsubs.sales or cbsubs.financial">
+			<showview view="editbasket" mode="edit" >
+				<data name="basketrow" type="sql:row" table="#__cbsubs_payment_baskets" class="cbpaidPaymentBasket" key="id" value="bid" valuetype="request:int" />
+			</showview>
+		</action>
+		<action name="pay_basket" request="action table" action="paybasket paymentbasketsbrowser" requestparameters="tid" permission="cbsubs.recordpayments">
+			<showview view="paybasket" mode="edit" >
+				<data name="basketrow" type="sql:row" table="#__cbsubs_payment_baskets" class="cbpaidRecordBasketPayment" key="id" value="tid" valuetype="request:int" />
+			</showview>
+		</action>
+		<action name="refund_payment" request="action table" action="refundpayment paymentsbrowser" requestparameters="tid" permission="cbsubs.refunds">
+			<showview view="refundpayment" mode="edit" >
+				<data name="paymentrow" type="sql:row" table="#__cbsubs_payments" class="cbpaidPaymentManualRefund" key="id" value="tid" valuetype="request:int" />
+			</showview>
+		</action>
+		<action name="show_invoice" request="action" action="showinvoice" requestparameters="invoice" permission="cbsubs.sales or cbsubs.financial">
+			<showview view="showinvoice" mode="show" >
+				<data name="basketrow" type="sql:row" table="#__cbsubs_payment_baskets" class="cbpaidPaymentBasket" key="id" value="invoice" valuetype="request:int" />
+			</showview>
+		</action>
+		<action name="show_currencies" request="action table" action="showtable currencies" requestparameters="currenciesbrowser[currency]" permission="cbsubs.marketing or cbsubs.financial">
+			<showview view="showcurrencies" mode="show" />
+	    </action>
+		<action name="update_currencies" request="action table" action="renew currencies" permission="cbsubs.marketing or cbsubs.financial">
+			<do method="updateCurrencies" parameters="" />
+			<showview view="showcurrencies" mode="show" />
+		</action>
+		<action name="show_params" request="action" action="showparams" permission="cbsubs.settings" permissionasset="com_cbsubs">
+			<showview view="showparams" mode="edit">
+				<data name="params" type="sql:field" table="#__cbsubs_config" class="cbpaidConfig" key="id" value="1" valuetype="const:int" />
+				<!-- this is example on how to load the standard plugin params field. Not done here because it's lost on uninstall/reinstall for upgrades. 2nd works too for single field, 3rd would be a full row of a table, but is untested yet:
+					<data name="pluginparams" type="parameters" />
+					<data name="params" type="sql:field" table="#__cbsubs_config" class="cbpaidConfig" key="id" value="1" valuetype="const:int" />
+					<data name="configrow" type="sql:row" table="#__cbsubs_config" class="cbpaidConfig" key="id" value="1" valuetype="const:int" />
+				-->
+			</showview>
+	    </action>
+		<action name="show_gateways" request="action table" action="showtable gateways" requestparameters="gatewaysbrowser[filter_id]" permission="cbsubs.gateways">
+			<showview view="showgateways" mode="show">
+			    <data name="gatewayrow" type="parameters" />
+			</showview>
+		</action>
+		<action name="edit_gateway" request="action table" action="editrow gatewaysbrowser" requestparameters="tid" permission="cbsubs.gateways">
+			<showview view="editgateway" mode="edit" >
+			    <data name="gatewayrow" type="sql:row" table="#__cbsubs_gateway_accounts" class="cbpaidGatewaysAccountsMgr::gatewayAccountObjects" key="id" value="tid" valuetype="request:int" />
+			</showview>
+		</action>
+		<action name="show_statistics" request="action" action="showstats" permission="cbsubs.financial">
+			<showview view="showstatistics" mode="show" />
+		</action>
+		<!-- 
+		<action name="show_statistics_dayofweek" request="action" action="showstatsdayofweek">
+			<showview view="showstatisticsdayofweek" mode="show" />
+		</action>
+		<action name="show_statistics_freequery" request="action" action="showstatsfreequery">
+			<showview view="showstatisticsfreequery" mode="show" />
+		</action>
+		-->
+		<action name="show_history" request="action table" action="showtable history" requestparameters="historybrowser[filter_table_name] historybrowser[filter_table_key_id]" paramvaluestypes="string int" permission="cbsubs.settings or cbsubs.gateways">
+			<showview view="showhistory" mode="show" />
+		</action>
+		<action name="show_history_details" request="action table" action="editrow historybrowser" requestparameters="tid key" permission="cbsubs.settings or cbsubs.gateways">
+			<showview view="showhistorydetails" mode="show" >
+				<data name="history" type="sql:row" table="#__cbsubs_history" class="cbpaidHistory" key="id" value="tid" valuetype="request:int" />
+			</showview>
+		</action>
+		<action name="show_export" request="action" action="export" permission="cbsubs.settings">
+			<showview view="showexport" mode="show" />
+		</action>
+		<action name="show_import" request="action" action="import" permission="cbsubs.settings or cbsubs.recordpayments">
+			<showview view="showimport" mode="edit">
+				<data name="importform" type="class" class="cbpaidSubscriptionsImporter" />
+			</showview>
+		</action>
+		<action name="show_tabs" request="action" action="showtabs" permission="core.admin">
+			<showview view="showtabs" mode="show" />
+		</action>
+		<action name="show_users" request="action" action="showusers" permission="core.admin">
+			<showview view="showusers" mode="show" />
+		</action>
+		<action name="edit_subscription_plan_test" request="action table" action="editrow plansbrowsertest" requestparameters="tid" permission="core.admin">
+			<showview view="editplantest" mode="edit" >
+				<data name="planrow" type="sql:row" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id" value="tid" valuetype="request:int" />
+			</showview>
+		</action>
+		<action name="testextend" request="action table" action="editrow testextend" requestparameters="tid" permission="core.admin">
+			<showview view="testExtend" mode="edit" >
+				<data name="planrow" type="sql:row" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id" value="tid" valuetype="request:int" />
+			</showview>
+		</action>
+		<action name="default" request="" action="" permission="core.manage">
+			<showview view="paycontrolcenter" mode="show" />
+		</action>
+		<extend toxpathnode="/cbxml/types" fromxpathnode="/*/types/type[@newdefinition=&quot;true&quot;]" file="xml/*/edit.cbsubs,plugin/*/xml/edit.cbsubs,../user/*/xml/edit.cbsubs,products/*/xml/models/edit.product,processors/*/edit.cbsubs" mandatory="false" />
+		<extend toxpathnode="/cbxml/actions" fromxpathnode="/*/actions/action" file="xml/*/edit.cbsubs,plugin/*/xml/edit.cbsubs,../user/*/xml/edit.cbsubs,products/*/xml/controllers/edit.cbsubs,processors/*/edit.cbsubs" mandatory="false" />
+		<extend toxpathnode="/cbxml/views" fromxpathnode="/*/views/view" file="plugin/*/xml/edit.cbsubs,../user/*/xml/edit.cbsubs,processors/*/edit.cbsubs" mandatory="false" />
+	</actions>
+	
+	<views>
+		<!-- For CB 1.9, these 2 will have to stay here, as "inherit" does not auto-load in CB 1.9, and we don't want to change all gateways at this time: Let's wait for CB 2.0 -->
+		
+		<!-- Partial view elements: -->
+		<!-- For showpayments view: Refund button: -->
+		<view name="paymentrefundbutton" type="params" ui="admin">
+			<if name="payment_status" operator="regexp" value="Completed|Pending" valuetype="const:string" type="condition">
+				<if name="mc_gross" operator="&gt;" value="0" valuetype="const:float" type="condition">
+					<field name="refundlink"    type="spacer" label=" " default="Refund" link="cb_action:refund_payment" parameters="tid" paramvalues="id" description="Refund payment now" class="cbadminHorizontal cbadminRowMinorButton" />
+				</if>
+			</if>
+		</view>
+
+		<view name="editgenericgateway" type="params" ui="admin">
+			<if name="gateway_type" operator="!=" value="" valuetype="const:string">
+				<param name="gateway_type" type="xml:gateway_type" default="" mode="show" label="Type of payment gateway" description="This is the type of the gateway for this gateway account" onchange="evaluate" />
+			</if>
+			<param name="name" type="text" size="40" default="" label="Name of gateway account" description="The title name text displayed for this gateway (language translations are supported)." />
+			<param name="ordering" type="ordering" value="name" size="1" default="" label="Ordering" description="The order in which the plans are presented to the users." />
+			<fieldset name="fieldset_for_gateway" />
+			<if name="allow_select_currency" operator="!=" value="0" type="condition" nametype="pluginparams:string" valuetype="const:string">
+				<fieldset name="fieldset_for_currencies" label="Currencies accepted">
+					<param name="currencies_accepted" type="xml:currencies" multiple="true" default="" blanktext="- All currencies (To restrict from list below: CTR/CMD-click: Multiple) -" label="Accepted Currencies for payment" description="The currency you are allowing to be selected for order display and for payment at checkout." />
+					<param name="currency_acceptance_mode" type="list" default="H" label="What to do if currency of basket is not accepted" description="Here you can define if payment method should be visible in case of currency mismatch.">
+						<option value="H">Hide this method if basket currency mismatches</option>
+						<option value="A">Ask if user wants to convert basket currency to pay</option>
+						<!--
+							<option value="C">Convert basket currency then redirect for payment</option>
+						-->
+					</param>
+					<if name="currency_acceptance_mode" type="showhide" operator="=" value="A" valuetype="const:string">
+						<param name="currency_acceptance_text" type="text" size="80" default="" label="Confirmation text to ask user for conversion" description="Text to ask user if he wants to pay in a currency accepted by this payment method. Empty means no question asked." />
+					</if>
+				</fieldset>
+			</if>
+			<fieldset name="fieldset_for_presentation" />
+			<fieldset name="fieldset_for_access" label="Access settings">
+				<param name="viewaccesslevel" type="viewaccesslevel" default="1" label="Visible for Access Level" description="To which CMS Access Level this gateway is visible and usable (default access level for unregistered and registered users is 'Public' and for registered users only is 'Registered')." />
+			</fieldset>
+			<fieldset name="fieldset_for_classes" label="General settings">
+				<param name="cssclass" type="text" size="40" default="" label="CSS class (e.g. 'cbreg_green cbreg_admin_green' )" description="The class(es) for the gateway display: IMPORTANT: just separate classes with a space, no commas. Predefined color themes (front-end: cbreg_green, admin: cbreg_admin_green, both front-end and admin: cbreg_green cbreg_admin_green. Other colors (one at a time, no commas): cbreg_red cbreg_admin_red, cbreg_blue cbreg_admin_blue, cbreg_yellow cbreg_admin_yellow, cbreg_cyan cbreg_admin_cyan, cbreg_magenta cbreg_admin_magenta, cbreg_orange cbreg_admin_orange, same with cbreg_lime cbreg_admin_lime, cbreg_turquoise_1 ... cbreg_turquoise_5 cbreg_admin_turquoise_1 ... cbreg_admin_turquoise_5" />
+				<param name="owner"            type="text"   size="40" default="0"  label="Owner id (only supported: 0 for now)" description="owner of this payment gateway account (only system = 0 supported for now)" />
+			</fieldset>
+		</view>
+	</views>
+</cbxml>

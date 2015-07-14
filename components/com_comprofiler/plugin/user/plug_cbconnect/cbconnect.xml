@@ -1,0 +1,654 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0" type="plugin" group="user">
+	<name>CB Connect</name>
+	<author>Krileon</author>
+	<creationDate>2014-12-16</creationDate>
+	<copyright>(C) 2004-2014 www.joomlapolis.com / Lightning MultiCom SA - and its licensors, all rights reserved</copyright>
+	<license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2</license>
+	<authorEmail>krileon@joomlapolis.com</authorEmail>
+	<description>Facebook, Twitter, LinkedIn, Windows Live, Google, Instagram, Foursquare, GitHub, VKontakte, Steam, and Tumblr integration to Community Builder.</description>
+	<version>2.0.4</version>
+	<release>6.0.4</release>
+	<files>
+		<filename plugin="cbconnect">cbconnect.php</filename>
+		<filename>cbconnect.css</filename>
+		<filename>component.cbconnect.php</filename>
+		<filename>endpoint.php</filename>
+		<filename>index.html</filename>
+		<foldername>hybridauth</foldername>
+		<foldername>xml</foldername>
+		<foldername>language</foldername>
+	</files>
+	<delete>
+		<filename>admin.cbconnect.css</filename>
+		<filename>admin.cbconnect.html.php</filename>
+		<filename>admin.cbconnect.php</filename>
+		<filename>cbconnect.class.php</filename>
+		<filename>field.cbconnect.php</filename>
+		<filename>plugin.cbconnect.php</filename>
+		<filename>toolbar.cbconnect.html.php</filename>
+		<filename>toolbar.cbconnect.php</filename>
+		<foldername>images</foldername>
+		<foldername>js</foldername>
+		<foldername>css</foldername>
+	</delete>
+	<fieldtypes>
+		<field type="socialid" label="Social ID" unique="true">
+			<database version="1">
+				<table name="#__comprofiler" class="moscomprofiler" maintable="true" strict="false" drop="never" shared="true">
+					<columns>
+						<column name="" nametype="namesuffix" type="sql:varchar(50)" null="true" default="NULL" />
+					</columns>
+					<indexes strict="false">
+						<index name="" nametype="namesuffix">
+							<column name="" nametype="namesuffix" />
+						</index>
+					</indexes>
+				</table>
+			</database>
+			<params>
+				<showview view="fieldLayoutParams" mode="edit" type="view" />
+			</params>
+		</field>
+	</fieldtypes>
+	<params>
+		<tabpane name="connect">
+			<tabpanetab label="Facebook">
+				<tabpane name="facebook">
+					<tabpanetab label="Application">
+						<param name="facebook_enabled" type="yesno" default="0" label="Enabled" description="Enable or disable Facebook integration. This allows quick enable or disable without having to clear parameters." />
+						<if name="facebook_enabled" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+							<param name="facebook_provider" type="group" label="Provider">
+								<field name="" type="text" mode="show" default="Facebook" label="" link="http://hybridauth.sourceforge.net/userguide/IDProvider_info_Facebook.html" target="_blank" description="Click for additional information about this provider and configuration instructions." />
+							</param>
+							<param name="facebook_application_id" type="text" default="" size="40" label="App ID" description="Input Facebook application id or application key." validate="required" />
+							<param name="facebook_application_secret" type="text" default="" size="40" label="App Secret" description="Input Facebook application secret." validate="required" />
+							<param name="facebook_permissions" type="list" multiple="true" size="10" default="" label="Permissions" description="Select additional API permissions from connected Facebook users. Additional permissions allow for additional data to be retrieved on the users behalf.">
+								<option value="user_friends">Friends (user_friends)</option>
+								<option value="user_about_me">About Me (user_about_me)</option>
+								<option value="user_actions.books">Books Actions (user_actions.books)</option>
+								<option value="user_actions.fitness">Fitness Actions (user_actions.fitness)</option>
+								<option value="user_actions.music">Music Actions (user_actions.music)</option>
+								<option value="user_actions.news">News Actions (user_actions.news)</option>
+								<option value="user_actions.video">Video Actions (user_actions.video)</option>
+								<option value="user_activities">Activities (user_activities)</option>
+								<option value="user_birthday">Birthday (user_birthday)</option>
+								<option value="user_education_history">Education History (user_education_history)</option>
+								<option value="user_events">Events (user_events)</option>
+								<option value="user_games_activity">Games Activity (user_games_activity)</option>
+								<option value="user_groups">Groups (user_groups)</option>
+								<option value="user_hometown">Hometown (user_hometown)</option>
+								<option value="user_interests">Interests (user_interests)</option>
+								<option value="user_likes">Likes (user_likes)</option>
+								<option value="user_location">Location (user_location)</option>
+								<option value="user_photos">Photos (user_photos)</option>
+								<option value="user_relationships">Relationships (user_relationships)</option>
+								<option value="user_relationship_details">Relationship Details (user_relationship_details)</option>
+								<option value="user_religion_politics">Religion Politics (user_religion_politics)</option>
+								<option value="user_status">Status (user_status)</option>
+								<option value="user_tagged_places">Tagged Places (user_tagged_places)</option>
+								<option value="user_videos">Videos (user_videos)</option>
+								<option value="user_website">Website (user_website)</option>
+								<option value="user_work_history">Work History (user_work_history)</option>
+								<option value="read_friendlists">Friendlists (read_friendlists)</option>
+								<option value="read_insights">Insights (read_insights)</option>
+								<option value="read_mailbox">Mailbox (read_mailbox)</option>
+								<option value="read_page_mailboxes">Page Mailboxes (read_page_mailboxes)</option>
+								<option value="read_stream">Stream (read_stream)</option>
+								<option value="manage_notifications">Notifications (manage_notifications)</option>
+								<option value="manage_pages">Pages (manage_pages)</option>
+								<option value="publish_actions">Actions (publish_actions)</option>
+								<option value="rsvp_event">Event (rsvp_event)</option>
+							</param>
+							<param name="facebook_callback" type="private" default="facebook" label="Callback URL" class="cbconnectHybrid" method="getProviderCallbackURL" description="The provider callback url. This url should be supplied to the provider configuration as needed. This is sometimes also known as the redirect url." />
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Registration">
+						<param name="facebook_register" type="yesno" default="1" label="Register" description="Enable or disable Facebook account registration. Register allows for non-existing Community Builder users to register with their Facebook account credentials." />
+						<param name="facebook_link" type="yesno" default="1" label="Linking" description="Enable or disable Facebook account linking. Linking allows existing Community Builder users while logged in to link their Facebook account to their existing Community Builder account." />
+						<if name="facebook_register" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+							<param name="facebook_mode" type="xml:cbconnectRegistration" default="1" label="Mode" description="Select if users should be registered immediately with Single Sign-on or if standard CB registration form should be pre-filled with their social site profile data. Note for pre-filled mode this provider field should be set to display on registration." />
+							<param name="facebook_username" type="text" default="" size="40" label="Username Format" description="Optionally input substitution supported username format override." />
+							<if name="facebook_username" nametype="param:string" operator="!=" value="" valuetype="const:string" type="showhide">
+								<param name="facebookUsernameSubstitutions" type="spacer" label="Username Substitutions" default="[provider], [provider_id], [provider_name], [profile_identifier], [profile_webSiteURL], [profile_profileURL], [profile_photoURL], [profile_displayName], [profile_description], [profile_firstName], [profile_lastName], [profile_gender], [profile_language], [profile_age], [profile_birthDay], [profile_birthMonth], [profile_birthYear], [profile_email], [profile_emailVerified], [profile_phone], [profile_address], [profile_country], [profile_region], [profile_city], [profile_zip]" description="The additional supported substitutions for username format." />
+							</if>
+							<param name="facebook_usergroup" type="usergroup" multiple="true" size="10" default="" label="Usergroups" managegroups="false" description="Optionally select Facebook registration usergroups of users." />
+							<param name="facebook_approve" type="xml:cbconnectApprove" default="0" label="Approval" description="Select Facebook registration to require admin approval." />
+							<param name="facebook_confirm" type="xml:cbconnectConfirm" default="0" label="Confirmation" description="Select Facebook registration to require email confirmation." />
+							<params name="facebook_fields" type="params" repeat="true" label="Fields">
+								<param name="from" type="xml:cbconnectFromFields" blanktext="--- Select Provider Field ---" label="From Field" description="Select a field to synchronize from on registration." />
+								<param name="to" type="field" key="name" storable="true" blanktext="--- Select CB Field ---" label="To Field" description="Select a field to synchronize to on registration." />
+							</params>
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Login">
+						<param name="facebook_button_style" type="xml:cbconnectButtonStyle" default="2" label="Button Style" description="Select how Facebook button is displayed." />
+						<param name="facebook_button_signin" type="text" default="" size="40" label="Sign In Button" description="Optionally input alternative title for Facebook Sign In button. If left blank will default to &quot;Sign In&quot;." />
+						<param name="facebook_button_link" type="text" default="" size="40" label="Link Button" description="Optionally input alternative title for Facebook Link button. If left blank will default to &quot;Link&quot;." />
+						<param name="facebook_firstlogin" type="text" default="" size="60" label="First Redirect" description="Input optional Facebook first time login redirect URL (e.g. index.php?option=com_comprofiler)." />
+						<param name="facebook_login" type="text" default="" size="60" label="Redirect" description="Input optional Facebook login redirect URL (e.g. index.php?option=com_comprofiler)." />
+					</tabpanetab>
+				</tabpane>
+			</tabpanetab>
+			<tabpanetab label="Twitter">
+				<tabpane name="twitter">
+					<tabpanetab label="Application">
+						<param name="twitter_enabled" type="yesno" default="0" label="Enabled" description="Enable or disable Twitter integration. This allows quick enable or disable without having to clear parameters." />
+						<if name="twitter_enabled" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+							<param name="twitter_provider" type="group" label="Provider">
+								<field name="" type="text" mode="show" default="Twitter" label="" link="http://hybridauth.sourceforge.net/userguide/IDProvider_info_Twitter.html" target="_blank" description="Click for additional information about this provider and configuration instructions." />
+							</param>
+							<param name="twitter_consumer_key" type="text" default="" size="40" label="Consumer Key" description="Input Twitter application consumer key." validate="required" />
+							<param name="twitter_consumer_secret" type="text" default="" size="40" label="Consumer Secret" description="Input Twitter application consumer secret." validate="required" />
+							<param name="twitter_callback" type="private" default="twitter" label="Callback URL" class="cbconnectHybrid" method="getProviderCallbackURL" description="The provider callback url. This url should be supplied to the provider configuration as needed. This is sometimes also known as the redirect url." />
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Registration">
+						<param name="twitter_register" type="yesno" default="1" label="Register" description="Enable or disable Twitter account registration. Register allows for non-existing Community Builder users to register with their Twitter account credentials." />
+						<param name="twitter_link" type="yesno" default="1" label="Linking" description="Enable or disable Twitter account linking. Linking allows existing Community Builder users while logged in to link their Twitter account to their existing Community Builder account." />
+						<if name="twitter_register" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+							<param name="twitter_mode" type="xml:cbconnectRegistration" default="1" label="Mode" description="Select if users should be registered immediately with Single Sign-on or if standard CB registration form should be pre-filled with their social site profile data. Note for pre-filled mode this provider field should be set to display on registration." />
+							<param name="twitter_username" type="text" default="" size="40" label="Username Format" description="Optionally input substitution supported username format override." />
+							<if name="twitter_username" nametype="param:string" operator="!=" value="" valuetype="const:string" type="showhide">
+								<param name="twitterUsernameSubstitutions" type="spacer" label="Username Substitutions" default="[provider], [provider_id], [provider_name], [profile_identifier], [profile_webSiteURL], [profile_profileURL], [profile_photoURL], [profile_displayName], [profile_description], [profile_firstName], [profile_lastName], [profile_gender], [profile_language], [profile_age], [profile_birthDay], [profile_birthMonth], [profile_birthYear], [profile_email], [profile_emailVerified], [profile_phone], [profile_address], [profile_country], [profile_region], [profile_city], [profile_zip]" description="The additional supported substitutions for username format." />
+							</if>
+							<param name="twitter_usergroup" type="usergroup" multiple="true" size="10" default="" label="Usergroups" managegroups="false" description="Optionally select Twitter registration usergroups of users." />
+							<param name="twitter_approve" type="xml:cbconnectApprove" default="0" label="Approval" description="Select Twitter registration to require admin approval." />
+							<param name="twitter_confirm" type="xml:cbconnectConfirm" default="0" label="Confirmation" description="Select Twitter registration to require email confirmation." />
+							<params name="twitter_fields" type="params" repeat="true" label="Fields">
+								<param name="from" type="xml:cbconnectFromFields" blanktext="--- Select Provider Field ---" label="From Field" description="Select a field to synchronize from on registration." />
+								<param name="to" type="field" key="name" storable="true" blanktext="--- Select CB Field ---" label="To Field" description="Select a field to synchronize to on registration." />
+							</params>
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Login">
+						<param name="twitter_button_style" type="xml:cbconnectButtonStyle" default="2" label="Button Style" description="Select how Twitter button is displayed." />
+						<param name="twitter_button_signin" type="text" default="" size="40" label="Sign In Button" description="Optionally input alternative title for Twitter Sign In button. If left blank will default to &quot;Sign In&quot;." />
+						<param name="twitter_button_link" type="text" default="" size="40" label="Link Button" description="Optionally input alternative title for Twitter Link button. If left blank will default to &quot;Link&quot;." />
+						<param name="twitter_firstlogin" type="text" default="" size="60" label="First Redirect" description="Input optional Twitter first time login redirect URL (e.g. index.php?option=com_comprofiler)." />
+						<param name="twitter_login" type="text" default="" size="60" label="Redirect" description="Input optional Twitter login redirect URL (e.g. index.php?option=com_comprofiler)." />
+					</tabpanetab>
+				</tabpane>
+			</tabpanetab>
+			<tabpanetab label="LinkedIn">
+				<tabpane name="linkedin">
+					<tabpanetab label="Application">
+						<param name="linkedin_enabled" type="yesno" default="0" label="Enabled" description="Enable or disable LinkedIn integration. This allows quick enable or disable without having to clear parameters." />
+						<if name="linkedin_enabled" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+							<param name="linkedin_provider" type="group" label="Provider">
+								<field name="" type="text" mode="show" default="LinkedIn" label="" link="http://hybridauth.sourceforge.net/userguide/IDProvider_info_LinkedIn.html" target="_blank" description="Click for additional information about this provider and configuration instructions." />
+							</param>
+							<param name="linkedin_api_key" type="text" default="" size="40" label="API Key" description="Input LinkedIn application api key." validate="required" />
+							<param name="linkedin_secret_key" type="text" default="" size="40" label="Secret Key" description="Input LinkedIn application secret key." validate="required" />
+							<param name="linkedin_callback" type="private" default="linkedin" label="Callback URL" class="cbconnectHybrid" method="getProviderCallbackURL" description="The provider callback url. This url should be supplied to the provider configuration as needed. This is sometimes also known as the redirect url." />
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Registration">
+						<param name="linkedin_register" type="yesno" default="1" label="Register" description="Enable or disable LinkedIn account registration. Register allows for non-existing Community Builder users to register with their LinkedIn account credentials." />
+						<param name="linkedin_link" type="yesno" default="1" label="Linking" description="Enable or disable LinkedIn account linking. Linking allows existing Community Builder users while logged in to link their LinkedIn account to their existing Community Builder account." />
+						<if name="linkedin_register" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+							<param name="linkedin_mode" type="xml:cbconnectRegistration" default="1" label="Mode" description="Select if users should be registered immediately with Single Sign-on or if standard CB registration form should be pre-filled with their social site profile data. Note for pre-filled mode this provider field should be set to display on registration." />
+							<param name="linkedin_username" type="text" default="" size="40" label="Username Format" description="Optionally input substitution supported username format override." />
+							<if name="linkedin_username" nametype="param:string" operator="!=" value="" valuetype="const:string" type="showhide">
+								<param name="linkedinUsernameSubstitutions" type="spacer" label="Username Substitutions" default="[provider], [provider_id], [provider_name], [profile_identifier], [profile_webSiteURL], [profile_profileURL], [profile_photoURL], [profile_displayName], [profile_description], [profile_firstName], [profile_lastName], [profile_gender], [profile_language], [profile_age], [profile_birthDay], [profile_birthMonth], [profile_birthYear], [profile_email], [profile_emailVerified], [profile_phone], [profile_address], [profile_country], [profile_region], [profile_city], [profile_zip]" description="The additional supported substitutions for username format." />
+							</if>
+							<param name="linkedin_usergroup" type="usergroup" multiple="true" size="10" default="" label="Usergroups" managegroups="false" description="Optionally select LinkedIn registration usergroups of users." />
+							<param name="linkedin_approve" type="xml:cbconnectApprove" default="0" label="Approval" description="Select LinkedIn registration to require admin approval." />
+							<param name="linkedin_confirm" type="xml:cbconnectConfirm" default="0" label="Confirmation" description="Select LinkedIn registration to require email confirmation." />
+							<params name="linkedin_fields" type="params" repeat="true" label="Fields">
+								<param name="from" type="xml:cbconnectFromFields" blanktext="--- Select Provider Field ---" label="From Field" description="Select a field to synchronize from on registration." />
+								<param name="to" type="field" key="name" storable="true" blanktext="--- Select CB Field ---" label="To Field" description="Select a field to synchronize to on registration." />
+							</params>
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Login">
+						<param name="linkedin_button_style" type="xml:cbconnectButtonStyle" default="2" label="Button Style" description="Select how LinkedIn button is displayed." />
+						<param name="linkedin_button_signin" type="text" default="" size="40" label="Sign In Button" description="Optionally input alternative title for LinkedIn Sign In button. If left blank will default to &quot;Sign In&quot;." />
+						<param name="linkedin_button_link" type="text" default="" size="40" label="Link Button" description="Optionally input alternative title for LinkedIn Link button. If left blank will default to &quot;Link&quot;." />
+						<param name="linkedin_firstlogin" type="text" default="" size="60" label="First Redirect" description="Input optional LinkedIn first time login redirect URL (e.g. index.php?option=com_comprofiler)." />
+						<param name="linkedin_login" type="text" default="" size="60" label="Redirect" description="Input optional LinkedIn login redirect URL (e.g. index.php?option=com_comprofiler)." />
+					</tabpanetab>
+				</tabpane>
+			</tabpanetab>
+			<tabpanetab label="Windows Live">
+				<tabpane name="windowslive">
+					<tabpanetab label="Application">
+						<param name="windowslive_enabled" type="yesno" default="0" label="Enabled" description="Enable or disable Windows Live integration. This allows quick enable or disable without having to clear parameters." />
+						<if name="windowslive_enabled" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+							<param name="windowslive_provider" type="group" label="Provider">
+								<field name="" type="text" mode="show" default="Windows Live" label="" link="http://hybridauth.sourceforge.net/userguide/IDProvider_info_Live.html" target="_blank" description="Click for additional information about this provider and configuration instructions." />
+							</param>
+							<param name="windowslive_client_id" type="text" default="" size="40" label="Client ID" description="Input Windows Live application client id." validate="required" />
+							<param name="windowslive_client_secret" type="text" default="" size="40" label="Client Secret" description="Input Windows Live application client secret." validate="required" />
+							<param name="windowslive_permissions" type="list" multiple="true" size="10" default="" label="Permissions" description="Select additional API permissions from connected Windows Live users. Additional permissions allow for additional data to be retrieved on the users behalf.">
+								<option value="wl.birthday">Birthday (wl.birthday)</option>
+								<option value="wl.calendars">Calendars (wl.calendars)</option>
+								<option value="wl.calendars_update">Calendars Update (wl.calendars_update)</option>
+								<option value="wl.contacts_birthday">Contacts Birthday (wl.contacts_birthday)</option>
+								<option value="wl.contacts_create">Create Contact (wl.contacts_create)</option>
+								<option value="wl.contacts_calendars">Contacts Calenders (wl.contacts_calendars)</option>
+								<option value="wl.contacts_photos">Contacts Photos (wl.contacts_photos)</option>
+								<option value="wl.contacts_skydrive">Contacts Skydrive (wl.contacts_skydrive)</option>
+								<option value="wl.events_create">Create Event (wl.events_create)</option>
+								<option value="wl.imap">IMAP (wl.imap)</option>
+								<option value="wl.phone_numbers">Phone Numbers (wl.phone_numbers)</option>
+								<option value="wl.photos">Photos (wl.photos)</option>
+								<option value="wl.postal_addresses">Postal Addresses (wl.postal_addresses)</option>
+								<option value="wl.skydrive">Skydrive (wl.skydrive)</option>
+								<option value="wl.skydrive_update">Update Skydrive (wl.skydrive_update)</option>
+								<option value="wl.work_profile">Work (wl.work_profile)</option>
+								<option value="office.onenote_create">Create OneNote (office.onenote_create)</option>
+							</param>
+							<param name="windowslive_callback" type="private" default="windowslive" label="Callback URL" class="cbconnectHybrid" method="getProviderCallbackURL" description="The provider callback url. This url should be supplied to the provider configuration as needed. This is sometimes also known as the redirect url." />
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Registration">
+						<param name="windowslive_register" type="yesno" default="1" label="Register" description="Enable or disable Windows Live account registration. Register allows for non-existing Community Builder users to register with their Windows Live account credentials." />
+						<param name="windowslive_link" type="yesno" default="1" label="Linking" description="Enable or disable Windows Live account linking. Linking allows existing Community Builder users while logged in to link their Windows Live account to their existing Community Builder account." />
+						<if name="windowslive_register" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+							<param name="windowslive_mode" type="xml:cbconnectRegistration" default="1" label="Mode" description="Select if users should be registered immediately with Single Sign-on or if standard CB registration form should be pre-filled with their social site profile data. Note for pre-filled mode this provider field should be set to display on registration." />
+							<param name="windowslive_username" type="text" default="" size="40" label="Username Format" description="Optionally input substitution supported username format override." />
+							<if name="windowslive_username" nametype="param:string" operator="!=" value="" valuetype="const:string" type="showhide">
+								<param name="windowsliveUsernameSubstitutions" type="spacer" label="Username Substitutions" default="[provider], [provider_id], [provider_name], [profile_identifier], [profile_webSiteURL], [profile_profileURL], [profile_photoURL], [profile_displayName], [profile_description], [profile_firstName], [profile_lastName], [profile_gender], [profile_language], [profile_age], [profile_birthDay], [profile_birthMonth], [profile_birthYear], [profile_email], [profile_emailVerified], [profile_phone], [profile_address], [profile_country], [profile_region], [profile_city], [profile_zip]" description="The additional supported substitutions for username format." />
+							</if>
+							<param name="windowslive_usergroup" type="usergroup" multiple="true" size="10" default="" label="Usergroups" managegroups="false" description="Optionally select Windows Live registration usergroups of users." />
+							<param name="windowslive_approve" type="xml:cbconnectApprove" default="0" label="Approval" description="Select Windows Live registration to require admin approval." />
+							<param name="windowslive_confirm" type="xml:cbconnectConfirm" default="0" label="Confirmation" description="Select Windows Live registration to require email confirmation." />
+							<params name="windowslive_fields" type="params" repeat="true" label="Fields">
+								<param name="from" type="xml:cbconnectFromFields" blanktext="--- Select Provider Field ---" label="From Field" description="Select a field to synchronize from on registration." />
+								<param name="to" type="field" key="name" storable="true" blanktext="--- Select CB Field ---" label="To Field" description="Select a field to synchronize to on registration." />
+							</params>
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Login">
+						<param name="windowslive_button_style" type="xml:cbconnectButtonStyle" default="2" label="Button Style" description="Select how Windows Live button is displayed." />
+						<param name="windowslive_button_signin" type="text" default="" size="40" label="Sign In Button" description="Optionally input alternative title for Windows Live Sign In button. If left blank will default to &quot;Sign In&quot;." />
+						<param name="windowslive_button_link" type="text" default="" size="40" label="Link Button" description="Optionally input alternative title for Windows Live Link button. If left blank will default to &quot;Link&quot;." />
+						<param name="windowslive_firstlogin" type="text" default="" size="60" label="First Redirect" description="Input optional Windows Live first time login redirect URL (e.g. index.php?option=com_comprofiler)." />
+						<param name="windowslive_login" type="text" default="" size="60" label="Redirect" description="Input optional Windows Live login redirect URL (e.g. index.php?option=com_comprofiler)." />
+					</tabpanetab>
+				</tabpane>
+			</tabpanetab>
+			<tabpanetab label="Google">
+				<tabpane name="google">
+					<tabpanetab label="Application">
+						<param name="google_enabled" type="yesno" default="0" label="Enabled" description="Enable or disable Google integration. This allows quick enable or disable without having to clear parameters." />
+						<if name="google_enabled" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+							<param name="google_provider" type="group" label="Provider">
+								<field name="" type="text" mode="show" default="Google" label="" link="http://hybridauth.sourceforge.net/userguide/IDProvider_info_Google.html" target="_blank" description="Click for additional information about this provider and configuration instructions." />
+							</param>
+							<param name="google_client_id" type="text" default="" size="40" label="Client ID" description="Input Google application client id." validate="required" />
+							<param name="google_client_secret" type="text" default="" size="40" label="Client Secret" description="Input Google application client secret." validate="required" />
+							<param name="google_permissions" type="list" multiple="true" size="10" default="" label="Permissions" description="Select additional API permissions from connected Google users. Additional permissions allow for additional data to be retrieved on the users behalf.">
+								<option value="https://www.google.com/m8/feeds">Contacts (Read &amp; Write)</option>
+								<option value="https://www.googleapis.com/auth/contacts.readonly">Contacts (Read Only)</option>
+								<option value="https://www.googleapis.com/auth/calendar">Calendar (Read &amp; Write)</option>
+								<option value="https://www.googleapis.com/auth/calendar.readonly">Calendar (Read Only)</option>
+								<option value="https://www.googleapis.com/auth/mapsengine">Maps (Read &amp; Write)</option>
+								<option value="https://www.googleapis.com/auth/mapsengine.readonly">Maps (Read Only)</option>
+								<option value="https://www.googleapis.com/auth/gmail.modify">GMail (Modify)</option>
+								<option value="https://www.googleapis.com/auth/gmail.readonly">GMail (Read)</option>
+								<option value="https://www.googleapis.com/auth/gmail.compose">GMail (Compose)</option>
+								<option value="https://mail.google.com/">GMail (Full Access)</option>
+								<option value="https://www.googleapis.com/auth/drive.file">Drive (App Files Only)</option>
+								<option value="https://www.googleapis.com/auth/drive.apps.readonly">Drive (Read Only Apps)</option>
+								<option value="https://www.googleapis.com/auth/drive.readonly">Drive (Read Only)</option>
+								<option value="https://www.googleapis.com/auth/drive.readonly.metadata">Drive (Read Only Metadata)</option>
+								<option value="https://www.googleapis.com/auth/drive.install">Drive (Install)</option>
+								<option value="https://www.googleapis.com/auth/drive.appfolder">Drive (App Data)</option>
+								<option value="https://www.googleapis.com/auth/drive.scripts">Drive (App Scripts)</option>
+								<option value="https://www.googleapis.com/auth/drive">Drive (Full Access)</option>
+								<option value="https://www.googleapis.com/auth/plus.me">Plus Me</option>
+								<option value="https://www.googleapis.com/auth/plus.media.upload">Plus Media (Upload)</option>
+								<option value="https://www.googleapis.com/auth/plus.circles.read">Plus Circles (Read Only)</option>
+								<option value="https://www.googleapis.com/auth/plus.circles.write">Plus Circles (Full Access)</option>
+								<option value="https://www.googleapis.com/auth/plus.profiles.read">Plus Profiles (Read Only)</option>
+								<option value="https://www.googleapis.com/auth/plus.stream.read">Plus Stream (Read Only)</option>
+								<option value="https://www.googleapis.com/auth/plus.stream.write">Plus Stream (Full Access)</option>
+								<option value="https://www.googleapis.com/auth/books">Books</option>
+								<option value="https://spreadsheets.google.com/feeds">Spreadsheets</option>
+								<option value="https://www.googleapis.com/auth/youtube.upload">Youtube (Upload)</option>
+								<option value="https://www.googleapis.com/auth/youtube.readonly">Youtube (Read Only)</option>
+								<option value="https://www.googleapis.com/auth/youtubepartner">Youtube (Partner)</option>
+								<option value="https://www.googleapis.com/auth/youtube">Youtube (Full Access)</option>
+								<option value="https://www.googleapis.com/auth/yt-analytics-monetary.readonly">Youtube (Monetary Analytics)</option>
+								<option value="https://www.googleapis.com/auth/yt-analytics.readonly">Youtube (Analytics)</option>
+								<option value="https://www.googleapis.com/auth/devstorage.read_write">Cloud (Read &amp; Write)</option>
+								<option value="https://www.googleapis.com/auth/devstorage.read_only">Cloud (Read Only)</option>
+								<option value="https://www.googleapis.com/auth/devstorage.full_control">Cloud (Full Access)</option>
+								<option value="https://www.googleapis.com/auth/cloud-platform">Cloud (Platform)</option>
+								<option value="https://www.googleapis.com/auth/tasks">Tasks (Read &amp; Write)</option>
+								<option value="https://www.googleapis.com/auth/tasks.readonly">Tasks (Read Only)</option>
+								<option value="https://www.googleapis.com/auth/blogger">Blogger (Read &amp; Write)</option>
+								<option value="https://www.googleapis.com/auth/blogger.readonly">Blogger (Read Only)</option>
+								<option value="https://www.googleapis.com/auth/webmasters">Webmaster (Read &amp; Write)</option>
+								<option value="https://www.googleapis.com/auth/webmasters.readonly">Webmaster (Read Only)</option>
+								<option value="https://www.googleapis.com/auth/urlshortener">URL Shortener</option>
+								<option value="https://www.googleapis.com/auth/taskqueue">Task Queue (Manage)</option>
+								<option value="https://www.googleapis.com/auth/taskqueue.consumer">Task Queue (Consume)</option>
+								<option value="https://www.googleapis.com/auth/analytics.readonly">Analytics (Read Only)</option>
+								<option value="https://www.googleapis.com/auth/analytics.edit">Analytics (Edit)</option>
+								<option value="https://www.googleapis.com/auth/analytics.manage.users">Analytics (Users)</option>
+								<option value="https://www.googleapis.com/auth/analytics.provision">Analytics (Provision)</option>
+								<option value="https://www.googleapis.com/auth/analytics">Analytics (Full Access)</option>
+							</param>
+							<param name="google_callback" type="private" default="google" label="Callback URL" class="cbconnectHybrid" method="getProviderCallbackURL" description="The provider callback url. This url should be supplied to the provider configuration as needed. This is sometimes also known as the redirect url." />
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Registration">
+						<param name="google_register" type="yesno" default="1" label="Register" description="Enable or disable Google account registration. Register allows for non-existing Community Builder users to register with their Google account credentials." />
+						<param name="google_link" type="yesno" default="1" label="Linking" description="Enable or disable Google account linking. Linking allows existing Community Builder users while logged in to link their Google account to their existing Community Builder account." />
+						<if name="google_register" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+							<param name="google_mode" type="xml:cbconnectRegistration" default="1" label="Mode" description="Select if users should be registered immediately with Single Sign-on or if standard CB registration form should be pre-filled with their social site profile data. Note for pre-filled mode this provider field should be set to display on registration." />
+							<param name="google_username" type="text" default="" size="40" label="Username Format" description="Optionally input substitution supported username format override." />
+							<if name="google_username" nametype="param:string" operator="!=" value="" valuetype="const:string" type="showhide">
+								<param name="googleUsernameSubstitutions" type="spacer" label="Username Substitutions" default="[provider], [provider_id], [provider_name], [profile_identifier], [profile_webSiteURL], [profile_profileURL], [profile_photoURL], [profile_displayName], [profile_description], [profile_firstName], [profile_lastName], [profile_gender], [profile_language], [profile_age], [profile_birthDay], [profile_birthMonth], [profile_birthYear], [profile_email], [profile_emailVerified], [profile_phone], [profile_address], [profile_country], [profile_region], [profile_city], [profile_zip]" description="The additional supported substitutions for username format." />
+							</if>
+							<param name="google_usergroup" type="usergroup" multiple="true" size="10" default="" label="Usergroups" managegroups="false" description="Optionally select Google registration usergroups of users." />
+							<param name="google_approve" type="xml:cbconnectApprove" default="0" label="Approval" description="Select Google registration to require admin approval." />
+							<param name="google_confirm" type="xml:cbconnectConfirm" default="0" label="Confirmation" description="Select Google registration to require email confirmation." />
+							<params name="google_fields" type="params" repeat="true" label="Fields">
+								<param name="from" type="xml:cbconnectFromFields" blanktext="--- Select Provider Field ---" label="From Field" description="Select a field to synchronize from on registration." />
+								<param name="to" type="field" key="name" storable="true" blanktext="--- Select CB Field ---" label="To Field" description="Select a field to synchronize to on registration." />
+							</params>
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Login">
+						<param name="google_button_style" type="xml:cbconnectButtonStyle" default="2" label="Button Style" description="Select how Google button is displayed." />
+						<param name="google_button_signin" type="text" default="" size="40" label="Sign In Button" description="Optionally input alternative title for Google Sign In button. If left blank will default to &quot;Sign In&quot;." />
+						<param name="google_button_link" type="text" default="" size="40" label="Link Button" description="Optionally input alternative title for Google Link button. If left blank will default to &quot;Link&quot;." />
+						<param name="google_firstlogin" type="text" default="" size="60" label="First Redirect" description="Input optional Google first time login redirect URL (e.g. index.php?option=com_comprofiler)." />
+						<param name="google_login" type="text" default="" size="60" label="Redirect" description="Input optional Google login redirect URL (e.g. index.php?option=com_comprofiler)." />
+					</tabpanetab>
+				</tabpane>
+			</tabpanetab>
+			<tabpanetab label="Instagram">
+				<tabpane name="instagram">
+					<tabpanetab label="Application">
+						<param name="instagram_enabled" type="yesno" default="0" label="Enabled" description="Enable or disable Instagram integration. This allows quick enable or disable without having to clear parameters." />
+						<if name="instagram_enabled" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+							<param name="instagram_provider" type="group" label="Provider">
+								<field name="" type="text" mode="show" default="Instagram" label="" link="http://hybridauth.sourceforge.net/userguide/IDProvider_info_Instagram.html" target="_blank" description="Click for additional information about this provider and configuration instructions." />
+							</param>
+							<param name="instagram_client_id" type="text" default="" size="40" label="Client ID" description="Input Instagram application client id." validate="required" />
+							<param name="instagram_client_secret" type="text" default="" size="40" label="Client Secret" description="Input Instagram application client secret." validate="required" />
+							<param name="instagram_permissions" type="list" multiple="true" size="10" default="" label="Permissions" description="Select additional API permissions from connected Instagram users. Additional permissions allow for additional data to be retrieved on the users behalf.">
+								<option value="comments">Comments</option>
+								<option value="relationships">Relationships</option>
+								<option value="likes">Likes</option>
+							</param>
+							<param name="instagram_callback" type="private" default="instagram" label="Callback URL" class="cbconnectHybrid" method="getProviderCallbackURL" description="The provider callback url. This url should be supplied to the provider configuration as needed. This is sometimes also known as the redirect url." />
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Registration">
+						<param name="instagram_register" type="yesno" default="1" label="Register" description="Enable or disable Instagram account registration. Register allows for non-existing Community Builder users to register with their Instagram account credentials." />
+						<param name="instagram_link" type="yesno" default="1" label="Linking" description="Enable or disable Instagram account linking. Linking allows existing Community Builder users while logged in to link their Instagram account to their existing Community Builder account." />
+						<if name="instagram_register" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+							<param name="instagram_mode" type="xml:cbconnectRegistration" default="1" label="Mode" description="Select if users should be registered immediately with Single Sign-on or if standard CB registration form should be pre-filled with their social site profile data. Note for pre-filled mode this provider field should be set to display on registration." />
+							<param name="instagram_username" type="text" default="" size="40" label="Username Format" description="Optionally input substitution supported username format override." />
+							<if name="instagram_username" nametype="param:string" operator="!=" value="" valuetype="const:string" type="showhide">
+								<param name="instagramUsernameSubstitutions" type="spacer" label="Username Substitutions" default="[provider], [provider_id], [provider_name], [profile_identifier], [profile_webSiteURL], [profile_profileURL], [profile_photoURL], [profile_displayName], [profile_description], [profile_firstName], [profile_lastName], [profile_gender], [profile_language], [profile_age], [profile_birthDay], [profile_birthMonth], [profile_birthYear], [profile_email], [profile_emailVerified], [profile_phone], [profile_address], [profile_country], [profile_region], [profile_city], [profile_zip]" description="The additional supported substitutions for username format." />
+							</if>
+							<param name="instagram_usergroup" type="usergroup" multiple="true" size="10" default="" label="Usergroups" managegroups="false" description="Optionally select Instagram registration usergroups of users." />
+							<param name="instagram_approve" type="xml:cbconnectApprove" default="0" label="Approval" description="Select Instagram registration to require admin approval." />
+							<param name="instagram_confirm" type="xml:cbconnectConfirm" default="0" label="Confirmation" description="Select Instagram registration to require email confirmation." />
+							<params name="instagram_fields" type="params" repeat="true" label="Fields">
+								<param name="from" type="xml:cbconnectFromFields" blanktext="--- Select Provider Field ---" label="From Field" description="Select a field to synchronize from on registration." />
+								<param name="to" type="field" key="name" storable="true" blanktext="--- Select CB Field ---" label="To Field" description="Select a field to synchronize to on registration." />
+							</params>
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Login">
+						<param name="instagram_button_style" type="xml:cbconnectButtonStyle" default="2" label="Button Style" description="Select how Instagram button is displayed." />
+						<param name="instagram_button_signin" type="text" default="" size="40" label="Sign In Button" description="Optionally input alternative title for Instagram Sign In button. If left blank will default to &quot;Sign In&quot;." />
+						<param name="instagram_button_link" type="text" default="" size="40" label="Link Button" description="Optionally input alternative title for Instagram Link button. If left blank will default to &quot;Link&quot;." />
+						<param name="instagram_firstlogin" type="text" default="" size="60" label="First Redirect" description="Input optional Instagram first time login redirect URL (e.g. index.php?option=com_comprofiler)." />
+						<param name="instagram_login" type="text" default="" size="60" label="Redirect" description="Input optional Instagram login redirect URL (e.g. index.php?option=com_comprofiler)." />
+					</tabpanetab>
+				</tabpane>
+			</tabpanetab>
+			<tabpanetab label="Foursquare">
+				<tabpane name="foursquare">
+					<tabpanetab label="Application">
+						<param name="foursquare_enabled" type="yesno" default="0" label="Enabled" description="Enable or disable Foursquare integration. This allows quick enable or disable without having to clear parameters." />
+						<if name="foursquare_enabled" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+							<param name="foursquare_provider" type="group" label="Provider">
+								<field name="" type="text" mode="show" default="Foursquare" label="" link="http://hybridauth.sourceforge.net/userguide/IDProvider_info_Foursquare.html" target="_blank" description="Click for additional information about this provider and configuration instructions." />
+							</param>
+							<param name="foursquare_client_id" type="text" default="" size="40" label="Client ID" description="Input Foursquare application client id." validate="required" />
+							<param name="foursquare_client_secret" type="text" default="" size="40" label="Client Secret" description="Input Foursquare application client secret." validate="required" />
+							<param name="foursquare_callback" type="private" default="foursquare" label="Callback URL" class="cbconnectHybrid" method="getProviderCallbackURL" description="The provider callback url. This url should be supplied to the provider configuration as needed. This is sometimes also known as the redirect url." />
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Registration">
+						<param name="foursquare_register" type="yesno" default="1" label="Register" description="Enable or disable Foursquare account registration. Register allows for non-existing Community Builder users to register with their Foursquare account credentials." />
+						<param name="foursquare_link" type="yesno" default="1" label="Linking" description="Enable or disable Foursquare account linking. Linking allows existing Community Builder users while logged in to link their Foursquare account to their existing Community Builder account." />
+						<if name="foursquare_register" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+							<param name="foursquare_mode" type="xml:cbconnectRegistration" default="1" label="Mode" description="Select if users should be registered immediately with Single Sign-on or if standard CB registration form should be pre-filled with their social site profile data. Note for pre-filled mode this provider field should be set to display on registration." />
+							<param name="foursquare_username" type="text" default="" size="40" label="Username Format" description="Optionally input substitution supported username format override." />
+							<if name="foursquare_username" nametype="param:string" operator="!=" value="" valuetype="const:string" type="showhide">
+								<param name="foursquareUsernameSubstitutions" type="spacer" label="Username Substitutions" default="[provider], [provider_id], [provider_name], [profile_identifier], [profile_webSiteURL], [profile_profileURL], [profile_photoURL], [profile_displayName], [profile_description], [profile_firstName], [profile_lastName], [profile_gender], [profile_language], [profile_age], [profile_birthDay], [profile_birthMonth], [profile_birthYear], [profile_email], [profile_emailVerified], [profile_phone], [profile_address], [profile_country], [profile_region], [profile_city], [profile_zip]" description="The additional supported substitutions for username format." />
+							</if>
+							<param name="foursquare_usergroup" type="usergroup" multiple="true" size="10" default="" label="Usergroups" managegroups="false" description="Optionally select Foursquare registration usergroups of users." />
+							<param name="foursquare_approve" type="xml:cbconnectApprove" default="0" label="Approval" description="Select Foursquare registration to require admin approval." />
+							<param name="foursquare_confirm" type="xml:cbconnectConfirm" default="0" label="Confirmation" description="Select Foursquare registration to require email confirmation." />
+							<params name="foursquare_fields" type="params" repeat="true" label="Fields">
+								<param name="from" type="xml:cbconnectFromFields" blanktext="--- Select Provider Field ---" label="From Field" description="Select a field to synchronize from on registration." />
+								<param name="to" type="field" key="name" storable="true" blanktext="--- Select CB Field ---" label="To Field" description="Select a field to synchronize to on registration." />
+							</params>
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Login">
+						<param name="foursquare_button_style" type="xml:cbconnectButtonStyle" default="2" label="Button Style" description="Select how Foursquare button is displayed." />
+						<param name="foursquare_button_signin" type="text" default="" size="40" label="Sign In Button" description="Optionally input alternative title for Foursquare Sign In button. If left blank will default to &quot;Sign In&quot;." />
+						<param name="foursquare_button_link" type="text" default="" size="40" label="Link Button" description="Optionally input alternative title for Foursquare Link button. If left blank will default to &quot;Link&quot;." />
+						<param name="foursquare_firstlogin" type="text" default="" size="60" label="First Redirect" description="Input optional Foursquare first time login redirect URL (e.g. index.php?option=com_comprofiler)." />
+						<param name="foursquare_login" type="text" default="" size="60" label="Redirect" description="Input optional Foursquare login redirect URL (e.g. index.php?option=com_comprofiler)." />
+					</tabpanetab>
+				</tabpane>
+			</tabpanetab>
+			<tabpanetab label="GitHub">
+				<tabpane name="github">
+					<tabpanetab label="Application">
+						<param name="github_enabled" type="yesno" default="0" label="Enabled" description="Enable or disable GitHub integration. This allows quick enable or disable without having to clear parameters." />
+						<if name="github_enabled" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+							<param name="github_provider" type="group" label="Provider">
+								<field name="" type="text" mode="show" default="GitHub" label="" link="http://hybridauth.sourceforge.net/userguide/IDProvider_info_Github.html" target="_blank" description="Click for additional information about this provider and configuration instructions." />
+							</param>
+							<param name="github_client_id" type="text" default="" size="40" label="Client ID" description="Input GitHub application client id." validate="required" />
+							<param name="github_client_secret" type="text" default="" size="40" label="Client Secret" description="Input GitHub application client secret." validate="required" />
+							<param name="github_permissions" type="list" multiple="true" size="10" default="" label="Permissions" description="Select additional API permissions from connected GitHub users. Additional permissions allow for additional data to be retrieved on the users behalf.">
+								<option value="public_repo">Public Repos</option>
+								<option value="repo">Private Repos</option>
+								<option value="delete_repo">Delete Repos</option>
+								<option value="notifications">Notifications</option>
+								<option value="gist">Gists</option>
+							</param>
+							<param name="github_callback" type="private" default="github" label="Callback URL" class="cbconnectHybrid" method="getProviderCallbackURL" description="The provider callback url. This url should be supplied to the provider configuration as needed. This is sometimes also known as the redirect url." />
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Registration">
+						<param name="github_register" type="yesno" default="1" label="Register" description="Enable or disable GitHub account registration. Register allows for non-existing Community Builder users to register with their GitHub account credentials." />
+						<param name="github_link" type="yesno" default="1" label="Linking" description="Enable or disable GitHub account linking. Linking allows existing Community Builder users while logged in to link their GitHub account to their existing Community Builder account." />
+						<if name="github_register" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+							<param name="github_mode" type="xml:cbconnectRegistration" default="1" label="Mode" description="Select if users should be registered immediately with Single Sign-on or if standard CB registration form should be pre-filled with their social site profile data. Note for pre-filled mode this provider field should be set to display on registration." />
+							<param name="github_username" type="text" default="" size="40" label="Username Format" description="Optionally input substitution supported username format override." />
+							<if name="github_username" nametype="param:string" operator="!=" value="" valuetype="const:string" type="showhide">
+								<param name="githubUsernameSubstitutions" type="spacer" label="Username Substitutions" default="[provider], [provider_id], [provider_name], [profile_identifier], [profile_webSiteURL], [profile_profileURL], [profile_photoURL], [profile_displayName], [profile_description], [profile_firstName], [profile_lastName], [profile_gender], [profile_language], [profile_age], [profile_birthDay], [profile_birthMonth], [profile_birthYear], [profile_email], [profile_emailVerified], [profile_phone], [profile_address], [profile_country], [profile_region], [profile_city], [profile_zip]" description="The additional supported substitutions for username format." />
+							</if>
+							<param name="github_usergroup" type="usergroup" multiple="true" size="10" default="" label="Usergroups" managegroups="false" description="Optionally select GitHub registration usergroups of users." />
+							<param name="github_approve" type="xml:cbconnectApprove" default="0" label="Approval" description="Select GitHub registration to require admin approval." />
+							<param name="github_confirm" type="xml:cbconnectConfirm" default="0" label="Confirmation" description="Select GitHub registration to require email confirmation." />
+							<params name="github_fields" type="params" repeat="true" label="Fields">
+								<param name="from" type="xml:cbconnectFromFields" blanktext="--- Select Provider Field ---" label="From Field" description="Select a field to synchronize from on registration." />
+								<param name="to" type="field" key="name" storable="true" blanktext="--- Select CB Field ---" label="To Field" description="Select a field to synchronize to on registration." />
+							</params>
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Login">
+						<param name="github_button_style" type="xml:cbconnectButtonStyle" default="2" label="Button Style" description="Select how GitHub button is displayed." />
+						<param name="github_button_signin" type="text" default="" size="40" label="Sign In Button" description="Optionally input alternative title for GitHub Sign In button. If left blank will default to &quot;Sign In&quot;." />
+						<param name="github_button_link" type="text" default="" size="40" label="Link Button" description="Optionally input alternative title for GitHub Link button. If left blank will default to &quot;Link&quot;." />
+						<param name="github_firstlogin" type="text" default="" size="60" label="First Redirect" description="Input optional GitHub first time login redirect URL (e.g. index.php?option=com_comprofiler)." />
+						<param name="github_login" type="text" default="" size="60" label="Redirect" description="Input optional GitHub login redirect URL (e.g. index.php?option=com_comprofiler)." />
+					</tabpanetab>
+				</tabpane>
+			</tabpanetab>
+			<tabpanetab label="VKontakte">
+				<tabpane name="vkontakte">
+					<tabpanetab label="Application">
+						<param name="vkontakte_enabled" type="yesno" default="0" label="Enabled" description="Enable or disable VKontakte integration. This allows quick enable or disable without having to clear parameters." />
+						<if name="vkontakte_enabled" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+							<param name="vkontakte_provider" type="group" label="Provider">
+								<field name="" type="text" mode="show" default="VKontakte" label="" link="http://hybridauth.sourceforge.net/userguide/IDProvider_info_Vkontakte.html" target="_blank" description="Click for additional information about this provider and configuration instructions." />
+							</param>
+							<param name="vkontakte_application_id" type="text" default="" size="40" label="Application ID" description="Input VKontakte application id." validate="required" />
+							<param name="vkontakte_secret_key" type="text" default="" size="40" label="Secret Key" description="Input VKontakte application secret key." validate="required" />
+							<param name="vkontakte_permissions" type="list" multiple="true" size="10" default="" label="Permissions" description="Select additional API permissions from connected VKontakte users. Additional permissions allow for additional data to be retrieved on the users behalf.">
+								<option value="notify">Notify</option>
+								<option value="friends">Friends</option>
+								<option value="photos">Photos</option>
+								<option value="audio">Audio</option>
+								<option value="video">Videos</option>
+								<option value="docs">Documents</option>
+								<option value="notes">Notes</option>
+								<option value="pages">Pages</option>
+								<option value="status">Status</option>
+								<option value="groups">Groups</option>
+								<option value="notifications">Notifications</option>
+								<option value="stats">Stats</option>
+								<option value="ads">Ads</option>
+								<option value="wall">Wall</option>
+								<option value="messages">Messages</option>
+							</param>
+							<param name="vkontakte_callback" type="private" default="vkontakte" label="Callback URL" class="cbconnectHybrid" method="getProviderCallbackURL" description="The provider callback url. This url should be supplied to the provider configuration as needed. This is sometimes also known as the redirect url." />
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Registration">
+						<param name="vkontakte_register" type="yesno" default="1" label="Register" description="Enable or disable VKontakte account registration. Register allows for non-existing Community Builder users to register with their VKontakte account credentials." />
+						<param name="vkontakte_link" type="yesno" default="1" label="Linking" description="Enable or disable VKontakte account linking. Linking allows existing Community Builder users while logged in to link their VKontakte account to their existing Community Builder account." />
+						<if name="vkontakte_register" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+							<param name="vkontakte_mode" type="xml:cbconnectRegistration" default="1" label="Mode" description="Select if users should be registered immediately with Single Sign-on or if standard CB registration form should be pre-filled with their social site profile data. Note for pre-filled mode this provider field should be set to display on registration." />
+							<param name="vkontakte_username" type="text" default="" size="40" label="Username Format" description="Optionally input substitution supported username format override." />
+							<if name="vkontakte_username" nametype="param:string" operator="!=" value="" valuetype="const:string" type="showhide">
+								<param name="vkontakteUsernameSubstitutions" type="spacer" label="Username Substitutions" default="[provider], [provider_id], [provider_name], [profile_identifier], [profile_webSiteURL], [profile_profileURL], [profile_photoURL], [profile_displayName], [profile_description], [profile_firstName], [profile_lastName], [profile_gender], [profile_language], [profile_age], [profile_birthDay], [profile_birthMonth], [profile_birthYear], [profile_email], [profile_emailVerified], [profile_phone], [profile_address], [profile_country], [profile_region], [profile_city], [profile_zip]" description="The additional supported substitutions for username format." />
+							</if>
+							<param name="vkontakte_usergroup" type="usergroup" multiple="true" size="10" default="" label="Usergroups" managegroups="false" description="Optionally select VKontakte registration usergroups of users." />
+							<param name="vkontakte_approve" type="xml:cbconnectApprove" default="0" label="Approval" description="Select VKontakte registration to require admin approval." />
+							<param name="vkontakte_confirm" type="xml:cbconnectConfirm" default="0" label="Confirmation" description="Select VKontakte registration to require email confirmation." />
+							<params name="vkontakte_fields" type="params" repeat="true" label="Fields">
+								<param name="from" type="xml:cbconnectFromFields" blanktext="--- Select Provider Field ---" label="From Field" description="Select a field to synchronize from on registration." />
+								<param name="to" type="field" key="name" storable="true" blanktext="--- Select CB Field ---" label="To Field" description="Select a field to synchronize to on registration." />
+							</params>
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Login">
+						<param name="vkontakte_button_style" type="xml:cbconnectButtonStyle" default="2" label="Button Style" description="Select how VKontakte button is displayed." />
+						<param name="vkontakte_button_signin" type="text" default="" size="40" label="Sign In Button" description="Optionally input alternative title for VKontakte Sign In button. If left blank will default to &quot;Sign In&quot;." />
+						<param name="vkontakte_button_link" type="text" default="" size="40" label="Link Button" description="Optionally input alternative title for VKontakte Link button. If left blank will default to &quot;Link&quot;." />
+						<param name="vkontakte_firstlogin" type="text" default="" size="60" label="First Redirect" description="Input optional VKontakte first time login redirect URL (e.g. index.php?option=com_comprofiler)." />
+						<param name="vkontakte_login" type="text" default="" size="60" label="Redirect" description="Input optional VKontakte login redirect URL (e.g. index.php?option=com_comprofiler)." />
+					</tabpanetab>
+				</tabpane>
+			</tabpanetab>
+			<tabpanetab label="Steam">
+				<tabpane name="steam">
+					<tabpanetab label="Application">
+						<param name="steam_enabled" type="yesno" default="0" label="Enabled" description="Enable or disable Steam integration. This allows quick enable or disable without having to clear parameters." />
+						<if name="steam_enabled" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+							<param name="steam_provider" type="group" label="Provider">
+								<field name="" type="text" mode="show" default="Steam" label="" link="http://hybridauth.sourceforge.net/userguide/IDProvider_info_Steam.html" target="_blank" description="Click for additional information about this provider and configuration instructions." />
+							</param>
+							<param name="steam_api_key" type="text" default="" size="40" label="API Key" description="Input Steam web api key." validate="required" />
+							<param name="steam_callback" type="private" default="steam" label="Callback URL" class="cbconnectHybrid" method="getProviderCallbackURL" description="The provider callback url. This url should be supplied to the provider configuration as needed. This is sometimes also known as the redirect url." />
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Registration">
+						<param name="steam_register" type="yesno" default="1" label="Register" description="Enable or disable Steam account registration. Register allows for non-existing Community Builder users to register with their Steam account credentials." />
+						<param name="steam_link" type="yesno" default="1" label="Linking" description="Enable or disable Steam account linking. Linking allows existing Community Builder users while logged in to link their Steam account to their existing Community Builder account." />
+						<if name="steam_register" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+							<param name="steam_mode" type="xml:cbconnectRegistration" default="1" label="Mode" description="Select if users should be registered immediately with Single Sign-on or if standard CB registration form should be pre-filled with their social site profile data. Note for pre-filled mode this provider field should be set to display on registration." />
+							<param name="steam_username" type="text" default="" size="40" label="Username Format" description="Optionally input substitution supported username format override." />
+							<if name="steam_username" nametype="param:string" operator="!=" value="" valuetype="const:string" type="showhide">
+								<param name="steamUsernameSubstitutions" type="spacer" label="Username Substitutions" default="[provider], [provider_id], [provider_name], [profile_identifier], [profile_webSiteURL], [profile_profileURL], [profile_photoURL], [profile_displayName], [profile_description], [profile_firstName], [profile_lastName], [profile_gender], [profile_language], [profile_age], [profile_birthDay], [profile_birthMonth], [profile_birthYear], [profile_email], [profile_emailVerified], [profile_phone], [profile_address], [profile_country], [profile_region], [profile_city], [profile_zip]" description="The additional supported substitutions for username format." />
+							</if>
+							<param name="steam_usergroup" type="usergroup" multiple="true" size="10" default="" label="Usergroups" managegroups="false" description="Optionally select Steam registration usergroups of users." />
+							<param name="steam_approve" type="xml:cbconnectApprove" default="0" label="Approval" description="Select Steam registration to require admin approval." />
+							<param name="steam_confirm" type="xml:cbconnectConfirm" default="0" label="Confirmation" description="Select Steam registration to require email confirmation." />
+							<params name="steam_fields" type="params" repeat="true" label="Fields">
+								<param name="from" type="xml:cbconnectFromFields" blanktext="--- Select Provider Field ---" label="From Field" description="Select a field to synchronize from on registration." />
+								<param name="to" type="field" key="name" storable="true" blanktext="--- Select CB Field ---" label="To Field" description="Select a field to synchronize to on registration." />
+							</params>
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Login">
+						<param name="steam_button_style" type="xml:cbconnectButtonStyle" default="2" label="Button Style" description="Select how Steam button is displayed." />
+						<param name="steam_button_signin" type="text" default="" size="40" label="Sign In Button" description="Optionally input alternative title for Steam Sign In button. If left blank will default to &quot;Sign In&quot;." />
+						<param name="steam_button_link" type="text" default="" size="40" label="Link Button" description="Optionally input alternative title for Steam Link button. If left blank will default to &quot;Link&quot;." />
+						<param name="steam_firstlogin" type="text" default="" size="60" label="First Redirect" description="Input optional Steam first time login redirect URL (e.g. index.php?option=com_comprofiler)." />
+						<param name="steam_login" type="text" default="" size="60" label="Redirect" description="Input optional Steam login redirect URL (e.g. index.php?option=com_comprofiler)." />
+					</tabpanetab>
+				</tabpane>
+			</tabpanetab>
+			<tabpanetab label="Tumblr">
+				<tabpane name="tumblr">
+					<tabpanetab label="Application">
+						<param name="tumblr_enabled" type="yesno" default="0" label="Enabled" description="Enable or disable Tumblr integration. This allows quick enable or disable without having to clear parameters." />
+						<if name="tumblr_enabled" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+							<param name="tumblr_provider" type="group" label="Provider">
+								<field name="" type="text" mode="show" default="Tumblr" label="" link="http://hybridauth.sourceforge.net/userguide/IDProvider_info_Tumblr.html" target="_blank" description="Click for additional information about this provider and configuration instructions." />
+							</param>
+							<param name="tumblr_consumer_key" type="text" default="" size="40" label="Consumer Key" description="Input Tumblr application consumer key." validate="required" />
+							<param name="tumblr_consumer_secret" type="text" default="" size="40" label="Consumer Secret" description="Input Tumblr application consumer secret." validate="required" />
+							<param name="tumblr_callback" type="private" default="tumblr" label="Callback URL" class="cbconnectHybrid" method="getProviderCallbackURL" description="The provider callback url. This url should be supplied to the provider configuration as needed. This is sometimes also known as the redirect url." />
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Registration">
+						<param name="tumblr_register" type="yesno" default="1" label="Register" description="Enable or disable Tumblr account registration. Register allows for non-existing Community Builder users to register with their Tumblr account credentials." />
+						<param name="tumblr_link" type="yesno" default="1" label="Linking" description="Enable or disable Tumblr account linking. Linking allows existing Community Builder users while logged in to link their Tumblr account to their existing Community Builder account." />
+						<if name="tumblr_register" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+							<param name="tumblr_mode" type="xml:cbconnectRegistration" default="1" label="Mode" description="Select if users should be registered immediately with Single Sign-on or if standard CB registration form should be pre-filled with their social site profile data. Note for pre-filled mode this provider field should be set to display on registration." />
+							<param name="tumblr_username" type="text" default="" size="40" label="Username Format" description="Optionally input substitution supported username format override." />
+							<if name="tumblr_username" nametype="param:string" operator="!=" value="" valuetype="const:string" type="showhide">
+								<param name="tumblrUsernameSubstitutions" type="spacer" label="Username Substitutions" default="[provider], [provider_id], [provider_name], [profile_identifier], [profile_webSiteURL], [profile_profileURL], [profile_photoURL], [profile_displayName], [profile_description], [profile_firstName], [profile_lastName], [profile_gender], [profile_language], [profile_age], [profile_birthDay], [profile_birthMonth], [profile_birthYear], [profile_email], [profile_emailVerified], [profile_phone], [profile_address], [profile_country], [profile_region], [profile_city], [profile_zip]" description="The additional supported substitutions for username format." />
+							</if>
+							<param name="tumblr_usergroup" type="usergroup" multiple="true" size="10" default="" label="Usergroups" managegroups="false" description="Optionally select Tumblr registration usergroups of users." />
+							<param name="tumblr_approve" type="xml:cbconnectApprove" default="0" label="Approval" description="Select Tumblr registration to require admin approval." />
+							<param name="tumblr_confirm" type="xml:cbconnectConfirm" default="0" label="Confirmation" description="Select Tumblr registration to require email confirmation." />
+							<params name="tumblr_fields" type="params" repeat="true" label="Fields">
+								<param name="from" type="xml:cbconnectFromFields" blanktext="--- Select Provider Field ---" label="From Field" description="Select a field to synchronize from on registration." />
+								<param name="to" type="field" key="name" storable="true" blanktext="--- Select CB Field ---" label="To Field" description="Select a field to synchronize to on registration." />
+							</params>
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Login">
+						<param name="tumblr_button_style" type="xml:cbconnectButtonStyle" default="2" label="Button Style" description="Select how Tumblr button is displayed." />
+						<param name="tumblr_button_signin" type="text" default="" size="40" label="Sign In Button" description="Optionally input alternative title for Tumblr Sign In button. If left blank will default to &quot;Sign In&quot;." />
+						<param name="tumblr_button_link" type="text" default="" size="40" label="Link Button" description="Optionally input alternative title for Tumblr Link button. If left blank will default to &quot;Link&quot;." />
+						<param name="tumblr_firstlogin" type="text" default="" size="60" label="First Redirect" description="Input optional Tumblr first time login redirect URL (e.g. index.php?option=com_comprofiler)." />
+						<param name="tumblr_login" type="text" default="" size="60" label="Redirect" description="Input optional Tumblr login redirect URL (e.g. index.php?option=com_comprofiler)." />
+					</tabpanetab>
+				</tabpane>
+			</tabpanetab>
+		</tabpane>
+	</params>
+	<tabs>
+		<tab type="existingSytemTab" class="getContactTab">
+			<fields>
+				<field type="socialid" title="Facebook ID" name="fb_userid" description="Your Facebook ID allowing API calls; if unauthorized only public calls will validate." registration="1" profile="1" edit="1" readonly="0" />
+				<field type="socialid" title="Twitter ID" name="twitter_userid" description="Your Twitter ID allowing API calls; if unauthorized only public calls will validate." registration="1" profile="1" edit="1" readonly="0" />
+				<field type="socialid" title="LinkedIn ID" name="linkedin_userid" description="Your LinkedIn ID allowing API calls; if unauthorized only public calls will validate." registration="1" profile="1" edit="1" readonly="0" />
+				<field type="socialid" title="Windows Live ID" name="windowslive_userid" description="Your Windows Live ID allowing API calls; if unauthorized only public calls will validate." registration="1" profile="1" edit="1" readonly="0" />
+				<field type="socialid" title="Google ID" name="google_userid" description="Your Google ID allowing API calls; if unauthorized only public calls will validate." registration="1" profile="1" edit="1" readonly="0" />
+				<field type="socialid" title="Instagram ID" name="instagram_userid" description="Your Instagram ID allowing API calls; if unauthorized only public calls will validate." registration="1" profile="1" edit="1" readonly="0" />
+				<field type="socialid" title="Foursquare ID" name="foursquare_userid" description="Your Foursquare ID allowing API calls; if unauthorized only public calls will validate." registration="1" profile="1" edit="1" readonly="0" />
+				<field type="socialid" title="GitHub ID" name="github_userid" description="Your GitHub ID allowing API calls; if unauthorized only public calls will validate." registration="1" profile="1" edit="1" readonly="0" />
+				<field type="socialid" title="VKontakte ID" name="vkontakte_userid" description="Your VKontakte ID allowing API calls; if unauthorized only public calls will validate." registration="1" profile="1" edit="1" readonly="0" />
+				<field type="socialid" title="Steam ID" name="steam_userid" description="Your Steam ID allowing API calls; if unauthorized only public calls will validate." registration="1" profile="1" edit="1" readonly="0" />
+				<field type="socialid" title="Tumblr ID" name="tumblr_userid" description="Your Tumblr ID allowing API calls; if unauthorized only public calls will validate." registration="1" profile="1" edit="1" readonly="0" />
+			</fields>
+		</tab>
+	</tabs>
+	<database>
+	</database>
+</cbinstall>

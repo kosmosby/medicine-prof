@@ -1,0 +1,91 @@
+/*
+ * Widgetkit Slideshow: subway Style
+ */
+
+
+.wk-slideshow-subway { box-shadow: 0 0 1px rgba(255,255,255,0.2); }
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-subway .nav {
+	position: absolute;
+	top: 2px;
+	right: 5px;
+	text-align: center;
+	z-index: 5;
+}
+
+.wk-slideshow-subway .nav li { display: inline-block; }
+
+.wk-slideshow-subway .nav span {
+	width: 11px;
+	height: 10px;
+	background: url(images/nav.png) 0 0 no-repeat;
+	overflow: hidden;
+}
+.wk-slideshow-subway .nav span:hover { background-position: 0 -10px; }
+.wk-slideshow-subway .nav .active span { background-position: 0 -20px; }
+
+
+/* Buttons
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-subway > div { position: relative; }
+
+.wk-slideshow-subway > div > a {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 50px;
+	background: rgba(0,0,0,0);
+	text-align: center;
+	display: block;
+	overflow: hidden;
+	z-index: 5;
+}
+
+.wk-slideshow-subway > div:hover > a { 
+	background: #000;
+	background: rgba(0,0,0,0.7);
+}
+
+.wk-slideshow-subway .next,
+.wk-slideshow-subway .prev {
+	width: 50px;
+	height: 50px;
+	position: relative;
+	opacity: 0;
+	display: inline-block;
+}
+
+.wk-slideshow-subway > div:hover .next,
+.wk-slideshow-subway > div:hover .prev {
+	background: url(images/buttons.png) 0 50px no-repeat;
+	opacity: 1;
+}
+
+.wk-slideshow-subway > div:hover .next { background-position: 0 0; }
+.wk-slideshow-subway > div:hover .prev { background-position: 0 -50px; }
+.wk-slideshow-subway > div:hover .next:hover { background-position: 0 -100px; }
+.wk-slideshow-subway > div:hover .prev:hover { background-position: 0 -150px; }
+
+/* Captions
+----------------------------------------------------------------------------------------------------*/
+
+/*
+ * IE Fixes 7 + 8 fixes
+ */
+
+.wk-ie7 .wk-slideshow-subway .nav { top: 10px; }
+
+.wk-ie7 .wk-slideshow-subway .nav li,
+.wk-ie7 .wk-slideshow-subway .nav span { display: inline; }
+.wk-ie7 .wk-slideshow-subway .nav span { zoom: 1; }
+
+.wk-ie7 .wk-slideshow-subway .next,
+.wk-ie7 .wk-slideshow-subway .prev { 
+	display: inline;
+	zoom: 1;
+}

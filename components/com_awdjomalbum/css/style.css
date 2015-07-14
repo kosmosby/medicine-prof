@@ -1,0 +1,429 @@
+table
+{
+	border:solid 0px #ddd !important
+}
+
+tr, td
+{
+	border:none !important;
+}
+
+#imgList{
+
+float:left;
+
+height:100%;
+
+width:100%;
+
+padding-bottom:10px;}
+
+
+
+.imgTitle{
+
+color:#333333;
+
+font-size:12px;
+
+float:left;
+
+width:21%;
+
+height:90%;
+
+padding:5px;
+
+border:double;
+
+border-color:#CCCCCC;
+
+text-align:center;
+
+
+
+}
+
+
+
+
+
+.SubType{
+
+clear:both;
+
+width:90%;
+
+color:#990000;
+
+font-size:24px;
+
+text-align:left;
+
+padding:20px;
+
+border-bottom:3px #999999 solid;
+
+}
+
+
+
+
+
+
+
+.subTitle a{
+
+/*color:#333333;*/
+
+padding-bottom:5px;
+
+}
+
+
+
+.subTitleA{
+
+padding-bottom:5px;}
+
+.subTitle a:hover{
+
+/*color:#990000;*/}
+
+
+
+.subTitle img{
+
+border:none;   }
+
+
+
+#description{
+
+padding-top:20px;
+
+width:95%;}
+
+
+
+
+
+#descriptionImg{
+
+float:left;
+
+width:25%;}
+
+
+
+#descriptionDetails{
+
+float:left;
+
+width:75%;}
+
+
+
+#descriptionDetails span{
+
+padding:10px;}
+
+
+
+.descriptionDetailsTitle{
+
+font-size:24px;
+
+color:#333333;
+
+padding:0px;}
+
+
+
+#cartPage{
+
+padding:30px;
+
+}
+
+  
+
+.username{
+
+float:left;
+
+height:auto;
+
+
+
+color:#999999;
+
+font-size:24px; }
+
+
+
+.uploadphotos{
+
+float:right;
+
+width:100px; 
+
+background-color:#999999;
+
+border:1px #000 solid;
+
+font-weight:bold;
+
+padding-left:5px;
+
+}
+
+
+
+.tag{
+
+background-image:url(../images/tag.png);
+
+height:24px;
+
+background-repeat:no-repeat;
+
+float:;
+
+width:95px;
+
+
+}
+
+.donetag{
+
+background-image:url(../images/donetagging.png);
+
+height:24px;
+
+background-repeat:no-repeat;
+
+
+width:91px; 
+
+}
+
+
+
+.albumBox{
+
+float:left;
+
+height:auto;
+
+width:160px;
+
+padding:5px 10px 0px 0px;
+
+margin-bottom:10px;
+
+}
+
+
+
+.albumImg{
+
+background-image:url(../images/imgbg.png);
+
+background-repeat:no-repeat;
+
+width:160px;
+
+height:118px;
+
+padding:12px 0px 0px 11px; 
+
+}
+
+
+
+.albumName{
+
+font-weight:bold;
+
+font-size:12px;
+
+padding-left:5px;
+
+padding-bottom:3px;
+
+ }
+
+.photoCount{
+
+float:left;
+
+font-size:11px;
+
+padding-left:5px;
+
+color:#666666;
+
+}
+
+
+
+.createAlbum{
+
+float:left;
+
+text-decoration:underline;
+
+padding-top:5px;}
+
+
+
+.editalbumlink{
+
+float:right; 
+
+text-decoration:underline;}
+
+
+
+.wallPhotos{
+
+clear:both; width:99.5%; height:20px; margin-bottom:5px; font-weight:bold; font-size:13px; padding-top:4px; padding-left:5px; background-color:#EDF0F1; border-top:1px #E8E8E8 solid; border-bottom:1px #E8E8E8 solid;
+
+}
+
+
+
+.wallImages{
+
+float:left;
+
+border:1px #CCCCCC solid;
+
+width:112px;
+
+height:84px;
+
+padding:3px;
+
+margin-right:10px;
+
+margin-bottom:10px;
+
+}
+
+.awdimgborderdiv{
+border:1px solid #CCCCCC;
+padding:4px;
+width:145px;
+height:110px;
+float:left;
+margin:4px;
+}
+
+
+.awdalbumform {
+	background-color: #F7F7F7;
+	border:1px solid #dddddd;
+	-o-border-radius:0.4em;
+	-ms-border-radius:0.4em;
+	-moz-border-radius:0.4em;
+	-khtml-border-radius:0.4em;
+	-webkit-border-radius:0.4em;
+	border-radius:0.4em;
+	-o-box-shadow:rgba(255, 255, 255, 0.7) 0 1px 0;
+	-ms-box-shadow:rgba(255, 255, 255, 0.7) 0 1px 0;
+	-moz-box-shadow:rgba(255, 255, 255, 0.7) 0 1px 0;
+	-khtml-box-shadow:rgba(255, 255, 255, 0.7) 0 1px 0;
+	-webkit-box-shadow:rgba(255, 255, 255, 0.7) 0 1px 0;
+	box-shadow:rgba(255, 255, 255, 0.7) 0 1px 0;
+	padding:0;
+	overflow:hidden;
+	/*color:#868686;*/
+}
+.awdalbumform .form-label {
+	border-top:1px solid #fff;
+	display: block;
+	float: left;
+	font-weight: bold;
+	font-size:13px;
+	line-height:35px;
+	margin: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-shadow: 0 1px 0 #FFF;
+	width: 35%;
+	white-space: nowrap;
+}
+.awdalbumform .form-label em {
+	color: red;
+	font-style: normal;
+}
+.awdalbumform .form-input {
+	display:block;
+	float:right;
+	width:65%;
+	font-size:13px;
+	line-height:35px;
+	background-color:#FFFFFF;
+}
+.awdalbumform .form-input .selector,  .awdalbumform .form-input .uploader,  .awdalbumform .form-input .radiogroup {
+	min-height:0 !important;
+	width:auto !important;
+}
+.awdalbumform > div {
+	border-bottom: 1px solid #DDDDDD;
+	padding-left: 10px;
+}
+.awdalbumform > div:first-child {
+	-o-border-top-right-radius: 0.4em;
+	-o-border-top-left-radius: 0.4em;
+	-ms-border-top-right-radius: 0.4em;
+	-ms-border-top-left-radius: 0.4em;
+	-moz-border-radius-topright: 0.4em;
+	-moz-border-radius-topleft: 0.4em;
+	-khtml-border-top-right-radius: 0.4em;
+	-khtml-border-top-left-radius: 0.4em;
+	-webkit-border-top-right-radius: 0.4em;
+	-webkit-border-top-left-radius: 0.4em;
+	border-top-right-radius: 0.4em;
+	border-top-left-radius: 0.4em;
+}
+.awdalbumform > div:first-child > label {
+	-o-border-top-left-radius: 0.4em;
+	-ms-border-top-left-radius: 0.4em;
+	-moz-border-radius-topleft: 0.4em;
+	-khtml-border-radius-topleft: 0.4em;
+	-webkit-border-top-left-radius: 0.4em;
+	border-top-left-radius: 0.4em;
+}
+.awdalbumform > div:first-child > .form-input,  .awdalbumform > div:first-child > .form-input > * {
+	-o-border-top-right-radius: 0.4em;
+	-ms-border-top-right-radius: 0.4em;
+	-moz-border-radius-topright: 0.4em;
+	-khtml-border-top-right-radius: 0.4em;
+	-webkit-border-top-right-radius: 0.4em;
+	border-top-right-radius: 0.4em;
+}
+.awdalbumform > div:last-child {
+	-o-border-bottom-right-radius: 0.4em;
+	-o-border-bottom-left-radius: 0.4em;
+	-ms-border-bottom-right-radius: 0.4em;
+	-ms-border-bottom-left-radius: 0.4em;
+	-moz-border-radius-bottomright: 0.4em;
+	-moz-border-radius-bottomleft: 0.4em;
+	-khtml-border-bottom-right-radius: 0.4em;
+	-khtml-border-bottom-left-radius: 0.4em;
+	-webkit-border-bottom-right-radius: 0.4em;
+	-webkit-border-bottom-left-radius: 0.4em;
+	border-bottom-right-radius: 0.4em;
+	border-bottom-left-radius: 0.4em;
+	border-bottom: none;
+}
+.awdalbumform > div:last-child > label {
+	-o-border-bottom-right-radius: 0.4em;
+	-ms-border-bottom-right-radius: 0.4em;
+	-moz-border-radius-bottomright: 0.4em;
+	-webkit-border-bottom-right-radius: 0.4em;
+	border-bottom-right-radius: 0.4em;
+}

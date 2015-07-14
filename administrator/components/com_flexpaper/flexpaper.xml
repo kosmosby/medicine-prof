@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id: helloworld.xml 51 2010-11-22 01:33:21Z chdemko $ -->
+<extension type="component" version="1.6.0" method="upgrade">
+
+	<name>Flexpaper</name>
+	<!-- The following elements are optional and free of formatting conttraints -->
+	<creationDate>August 2012</creationDate>
+	<author>Lapytko Yura</author>
+	<authorEmail>kosmos.by@gmail.com</authorEmail>
+	<authorUrl>http://lapytko-yura.narod.ru</authorUrl>
+	<copyright>Copyright Info</copyright>
+	<license>License Info</license>
+	<!--  The version string is recorded in the components table -->
+	<version>0.0.1</version>
+	<!-- The description is optional and defaults to the name -->
+	<description>Description of the flexpaper component ...</description>
+
+	<!-- Site Main File Copy Section -->
+	<!-- Note the folder attribute: This attribute describes the folder
+		to copy FROM in the package to install therefore files copied
+		in this section are copied from /site/ in the package -->
+	<install> <!-- Runs on install -->
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+	<uninstall> <!-- Runs on uninstall -->
+		<sql>
+			<file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	</uninstall>
+
+
+    <files folder="site">
+        <filename>index.html</filename>
+        <filename>flexpaper.php</filename>
+        <filename>controller.php</filename>
+        <filename>img.class.php</filename>
+
+        <folder>certificates</folder>
+        <folder>css</folder>
+        <folder>fonts</folder>
+        <folder>fpdf</folder>
+        <folder>images</folder>
+        <folder>js</folder>
+        <folder>language</folder>
+        <folder>models</folder>
+        <folder>output</folder>
+        <folder>views</folder>
+    </files>
+
+    <media destination="com_flexpaper" folder="media">
+        <filename>index.html</filename>
+        <folder>images</folder>
+    </media>
+
+    <administration>
+		<!-- Administration Menu Section -->
+                <menu img="../media/com_flexpaper/images/qulitylms-16x16.png">Kalite LMS</menu>
+             <submenu>
+                <menu link="option=com_flexpaper" alt="Flexpaper/Dökümanlar" img="../media/com_flexpaper/images/documents-16x16.png">Belgeler</menu>
+                <menu link="option=com_categories&amp;view=categories&amp;extension=com_flexpaper" alt="Flexpaper/Kategoriler" img="../media/com_flexpaper/images/categories-16x16.png">Kategoriler</menu>
+                 <menu link="option=com_flexpaper&amp;task=courses&amp;view=courses" alt="Flexpaper/Eğitimler" img="../media/com_flexpaper/images/courses-16x16.png">Egitimler</menu>
+                 <menu link="option=com_flexpaper&amp;task=bundles&amp;view=bundles" alt="Flexpaper/Kampanyalar" img="../media/com_flexpaper/images/bundles-16x16.png">Kampanyalar</menu>
+                 <menu link="option=com_flexpaper&amp;task=quizes&amp;view=quizes" alt="Flexpaper/Sinavlar" img="../media/com_flexpaper/images/quizes-16x16.png">Sinavlar</menu>
+				 <menu link="option=com_flexpaper&amp;task=tests&amp;view=tests" alt="Flexpaper/Testler" img="../media/com_flexpaper/images/tests-16x16.png">Testler</menu>
+				 <menu link="option=com_flexpaper&amp;task=questions&amp;view=questions" alt="Flexpaper/Sorular" img="../media/com_flexpaper/images/questions-16x16.png">Sorular</menu>
+                 <menu link="option=com_flexpaper&amp;task=certificates&amp;view=certificates" alt="Flexpaper/Sertifikalar" img="../media/com_flexpaper/images/certificates-16x16.png">Sertifikalar</menu>
+            </submenu>
+
+
+		<files folder="admin">
+			<!-- Admin Main File Copy Section -->
+            <filename>access.xml</filename>
+            <filename>controller.php</filename>
+			<filename>flexpaper.php</filename>
+            <filename>index.html</filename>
+			<filename>pdf2swf.exe</filename>
+
+	            <folder>controllers</folder>
+                <folder>helpers</folder>
+                <folder>js</folder>
+                <folder>language</folder>
+	            <folder>models</folder>
+	            <folder>sql</folder>
+	            <folder>tables</folder>
+	            <folder>views</folder>
+		</files>
+	</administration>
+
+</extension>
+

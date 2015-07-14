@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.2.3" method="upgrade">
+  <name>Medicine Products</name>
+  <creationDate>May 2014</creationDate>
+  <author>BearDev</author>
+   <authorEmail>beardev@beardev.com</authorEmail>
+  <authorUrl>www.beardev.com</authorUrl>
+  <version>1.0</version>
+  <description>Medicine Products</description>
+  <license>http://joomsport.com/news/license.html GNU/GPL</license>
+  <files folder="frontend">
+    <filename>medicineproducts.php</filename>
+    <filename>controller.php</filename>
+    <filename>router.php</filename>
+	<folder>css</folder>
+	<folder>img</folder>
+	<folder>js</folder>
+	<folder>views</folder>
+	<folder>models</folder>
+        <folder>includes</folder>
+  </files>
+
+	
+
+  
+  <languages>
+    <language tag="en-GB">Language/FE/en-GB.com_medicineproducts.ini</language>
+    <language tag="ru-RU">Language/FE/ru-RU.com_medicineproducts.ini</language>
+    
+   </languages>		
+
+  <administration>
+	
+    <files>
+		
+	<folder>Language</folder>
+		
+    </files>
+	
+
+  </administration>
+</extension>

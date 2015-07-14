@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form addrulepath="/administrator/components/com_judownload/models/rules">
+    <fieldset name="details"
+              addfieldpath="/administrator/components/com_judownload/models/fields">
+        <field
+                name="limit"
+                type="list"
+                default="1"
+                label="COM_JUDOWNLOAD_FIELD_IMPORT_CSV_LIMIT_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_IMPORT_CSV_LIMIT_DESC"
+                >
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </field>
+        <field
+                name="created_by"
+                type="user"
+                filter="unset"
+                label="COM_JUDOWNLOAD_FIELD_CREATED_BY_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_CREATED_BY_DESC"
+                />
+
+        <field
+                name="force_publish"
+                type="list"
+                default=""
+                label="COM_JUDOWNLOAD_FIELD_FORCE_PUBLISH_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_FORCE_PUBLISH_DESC"
+                >
+            <option value="">JNO</option>
+            <option value="1">COM_JUDOWNLOAD_PUBLISHED</option>
+            <option value="0">COM_JUDOWNLOAD_UNPUBLISHED</option>
+        </field>
+
+
+        <field
+                name="main_cat_assign"
+                type="categorytree"
+                fetchself="true"
+                label="COM_JUDOWNLOAD_FIELD_SELECT_MAIN_CATEGORY_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_SELECT_MAIN_CATEGORY_DESC"
+                required="true"
+                multiple="false"
+                />
+        <field
+                name="secondary_cats_assign"
+                type="categorytree"
+                fetchself="true"
+                label="COM_JUDOWNLOAD_FIELD_SELECT_SECONDARY_CATEGORIES_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_SELECT_SECONDARY_CATEGORIES_DESC"
+                multiple="true"
+                />
+
+
+        <field
+                name="meta_description"
+                type="textarea"
+                cols="40"
+                rows="3"
+                label="COM_JUDOWNLOAD_FIELD_META_DESCRIPTION_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_META_DESCRIPTION_DESC"
+                />
+
+        <field
+                name="meta_keyword"
+                type="textarea"
+                cols="40"
+                rows="3"
+                label="COM_JUDOWNLOAD_FIELD_META_KEYWORD_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_META_KEYWORD_DESC"
+                />
+
+        <field
+                name="created"
+                type="calendar"
+                default="now"
+                format="%Y-%m-%d %H:%M:%S"
+                filter="user_utc"
+                required="true"
+                class="required"
+                label="COM_JUDOWNLOAD_FIELD_CREATED_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_CREATED_DESC"
+                />
+
+        <field
+                name="publish_up"
+                type="calendar"
+                default="now"
+                format="%Y-%m-%d %H:%M:%S"
+                required="true"
+                class="required"
+                filter="user_utc"
+                label="COM_JUDOWNLOAD_FIELD_PUBLISH_UP_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_PUBLISH_UP_DESC"
+                />
+
+        <field
+                name="publish_down"
+                type="calendar"
+                default="0000-00-00 00:00:00"
+                format="%Y-%m-%d %H:%M:%S"
+                filter="user_utc"
+                label="COM_JUDOWNLOAD_FIELD_PUBLISH_DOWN_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_PUBLISH_DOWN_DESC"
+                />
+
+        <field
+                name="default_icon"
+                type="file"
+                accept="image/*"
+                label="COM_JUDOWNLOAD_FIELD_DEFAULT_ICON_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_DEFAULT_ICON_DESC"
+                />
+    </fieldset>
+</form>

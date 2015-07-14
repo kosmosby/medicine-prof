@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="showmerchandises" type="params" ui="admin" label="Merchandise" description="A merchandise bought by a user corresponding to a merchandise product includes the details of that merchandise of that user for that merchandise product, which can be seen here.">
+			<param name="versioncheck"        type="private" class="cbpaidParamsExt" method="ajaxversioncheck" label=""  align="center" default="silent" description="" />
+			<tablebrowser name="merchandisesbrowser" table="#__cbsubs_merchandises" class="cbpaidMerchandiseRecord" label="Merchandise" description="List of merchandise which have been bought or evaluated by users:">
+				<toolbarmenu>
+					<!-- <menu name="edit"  action="linkAction" task="edit" link="cbo:editrows" label="Edit" /> -->
+					<menu name="delete"  action="linkAction" task="delete" link="cbo:deleterows" label="Delete" />
+					<menu name="spacer1" action="spacer" />
+					<menu name="cancel"   action="cancel" task="cancelPluginAction" label="Close" />
+				</toolbarmenu>
+				<quicksearchfields>
+					<field name="user_id" valuetype="const:int" />
+					<field name="username" />
+					<field name="name" />
+					<field name="id" valuetype="const:int" />
+				</quicksearchfields>
+				<filters>
+					<filter name="plan_id" type="data" valuetype="sql:int" size="1" default="" label="Plan" blanktext="--- By plan ---" description="Filter subscriptions by the name of the plan">
+						<data name="plansidsnames" type="sql:multiplerows" table="#__cbsubs_plans" key="id">
+							<rows>
+								<field name="id" as="value" />
+								<field name="alias" as="text" />
+							</rows>
+							<where>
+								<column name="item_type"     operator="=" value="merchandise" type="sql:field"       valuetype="const:string" />
+							</where>
+							<orderby>
+								<field name="ordering" ordering="ASC" />
+								<field name="parent_ordering_comment" type="sql:int" ordering="ASC">
+									<data name="ordering" type="sql:field" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id" value="parent" />
+								</field>
+								<field name="ordering" type="sql:field" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id" value="parent" />
+							</orderby>
+						</data>
+					</filter>
+					<filter name="status" type="xml:subscription_status" valuetype="sql:string" size="1" default="" label="Merchandise Status" blanktext="--- By status ---" description="Filter merchandise by their current status"/>
+					<filter name="id" type="field_show_only_if_selected" base="int" size="1" default="" label="Merchandise id"     blanktext="--- By id ---" description="Select a particular row by its id (used to show a given record only)" />
+				</filters>
+				<orderby>
+					<field name="payment_date" ordering="DESC" />
+				</orderby>
+				<listfields>
+					<header type="standard" />
+					<rows type="standard" height="auto" limit="15" >
+						<field name=""          type="rownumber"       width="20px" align="right" label="#" />
+						<field name="id"        type="primarycheckbox" width="20px" />
+						<field name="username"            type="string"   link="cb_action:show_usersubscription" parameters="cid" paramvalues="user_id"    title="Edit this merchandise"     width="12%" label="Username" class="title">
+							<data name="username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="user_id" />
+						</field>
+						<field name="name"            type="string"   link="cb_action:show_usersubscription" parameters="cid" paramvalues="user_id"    title="Edit this merchandise"     width="15%" label="Full name" class="title">
+							<data name="name" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="user_id" />
+						</field>
+						<field name="plan_name"               type="string"    link="cb_action:show_plan" parameters="plansbrowser[filter_name]" paramvalues="plan_id" title="Show the plan corresponding to this record" width="20%" label="Plan name">
+							<data name="name" as="plan_name" type="sql:field" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id" value="plan_id" />
+							<attributes>
+								<attribute name="class">
+									<param name="cssclass" type="text" />
+								</attribute>
+							</attributes>
+						</field>
+						<field name="currency"           type="text"                  width="3%" label="Currency" description="Currency of the merchandise"  align="right" />
+						<field name="amount"             type="private"   method="renderAmount"  width="4%"  label="Amount" description="Amount of the merchandise in currency"  align="right" />
+						<field name="payment_date"       type="datetime"  width="15%" label="Acquision date" description="Date of the merchandise payment (if active)" />
+						<field name="status"             type="xml:subscription_status"            width="10%" label="Status" description="Current status of merchandise" />
+						<field name="payment_basket_id"  type="string"    link="cb_action:show_paymentbaskets" parameters="paymentbasketsbrowser[filter_id]" paramvalues="payment_basket_id" title="Show corresponding payment basket" width="10%" label="Payment basket id">
+							<data name="payment_basket_id" type="sql:field" distinct="id"  table="#__cbsubs_payment_items" class="cbpaidPaymentItem">
+								<joinkeys dogroupby="false">
+									<column name="item_type"   operator="=" value="merchandise" type="sql:field" valuetype="const:string" />
+									<column name="subscription_id" operator="=" value="id" type="sql:field" valuetype="sql:field" />
+								</joinkeys>
+							</data>
+						</field>
+						<field name="change_logs"    type="int"       link="cb_action:show_history" parameters="historybrowser[filter_table_name] historybrowser[filter_table_key_id]" paramvalues="#__cbsubs_merchandises id" paramvaluestypes="const:string sql:field" title="Show change-log for this item" width="5%"  align="left" label="Change Logs" description="Number of changes logged for each item. Click to see corresponding logs.">
+							<data type="sql:subquery" name="change_logs" as="change_logs">
+								<data name="change_logs" type="sql:count" distinct="id"  table="#__cbsubs_history" class="cbpaidHistory">
+									<where>
+										<column name="table_name"   operator="=" value="#__cbsubs_merchandises" type="sql:field" valuetype="const:string" />
+										<column name="table_key_id" operator="=" value="id" type="sql:field" valuetype="sql:parentfield" />
+									</where>
+								</data>
+							</data>
+						</field>
+						<field name="ip_addresses"       type="text"      width="5%"  label="IP address"  description="IP address(es) at subscription time" />
+						<field name="id"                 type="text" link="cbo:rowedit" parameters="sid" paramvalues="id" title="Edit this merchandise record (at your own risk)" width="5%" align="right" label="Id" />
+						<field name="cssclass"               type="hidden"    width="0px" label="">
+							<data name="cssclass" type="sql:field" table="#__cbsubs_plans" key="id" value="plan_id" />
+						</field>
+					</rows>
+				</listfields>
+				<groupby>
+					<field name="id">
+						<data name="id" type="sql:field" />
+					</field>
+				</groupby>
+			</tablebrowser>
+			<param type="spacer" label="Note: New merchandise products can be configured from the 'Plans' menu." default=" " />
+		</view>
+	</views>
+</cbxml>

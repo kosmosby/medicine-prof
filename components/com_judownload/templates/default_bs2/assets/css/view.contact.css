@@ -1,0 +1,59 @@
+#judownload fieldset {
+	border  : 1px solid #CCC;
+	padding : 10px 10px 20px 50px;
+}
+
+#judownload input.name, input.email, input.valid, #security_code {
+	background    : -moz-linear-gradient(center top, #F6F6F6, #FFFFFF) repeat-x scroll 0 0 #FFFFFF;
+	border        : 1px solid #C0C8D2;
+	border-radius : 3px 3px 3px 3px;
+	box-shadow    : 0 1px 2px rgba(0, 0, 0, 0.08) inset;
+	font-size     : 13px;
+	margin        : 0;
+	padding       : 7px 8px;
+	transition    : all 0.2s linear 0s;
+}
+
+#judownload textarea.comment {
+	background-color  : rgba(255, 255, 255, 0.45);
+	background-image  : -moz-linear-gradient(center top, rgba(245, 245, 245, 0), rgba(255, 255, 255, 0.45));
+	background-repeat : repeat-x;
+	border            : 1px solid rgba(75, 83, 94, 0.45);
+	border-radius     : 3px 3px 3px 3px;
+	box-shadow        : 0 1px 3px rgba(0, 0, 0, 0.12) inset;
+	padding           : 5px;
+	position          : relative;
+	transition        : all 0.2s linear 0s;
+	width             : 80%;
+}
+
+#judownload .submit-contact {
+	float                 : right;
+	margin                : 0px 120px 0px;
+	padding               : 8px !important;
+	background            : #fc8e30;
+	color                 : #FFFFFF;
+	border                : none;
+	font-weight           : bold;
+	font-size             : 14px;
+	border-radius         : 4px;
+	-moz-border-radius    : 4px;
+	-webkit-border-radius : 4px;
+}
+
+#judownload .captcha {
+	margin-top : 10px;
+}
+
+#judownload .captcha .captcha-image {
+	display : block;
+}
+
+#judownload .captcha .reload-captcha {
+	margin : -10px 0px 0px 10px;
+}
+
+#judownload .captcha label {
+	display : block;
+	margin  : 10px 0px 10px 0px;
+}

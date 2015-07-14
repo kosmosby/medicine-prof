@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+        <field name="x_login" type="text" label="X Login" description=""
+            class="inputbox" size="30" required="true" default="change@me.com" />
+        <field name="test_mode" type="checkbox" value="1" label="Test mode" description=""
+            class="inputbox"  />
+	</fieldset>
+</form>

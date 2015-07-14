@@ -1,0 +1,43 @@
+@CHARSET "UTF-8";
+
+div.ose-action-edit {
+    background-image: url("../../../../templates/bluestork/images/menu/icon-16-edit.png");
+	display: inline-block;
+    height: 16px;
+    width: 16px;
+    float:left;
+    margin-right:5px
+}
+
+div.ose-action-validate {
+    background-image: url("../../../../templates/bluestork/images/menu/icon-16-links.png");
+	display: inline-block;
+    height: 16px;
+    width: 16px;
+    float:left;
+    margin-right:5px
+}
+
+div.ose-action-edit-date {
+    background-image: url("../../../../templates/bluestork/images/menu/icon-16-calendar.png");
+	display: inline-block;
+    height: 16px;
+    width: 16px;
+    float:left;
+    margin-right:5px
+}
+
+div.ose-action-delete {
+    background-image: url("../../../../templates/bluestork/images/menu/icon-16-deny.png");
+	display: inline-block;
+    height: 16px;
+    width: 16px;
+    float:left;
+    margin-right:5px
+}
+
+div.btntips {
+    height: 16px;
+    float:left;
+    margin-right:10px
+}

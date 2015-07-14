@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<code>OSE Payment Code:201009091155</code>
+	<classes>
+		<class path="" extend="test">content</class>
+	</classes>
+	
+	<files>
+		<file path="" extend="test">msc.php</file>
+		<file path="" extend="test">credit.php</file>
+	</files>
+	
+</document>

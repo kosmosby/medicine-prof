@@ -1,0 +1,33 @@
+.view-modcomment .judl-submit-buttons {
+	margin-top : 10px;
+}
+
+.view-modcomment .judl-submit-buttons button {
+	float        : left;
+	margin-right : 5px;
+}
+
+.view-modcomment .main-form {
+	clear      : both;
+	overflow   : hidden;
+	margin-top : 20px;
+}
+
+.view-modcomment .main-form ul li {
+	list-style : none;
+	overflow   : hidden;
+	margin-top : 10px !important;
+}
+
+.view-modcomment .main-form ul li .flabel {
+	float     : left;
+	min-width : 200px;
+}
+
+.view-modcomment .main-form ul li .finput {
+	overflow : hidden;
+}
+
+.view-modcomment .main-form ul li .finput.comment {
+	clear : left;
+}

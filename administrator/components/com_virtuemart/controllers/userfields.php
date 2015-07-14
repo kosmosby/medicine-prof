@@ -1,0 +1,90 @@
+<?php
+/**
+*
+* Userfields controller
+*
+* @package	VirtueMart
+* @subpackage Userfields
+* @author Oscar van Eijk
+* @link http://www.virtuemart.net
+* @copyright Copyright (c) 2004 - 2010 VirtueMart Team. All rights reserved.
+* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.php
+* VirtueMart is free software. This version may have been modified pursuant
+* to the GNU General Public License, and as distributed it includes or
+* is derivative of works licensed under the GNU General Public License or
+* other free or open source software licenses.
+* @version $Id: userfields.php 8416 2014-10-13 13:45:15Z Milbo $
+*/
+
+// Check to ensure this file is included in Joomla!
+defined('_JEXEC') or die('Restricted access');
+
+// Load the controller framework
+jimport('joomla.application.component.controller');
+
+if(!class_exists('VmController'))require(VMPATH_ADMIN.DS.'helpers'.DS.'vmcontroller.php');
+
+
+/**
+ * Controller class for the Order status
+ *
+ * @package    VirtueMart
+ * @subpackage Userfields
+ * @author     Oscar van Eijk
+ */
+class VirtuemartControllerUserfields extends VmController {
+
+	/**
+	 * Method to display the view
+	 *
+	 * @access public
+	 * @author
+	 */
+	function __construct(){
+		parent::__construct('virtuemart_userfield_id');
+
+	}
+
+	function Userfields(){
+
+		$document = JFactory::getDocument();
+		$viewType = $document->getType();
+		$view = $this->getView('userfields', $viewType);
+
+		parent::display();
+	}
+	function viewJson() {
+
+		// Create the view object.
+		$view = $this->getView('userfields', 'json');
+
+		// Now display the view.
+		$view->display(null);
+	}
+
+	function save($data = 0) {
+
+		if($data===0) $data = vRequest::getPost();
+
+		$user = JFactory::getUser();
+		if($user->authorise('core.admin','com_virtuemart') or $user->authorise('core.manage','com_virtuemart')){
+			$data['description'] = vRequest::get('description','');
+			if(isset($data['params'])){
+				$data['params'] = vRequest::get('params','');
+			}
+		} else {
+			$data['description'] = vRequest::getHtml('description','');
+			if(isset($data['params'])){
+				$data['params'] = vRequest::getHtml('params','');
+			}
+		}
+		$data['name'] = vRequest::getCmd('name');
+		// onSaveCustom plugin;
+		parent::save($data);
+	}
+
+
+
+}
+
+//No Closing tag

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="Search Users">
+            <message>
+                    <![CDATA[Search User Layout]]>
+            </message>
+    </layout>
+    <state>
+		<name>Search users</name>
+			<description>Display users search form</description>
+        <url>
+            <param name="task" type="hidden" default="searchusers"/>
+        </url>
+        <advanced addpath="/administrator/components/com_bids/elements">
+			<param name="user_type" type="list" label="The type of user Search">
+				<option value="0">All users</option>
+				<option value="1">Only bidders</option>
+				<option value="2">Only auctioneers</option>
+			</param>
+			<param name="extra_fields" type="multilist" multiple="multiple" label="Select one or more searchable fields"
+			 description="Select one or more items from the list.  You can use Ctrl-click to select more than one item.">
+			        <option value="name">Name</option>
+			        <option value="city">City</option>
+			        <option value="country">Country</option>
+			</param>
+        </advanced>
+    </state>
+    <fields name="request">
+        <fieldset name="request" label="Basic Parameters">
+            <field name="task" type="hidden" default="searchusers" />
+			<field name="user_type" type="list" label="The type of user Search">
+				<option value="0">All users</option>
+				<option value="1">Only bidders</option>
+				<option value="2">Only auctioneers</option>
+			</field>
+			<field name="extra_fields" type="multilist" multiple="multiple" label="Select one or more searchable fields"
+			 description="Select one or more items from the list.  You can use Ctrl-click to select more than one item.">
+			        <option value="name">Name</option>
+			        <option value="city">City</option>
+			        <option value="country">Country</option>
+			</field>
+        </fieldset>
+    </fields>
+</metadata>

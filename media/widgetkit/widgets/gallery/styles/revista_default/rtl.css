@@ -1,0 +1,36 @@
+/*
+ * RTL Style Sheet
+ */
+ 
+ .wk-gallery-revista-default .nav {
+	right: 20px;
+	left: auto;
+}
+
+.wk-gallery-revista-default .prev + .nav { right: 54px; left: auto; }
+
+.wk-gallery-revista-default .nav li {
+	margin-left: 0;
+	margin-right: 3px;
+}
+.wk-gallery-revista-default .nav li:first-child { margin-right: 0; }
+
+.wk-gallery-revista-default > div .prev {
+	right: 20px;
+	left: auto;
+	background-position: 0 -60px;
+}
+.wk-gallery-revista-default > div .prev:hover { background-position: 0 -80px; }
+.wk-gallery-revista-default > div .prev:active { background-position: 0 -100px; }
+.wk-gallery-revista-default > div .next {
+	right: 34px;
+	left: auto;
+	background-position: 0 0;
+}
+.wk-gallery-revista-default > div .next:hover { background-position: 0 -20px; }
+.wk-gallery-revista-default > div .next:active { background-position: 0 -40px; }
+
+.wk-gallery-revista-default .caption {
+	right: auto;
+	left: 0;
+}

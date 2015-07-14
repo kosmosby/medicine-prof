@@ -1,0 +1,107 @@
+ /*
+ * Widgetkit Slideset: MiCasa Style
+ */
+
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-micasa .nav { 
+	margin: 25px 0 -10px 0;
+	text-align: center; 
+}
+
+.wk-slideset-micasa .nav li { 
+	display: inline-block;
+	margin-left: 5px; 
+}
+
+.wk-slideset-micasa .nav li:first-child { margin-left: 0; }
+.wk-slideset-micasa .nav.text li { margin-left: 10px; }
+
+.wk-slideset-micasa .nav.icon span {
+	width: 10px;
+	height: 10px;
+	background: url(images/nav.png) 0 0 no-repeat;
+	overflow: hidden;
+}
+
+.wk-slideset-micasa .nav.icon span:hover { background-position: 0 -40px; }
+.wk-slideset-micasa .nav.icon .active span { background-position: 0 -20px; }
+
+/* Buttons
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-micasa > div {
+	position: relative;
+	padding: 0 34px;
+}
+
+.wk-slideset-micasa > div .next,
+.wk-slideset-micasa > div .prev {
+	top: 50%;
+	width: 34px;
+	height: 34px;
+	margin-top: -16px;
+	border-radius: 6px;
+	background-color: #F5F5F5;
+	background-image: url(images/buttons.png);
+	background-repeat: no-repeat;
+}
+
+.wk-slideset-micasa > div .next { right: 16px; }
+.wk-slideset-micasa > div .prev { left: 16px; }
+
+.wk-slideset-micasa > div .next { background-position: 0 0; }
+.wk-slideset-micasa > div .next:hover { background-position: 0 -100px; }
+
+.wk-slideset-micasa > div .prev { background-position: 0 -50px; }
+.wk-slideset-micasa > div .prev:hover { background-position: 0 -150px; }
+
+/* Title
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-micasa ul.set li { 
+	border-width: 0 0 0 1px;
+	border-style: solid;
+	border-color: #EBEBEB;
+}
+
+.wk-slideset-micasa ul.set li:first-child { border-left: none; }
+
+.wk-slideset-micasa li > article {
+	margin: 0 20px;
+	text-align: left;
+}
+
+/* Images
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-micasa .fader { opacity: 0.4; }
+.wk-slideset-micasa .fader:hover { opacity: 0.6; } 
+
+
+/* Responsive
+----------------------------------------------------------------------------------------------------*/
+
+/* Only Touch Devices */
+@media (max-device-width: 1024px)  {
+
+	.wk-slideset-micasa .next,
+	.wk-slideset-micasa .prev { display: none; }
+
+}
+
+/* Only Phones */
+@media (max-width: 767px) {
+
+	.wk-slideset-micasa .nav.text li { margin-left: 10px; }
+	.wk-slideset-micasa .nav.text li:first-child { margin-left: 0; }
+
+	.wk-slideset-micasa .nav.text span {
+		padding: 0 6px;
+		font-size: 12px;
+	}
+
+	.wk-slideset-micasa .nav.text .active span { padding: 0 5px; }
+}

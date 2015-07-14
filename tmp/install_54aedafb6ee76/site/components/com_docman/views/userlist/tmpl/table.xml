@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_DOCMAN_VIEW_USERLIST_TABLE">
+		<message>
+			<![CDATA[COM_DOCMAN_VIEW_USERLIST_TABLE_DESCRIPTION]]>
+		</message>
+	</layout>
+	<fields name="request" addfieldpath="/components/com_docman/forms/fields">
+		<fieldset name="request">
+			<field name="slug" type="docmancategories" key_field="slug" default=""
+				label="JCATEGORY"
+				deselect="true" />
+		</fieldset>
+	</fields>
+	<fields name="params" addfieldpath="/components/com_docman/forms/fields">
+        <fieldset name="basic" label="CATEGORY_OPTIONS">
+            <field name="show_category_title" type="radio" class="btn-group" default="1" label="SHOW_CATEGORY_TITLE">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field name="show_icon" type="radio" class="btn-group" default="1" label="SHOW_CATEGORY_ICON">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field name="show_image" type="radio" class="btn-group" default="1" label="SHOW_CATEGORY_IMAGE">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field name="show_description" type="radio" class="btn-group" default="1" label="SHOW_CATEGORY_DESCRIPTION">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field name="show_subcategories" type="radio" class="btn-group" default="1" label="SHOW_SUBCATEGORIES">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field name="show_add_document_button" type="radio" class="btn-group" default="1" label="SHOW_ADD_DOCUMENT_BUTTON"
+                   description="SHOW_ADD_DOCUMENT_BUTTON_DESCRIPTION">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field name="sort_categories" type="list" default="title" label="SORT_CATEGORIES_BY">
+                <option value="title">JGLOBAL_TITLE_ALPHABETICAL</option>
+                <option value="created_on">JGLOBAL_OLDEST_FIRST</option>
+                <option value="custom">JFIELD_ORDERING_LABEL</option>
+            </field>
+            <field name="show_categories_header" type="radio" class="btn-group" default="1" label="SHOW_CATEGORIES_HEADER"
+                   description="SHOW_CATEGORIES_HEADER_DESCRIPTION">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+        </fieldset>
+        <fieldset name="document" label="DOCUMENT_OPTIONS">
+            <field name="limit" type="docmanlimit" default="0" label="LIMIT" description="LIMIT_DESCRIPTION" />
+            <field name="sort_documents" type="list"
+                   label="SORT_DOCUMENTS_BY"
+                    >
+                <option value="title">JGLOBAL_TITLE_ALPHABETICAL</option>
+                <option value="reverse_title">JGLOBAL_TITLE_REVERSE_ALPHABETICAL</option>
+                <option value="reverse_created_on">JGLOBAL_MOST_RECENT_FIRST</option>
+                <option value="created_on">JGLOBAL_OLDEST_FIRST</option>
+                <option value="reverse_hits">MOST_POPULAR_FIRST</option>
+                <option value="reverse_touched_on">LAST_MODIFIED_FIRST</option>
+            </field>
+            <field name="show_document_sort_limit" type="radio" class="btn-group" default="0" label="SHOW_DOCUMENT_SORT_LIMIT"
+                   description="SHOW_DOCUMENT_SORT_LIMIT_DESCRIPTION">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field type="spacer" name="document_spacer_1" hr="true"/>
+            <field name="show_document_icon" type="radio" class="btn-group" default="1" label="SHOW_DOCUMENT_ICON">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field name="show_document_recent" type="radio" class="btn-group" default="1" label="MARK_RECENT_DOCUMENTS">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field name="show_document_popular" type="radio" class="btn-group" default="1" label="MARK_POPULAR_DOCUMENTS">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field name="show_document_created" type="radio" class="btn-group" default="1" label="SHOW_PUBLISHED_DATE">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field name="show_document_size" type="radio" class="btn-group" default="1" label="SHOW_DOCUMENT_SIZE">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field name="show_document_hits" type="radio" class="btn-group" default="1" label="SHOW_DOCUMENT_HITS">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field name="show_document_extension" type="radio" class="btn-group" default="1" label="SHOW_DOCUMENT_EXTENSION">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field name="document_title_link" type="list" default="details" label="DOCUMENT_TITLES_LINK_TO">
+                <option value="0">NOTHING</option>
+                <option value="download">DIRECT_DOWNLOAD</option>
+                <option value="details">DETAILS_PAGE</option>
+            </field>
+            <field name="track_downloads" type="radio" class="btn-group" default="1" label="TRACK_DOWNLOADS" description="TRACK_DOWNLOADS_DESCRIPTION">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field name="show_documents_header" type="radio" class="btn-group" default="1" label="SHOW_DOCUMENTS_HEADER"
+                   description="SHOW_DOCUMENTS_HEADER_DESCRIPTION">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+        </fieldset>
+        <fieldset name="advanced">
+            <field name="upload_folder" type="docmanfolders" deselect="true" default="" label="UPLOAD_FOLDER"
+                   description="UPLOAD_FOLDER_DESCRIPTION" />
+            <field name="download_in_blank_page" type="radio" class="btn-group" default="0" label="DOWNLOAD_IN_BLANK_PAGE" description="DOWNLOAD_IN_BLANK_PAGE_DESCRIPTION">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field name="force_download" type="radio" class="btn-group" default="0" label="FORCE_DOWNLOAD" description="FORCE_DOWNLOAD_DESCRIPTION">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field name="preview_with_gdocs" type="radio" class="btn-group" default="0" label="PREVIEW_WITH_GDOCS" description="PREVIEW_WITH_GDOCS_DESCRIPTION">
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field name="days_for_new" type="text" default="7" label="DAYS_FOR_NEW" description="DAYS_FOR_NEW_DESCRIPTION" />
+            <field name="hits_for_popular" type="text" default="100" label="HITS_FOR_POPULAR" description="HITS_FOR_POPULAR_DESCRIPTION" />
+        </fieldset>
+        <fieldset name="permissions" label="PERMISSION_OPTIONS_LABEL">
+            <field name="can_edit_own" type="list"
+                   label="CAN_EDIT_OWN_LABEL" description="CAN_EDIT_OWN_LABEL_DESCRIPTION">
+                <option value="">JGLOBAL_INHERIT</option>
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+            <field name="can_delete_own" type="list"
+                   label="CAN_DELETE_OWN_LABEL" description="CAN_DELETE_OWN_LABEL_DESCRIPTION">
+                <option value="">JGLOBAL_INHERIT</option>
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+        </fieldset>
+	</fields>
+</metadata>

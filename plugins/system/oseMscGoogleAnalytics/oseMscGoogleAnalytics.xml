@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="plugin" group="system" method="upgrade">
+	<name>System - OSE Membership Google Analytics plugin</name>
+	<author>Open Source Excellence</author>
+	<creationDate>10-Oct-2012</creationDate>
+	<copyright>Copyright (C) 2008-2012 Open Source Excellence. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authoremail>info@opensource-excellence.com</authoremail>
+	<authorurl>http://www.opensource-excellence.com</authorurl>
+	<version>1.0.0</version>
+	<description>System plugin for OSE Membership linking with Google Analytics</description>
+	<files>
+		<filename plugin="oseMscGoogleAnalytics">oseMscGoogleAnalytics.php</filename>
+	</files>
+</extension>

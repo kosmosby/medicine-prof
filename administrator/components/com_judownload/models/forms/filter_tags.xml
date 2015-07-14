@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fields name="filter">
+        <field
+                name="search"
+                type="text"
+                label="COM_JUDOWNLOAD_FILTER_SEARCH_DESC"
+                hint="JSEARCH_FILTER"
+                />
+    </fields>
+
+    <fields name="list">
+        <field
+                name="fullordering"
+                type="list"
+                label="COM_JUDOWNLOAD_LIST_FULL_ORDERING"
+                description="COM_JUDOWNLOAD_LIST_FULL_ORDERING_DESC"
+                onchange="this.form.submit();"
+                default="tag.ordering ASC"
+                >
+            <option value="">COM_JUDOWNLOAD_SORT_BY</option>
+            <option value="tag.id ASC">COM_JUDOWNLOAD_SORT_BY_ID_ASC</option>
+            <option value="tag.id DESC">COM_JUDOWNLOAD_SORT_BY_ID_DESC</option>
+            <option value="tag.title ASC">COM_JUDOWNLOAD_SORT_BY_TITLE_ASC</option>
+            <option value="tag.title DESC">COM_JUDOWNLOAD_SORT_BY_TITLE_DESC</option>
+            <option value="total_documents ASC">COM_JUDOWNLOAD_SORT_BY_TOTAL_DOCUMENTS_ASC</option>
+            <option value="total_documents DESC">COM_JUDOWNLOAD_SORT_BY_TOTAL_DOCUMENTS_DESC</option>
+            <option value="tag.ordering ASC">COM_JUDOWNLOAD_SORT_BY_ORDERING_ASC</option>
+            <option value="tag.ordering DESC">COM_JUDOWNLOAD_SORT_BY_ORDERING_DESC</option>
+            <option value="tag.published ASC">COM_JUDOWNLOAD_SORT_BY_PUBLISHED_ASC</option>
+            <option value="tag.published DESC">COM_JUDOWNLOAD_SORT_BY_PUBLISHED_DESC</option>
+        </field>
+
+        <field
+                name="limit"
+                type="limitbox"
+                class="inputbox input-mini"
+                default="25"
+                label="COM_JUDOWNLOAD_LIST_LIMIT"
+                description="COM_JUDOWNLOAD_LIST_LIMIT_DESC"
+                onchange="this.form.submit();"
+                />
+    </fields>
+</form>

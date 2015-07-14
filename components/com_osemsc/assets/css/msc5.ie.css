@@ -1,0 +1,11 @@
+#ose-login-introduction h1,
+#ose-login h1
+{
+	font-size: 200%;
+	padding-bottom:20px;
+	text-align: center;
+	color: #666666;
+	text-shadow: 0 1px 1px #999999;
+	min-height: 40px;
+	width: 100%;
+}

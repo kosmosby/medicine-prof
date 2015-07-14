@@ -1,0 +1,49 @@
+/*
+ * RTL Style Sheet
+ */
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-infinite .nav li {
+	margin-left: 0;
+	margin-right: 5px;
+}
+
+.wk-slideshow-infinite .nav li:first-child { margin-right: 0; }
+
+
+/* Buttons
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-infinite > div .next { 
+	right: auto;
+	left: 80px;
+	background-position: 0 -200px; 
+}
+
+.wk-slideshow-infinite > div .prev { 
+	right: 80px;
+	left: auto;
+	background-position: 0 0;
+}
+
+.wk-slideshow-infinite > div .next:hover { background-position: 0 -300px; }
+.wk-slideshow-infinite > div .prev:hover { background-position: 0 -100px; }
+
+
+/* Captions
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-infinite .caption {
+	left: 25%;
+	right: 18%;
+}
+
+.wk-slideshow-infinite .caption h1,
+.wk-slideshow-infinite .caption h1 + span { 
+	float: right; 
+	margin-left: 0;
+	margin-right: 5%;
+}
+

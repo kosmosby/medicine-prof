@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="productmenus1" type="params" ui="admin">
+			<menu name="subscriptions" action="cb_action:show_subscriptions" label="Subscriptions" description="Show subscriptions">
+				<fields>
+					<field name="subscriptions_count" label="active subscriptions" type="int">
+						<data  name="subscriptions_count" type="sql:count" table="#__cbsubs_subscriptions" class="cbpaidUsersubscriptionRecord" key="status" value="A" valuetype="const:string" />
+					</field>
+					<field name="registrations_count" label="active registrations" type="int">
+						<data  name="registrations_count" type="sql:count" table="#__comprofiler" class="\CB\Database\Table\ComprofilerTable">
+							<where>
+								<column name="confirmed" operator="=" value="1" type="sql:field" valuetype="const:int" />
+								<column name="approved"  operator="=" value="1" type="sql:field" valuetype="const:int" />
+								<column name="banned"    operator="=" value="0" type="sql:field" valuetype="const:int" />
+								<column name="block"     operator="=" value="0" type="int"       valuetype="const:int">
+									<data name="block" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="id" />
+								</column>
+							</where>
+						</data>
+					</field>
+				</fields>
+			</menu>
+		</view>
+	</views>
+</cbxml>

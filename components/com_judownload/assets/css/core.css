@@ -1,0 +1,400 @@
+.judl-container {
+    overflow: hidden;
+}
+
+.judl-display {
+    float: left;
+}
+
+.sort-pagination {
+    margin-top: 20px;
+}
+
+.judl-sort {
+    float: left;
+}
+
+span.required {
+    color: red;
+}
+
+.jubootstrap ul {
+    list-style: none !important;
+}
+
+/* Fix bootstrap */
+.fade {
+    opacity: 0;
+    -webkit-transition: opacity 0.15s linear;
+    -moz-transition: opacity 0.15s linear;
+    -o-transition: opacity 0.15s linear;
+    transition: opacity 0.15s linear;
+}
+
+.fade.in {
+    opacity: 1;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: #000000;
+}
+
+.modal-backdrop.fade {
+    opacity: 0;
+}
+
+.modal-backdrop,
+.modal-backdrop.fade.in {
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+}
+
+/* Pagination */
+.judl-pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.sort-pagination .pagination-wrap {
+    float: left;
+}
+
+.sort-pagination .pagination-wrap .limitbox .display-number {
+    display: none;
+}
+
+.pagination-wrap .limitbox .display-number {
+    display: inline;
+    padding: 7px 5px;
+}
+
+.pagination-wrap ul li .pagenav {
+    clear: none !important;
+    font-weight: bold;
+}
+
+.pagination ul li {
+    display: inline-block !important;
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+.pagination .pagination-start span {
+    padding: 4px 12px !important;
+}
+
+/* Rating */
+.rating-item {
+    clear: both;
+    display: block;
+    padding: 5px 0px 5px 0px;
+    margin-bottom: 5px;
+    overflow: hidden;
+    border-bottom: 1px dotted #ccc;
+}
+
+.rating-item .rating-title {
+    margin-right: 10px;
+    float: left;
+    width: 100px;
+}
+
+.rating-item .rating-title .required {
+    color: red;
+    margin-left: 5px;
+}
+
+.rating-item .rating-criteria {
+    float: left;
+}
+
+.judl-rating fieldset {
+    float: left;
+    margin: 0;
+}
+
+.star-rating-control {
+    float: left;
+    min-width: 100px;
+}
+
+.star-rating-control > div {
+    display: inline-block;
+}
+
+.star-rating-title {
+    float: left;
+    margin-right: 5px;
+    width: 50px;
+}
+
+.star-rating-value {
+    float: left;
+    margin-left: 5px;
+}
+
+.judl-rating {
+    float: left;
+}
+
+.judl-rating .star-rating, .judl-rating .rating-cancel {
+    color: #BBBBBB;
+    display: inline-block;
+    float: left;
+    position: relative;
+    line-height: 1;
+    text-align: center;
+}
+
+.judl-rating .star-rating > span, .judl-rating .rating-cancel > span {
+    height: 100%;
+    left: 0;
+    line-height: 1;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.judl-rating .star-rating-on > span {
+    color: #D50000;
+    text-indent: 6%;
+}
+
+.star-rating-full {
+    margin: 0;
+    padding: 0;
+    float: left;
+    position: relative;
+    width: 150px;
+    height: 16px;
+    overflow: hidden;
+    background: #BBBBBB;
+}
+
+.star-rating-percent {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: #D50000;
+}
+
+/* label */
+.doc-title .label {
+    font-size: 11px;
+    padding: 2px 4px;
+    vertical-align: super;
+    border-radius: 0.25em;
+    color: #ffffff;
+    display: inline;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.label.label-new {
+    background-color: #5cb85c;
+}
+
+.label.label-updated {
+    background-color: #5bc0de;
+}
+
+.label.label-hot {
+    background-color: #d9534f;
+}
+
+.label.label-featured {
+    background-color: #428bca;
+}
+
+.label.label-pending {
+    background-color: #f0ad4e;
+}
+
+.label.label-expired {
+    background-color: #777;
+}
+
+.label.label-unpublished {
+    background-color: #88443c;
+}
+
+/* override form view */
+.judl-form .accordion-heading a {
+    color: #005580 !important;
+    background: none !important;
+}
+
+.judl-form a:hover {
+    color: #005580 !important;
+    /* background : none !important; */
+}
+
+.judl-form dl.tabs {
+    margin-top: 20px;
+}
+
+.judl-form dt h3 {
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.judl-form table.mceLayout {
+    width: 100% !important;
+}
+
+.judl-form .editor-xtd-buttons {
+    display: inline-block;
+}
+
+.judl-form .modal {
+    position: static !important;
+    width: auto !important;
+}
+
+.judl-form .toggle-editor {
+    display: inline-block;
+}
+
+.judl-form #editor-xtd-buttons {
+    display: inline-block;
+}
+
+/*Override form - recheck*/
+.panel {
+    margin-bottom: 4px !important;
+    border: 1px solid #e5e5e5;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.panel h3 {
+    background: none !important;
+    color: #08c;
+    font-size: 13px;
+    line-height: 18px;
+    border-bottom: none;
+}
+
+.panel h3.pane-toggler-down {
+    padding-bottom: 20px;
+}
+
+.panel h3.pane-toggler > a:nth-child(1), .panel h3.pane-toggler-down > a:nth-child(1) {
+    background: none !important;
+    display: block !important;
+    padding: 8px 15px !important;
+}
+
+.panel h3 a {
+    background: none !important;
+    display: block !important;
+    padding: 8px 15px !important;
+}
+
+.current {
+}
+
+.current dd {
+    float: none !important;
+}
+
+.current dt {
+    clear: none !important;
+}
+
+.current {
+    background: none !important;
+}
+
+.pane-slider {
+    background: none !important;
+}
+
+.judl-approval-container {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.judl-approval-inner {
+    display: inline-block;
+}
+
+.judl-approval-options {
+    border: 1px dashed #CCCCCC;
+    float: left;
+    margin: 10px 0 20px;
+    padding: 5px;
+}
+
+.judl-approval-options > div {
+    margin: 0 5px !important;
+}
+
+.judl-previous, .judl-next {
+    float: left;
+    margin: 16px 10px 0;
+}
+
+/*Malicious*/
+.judl-container img.captcha-image {
+    border: 1px solid #e5e5e5;
+    margin-bottom: 5px;
+    padding: 3px;
+}
+
+.judl-container .judl-enter-password.modal form {
+    margin: 0;
+}
+
+.judl-view-list > .row-fluid > [class*="span"] {
+    margin-left: 0 !important;
+}
+
+.judl-container ul.value-list li {
+    background: none repeat scroll 0 0 transparent;
+    border-bottom: 1px dotted #ddd;
+    padding: 0 5px 5px;
+}
+
+.judl-container ul.value-list li:last-child {
+    border: none;
+}
+
+.judl-container .value ul.file-list li {
+    background: none repeat scroll 0 0 transparent;
+    border-bottom: 1px dotted #ddd;
+    padding: 0 5px 5px;
+}
+
+.judl-container .value ul.file-list li:last-child {
+    border: none;
+}
+
+.judl-container .value ul.image-list li {
+    background: none repeat scroll 0 0 transparent;
+    border: 1px solid #ddd;
+    float: left;
+    margin: 5px 5px 0 0;
+    padding: 3px;
+}
+
+/*Fix fancybox*/
+html.fancybox-lock {
+    overflow: unset !important;
+}

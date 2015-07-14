@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<extension method="upgrade" type="component" version="1.6.0">
+	<name>com_bids</name>
+	<creationDate>05-12-2012 16:57</creationDate>
+	<author>TheFactory</author>
+	<authorEmail>contact@thefactory.ro</authorEmail>
+	<authorUrl>http://www.thefactory.ro</authorUrl>
+	<copyright>TheFactory</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<version>3.2.6</version>
+    <build>841-237</build>
+	<description>The Factory Auctions</description>
+	<scriptfile>install.bids.php</scriptfile>
+    <install type="component">
+       <sql>
+          <file charset="utf8" driver="mysql">install.bids.mysql.utf8.sql</file>
+       </sql>
+    </install>
+	<uninstall type="component">
+       <sql>
+          <file charset="utf8" driver="mysql">uninstall.bids.mysql.utf8.sql</file>
+       </sql>
+    </uninstall>
+	<files folder="components/com_bids/">
+
+        <filename>bids.acl.php</filename>
+        <filename>bids.php</filename>
+		<filename>controller.php</filename>
+        <filename>defines.php</filename>
+		<filename>index.html</filename>
+		<filename>options.php-dist</filename>
+		<filename>router.php</filename>
+
+        <folder>classes</folder>
+		<folder>controllers</folder>
+        <folder>css</folder>
+        <folder>events</folder>
+		<folder>gallery</folder>
+		<folder>helpers</folder>
+		<folder>images</folder>
+		<folder>installer</folder>
+		<folder>js</folder>
+		<folder>libraries</folder>
+		<folder>models</folder>
+		<folder>templates-dist</folder>
+		<folder>thefactory</folder>
+		<folder>views</folder>
+	</files>
+	<languages folder="components/language">
+		<language tag="en-GB">en-GB.com_bids.ini</language>
+	</languages>
+    <media folder="media">
+        <folder>com_bids</folder>
+    </media>
+	<administration>
+		<menu img="../components/com_bids/images/auction_16.png" task="dashboard">COM_BIDS_ADMINMENU_AUCTION_FACTORY</menu>
+		<submenu>
+			<menu img="../components/com_bids/images/auction_16.png" task="offers">COM_BIDS_ADMINMENU_AUCTIONS</menu>
+			<menu img="../components/com_bids/images/auction_16.png" task="payments.listing">COM_BIDS_ADMINMENU_PAYMENTS</menu>
+            <menu img="../components/com_bids/images/auction_16.png" task="misclists">COM_BIDS_ADMINMENU_MONITORING</menu>
+            <menu img="../components/com_bids/images/auction_16.png" task="auctionmanager">COM_BIDS_ADMINMENU_TOOLS</menu>
+            <menu img="../components/com_bids/images/auction_16.png" task="users">COM_BIDS_ADMINMENU_USERS</menu>
+            <menu img="../components/com_bids/images/auction_16.png" task="settingsmanager">COM_BIDS_ADMINMENU_SETTINGS</menu>
+            <menu img="../components/com_bids/images/auction_16.png" task="about.main">COM_BIDS_ADMINMENU_ABOUT</menu>
+		</submenu>
+		<files folder="administrator/components/com_bids/">
+            <filename>access.xml</filename>
+			<filename>admin.bids.php</filename>
+            <filename>application.ini</filename>
+            <filename>bids.config.xml</filename>
+			<filename>controller.php</filename>
+			<filename>index.html</filename>
+			<filename>install.bids.mysql.utf8.sql</filename>
+			<filename>toolbar.countries.php</filename>
+            <filename>toolbar.messages.php</filename>
+            <filename>toolbar.ratings.php</filename>
+            <filename>toolbar.reported.php</filename>
+			<filename>uninstall.bids.mysql.utf8.sql</filename>
+
+            <folder>backups</folder>
+            <folder>controllers</folder>
+            <folder>css</folder>
+            <folder>events</folder>
+			<folder>formelements</folder>
+			<folder>helpers</folder>
+            <folder>htmlelements</folder>
+			<folder>js</folder>
+			<folder>models</folder>
+            <folder>pricing</folder>
+			<folder>tables</folder>
+			<folder>thefactory</folder>
+			<folder>views</folder>
+		</files>
+		<languages folder="administrator/language">
+			<language tag="en-GB">en-GB.com_bids.ini</language>
+			<language tag="en-GB">en-GB.com_bids.sys.ini</language>
+            <language tag="en-GB">en-GB.thefactory.about.ini</language>
+            <language tag="en-GB">en-GB.thefactory.category.ini</language>
+            <language tag="en-GB">en-GB.thefactory.config.ini</language>
+            <language tag="en-GB">en-GB.thefactory.fields.ini</language>
+            <language tag="en-GB">en-GB.thefactory.integration.ini</language>
+            <language tag="en-GB">en-GB.thefactory.mailman.ini</language>
+            <language tag="en-GB">en-GB.thefactory.payments.ini</language>
+            <language tag="en-GB">en-GB.thefactory.positions.ini</language>
+            <language tag="en-GB">en-GB.thefactory.themes.ini</language>
+		</languages>
+	</administration>
+</extension>

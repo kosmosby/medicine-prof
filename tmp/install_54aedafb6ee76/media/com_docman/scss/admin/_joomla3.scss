@@ -1,0 +1,114 @@
+.fltlft {
+  float: left;
+}
+
+$navBarItemHeight: 16px;
+$navBarItemPointerHeight: 24px;
+$mainNavBackground: #f5f5f5;
+
+.docman-main-nav {
+  border-bottom: 1px solid #ddd;
+  position: relative;
+  font-family: Helvetica;
+  background: $mainNavBackground;
+
+  list-style-image: none !important;
+  list-style-type: none !important;
+  margin: 0;
+  padding-top: 12.5px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-bottom: 12.5px;
+
+  li {
+    padding: 0;
+    font-size: $navBarItemHeight;
+    line-height: $navBarItemHeight;
+    color: hsl(0, 0%, 35%);
+    text-shadow: white 0 1px 0, hsla(0, 0%, 0%, 0.1) 0 2px 5px;
+    position: relative;
+    padding-left: 0px;
+    //opacity: 0.75;
+    position: relative;
+    margin-left: 0px;
+    margin-right: 0px;
+
+    a {
+      padding: 7.5px 0;
+      padding-left: 20px;
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+  }
+  li.active {
+    color: hsl(0, 0%, 35%);
+
+    &::before, &::after {
+      display: block;
+      content: ' ';
+      width: 0;
+      height: 0;
+      border-top: 0px solid transparent;
+      border-top-width: $navBarItemPointerHeight/2;
+      border-bottom: 0px solid transparent;
+      border-bottom-width: $navBarItemPointerHeight/2;
+      border-left: 0px solid #ddd;
+      border-left-width: $navBarItemPointerHeight/2;
+      box-shadow: inset black 0 2px 0;
+      position: absolute;
+      top: 50%;
+      left: 0px;
+      margin-top: -$navBarItemPointerHeight/2;
+    }
+    &::after {
+      border-left-color: white;
+      left: -1px;
+    }
+
+    a {
+      cursor: default;
+      position: relative;
+      background-color: transparent !important;
+      text-shadow: none;
+      color: #666;
+
+      &::before, &::after {
+        display: block;
+        position: absolute;
+        top: 50%;
+        margin-top: -$navBarItemPointerHeight/2;
+        z-index: 1;
+        height: $navBarItemPointerHeight;
+      }
+
+      &::before {
+        content: -webkit-linear-gradient(right, hsla(0, 0%, 0%, 0.2), hsla(0, 0%, 0%, 0.05) 75%, hsla(0, 0%, 0%, 0));
+        content: -moz-linear-gradient(right, hsla(0, 0%, 0%, 0.2), hsla(0, 0%, 0%, 0.05) 75%, hsla(0, 0%, 0%, 0));
+        content: -ms-linear-gradient(right, hsla(0, 0%, 0%, 0.2), hsla(0, 0%, 0%, 0.05) 75%, hsla(0, 0%, 0%, 0));
+        content: linear-gradient(right, hsla(0, 0%, 0%, 0.2), hsla(0, 0%, 0%, 0.05) 75%, hsla(0, 0%, 0%, 0));
+        display: block;
+        width: ($navBarItemPointerHeight/2) + 3;
+        left: -2px;
+      }
+      &::after {
+        content: ' ';
+        height: 0px;
+        border-top: 10px solid $mainNavBackground;
+        border-top-width: $navBarItemPointerHeight/2;
+        border-bottom: 10px solid $mainNavBackground;
+        border-bottom-width: $navBarItemPointerHeight/2;
+        border-left: 11px solid transparent;
+        border-left-width: ($navBarItemPointerHeight/2) + 1;
+        left: 0px;
+      }
+    }
+  }
+}
+
+// Fix the aliasing on vector font icons
+[class^="icon-"], [class*=" icon-"] {
+  &, &::before {
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+  }
+}

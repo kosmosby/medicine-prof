@@ -1,0 +1,952 @@
+@font-face {
+	font-family : 'IcoMoon';
+	src         : url('../fonts/jicomoon/IcoMoon.eot');
+	src         : url('../fonts/jicomoon/IcoMoon.eot?#iefix') format('embedded-opentype'), url('../fonts/jicomoon/IcoMoon.woff') format('woff'), url('../fonts/jicomoon/IcoMoon.ttf') format('truetype'), url('../fonts/jicomoon/IcoMoon.svg#IcoMoon') format('svg');
+	font-weight : normal;
+	font-style  : normal;
+}
+
+.jubootstrap [data-icon]:before {
+	font-family : 'IcoMoon';
+	content     : attr(data-icon);
+	speak       : none;
+}
+
+.jubootstrap [class^="icon-"],
+.jubootstrap [class*=" icon-"] {
+	display       : inline-block;
+	width         : 14px;
+	height        : 14px;
+	*margin-right : .3em;
+	line-height   : 14px;
+}
+
+.jubootstrap [class^="icon-"]:before,
+.jubootstrap [class*=" icon-"]:before {
+	font-family : 'IcoMoon';
+	font-style  : normal;
+	speak       : none;
+}
+
+.jubootstrap [class^="icon-"].disabled,
+.jubootstrap [class*=" icon-"].disabled {
+	font-weight : normal;
+}
+
+.jubootstrap .jubootstrap .icon-joomla:before {
+	content : "\e200";
+}
+
+.jubootstrap .icon-chevron-up:before,
+.jubootstrap .icon-uparrow:before,
+.jubootstrap .icon-arrow-up:before {
+	content : "\e005";
+}
+
+.jubootstrap .icon-chevron-right:before,
+.jubootstrap .icon-rightarrow:before,
+.jubootstrap .icon-arrow-right:before {
+	content : "\e006";
+}
+
+.jubootstrap .icon-chevron-down:before,
+.jubootstrap .icon-downarrow:before,
+.jubootstrap .icon-arrow-down:before {
+	content : "\e007";
+}
+
+.jubootstrap .icon-chevron-left:before,
+.jubootstrap .icon-leftarrow:before,
+.jubootstrap .icon-arrow-left:before {
+	content : "\e008";
+}
+
+.jubootstrap .icon-arrow-first:before {
+	content : "\e003";
+}
+
+.jubootstrap .icon-arrow-last:before {
+	content : "\e004";
+}
+
+.jubootstrap .icon-arrow-up-2:before {
+	content : "\e009";
+}
+
+.jubootstrap .icon-arrow-right-2:before {
+	content : "\e00a";
+}
+
+.jubootstrap .icon-arrow-down-2:before {
+	content : "\e00b";
+}
+
+.jubootstrap .icon-arrow-left-2:before {
+	content : "\e00c";
+}
+
+.jubootstrap .icon-arrow-up-3:before {
+	content : "\e00f";
+}
+
+.jubootstrap .icon-arrow-right-3:before {
+	content : "\e010";
+}
+
+.jubootstrap .icon-arrow-down-3:before {
+	content : "\e011";
+}
+
+.jubootstrap .icon-arrow-left-3:before {
+	content : "\e012";
+}
+
+.jubootstrap .icon-menu-2:before {
+	content : "\e00e";
+}
+
+.jubootstrap .icon-arrow-up-4:before {
+	content : "\e201";
+}
+
+.jubootstrap .icon-arrow-right-4:before {
+	content : "\e202";
+}
+
+.jubootstrap .icon-arrow-down-4:before {
+	content : "\e203";
+}
+
+.jubootstrap .icon-arrow-left-4:before {
+	content : "\e204";
+}
+
+.jubootstrap .icon-share:before,
+.jubootstrap .icon-redo:before {
+	content : "\27";
+}
+
+.jubootstrap .icon-undo:before {
+	content : "\28";
+}
+
+.jubootstrap .icon-forward-2:before {
+	content : "\e205";
+}
+
+.jubootstrap .icon-backward-2:before,
+.jubootstrap .icon-reply:before {
+	content : "\e206";
+}
+
+.jubootstrap .icon-unblock:before,
+.jubootstrap .icon-refresh:before,
+.jubootstrap .icon-redo-2:before {
+	content : "\6c";
+}
+
+.jubootstrap .icon-undo-2:before {
+	content : "\e207";
+}
+
+.jubootstrap .icon-move:before {
+	content : "\7a";
+}
+
+.jubootstrap .icon-expand:before {
+	content : "\66";
+}
+
+.jubootstrap .icon-contract:before {
+	content : "\67";
+}
+
+.jubootstrap .icon-expand-2:before {
+	content : "\68";
+}
+
+.jubootstrap .icon-contract-2:before {
+	content : "\69";
+}
+
+.jubootstrap .icon-play:before {
+	content : "\e208";
+}
+
+.jubootstrap .icon-pause:before {
+	content : "\e209";
+}
+
+.jubootstrap .icon-stop:before {
+	content : "\e210";
+}
+
+.jubootstrap .icon-previous:before,
+.jubootstrap .icon-backward:before {
+	content : "\7c";
+}
+
+.jubootstrap .icon-next:before,
+.jubootstrap .icon-forward:before {
+	content : "\7b";
+}
+
+.jubootstrap .icon-first:before {
+	content : "\7d";
+}
+
+.jubootstrap .icon-last:before {
+	content : "\e000";
+}
+
+.jubootstrap .icon-play-circle:before {
+	content : "\e00d";
+}
+
+.jubootstrap .icon-pause-circle:before {
+	content : "\e211";
+}
+
+.jubootstrap .icon-stop-circle:before {
+	content : "\e212";
+}
+
+.jubootstrap .icon-backward-circle:before {
+	content : "\e213";
+}
+
+.jubootstrap .icon-forward-circle:before {
+	content : "\e214";
+}
+
+.jubootstrap .icon-loop:before {
+	content : "\e001";
+}
+
+.jubootstrap .icon-shuffle:before {
+	content : "\e002";
+}
+
+.jubootstrap .icon-search:before {
+	content : "\53";
+}
+
+.jubootstrap .icon-zoom-in:before {
+	content : "\64";
+}
+
+.jubootstrap .icon-zoom-out:before {
+	content : "\65";
+}
+
+.jubootstrap .icon-apply:before,
+.jubootstrap .icon-edit:before,
+.jubootstrap .icon-pencil:before {
+	content : "\2b";
+}
+
+.jubootstrap .icon-pencil-2:before {
+	content : "\2c";
+}
+
+.jubootstrap .icon-brush:before {
+	content : "\3b";
+}
+
+.jubootstrap .icon-save-new:before,
+.jubootstrap .icon-plus-2:before {
+	content : "\5d";
+}
+
+.jubootstrap .icon-ban-circle:before,
+.jubootstrap .icon-minus-sign:before,
+.jubootstrap .icon-minus-2:before {
+	content : "\5e";
+}
+
+.jubootstrap .icon-delete:before,
+.jubootstrap .icon-remove:before,
+.jubootstrap .icon-cancel-2:before {
+	content : "\49";
+}
+
+.jubootstrap .icon-publish:before,
+.jubootstrap .icon-save:before,
+.jubootstrap .icon-ok:before,
+.jubootstrap .icon-checkmark:before {
+	content : "\47";
+}
+
+.jubootstrap .icon-new:before,
+.jubootstrap .icon-plus:before {
+	content : "\2a";
+}
+
+.jubootstrap .icon-plus-circle:before {
+	content : "\e215";
+}
+
+.jubootstrap .icon-minus:before,
+.jubootstrap .icon-not-ok:before {
+	content : "\4b";
+}
+
+.jubootstrap .icon-minus-circle:before {
+	content : "\e216";
+}
+
+.jubootstrap .icon-unpublish:before,
+.jubootstrap .icon-cancel:before {
+	content : "\4a";
+}
+
+.jubootstrap .icon-cancel-circle:before {
+	content : "\e217";
+}
+
+.jubootstrap .icon-checkmark-2:before {
+	content : "\e218";
+}
+
+.jubootstrap .icon-checkmark-circle:before {
+	content : "\e219";
+}
+
+.jubootstrap .icon-info:before {
+	content : "\e220";
+}
+
+.jubootstrap .icon-info-2:before,
+.jubootstrap .icon-info-circle:before {
+	content : "\e221";
+}
+
+.jubootstrap .icon-question:before,
+.jubootstrap .icon-question-sign:before,
+.jubootstrap .icon-help:before {
+	content : "\45";
+}
+
+.jubootstrap .icon-question-2:before,
+.jubootstrap .icon-question-circle:before {
+	content : "\e222";
+}
+
+.jubootstrap .icon-notification:before {
+	content : "\e223";
+}
+
+.jubootstrap .icon-notification-2:before,
+.jubootstrap .icon-notification-circle:before {
+	content : "\e224";
+}
+
+.jubootstrap .icon-pending:before,
+.jubootstrap .icon-warning:before {
+	content : "\48";
+}
+
+.jubootstrap .icon-warning-2:before,
+.jubootstrap .icon-warning-circle:before {
+	content : "\e225";
+}
+
+.jubootstrap .icon-checkbox-unchecked:before {
+	content : "\3d";
+}
+
+.jubootstrap .icon-checkin:before,
+.jubootstrap .icon-checkbox:before,
+.jubootstrap .icon-checkbox-checked:before {
+	content : "\3e";
+}
+
+.jubootstrap .icon-checkbox-partial:before {
+	content : "\3f";
+}
+
+.jubootstrap .icon-square:before {
+	content : "\e226";
+}
+
+.jubootstrap .icon-radio-unchecked:before {
+	content : "\e227";
+}
+
+.jubootstrap .icon-radio-checked:before {
+	content : "\e228";
+}
+
+.jubootstrap .icon-circle:before {
+	content : "\e229";
+}
+
+.jubootstrap .icon-signup:before {
+	content : "\e230";
+}
+
+.jubootstrap .icon-grid:before,
+.jubootstrap .icon-grid-view:before {
+	content : "\58";
+}
+
+.jubootstrap .icon-grid-2:before,
+.jubootstrap .icon-grid-view-2:before {
+	content : "\59";
+}
+
+.jubootstrap .icon-menu:before {
+	content : "\5a";
+}
+
+.jubootstrap .icon-list:before,
+.jubootstrap .icon-list-view:before {
+	content : "\31";
+}
+
+.jubootstrap .icon-list-2:before {
+	content : "\e231";
+}
+
+.jubootstrap .icon-menu-3:before {
+	content : "\e232";
+}
+
+.jubootstrap .icon-folder-open:before,
+.jubootstrap .icon-folder:before {
+	content : "\2d";
+}
+
+.jubootstrap .icon-folder-close:before,
+.jubootstrap .icon-folder-2:before {
+	content : "\2e";
+}
+
+.jubootstrap .icon-folder-plus:before {
+	content : "\e234";
+}
+
+.jubootstrap .icon-folder-minus:before {
+	content : "\e235";
+}
+
+.jubootstrap .icon-folder-3:before {
+	content : "\e236";
+}
+
+.jubootstrap .icon-folder-plus-2:before {
+	content : "\e237";
+}
+
+.jubootstrap .icon-folder-remove:before {
+	content : "\e238";
+}
+
+.jubootstrap .icon-file:before {
+	content : "\e016";
+}
+
+.jubootstrap .icon-file-2:before {
+	content : "\e239";
+}
+
+.jubootstrap .icon-file-add:before,
+.jubootstrap .icon-file-plus:before {
+	content : "\29";
+}
+
+.jubootstrap .icon-file-remove:before,
+.jubootstrap .icon-file-minus:before {
+	content : "\e017";
+}
+
+.jubootstrap .icon-file-check:before {
+	content : "\e240";
+}
+
+.jubootstrap .icon-file-remove:before {
+	content : "\e241";
+}
+
+.jubootstrap .icon-save-copy:before,
+.jubootstrap .icon-copy:before {
+	content : "\e018";
+}
+
+.jubootstrap .icon-stack:before {
+	content : "\e242";
+}
+
+.jubootstrap .icon-tree:before {
+	content : "\e243";
+}
+
+.jubootstrap .icon-tree-2:before {
+	content : "\e244";
+}
+
+.jubootstrap .icon-paragraph-left:before {
+	content : "\e246";
+}
+
+.jubootstrap .icon-paragraph-center:before {
+	content : "\e247";
+}
+
+.jubootstrap .icon-paragraph-right:before {
+	content : "\e248";
+}
+
+.jubootstrap .icon-paragraph-justify:before {
+	content : "\e249";
+}
+
+.jubootstrap .icon-screen:before {
+	content : "\e01c";
+}
+
+.jubootstrap .icon-tablet:before {
+	content : "\e01d";
+}
+
+.jubootstrap .icon-mobile:before {
+	content : "\e01e";
+}
+
+.jubootstrap .icon-box-add:before {
+	content : "\51";
+}
+
+.jubootstrap .icon-box-remove:before {
+	content : "\52";
+}
+
+.jubootstrap .icon-download:before {
+	content : "\e021";
+}
+
+.jubootstrap .icon-upload:before {
+	content : "\e022";
+}
+
+.jubootstrap .icon-home:before {
+	content : "\21";
+}
+
+.jubootstrap .icon-home-2:before {
+	content : "\e250";
+}
+
+.jubootstrap .icon-out-2:before,
+.jubootstrap .icon-new-tab:before {
+	content : "\e024";
+}
+
+.jubootstrap .icon-out-3:before,
+.jubootstrap .icon-new-tab-2:before {
+	content : "\e251";
+}
+
+.jubootstrap .icon-link:before {
+	content : "\e252";
+}
+
+.jubootstrap .icon-picture:before,
+.jubootstrap .icon-image:before {
+	content : "\2f";
+}
+
+.jubootstrap .icon-pictures:before,
+.jubootstrap .icon-images:before {
+	content : "\30";
+}
+
+.jubootstrap .icon-palette:before,
+.jubootstrap .icon-color-palette:before {
+	content : "\e014";
+}
+
+.jubootstrap .icon-camera:before {
+	content : "\55";
+}
+
+.jubootstrap .icon-camera-2:before,
+.jubootstrap .icon-video:before {
+	content : "\e015";
+}
+
+.jubootstrap .icon-play-2:before,
+.jubootstrap .icon-video-2:before,
+.jubootstrap .icon-youtube:before {
+	content : "\56";
+}
+
+.jubootstrap .icon-music:before {
+	content : "\57";
+}
+
+.jubootstrap .icon-user:before {
+	content : "\22";
+}
+
+.jubootstrap .icon-users:before {
+	content : "\e01f";
+}
+
+.jubootstrap .icon-vcard:before {
+	content : "\6d";
+}
+
+.jubootstrap .icon-address:before {
+	content : "\70";
+}
+
+.jubootstrap .icon-share-alt:before,
+.jubootstrap .icon-out:before {
+	content : "\26";
+}
+
+.jubootstrap .icon-enter:before {
+	content : "\e257";
+}
+
+.jubootstrap .icon-exit:before {
+	content : "\e258";
+}
+
+.jubootstrap .icon-comment:before,
+.jubootstrap .icon-comments:before {
+	content : "\24";
+}
+
+.jubootstrap .icon-comments-2:before {
+	content : "\25";
+}
+
+.jubootstrap .icon-quote:before,
+.jubootstrap .icon-quotes-left:before {
+	content : "\60";
+}
+
+.jubootstrap .icon-quote-2:before,
+.jubootstrap .icon-quotes-right:before {
+	content : "\61";
+}
+
+.jubootstrap .icon-quote-3:before,
+.jubootstrap .icon-bubble-quote:before {
+	content : "\e259";
+}
+
+.jubootstrap .icon-phone:before {
+	content : "\e260";
+}
+
+.jubootstrap .icon-phone-2:before {
+	content : "\e261";
+}
+
+.jubootstrap .icon-envelope:before,
+.jubootstrap .icon-mail:before {
+	content : "\4d";
+}
+
+.jubootstrap .icon-envelope-opened:before,
+.jubootstrap .icon-mail-2:before {
+	content : "\4e";
+}
+
+.jubootstrap .icon-unarchive:before,
+.jubootstrap .icon-drawer:before {
+	content : "\4f";
+}
+
+.jubootstrap .icon-archive:before,
+.jubootstrap .icon-drawer-2:before {
+	content : "\50";
+}
+
+.jubootstrap .icon-briefcase:before {
+	content : "\e020";
+}
+
+.jubootstrap .icon-tag:before {
+	content : "\e262";
+}
+
+.jubootstrap .icon-tag-2:before {
+	content : "\e263";
+}
+
+.jubootstrap .icon-tags:before {
+	content : "\e264";
+}
+
+.jubootstrap .icon-tags-2:before {
+	content : "\e265";
+}
+
+.jubootstrap .icon-options:before,
+.jubootstrap .icon-cog:before {
+	content : "\38";
+}
+
+.jubootstrap .icon-cogs:before {
+	content : "\37";
+}
+
+.jubootstrap .icon-screwdriver:before,
+.jubootstrap .icon-tools:before {
+	content : "\36";
+}
+
+.jubootstrap .icon-wrench:before {
+	content : "\3a";
+}
+
+.jubootstrap .icon-equalizer:before {
+	content : "\39";
+}
+
+.jubootstrap .icon-dashboard:before {
+	content : "\78";
+}
+
+.jubootstrap .icon-switch:before {
+	content : "\e266";
+}
+
+.jubootstrap .icon-filter:before {
+	content : "\54";
+}
+
+.jubootstrap .icon-purge:before,
+.jubootstrap .icon-trash:before {
+	content : "\4c";
+}
+
+.jubootstrap .icon-checkedout:before,
+.jubootstrap .icon-lock:before,
+.jubootstrap .icon-locked:before {
+	content : "\23";
+}
+
+.jubootstrap .icon-unlock:before {
+	content : "\e267";
+}
+
+.jubootstrap .icon-key:before {
+	content : "\5f";
+}
+
+.jubootstrap .icon-support:before {
+	content : "\46";
+}
+
+.jubootstrap .icon-database:before {
+	content : "\62";
+}
+
+.jubootstrap .icon-scissors:before {
+	content : "\e268";
+}
+
+.jubootstrap .icon-health:before {
+	content : "\6a";
+}
+
+.jubootstrap .icon-wand:before {
+	content : "\6b";
+}
+
+.jubootstrap .icon-eye-open:before,
+.jubootstrap .icon-eye:before {
+	content : "\3c";
+}
+
+.jubootstrap .icon-eye-close:before,
+.jubootstrap .icon-eye-blocked:before,
+.jubootstrap .icon-eye-2:before {
+	content : "\e269";
+}
+
+.jubootstrap .icon-clock:before {
+	content : "\6e";
+}
+
+.jubootstrap .icon-compass:before {
+	content : "\6f";
+}
+
+.jubootstrap .icon-broadcast:before,
+.jubootstrap .icon-connection:before,
+.jubootstrap .icon-wifi:before {
+	content : "\e01b";
+}
+
+.jubootstrap .icon-book:before {
+	content : "\e271";
+}
+
+.jubootstrap .icon-lightning:before,
+.jubootstrap .icon-flash:before {
+	content : "\79";
+}
+
+.jubootstrap .icon-print:before,
+.jubootstrap .icon-printer:before {
+	content : "\e013";
+}
+
+.jubootstrap .icon-feed:before {
+	content : "\71";
+}
+
+.jubootstrap .icon-calendar:before {
+	content : "\43";
+}
+
+.jubootstrap .icon-calendar-2:before {
+	content : "\44";
+}
+
+.jubootstrap .icon-calendar-3:before {
+	content : "\e273";
+}
+
+.jubootstrap .icon-pie:before {
+	content : "\77";
+}
+
+.jubootstrap .icon-bars:before {
+	content : "\76";
+}
+
+.jubootstrap .icon-chart:before {
+	content : "\75";
+}
+
+.jubootstrap .icon-power-cord:before {
+	content : "\32";
+}
+
+.jubootstrap .icon-cube:before {
+	content : "\33";
+}
+
+.jubootstrap .icon-puzzle:before {
+	content : "\34";
+}
+
+.jubootstrap .icon-attachment:before,
+.jubootstrap .icon-paperclip:before,
+.jubootstrap .icon-flag-2:before {
+	content : "\72";
+}
+
+.jubootstrap .icon-lamp:before {
+	content : "\74";
+}
+
+.jubootstrap .icon-pin:before,
+.jubootstrap .icon-pushpin:before {
+	content : "\73";
+}
+
+.jubootstrap .icon-location:before {
+	content : "\63";
+}
+
+.jubootstrap .icon-shield:before {
+	content : "\e274";
+}
+
+.jubootstrap .icon-flag:before {
+	content : "\35";
+}
+
+.jubootstrap .icon-flag-3:before {
+	content : "\e275";
+}
+
+.jubootstrap .icon-bookmark:before {
+	content : "\e023";
+}
+
+.jubootstrap .icon-bookmark-2:before {
+	content : "\e276";
+}
+
+.jubootstrap .icon-heart:before {
+	content : "\e277";
+}
+
+.jubootstrap .icon-heart-2:before {
+	content : "\e278";
+}
+
+.jubootstrap .icon-thumbs-up:before {
+	content : "\5b";
+}
+
+.jubootstrap .icon-thumbs-down:before {
+	content : "\5c";
+}
+
+.jubootstrap .icon-unfeatured:before,
+.jubootstrap .icon-asterisk:before,
+.jubootstrap .icon-star-empty:before {
+	content : "\40";
+}
+
+.jubootstrap .icon-star-2:before {
+	content : "\41";
+}
+
+.jubootstrap .icon-featured:before,
+.jubootstrap .icon-default:before,
+.jubootstrap .icon-star:before {
+	content : "\42";
+}
+
+.jubootstrap .icon-smiley:before,
+.jubootstrap .icon-smiley-happy:before {
+	content : "\e279";
+}
+
+.jubootstrap .icon-smiley-2:before,
+.jubootstrap .icon-smiley-happy-2:before {
+	content : "\e280";
+}
+
+.jubootstrap .icon-smiley-sad:before {
+	content : "\e281";
+}
+
+.jubootstrap .icon-smiley-sad-2:before {
+	content : "\e282";
+}
+
+.jubootstrap .icon-smiley-neutral:before {
+	content : "\e283";
+}
+
+.jubootstrap .icon-smiley-neutral-2:before {
+	content : "\e284";
+}
+
+.jubootstrap .icon-cart:before {
+	content : "\e019";
+}
+
+.jubootstrap .icon-basket:before {
+	content : "\e01a";
+}
+
+.jubootstrap .icon-credit:before {
+	content : "\e286";
+}
+
+.jubootstrap .icon-credit-2:before {
+	content : "\e287";
+}

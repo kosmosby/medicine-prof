@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.0" method="upgrade">
+	<name>AWD WALL</name>	
+	<creationDate>04/08/2010</creationDate>
+	<author>AWDsolution.com</author>
+	<authorEmail>support@awdsolution.com</authorEmail>
+	<authorUrl>http://www.awdsolution.com</authorUrl>
+	<copyright>AWDsolution.com</copyright>
+	<license>@license GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>	
+	<version>3.0</version>	
+	<description>JomWALL CB - Real time Content Sharing &amp; Collaboration System</description>
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">install.awdwall.sql</file>
+		</sql>
+	</install>
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">uninstall.awdwall.sql</file>
+		</sql>
+	</uninstall>
+	<scriptfile>install.php</scriptfile>
+
+	<!-- Site Main File Copy Section -->
+	<files folder="site">
+		<filename>index.html</filename>
+		<filename>awdwall.php</filename>
+		<filename>defines.php</filename>		
+		<filename>controller.php</filename>
+		<filename>router.php</filename>
+		<folder>helpers</folder>	
+		<folder>views</folder>				
+		<folder>css</folder>		
+		<folder>images</folder>
+		<folder>js</folder>
+		<folder>libraries</folder>
+		<folder>models</folder>
+		<filename>joomla.php</filename>			
+	</files>
+	<languages folder="site/language">
+			<language tag="en-GB">en-GB.com_awdwall.ini</language>			
+    </languages>
+	<administration>
+		<!-- Administration Menu Section -->
+		<menu img="components/com_awdwall/images/awdwall.png">COM_AWDWALL</menu>
+		<submenu>
+			<menu link="option=com_awdwall&amp;controller=awdwall">COM_AWDWALL_MENU_HOME</menu>
+			<menu link="option=com_awdwall&amp;controller=wall">COM_AWDWALL_MENU_ALLMSG</menu>	
+			<menu link="option=com_awdwall&amp;controller=colors">COM_AWDWALL_MENU_COLORS</menu>
+			<menu link="option=com_awdwall&amp;controller=groups">COM_AWDWALL_MENU_GROUPS</menu>
+			<menu link="option=com_awdwall&amp;controller=about">COM_AWDWALL_MENU_ABOUT</menu>			
+		</submenu>
+		<!-- Administration Main File Copy Section -->
+		<files folder="admin">
+			<filename>index.html</filename>
+			<filename>install.awdwall.sql</filename>
+			<filename>uninstall.awdwall.sql</filename>
+			<filename>colors.xml</filename>
+			<filename>awdwall.php</filename>
+			<filename>config.xml</filename>			
+			<folder>controllers</folder>			
+			<folder>elements</folder>
+			<folder>models</folder>
+			<folder>helpers</folder>			
+			<folder>js</folder>			
+			<folder>views</folder>
+			<folder>images</folder>				
+		</files>	
+		<files folder="admin/sql">
+			<!-- database script -->
+			<filename>install.awdwall.sql</filename>
+			<filename>uninstall.awdwall.sql</filename>
+		</files>
+		<languages folder="admin/language">
+			<language tag="en-GB">en-GB.com_awdwall.ini</language>	
+			<language tag="en-GB">en-GB.com_awdwall.sys.ini</language>			
+    	</languages>
+	</administration>
+</extension>

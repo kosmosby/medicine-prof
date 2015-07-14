@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../../../validation/ahawow.xsd">
+	<types>
+		<type name="cbconnectRegistration" base="list" valuetype="string">
+			<option value="1">Single Sign-on</option>
+			<option value="2">Pre-fill</option>
+		</type>
+		<type name="cbconnectApprove" base="list" valuetype="string">
+			<option value="0">No (override CB)</option>
+			<option value="1">Yes (override CB)</option>
+			<option value="2">Default (CB setting)</option>
+		</type>
+		<type name="cbconnectConfirm" base="list" valuetype="string">
+			<option value="0">No (override CB)</option>
+			<option value="2">Default (CB setting)</option>
+		</type>
+		<type name="cbconnectButtonStyle" base="list" valuetype="string">
+			<option value="1">Icon Only</option>
+			<option value="2">Icon &amp; Text</option>
+			<option value="3">Text Only</option>
+		</type>
+		<type name="cbconnectFromFields" base="list" valuetype="string">
+			<option value="identifier">Identifier</option>
+			<option value="webSiteURL">Website URL</option>
+			<option value="profileURL">Profile URL</option>
+			<option value="photoURL">Photo URL</option>
+			<option value="displayName">Display Name</option>
+			<option value="description">Description</option>
+			<option value="firstName">First Name</option>
+			<option value="lastName">Last Name</option>
+			<option value="gender">Gender</option>
+			<option value="language">Language</option>
+			<option value="age">Age</option>
+			<option value="birthdate">Birthdate</option>
+			<option value="birthDay">Birth Day</option>
+			<option value="birthMonth">Birth Month</option>
+			<option value="birthYear">Birth Year</option>
+			<option value="email">Email</option>
+			<option value="emailVerified">Email Verified</option>
+			<option value="phone">Phone</option>
+			<option value="address">Address</option>
+			<option value="country">Country</option>
+			<option value="region">Region</option>
+			<option value="city">City</option>
+			<option value="zip">Zip</option>
+		</type>
+	</types>
+</cbxml>

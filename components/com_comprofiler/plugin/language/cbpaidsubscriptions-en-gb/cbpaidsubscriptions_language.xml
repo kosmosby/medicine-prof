@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<cbinstall version="1.1" type="plugin" group="language">
+	<name>CB Paid Subscriptions - en-GB</name>
+	<author>Beat</author>
+	<creationDate>2015-01-06</creationDate>
+	<copyright>(C) 2007-2015 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<authorEmail>beat@joomlapolis.com</authorEmail>
+	<authorUrl>www.joomlapolis.com</authorUrl>
+	<version>2.0.0</version>
+	<release>4.0.0-rc.1</release>
+	<description>Provides the English language for CB Paid Subscriptions plugin.</description>
+	<files>
+		<filename plugin="cbpaidsubscriptions_language">language.php</filename>
+		<filename>admin_language.php</filename>
+		<filename>index.html</filename>  
+		<filename>images/index.html</filename>  
+	</files>
+    <params>
+    </params>
+	<database>
+	</database>
+</cbinstall>

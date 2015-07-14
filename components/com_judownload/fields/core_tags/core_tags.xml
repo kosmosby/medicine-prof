@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="file" method="upgrade" judlplugintype="field">
+    <name>Core Tags</name>
+    <author>JoomUltra</author>
+    <creationDate>18 July 2014</creationDate>
+    <authorEmail>admin@joomultra.com</authorEmail>
+    <version>1.0</version>
+    <license>GNU/GPL</license>
+    <website>http://www.joomultra.com</website>
+    <description></description>
+    <folder>core_tags</folder>
+    <core>1</core>
+    <default>1</default>
+    <fileset>
+        <files target="components/com_judownload/fields/core_tags">
+            <file>core_tags.xml</file>
+            <file>core_tags.php</file>
+            <file>index.html</file>
+            <folder>tmpl</folder>
+        </files>
+    </fileset>
+    <config>
+        <field name="tag_ordering"
+               type="list"
+               default="ordering"
+               label="COM_JUDOWNLOAD_FIELD_TAG_ORDERING_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_TAG_ORDERING_DESC">
+            <option value="t.title">COM_JUDOWNLOAD_OPTION_TITLE</option>
+            <option value="txref.ordering">COM_JUDOWNLOAD_OPTION_ORDERING</option>
+        </field>
+
+        <field name="tag_direction"
+               type="list"
+               default="ASC"
+               label="COM_JUDOWNLOAD_FIELD_ORDERING_DIRECTION_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_ORDERING_DIRECTION_DESC">
+            <option value="ASC">COM_JUDOWNLOAD_ASC</option>
+            <option value="DESC">COM_JUDOWNLOAD_DESC</option>
+        </field>
+
+        <field name="placeholder"
+               type="text"
+               default=""
+               label="COM_JUDOWNLOAD_FIELD_PLACEHOLDER_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_PLACEHOLDER_DESC"
+                />
+
+        <field name="tag_min_length"
+               type="text"
+               default="3"
+               label="COM_JUDOWNLOAD_FIELD_TAG_MIN_LENGTH_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_TAG_MIN_LENGTH_DESC"
+                />
+
+        <field name="tag_max_length"
+               type="text"
+               default="50"
+               label="COM_JUDOWNLOAD_FIELD_TAG_MAX_LENGTH_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_TAG_MAX_LENGTH_DESC"
+                />
+
+        <field name="sortable"
+               type="list"
+               default="handle"
+               label="COM_JUDOWNLOAD_FIELD_SORTABLE_LABEL"
+               description="COM_JUDOWNLOAD_FIELD_SORTABLE_DESC">
+            <option value="handle">COM_JUDOWNLOAD_HANDLE</option>
+            <option value="true">JYES</option>
+            <option value="false">JNO</option>
+        </field>
+    </config>
+</extension>

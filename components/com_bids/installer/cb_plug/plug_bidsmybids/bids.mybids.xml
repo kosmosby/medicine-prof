@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0.0" type="plugin" group="user">
+	<name>Bids MyBids</name>
+	<author>The Factory</author>
+	<creationDate></creationDate>
+	<copyright>(C) 2006 thefactory.ro</copyright>
+	<license>Commercial</license>
+	<authorEmail>contact@thefactory.ro</authorEmail>
+	<authorUrl>www.thefactory.ro</authorUrl>
+	<version>1.2</version>
+	<description>
+		Tab Plugin for displaying User Bids from Auction Factory
+	</description>
+	<files>
+		<filename plugin="bids.mybids">bids.mybids.php</filename>
+	</files>
+	<params>
+	</params>
+	<tabs>
+		<tab name="My Bids" description="This tab is just a basic tab." class="getmybidsTab" fields="0" position="cb_tabmain" displaytype="tab">
+			<params>
+			</params>
+			<fields>
+			</fields>
+		</tab>
+	</tabs>
+	<database>
+	</database>
+	<install>
+		<queries>
+		</queries>
+	</install>
+	<uninstall>
+	</uninstall>
+</cbinstall>

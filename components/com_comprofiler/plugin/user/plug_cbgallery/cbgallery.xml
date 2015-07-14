@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0" type="plugin" group="user">
+	<name>CB Gallery</name>
+	<author>Krileon</author>
+	<creationDate>2015-04-29</creationDate>
+	<copyright>(C) 2004-2015 www.joomlapolis.com / Lightning MultiCom SA - and its licensors, all rights reserved</copyright>
+	<license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2</license>
+	<authorEmail>krileon@joomlapolis.com</authorEmail>
+	<description>Adds photo, file, video, and music user galleries.</description>
+	<version>2.0.8</version>
+	<release>1.0.4</release>
+	<installfile>install.cbgallery.php</installfile>
+	<files>
+		<filename plugin="cbgallery">cbgallery.php</filename>
+		<filename>index.html</filename>
+		<filename>component.cbgallery.php</filename>
+		<filename>install.cbgallery.php</filename>
+		<foldername>templates</foldername>
+		<foldername>xml</foldername>
+		<foldername>language</foldername>
+	</files>
+	<tabs>
+		<tab name="Photos" description="" class="cbgalleryTabPhotos" fields="0" position="canvas_main_middle" displaytype="menunested" ordering_register="1">
+			<params>
+				<tabpane name="tab">
+					<tabpanetab label="Photos">
+						<param name="tab_photos" type="yesno" default="1" label="Display" description="Enable or disable display of photos tab." yes="Enable" no="Disable" />
+						<showview view="cbGalleryTabPhotos" mode="edit" type="view" />
+					</tabpanetab>
+					<tabpanetab label="Files">
+						<param name="tab_files" type="yesno" default="0" label="Display" description="Enable or disable display of files tab." yes="Enable" no="Disable" />
+						<showview view="cbGalleryTabFiles" mode="edit" type="view" />
+					</tabpanetab>
+					<tabpanetab label="Videos">
+						<param name="tab_videos" type="yesno" default="0" label="Display" description="Enable or disable display of videos tab." yes="Enable" no="Disable" />
+						<showview view="cbGalleryTabVideos" mode="edit" type="view" />
+					</tabpanetab>
+					<tabpanetab label="Music">
+						<param name="tab_music" type="yesno" default="0" label="Display" description="Enable or disable display of music tab." yes="Enable" no="Disable" />
+						<showview view="cbGalleryTabMusic" mode="edit" type="view" />
+					</tabpanetab>
+				</tabpane>
+			</params>
+		</tab>
+		<tab name="Files" description="" class="cbgalleryTabFiles" fields="0" position="canvas_main_middle" displaytype="menunested" ordering_register="1">
+			<params>
+				<tabpane name="tab">
+					<tabpanetab label="Photos">
+						<param name="tab_photos" type="yesno" default="0" label="Display" description="Enable or disable display of photos tab." yes="Enable" no="Disable" />
+						<showview view="cbGalleryTabPhotos" mode="edit" type="view" />
+					</tabpanetab>
+					<tabpanetab label="Files">
+						<param name="tab_files" type="yesno" default="1" label="Display" description="Enable or disable display of files tab." yes="Enable" no="Disable" />
+						<showview view="cbGalleryTabFiles" mode="edit" type="view" />
+					</tabpanetab>
+					<tabpanetab label="Videos">
+						<param name="tab_videos" type="yesno" default="0" label="Display" description="Enable or disable display of videos tab." yes="Enable" no="Disable" />
+						<showview view="cbGalleryTabVideos" mode="edit" type="view" />
+					</tabpanetab>
+					<tabpanetab label="Music">
+						<param name="tab_music" type="yesno" default="0" label="Display" description="Enable or disable display of music tab." yes="Enable" no="Disable" />
+						<showview view="cbGalleryTabMusic" mode="edit" type="view" />
+					</tabpanetab>
+				</tabpane>
+			</params>
+		</tab>
+		<tab name="Videos" description="" class="cbgalleryTabVideos" fields="0" position="canvas_main_middle" displaytype="menunested" ordering_register="1">
+			<params>
+				<tabpane name="tab">
+					<tabpanetab label="Photos">
+						<param name="tab_photos" type="yesno" default="0" label="Display" description="Enable or disable display of photos tab." yes="Enable" no="Disable" />
+						<showview view="cbGalleryTabPhotos" mode="edit" type="view" />
+					</tabpanetab>
+					<tabpanetab label="Files">
+						<param name="tab_files" type="yesno" default="0" label="Display" description="Enable or disable display of files tab." yes="Enable" no="Disable" />
+						<showview view="cbGalleryTabFiles" mode="edit" type="view" />
+					</tabpanetab>
+					<tabpanetab label="Videos">
+						<param name="tab_videos" type="yesno" default="1" label="Display" description="Enable or disable display of videos tab." yes="Enable" no="Disable" />
+						<showview view="cbGalleryTabVideos" mode="edit" type="view" />
+					</tabpanetab>
+					<tabpanetab label="Music">
+						<param name="tab_music" type="yesno" default="0" label="Display" description="Enable or disable display of music tab." yes="Enable" no="Disable" />
+						<showview view="cbGalleryTabMusic" mode="edit" type="view" />
+					</tabpanetab>
+				</tabpane>
+			</params>
+		</tab>
+		<tab name="Music" description="" class="cbgalleryTabMusic" fields="0" position="canvas_main_middle" displaytype="menunested" ordering_register="1">
+			<params>
+				<tabpane name="tab">
+					<tabpanetab label="Photos">
+						<param name="tab_photos" type="yesno" default="0" label="Display" description="Enable or disable display of photos tab." yes="Enable" no="Disable" />
+						<showview view="cbGalleryTabPhotos" mode="edit" type="view" />
+					</tabpanetab>
+					<tabpanetab label="Files">
+						<param name="tab_files" type="yesno" default="0" label="Display" description="Enable or disable display of files tab." yes="Enable" no="Disable" />
+						<showview view="cbGalleryTabFiles" mode="edit" type="view" />
+					</tabpanetab>
+					<tabpanetab label="Videos">
+						<param name="tab_videos" type="yesno" default="0" label="Display" description="Enable or disable display of videos tab." yes="Enable" no="Disable" />
+						<showview view="cbGalleryTabVideos" mode="edit" type="view" />
+					</tabpanetab>
+					<tabpanetab label="Music">
+						<param name="tab_music" type="yesno" default="1" label="Display" description="Enable or disable display of music tab." yes="Enable" no="Disable" />
+						<showview view="cbGalleryTabMusic" mode="edit" type="view" />
+					</tabpanetab>
+				</tabpane>
+			</params>
+		</tab>
+	</tabs>
+	<params>
+		<tabpane name="gallery">
+			<tabpanetab label="General">
+				<param name="general_template" type="folderlist" default="default" label="Template" description="Select template to be used for all of CB Gallery. If template is incomplete then missing files will be used from the default template. Template files can be located at the following location: components/com_comprofiler/plugin/user/plug_cbgallery/templates/." directory="/components/com_comprofiler/plugin/user/plug_cbgallery/templates/" />
+				<param name="general_class" type="text" default="" size="20" label="Class" description="Optionally add a class suffix to surrounding DIV encasing all of CB Gallery." />
+				<param name="general_delete" type="yesno" default="1" label="Auto Delete" description="Enable or disable automatic deletion of items when a user is deleted." yes="Enable" no="Disable" />
+			</tabpanetab>
+			<tabpanetab label="Photos">
+				<tabpane name="photos">
+					<tabpanetab label="Items">
+						<param name="photos_item_create_access" type="viewaccesslevel" default="2" managelevels="false" blanktext="" label="Create Access" description="Select item create access. Access determines who can create items. Moderators are exempt from this configuration." />
+						<param name="photos_item_limit" type="field" key="name" blanktext="Custom" default="" label="Create Limit" description="Select the field to use for item create limit. Moderators are exempt from this configuration." />
+						<if name="photos_item_limit" type="showhide" operator="=" value="" valuetype="const:int">
+							<param name="photos_item_limit_custom" type="int" default="" size="5" label="Custom Create Limit" description="Input number of items each individual user is limited to creating. If blank allow unlimited items." />
+						</if>
+						<param name="photos_item_upload" type="yesno" default="1" label="Upload" description="Enable or disable uploading of items." yes="Enable" no="Disable" />
+						<param name="photos_item_link" type="yesno" default="0" label="Link" description="Enable or disable linking of items. Linking allows items to be displayed in the gallery from external sources." yes="Enable" no="Disable" />
+						<if name="photos_item_upload" type="showhide" operator="=" value="1" valuetype="const:int">
+							<param name="photos_resample" type="yesno" default="1" label="Always Resample" description="Choose if images uploaded should always be resampled. Resampling adds additional security, but animations will only be kept when using ImageMagick." />
+							<param name="photos_image_height" type="text" default="640" label="Maximum Image Height" description="Input the maximum height in pixels that the image will be resized to." />
+							<param name="photos_image_width" type="text" default="1280" label="Maximum Image Width" description="Input the maximum width in pixels that the image will be resized to." />
+							<param name="photos_thumbnail_height" type="text" default="320" label="Maximum Thumbnail Height" description="Input the maximum thumbnail height in pixels that the image will be resized to." />
+							<param name="photos_thumbnail_width" type="text" default="640" label="Maximum Thumbnail Width" description="Input the maximum thumbnail width in pixels that the image will be resized to." />
+							<param name="photos_maintain_aspect_ratio" type="list" default="1" label="Maintain Aspect Ratio" description="Choose if images uploaded should maintain their aspect ratio when resizing. If set to No the image will always be resized to the specified maximum width and height. If set to Yes the aspect ratio will be maintained as much as possible within the maximum width and height. If set to Yes with Cropping the image will always resize to the specified maximum width and height within the aspect ratio and crop any overflow; this is useful for maintain squared images.">
+								<option value="1">Yes</option>
+								<option value="2">Yes, with Cropping</option>
+								<option value="0">No</option>
+							</param>
+							<param name="photos_item_min_size" type="int" default="0" size="5" label="Minimum File Size" description="Input the minimum item file size in KBs." />
+							<param name="photos_item_max_size" type="int" default="1024" size="5" label="Maximum File Size" description="Input the maximum item file size in KBs. Set to 0 for no limit." />
+						</if>
+						<param name="photos_item_approval" type="yesno" default="0" label="Approval" description="Enable or disable approval of items. Approval requires a moderator to publish a item before it is made visible. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+						<param name="photos_item_captcha" type="yesno" default="0" label="Captcha" description="Enable or disable usage of captcha on items. Requires latest CB AntiSpam to be installed and published. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+						<if name="photos_item_approval" type="showhide" operator="=" value="1" valuetype="const:int">
+							<param name="photos_item_approval_notify" type="yesno" default="1" label="Notify" description="Enable or disable moderator notifications for items needing approval." yes="Enable" no="Disable" />
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Folders">
+						<param name="photos_folder_create_access" type="viewaccesslevel" default="2" managelevels="false" blanktext="" label="Create Access" description="Select folder create access. Access determines who can create folders. Moderators are exempt from this configuration." />
+						<param name="photos_folder_limit" type="field" key="name" blanktext="Custom" default="" label="Create Limit" description="Select the field to use for folder create limit. Moderators are exempt from this configuration." />
+						<if name="photos_folder_limit" type="showhide" operator="=" value="" valuetype="const:int">
+							<param name="photos_folder_limit_custom" type="int" default="" size="5" label="Custom Create Limit" description="Input number of folders each individual user is limited to creating. If blank allow unlimited folders." />
+						</if>
+						<param name="photos_folder_approval" type="yesno" default="0" label="Approval" description="Enable or disable approval of folders. Approval requires a moderator to publish a folder before it is made visible. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+						<param name="photos_folder_captcha" type="yesno" default="0" label="Captcha" description="Enable or disable usage of captcha on folders. Requires latest CB AntiSpam to be installed and published. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+						<if name="photos_folder_approval" type="showhide" operator="=" value="1" valuetype="const:int">
+							<param name="photos_folder_approval_notify" type="yesno" default="1" label="Notify" description="Enable or disable moderator notifications for folders needing approval." yes="Enable" no="Disable" />
+						</if>
+					</tabpanetab>
+				</tabpane>
+			</tabpanetab>
+			<tabpanetab label="Files">
+				<tabpane name="files">
+					<tabpanetab label="Items">
+						<param name="files_item_create_access" type="viewaccesslevel" default="2" managelevels="false" blanktext="" label="Create Access" description="Select item create access. Access determines who can create items. Moderators are exempt from this configuration." />
+						<param name="files_item_limit" type="field" key="name" blanktext="Custom" default="" label="Create Limit" description="Select the field to use for item create limit. Moderators are exempt from this configuration." />
+						<if name="files_item_limit" type="showhide" operator="=" value="" valuetype="const:int">
+							<param name="files_item_limit_custom" type="int" default="" size="5" label="Custom Create Limit" description="Input number of items each individual user is limited to creating. If blank allow unlimited items." />
+						</if>
+						<param name="files_item_upload" type="yesno" default="1" label="Upload" description="Enable or disable uploading of items." yes="Enable" no="Disable" />
+						<param name="files_item_link" type="yesno" default="0" label="Link" description="Enable or disable linking of items. Linking allows items to be displayed in the gallery from external sources." yes="Enable" no="Disable" />
+						<param name="files_item_extensions" type="text" default="zip,rar,doc,pdf,txt,xls" translate-default="no" size="40" label="File Types" description="Input the allowed file extensions as a comma separated list." />
+						<if name="files_item_upload" type="showhide" operator="=" value="1" valuetype="const:int">
+							<param name="files_item_min_size" type="int" default="0" size="5" label="Minimum File Size" description="Input the minimum item file size in KBs." />
+							<param name="files_item_max_size" type="int" default="1024" size="5" label="Maximum File Size" description="Input the maximum item file size in KBs. Set to 0 for no limit." />
+						</if>
+						<param name="files_item_approval" type="yesno" default="0" label="Approval" description="Enable or disable approval of items. Approval requires a moderator to publish a item before it is made visible. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+						<param name="files_item_captcha" type="yesno" default="0" label="Captcha" description="Enable or disable usage of captcha on items. Requires latest CB AntiSpam to be installed and published. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+						<if name="files_item_approval" type="showhide" operator="=" value="1" valuetype="const:int">
+							<param name="files_item_approval_notify" type="yesno" default="1" label="Notify" description="Enable or disable moderator notifications for items needing approval." yes="Enable" no="Disable" />
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Folders">
+						<param name="files_folder_create_access" type="viewaccesslevel" default="2" managelevels="false" blanktext="" label="Create Access" description="Select folder create access. Access determines who can create folders. Moderators are exempt from this configuration." />
+						<param name="files_folder_limit" type="field" key="name" blanktext="Custom" default="" label="Create Limit" description="Select the field to use for folder create limit. Moderators are exempt from this configuration." />
+						<if name="files_folder_limit" type="showhide" operator="=" value="" valuetype="const:int">
+							<param name="files_folder_limit_custom" type="int" default="" size="5" label="Custom Create Limit" description="Input number of folders each individual user is limited to creating. If blank allow unlimited folders." />
+						</if>
+						<param name="files_folder_approval" type="yesno" default="0" label="Approval" description="Enable or disable approval of folders. Approval requires a moderator to publish a folder before it is made visible. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+						<param name="files_folder_captcha" type="yesno" default="0" label="Captcha" description="Enable or disable usage of captcha on folders. Requires latest CB AntiSpam to be installed and published. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+						<if name="files_folder_approval" type="showhide" operator="=" value="1" valuetype="const:int">
+							<param name="files_folder_approval_notify" type="yesno" default="1" label="Notify" description="Enable or disable moderator notifications for folders needing approval." yes="Enable" no="Disable" />
+						</if>
+					</tabpanetab>
+				</tabpane>
+			</tabpanetab>
+			<tabpanetab label="Videos">
+				<tabpane name="videos">
+					<tabpanetab label="Items">
+						<param name="videos_item_create_access" type="viewaccesslevel" default="2" managelevels="false" blanktext="" label="Create Access" description="Select item create access. Access determines who can create items. Moderators are exempt from this configuration." />
+						<param name="videos_item_limit" type="field" key="name" blanktext="Custom" default="" label="Create Limit" description="Select the field to use for item create limit. Moderators are exempt from this configuration." />
+						<if name="videos_item_limit" type="showhide" operator="=" value="" valuetype="const:int">
+							<param name="videos_item_limit_custom" type="int" default="" size="5" label="Custom Create Limit" description="Input number of items each individual user is limited to creating. If blank allow unlimited items." />
+						</if>
+						<param name="videos_item_upload" type="yesno" default="1" label="Upload" description="Enable or disable uploading of items." yes="Enable" no="Disable" />
+						<param name="videos_item_link" type="yesno" default="0" label="Link" description="Enable or disable linking of items. Linking allows items to be displayed in the gallery from external sources." yes="Enable" no="Disable" />
+						<if name="videos_item_upload" type="showhide" operator="=" value="1" valuetype="const:int">
+							<param name="videos_item_min_size" type="int" default="0" size="5" label="Minimum File Size" description="Input the minimum item file size in KBs." />
+							<param name="videos_item_max_size" type="int" default="1024" size="5" label="Maximum File Size" description="Input the maximum item file size in KBs. Set to 0 for no limit." />
+						</if>
+						<param name="videos_item_approval" type="yesno" default="0" label="Approval" description="Enable or disable approval of items. Approval requires a moderator to publish a item before it is made visible. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+						<param name="videos_item_captcha" type="yesno" default="0" label="Captcha" description="Enable or disable usage of captcha on items. Requires latest CB AntiSpam to be installed and published. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+						<if name="videos_item_approval" type="showhide" operator="=" value="1" valuetype="const:int">
+							<param name="videos_item_approval_notify" type="yesno" default="1" label="Notify" description="Enable or disable moderator notifications for items needing approval." yes="Enable" no="Disable" />
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Folders">
+						<param name="videos_folder_create_access" type="viewaccesslevel" default="2" managelevels="false" blanktext="" label="Create Access" description="Select folder create access. Access determines who can create folders. Moderators are exempt from this configuration." />
+						<param name="videos_folder_limit" type="field" key="name" blanktext="Custom" default="" label="Create Limit" description="Select the field to use for folder create limit. Moderators are exempt from this configuration." />
+						<if name="videos_folder_limit" type="showhide" operator="=" value="" valuetype="const:int">
+							<param name="videos_folder_limit_custom" type="int" default="" size="5" label="Custom Create Limit" description="Input number of folders each individual user is limited to creating. If blank allow unlimited folders." />
+						</if>
+						<param name="videos_folder_approval" type="yesno" default="0" label="Approval" description="Enable or disable approval of folders. Approval requires a moderator to publish a folder before it is made visible. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+						<param name="videos_folder_captcha" type="yesno" default="0" label="Captcha" description="Enable or disable usage of captcha on folders. Requires latest CB AntiSpam to be installed and published. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+						<if name="videos_folder_approval" type="showhide" operator="=" value="1" valuetype="const:int">
+							<param name="videos_folder_approval_notify" type="yesno" default="1" label="Notify" description="Enable or disable moderator notifications for folders needing approval." yes="Enable" no="Disable" />
+						</if>
+					</tabpanetab>
+				</tabpane>
+			</tabpanetab>
+			<tabpanetab label="Music">
+				<tabpane name="music">
+					<tabpanetab label="Items">
+						<param name="music_item_create_access" type="viewaccesslevel" default="2" managelevels="false" blanktext="" label="Create Access" description="Select item create access. Access determines who can create items. Moderators are exempt from this configuration." />
+						<param name="music_item_limit" type="field" key="name" blanktext="Custom" default="" label="Create Limit" description="Select the field to use for item create limit. Moderators are exempt from this configuration." />
+						<if name="music_item_limit" type="showhide" operator="=" value="" valuetype="const:int">
+							<param name="music_item_limit_custom" type="int" default="" size="5" label="Custom Create Limit" description="Input number of items each individual user is limited to creating. If blank allow unlimited items." />
+						</if>
+						<param name="music_item_upload" type="yesno" default="1" label="Upload" description="Enable or disable uploading of items." yes="Enable" no="Disable" />
+						<param name="music_item_link" type="yesno" default="0" label="Link" description="Enable or disable linking of items. Linking allows items to be displayed in the gallery from external sources." yes="Enable" no="Disable" />
+						<if name="music_item_upload" type="showhide" operator="=" value="1" valuetype="const:int">
+							<param name="music_item_min_size" type="int" default="0" size="5" label="Minimum File Size" description="Input the minimum item file size in KBs." />
+							<param name="music_item_max_size" type="int" default="1024" size="5" label="Maximum File Size" description="Input the maximum item file size in KBs. Set to 0 for no limit." />
+						</if>
+						<param name="music_item_approval" type="yesno" default="0" label="Approval" description="Enable or disable approval of items. Approval requires a moderator to publish a item before it is made visible. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+						<param name="music_item_captcha" type="yesno" default="0" label="Captcha" description="Enable or disable usage of captcha on items. Requires latest CB AntiSpam to be installed and published. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+						<if name="music_item_approval" type="showhide" operator="=" value="1" valuetype="const:int">
+							<param name="music_item_approval_notify" type="yesno" default="1" label="Notify" description="Enable or disable moderator notifications for items needing approval." yes="Enable" no="Disable" />
+						</if>
+					</tabpanetab>
+					<tabpanetab label="Folders">
+						<param name="music_folder_create_access" type="viewaccesslevel" default="2" managelevels="false" blanktext="" label="Create Access" description="Select folder create access. Access determines who can create folders. Moderators are exempt from this configuration." />
+						<param name="music_folder_limit" type="field" key="name" blanktext="Custom" default="" label="Create Limit" description="Select the field to use for folder create limit. Moderators are exempt from this configuration." />
+						<if name="music_folder_limit" type="showhide" operator="=" value="" valuetype="const:int">
+							<param name="music_folder_limit_custom" type="int" default="" size="5" label="Custom Create Limit" description="Input number of folders each individual user is limited to creating. If blank allow unlimited folders." />
+						</if>
+						<param name="music_folder_approval" type="yesno" default="0" label="Approval" description="Enable or disable approval of folders. Approval requires a moderator to publish a folder before it is made visible. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+						<param name="music_folder_captcha" type="yesno" default="0" label="Captcha" description="Enable or disable usage of captcha on folders. Requires latest CB AntiSpam to be installed and published. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+						<if name="music_folder_approval" type="showhide" operator="=" value="1" valuetype="const:int">
+							<param name="music_folder_approval_notify" type="yesno" default="1" label="Notify" description="Enable or disable moderator notifications for folders needing approval." yes="Enable" no="Disable" />
+						</if>
+					</tabpanetab>
+				</tabpane>
+			</tabpanetab>
+		</tabpane>
+	</params>
+	<database version="1">
+		<table name="#__comprofiler_plugin_gallery_items" class="cbgalleryItemTable" strict="true" drop="never">
+			<columns strict="true" drop="never">
+				<column name="id" type="sql:int(11)" unsigned="true" auto_increment="1" strict="true" />
+				<column name="user_id" type="sql:int(11)" />
+				<column name="type" type="sql:varchar(255)" />
+				<column name="value" type="sql:text" />
+				<column name="file" type="sql:text" null="true" />
+				<column name="folder" type="sql:int(11)" default="0" />
+				<column name="title" type="sql:varchar(255)" null="true" />
+				<column name="description" type="sql:text" null="true" />
+				<column name="date" type="sql:datetime" default="0000-00-00 00:00:00" />
+				<column name="published" type="sql:tinyint(1)" default="0" />
+				<column name="params" type="sql:text" null="true" />
+			</columns>
+			<indexes strict="true" drop="always">
+				<index name="PRIMARY" type="primary">
+					<column name="id" />
+				</index>
+			</indexes>
+			<engine type="InnoDB" sameastable="#__comprofiler" strict="updatewithtable" />
+		</table>
+		<table name="#__comprofiler_plugin_gallery_folders" class="cbgalleryFolderTable" strict="true" drop="never">
+			<columns strict="true" drop="never">
+				<column name="id" type="sql:int(11)" unsigned="true" auto_increment="1" strict="true" />
+				<column name="user_id" type="sql:int(11)" />
+				<column name="type" type="sql:varchar(255)" />
+				<column name="title" type="sql:varchar(255)" null="true" />
+				<column name="description" type="sql:text" null="true" />
+				<column name="date" type="sql:datetime" default="0000-00-00 00:00:00" />
+				<column name="published" type="sql:tinyint(1)" default="0" />
+				<column name="params" type="sql:text" null="true" />
+			</columns>
+			<indexes strict="true" drop="always">
+				<index name="PRIMARY" type="primary">
+					<column name="id" />
+				</index>
+			</indexes>
+			<engine type="InnoDB" sameastable="#__comprofiler" strict="updatewithtable" />
+		</table>
+	</database>
+</cbinstall>

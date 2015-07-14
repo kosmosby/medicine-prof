@@ -1,0 +1,221 @@
+@charset "utf-8";
+/* CSS Document */
+/* -- CONTROL PANEL STYLES ----------------------------- */
+.cpanel div.icon, #cpanel div.icon {
+	text-align: center;
+	margin-right: 15px!important;
+	float: left;
+	margin-bottom: 15px!important;
+
+}
+.cpanel div.icon a, #cpanel div.icon a {
+	background-color: #fff!important;
+	background-position: -30px!important;
+	display: block;
+	float: left;
+	height: 97px;
+	width: 108px;
+	color: #565656!important;
+	vertical-align: middle;
+	text-decoration: none;
+	border: 1px solid #CCC!important;
+
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-transition-property:
+		background-position,
+		-webkit-border-bottom-left-radius,
+		-webkit-box-shadow;
+	-moz-transition-property:
+		background-position,
+		-moz-border-radius-bottomleft,
+		-moz-box-shadow;
+	-webkit-transition-duration: 0.8s;
+	-moz-transition-duration: 0.8s;
+}
+
+#cpanel div.icon a:hover,
+#cpanel div.icon a:focus,
+#cpanel div.icon a:active,
+.cpanel div.icon a:hover,
+.cpanel div.icon a:focus,
+.cpanel div.icon a:active {
+	background-position: 0;
+	-webkit-border-bottom-left-radius: 50% 20px;
+	-moz-border-radius-bottomleft: 50% 20px;
+	border-bottom-left-radius: 50% 20px;
+	-webkit-box-shadow: -5px 10px 15px rgba(0, 0, 0, 0.25);
+	-moz-box-shadow: -5px 10px 15px rgba(0, 0, 0, 0.25);
+	box-shadow: -5px 10px 15px rgba(0, 0, 0, 0.25);
+	position: relative;
+	z-index: 10;
+}
+
+#cpanel img,
+.cpanel img {
+	padding: 10px 0!important;
+	margin: 0 auto;
+}
+
+#cpanel span,
+.cpanel span {
+	display: block;
+	text-align: center;
+}
+
+div.cpanel-left {
+	width: 54%;
+	float: left;
+}
+
+div.cpanel-right {
+	width: 45%;
+	float: right;
+}
+
+div.pagetitle {
+	height:55px;
+	width:427px;
+}
+
+.icon-48-awdwallprocpanel{
+	background-image:url('jomwall-control-panel.png');
+	font-size:0px!important;
+	line-height:0px!important;
+}
+.icon-48-awdwallproconfig{
+	background-image:url('top-configuration-jomwall-logo.png');
+	font-size:0px!important;
+	line-height:0px!important;
+}
+.icon-48-awdwallpromessage{
+	background-image:url('top-messages-jomwall-logo.png');
+	font-size:0px!important;
+	line-height:0px!important;
+}
+.icon-48-awdwallproabut{
+	background-image:url('top-about-us-jomwall-logo.png');
+	font-size:0px!important;
+	line-height:0px!important;
+}
+.icon-48-awdwallprocolor{
+	background-image:url('top-colors-jomwall-logo.png');
+	font-size:0px!important;
+	line-height:0px!important;
+}
+.icon-48-awdwallprogrp{
+	background-image:url('top-groups-jomwall-logo.png');
+	font-size:0px!important;
+	line-height:0px!important;
+}
+.icon-48-awdwallproupdate{
+	background-image:url('top-updates-jomwall-logo.png');
+	font-size:0px!important;
+	line-height:0px!important;
+}
+a{
+color:#2cbbe2;
+text-decoration:none!important;
+}
+
+.tdright{
+color:#2cbbe2;
+text-decoration:none;
+font-weight:normal!important;
+font-size:10px!important;
+}
+#awdsubmenu{
+/*margin:0;
+padding:0;*/
+padding-left:0px;
+}
+#awdsubmenu li {
+	float: left;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+#awdsubmenu li a
+ {
+	cursor: pointer;
+	padding: 0 15px;
+	color: #808080;
+	line-height: 14px;
+	height: 12px;
+}
+
+
+#awdsubmenu a:hover,
+#awdsubmenu a.active {
+	color: #2cbbe2;
+	text-decoration:none;
+}
+
+
+div.awdm {
+    background-color: #F4F4F4;
+    border: 1px solid #CCCCCC;
+    border-radius: 10px 10px 10px 10px;
+    padding: 10px;
+}
+#element-box  div.m{
+padding:0!important;
+border:0;
+background-color:#fff;
+}
+
+div.current{
+float:left;
+width:98%;
+}
+div.current label, div.current span.faux-label{
+margin-top:0px!important;
+}
+div.awdm form label, form span.faux-label {
+    font-size: 1em !important;
+    font-weight: normal!important;
+}
+div.awdm  dl.tabs dt{
+    font-size: 1em !important;
+    font-weight: normal!important;
+}
+div.current select{
+margin-bottom:0px!important;
+margin-top:7px!important;
+}
+div.current input{
+margin-bottom:0px!important;
+margin-top:7px!important;
+}
+
+.pane-sliders .panel h3{
+background-color:#eeeeee!important;
+color:#333333!important;
+padding:5px!important;
+}
+.pane-sliders .panel h3 a{
+color:#333333!important;
+}
+.pane-toggler-down span{
+background:none!important;
+}
+.pane-toggler span{
+background:none!important;
+}
+
+.awdparamheader { clear:both; font-weight:bold; font-size:12px; color: #666666; margin:0; padding:0;  float:left; width:100%; margin-top:15px; }
+.awdparamheaderinner { padding:6px 8px; }
+.awdclr { clear:both; height:0; line-height:0; border:none; float:none; background:none; padding:0; margin:0; }
+
+dl.tabs dt{
+padding:8px 14px!important;
+}
+
+.awdhr{
+color: #CCCCCC;
+border-style:solid none none;
+border-width:1px 0 0;
+}
+

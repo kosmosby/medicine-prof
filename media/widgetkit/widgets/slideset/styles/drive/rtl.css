@@ -1,0 +1,38 @@
+/*
+ * RTL Style Sheet
+ */
+
+.wk-slideset-drive .nav.text li {
+	margin-left: 0;
+	margin-right: 40px;
+}
+
+.wk-slideset-drive > div .next {
+	right: auto;
+	left: -45px;
+	background-position: 0 0;
+}
+
+.wk-slideset-drive > div .next:hover { background-position: 0 -50px; }
+.wk-slideset-drive > div .next:active { background-position: 0 -100px; }
+
+.wk-slideset-drive > div .prev {
+	left: auto;
+	right: -45px;
+	background-position: 0 -150px;
+}
+
+.wk-slideset-drive > div .prev:hover { background-position: 0 -200px; }
+.wk-slideset-drive > div .prev:active { background-position: 0 -250px; }
+
+
+/* Responsive
+----------------------------------------------------------------------------------------------------*/
+
+/* Only Phones */
+@media (max-width: 767px) {
+
+	.wk-slideset-drive .nav.text li { margin-right: 10px; }
+	.wk-slideset-drive .nav.text li:first-child { margin-right: 0; }
+
+}

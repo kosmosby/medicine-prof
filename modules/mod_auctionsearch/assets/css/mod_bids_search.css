@@ -1,0 +1,65 @@
+.mod_auction_search_field {
+    display: table-row;
+    padding: 5px;
+    height: 25px;
+}
+
+.mod_auction_button_BINq {
+    border: 1px solid #50546B;
+    color: #50546B;
+    text-align: center;
+    background: #EFEFEF;
+    font-size: 12px;
+    padding: 2px 2px 2px 2px;
+    font-weight: bold;
+    width: auto;
+
+    height: 31px;
+    line-height: 28px;
+    margin: 0;
+    right: 10px;
+    top: 15px;
+    width: auto;
+    background-color: #2A73B0;
+    background-image: -moz-linear-gradient(center top, #2D7CB7, #2565A6);
+    background-repeat: repeat-x;
+    border-color: #0A4D8D;
+    color: #FFFFFF;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.38);
+    border-radius: 3px 3px 3px 3px;
+}
+
+
+.mod_auction_search_inner {
+    background-color: #F4F6F8;
+    background-image: -moz-linear-gradient(center top, #F8FAF9, #EEF1F6);
+    background-repeat: repeat-x;
+    border: 1px solid #C5C5C5;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+    color: #777777;
+    padding: 9px;
+}
+
+
+.mod_auction_search_inner input[type="text"] {
+    -moz-transition: all 0.2s linear 0s;
+    border: 1px solid #CBD0D5;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08) inset;
+    color: #555555;
+    display: inline-block;
+    margin-bottom: 0;
+    width: 65%;
+    margin-top: 0;
+    padding: 5px;
+    font-size: 16px;
+    height: 20px;
+    line-height: 20px;
+
+}
+
+.mod_auction_search_inner input[type="submit"]
+{
+    width: 22%;
+}

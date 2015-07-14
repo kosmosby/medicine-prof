@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="Current Auctions Listing">
+            <message>
+                    <![CDATA[List current active Auctions]]>
+            </message>
+    </layout>
+    <state>
+        <url>
+            <param name="task" type="hidden" default="listauctions"/>
+        </url>
+    </state>
+    <fields name="request">
+        <fieldset name="request" label="Basic Parameters">
+            <field name="task" type="hidden" default="listauctions" />
+        </fieldset>
+    </fields>
+</metadata>

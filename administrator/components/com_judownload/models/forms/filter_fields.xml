@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fields name="filter">
+        <field
+                name="search"
+                type="text"
+                label="COM_JUDOWNLOAD_FILTER_SEARCH_DESC"
+                hint="JSEARCH_FILTER"
+                />
+
+        <field
+                name="group_id"
+                type="filter_fieldgroup"
+                label="COM_JUDOWNLOAD_FILTER_FIELD_GROUP"
+                description="COM_JUDOWNLOAD_FILTER_FIELD_GROUP_DESC"
+                onchange="this.form.submit();"
+                >
+            <option value="">COM_JUDOWNLOAD_SELECT_GROUP</option>
+        </field>
+
+        <field
+                name="plugin_id"
+                type="plugins"
+                plugintype="field"
+                label="COM_JUDOWNLOAD_FILTER_GROUP"
+                description="COM_JUDOWNLOAD_FILTER_GROUP_DESC"
+                onchange="this.form.submit();"
+                >
+            <option value="">COM_JUDOWNLOAD_SELECT_FIELD_TYPE</option>
+        </field>
+    </fields>
+
+    <fields name="list">
+        <field
+                name="fullordering"
+                type="list"
+                label="COM_JUDOWNLOAD_LIST_FULL_ORDERING"
+                description="COM_JUDOWNLOAD_LIST_FULL_ORDERING_DESC"
+                onchange="this.form.submit();"
+                default="field.ordering ASC"
+                >
+            <option value="">COM_JUDOWNLOAD_SORT_BY</option>
+            <option value="field.id ASC">COM_JUDOWNLOAD_SORT_BY_ID_ASC</option>
+            <option value="field.id DESC">COM_JUDOWNLOAD_SORT_BY_ID_DESC</option>
+            <option value="field.caption ASC">COM_JUDOWNLOAD_SORT_BY_CAPTION_ASC</option>
+            <option value="field.caption DESC">COM_JUDOWNLOAD_SORT_BY_CAPTION_DESC</option>
+            <option value="field.group_id ASC">COM_JUDOWNLOAD_GROUP_ASC</option>
+            <option value="field.group_id DESC">COM_JUDOWNLOAD_GROUP_DESC</option>
+            <option value="plg.title ASC">COM_JUDOWNLOAD_SORT_BY_PLUGIN_ASC</option>
+            <option value="plg.title DESC">COM_JUDOWNLOAD_SORT_BY_PLUGIN_DESC</option>
+            <option value="field.published ASC">COM_JUDOWNLOAD_SORT_BY_PUBLISHED_ASC</option>
+            <option value="field.published DESC">COM_JUDOWNLOAD_SORT_BY_PUBLISHED_DESC</option>
+            <option value="field.ordering ASC">COM_JUDOWNLOAD_SORT_BY_ORDERING_ASC</option>
+            <option value="field.ordering DESC">COM_JUDOWNLOAD_SORT_BY_ORDERING_DESC</option>
+        </field>
+
+        <field
+                name="limit"
+                type="limitbox"
+                class="inputbox input-mini"
+                default="25"
+                label="COM_JUDOWNLOAD_LIST_LIMIT"
+                description="COM_JUDOWNLOAD_LIST_LIMIT_DESC"
+                onchange="this.form.submit();"
+                />
+    </fields>
+</form>

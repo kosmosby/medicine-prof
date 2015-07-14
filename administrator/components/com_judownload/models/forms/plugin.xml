@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form addrulepath="/administrator/components/com_judownload/models/rules">
+    <fieldset name="details">
+        <field
+                name="id"
+                type="text"
+                default="0"
+                readonly="true"
+                class="readonly"
+                label="COM_JUDOWNLOAD_FIELD_ID_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_ID_DESC"
+                />
+
+        <field
+                name="title"
+                type="text"
+                size="30"
+                required="true"
+                default=""
+                label="COM_JUDOWNLOAD_FIELD_TITLE_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_TITLE_DESC"
+                />
+
+        <field
+                name="type"
+                type="text"
+                size="30"
+                readonly="true"
+                class="readonly"
+                filter="unset"
+                default=""
+                label="COM_JUDOWNLOAD_FIELD_TYPE_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_TYPE_DESC"
+                />
+
+        <field
+                name="author"
+                type="text"
+                size="30"
+                readonly="true"
+                class="readonly"
+                filter="unset"
+                default=""
+                label="COM_JUDOWNLOAD_FIELD_AUTHOR_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_AUTHOR_DESC"
+                />
+
+        <field
+                name="email"
+                type="text"
+                default=""
+                readonly="true"
+                class="readonly"
+                filter="unset"
+                size="30"
+                label="COM_JUDOWNLOAD_FIELD_EMAIL_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_EMAIL_DESC"
+                />
+        <field
+                name="website"
+                type="text"
+                default=""
+                readonly="true"
+                class="readonly"
+                filter="unset"
+                size="30"
+                label="COM_JUDOWNLOAD_FIELD_WEBSITE_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_WEBSITE_DESC"
+                />
+
+        <field
+                name="version"
+                type="text"
+                default=""
+                readonly="true"
+                class="readonly"
+                filter="unset"
+                size="30"
+                label="COM_JUDOWNLOAD_FIELD_VERSION_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_VERSION_DESC"
+                />
+
+        <field
+                name="date"
+                type="text"
+                default=""
+                readonly="true"
+                class="readonly"
+                filter="unset"
+                size="30"
+                label="COM_JUDOWNLOAD_FIELD_DATE_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_DATE_DESC"
+                />
+
+        <field
+                name="folder"
+                type="text"
+                default=""
+                readonly="true"
+                class="readonly"
+                filter="unset"
+                size="30"
+                label="COM_JUDOWNLOAD_FIELD_FOLDER_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_FOLDER_DESC"
+                />
+
+        <field
+                name="description"
+                type="editor"
+                filter="raw"
+                width="600px"
+                default=""
+                label="COM_JUDOWNLOAD_FIELD_DESCRIPTION_LABEL"
+                description="COM_JUDOWNLOAD_FIELD_DESCRIPTION_DESC"
+                />
+    </fieldset>
+</form>

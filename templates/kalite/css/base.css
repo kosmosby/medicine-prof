@@ -1,0 +1,164 @@
+@import url(../warp/css/base.css);
+
+/* New style-related Base Values
+----------------------------------------------------------------------------------------------------*/
+
+body {
+	font: normal 13px/18px Arial, Helvetica, sans-serif;
+	color: #333;
+}
+
+h1 { font-size: 32px; line-height: 32px; color: #555; }
+h2 { font-size: 26px; line-height: 26px; }
+h3 { font-size: 22px; line-height: 20px; }
+h4 { font-size: 18px; line-height: 18px; }
+h5 { font-size: 18px; line-height: 18px; color: #666; }
+h6 { font-size: 16px; line-height: 16px; color: #888; }
+
+h1, h2, h3, h4 { text-transform: none; }
+h1, h2, h3, h4, h5, h6 { font-weight: normal; }
+
+.mod-black h4,
+.mod-black h5,
+.mod-black h6,
+.mod-color h4,
+.mod-color h5,
+.mod-color h6,
+#bottom-a h4,
+#bottom-a h5,
+#bottom-a h6,
+#bottom-b h4,
+#bottom-b h5,
+#bottom-b h6 { color: #ddd; }
+
+a:hover { color: #111; }
+
+#toolbar a,
+#footer a { color: #999; }
+
+#headerbar a:hover,
+#bottom-a a:hover,
+#bottom-b a:hover { color: #ddd; }
+
+#bottom-a strong,
+#bottom-a em,
+#bottom-a code,
+#bottom-b strong,
+#bottom-b em,
+#bottom-b code,
+.box-note strong,
+.box-note em,
+.box-note code,
+.box-color strong,
+.box-color em,
+.box-color code { color: #ddd; }
+
+em { color: #666; }
+
+ins, mark { background-color: #ffa; }
+mark { color: #444; }
+
+hr { border-top-color: rgba(0,0,0,0.1); }
+#bottom-a hr,
+#bottom-b hr { border-top-color: rgba(255,255,255,0.1); }
+
+
+pre {
+	border: 1px solid #d3d3d3;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	background: #fff;
+	-moz-box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+	-webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+::-moz-selection {
+	background: rgba(0,0,0,0.25);
+	color: #fff;
+}
+::selection {
+	background: rgba(0,0,0,0.25);
+	color: #fff;
+}
+
+textarea, input[type="text"], input[type="password"], select {
+    padding: 5px;
+}
+
+/* Useful Snippets
+----------------------------------------------------------------------------------------------------*/
+
+.egitimer_giris {
+    background: url("../images/egitime_giris.png") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    height: 24px;
+    margin: 5px 0 0 40px;
+    padding: 9px 0 0;
+    text-align: center;
+    width: 130px;
+}
+#system-message-container .alert {
+	margin: 20px;
+	border-radius: 12px;
+	border: 2px solid #6a6a6a;
+	padding: 20px;
+	background: #ecf3f9;
+	font-size: 16px;
+}
+h4.alert-heading { font-size: 30px; color: #c01926; padding-top: 0px; margin-top: 0px;}
+.alert-error a.close, a.close {display: none;}
+.alert-success h4.alert-heading { font-size: 30px; color: #3288c5; padding-top: 0px; margin-top: 0px;}
+.alert-success a.close {display: none;}
+#adminForm_filter {
+	height: 40px !important;
+	background-position: 98% center;
+}
+#fat1 .fc_has_inner_label_input {top: 17px !important;}
+.uddeim-replyquote {
+	border-radius: 12px;
+	border: 2px solid #6a6a6a;
+	padding: 20px;
+	background: #ecf3f9;
+	font-size: 16px !important;
+}
+#uddeim-writeform textarea {
+	font-size: 14px !important;
+}
+.uddeim-sendbutton input.button {
+	font-size: 16px !important;
+	font-weight: bold;
+	padding: 6px;
+}
+.uddeim-sendbutton input.button:hover {
+	background: #2f8ac9;
+	color: #fff;
+}
+ul.marks {
+	padding-left: 0px;
+}
+ul.marks li {
+	list-style: none;
+	background: url("../images/marker1.jpg") left 6px no-repeat;
+	padding-left: 20px;
+}
+.connectionBox {float: left;}
+.cbPosCanvasPhoto .cb_field {bottom: 0px !important;}
+
+.cbPosCanvas .container-fluid, .cbPosCanvas .navbar-collapse, .cb_template .cbTabsMenuNav, .cb_template .cbMenuNav { margin: 0px !important; padding: 0px !important;}
+#uddeim-writeform {
+	font-size: 17px !important;
+}
+#uddeim-writeform span {font-size: 17px !important;}
+.uddeim-sendoption { font-size: 17px;}
+.cb_template .cbPosCanvas .cbPosCanvasMain .cbPosCanvasMainMiddle .cbTabsMenuNavBar .cbScrollerWidth .cbScrollerLeft {left: 2px !important;}
+.cb_template .cbPosCanvas .cbPosCanvasMain .cbPosCanvasMainMiddle .cbTabsMenuNavBar .cbScrollerWidth .cbScrollerContent {margin-right: 29px !important;}
+
+
+
+

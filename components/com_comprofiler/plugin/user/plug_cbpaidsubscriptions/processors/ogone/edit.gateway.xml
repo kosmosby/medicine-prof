@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<types>
+		<type name="gateway_type" base="list" valuetype="string">
+			<option value="processors.ogone">Ogone</option>
+		</type>
+		<type name="payment_method" base="list" valuetype="string">
+			<option value="ogone">Ogone</option>
+		</type>
+	</types>
+	<views>
+		<view name="selectgatewayinformation" type="params" ui="admin">
+			<fieldset name="fieldset_getOgoneLinks" label="Ogone" description="Ogone is a leading payment services provider, available internationally. Ogone Payment Services has great connections with over 100 acquiring banks, and will help you finding and setting up acquirers for accepting credit cards and local payment methods.">
+				<param name="ogoneinfolink" type="spacer" label="Information about Ogone" default="&lt;a target=&quot;_blank&quot; href=&quot;http://www.ogone.com/?SOLPRO=joomlapolis&quot; /&gt;&lt;strong&gt;Ogone website&lt;/strong&gt;&lt;/a&gt;" />
+				<param name="ogoneaccountlink" type="spacer" label="Link to your free test-account with Ogone" default="&lt;a target=&quot;_blank&quot; href=&quot;https://www.joomlapolis.com/index.php?option=com_jpsignup&amp;product=ogone&quot; /&gt;&lt;strong&gt;Click here to get your free test account with Ogone now&lt;/strong&gt;&lt;/a&gt;" />
+			</fieldset>
+		</view>
+
+		<view name="paymentstatusinformation" type="params" ui="admin">
+			<showview view="paymentrefundbutton" mode="view" type="view" />
+		</view>
+
+		<view name="editgatewayogone" type="params" ui="admin">
+			<params name="params" type="params">
+				<if name="pspid" type="condition" operator="=" value="" valuetype="const:string">
+					<fieldset name="fieldset_getOgoneLinks" label="Get your FREE Ogone Test Account Now" description="If you do not have an Ogone account with your PSPID yet, please use the link below to get a free Ogone test-account (available world-wide). Your test-account can be transformed into a production account anytime.">
+						<param name="ogoneaccountlink" type="spacer" label="Link to your free test-account with Ogone" default="&lt;a target=&quot;_blank&quot; href=&quot;https://www.joomlapolis.com/index.php?option=com_jpsignup&amp;product=ogone&quot; /&gt;&lt;strong&gt;Click here to get your free test account with Ogone now&lt;/strong&gt;&lt;/a&gt;" />
+					</fieldset>
+				</if>
+			</params>
+			<extend toxpathnode=".." fromxpathnode="/cbxml/views/view[@name=&quot;editgatewayogoneoem&quot;]/*" file="processors/ogone/edit.gateway.oem">
+				<replaces>
+					<replace attribute="label"       from="{PSP}" to="Ogone" translate="yes" />
+					<replace attribute="description" from="{PSP}" to="Ogone" translate="yes" />
+					<replace attribute="default"     from="{PSP}" to="Ogone" translate="yes" />
+					<replace attribute="[DATA]"      from="{PSP}" to="Ogone" translate="yes" />
+					<replace attribute="description" from="{PSPPRODURL}" to="secure.ogone.com/ncol/prod/orderstandard.asp" translate="no" />
+					<replace attribute="value"       from="{PSPPRODURL}" to="secure.ogone.com/ncol/prod/orderstandard.asp" translate="no" />
+					<replace attribute="value"       from="{PSPTESTURL}" to="secure.ogone.com/ncol/test/orderstandard.asp" translate="no" />
+				</replaces>
+			</extend>
+		</view>
+	</views>
+</cbxml>

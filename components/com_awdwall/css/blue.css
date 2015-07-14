@@ -1,0 +1,144 @@
+.blue .dd-wrapper {color: #111; font: normal 12px Arial, sans-serif;
+}
+.blue .dd-menu {/*border-top: 1px solid #013d6c;*/ margin-top:0px!important;}
+.blue .dd-menu a {text-decoration: none; padding: 10px 10px 10px 15px; display: block; color: #111; /*border-bottom: 1px solid #013d6c; border-top: 1px solid #4695d3;*/ position: relative; text-align:left!important;    border: 1px solid #B7C7D6!important;;
+    border: 1px solid rgba(0,0,0,0.1)!important;;
+    border-top-color: #FFF!important;;
+    border-top-color: rgba(255,255,255,0.5)!important;;
+    border-right-width: 0!important;;
+    display: block!important;;
+    zoom: 1;
+	color:#111!important;
+}
+
+.blue .dd-menu ul a {
+	padding: 10px 5px 10px 5px;
+	color:#111!important;
+
+}
+.blue .dd-menu a:hover {
+	-o-box-shadow: inset 0 -1px 3px rgba(0,0,0,0.1), 0px 0px 3px rgba(0,0,0,0.2);
+	-ms-box-shadow: inset 0 -1px 3px rgba(0,0,0,0.1), 0px 0px 3px rgba(0,0,0,0.2);
+	-moz-box-shadow: inset 0 -1px 3px rgba(0,0,0,0.1), 0px 0px 3px rgba(0,0,0,0.2);
+	-khtml-box-shadow: inset 0 -1px 3px rgba(0,0,0,0.1), 0px 0px 3px rgba(0,0,0,0.2);
+	-webkit-box-shadow: inset 0 -1px 3px rgba(0,0,0,0.1), 0px 0px 3px rgba(0,0,0,0.2);
+	box-shadow: inset 0 -1px 3px rgba(0,0,0,0.1), 0px 0px 3px rgba(0,0,0,0.2);
+    zoom: 1;
+	background:none!important;
+	color:#111!important;
+}
+.blue .dd-menu li a span{
+	display:block;
+	font-size: 11px;
+    height: 32px!important;
+    line-height: 32px!important;
+	padding: 0 25px 0 40px!important;
+	text-shadow: #FFF 0 1px 1px;
+    -o-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -khtml-transition: all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    zoom: 1;
+}
+.blue .dd-menu li a img {
+    position: absolute;
+    left: 3px;
+    top: 4px;
+}
+.blue .dd-menu li a .dd-icon {display: block; width: 16px; height: 16px; background: url(images/arrow.png) no-repeat 0 -16px; position: absolute; top: 6px; right: 10px;}
+
+/*.blue .dd-menu li a .dd-icon {position: absolute; top: 50%; left: 14px; width: 34px; margin-top: -15px; height: 34px;}
+*/.blue .dd-menu li.dd-parent a.dd-parent-a{padding: 10px 10px 10px 15px;}
+.blue .dd-menu li.dd-parent a:hover {color: #111;}
+.blue .dd-menu li.dd-parent a.active .dd-icon {}
+.blue .dd-menu li.dd-parent a.active {color: #ccc; background: #0D5995 url(images/checkers.png) repeat 0 0;}
+.blue .dd-header {font: normal 11px Arial, sans-serif;}
+.blue .dd-header ul {width: 100%; overflow: hidden; line-height: 1.5em; padding: 5px 10px;}
+.blue .dd-header li {
+display: inline;
+	margin: 0;
+    position: relative;
+    -o-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -khtml-transition: all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+.blue .dd-header li a {text-decoration: none; float: left; display: block; padding: 1px 15px 1px 5px; background: url(images/arrow_white_right.png) no-repeat 100% center; color: #fff;}
+.blue .dd-header li a:hover {color: #ccc; text-decoration: underline;}
+.blue .dd-header a.link-back {
+text-decoration: none; 
+display: block; 
+padding: 5px 10px 0 20px;  
+color: #111;
+border: 1px solid #AAAAAA;
+border-radius: 2px 2px 2px 2px;
+cursor: pointer;
+display: inline-block;
+
+font-size: 13px;
+line-height: 16px;
+padding: 4px 10px;
+    background-color: #EEEEEE;
+    background-image: -moz-linear-gradient(center top , #FEFEFE, #EEEEEE);
+    border-color: #AAAAAA;
+    box-shadow: 0 1px 0 #FFFFFF inset, 0 1px 3px rgba(0, 0, 0, 0.15);
+    color: #111111;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+.blue .dd-header a.link-back {
+    background-color: #EEEEEE!important;
+    background-image: -moz-linear-gradient(center top , #FEFEFE, #EEEEEE)!important;
+    border-color: #AAAAAA!important;
+    box-shadow: 0 1px 0 #FFFFFF inset, 0 1px 3px rgba(0, 0, 0, 0.15)!important;
+    color: #111111!important;
+    text-shadow: 0 1px 0 #FFFFFF!important;
+}
+.blue .dd-header h3 {clear: both; padding: 5px 10px; margin: 0; font-size: 1.1em; display:none;}
+.blue .dd-header h3 .dd-count {display: none;}
+.blue .dd-parent .dd-parent-a active{
+display:none!important;
+}
+
+.message-count_leftmenu {
+   background: red;
+    -o-border-radius: 7px;
+    -ms-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+    -o-box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    -ms-box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    color: #FFF;
+    float: right;
+    margin-right: 15px;
+    margin-top: 0;
+    padding: 0 3px;
+    line-height: 11px;
+    height: 11px;
+	margin-top:-14px;
+	font-size:11px;
+	margin-top:-32px;
+	
+    }
+.blue a.dd-parent-a{
+background: url(images/arrow.png) no-repeat !important;
+background-position:center right!important;
+}
+.blue a.dd-parent-a:hover{
+background: url(images/arrow.png) no-repeat !important;
+background-position:center right!important;
+}
+
+.blue a.active{
+display:none!important;
+}
+#drilldown-4{
+visibility:hidden;
+}

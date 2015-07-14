@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0" type="plugin" group="user">
+	<name>CB Auto Actions</name>
+	<author>Krileon</author>
+	<creationDate>2015-06-16</creationDate>
+	<copyright>(C) 2004-2015 www.joomlapolis.com / Lightning MultiCom SA - and its licensors, all rights reserved</copyright>
+	<license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2</license>
+	<authorEmail>krileon@joomlapolis.com</authorEmail>
+	<description>Perform actions at various Community Builder triggers.</description>
+	<version>2.0.9</version>
+	<release>6.3.0</release>
+	<installfile>install.cbautoactions.php</installfile>
+	<files>
+		<filename plugin="cbautoactions">cbautoactions.php</filename>
+		<filename>component.cbautoactions.php</filename>
+		<filename>install.cbautoactions.php</filename>
+		<filename>index.html</filename>
+		<foldername>models</foldername>
+		<foldername>xml</foldername>
+		<foldername>language</foldername>
+	</files>
+	<delete>
+		<filename>admin.cbautoactions.css</filename>
+		<filename>admin.cbautoactions.html.php</filename>
+		<filename>admin.cbautoactions.php</filename>
+		<filename>cbautoactions.class.php</filename>
+		<filename>plugin.cbautoactions.php</filename>
+		<filename>toolbar.cbautoactions.html.php</filename>
+		<filename>toolbar.cbautoactions.php</filename>
+		<foldername>images</foldername>
+		<foldername>js</foldername>
+	</delete>
+	<params>
+		<param name="internal_general_url" type="custom" class="cbautoactionsPlugin" method="loadInternalGeneralURL" label="Internal General URL" description="Your site unique URL that can be used in HTTP requests, accessed directly, or in CRON to execute Internal General actions." />
+		<param name="internal_users_url" type="custom" class="cbautoactionsPlugin" method="loadInternalUsersURL" label="Internal Users URL" description="Your site unique URL that can be used in HTTP requests, accessed directly, or in CRON to execute Internal Users actions on every CB user. To execute on a specific user or set of users include the users parameter as a comma separated list of user ids in the URL (e.g. users=62,38,43,29)." />
+		<param name="exclude" type="text" default="" size="30" label="Exclude" description="Input comma seperated list of user ids to be excluded from all auto actions (e.g. 62,39,21,8)." />
+	</params>
+	<database version="1">
+		<table name="#__comprofiler_plugin_autoactions" class="cbautoactionsActionTable" strict="false" drop="never">
+			<columns strict="true" drop="never">
+				<column name="id" type="sql:int(11)" unsigned="true" auto_increment="1" />
+				<column name="system" type="sql:int(11)" default="0" />
+				<column name="title" type="sql:varchar(255)" null="true" />
+				<column name="description" type="sql:text" null="true" />
+				<column name="type" type="sql:varchar(255)" />
+				<column name="trigger" type="sql:text" />
+				<column name="object" type="sql:int(11)" default="0" />
+				<column name="variable" type="sql:int(11)" default="1" />
+				<column name="access" type="sql:text" default="-1" />
+				<column name="conditions" type="sql:text" null="true" />
+				<column name="published" type="sql:int(11)" default="0" />
+				<column name="ordering" type="sql:int(11)" default="99999" />
+				<column name="params" type="sql:mediumtext" null="true" />
+			</columns>
+			<rows strict="false">
+				<row index="system" value="1" valuetype="const:int" strict="true">
+					<field name="system" value="1" valuetype="const:int" strict="true" />
+					<field name="title" value="Auto Login" valuetype="const:string" />
+					<field name="description" value="Automatically logs in a user after registration or confirmation (must be approved and confirmed)." valuetype="const:string" />
+					<field name="type" value="loginlogout" valuetype="const:string" />
+					<field name="trigger" value="onAfterUserConfirmation|*|onAfterUserRegistration" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[approved]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[confirmed]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="0" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;loginlogout&quot;:{&quot;mode&quot;:&quot;1&quot;,&quot;method&quot;:&quot;1&quot;,&quot;username&quot;:&quot;[username]&quot;,&quot;email&quot;:&quot;&quot;,&quot;redirect&quot;:&quot;index.php&quot;,&quot;message&quot;:&quot;&quot;},&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="100" valuetype="const:int" strict="true">
+					<field name="system" value="100" valuetype="const:int" strict="true" />
+					<field name="title" value="Profile - Logged In" valuetype="const:string" />
+					<field name="description" value="Logs activity when a user logs in." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="onAfterLogin" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;&quot;,&quot;operator&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="0" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;profile&quot;,&quot;subtype&quot;:&quot;login&quot;,&quot;title&quot;:&quot;logged in&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;},&quot;thumbnail&quot;:&quot;1&quot;,&quot;internal&quot;:&quot;0&quot;}],&quot;load&quot;:&quot;1&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;inline&quot;:&quot;1&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="101" valuetype="const:int" strict="true">
+					<field name="system" value="101" valuetype="const:int" strict="true" />
+					<field name="title" value="Profile - Logged Out" valuetype="const:string" />
+					<field name="description" value="Logs activity when a user logs out." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="onAfterLogout" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;&quot;,&quot;operator&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="0" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;profile&quot;,&quot;subtype&quot;:&quot;logout&quot;,&quot;title&quot;:&quot;logged out&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;},&quot;thumbnail&quot;:&quot;1&quot;,&quot;internal&quot;:&quot;0&quot;}],&quot;load&quot;:&quot;1&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;inline&quot;:&quot;1&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="102" valuetype="const:int" strict="true">
+					<field name="system" value="102" valuetype="const:int" strict="true" />
+					<field name="title" value="Profile - Register" valuetype="const:string" />
+					<field name="description" value="Logs activity when a new user registers." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="onAfterUserApproval|*|onAfterUserConfirm|*|onAfterUserRegistration" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[confirmed]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[approved]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="0" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;profile&quot;,&quot;subtype&quot;:&quot;registration&quot;,&quot;title&quot;:&quot;joined the site&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[user_id]&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;},&quot;thumbnail&quot;:&quot;1&quot;,&quot;internal&quot;:&quot;0&quot;}],&quot;load&quot;:&quot;1&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;inline&quot;:&quot;1&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="103" valuetype="const:int" strict="true">
+					<field name="system" value="103" valuetype="const:int" strict="true" />
+					<field name="title" value="Profile - Update" valuetype="const:string" />
+					<field name="description" value="Logs activity for profile updates." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="onAfterUserUpdate" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[confirmed]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[approved]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="0" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;profile&quot;,&quot;subtype&quot;:&quot;update&quot;,&quot;title&quot;:&quot;updated their profile&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;},&quot;thumbnail&quot;:&quot;1&quot;,&quot;internal&quot;:&quot;0&quot;}],&quot;load&quot;:&quot;1&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;inline&quot;:&quot;1&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="104" valuetype="const:int" strict="true">
+					<field name="system" value="104" valuetype="const:int" strict="true" />
+					<field name="title" value="Profile - Avatar" valuetype="const:string" />
+					<field name="description" value="Logs activity for avatar updates." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="onAfterUserUpdate" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[confirmed]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[approved]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[var1_avatar]&quot;,&quot;operator&quot;:&quot;1&quot;,&quot;value&quot;:&quot;[var3_avatar]&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[var1_avatar]&quot;,&quot;operator&quot;:&quot;7&quot;,&quot;value&quot;:&quot;&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;profile&quot;,&quot;subtype&quot;:&quot;avatar&quot;,&quot;title&quot;:&quot;updated their profile picture&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;image&quot;,&quot;url&quot;:&quot;[avatar]&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;[avatar]&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;},&quot;thumbnail&quot;:&quot;1&quot;,&quot;internal&quot;:&quot;1&quot;}],&quot;load&quot;:&quot;1&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;inline&quot;:&quot;1&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="105" valuetype="const:int" strict="true">
+					<field name="system" value="105" valuetype="const:int" strict="true" />
+					<field name="title" value="Profile - Canvas" valuetype="const:string" />
+					<field name="description" value="Logs activity for canvas updates." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="onAfterUserUpdate" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[confirmed]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[approved]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[var1_canvas]&quot;,&quot;operator&quot;:&quot;1&quot;,&quot;value&quot;:&quot;[var3_canvas]&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[var1_canvas]&quot;,&quot;operator&quot;:&quot;7&quot;,&quot;value&quot;:&quot;&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;profile&quot;,&quot;subtype&quot;:&quot;canvas&quot;,&quot;title&quot;:&quot;updated their canvas photo&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;image&quot;,&quot;url&quot;:&quot;[canvas]&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;[canvas]&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;},&quot;thumbnail&quot;:&quot;1&quot;,&quot;internal&quot;:&quot;1&quot;}],&quot;load&quot;:&quot;1&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;inline&quot;:&quot;1&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="106" valuetype="const:int" strict="true">
+					<field name="system" value="106" valuetype="const:int" strict="true" />
+					<field name="title" value="Profile - Add Connection" valuetype="const:string" />
+					<field name="description" value="Logs activity when a new connection is added." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="onAfterAddConnection" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var3]&quot;,&quot;operator&quot;:&quot;1&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;profile&quot;,&quot;subtype&quot;:&quot;connection&quot;,&quot;title&quot;:&quot;is now connected with @[var2]&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var2]&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;[var1]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;load&quot;:&quot;1&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;inline&quot;:&quot;1&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="107" valuetype="const:int" strict="true">
+					<field name="system" value="107" valuetype="const:int" strict="true" />
+					<field name="title" value="Profile - Add Cross Connection" valuetype="const:string" />
+					<field name="description" value="Logs activity when a new cross (both directions) connection is added." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="onAfterAddConnection" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var3]&quot;,&quot;operator&quot;:&quot;1&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[var4]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="0" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;profile&quot;,&quot;subtype&quot;:&quot;connection&quot;,&quot;title&quot;:&quot;is now connected with @[var2]&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var2]&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;[var1]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;load&quot;:&quot;1&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;inline&quot;:&quot;1&quot;,&quot;output&quot;:&quot;echo&quot;},{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;profile&quot;,&quot;subtype&quot;:&quot;connection&quot;,&quot;title&quot;:&quot;is now connected with @[var1]&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1]&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;[var2]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;load&quot;:&quot;1&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;0&quot;,&quot;limit&quot;:&quot;&quot;,&quot;inline&quot;:&quot;0&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="108" valuetype="const:int" strict="true">
+					<field name="system" value="108" valuetype="const:int" strict="true" />
+					<field name="title" value="Profile - Accept Connection" valuetype="const:string" />
+					<field name="description" value="Logs activity when a new connection is accepted." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="onAfterAcceptConnection" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;&quot;,&quot;operator&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;profile&quot;,&quot;subtype&quot;:&quot;connection&quot;,&quot;title&quot;:&quot;is now connected with @[var2]&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var2]&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;[var1]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;load&quot;:&quot;1&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;inline&quot;:&quot;1&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="109" valuetype="const:int" strict="true">
+					<field name="system" value="109" valuetype="const:int" strict="true" />
+					<field name="title" value="Profile - Accept Cross Connection" valuetype="const:string" />
+					<field name="description" value="Logs activity when a new cross (both directions) connection is accepted." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="onAfterAcceptConnection" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var4]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="0" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;profile&quot;,&quot;subtype&quot;:&quot;connection&quot;,&quot;title&quot;:&quot;is now connected with @[var2]&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var2]&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;[var1]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;load&quot;:&quot;1&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;inline&quot;:&quot;1&quot;,&quot;output&quot;:&quot;echo&quot;},{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;profile&quot;,&quot;subtype&quot;:&quot;connection&quot;,&quot;title&quot;:&quot;is now connected with @[var1]&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1]&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;[var2]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;load&quot;:&quot;1&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;0&quot;,&quot;limit&quot;:&quot;&quot;,&quot;inline&quot;:&quot;0&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="110" valuetype="const:int" strict="true">
+					<field name="system" value="110" valuetype="const:int" strict="true" />
+					<field name="title" value="Profile - Remove Connection" valuetype="const:string" />
+					<field name="description" value="Deletes activity for removed connections." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="onAfterRemoveConnection" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;&quot;,&quot;operator&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;profile&quot;,&quot;subtype&quot;:&quot;connection&quot;,&quot;title&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var2]&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;[var1]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;load&quot;:&quot;1&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;inline&quot;:&quot;1&quot;,&quot;output&quot;:&quot;echo&quot;},{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;profile&quot;,&quot;subtype&quot;:&quot;connection&quot;,&quot;title&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1]&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;[var2]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;load&quot;:&quot;0&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;0&quot;,&quot;limit&quot;:&quot;&quot;,&quot;inline&quot;:&quot;0&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="111" valuetype="const:int" strict="true">
+					<field name="system" value="111" valuetype="const:int" strict="true" />
+					<field name="title" value="CB Gallery - Upload" valuetype="const:string" />
+					<field name="description" value="Logs activity for uploaded items." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gallery_onAfterCreateItem|*|gallery_onAfterUpdateItem" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_published]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[var1_file]&quot;,&quot;operator&quot;:&quot;1&quot;,&quot;value&quot;:&quot;&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;gallery&quot;,&quot;subtype&quot;:&quot;[var1_type]&quot;,&quot;title&quot;:&quot;uploaded a [cb:if var1_type=\&quot;photos\&quot;]photo[\/cb:if][cb:if var1_type=\&quot;videos\&quot;]video[\/cb:if][cb:if var1_type=\&quot;files\&quot;]file[\/cb:if][cb:if var1_type=\&quot;music\&quot;]music[\/cb:if]&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;[cb:if var1_type=\&quot;photos\&quot;]image[\/cb:if][cb:if var1_type=\&quot;videos\&quot;]video[\/cb:if][cb:if var1_type=\&quot;files\&quot;]url[\/cb:if][cb:if var1_type=\&quot;music\&quot;]audio[\/cb:if]&quot;,&quot;url&quot;:&quot;[cb:config param=\&quot;live_site\&quot; \/]\/index.php?option=com_comprofiler&amp;view=pluginclass&amp;plugin=cbgallery&amp;action=items&amp;func=show&amp;type=photos&amp;id=[var1_id]&quot;,&quot;text&quot;:&quot;[var1_file]&quot;,&quot;title&quot;:&quot;[var1_title]&quot;,&quot;description&quot;:&quot;[cb:if var1_type!=\&quot;files\&quot;][var1_description][\/cb:if][cb:if var1_type=\&quot;files\&quot;]&lt;div&gt;[var1_description]&lt;\/div&gt;&lt;div class=\&quot;small text-muted\&quot; style=\&quot;margin-top: 5px;\&quot;&gt;[cb:parse function=\&quot;getFileName\&quot; class=\&quot;var1\&quot; \/] | [cb:parse function=\&quot;getFileSize\&quot; class=\&quot;var1\&quot; \/] | [cb:parse function=\&quot;getExtension\&quot; class=\&quot;var1\&quot; \/]&lt;\/div&gt;[\/cb:if]&quot;,&quot;thumbnail&quot;:&quot;1&quot;,&quot;internal&quot;:&quot;1&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;[cb:if var1_type!=\&quot;files\&quot;][cb:config param=\&quot;live_site\&quot; \/]\/index.php?option=com_comprofiler&amp;view=pluginclass&amp;plugin=cbgallery&amp;action=items&amp;func=preview&amp;type=photos&amp;id=[var1_id]&amp;format=raw[\/cb:if]&quot;,&quot;mimetype&quot;:&quot;[cb:parse function=\&quot;getMimeType\&quot; class=\&quot;var1\&quot; \/]&quot;,&quot;extension&quot;:&quot;[cb:parse function=\&quot;getExtension\&quot; class=\&quot;var1\&quot; \/]&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;1&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="112" valuetype="const:int" strict="true">
+					<field name="system" value="112" valuetype="const:int" strict="true" />
+					<field name="title" value="CB Gallery - Linked" valuetype="const:string" />
+					<field name="description" value="Logs activity for linked items." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gallery_onAfterCreateItem|*|gallery_onAfterUpdateItem" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_published]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[var1_file]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;gallery&quot;,&quot;subtype&quot;:&quot;[var1_type]&quot;,&quot;title&quot;:&quot;linked a [cb:if var1_type=\&quot;photos\&quot;]photo[\/cb:if][cb:if var1_type=\&quot;videos\&quot;]video[\/cb:if][cb:if var1_type=\&quot;files\&quot;]file[\/cb:if][cb:if var1_type=\&quot;music\&quot;]music[\/cb:if]&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;[cb:if var1_type=\&quot;photos\&quot;]image[\/cb:if][cb:if var1_type=\&quot;videos\&quot;]video[\/cb:if][cb:if var1_type=\&quot;files\&quot;]url[\/cb:if][cb:if var1_type=\&quot;music\&quot;]audio[\/cb:if]&quot;,&quot;url&quot;:&quot;[var1_value]&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;[var1_title]&quot;,&quot;description&quot;:&quot;[cb:if var1_type!=\&quot;files\&quot;][var1_description][\/cb:if][cb:if var1_type=\&quot;files\&quot;]&lt;div&gt;[var1_description]&lt;\/div&gt;&lt;div class=\&quot;small text-muted\&quot; style=\&quot;margin-top: 5px;\&quot;&gt;[cb:parse function=\&quot;getFileName\&quot; class=\&quot;var1\&quot; \/] | [cb:parse function=\&quot;getFileSize\&quot; class=\&quot;var1\&quot; \/] | [cb:parse function=\&quot;getExtension\&quot; class=\&quot;var1\&quot; \/]&lt;\/div&gt;[\/cb:if]&quot;,&quot;thumbnail&quot;:&quot;1&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;[cb:if var1_type!=\&quot;files\&quot;][var1_value][\/cb:if]&quot;,&quot;mimetype&quot;:&quot;[cb:parse function=\&quot;getMimeType\&quot; class=\&quot;var1\&quot; \/]&quot;,&quot;extension&quot;:&quot;[cb:parse function=\&quot;getExtension\&quot; class=\&quot;var1\&quot; \/]&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;1&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="113" valuetype="const:int" strict="true">
+					<field name="system" value="113" valuetype="const:int" strict="true" />
+					<field name="title" value="CB Gallery - Unpublished" valuetype="const:string" />
+					<field name="description" value="Deletes activity for unpublished items." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gallery_onAfterUpdateItem" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_published]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;0&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="0" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;gallery&quot;,&quot;subtype&quot;:&quot;[var1_type]&quot;,&quot;title&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;1&quot;,&quot;internal&quot;:&quot;1&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;load&quot;:&quot;1&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;inline&quot;:&quot;1&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="114" valuetype="const:int" strict="true">
+					<field name="system" value="114" valuetype="const:int" strict="true" />
+					<field name="title" value="CB Gallery - Deleted" valuetype="const:string" />
+					<field name="description" value="Deletes activity for deleted items." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gallery_onAfterDeleteItem" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;&quot;,&quot;operator&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;gallery&quot;,&quot;subtype&quot;:&quot;[var1_type]&quot;,&quot;title&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;1&quot;,&quot;internal&quot;:&quot;1&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;load&quot;:&quot;1&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;inline&quot;:&quot;1&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="115" valuetype="const:int" strict="true">
+					<field name="system" value="115" valuetype="const:int" strict="true" />
+					<field name="title" value="CB Blogs - Create" valuetype="const:string" />
+					<field name="description" value="Logs activity for newly created blog entries." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="cbblogs_onAfterUpdateBlog|*|cbblogs_onAfterCreateBlog" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_published]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;blog&quot;,&quot;subtype&quot;:&quot;&quot;,&quot;title&quot;:&quot;published a new blog entry&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var2_id]&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;[var1_user]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;url&quot;,&quot;url&quot;:&quot;[cb:config param=\&quot;live_site\&quot; \/]\/index.php?option=com_comprofiler&amp;view=pluginclass&amp;plugin=cbblogs&amp;action=blogs&amp;func=show&amp;id=[var2_id]&quot;,&quot;text&quot;:&quot;Read More...&quot;,&quot;title&quot;:&quot;[var1_title]&quot;,&quot;description&quot;:&quot;[cb:parse function=\&quot;trim\&quot;][cb:parse function=\&quot;trim\&quot; direction=\&quot;right\&quot; characters=\&quot;.\&quot;][cb:parse function=\&quot;extract\&quot; length=\&quot;300\&quot;][cb:parse function=\&quot;clean\&quot; method=\&quot;string\&quot;][var1_blog_intro][\/cb:parse][\/cb:parse][\/cb:parse][\/cb:parse]...&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;custom&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="116" valuetype="const:int" strict="true">
+					<field name="system" value="116" valuetype="const:int" strict="true" />
+					<field name="title" value="CB Blogs - Unpublished" valuetype="const:string" />
+					<field name="description" value="Deletes activity for unpublished blog entries." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="cbblogs_onAfterUpdateBlog" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_published]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;0&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="0" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;blog&quot;,&quot;subtype&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var2_id]&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;[var1_user]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;load&quot;:&quot;1&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;inline&quot;:&quot;1&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="117" valuetype="const:int" strict="true">
+					<field name="system" value="117" valuetype="const:int" strict="true" />
+					<field name="title" value="CB Blogs - Deleted" valuetype="const:string" />
+					<field name="description" value="Deletes activity for deleted blog entries." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="cbblogs_onAfterDeleteBlog" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;&quot;,&quot;operator&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;blog&quot;,&quot;subtype&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var2_id]&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;[var1_user]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;load&quot;:&quot;1&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;inline&quot;:&quot;1&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="118" valuetype="const:int" strict="true">
+					<field name="system" value="118" valuetype="const:int" strict="true" />
+					<field name="title" value="Kunena - Create" valuetype="const:string" />
+					<field name="description" value="Logs activity for newly created discussions." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="kunenaIntegration" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1]&quot;,&quot;operator&quot;:&quot;10&quot;,&quot;value&quot;:&quot;\/onAfterPost|onAfterEdit|onAfterUndelete\/&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[var3_message_parent]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;0&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="0" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;kunena&quot;,&quot;subtype&quot;:&quot;create&quot;,&quot;title&quot;:&quot;started a new discussion&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var3_message_id]&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;[var3_message_userid]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;url&quot;,&quot;url&quot;:&quot;[cb:config param=\&quot;live_site\&quot; \/]\/index.php?option=com_kunena&amp;view=topic&amp;catid=[var3_message_catid]&amp;id=[var3_message_thread]#[var3_message_id]&quot;,&quot;text&quot;:&quot;Discuss...&quot;,&quot;title&quot;:&quot;[var3_message_subject]&quot;,&quot;description&quot;:&quot;[cb:parse function=\&quot;trim\&quot;][cb:parse function=\&quot;trim\&quot; direction=\&quot;right\&quot; characters=\&quot;.\&quot;][cb:parse function=\&quot;extract\&quot; length=\&quot;300\&quot;][cb:parse function=\&quot;clean\&quot; method=\&quot;string\&quot;][var3_message_message][\/cb:parse][\/cb:parse][\/cb:parse][\/cb:parse]...&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;custom&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;1&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="119" valuetype="const:int" strict="true">
+					<field name="system" value="119" valuetype="const:int" strict="true" />
+					<field name="title" value="Kunena - Reply" valuetype="const:string" />
+					<field name="description" value="Logs activity for discussion replies." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="kunenaIntegration" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1]&quot;,&quot;operator&quot;:&quot;10&quot;,&quot;value&quot;:&quot;\/onAfterReply|onAfterEdit|onAfterUndelete\/&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[var3_message_parent]&quot;,&quot;operator&quot;:&quot;1&quot;,&quot;value&quot;:&quot;0&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="0" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;kunena&quot;,&quot;subtype&quot;:&quot;reply&quot;,&quot;title&quot;:&quot;replied to a discussion&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var3_message_id]&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;[var3_message_userid]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;url&quot;,&quot;url&quot;:&quot;[cb:config param=\&quot;live_site\&quot; \/]\/index.php?option=com_kunena&amp;view=topic&amp;catid=[var3_message_catid]&amp;id=[var3_message_thread]#[var3_message_id]&quot;,&quot;text&quot;:&quot;Discuss...&quot;,&quot;title&quot;:&quot;[var3_message_subject]&quot;,&quot;description&quot;:&quot;[cb:parse function=\&quot;trim\&quot;][cb:parse function=\&quot;trim\&quot; direction=\&quot;right\&quot; characters=\&quot;.\&quot;][cb:parse function=\&quot;extract\&quot; length=\&quot;300\&quot;][cb:parse function=\&quot;clean\&quot; method=\&quot;string\&quot;][var3_message_message][\/cb:parse][\/cb:parse][\/cb:parse][\/cb:parse]...&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;custom&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;1&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="120" valuetype="const:int" strict="true">
+					<field name="system" value="120" valuetype="const:int" strict="true" />
+					<field name="title" value="Kunena - Delete" valuetype="const:string" />
+					<field name="description" value="Deletes activity for deleted discussions." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="kunenaIntegration" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;onAfterDelete&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="0" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;kunena&quot;,&quot;subtype&quot;:&quot;[cb:if var3_message_parent&gt;\&quot;0\&quot;]reply[\/cb:if][cb:if var3_message_parent=\&quot;0\&quot;]create[\/cb:if]&quot;,&quot;title&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var3_message_id]&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;[var3_message_userid]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;load&quot;:&quot;1&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;inline&quot;:&quot;1&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="121" valuetype="const:int" strict="true">
+					<field name="system" value="121" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - Category Create" valuetype="const:string" />
+					<field name="description" value="Logs activity for newly created categories." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gj_onAfterUpdateCategory|*|gj_onAfterCreateCategory" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_published]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;category&quot;,&quot;title&quot;:&quot;created a new group category&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;url&quot;,&quot;url&quot;:&quot;[cb:parse function=\&quot;decode\&quot; method=\&quot;html\&quot;][cb:parse function=\&quot;getUrl\&quot; class=\&quot;var1\&quot; \/][\/cb:parse]&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;[cb:parse function=\&quot;getName\&quot; class=\&quot;var1\&quot; \/]&quot;,&quot;description&quot;:&quot;[cb:parse function=\&quot;trim\&quot;][cb:parse function=\&quot;clean\&quot; method=\&quot;string\&quot;][cb:parse function=\&quot;getDescription\&quot; class=\&quot;var1\&quot; \/][\/cb:parse][\/cb:parse]&quot;,&quot;thumbnail&quot;:&quot;1&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;custom&quot;:&quot;&quot;,&quot;url&quot;:&quot;[cb:if trigger=\&quot;gj_onAfterCreateCategory\&quot; and files_logo_name=\&quot;\&quot;][cb:parse function=\&quot;getLogo\&quot; class=\&quot;var1\&quot; html=\&quot;0\&quot; linked=\&quot;0\&quot; thumb=\&quot;1\&quot; \/][\/cb:if][cb:if trigger=\&quot;gj_onAfterUpdateCategory\&quot;][cb:parse function=\&quot;getLogo\&quot; class=\&quot;var1\&quot; html=\&quot;0\&quot; linked=\&quot;0\&quot; thumb=\&quot;1\&quot; \/][\/cb:if]&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;1&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="122" valuetype="const:int" strict="true">
+					<field name="system" value="122" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - Group Create" valuetype="const:string" />
+					<field name="description" value="Logs activity for newly created groups." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gj_onAfterUpdateGroup|*|gj_onAfterCreateGroup" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_published]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[var1_type]&quot;,&quot;operator&quot;:&quot;1&quot;,&quot;value&quot;:&quot;3&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;group&quot;,&quot;title&quot;:&quot;created a new group&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;[var2_id]&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;url&quot;,&quot;url&quot;:&quot;[cb:parse function=\&quot;decode\&quot; method=\&quot;html\&quot;][cb:parse function=\&quot;getUrl\&quot; class=\&quot;var1\&quot; \/][\/cb:parse]&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;[cb:parse function=\&quot;getName\&quot; class=\&quot;var1\&quot; \/]&quot;,&quot;description&quot;:&quot;[cb:parse function=\&quot;trim\&quot;][cb:parse function=\&quot;clean\&quot; method=\&quot;string\&quot;][cb:parse function=\&quot;getDescription\&quot; class=\&quot;var1\&quot; \/][\/cb:parse][\/cb:parse]&quot;,&quot;thumbnail&quot;:&quot;1&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;custom&quot;:&quot;&quot;,&quot;url&quot;:&quot;[cb:if trigger=\&quot;gj_onAfterCreateGroup\&quot; and files_logo_name=\&quot;\&quot;][cb:parse function=\&quot;getLogo\&quot; class=\&quot;var1\&quot; html=\&quot;0\&quot; linked=\&quot;0\&quot; thumb=\&quot;1\&quot; \/][\/cb:if][cb:if trigger=\&quot;gj_onAfterUpdateGroup\&quot;][cb:parse function=\&quot;getLogo\&quot; class=\&quot;var1\&quot; html=\&quot;0\&quot; linked=\&quot;0\&quot; thumb=\&quot;1\&quot; \/][\/cb:if]&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;1&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="123" valuetype="const:int" strict="true">
+					<field name="system" value="123" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - Group Unpublished" valuetype="const:string" />
+					<field name="description" value="Deletes activity for unpublished groups." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gj_onAfterUpdateGroup" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_published]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;0&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="0" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;group&quot;,&quot;title&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;[var2_id]&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;load&quot;:&quot;1&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;inline&quot;:&quot;1&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="124" valuetype="const:int" strict="true">
+					<field name="system" value="124" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - Category Unpublished" valuetype="const:string" />
+					<field name="description" value="Deletes activity for unpublished categories." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gj_onAfterUpdateCategory" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_published]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;0&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="0" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;category&quot;,&quot;title&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;load&quot;:&quot;1&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;inline&quot;:&quot;1&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="125" valuetype="const:int" strict="true">
+					<field name="system" value="125" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - Group Deleted" valuetype="const:string" />
+					<field name="description" value="Deletes activity for deleted groups." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gj_onAfterDeleteGroup" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;&quot;,&quot;operator&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;group&quot;,&quot;title&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;[var2_id]&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;load&quot;:&quot;1&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;inline&quot;:&quot;1&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="126" valuetype="const:int" strict="true">
+					<field name="system" value="126" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - Category Deleted" valuetype="const:string" />
+					<field name="description" value="Deletes activity for deleted categories." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gj_onAfterDeleteCategory" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_published]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;0&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;category&quot;,&quot;title&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;load&quot;:&quot;1&quot;,&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;inline&quot;:&quot;1&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="127" valuetype="const:int" strict="true">
+					<field name="system" value="127" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - Group Joined" valuetype="const:string" />
+					<field name="description" value="Logs activity for when joining a group." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gj_onAfterUpdateUser|*|gj_onAfterCreateUser" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_status]&quot;,&quot;operator&quot;:&quot;1&quot;,&quot;value&quot;:&quot;0&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[var2_type]&quot;,&quot;operator&quot;:&quot;1&quot;,&quot;value&quot;:&quot;3&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[var1_user_id]&quot;,&quot;operator&quot;:&quot;1&quot;,&quot;value&quot;:&quot;[var2_user_id]&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;group.join&quot;,&quot;title&quot;:&quot;has joined a group&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;[var2_id]&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;url&quot;,&quot;url&quot;:&quot;[cb:parse function=\&quot;decode\&quot; method=\&quot;html\&quot;][cb:parse function=\&quot;getUrl\&quot; class=\&quot;var2\&quot; \/][\/cb:parse]&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;[var2_name]&quot;,&quot;description&quot;:&quot;[cb:parse function=\&quot;trim\&quot;][cb:parse function=\&quot;clean\&quot; method=\&quot;string\&quot;][var2_description][\/cb:parse][\/cb:parse]&quot;,&quot;thumbnail&quot;:&quot;1&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;[cb:parse function=\&quot;getLogo\&quot; class=\&quot;var2\&quot; html=\&quot;0\&quot; linked=\&quot;0\&quot; thumb=\&quot;1\&quot; \/]&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;1&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="128" valuetype="const:int" strict="true">
+					<field name="system" value="128" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - Group Leave" valuetype="const:string" />
+					<field name="description" value="Deletes group join activity on group leave." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gj_onAfterDeleteUser" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_user_id]&quot;,&quot;operator&quot;:&quot;1&quot;,&quot;value&quot;:&quot;[var2_user_id]&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;group.join&quot;,&quot;title&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;[var2_id]&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;1&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="129" valuetype="const:int" strict="true">
+					<field name="system" value="129" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - Wall Create" valuetype="const:string" />
+					<field name="description" value="Logs activity for newly created group wall posts." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gjint_onAfterUpdateWall|*|gjint_onAfterCreateWall" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_reply]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;0&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[var1_published]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[var2_type]&quot;,&quot;operator&quot;:&quot;1&quot;,&quot;value&quot;:&quot;3&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;group.wall&quot;,&quot;title&quot;:&quot;&lt;span class=\&quot;fa fa-caret-right\&quot;&gt;&lt;\/span&gt; &lt;strong&gt;&lt;a href=\&quot;[cb:parse function=\&quot;decode\&quot; method=\&quot;html\&quot;][cb:parse function=\&quot;getUrl\&quot; class=\&quot;var2\&quot; \/][\/cb:parse]\&quot;&gt;[var2_name]&lt;\/a&gt;&lt;\/strong&gt;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;[var2_id]&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;url&quot;,&quot;url&quot;:&quot;[cb:parse function=\&quot;decode\&quot; method=\&quot;html\&quot;][cb:parse function=\&quot;getUrl\&quot; class=\&quot;var1\&quot; \/][\/cb:parse]&quot;,&quot;text&quot;:&quot;Read More...&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;[cb:parse function=\&quot;trim\&quot;][cb:parse function=\&quot;trim\&quot; direction=\&quot;right\&quot; characters=\&quot;.\&quot;][cb:parse function=\&quot;extract\&quot; length=\&quot;300\&quot;][cb:parse function=\&quot;clean\&quot; method=\&quot;string\&quot;][cb:parse function=\&quot;getPost\&quot; class=\&quot;var1\&quot; \/][\/cb:parse][\/cb:parse][\/cb:parse][\/cb:parse]...&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;custom&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;1&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="130" valuetype="const:int" strict="true">
+					<field name="system" value="130" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - Wall Reply" valuetype="const:string" />
+					<field name="description" value="Logs activity for newly created group wall post replies." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gjint_onAfterUpdateWall|*|gjint_onAfterCreateWall" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_reply]&quot;,&quot;operator&quot;:&quot;1&quot;,&quot;value&quot;:&quot;0&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[var1_published]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[var2_type]&quot;,&quot;operator&quot;:&quot;1&quot;,&quot;value&quot;:&quot;3&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="0" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;group.wall.reply&quot;,&quot;title&quot;:&quot;&lt;span class=\&quot;fa fa-caret-right\&quot;&gt;&lt;\/span&gt; &lt;strong&gt;&lt;a href=\&quot;[cb:parse function=\&quot;decode\&quot; method=\&quot;html\&quot;][cb:parse function=\&quot;getUrl\&quot; class=\&quot;var2\&quot; \/][\/cb:parse]\&quot;&gt;[var2_name]&lt;\/a&gt;&lt;\/strong&gt;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;[var2_id]&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;url&quot;,&quot;url&quot;:&quot;[cb:parse function=\&quot;decode\&quot; method=\&quot;html\&quot;][cb:parse function=\&quot;getUrl\&quot; class=\&quot;var1\&quot; \/][\/cb:parse]&quot;,&quot;text&quot;:&quot;Read More...&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;[cb:parse function=\&quot;trim\&quot;][cb:parse function=\&quot;trim\&quot; direction=\&quot;right\&quot; characters=\&quot;.\&quot;][cb:parse function=\&quot;clean\&quot; method=\&quot;string\&quot;][cb:parse function=\&quot;extract\&quot; length=\&quot;300\&quot;][cb:parse function=\&quot;getPost\&quot; class=\&quot;var1\&quot; \/][\/cb:parse][\/cb:parse][\/cb:parse][\/cb:parse]...&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;custom&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;1&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="131" valuetype="const:int" strict="true">
+					<field name="system" value="131" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - Wall Unpublished" valuetype="const:string" />
+					<field name="description" value="Deletes activity for unpublished group wall posts." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gjint_onAfterUpdateWall" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_published]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;0&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="0" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;group.wall[cb:if var1_reply&gt;\&quot;0\&quot;].reply[\/cb:if]&quot;,&quot;title&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;[var2_id]&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="132" valuetype="const:int" strict="true">
+					<field name="system" value="132" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - Wall Delete" valuetype="const:string" />
+					<field name="description" value="Deletes activity for deleted group wall posts." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gjint_onAfterDeleteWall" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;&quot;,&quot;operator&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;group.wall[cb:if var1_reply&gt;\&quot;0\&quot;].reply[\/cb:if]&quot;,&quot;title&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;[var2_id]&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;0&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="133" valuetype="const:int" strict="true">
+					<field name="system" value="133" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - Photo Upload" valuetype="const:string" />
+					<field name="description" value="Logs activity for newly uploaded group photos." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gjint_onAfterUpdatePhoto|*|gjint_onAfterCreatePhoto" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_published]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[var2_type]&quot;,&quot;operator&quot;:&quot;1&quot;,&quot;value&quot;:&quot;3&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;group.photo&quot;,&quot;title&quot;:&quot;&lt;span class=\&quot;fa fa-caret-right\&quot;&gt;&lt;\/span&gt; &lt;strong&gt;&lt;a href=\&quot;[cb:parse function=\&quot;decode\&quot; method=\&quot;html\&quot;][cb:parse function=\&quot;getUrl\&quot; class=\&quot;var2\&quot; \/][\/cb:parse]\&quot;&gt;[var2_name]&lt;\/a&gt;&lt;\/strong&gt;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;[var2_id]&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;image&quot;,&quot;url&quot;:&quot;[cb:parse function=\&quot;decode\&quot; method=\&quot;html\&quot;][cb:parse function=\&quot;getUrl\&quot; class=\&quot;var1\&quot; \/][\/cb:parse]&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;[cb:parse function=\&quot;getTitle\&quot; class=\&quot;var1\&quot; \/]&quot;,&quot;description&quot;:&quot;[cb:parse function=\&quot;getDescription\&quot; class=\&quot;var1\&quot; \/]&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;1&quot;,&quot;media&quot;:{&quot;custom&quot;:&quot;&quot;,&quot;url&quot;:&quot;[cb:parse function=\&quot;decode\&quot; method=\&quot;html\&quot;][cb:parse function=\&quot;getImage\&quot; class=\&quot;var1\&quot; html=\&quot;0\&quot; linked=\&quot;0\&quot; thumb=\&quot;1\&quot; \/][\/cb:parse]&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;1&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="134" valuetype="const:int" strict="true">
+					<field name="system" value="134" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - Photo Unpublished" valuetype="const:string" />
+					<field name="description" value="Deletes activity for unpublished group photos." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gjint_onAfterUpdatePhoto" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_published]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;0&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="0" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;group.photo&quot;,&quot;title&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;[var2_id]&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;1&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="135" valuetype="const:int" strict="true">
+					<field name="system" value="135" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - Photo Deleted" valuetype="const:string" />
+					<field name="description" value="Deletes activity for deleted group photos." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gjint_onAfterDeletePhoto" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;&quot;,&quot;operator&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;group.photo&quot;,&quot;title&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;[var2_id]&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;1&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="136" valuetype="const:int" strict="true">
+					<field name="system" value="136" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - File Upload" valuetype="const:string" />
+					<field name="description" value="Logs activity for newly uploaded group files." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gjint_onAfterUpdateFile|*|gjint_onAfterCreateFile" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_published]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[var2_type]&quot;,&quot;operator&quot;:&quot;1&quot;,&quot;value&quot;:&quot;3&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;group.file&quot;,&quot;title&quot;:&quot;&lt;span class=\&quot;fa fa-caret-right\&quot;&gt;&lt;\/span&gt; &lt;strong&gt;&lt;a href=\&quot;[cb:parse function=\&quot;decode\&quot; method=\&quot;html\&quot;][cb:parse function=\&quot;getUrl\&quot; class=\&quot;var2\&quot; \/][\/cb:parse]\&quot;&gt;[var2_name]&lt;\/a&gt;&lt;\/strong&gt;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;[var2_id]&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;url&quot;,&quot;url&quot;:&quot;[cb:parse function=\&quot;decode\&quot; method=\&quot;html\&quot;][cb:parse function=\&quot;getUrl\&quot; class=\&quot;var1\&quot; \/][\/cb:parse]&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;[cb:parse function=\&quot;getTitle\&quot; class=\&quot;var1\&quot; \/]&quot;,&quot;description&quot;:&quot;&lt;div&gt;[cb:parse function=\&quot;getDescription\&quot; class=\&quot;var1\&quot; \/]&lt;\/div&gt;&lt;div class=\&quot;small text-muted\&quot; style=\&quot;margin-top: 5px;\&quot;&gt;[cb:parse function=\&quot;getFileName\&quot; class=\&quot;var1\&quot; \/] | [cb:parse function=\&quot;getFileSize\&quot; class=\&quot;var1\&quot; \/] | [cb:parse function=\&quot;getFileExt\&quot; class=\&quot;var1\&quot; \/]&lt;\/div&gt;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;1&quot;,&quot;media&quot;:{&quot;custom&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;1&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="137" valuetype="const:int" strict="true">
+					<field name="system" value="137" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - File Unpublished" valuetype="const:string" />
+					<field name="description" value="Deletes activity for unpublished group files." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gjint_onAfterUpdateFile" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_published]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;0&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="0" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;group.file&quot;,&quot;title&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;[var2_id]&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;1&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="138" valuetype="const:int" strict="true">
+					<field name="system" value="138" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - File Deleted" valuetype="const:string" />
+					<field name="description" value="Deletes activity for deleted group files." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gjint_onAfterDeleteFile" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;&quot;,&quot;operator&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;group.file&quot;,&quot;title&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;[var2_id]&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;1&quot;,&quot;media&quot;:{&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="139" valuetype="const:int" strict="true">
+					<field name="system" value="139" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - Video Upload" valuetype="const:string" />
+					<field name="description" value="Logs activity for newly uploaded group videos." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gjint_onAfterUpdateVideo|*|gjint_onAfterCreateVideo" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_published]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[var2_type]&quot;,&quot;operator&quot;:&quot;1&quot;,&quot;value&quot;:&quot;3&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;group.video&quot;,&quot;title&quot;:&quot;&lt;span class=\&quot;fa fa-caret-right\&quot;&gt;&lt;\/span&gt; &lt;strong&gt;&lt;a href=\&quot;[cb:parse function=\&quot;decode\&quot; method=\&quot;html\&quot;][cb:parse function=\&quot;getUrl\&quot; class=\&quot;var2\&quot; \/][\/cb:parse]\&quot;&gt;[var2_name]&lt;\/a&gt;&lt;\/strong&gt;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;[var2_id]&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;custom&quot;,&quot;url&quot;:&quot;[cb:parse function=\&quot;decode\&quot; method=\&quot;html\&quot;][cb:parse function=\&quot;getUrl\&quot; class=\&quot;var1\&quot; \/][\/cb:parse]&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;[cb:parse function=\&quot;getTitle\&quot; class=\&quot;var1\&quot; \/]&quot;,&quot;description&quot;:&quot;[cb:parse function=\&quot;getCaption\&quot; class=\&quot;var1\&quot; \/]&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;1&quot;,&quot;media&quot;:{&quot;custom&quot;:&quot;[cb:parse function=\&quot;getEmbed\&quot; class=\&quot;var1\&quot; html=\&quot;1\&quot; thumb=\&quot;0\&quot; \/]&quot;,&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;1&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="140" valuetype="const:int" strict="true">
+					<field name="system" value="140" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - Video Unpublished" valuetype="const:string" />
+					<field name="description" value="Deletes activity for unpublished group videos." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gjint_onAfterUpdateVideo" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_published]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;0&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="0" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;group.video&quot;,&quot;title&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;[var2_id]&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;1&quot;,&quot;media&quot;:{&quot;custom&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="141" valuetype="const:int" strict="true">
+					<field name="system" value="141" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - Video Deleted" valuetype="const:string" />
+					<field name="description" value="Deletes activity for deleted group videos." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gjint_onAfterDeleteVideo" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;&quot;,&quot;operator&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;group.video&quot;,&quot;title&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;[var2_id]&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;1&quot;,&quot;media&quot;:{&quot;custom&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="142" valuetype="const:int" strict="true">
+					<field name="system" value="142" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - Event Schedule" valuetype="const:string" />
+					<field name="description" value="Logs activity for newly scheduled events" valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gjint_onAfterUpdateEvent|*|gjint_onAfterCreateEvent" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_published]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;1&quot;,&quot;translate&quot;:&quot;0&quot;},{&quot;field&quot;:&quot;[var2_type]&quot;,&quot;operator&quot;:&quot;1&quot;,&quot;value&quot;:&quot;3&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;create&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;group.event&quot;,&quot;title&quot;:&quot;&lt;span class=\&quot;fa fa-caret-right\&quot;&gt;&lt;\/span&gt; &lt;strong&gt;&lt;a href=\&quot;[cb:parse function=\&quot;decode\&quot; method=\&quot;html\&quot;][cb:parse function=\&quot;getUrl\&quot; class=\&quot;var2\&quot; \/][\/cb:parse]\&quot;&gt;[var2_name]&lt;\/a&gt;&lt;\/strong&gt;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;[var2_id]&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;url&quot;,&quot;url&quot;:&quot;[cb:parse function=\&quot;decode\&quot; method=\&quot;html\&quot;][cb:parse function=\&quot;getUrl\&quot; class=\&quot;var1\&quot; \/][\/cb:parse]&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;[cb:parse function=\&quot;getTitle\&quot; class=\&quot;var1\&quot; \/]&quot;,&quot;description&quot;:&quot;&lt;div&gt;[cb:parse function=\&quot;trim\&quot;][cb:parse function=\&quot;clean\&quot; method=\&quot;string\&quot;][cb:parse function=\&quot;getEvent\&quot; class=\&quot;var1\&quot; \/][\/cb:parse][\/cb:parse]&lt;\/div&gt;\r\n&lt;div style=\&quot;margin-top: 5px;\&quot;&gt;&lt;span class=\&quot;fa fa-clock-o text-center\&quot; style=\&quot;width: 15px;\&quot;&gt;&lt;\/span&gt; [cb:parse function=\&quot;getDate\&quot; class=\&quot;var1\&quot; \/]&lt;\/div&gt;\r\n&lt;div style=\&quot;margin-top: 5px;\&quot;&gt;&lt;span class=\&quot;fa fa-map-marker text-center\&quot; style=\&quot;width: 15px;\&quot;&gt;&lt;\/span&gt; [var1_location]&lt;\/div&gt;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;1&quot;,&quot;media&quot;:{&quot;custom&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;1&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="143" valuetype="const:int" strict="true">
+					<field name="system" value="143" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - Event Unpublished" valuetype="const:string" />
+					<field name="description" value="Deletes activity for unpublished group events." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gjint_onAfterUpdateEvent" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;[var1_published]&quot;,&quot;operator&quot;:&quot;0&quot;,&quot;value&quot;:&quot;0&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="0" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;group.event&quot;,&quot;title&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;[var2_id]&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;1&quot;,&quot;media&quot;:{&quot;custom&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+				<row index="system" value="144" valuetype="const:int" strict="true">
+					<field name="system" value="144" valuetype="const:int" strict="true" />
+					<field name="title" value="CB GroupJive - Event Deleted" valuetype="const:string" />
+					<field name="description" value="Deletes activity for deleted group events." valuetype="const:string" />
+					<field name="type" value="activity" valuetype="const:string" />
+					<field name="trigger" value="gjint_onAfterDeleteEvent" valuetype="const:string" />
+					<field name="object" value="0" valuetype="const:int" />
+					<field name="variable" value="1" valuetype="const:int" />
+					<field name="access" value="-1" valuetype="const:string" />
+					<field name="conditions" value="[{&quot;field&quot;:&quot;&quot;,&quot;operator&quot;:&quot;&quot;,&quot;value&quot;:&quot;&quot;,&quot;translate&quot;:&quot;0&quot;}]" valuetype="const:string" />
+					<field name="published" value="1" valuetype="const:int" />
+					<field name="ordering" value="1" valuetype="const:int" />
+					<field name="params" value="{&quot;activity&quot;:[{&quot;mode&quot;:&quot;activity&quot;,&quot;method&quot;:&quot;delete&quot;,&quot;stream&quot;:&quot;activity&quot;,&quot;source&quot;:&quot;&quot;,&quot;type&quot;:&quot;groupjive&quot;,&quot;subtype&quot;:&quot;group.event&quot;,&quot;title&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;item&quot;:&quot;[var1_id]&quot;,&quot;parent&quot;:&quot;[var2_id]&quot;,&quot;owner&quot;:&quot;[var1_user_id]&quot;,&quot;action&quot;:{&quot;id&quot;:&quot;&quot;,&quot;message&quot;:&quot;&quot;,&quot;emote&quot;:&quot;&quot;},&quot;links&quot;:[{&quot;type&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;text&quot;:&quot;&quot;,&quot;title&quot;:&quot;&quot;,&quot;description&quot;:&quot;&quot;,&quot;thumbnail&quot;:&quot;0&quot;,&quot;internal&quot;:&quot;1&quot;,&quot;media&quot;:{&quot;custom&quot;:&quot;&quot;,&quot;url&quot;:&quot;&quot;,&quot;mimetype&quot;:&quot;&quot;,&quot;extension&quot;:&quot;&quot;}}],&quot;comments&quot;:&quot;0&quot;,&quot;replies&quot;:&quot;0&quot;,&quot;direction&quot;:&quot;0&quot;,&quot;paging&quot;:&quot;1&quot;,&quot;limit&quot;:&quot;30&quot;,&quot;output&quot;:&quot;echo&quot;}],&quot;reload&quot;:&quot;0&quot;,&quot;exclude&quot;:&quot;&quot;,&quot;format&quot;:&quot;0&quot;,&quot;references&quot;:&quot;&quot;,&quot;debug&quot;:&quot;0&quot;}" valuetype="const:string" />
+				</row>
+			</rows>
+			<indexes strict="true" drop="never">
+				<index name="PRIMARY" type="primary">
+					<column name="id" />
+				</index>
+				<index name="published">
+					<column name="published" />
+				</index>
+			</indexes>
+			<engine type="InnoDB" sameastable="#__comprofiler" strict="updatewithtable" />
+		</table>
+	</database>
+</cbinstall>

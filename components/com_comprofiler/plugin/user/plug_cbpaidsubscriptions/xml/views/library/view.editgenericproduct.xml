@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="editgenericproduct" type="params" ui="admin" label="Subscription Plan" description="A Plan includes the settings for that plan, which can be set here.">
+			<param name="checkv"  mode="show"   type="private" class="cbpaidParamsExt" method="checkPluginsPublished" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.]" action="" path="payintegration" label=" " description="" />
+			<if name="name" operator="!=" value="" valuetype="const:string">
+				<param name="name" type="text" default="" mode="show" label="Name of product" description="Name of product being edited" onchange="evaluate" />
+			</if>
+			<if name="item_type" operator="!=" value="" valuetype="const:string">
+				<param name="item_type" type="list" default="" mode="show" label="Type of product" description="You can choose the type of product to use" onchange="evaluate">
+					<option value="usersubscription">User Subscription Plan</option>
+					<option value="donation">Donation</option>
+					<option value="merchandise">Merchandise</option>
+					<option value="download">Downloadable Item</option>
+				</param>
+			</if>
+			<tabpane name="cpayeditplan">
+				<tabpanetab name="plan_presentation" label="Presentation" description="Plan settings:">
+					<fieldset name="general" label="General" description="">
+						<param name="name" type="text" size="40" default="" label="Name of plan" description="The title name text displayed for this plan. Substitutions and language translations are supported. See description information for details." validate="required" />
+						<param name="alias" type="text" size="24" maxlength="64" default="" label="Alias (short-name) of plan" description="This is a short for the plan (language translations are supported)." validate="required" />
+						<param name="description" type="htmlarea" rows="12" cols="50" default="" label="Description of plan" description="The description text displayed for this plan. Substitutions and language translations are supported. Substitutions for product properties: [PLAN_NAME], [PLAN_ALIAS], [PLAN_DESCRIPTION], [PLAN_REGISTRATION_PRICE] and [PLAN_UPGRADE_PRICE] (both display period and price), [PLAN_PRICE] (display generic period and price for plan, or amount donated for donation with currency, or price with currency of product for a merchandise), [PLAN_RATE] and [PLAN_FIRST_RATE] are numeric values, and in case of donations, the donation amount converted into the donation plan's currency. Also [USERNAME], [NAME], [EMAIL] and any [cb_fieldname] can be used (for logged in users. To hide a part to guests, you can use [cb:if user=&quot;#me&quot; user_id!=&quot;0&quot;] specially for you, [name] [/cb:if]. To show a part only to guests, you can use [cb:if user=&quot;#me&quot; user_id=&quot;0&quot;] Text for guests [/cb:if]. Html is also supported." />
+						<param name="runcontentplugins" type="list" default="0" label="Prepare content using CMS Content plugins" description="Select 'Yes' if you need CMS Content plugins 'content.prepare' to be triggered run on the name and and description of the plan, as well as in Thank You texts for website, and also notification mails for users as well as other integrations with this plan, such as promotions. Select 'No', if you do not need them (default)">
+							<option value="0">No, do not run CMS {...} triggers</option>
+							<option value="1">Yes, prepare content with CMS content plugins</option>
+						</param>
+						<param name="pricedisplay" type="text" size="50" default="[AUTOMATIC]" label="Price display of plan (default: [AUTOMATIC])" description="How to display the price of the plan. Leave '[AUTOMATIC]' for automatic display. WARNING: Do not touch unless you are sure what you are doing. Substitutions as well as language translations are supported. Possible substitutions for Price display: [PRICE] [FOR] [PERIOD] (or [PERIOD] [PER] [PRICE]), if different first period: [FIRSTPRICE] [FIRSTFOR] [FIRSTPERIOD] [THEN], if maximum reocurrings: [DURING] [TOTALPERIOD]. Also [USERNAME], [NAME], [EMAIL] and any [cb_fieldname] can be used (for logged in users. To hide a part to guests, you can use [cb:if user=&quot;#me&quot; user_id!=&quot;0&quot;] specially for you, [name] [/cb:if] . html is also supported: To leave that display blank, just put &amp;amp;nbsp;" />
+						<param name="parent" type="private" class="cbpaidParamsExt" method="datalist" size="1" default="0" label="Parent plan" blanktext="Top" description="If this plan has a parent plan, then it's an option for that parent plan, which then must also be subscribed and active. Children plans can be used for options of their parent plan. This is different from the categories concept.">
+							<data name="plansidsnames" type="sql:multiplerows" table="#__cbsubs_plans" class="" key="id">
+								<rows>
+									<field name="id" as="value" />
+									<field name="alias" as="text" />
+								</rows>
+								<where>
+									<column name="parent" operator="=" value="0" type="sql:field" valuetype="const:int" />
+									<column name="id" operator="&lt;&gt;" value="id" type="sql:field" valuetype="ext:int:modelofdata" />
+								</where>
+								<orderby>
+									<field name="parent_ordering" type="sql:int" ordering="ASC">
+										<data name="" type="sql:function" operator="IF">
+											<data name="" type="sql:function" operator="ISNULL">
+												<data name="ordering" type="sql:field" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id" value="parent" />
+											</data>
+											<data name="ordering" type="sql:field" />
+											<data name="ordering" type="sql:field" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id" value="parent" />
+										</data>
+									</field>
+									<field name="child_ordering" type="sql:int" ordering="ASC">
+										<data name="" type="sql:function" operator="IF">
+											<data name="" type="sql:function" operator="ISNULL">
+												<data name="ordering" type="sql:field" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id" value="parent" />
+											</data>
+											<data name="ordering" type="sql:field" />
+											<data name="" type="sql:operator" operator="+">
+												<data name="11000" type="sql:int" />
+												<data name="ordering" type="sql:field" />
+											</data>
+										</data>
+									</field>
+								</orderby>
+							</data>
+						</param>
+						<param name="ordering" type="ordering" value="alias" size="1" default="" label="Ordering" description="The order in which the plans are presented to the users.">
+							<orderinggroups>
+								<ordering name="parent" type="int" />
+							</orderinggroups>
+						</param>
+						<param name="exclusive" type="list" default="1" label="Exclusive plan" description="If this plan does exclude subscribing to other plans with same parent at the same time, but it is mandatory to subscribe to one of the exclusive plans.">
+							<option value="0">Not exclusive, other plans of same parent can be subscribed same time, and subscription is not mandatory</option>
+							<option value="1">Exclusive, other plans of same parent cannot be subscribed same time, but one subscription is mandatory</option>
+						</param>
+						<param name="hidechildren" type="list" default="0" label="Hide children plans if unselected" description="Select 'No' if children plans should always be visible at registration. Select 'Yes', if they should not be visible until this plan is selected.">
+							<option value="0">No, children plans always visible, if any</option>
+							<option value="1">Yes, hide children plans if not selected, if any</option>
+						</param>
+						<fieldset name="templatesettings" label="Template / CSS" description="">
+							<extend toxpathnode="/cbxml/types/type[@name=&quot;templates_list&quot;]" fromxpathnode="/*/types/type[@name=&quot;templates_list&quot;]/option" file="templates/*/xml/edit.template" />
+							<param name="template" type="xml:templates_list" default="" label="Template for displaying this plan" description="You can choose the template by product type">
+								<option value="">The template chosen in the global CBSubs Settings</option>
+							</param>
+							<if name="template" operator="!=" value="template" valuetype="param:string" type="showhide">
+								<param name="warning_template_changed" type="spacer" label="Template settings" cssclass="cbSmallWarning" default="As selected template is not yet set or change saved, first apply plan settings to see specific settings for the template." />
+							</if>
+							<if name="template" operator="!=" value="" valuetype="const:string" type="condition">
+								<extend toxpathnode=".." fromxpathnode="/cbxml/templateplansettings/*" file="templates/{template}/xml/edit.template" mandatory="true" />
+							</if>
+							<param name="cssclass" type="text" size="40" default="" label="CSS class (e.g. 'cbreg_green cbreg_admin_green' )" description="The class(es) for the plan display: IMPORTANT: just separate classes with a space, no commas. Predefined color themes (front-end: cbreg_green, admin: cbreg_admin_green, both front-end and admin: cbreg_green cbreg_admin_green. Other colors (one at a time, no commas): cbreg_red cbreg_admin_red, cbreg_blue cbreg_admin_blue, cbreg_yellow cbreg_admin_yellow, cbreg_cyan cbreg_admin_cyan, cbreg_magenta cbreg_admin_magenta, cbreg_orange cbreg_admin_orange, same with cbreg_lime cbreg_admin_lime, cbreg_turquoise_1 ... cbreg_turquoise_5 cbreg_admin_turquoise_1 ... cbreg_admin_turquoise_5" />
+						</fieldset>
+					</fieldset>
+					<fieldset name="workflows" label="Website workflow texts" description="">
+						<param name="thankyoutextcompleted" type="htmlarea" rows="12" cols="50" height="200" default="Thank you for subscribing. You can manage your subscriptions anytime from your user profile." label="Thank-you text (payment completed)" description="The text displayed after payment completed or end of registration process for this plan (language translations are supported)." />
+						<param name="thankyoutextpending" type="htmlarea" rows="12" cols="50" height="200" default="" label="Thank-you text (payment pending)" description="The text displayed after payment pending or registration pending approval for this plan (language translations are supported)." />
+					</fieldset>
+					<fieldset name="substitutionshelp" label="Substitutions in Thank You messages and workflow Emails" description="Substitutions allow to personalize the Thank You messages and in workflow emails subject and body. Following substitutions can be used:">
+						<param type="spacer" name="substitutionshelp_user" label="User fields substitutions"           default="[USERNAME], [NAME], [EMAIL], [cb_anycbfieldname]" description="" />
+						<param type="spacer" name="substitutionshelp_plans" label="Plan/Product substitutions"      default="[PLAN_NAME], [PLAN_ALIAS], [PLAN_DESCRIPTION], [PLAN_REGISTRATION_PRICE] and [PLAN_UPGRADE_PRICE] (both display period and price), [PLAN_PRICE] (display generic period and price for plan, or amount donated for donation with currency, or price with currency of product for a merchandise), [PLAN_RATE] and [PLAN_FIRST_RATE] are numeric values, and in case of donations, the donation amount converted into the donation plan's currency" description="" />
+						<if name="item_type" operator="=" value="usersubscription" valuetype="const:string" type="condition">
+							<param type="spacer" name="substitutionshelp_subscr" label="User Subscription substitutions" default="[SUBSCRIPTION_SIGNUP_DATE], [SUBSCRIPTION_EXPIRY_DATE], [SUBSCRIPTION_LAST_RENEWAL_DATE], [SUBSCRIPTION_VALIDITY_PERIOD_REMAINING], [SUBSCRIPTION_EXPIRY_DATE_IF_RENEWED], [SUBSCRIPTION_VALIDITY_PERIOD_IF_RENEWED], [SUBSCRIPTION_RENEWAL_PRICE] (displays period and price)" description="" />
+						</if>
+					</fieldset>
+					<fieldset label="Email workflow texts" description="Emails sent on activation and on expiry of this plan:">
+						<fieldset label="Email on first activation" description="This is the email that can be sent when someone activates this subscription the first time (not on renewals), by either having his corresponding payment completed, or for free first periods or subscriptions, having the subscription activated. Leave blank for no email sent.">
+							<param name="thankyouemailsubject" type="text" size="50" default="" label="Thank-you email subject (subscription active)" description="The subject of the email sent to user after payment completed for this plan (language translations are supported)." />
+							<param name="thankyouemailbody" type="textarea" rows="12" cols="50" default="" label="Thank-you Email body (subscription active)" description="The body of the email sent to user after payment completed for this plan (language translations are supported)." />
+							<param name="thankyouemailhtml" type="list" default="0" label="Send email in" description="If the thank-you email should be sent in Text or HTML. HTML is not recommended, as spam-filters add probabibility for spamming-detection when an email is sent in HTML.">
+								<option value="0">Text (recommended)</option>
+								<option value="1">HTML (not recommended)</option>
+							</param>
+							<param name="thankyouemailattachments" type="text" size="50" default="" label="Email attachments (absolute server paths)" description="File(s) to attach to the thank-you email (provide full &lt;strong&gt;file path, e.g. /home/user/private/... &lt;/strong&gt; to files on server, separate multiple files by a comma ','). Avoid putting files in public web directory." />
+							<param name="thankyouemailcc" type="text" size="50" default="" label="CC email to addresses" description="The addresses to Carbon-Copy (CC) the thank-you email (separate multiple addresses by a comma ',')." />
+							<param name="thankyouemailbcc" type="text" size="50" default="" label="BCC email to addresses" description="The addresses to Blind-Carbon-Copy (BCC) the thank-you email (separate multiple addresses by a comma ',')." />
+						</fieldset>
+						<fieldset label="Email on pending first payment" description="This is the email that can be sent when someone initiates payment for this subscription the first time (not a renewal), but his corresponding payment remains pending and not completed. Leave blank for no email sent.">
+							<param name="pendingfirstemailsubject" type="text" size="50" default="" label="Thank-you email subject (payment pending)" description="The subject of the email sent to user when payment is pending for this plan (language translations are supported)." />
+							<param name="pendingfirstemailbody" type="textarea" rows="12" cols="50" default="" label="Thank-you Email body (payment pending)" description="The body of the email sent to user when payment is pending for this plan (language translations are supported)." />
+							<param name="pendingfirstemailhtml" type="list" default="0" label="Send email in" description="If the thank-you email should be sent in Text or HTML. HTML is not recommended, as spam-filters add probabibility for spamming-detection when an email is sent in HTML.">
+								<option value="0">Text (recommended)</option>
+								<option value="1">HTML (not recommended)</option>
+							</param>
+							<param name="pendingfirstemailattachments" type="text" size="50" default="" label="Email attachments (absolute server paths)" description="File(s) to attach to the thank-you email (provide full &lt;strong&gt;file path, e.g. /home/user/private/... &lt;/strong&gt; to files on server, separate multiple files by a comma ','). Avoid putting files in public web directory." />
+							<param name="pendingfirstemailcc" type="text" size="50" default="" label="CC email to addresses" description="The addresses to Carbon-Copy (CC) the thank-you email (separate multiple addresses by a comma ',')." />
+							<param name="pendingfirstemailbcc" type="text" size="50" default="" label="BCC email to addresses" description="The addresses to Blind-Carbon-Copy (BCC) the thank-you email (separate multiple addresses by a comma ',')." />
+						</fieldset>
+						<fieldset label="Email at each manual renewal" description="This is the email that can be sent when someone renews manualy this subscription (not the first time), by either having his corresponding payment completed, or for free periods or subscriptions, having the subscription re-activated. Leave blank for no email sent.">
+							<param name="renewalemailsubject" type="text" size="50" default="" label="Renewal email subject (subscription active)" description="The subject of the email sent to user after payment completed for this plan (language translations are supported)." />
+							<param name="renewalemailbody" type="textarea" rows="12" cols="50" default="" label="Renewal Email body (subscription active)" description="The body of the email sent to user after payment completed for this plan (language translations are supported)." />
+							<param name="renewalemailhtml" type="list" default="0" label="Send email in" description="If the renewal email should be sent in Text or HTML. HTML is not recommended, as spam-filters add probabibility for spamming-detection when an email is sent in HTML.">
+								<option value="0">Text (recommended)</option>
+								<option value="1">HTML (not recommended)</option>
+							</param>
+							<param name="renewalemailattachments" type="text" size="50" default="" label="Email attachments (absolute server paths)" description="File(s) to attach to the renewal email (provide full &lt;strong&gt;file path, e.g. /home/user/private/... &lt;/strong&gt; to files on server, separate multiple files by a comma ','). Avoid putting files in public web directory." />
+							<param name="renewalemailcc" type="text" size="50" default="" label="CC email to addresses" description="The addresses to Carbon-Copy (CC) the renewal email (separate multiple addresses by a comma ',')." />
+							<param name="renewalemailbcc" type="text" size="50" default="" label="BCC email to addresses" description="The addresses to Blind-Carbon-Copy (BCC) the renewal email (separate multiple addresses by a comma ',')." />
+						</fieldset>
+						<fieldset label="Email on pending payment of manual renewal" description="This is the email that can be sent when someone initiates payment for a manual renewal of this subscription, but his corresponding payment remains pending and not completed. Leave blank for no email sent.">
+							<param name="pendingrenewalemailsubject" type="text" size="50" default="" label="Thank-you email subject (payment pending)" description="The subject of the email sent to user when payment is pending for this plan (language translations are supported)." />
+							<param name="pendingrenewalemailbody" type="textarea" rows="12" cols="50" default="" label="Thank-you Email body (payment pending)" description="The body of the email sent to user when payment is pending for this plan (language translations are supported)." />
+							<param name="pendingrenewalemailhtml" type="list" default="0" label="Send email in" description="If the thank-you email should be sent in Text or HTML. HTML is not recommended, as spam-filters add probabibility for spamming-detection when an email is sent in HTML.">
+								<option value="0">Text (recommended)</option>
+								<option value="1">HTML (not recommended)</option>
+							</param>
+							<param name="pendingrenewalemailattachments" type="text" size="50" default="" label="Email attachments (absolute server paths)" description="File(s) to attach to the thank-you email (provide full &lt;strong&gt;file path, e.g. /home/user/private/... &lt;/strong&gt; to files on server, separate multiple files by a comma ','). Avoid putting files in public web directory." />
+							<param name="pendingrenewalemailcc" type="text" size="50" default="" label="CC email to addresses" description="The addresses to Carbon-Copy (CC) the thank-you email (separate multiple addresses by a comma ',')." />
+							<param name="pendingrenewalemailbcc" type="text" size="50" default="" label="BCC email to addresses" description="The addresses to Blind-Carbon-Copy (BCC) the thank-you email (separate multiple addresses by a comma ',')." />
+						</fieldset>
+						<fieldset label="Email at each automatic renewal" description="This is the email that can be sent when someone gets an automated payment debited and renewal of this subscription (not the first time), by either having his corresponding payment completed, or for free periods or subscriptions, having the subscription re-activated. Leave blank for no email sent.">
+							<param name="autorenewalemailsubject" type="text" size="50" default="" label="Auto-renewal email subject (subscription active)" description="The subject of the email sent to user after auto-recurring payment completed for this plan (language translations are supported)." />
+							<param name="autorenewalemailbody" type="textarea" rows="12" cols="50" default="" label="Auto-renewal Email body (subscription active)" description="The body of the email sent to user after auto-recurring payment completed for this plan (language translations are supported)." />
+							<param name="autorenewalemailhtml" type="list" default="0" label="Send email in" description="If the Auto-renewal email should be sent in Text or HTML. HTML is not recommended, as spam-filters add probabibility for spamming-detection when an email is sent in HTML.">
+								<option value="0">Text (recommended)</option>
+								<option value="1">HTML (not recommended)</option>
+							</param>
+							<param name="autorenewalemailattachments" type="text" size="50" default="" label="Email attachments (absolute server paths)" description="File(s) to attach to the renewal email (provide full &lt;strong&gt;file path, e.g. /home/user/private/... &lt;/strong&gt; to files on server, separate multiple files by a comma ','). Avoid putting files in public web directory." />
+							<param name="autorenewalemailcc" type="text" size="50" default="" label="CC email to addresses" description="The addresses to Carbon-Copy (CC) the renewal email (separate multiple addresses by a comma ',')." />
+							<param name="autorenewalemailbcc" type="text" size="50" default="" label="BCC email to addresses" description="The addresses to Blind-Carbon-Copy (BCC) the renewal email (separate multiple addresses by a comma ',')." />
+						</fieldset>
+						<fieldset label="Email on expiration" description="This is the email that can be sent when this subscription expires. Leave blank for no email sent.">
+							<param name="expirationemailsubject" type="text" size="50" default="" label="Expiration email subject (subscription active)" description="The subject of the email sent to user after expiration of this plan (language translations are supported)." />
+							<param name="expirationemailbody" type="textarea" rows="12" cols="50" default="" label="Expiration Email body (subscription active)" description="The body of the email sent to user after expiration of this plan (language translations are supported)." />
+							<param name="expirationemailhtml" type="list" default="0" label="Send email in" description="If the expiration email should be sent in Text or HTML. HTML is not recommended, as spam-filters add probabibility for spamming-detection when an email is sent in HTML.">
+								<option value="0">Text (recommended)</option>
+								<option value="1">HTML (not recommended)</option>
+							</param>
+							<param name="expirationemailattachments" type="text" size="50" default="" label="Email attachments (absolute server paths)" description="File(s) to attach to the expiration email (provide full &lt;strong&gt;file path, e.g. /home/user/private/... &lt;/strong&gt; to files on server, separate multiple files by a comma ','). Avoid putting files in public web directory." />
+							<param name="expirationemailcc" type="text" size="50" default="" label="CC email to addresses" description="The addresses to Carbon-Copy (CC) the expiration email (separate multiple addresses by a comma ',')." />
+							<param name="expirationemailbcc" type="text" size="50" default="" label="BCC email to addresses" description="The addresses to Blind-Carbon-Copy (BCC) the expiration email (separate multiple addresses by a comma ',')." />
+						</fieldset>
+						<fieldset label="Email on cancellation by user" description="This is the email that can be sent when this subscription is cancelled by user. Leave blank for no email sent.">
+							<param name="cancelledemailsubject" type="text" size="50" default="" label="Cancellation email subject (subscription active)" description="The subject of the email sent to user after he cancells this plan (language translations are supported)." />
+							<param name="cancelledemailbody" type="textarea" rows="12" cols="50" default="" label="Cancellation Email body (subscription active)" description="The body of the email sent to user after cancellation of this plan (language translations are supported)." />
+							<param name="cancelledemailhtml" type="list" default="0" label="Send email in" description="If the cancellation email should be sent in Text or HTML. HTML is not recommended, as spam-filters add probabibility for spamming-detection when an email is sent in HTML.">
+								<option value="0">Text (recommended)</option>
+								<option value="1">HTML (not recommended)</option>
+							</param>
+							<param name="cancelledemailattachments" type="text" size="50" default="" label="Email attachments (absolute server paths)" description="File(s) to attach to the cancellation email (provide full &lt;strong&gt;file path, e.g. /home/user/private/... &lt;/strong&gt; to files on server, separate multiple files by a comma ','). Avoid putting files in public web directory." />
+							<param name="cancelledemailcc" type="text" size="50" default="" label="CC email to addresses" description="The addresses to Carbon-Copy (CC) the cancellation email (separate multiple addresses by a comma ',')." />
+							<param name="cancelledemailbcc" type="text" size="50" default="" label="BCC email to addresses" description="The addresses to Blind-Carbon-Copy (BCC) the cancellation email (separate multiple addresses by a comma ',')." />
+						</fieldset>
+					</fieldset>
+				</tabpanetab>
+				<showview name="integrations" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.],user/plug_cbpaidsubscriptions/processors" action="" path="payproductsettingspresentation" />
+				<tabpanetab name="plan_workflows" label="Workflows" description="Plan settings: Registration and profile workflows:">
+					<param name="default" type="xml:yesno" default="0" label="Selected by default" description="Is this plan already ticked by default ? (choose only one for exclusive plans)" />
+					<fieldset label="Registration CB workflows" description="">
+						<param name="allow_registration" type="xml:yesno" default="1" label="Allow registration" description="Show this plan at user registration and allow subscribing to this plan at registration by guests." />
+						<if name="allow_registration" type="showhide" operator="&gt;=" value="1" valuetype="const:int">
+							<param name="propose_registration" type="list" default="1" label="Propose spontaneously plan at registration" description="Propose this plan at user registration or No: hide it unless specifically linked to specifically by the URL above or, optionally if needed to access an item which got blocked by access control.">
+								<option value="1">Yes: show automatically plan for normal registrations (recommended)</option>
+								<option value="0">No: hide this plan from registration, unless included in URL or needed for access</option>
+								<option value="2">No: hide this plan from registration and from access proposals, unless specifically included in URL</option>
+							</param>
+							<param name="confirmed" type="xml:cbpworkflow" default="2" label="User Email Confirmation" description="ALSO requires user to confirm his email before getting activated" />
+							<param name="approved" type="xml:cbpworkflow" default="2" label="User Approval by Moderator" description="ALSO Requires user to be approved by CB Moderator before getting activated" />
+							<param name="hideregistrationfields" type="multifield" registration="true" default="" size="25" label="Hides fields at registration" description="Does selecting this plan hide any fields at registration ? Choose multiple fields with CRTL-click (PC) or CMD-click (Mac).">
+								<where>
+									<column name="published" operator="=" value="1" type="sql:field" valuetype="const:int" />
+									<column name="registration" operator="=" value="1" type="sql:field" valuetype="const:int" />
+									<column name="enabled" operator="=" value="1" type="sql:field" valuetype="const:int">
+										<data  name="enabled" type="sql:field" table="#__comprofiler_tabs" class="\CB\Database\Table\TabTable" key="tabid" value="tabid" valuetype="sql:field" />
+									</column>
+								</where>
+							</param>
+							<fieldset name="registration_conds" label="Dynamic Conditions on other plans and CB Fields to show this plan and to allow subscribing to it" description="">
+								<param name="reg_conds" type="list" default="0" blanktext="--- None (click to add dynamic conditions if needed) ---" hideblanktext="false" label="Conditions" description="Here you can enable additional conditions to dynamically show this plan or not on the registration page, depending on other plans and on CB fields.">
+									<option value="1">These conditions must be met on the registration form to show this plan at registration:</option>
+								</param>
+								<if name="reg_conds" operator="=" value="1" valuetype="const:string" type="showhide">
+									<fieldset name="reg_conds_plans_fieldset" label="Conditions on other plans to show this plan at registration" description="">
+										<param name="reg_conds_plans_required"     type="list_sql" table="#__cbsubs_plans" key="id" order="ordering" title="alias" multiple="true" default="" blanktext="--- None is needed ---" hideblanktext="false" label="Any of the following plans must also be selected"    description="Select the plans that must be subscribed same time for this condition to apply (CTR/CMD-click: multiple)." />
+										<param name="reg_conds_plans_not_required" type="list_sql" table="#__cbsubs_plans" key="id" order="ordering" title="alias" multiple="true" default="" blanktext="--- None is not allowed ---" hideblanktext="false" label="None of the following plans can also be selected"    description="Select the plans that cannot be subscribed same time for this condition to apply (CTR/CMD-click: multiple)." />
+									</fieldset>
+									<fieldset name="reg_conds_fields_fieldset" label="Conditions on CB Fields to show plan at registration" description="">
+										<param name="reg_conds_fields_required" type="multifield" registration="true" default="" blanktext="--- None is required ---" hideblanktext="false" size="25" label="All of following CB fields must be filled-in/selected at registration" description="Select fields that must all be filled-in at registration for plan to become visible. Choose multiple fields with CRTL-click (PC) or CMD-click (Mac).">
+											<where>
+												<column name="published" operator="=" value="1" type="sql:field" valuetype="const:int" />
+												<column name="registration" operator="=" value="1" type="sql:field" valuetype="const:int" />
+												<column name="enabled" operator="=" value="1" type="sql:field" valuetype="const:int">
+													<data  name="enabled" type="sql:field" table="#__comprofiler_tabs" class="\CB\Database\Table\TabTable" key="tabid" value="tabid" valuetype="sql:field" />
+												</column>
+											</where>
+										</param>
+										<param name="reg_conds_fields_not_required" type="multifield" registration="true" default="" blanktext="--- None must be empty ---" hideblanktext="false" size="25" label="And all of following CB fields must be empty/unselected at registration" description="Select fields that must all be empty at registration for plan to become visible. Choose multiple fields with CRTL-click (PC) or CMD-click (Mac).">
+											<where>
+												<column name="published" operator="=" value="1" type="sql:field" valuetype="const:int" />
+												<column name="registration" operator="=" value="1" type="sql:field" valuetype="const:int" />
+												<column name="enabled" operator="=" value="1" type="sql:field" valuetype="const:int">
+													<data  name="enabled" type="sql:field" table="#__comprofiler_tabs" class="\CB\Database\Table\TabTable" key="tabid" value="tabid" valuetype="sql:field" />
+												</column>
+											</where>
+										</param>
+										<param name="reg_conds_cbfield_1" type="field" size="" default="" label="And following CB Field" blanktext="--- ignore this condition ---" hideblanktext="false" description="Select field to compare." />
+										<if name="reg_conds_cbfield_1" operator="!=" value="" valuetype="const:string" type="showhide">
+											<param name="reg_conds_cbfield_1_operator" type="list" default="=" hideblanktext="true" label="Condition" description="Set the condition">
+												<option value="=">= (Is equal to)</option>
+												<option value="!=">&lt;&gt; (Is different from)</option>
+												<option value="&lt;">&lt; (Is Smaller than)</option>
+												<option value="&gt;">&gt; (Is Larger than)</option>
+												<option value="E">Contains</option>
+												<option value="!E">Does not contain</option>
+												<option value="regexp">Matches regexp below</option>
+												<option value="!regexp">Does not match regexp below</option>
+											</param>
+											<param name="reg_conds_value_1" type="text" size="60" default="" label="Value" description="Type 1st value to compare to (CB fields substitutions are not possible here as we are in registration page!). Regular expressions must be valid and including the delimiter / at begin and at end of the regular expression." />
+										</if>
+									</fieldset>
+								</if>
+							</fieldset>
+						</if>
+					</fieldset>
+					<fieldset label="Subscriptions upgrades workflows" description="">
+						<param name="allow_upgrade_to_this" type="xml:yesno" default="1" label="Allow upgrade to this" description="Allow logged-in users to upgrade to this plan. Joomla users without subscriptions will also be allowed to upgrade to this." />
+						<if name="allow_upgrade_to_this" type="showhide" operator="&gt;=" value="1" valuetype="const:int">
+							<param name="auto_compute_upgrade" type="list" default="1" label="Propose plan for upgrades only if it is more expensive" description="By default, this plan will be proposed for upgrades only if it's more expensive. Here you can switch this setting off, and if needed add your own conditions below.">
+								<option value="1">Yes: It will be possible to upgrade to this plan only if it's more expensive (default)</option>
+								<option value="0">No:  It will be possible to upgrade to this plan (for free with pro-rating) if all conditions below and elsewhere are met</option>
+							</param>
+							<param name="propose_upgrade" type="list" default="1" label="Propose spontaneously plan for upgrades" description="Propose this plan for upgrades or No: hide it unless specifically linked to specifically by the URL above or, optionally if needed to access an item which got blocked by access control.">
+								<option value="1">Yes: show automatically plan for normal upgrades (recommended)</option>
+								<option value="0">No: hide this plan from upgrades, unless included in URL or needed for access</option>
+								<option value="2">No: hide this plan from upgrades and from access proposals, unless specifically included in URL</option>
+							</param>
+							
+							<fieldset name="upgrade_existingconds" label="Static Conditions on already existing subscriptions and CB Fields and Dates to allow upgrades" description="">
+								<param name="cond_1_operator" type="list" default="" blanktext="--- None (click to add static conditions if needed) ---" label="First static condition" description="Need a condition on existing user state, like any existing user subscription or purchase or condtion on dates, fields or values ?">
+									<option value="1">This condition must be met to allow upgrades:</option>
+									<option value="not">This condition must be NOT be met to allow upgrades:</option>
+								</param>
+								<if name="cond_1_operator" operator="!=" value="" valuetype="const:string" type="showhide">
+									<fieldset name="condition_cond_1fieldset" label="Condition 1" description="">
+										<fieldset name="condition_cond_1fieldsetSub" label="Existing subscriptions" description="">
+											<param name="cond_1_plans_required" type="list_sql" table="#__cbsubs_plans" key="id" order="ordering" filterkey="item_type" filtervalue="usersubscription" title="alias" multiple="true" default="" blanktext="--- None is needed ---" hideblanktext="true" label="Any of the following plans subscriptions"    description="Select the plans that must already be active for this condition to apply (CTR/CMD-click: multiple)." />
+											<if name="cond_1_plans_required" operator="!=" value="" valuetype="const:string" type="showhide">
+												<param name="cond_1_plans_status" type="xml:subscription_status" multiple="true" size="7" default="" blanktext="--- Not relevant ---" label="Must be in state" description="Select the states of the subscribed plans above for this condition to apply (CTR/CMD-click: multiple)." />
+												<param name="cond_1_purchase_ok" type="list" default="0" label="Or can be purchased same time" description="Do plans on same order count as already active plans in the list above for this condition to apply.">
+													<option value="0">No: those plan(s) must already be existing</option>
+													<option value="1">Yes: those plan(s) can already be existing or can be purchased same time</option>
+												</param>
+												<!-- <else action="set" name="cond_1_plans_status" value="" type="const:string" /> -->
+												<else action="set" name="cond_1_purchase_ok" value="0" type="const:int" />
+											</if>
+										</fieldset>
+										<fieldset name="condition_cond_1_fieldsetComparison" label="Dates / CB Fields Comparisons" description="">
+											<param name="cond_1_date_1" type="xml:condition_date_type" default="" label="Date A, Field A or Value A" description="Select left side of conditional comparison statement. This can be a CBSubs specific date, a CB field (any text, number or date field), or a string value (CB field substitutions can be used).">
+												<option value="">is not relevant</option>
+											</param>
+											<if name="cond_1_date_1" operator="!=" value="" valuetype="const:string" type="showhide">
+												<if name="cond_1_date_1" operator="=" value="cbfield" valuetype="const:string" type="showhide">
+													<param name="cond_1_date_cbfield_1" type="field" size="" default="" label="CB Field A" description="Select Field A to compare." />
+													<else action="set" name="cond_1_date_cbfield_1" value="0" type="const:int" />
+												</if>
+												<if name="cond_1_date_1" operator="=" value="value" valuetype="const:string" type="showhide">
+													<param name="cond_1_value_1" type="text" size="60" default="" label="Value A" description="Type Value A to compare to (CB fields substitutions are possible here!)" />
+													<else action="set" name="cond_1_value_1" value="" type="const:string" />
+												</if>
+												
+												<param name="cond_1_date_2" type="xml:condition_date_type" default="" label="Date B, Field B or Value B" blanktext="--- choose value to compare to ---" description="Select right side of conditional comparison statement: Date, CB field or a string value (CB field substitutions can be used)." />
+												<if name="cond_1_date_2" operator="=" value="cbfield" valuetype="const:string" type="showhide">
+													<param name="cond_1_date_cbfield_2" type="field" size="" default="" label="CB Field B" description="Select Field B to compare" />
+													<else action="set" name="cond_1_date_cbfield_2" value="0" type="const:int" />
+												</if>
+												<if name="cond_1_date_2" operator="=" value="value" valuetype="const:string" type="showhide">
+													<param name="cond_1_value_2" type="text" size="60" default="" label="Value B" description="Type Value B to compare to (CB fields substitutions are possible here!)" />
+													<else action="set" name="cond_1_value_2" value="" type="const:string" />
+												</if>
+												
+												<param name="cond_1_dates_diff_a" type="xml:condition_difference_time_after" default="" hideblanktext="true" blanktext="--- choose comparison condition 1 ---" label="Condition 1 (&gt; for Dates)" description="Select comparison condition between left value A and right value B from available choices. For dates, comparing ranges is possible using the second &quot;and&quot; condition appearing below this one. NOTE: date comparisons can be made only for dates after 1.1.1970." />
+												<if name="cond_1_dates_diff_a" operator="regexp" value="^[+-]" valuetype="const:string" type="showhide">
+													<param name="cond_1_dates_diff_b" type="xml:condition_difference_time_before" default="" hideblanktext="false" blanktext="And no other date condition 2" label="AND Condition 2 (&lt; for Dates)" description="For dates, you can select a second comparison condition between left value A and right value B from available choices. This allows you to check that the Date A is within a time period defined relative to the Date B." />
+													<!--		<else action="set" name="cond_1_dates_diff_b" value="" type="const:string" />
+													-->
+												</if>
+												<!--		<else action="set" name="cond_1_dates_diff_a" value="" type="const:string" />
+													<else action="set" name="cond_1_dates_diff_b" value="" type="const:string" />
+												-->
+											</if>
+										</fieldset>
+										
+									</fieldset>
+									<param name="cond_2_operator" type="list" default="" blanktext="--- Add condition ---" label="Second static condition And/Or" description="Need a second condition? How to combine condition above and below? AND or OR?">
+										<option value="and">AND</option>
+										<option value="or">OR</option>
+										<option value="xor">Either Or, but not both same time (Exclusive OR)</option>
+										<option value="andnot">AND NOT</option>
+									</param>
+									<if name="cond_2_operator" operator="!=" value="" valuetype="const:string" type="showhide">
+										<fieldset name="condition_cond_2fieldset" label="Condition 2" description="">
+											<fieldset name="condition_cond_2fieldsetSub" label="Existing subscriptions" description="">
+												<param name="cond_2_plans_required" type="list_sql" table="#__cbsubs_plans" key="id" order="ordering" filterkey="item_type" filtervalue="usersubscription" title="alias" multiple="true" default="" blanktext="--- None is needed ---" hideblanktext="true" label="Any of the following plans subscriptions"    description="Select the plans that must already be active for this condition to apply (CTR/CMD-click: multiple)." />
+												<if name="cond_2_plans_required" operator="!=" value="" valuetype="const:string" type="showhide">
+													<param name="cond_2_plans_status" type="xml:subscription_status" multiple="true" size="7" default="" blanktext="--- Not relevant ---" label="Must be in state" description="Select the states of the subscribed plans above for this condition to apply (CTR/CMD-click: multiple)." />
+													<param name="cond_2_purchase_ok" type="list" default="0" label="Or can be purchased same time" description="Do plans on same order count as already active plans in the list above for this condition to apply.">
+														<option value="0">No: those plan(s) must already be existing</option>
+														<option value="1">Yes: those plan(s) can already be existing or can be purchased same time</option>
+													</param>
+													<!-- <else action="set" name="cond_2_plans_status" value="" type="const:string" /> -->
+													<else action="set" name="cond_2_purchase_ok" value="0" type="const:int" />
+												</if>
+											</fieldset>
+											<fieldset name="condition_cond_2_fieldsetComparison" label="Dates / CB Fields Comparisons" description="">
+												<param name="cond_2_date_1" type="xml:condition_date_type" default="" label="Date A, Field A or Value A" description="Select left side of conditional comparison statement. This can be a CBSubs specific date, a CB field (any text, number or date field), or a string value (CB field substitutions can be used).">
+													<option value="">is not relevant</option>
+												</param>
+												<if name="cond_2_date_1" operator="!=" value="" valuetype="const:string" type="showhide">
+													<if name="cond_2_date_1" operator="=" value="cbfield" valuetype="const:string" type="showhide">
+														<param name="cond_2_date_cbfield_1" type="field" size="" default="" label="CB Field A" description="Select Field A to compare." />
+														<else action="set" name="cond_2_date_cbfield_1" value="0" type="const:int" />
+													</if>
+													<if name="cond_2_date_1" operator="=" value="value" valuetype="const:string" type="showhide">
+														<param name="cond_2_value_1" type="text" size="60" default="" label="Value A" description="Type Value A to compare to (CB fields substitutions are possible here!)" />
+														<else action="set" name="cond_2_value_1" value="" type="const:string" />
+													</if>
+													
+													<param name="cond_2_date_2" type="xml:condition_date_type" default="" label="Date B, Field B or Value B" blanktext="--- choose value to compare to ---" description="Select right side of conditional comparison statement: Date, CB field or a string value (CB field substitutions can be used)." />
+													<if name="cond_2_date_2" operator="=" value="cbfield" valuetype="const:string" type="showhide">
+														<param name="cond_2_date_cbfield_2" type="field" size="" default="" label="CB Field B" description="Select Field B to compare" />
+														<else action="set" name="cond_2_date_cbfield_2" value="0" type="const:int" />
+													</if>
+													<if name="cond_2_date_2" operator="=" value="value" valuetype="const:string" type="showhide">
+														<param name="cond_2_value_2" type="text" size="60" default="" label="Value B" description="Type Value B to compare to (CB fields substitutions are possible here!)" />
+														<else action="set" name="cond_2_value_2" value="" type="const:string" />
+													</if>
+													
+													<param name="cond_2_dates_diff_a" type="xml:condition_difference_time_after" default="" hideblanktext="true" blanktext="--- choose comparison condition 1 ---" label="Condition 1 (&gt; for Dates)" description="Select comparison condition between left value A and right value B from available choices. For dates, comparing ranges is possible using the second &quot;and&quot; condition appearing below this one. NOTE: date comparisons can be made only for dates after 1.1.1970." />
+													<if name="cond_2_dates_diff_a" operator="regexp" value="^[+-]" valuetype="const:string" type="showhide">
+														<param name="cond_2_dates_diff_b" type="xml:condition_difference_time_before" default="" hideblanktext="false" blanktext="And no other date condition 2" label="AND Condition 2 (&lt; for Dates)" description="For dates, you can select a second comparison condition between left value A and right value B from available choices. This allows you to check that the Date A is within a time period defined relative to the Date B." />
+														<!--		<else action="set" name="cond_2_dates_diff_b" value="" type="const:string" />
+														-->
+													</if>
+													<!--		<else action="set" name="cond_2_dates_diff_a" value="" type="const:string" />
+														<else action="set" name="cond_2_dates_diff_b" value="" type="const:string" />
+													-->
+												</if>
+											</fieldset>
+										</fieldset>
+									</if>
+								</if>
+							</fieldset>
+							<fieldset name="upgrade_conds_fieldset" label="Dynamic Conditions on other plans to show this plan and to allow upgrading to it" description="">
+								<param name="upgrade_conds" type="list" default="0" blanktext="--- None (click to add dynamic conditions if needed) ---" hideblanktext="false" label="Dynamic Conditions (with Javascript animations)" description="Here you can enable additional conditions to dynamically show this plan or not on the upgrade page, depending on other plans.">
+									<option value="1">These conditions must be met to show this plan dynamically as upgrade:</option>
+								</param>
+								<if name="upgrade_conds" operator="=" value="1" valuetype="const:string" type="showhide">
+									<fieldset name="upgrade_conds_plans_fieldset" label="Conditions on other plans to show this plan at registration" description="">
+										<param name="upgrade_conds_plans_required"     type="list_sql" table="#__cbsubs_plans" key="id" order="ordering" title="alias" multiple="true" default="" blanktext="--- None is needed ---" hideblanktext="false" label="Any of the following plans must also be selected"    description="Select the plans that must be subscribed same time for this condition to apply (CTR/CMD-click: multiple)." />
+										<param name="upgrade_conds_plans_disallowing" type="list_sql" table="#__cbsubs_plans" key="id" order="ordering" title="alias" multiple="true" default="" blanktext="--- None is disallowing ---" hideblanktext="false" label="None of the following plans can also be selected"    description="Select the plans that cannot be subscribed same time for this condition to apply (CTR/CMD-click: multiple)." />
+									</fieldset>
+								</if>
+							</fieldset>
+						</if>
+					</fieldset>
+					<fieldset label="CB Login workflows" description="">
+						<param name="firstloginurl" type="text" size="50" default="" label="URL for first login visit" description="IMPORTANT: the CB configuration registration first URL must be empty for this to work on a by plan basis. Enter the URL of page to display on the very first login after registration. This page may contain your welcome message to new members and/or special instructions, or redirect the user to complete his profile. Leave blank for normal login also the first time." />
+						<param name="eachloginurl"  type="text" size="50" default="" label="URL for every login" description="Enter the URL of page to display on each (following) login. This page may contain a landing page particular to this subscription plan. Leave blank for normal login." />
+					</fieldset>
+				</tabpanetab>
+				<tabpanetab name="plan_access" label="Access" description="Plan settings:">
+					<fieldset name="access_fieldset" label="Access" description="">
+						<param name="published" type="xml:yesno" default="1" label="Published" description="To become available, a plan needs to be published." />
+						<param name="allow_newsubscriptions" type="xml:yesno" default="1" label="Allow new subscriptions" description="Allow new subscriptions to this plan. If not, the plan will not be visible for new subscriptions, but still remain valid for existing subscriptions." />
+						<param name="allow_frontend" type="list" default="1" label="Allow access from site frontend" description="Yes: Allow new subscriptions and upgrades to this plan from frontend and backend. If not, the plan will not be visible and available in frontend, but only in backend.">
+							<option value="0">No: this plan is not visible in site, only in admin backend</option>
+							<option value="1">Yes: this plan is visible on the site (recommended)</option>
+						</param>
+						<param name="viewaccesslevel" type="viewaccesslevel" default="1" label="Visible for Access Level" description="To which CMS Access Level this plan is visible (default access level for unregistered and registered users is 'Public' and for registered users only is 'Registered')." />
+						<!-- TODO: REMOVE BELOW ONE SOMETIME...: above replacement was added in CBSubs 1.3.0 -->
+						<param name="access" type="usergroup" size="1" default="Public" label="Visible for Group (and above this group)" description="The user group (and levels above) which can see and choose this plan (default user group for unregistered and registered users is 'Public Frontend' and for registered users only is 'Registered')." />
+					</fieldset>
+					<!--
+					<params name="conditions" type="params">
+						<param name="freeconditions" type="textarea" rows="12" cols="50" default="" label="Conditions for subscribing" description="???" />
+					</params>
+					-->
+				</tabpanetab>
+				<showview name="integrations" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.],user/plug_cbpaidsubscriptions/processors" action="" path="payproductsettingsmisc" />
+				<tabpanetab name="plan_integrations" label="Integrations" description="Integrations settings (if integrating plugins are loaded):">
+					<params name="integrations" type="params">
+						<tabpane name="cpayintegrations">
+							<showview name="integrations" mode="edit" type="plugins" groups="user/plug_cbpaidsubscriptions/plugin,user[cbsubs.],user/plug_cbpaidsubscriptions/processors" action="" path="payintegration" />
+							<!-- TODO : add processors not by installs but by folders and status of processor: Bug #2534: 2checkout gateway: autorecurings: plan integration tab for 2co product id not visible without installing 2co gateway -->
+						</tabpane>
+						<!--
+						<showview name="integrations" mode="edit" type="private" class="cbpaidParamsExt" method="viewintegrations" />
+						-->
+					</params>
+				</tabpanetab>
+			</tabpane>
+		</view>
+	</views>
+</cbxml>

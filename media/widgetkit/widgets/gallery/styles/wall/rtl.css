@@ -1,0 +1,7 @@
+/*
+ * RTL Style Sheet
+ */
+
+.wk-gallery-wall > img,
+.wk-gallery-wall > div,
+.wk-gallery-wall > a { float: right; }

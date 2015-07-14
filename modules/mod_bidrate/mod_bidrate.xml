@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="1.6.0" method="upgrade">
+	<name>Auction Factory Quick Rate</name>
+	<author>thefactory.ro</author>
+	<creationDate>Sept 2010</creationDate>
+	<copyright>(C) 2010 commercial.</copyright>
+	<license>commercial</license>
+	<authorEmail>contact@thefactory.ro</authorEmail>
+	<authorUrl>www.thefactory.ro</authorUrl>
+	<version>1.0.0</version>
+	<description>Available Ratings to award.</description>
+	<files>
+		<filename module="mod_bidrate">mod_bidrate.php</filename>
+		<filename>index.html</filename>
+		<filename>helper.php</filename>
+		<folder>tmpl</folder>
+	</files>	
+	<config>
+        <fields name="params">
+            <fieldset name="basic">
+				<field name="type" type="list" default="1" label="Show Only" description="Select kind of ratings to display">
+					<option value="1">Both as Seller and Bidder</option>
+					<option value="2">Only as Seller</option>
+					<option value="3">Only as Bidder</option>
+				</field>
+				<field name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
+			</fieldset>		
+			<fieldset group="advanced">
+				<field name="cache" type="list" default="1" label="Caching" description="Select whether to cache the content of this module">
+					<option value="1">Use global</option>
+					<option value="0">No caching</option>
+				</field>
+				<field name="cache_time" type="text" default="900" label="Cache Time" description="The time before the module is recached" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>

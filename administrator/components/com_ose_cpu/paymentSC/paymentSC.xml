@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<code>OSE Payment Shopping Cart Code:201012231155</code>
+	<classes>
+		<class path="" extend="test">paymentSC</class>
+	</classes>
+	
+	<files>
+		<file path="" extend="test">osePaymentSCOrder.php</file>
+		<file path="" extend="test">osePaymentSCCart.php</file>
+	</files>
+	
+</document>

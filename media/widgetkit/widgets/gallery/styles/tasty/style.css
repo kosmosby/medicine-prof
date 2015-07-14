@@ -1,0 +1,123 @@
+/*
+ * Widgetkit Gallery: Tasty Style
+ */
+
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-inside-tasty .nav {
+	position: absolute;
+	bottom: 0;
+	z-index: 3;
+	width: 100%; /* IE9 + IE8 */
+	overflow: hidden;
+}
+
+.wk-slideshow-inside-tasty .nav li {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	position: relative;
+	padding: 5px 5px 0 0;
+	background: #fff;
+	float: left;
+}
+
+.wk-slideshow-inside-tasty .nav li:before { 
+	display: none;
+	content: "";
+	position: absolute;
+	top: 10px;
+	bottom: 5px;
+	left: 5px;
+	right: 10px;
+	background: url(images/magnifier.png) 50% 50% no-repeat;
+	background-size: contain;
+}
+.wk-slideshow-inside-tasty .nav li:hover:before { 
+	display: block;
+	background-color: #434343;
+	background-color: rgba(67,67,67,0.85);
+}
+
+.wk-slideshow-inside-tasty .nav:hover img { 
+	filter: alpha(opacity = 40);	
+	opacity: 0.4; 
+}
+.wk-slideshow-inside-tasty .nav li:hover img { 
+	filter: alpha(opacity = 100);
+	opacity: 1;
+}
+
+/* Transition */
+.wk-slideshow-inside-tasty .nav li img {
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+/* For IE8
+----------------------------------------------------------------------------------------------------*/
+
+.wk-ie8 .wk-slideshow-inside-tasty .nav li { z-index: 1; }
+
+.wk-ie8 .wk-slideshow-inside-tasty .nav li img {
+	position: relative;
+	z-index: -1;
+}
+
+.wk-ie8 .wk-slideshow-inside-tasty .nav li:before { visibility: hidden; }
+.wk-ie8 .wk-slideshow-inside-tasty .nav li:hover:before { visibility: visible; }
+
+
+/* Buttons
+----------------------------------------------------------------------------------------------------*/
+
+
+.wk-slideshow-inside-tasty > div { position: relative; }
+
+.wk-slideshow-inside-tasty > div:hover .next,
+.wk-slideshow-inside-tasty > div:hover .prev {
+	top: 50%;
+	width: 44px;
+	height: 44px;
+	margin-top: -25px;
+	background: url(images/buttons.png) 0 50px no-repeat;
+}
+
+.wk-slideshow-inside-tasty > div:hover .next {
+	right: -15px;
+	background-position: 0 0;
+}
+.wk-slideshow-inside-tasty > div:hover .next:hover { background-position: 0 -100px; }
+.wk-slideshow-inside-tasty > div:hover .next:active { background-position: 0 -200px; }
+
+.wk-slideshow-inside-tasty > div:hover .prev {
+	left: -15px;
+	background-position: 0 -50px;
+}
+.wk-slideshow-inside-tasty > div:hover .prev:hover { background-position: 0 -150px; }
+.wk-slideshow-inside-tasty > div:hover .prev:active { background-position: 0 -250px; }
+
+
+
+/* Caption
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-inside-tasty .caption {
+	bottom: auto;
+	top: 0;
+}
+
+
+/* Responsive
+----------------------------------------------------------------------------------------------------*/
+
+/* Only Touch Devices */
+@media (max-device-width: 1024px) {
+
+	.wk-slideshow-inside-tasty .next,
+	.wk-slideshow-inside-tasty .prev { display: none; }
+
+}

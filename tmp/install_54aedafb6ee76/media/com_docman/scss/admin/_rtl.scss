@@ -1,0 +1,126 @@
+#documents-sidebar, #files-sidebar {
+  border-right: 0;
+  border-left: 1px solid #ddd;
+}
+.fltlft {
+  float: right;
+}
+
+// Sidebar
+.docman-main-nav li.active::before, .docman-main-nav li.active::after {
+  border-left: 0;
+  border-right: 0px solid #ddd;
+  border-left-width: 0;
+  border-right-width: 12px;
+  box-shadow: inset black 0 2px 0;
+  left: auto;
+  right: 0px;
+}
+.docman-main-nav li a {
+  padding-left: 0;
+  padding-right: 20px;
+}
+.docman-main-nav li.active a::before {
+  content: -webkit-linear-gradient(left, rgba(0,0,0,0.2), rgba(0,0,0,0.05) 75%, transparent);
+  content: -moz-linear-gradient(left, rgba(0,0,0,0.2), rgba(0,0,0,0.05) 75%, transparent);
+  content: -ms-linear-gradient(left, rgba(0,0,0,0.2), rgba(0,0,0,0.05) 75%, transparent);
+  content: linear-gradient(left, rgba(0,0,0,0.2), rgba(0,0,0,0.05) 75%, transparent);
+  left: auto;
+  right: -2px;
+}
+.docman-main-nav li.active a::after {
+  border-left: 0;
+  border-right: 11px solid transparent;
+  border-left-width: 0;
+  border-right-width: 13px;
+  left: auto;
+  right: 0px;
+}
+#documents-sidebar {
+  h3 {
+    padding: 3px 5px 3px 8px;
+
+    :before {
+      margin-right: 0;
+      margin-left: 4px;
+    }
+
+    .closed:before, .open:before {
+      margin-left: 8px;
+      margin-right: 5px;
+    }
+    .closed:before {
+      -webkit-transform: rotate(180deg);
+      -moz-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+      -o-transform: rotate(180deg);
+      transform: rotate(180deg);
+    }
+  }
+}
+ul.sidebar-nav li a {
+  padding: 6px 10px 6px 0;
+}
+.jqtree-tree {
+  ul, li {
+    float: right !important;
+  }
+  .icon-triangle-right, .icon-triangle-down, .icon-triangle-hide {
+    padding-right: 0;
+    padding-left: 2px;
+  }
+}
+
+// Admin Grid
+#files-app #files-canvas, .docman_admin_list_grid {
+  margin-left: 0;
+  margin-right: 260px;
+  float: none;
+  border-left: 0;
+  border-right: 1px solid #ddd;
+}
+
+.scopebar {
+
+  .scopebar-group {
+    float: right;
+    border-right: 0;
+    border-left: 1px solid #BBB;
+    padding-right: 0;
+    padding-left: 5px;
+    margin-right: 0;
+    margin-left: 5px;
+  }
+  .scopebar-group.last {
+    border-left: 0 none;
+    margin-left: 0;
+  }
+  .scopebar-search {
+    margin-left: 0;
+    margin-right: 25px;
+    text-align: left;
+  }
+}
+.search__container {
+  label {
+    left: auto;
+    right: 2px;
+  }
+  .search__container--has_empty_button input {
+    padding-right: 0;
+    padding-left: 22px;
+  }
+  input, input[type="search"] {
+    padding: 2px 17px 2px 2px;
+  }
+  .search_button--empty {
+    right: auto;
+    left: 0;
+  }
+}
+
+// Pagination
+.pagination-toolbar .limit {
+  float: right;
+}
+

@@ -1,0 +1,23 @@
+<br> <b>Intall Notes</b>
+<br> The component has automatically installed a sample menu (it is not yet enabled - go to site modules and enable it).
+Also there are several modules installed by the component that you can use (module names start with AF )<br>
+For Community Builder users there are automatically installed Plugins. If you choose to install CB later on you can always install the plugins from Auction
+Factory options<br>
+<br/>
+Please check the Auctions Factory Options to adjust them to the requirements of your site.
+<div style="text-align: left; font-weight: bold;">
+    <span>
+        Check please our <a href="http://wiki.thefactory.ro/doku.php#auction_factory">Documentation</a> and our <a href="http://www.thefactory.ro/joomla-forum/">Forum</a> which is an important knowledgebase.
+    </span>
+    <br />
+    <div style="text-align: right; width: 100%">
+        <a href="http://www.thefactory.ro/shop/joomla-components/auction-factory.html"><img src="http://www.thefactory.ro/images/vm/auction_j25.jpg" alt="" /></a>
+    </div>
+    <br />
+    <span>
+        For support issues use please our <a href="http://www.thefactory.ro/contact-us/customer-support.html">ticket system</a>.
+        Please follow the <a href="http://www.thefactory.ro/articles/articles/explanatory....html#ticket">ticket system proceedings</a> and make sure you provide all requested details, as well a clear issue description.<br /><br />
+        To request an update use always only the <a href="http://www.thefactory.ro/contact-us/product-update-request.html">update request form</a>.<br /><br />
+        Support our extension and further development with a forum post or an email to us. We are always happy to receive feedback and we are constantly improving our products taking under consideration all received requests. Please <a href="http://extensions.joomla.org/extensions/e-commerce/auction/8772?qh=YToyOntpOjA7czo3OiJhdWN0aW9uIjtpOjE7czo4OiJhdWN0aW9ucyI7fQ%3D%3D">support and vote</a> our extensions!
+    </span>
+</div>

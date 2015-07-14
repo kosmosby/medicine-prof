@@ -1,0 +1,9 @@
+/*
+ * RTL Style Sheet
+ */
+
+
+.wk-slideshow-subway > div:hover .next { background-position: 0 -50px; }
+.wk-slideshow-subway > div:hover .prev { background-position: 0 0; }
+.wk-slideshow-subway > div:hover .next:hover { background-position: 0 -150px; }
+.wk-slideshow-subway > div:hover .prev:hover { background-position: 0 -100px; }

@@ -1,0 +1,64 @@
+/*
+ * Widgetkit Slideset: sphere Style
+ */
+
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-sphere .nav { text-align: center; }
+
+.wk-slideset-sphere .nav li { display: inline-block; }
+
+.wk-slideset-sphere .nav.icon span {
+	width: 20px;
+	height: 20px;
+	background: url(images/nav.png) 0 0 no-repeat;
+}
+
+.wk-slideset-sphere .nav.icon span:hover { background-position: 0 -20px; }
+.wk-slideset-sphere .nav.icon span:active { background-position: 0 -40px; }
+.wk-slideset-sphere .nav.icon .active span { background-position: 0 -60px; }
+
+
+/* Buttons
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-sphere > div {
+	position: relative;
+	padding: 0 35px;
+}
+
+.wk-slideset-sphere > div .next,
+.wk-slideset-sphere > div .prev {
+	top: 50%;
+	width: 30px;
+	height: 30px;
+	margin-top: -15px;
+	background: url(images/buttons.png) 0 0 no-repeat;
+}
+
+.wk-slideset-sphere > div .prev { left: 0; }
+.wk-slideset-sphere > div .prev:hover { background-position: 0 -30px; }
+.wk-slideset-sphere > div .prev:active { background-position: 0 -60px; }
+
+.wk-slideset-sphere > div .next {
+	right: 0;
+	background-position: 0 -90px;
+}
+.wk-slideset-sphere > div .next:hover { background-position: 0 -120px; }
+.wk-slideset-sphere > div .next:active { background-position: 0 -150px; }
+
+
+/* Content
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-sphere .sets { margin: 0 -10px; }
+.wk-slideset-sphere article { margin: 0 10px; }
+
+
+/* IE7 Fixes
+----------------------------------------------------------------------------------------------------*/
+.wk-ie7 .wk-slideset-sphere .nav li,
+.wk-ie7 .wk-slideset-sphere .nav span { display: inline; }
+.wk-ie7 .wk-slideset-sphere .nav span { zoom: 1; }

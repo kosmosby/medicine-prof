@@ -1,0 +1,92 @@
+.judl-cat-info .cat-image {
+	float: left;
+	margin: 0 15px 15px 0;
+	overflow: hidden;
+}
+
+.judl-cat-info .cat-title {
+	margin-top: 0;
+	margin-bottom: 10px;
+}
+
+.judl-relcat .relcat-item {
+	overflow : hidden;
+}
+
+.judl-relcat .relcat-item .cat-image {
+	float: left;
+	margin: 0 15px 15px 0;
+	overflow: hidden;
+}
+
+.judl-relcat .cat-title {
+	font-size: 125%;
+	margin-top: 0 !important;
+	margin-bottom: 10px;
+}
+
+.judl-relcat .cat-title small {
+	font-size: 75%;
+}
+
+.judl-subcat .subcat-item {
+	overflow : hidden;
+}
+
+.judl-subcat .subcat-item .cat-image {
+	float: left;
+	margin: 0 15px 15px 0;
+	overflow: hidden;
+}
+
+.judl-subcat .cat-title {
+	font-size: 125%;
+	margin-top: 0 !important;
+	margin-bottom: 10px;
+}
+
+.judl-subcat .cat-title small {
+	font-size: 75%;
+}
+
+/*
+ *	Category list view
+ */
+.judl-form-documents .sort-pagination select {
+    float: left;
+    height: auto;
+    margin-bottom: 0;
+    margin-left: 5px;
+    width: auto;
+}
+
+.judl-doc-list-table table {
+	margin-top: 10px;
+	clear   : both;
+}
+
+.judl-doc-list-table table .doc-title {
+	font-size: 125% !important;
+	line-height: 1.2 !important;
+	margin: 5px 0 0 !important;
+	text-align: left !important;
+}
+
+.judl-doc-list-table table td.title .title-wrapper {
+    position: relative;
+}
+
+.judl-doc-list-table table .judl-doc .private-actions {
+    opacity: 0;
+    transition:all 0.2s ease 0.1s;
+    -webkit-transition:all 0.2s ease 0.1s;
+    -moz-transition:all 0.2s ease 0.1s;
+    -o-transition:all 0.2s ease 0.1s;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.judl-doc-list-table table .judl-doc:hover .private-actions, .judl-doc .private-actions.open {
+    opacity: 1;
+}

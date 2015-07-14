@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="Courses (All / Active)">
+		<message>
+			Courses
+		</message>
+	</layout>
+    <fields name="params">
+		<fieldset name="advanced" label="JGLOBAL_LIST_LAYOUT_OPTIONS">
+			<field name="all_courses" type="list"
+				   description="Show all courses or only active"
+				   label="Courses visible params"
+					>
+
+                <option value="0">Show all courses</option>
+                <option value="1">Show only active courses</option>
+
+			</field>
+		</fieldset>	
+    </fields>
+</metadata>

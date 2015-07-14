@@ -1,0 +1,12 @@
+// User has to select an initial file. Display the button in disabled state
+.uploader-files-empty {
+  .btn-create-documents {
+    display: none;
+  }
+}
+
+.uploader-files-queued {
+  .btn-create-documents {
+    display: inline;
+  }
+}

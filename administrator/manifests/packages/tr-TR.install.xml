@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="package" version="2.5">
+    <name>Turkish Language Pack</name>
+    <packagename>tr-TR</packagename>
+	<version>2.5.7.2</version>
+	<creationDate>2012-10-10</creationDate>
+	<author>Ümit Kenan Gönüllü</author>
+	<authorEmail>bilgi@jt.gen.tr</authorEmail>
+	<authorUrl>www.jt.gen.tr</authorUrl>
+	<copyright>Copyright (C) 2005 - 2012 Open Source Matters. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<description>Joomla 2.5 Turkish Language Package</description>
+	<files>
+		<file type="language" client="site" id="tr-TR">site_tr-TR.zip</file>
+		<file type="language" client="admin" id="tr-TR">admin_tr-TR.zip</file>
+	</files>
+</extension>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.6" type="plugin" group="user"  method="upgrade">
+	<name>plg_user_bids</name>
+	<author>The Factory</author>
+	<creationDate>Jan 2011</creationDate>
+	<copyright>SKEPSIS Consult SRL</copyright>
+	<license>GPL</license>
+	<version>1.0</version>
+	<description>Auction Factory - User Plugin</description>
+	<files>
+		<filename plugin="bids">bids.php</filename>
+		<filename>index.html</filename>
+	</files>	
+</extension>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<code>OSE Registry Code:201006130126</code>
+	<classes>
+		<class path="" extend="test">oseRegistry</class>
+	</classes>
+
+	<folders>
+		<folder path="" extend="">html</folder>
+	</folders>
+
+	<files>
+		<file path="" extend="test">oseObject.php</file>
+		<file path="" extend="test">oseJSON.php</file>
+
+		<file path="" extend="test">oseInit.php</file>
+		<file path="" extend="test">osedb.php</file>
+		<file path="" extend="test">osehtml.php</file>
+		<file path="" extend="test">oseLanguage.php</file>
+		<file path="" extend="test">oseTreeModel.php</file>
+		<file path="" extend="test">oseTreeTable.php</file>
+		<file path="" extend="test">oseMethods.php</file>
+	</files>
+</document>

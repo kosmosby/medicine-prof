@@ -1,0 +1,155 @@
+.koowa_header__item--image_container {
+  padding-left: 6px;
+  padding-right: 0;
+}
+
+.docman_sorting label.control-label {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+.docman_download {
+  float: left;
+  margin-left: 0;
+  margin-right: 10px;
+}
+.docman_thumbnail {
+  margin: 0 0 10px 10px;
+  cursor: pointer;
+  float: right;
+}
+
+// Pagination
+.pagination {
+  .limit {
+    float: right;
+    margin-right: 0;
+    margin-left: 5px;
+  }
+  .pagination-list {
+    margin: 0 0 0 16px !important;
+
+    li {
+      float: right !important;
+    }
+  }
+}
+
+.validation-failed, .required, input[class*=validate], select[class*=validate] {
+  float: right;
+}
+
+input[class*=validate] {
+  direction: ltr;
+  text-align: left;
+}
+
+// Document Anchor
+.koowa_anchor {
+  right: 0;
+  left: auto;
+  border-right: 0;
+  border-left: 2px solid #bbb;
+  -webkit-border-radius: 5px 0 0 5px;
+  -moz-border-radius: 5px 0 0 5px;
+  border-radius: 5px 0 0 5px;
+}
+
+// Edit
+.btn-group > .btn {
+  float: none;
+}
+.docman_grid {
+  @media screen and (min-width: $queryWidthMedium) {
+    margin: 0;
+    margin-left:  0;
+    margin-right:  -$koowaGutterWidthFirstLevel;
+
+    .docman_grid {
+      margin: 0;
+      margin-left: 0;
+      margin-right: -$koowaGutterWidthSecondLevel;
+    }
+  }
+}
+.docman_grid__item {
+  float: right;
+
+  @media screen and (min-width: $queryWidthMedium) {
+    padding-left: 0;
+    padding-right: $koowaGutterWidthFirstLevel;
+
+    .docman_grid__item {
+      padding-left: 0;
+      padding-right: $koowaGutterWidthSecondLevel;
+    }
+
+  }
+}
+
+.input-group {
+  .input-group-addon:not(:first-child):not(:last-child),
+  .input-group-btn:not(:first-child):not(:last-child)>.btn,
+  .input-group-form-control:not(:first-child),
+  .input-group-form-control-field:not(:first-child) .input-group-form-control,
+  .input-group-form-control-field:not(:first-child) .input-group>.input-group-addon,
+  .input-group-form-control-field:not(:first-child) .input-group>.input-group-form-control {
+    border-right: none;
+    border-left: 1px solid #ccc;
+  }
+
+  .input-group-form-control:first-child:not(:last-child),
+  .input-group-addon:first-child,
+  .input-group-btn:first-child>.btn,
+  .input-group-btn:first-child>*>.btn,
+  .input-group-btn:first-child>.dropdown-toggle,
+  .input-group-btn:last-child>.btn:not(:last-child):not(.dropdown-toggle) {
+    border-top-left-radius: 0;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 4px;
+  }
+  .docman_dropdown_grid ul li.icon {
+    float: right;
+  }
+  .input-group-form-control:last-child,
+  .input-group-addon:last-child,
+  .input-group-btn:last-child>.btn,
+  .input-group-btn:last-child>.dropdown-toggle,
+  .input-group-btn:first-child>.btn:not(:first-child) {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 4px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 4px;
+  }
+  .input-group-addon .btn img+.caret,
+  .input-group-input .btn img+.caret,
+  .input-group-btn .btn img+.caret {
+    margin-right: 0;
+    margin-left: 8px;
+  }
+  .caret {
+    margin: 7px 6px 0 0;
+  }
+  .docman_dropdown_grid ul li a.koowa-modal.mfp-iframe {
+    padding-left: 0;
+    padding-right: 5px;
+  }
+}
+.dropdown-menu .koowa-modal {
+  text-align: right;
+}
+.select2-search input {
+  background-position: -5% -22px;
+}
+.radio.btn-group label.btn {
+  margin: 0 0 10px 20px;
+  text-align: right;
+
+  input {
+    margin: 5px 0 0 10px;
+  }
+}
+.radio input[type="radio"], .koowa .checkbox input[type="checkbox"] {
+  float: right;
+}

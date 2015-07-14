@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fields name="filter">
+        <field
+                name="search"
+                type="text"
+                label="COM_JUDOWNLOAD_FILTER_SEARCH_DESC"
+                hint="JSEARCH_FILTER"
+                />
+
+        <field
+                name="category_id"
+                type="filter_catlv1"
+                label="COM_JUDOWNLOAD_FILTER_CATEGORY"
+                extension="com_content"
+                description="COM_JUDOWNLOAD_FILTER_CATEGORY_DESC"
+                onchange="this.form.submit();"
+                >
+            <option value="">COM_JUDOWNLOAD_SELECT_CATEGORY</option>
+        </field>
+
+        <field
+                name="event"
+                type="list"
+                label="COM_JUDOWNLOAD_FILTER_EVENT"
+                description="COM_JUDOWNLOAD_FILTER_EVENT_DESC"
+                onchange="this.form.submit();"
+                >
+            <option value="">COM_JUDOWNLOAD_SELECT_EVENT</option>
+            <option value="document.create">COM_JUDOWNLOAD_EVENT_DOCUMENT_CREATE</option>
+            <option value="document.approve_submit">COM_JUDOWNLOAD_EVENT_DOCUMENT_APPROVE_SUBMIT</option>
+            <option value="document.approve_edit">COM_JUDOWNLOAD_EVENT_DOCUMENT_APPROVE_EDIT</option>
+            <option value="document.reject">COM_JUDOWNLOAD_EVENT_DOCUMENT_REJECT</option>
+            <option value="document.download">COM_JUDOWNLOAD_EVENT_DOCUMENT_DOWNLOAD</option>
+            <option value="document.editstate">COM_JUDOWNLOAD_EVENT_DOCUMENT_EDITSTATE</option>
+            <option value="document.edit">COM_JUDOWNLOAD_EVENT_DOCUMENT_EDIT</option>
+            <option value="document.update">COM_JUDOWNLOAD_EVENT_DOCUMENT_UPDATE</option>
+            <option value="document.delete">COM_JUDOWNLOAD_EVENT_DOCUMENT_DELETE</option>
+            <option value="document.contact">COM_JUDOWNLOAD_EVENT_DOCUMENT_CONTACT</option>
+            <option value="document.contactcopy">COM_JUDOWNLOAD_EVENT_DOCUMENT_CONTACT_COPY</option>
+            <option value="document.sendtofriend">COM_JUDOWNLOAD_EVENT_DOCUMENT_SENT_TO_FRIEND</option>
+            <option value="document.subscribe">COM_JUDOWNLOAD_EVENT_DOCUMENT_SUBSCRIBE</option>
+            <option value="document.report">COM_JUDOWNLOAD_EVENT_DOCUMENT_REPORT</option>
+            <option value="comment.create">COM_JUDOWNLOAD_EVENT_COMMENT_CREATE</option>
+            <option value="comment.approve">COM_JUDOWNLOAD_EVENT_COMMENT_APPROVE</option>
+            <option value="comment.reject">COM_JUDOWNLOAD_EVENT_COMMENT_REJECT</option>
+            <option value="comment.reply">COM_JUDOWNLOAD_EVENT_COMMENT_REPLY</option>
+            <option value="comment.editstate">COM_JUDOWNLOAD_EVENT_COMMENT_EDITSTATE</option>
+            <option value="comment.userdelete">COM_JUDOWNLOAD_EVENT_COMMENT_USER_DELETE</option>
+            <option value="comment.moddelete">COM_JUDOWNLOAD_EVENT_COMMENT_MOD_DELETE</option>
+            <option value="comment.subscribe">COM_JUDOWNLOAD_EVENT_COMMENT_SUBSCRIBE</option>
+            <option value="comment.report">COM_JUDOWNLOAD_EVENT_COMMENT_REPORT</option>
+            <option value="noticedemail.fulltmpdir">COM_JUDOWNLOAD_EVENT_FULL_TMP_DIR</option>
+        </field>
+    </fields>
+
+    <fields name="list">
+        <field
+                name="fullordering"
+                type="list"
+                label="COM_JUDOWNLOAD_LIST_FULL_ORDERING"
+                description="COM_JUDOWNLOAD_LIST_FULL_ORDERING_DESC"
+                onchange="this.form.submit();"
+                default="e.event ASC"
+                >
+            <option value="">COM_JUDOWNLOAD_SORT_BY</option>
+            <option value="e.id ASC">COM_JUDOWNLOAD_SORT_BY_ID_ASC</option>
+            <option value="e.id DESC">COM_JUDOWNLOAD_SORT_BY_ID_DESC</option>
+            <option value="e.subject ASC">COM_JUDOWNLOAD_SORT_BY_SUBJECT_ASC</option>
+            <option value="e.subject DESC">COM_JUDOWNLOAD_SORT_BY_SUBJECT_DESC</option>
+            <option value="e.event ASC">COM_JUDOWNLOAD_SORT_BY_EVENT_ASC</option>
+            <option value="e.event DESC">COM_JUDOWNLOAD_SORT_BY_EVENT_DESC</option>
+            <option value="e.from ASC">COM_JUDOWNLOAD_SORT_BY_FROM_ASC</option>
+            <option value="e.from DESC">COM_JUDOWNLOAD_SORT_BY_FROM_DESC</option>
+            <option value="e.recipients ASC">COM_JUDOWNLOAD_SORT_BY_RECIPIENTS_ASC</option>
+            <option value="e.recipients DESC">COM_JUDOWNLOAD_SORT_BY_RECIPIENTS_DESC</option>
+            <option value="e.mode ASC">COM_JUDOWNLOAD_SORT_BY_MODE_ASC</option>
+            <option value="e.mode DESC">COM_JUDOWNLOAD_SORT_BY_MODE_DESC</option>
+            <option value="e.ordering ASC">COM_JUDOWNLOAD_SORT_BY_ORDERING_ASC</option>
+            <option value="e.ordering DESC">COM_JUDOWNLOAD_SORT_BY_ORDERING_DESC</option>
+            <option value="e.published ASC">COM_JUDOWNLOAD_SORT_BY_STATE_ASC</option>
+            <option value="e.published ASC">COM_JUDOWNLOAD_SORT_BY_STATE_ASC</option>
+            <option value="e.language ASC">COM_JUDOWNLOAD_SORT_BY_LANGUAGE_ASC</option>
+            <option value="e.language DESC">COM_JUDOWNLOAD_SORT_BY_LANGUAGE_DESC</option>
+        </field>
+
+        <field
+                name="limit"
+                type="limitbox"
+                class="inputbox input-mini"
+                default="25"
+                label="COM_JUDOWNLOAD_LIST_LIMIT"
+                description="COM_JUDOWNLOAD_LIST_LIMIT_DESC"
+                onchange="this.form.submit();"
+                />
+    </fields>
+</form>

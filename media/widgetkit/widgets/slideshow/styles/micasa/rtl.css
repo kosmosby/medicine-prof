@@ -1,0 +1,27 @@
+/*
+ * RTL Style Sheet
+ */
+
+.wk-slideshow-micasa .nav li {
+	margin-left: 0;
+	margin-right: 5px;
+}
+.wk-slideshow-micasa .nav li:first-child { margin-right: 0; }
+
+.wk-slideshow-micasa > div .next {
+	left: 16px;
+	right: auto;
+	background-position: 0 -180px;
+}
+
+.wk-slideshow-micasa > div:hover .next:hover { background-position: 0 -420px; }
+.wk-slideshow-micasa > div:hover .next:active { background-position: 0 -540px; }
+
+.wk-slideshow-micasa > div .prev {
+	left: auto;
+	right: 16px;
+	background-position: 0 -120px;
+}	
+
+.wk-slideshow-micasa > div:hover .prev:hover { background-position: 0 -360px; }
+.wk-slideshow-micasa > div:hover .prev:active { background-position: 0 -480px; }

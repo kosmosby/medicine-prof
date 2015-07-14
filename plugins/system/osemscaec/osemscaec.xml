@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.6" type="plugin" group="system">
+	<name>System - OSE V5 Account Expiration Check</name>
+	<author>Open Source Excellence</author>
+	<creationDate>10-Jan-2010</creationDate>
+	<copyright>Copyright (C) 2009 Open Source Excellence. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <authoremail>info@opensource-excellence.co.uk</authoremail>
+    <authorurl>http://www.opensource-excellence.co.uk</authorurl>
+	<version>5.0</version>
+	<description>Open Source Excellence V5 Membership Control Account Expiration Check Plugin</description>
+	<files>
+		<filename plugin="osemscaec">osemscaec.php</filename>
+	</files>
+
+	<config>
+	    <fields name="params">
+	    	<fieldset name="Basic">
+				<field name="enableaec" type="radio" default="1" label="Enable Account Expiration Check Feature?"
+					description="Enable Account Expiration Check Feature?"
+				>
+						<option value="0">Off</option>
+						<option value="1">On</option>
+				</field>
+
+				<field name="enablenotify" type="radio" default="1" label="Enable Email Notifying Feature?"
+					description="Enable Email Notifying Feature?"
+				>
+						<option value="0">Off</option>
+						<option value="1">On</option>
+				</field>
+
+				<field name="intervaldays" type="textfield" default="60" label="NOTIFICATION 1" description ="How many days BEFORE the account expired do you want to send out the EXPIRARION NOTIFICATION email?" size="50"></field>
+				<field name="intervaldays2" type="textfield" default="60" label="NOTIFICATION 2" description ="How many days BEFORE the account expired do you want to send out the EXPIRARION NOTIFICATION email?" size="50"></field>
+				<field name="intervaldays3" type="textfield" default="60" label="NOTIFICATION 3" description ="How many days BEFORE the account expired do you want to send out the EXPIRARION NOTIFICATION email?" size="50"></field>
+				<field name="intervaldays4" type="textfield" default="60" label="INVITATION EMAIL" description ="How many days AFTER the account expired do you want to send out the RENEWAL INTIVATION email?" size="50"></field>
+				<field name="removeFreeMem" type="radio" default="0" label="Remove users from Free membership once they become paid members" description="Remove users from Free membership once they become paid members.">
+						<option value="0">No</option>
+						<option value="1">Yes</option>
+				</field>
+				<field name="unpublishExpMemArts" type="radio" default="0" label="Unpublish articles created by expired members">
+						<option value="0">No</option>
+						<option value="1">Yes</option>
+				</field>
+				<field name="publishMemArts" type="radio" default="0" label="Publish articles created by members">
+						<option value="0">No</option>
+						<option value="1">Yes</option>
+				</field>
+				<field name="unpublishExpMemK2Arts" type="radio" default="0" label="Unpublish K2 Items created by expired members">
+						<option value="0">No</option>
+						<option value="1">Yes</option>
+				</field>
+				<field name="publishMemK2Arts" type="radio" default="0" label="Publish K2 Items created by members">
+						<option value="0">No</option>
+						<option value="1">Yes</option>
+				</field>
+				
+				<field name="cronmode" type="radio" default="0" label="Cronjob mode?"
+					description="Enable the cronjob mode when you use the cronjob in the control panel to expire members in a batch"
+				>
+						<option value="0">No</option>
+						<option value="1">Yes</option>
+				</field>
+				
+			</fieldset>
+		</fields>
+	</config>
+</extension>

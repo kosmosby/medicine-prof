@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../../../validation/ahawow.xsd">
+	<views>
+		<view name="editfolder" type="params" ui="admin" label="Folder" icon="folder-o" viewformatting="div">
+			<toolbarmenu>
+				<menu name="apply" action="apply" task="act=apply" label="Save" />
+				<menu name="save" action="save" task="act=save" label="Save &amp; Close" />
+				<menu name="savenew" action="custom" task="act=savenew" label="Save &amp; New" icon="save-new" />
+				<menu name="cancel" action="linkAction" task="cancel" link="cb_action:folderrows" label="Cancel" />
+			</toolbarmenu>
+			<param name="published" type="published" label="Published" description="Select publish status of the folder. If unpublished the folder will not be visible to the public." />
+			<if name="id" nametype="param:int" operator="=" value="0" valuetype="const:int" type="condition">
+				<then>
+					<param name="type" type="xml:item_type" default="photos" translate-default="no" label="Type" description="Select the folder type. Note the type can not be changed once saved." />
+				</then>
+				<else>
+					<param name="type" type="xml:item_type" label="Type" description="The folder type. Existing folders type can not be changed." mode="show" />
+				</else>
+			</if>
+			<param name="title" type="text" label="Title" size="25" description="Optionally input a title. If no title is provided the date will be displayed as the title." />
+			<param name="description" type="textarea" label="Description" cols="40" rows="5" description="Optionally input a description." />
+			<if name="id" nametype="param:int" operator="=" value="0" valuetype="const:int" type="condition">
+				<then>
+					<param name="user_id" type="user" label="Owner" size="5" validate="required" description="Input owner as single integer user_id. Note the owner can not be changed once saved." />
+				</then>
+				<else>
+					<param name="user_id" type="sql" label="Owner" mode="show" description="The folder owner. Existing folders owner can not be changed.">
+						<data name="username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="user_id" valuetype="ext:int:modelofdata" />
+					</param>
+				</else>
+			</if>
+		</view>
+	</views>
+</cbxml>

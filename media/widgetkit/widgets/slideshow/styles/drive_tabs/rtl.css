@@ -1,0 +1,35 @@
+/*
+ * RTL Style Sheet
+ */
+
+.wk-slideshow-tabs-drive .nav,
+.wk-slideshow-tabs-drive .nav li { float: right; }
+
+.wk-slideshow-tabs-drive .nav li { background-position: 100% 0; }
+
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-tabs-drive .nav span { background-position: 100% 0; }
+
+
+/* Alignment: Navigation
+---------------------------------------------------------------------------------------------------*/
+
+/* Left */
+
+/* Center */
+.wk-slideshow-tabs-drive .nav-center .nav {
+	left: auto;
+	right: 50%;
+}
+
+.wk-slideshow-tabs-drive .nav-center .nav li {
+	left: auto;
+	right: -50%;
+}
+
+/* Right */
+.wk-slideshow-tabs-drive .nav-right .nav { float: left; }
+.wk-slideshow-tabs-drive .nav-right .nav li { background-position: 0 0; }

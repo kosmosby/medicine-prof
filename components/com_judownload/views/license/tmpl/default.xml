@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_JUDOWNLOAD_MENU_LICENSE_DEFAULT_LAYOUT_TITLE">
+        <message>
+            <![CDATA[COM_JUDOWNLOAD_MENU_LICENSE_DEFAULT_LAYOUT_DESC]]>
+        </message>
+    </layout>
+
+    <fields name="request">
+        <fieldset name="request"
+                  addfieldpath="/administrator/components/com_judownload/models/fields">
+            <field name="id"
+                   type="modal_license"
+                   label="COM_JUDOWNLOAD_SELECT_LICENSE_LABEL"
+                   description="COM_JUDOWNLOAD_SELECT_LICENSE_DESC"
+                   required="true"
+                    />
+        </fieldset>
+    </fields>
+</metadata>
+
+
+	
+

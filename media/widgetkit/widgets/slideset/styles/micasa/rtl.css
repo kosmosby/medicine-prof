@@ -1,0 +1,43 @@
+/*
+ * RTL Style Sheet
+ */
+
+.wk-slideset-micasa .nav.icon li {
+	margin-left: 0;
+	margin-right: 5px;
+}
+
+.wk-slideset-micasa .nav.text li {
+	margin-left: 0;
+	margin-right: 40px;
+}
+
+.wk-slideset-micasa .nav li:first-child { margin-right: 0; }
+
+.wk-slideset-micasa > div .next {
+	left: 16px;
+	right: auto;
+	background-position: 0 -50px;
+}
+
+.wk-slideset-micasa > div:hover .next:hover { background-position: 0 -150px; }
+
+.wk-slideset-micasa > div .prev {
+	left: auto;
+	right: 16px;
+	background-position: 0 0;
+}
+
+.wk-slideset-micasa > div:hover .prev:hover { background-position: 0 -100px; }
+
+
+/* Responsive
+----------------------------------------------------------------------------------------------------*/
+
+/* Only Phones */
+@media (max-width: 767px) {
+
+	.wk-slideset-micasa .nav.text li { margin-right: 10px; }
+	.wk-slideset-micasa .nav.text li:first-child { margin-right: 0; }
+
+}

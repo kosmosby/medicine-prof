@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="component" version="1.5" method="upgrade">
+    <name>OSEReporter</name>
+    <version>1.0.6</version>
+    <author>Open Source Excellence</author>
+    <authorurl>http://www.opensource-excellence.com</authorurl>
+    <copyright>Copyright (C) 2011 Open Source Excellence. All rights reserved.</copyright>
+    <creationDate>24/05/2011</creationDate>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <description>OSE Reporter for OSE Membership</description>
+    <installfile>install.osereporter.php</installfile>
+    <uninstallfile>uninstall.osereporter.php</uninstallfile>
+    <administration>
+  		<menu img="components/com_osereporter/favicon.ico">OSE Reporter™</menu>
+      	<files>
+   		<filename>favicon.ico</filename>
+       	<filename>define.php</filename>
+       	<filename>osereporter.php</filename>
+        <filename>index.html</filename>
+        <folder>models</folder>
+        <folder>helpers</folder>
+        <folder>views</folder>
+        <folder>controllers</folder>
+		<folder>assets</folder>
+    	</files>
+    </administration>
+</install>

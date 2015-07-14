@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../../../validation/ahawow.xsd">
+	<types>
+		<type name="gallery_folder_orderby" base="list" valuetype="string">
+			<option value="title_asc">Title ASC</option>
+			<option value="title_desc">Title DESC</option>
+			<option value="description_asc">Description ASC</option>
+			<option value="description_desc">Descriptin DESC</option>
+			<option value="date_asc">Date ASC</option>
+			<option value="date_desc">Date DESC</option>
+		</type>
+		<type name="gallery_item_orderby" base="list" valuetype="string">
+			<option value="value_asc">Value ASC</option>
+			<option value="value_desc">Value DESC</option>
+			<option value="title_asc">Title ASC</option>
+			<option value="title_desc">Title DESC</option>
+			<option value="description_asc">Description ASC</option>
+			<option value="description_desc">Descriptin DESC</option>
+			<option value="date_asc">Date ASC</option>
+			<option value="date_desc">Date DESC</option>
+		</type>
+	</types>
+</cbxml>

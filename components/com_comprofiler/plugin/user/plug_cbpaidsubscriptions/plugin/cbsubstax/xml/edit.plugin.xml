@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+	<description>
+		&lt;strong style="font-size:130%"&gt;CBSubs Sales Taxes integration plugin: Settings are done from within the CBSubs paid subscriptions plugin in the general settings, Taxes tab, from CBSubs main pannel, Taxes button, and also in each plan/product, Taxes tab.&lt;/strong&gt;
+	</description>
+
+	<payintegrationmainmenu>
+		<menu name="taxsettings"       action="cb_action:show_tax_settings"                 label="Sales Tax / VAT"  description="Show Sales Tax / VAT settings and reports">
+			<css file="plugin/cbsubstax/cbsubs.tax.admin.css" />
+			<fields>
+				<field name="rules_count" label="tax rules" type="int">
+					<data  name="rules_count" type="sql:count" table="#__cbsubs_tax_rules" />
+				</field>
+				<field name="rates_count" label="published tax rates" type="int">
+					<data  name="rates_count" type="sql:count" table="#__cbsubs_tax_rates" key="published" value="1" valuetype="const:int" />
+				</field>
+			</fields>
+		</menu>
+	</payintegrationmainmenu>
+
+	<paysettingstabpanetabs>
+		<tabpanetab name="integration_cbsubstax" label="Tax" description="General Sales Tax / VAT Settings">
+			<param name="checkv"  mode="show"   type="private" hideblanktext="true" class="cbpaidParamsExt" method="checkPluginsPublished" groups="user/plug_cbpaidsubscriptions/plugin[cbsubs.tax]" action="" path="" label="" description="" />
+			<param name="integration_cbsubstax_enabled" type="xml:yesno" default="1" label="Taxes computation enabled" description="This enabled the taxes computation alltogether, and should be disabled if the seller is not subject to taxes." />
+			<if name="integration_cbsubstax_enabled" operator="!=" value="1" valuetype="const:int" type="showhide">
+				<param name="integration_cbsubstax_enabled_error" type="spacer" label=" " cssclass="cbWarning" default="Warning: taxes not enabled globally (just above)" description="" />
+			</if>
+			<!--
+			<param name="integration_cbsubstax_system_buyer_zone_id" type="private" class="cbpaidParamsExt" method="datalist" size="1" default="0" label="Default Customer Geographic Zone for tax computing" blanktext="- - - Select Geographic Zone - - -" description="The Default Customer Geographic Zone is set here for the default tax computing so that the initial price displayed matches your most frequent buyers.">
+				<data name="buyerzones" type="sql:multiplerows" table="#__cbsubs_geo_zones" class="" key="id">
+					<rows>
+						<field name="id" as="value" />
+						<field name="name" as="text" />
+					</rows>
+					<orderby>
+						<field name="ordering" type="sql:int" ordering="ASC" />
+					</orderby>
+				</data>
+			</param>
+			-->
+			<param name="integration_cbsubstax_system_buyer_country_iso_code2" type="private" class="cbpaidParamsExt" method="datalist" size="1" default="" label="Default Customer Country" blanktext="--- No Default Country ---" description="">
+				<data name="country_iso_code2" type="sql:multiplerows" table="#__comprofiler_countries" class="" key="country_iso_code2" dogroupby="false">
+					<rows>
+						<field name="country_iso_code2" as="value" />
+						<field name="country_name" as="text" />
+					</rows>
+					<orderby>
+						<field name="country_name" type="sql:string" ordering="ASC" />
+					</orderby>
+				</data>
+			</param>
+			<param name="integration_cbsubstax_system_seller_country_iso_code2" type="private" class="cbpaidParamsExt" method="datalist" size="1" default="" label="System Seller Country" blanktext="--- Select Country ---" description="">
+				<data name="country_iso_code2" type="sql:multiplerows" table="#__comprofiler_countries" class="" key="country_iso_code2" dogroupby="false">
+					<rows>
+						<field name="country_iso_code2" as="value" />
+						<field name="country_name" as="text" />
+					</rows>
+					<orderby>
+						<field name="country_name" type="sql:string" ordering="ASC" />
+					</orderby>
+				</data>
+			</param>
+			<if name="integration_cbsubstax_system_seller_country_iso_code2" operator="=" value="integration_cbsubstax_system_seller_country_iso_code2" valuetype="param:string" type="showhide">
+				<param name="integration_cbsubstax_system_seller_province_iso_code" type="private" class="cbpaidParamsExt" method="datalist" size="1" default="" label="System Seller State / Province" blanktext="--- Select State / Province ---" description="">
+					<data name="province_iso_code" type="sql:multiplerows" table="#__comprofiler_provinces" class="" key="country_iso_code2" dogroupby="false">
+						<rows>
+							<field name="province_iso_code" as="value" />
+							<field name="province_name" as="text" />
+						</rows>
+						<where>
+							<column name="country_iso_code2" operator="=" value="integration_cbsubstax_system_seller_country_iso_code2" type="sql:field" valuetype="ext:string:modelofdata" />
+						</where>
+						<orderby>
+							<field name="province_name" type="sql:string" ordering="ASC" />
+						</orderby>
+					</data>
+				</param>
+				<else action="set" name="integration_cbsubstax_system_seller_province_iso_code" value="" type="const:string" />
+			</if>
+			<if name="integration_cbsubstax_system_seller_country_iso_code2" operator="!=" value="integration_cbsubstax_system_seller_country_iso_code2" valuetype="param:string" type="showhide">
+				<param name="warning_tax_country_changed" type="spacer" label="System Seller State / Province" cssclass="cbSmallWarning" default="As country changed, you need first to apply the configuration with the new country before setting the state/province." />
+			</if>
+			<param name="integration_cbsubstax_system_seller_province_iso_code_zip_code" type="text" size="16" default="" label="System Seller Zip Code" description="" />
+			<param name="remark"  type="spacer" label="Parameters settings"  default="More settings are done from within the paid subscriptions plugin in each plan/product and in the Taxes Settings menu item." description="" />
+		</tabpanetab>
+	</paysettingstabpanetabs>
+
+	<payproductsettingsafterpricing>
+		<tabpanetab name="integration_cbsubstax" label="Tax" description="Sales Tax / VAT settings for this product">
+			<param name="tax_rule_id"   type="private" class="cbpaidParamsExt" method="datalist" default="0" blanktext="Default Tax Rule is applied" label="Tax rule to apply" description="The Sales Tax / VAT rule to apply, as defined under &quot;Tax Rules&quot; menu.">
+				<data name="taxrules" type="sql:multiplerows" table="#__cbsubs_tax_rules" class="cbpaidTaxRule" key="id">
+					<rows>
+						<field name="id" as="value" />
+						<field name="name" as="text" />
+					</rows>
+					<orderby>
+						<field name="ordering" ordering="ASC" />
+					</orderby>
+				</data>
+			</param>
+			<if name="tax_rule_id" operator="=" value="0" valuetype="const:string" type="showhide">
+				<param name="default_tax_rule_name"  mode="show"      type="private" class="cbpaidParamsExt" method="data" label="Default Tax Rule"    description="">
+					<data  name="name" type="sql:field" table="#__cbsubs_tax_rules" class="cbpaidTaxRule">
+						<where>
+							<column name="default"  operator="=" value="1" type="sql:field" valuetype="const:int" />
+						</where>
+						<orderby>
+							<field name="ordering" ordering="ASC" />
+						</orderby>
+					</data>
+				</param>
+			</if>
+			<if name="tax_rule_id" operator="!=" value="1" valuetype="const:string" type="showhide">
+				<params name="params" type="params">
+					<!--
+					<param name="tax_prices_inclusive_tax" type="list" default="0" label="Sales Tax included in Product price" description="This allows to set who pays for the sales tax/VAT: inclusive tax means the seller will pay for it when tax is applicable. Not inclusive means the tax will be added to the product price in the invoice.">
+						<option value="0">No:  Product price(s) do not include taxes, applicable taxes to be added</option>
+						<option value="1">Yes: Product price(s) are inclusive applicable taxes</option>
+					</param>
+					<if name="tax_prices_inclusive_tax" operator="=" value="1" valuetype="const:string" type="showhide">
+						<param name="tax_prices_deduct_tax_if_none" type="list" default="0" label="Deduct Sales Tax from Product price if no tax is applied" description="">
+							<option value="0">No:  Product price(s) do not include taxes, applicable taxes to be added</option>
+							<option value="1">Yes: Product price(s) are inclusive applicable taxes</option>
+						</param>
+					</if>
+					-->
+					<param name="tax_taxing_date" type="list" default="1" label="Sales Tax rates to be applied" description="This setting is important if tax rates change during the delivery duration/validity period of the product. Depending on the product and your tax/VAT regime and local laws, the tax rate to be applied can be calculated throughout the duration of the subscription.">
+						<option value="0">Apply taxes valid at buying time, even if tax allows to be applied proportionally</option>
+						<option value="1">Apply taxes valid during validity time proportionally, for all taxes allowing this</option>
+						<!--
+						<option value="2">Apply taxes valid during validity time with following ratios</option>
+						-->
+					</param>
+					<!--
+					<if name="tax_taxing_date" operator="=" value="2" valuetype="const:int" type="showhide">
+						<param name="tax_taxing_date_ratio" type="text" size="20" default="0.0" label="Apply following % of price at buying time" description="E.g. 30.0% of item priced 100$ means 30$ will be taxed at start of billed item, and 70$ throughout period. Rest to 100% will be applied evenly during the product lifetime" />
+					</if>
+					-->
+					<!--
+					<param name="tax_display_on_basket" type="list" default="1" label="Display Sales Tax/VAT on Payment Basket" description="This allows to set how the sales tax/VAT will be displayed in the basket.">
+						<option value="0">No displaying of taxes: all prices include taxes, which are automatically computed but not displayed</option>
+						<option value="1">If applicable: Display taxes only if not zero</option>
+						<option value="2">Yes, globally, inside totals: Display tax summary only between sub-total and grand total</option>
+						<option value="3">Yes, globally, outside totals: Display tax summary separately below grand total</option>
+						<option value="4">Yey, detailed, inside lines: Display tax detail on each item line</option>
+						<option value="5">Yey, very detailed: Display tax codes on each item line and as separate items in subtotals</option>
+						<option value="6">Yey, very detailed: Display tax codes on each item line and separately below grand total</option>
+					</param>
+					<param name="tax_display_on_invoice" type="list" default="1" label="Display Sales Tax/VAT on Invoice" description="This allows to set how the sales tax/VAT will be displayed on the invoice.">
+						<option value="0">No displaying of taxes: all prices include taxes, which are automatically computed but not displayed</option>
+						<option value="1">If applicable: Display taxes only if not zero</option>
+						<option value="2">Yes, globally, inside totals: Display tax summary only between sub-total and grand total</option>
+						<option value="3">Yes, globally, outside totals: Display tax summary separately below grand total</option>
+						<option value="4">Yey, detailed, inside lines: Display tax detail on each item line</option>
+						<option value="5">Yey, very detailed: Display tax codes on each item line and as separate items in subtotals</option>
+						<option value="6">Yey, very detailed: Display tax codes on each item line and separately below grand total</option>
+					</param>
+					-->
+				</params>
+			</if>
+		</tabpanetab>
+	</payproductsettingsafterpricing>
+
+	<baskettotalizerorderingsetting>
+		<param name="baskettotalizerordering[salestax]" type="int" size="8" default="40" label="Sales Tax" description="Sales tax subtotal(s), default 40. Set to 0 to never display. Sales tax can be a single line or no lines depending on tax settings in each product settings tax tab." />
+	</baskettotalizerorderingsetting>
+
+</cbxml>

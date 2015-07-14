@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>Proprietary Code, commercial licence</license>
+	<types>
+		<type name="gateway_type" base="list" valuetype="string">
+			<option value="processors.paypaladvanced">Paypal Advanced</option>
+		</type>
+		<type name="payment_method" base="list" valuetype="string">
+			<option value="paypaladvanced">Paypal Advanced</option>
+		</type>
+	</types>
+	<views>
+		<view name="selectgatewayinformation" type="params" ui="admin">
+			<fieldset name="fieldset_getpaypaladvancedLinks" label="Paypal Advanced" description="Paypal Advanced is a very popular payment services provider, available in 190 markets and supports payments in 24 currencies. This gateway supports only single and recurring payments.">
+				<param name="paypaladvancedinfolink" type="spacer" label="Information about Paypal Advanced" default="&lt;a target=&quot;_blank&quot; href=&quot;https://www.paypal.com/webapps/mpp/paypal-payments-advanced/&quot; /&gt;&lt;strong&gt;Paypal Advanced website&lt;/strong&gt;&lt;/a&gt;" />
+				<param name="paypaladvancedaccountlink" type="spacer" label="Link to your free test-account with Paypal Advanced" default="&lt;a target=&quot;_blank&quot; href=&quot;https://registration.paypal.com/welcomePage.do?country=US&amp;mode=try&quot; /&gt;&lt;strong&gt;Click here to get your free test account with Paypal Advanced now&lt;/strong&gt;&lt;/a&gt;" />
+			</fieldset>
+		</view>
+		<view name="paymentstatusinformation" type="params" ui="admin">
+			<showview view="paymentrefundbutton" mode="view" type="view" />
+		</view>
+		<view name="editgatewaypaypaladvanced" type="params" ui="admin">
+			<params name="params" type="params">
+				<if name="pspid" type="condition" operator="=" value="" valuetype="const:string">
+					<fieldset name="fieldset_getpaypaladvancedLinks" label="Get your FREE Paypal Advanced Test Account Now" description="If you do not have an Paypal Advanced account with your PayPal Manager login yet, please use the link below to get a free Paypal Advanced test-account (available world-wide).">
+						<param name="paypaladvancedaccountlink" type="spacer" label="Link to your free test-account with Paypal Advanced" default="&lt;a target=&quot;_blank&quot; href=&quot;https://registration.paypal.com/welcomePage.do?country=US&amp;mode=try&quot; /&gt;&lt;strong&gt;Click here to get your free test account with Paypal Advanced now&lt;/strong&gt;&lt;/a&gt;" />
+					</fieldset>
+				</if>
+			</params>
+			<extend toxpathnode=".." fromxpathnode="/cbxml/views/view[@name=&quot;editgatewaypaypaladvancedoem&quot;]/*" file="processors/paypaladvanced/edit.gateway.oem">
+				<replaces>
+					<replace attribute="label" from="{PSP}" to="Paypal Advanced" translate="yes" />
+					<replace attribute="description" from="{PSP}" to="Paypal Advanced" translate="yes" />
+					<replace attribute="default" from="{PSP}" to="Paypal Advanced" translate="yes" />
+					<replace attribute="[DATA]" from="{PSP}" to="Paypal Advanced" translate="yes" />
+					<replace attribute="description" from="{PSPPRODURL}" to="payflowpro.paypal.com" translate="no" />
+					<replace attribute="value" from="{PSPPRODURL}" to="payflowpro.paypal.com" translate="no" />
+					<replace attribute="value" from="{PSPTESTURL}" to="pilot-payflowpro.paypal.com" translate="no" />
+					<replace attribute="value" from="{PSPLINKURL}" to="payflowlink.paypal.com" translate="no" />
+					<replace attribute="value" from="{PSPLINKTESTURL}" to="pilot-payflowlink.paypal.com" translate="no" />
+				</replaces>
+			</extend>
+		</view>
+	</views>
+</cbxml>

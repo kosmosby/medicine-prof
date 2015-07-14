@@ -1,0 +1,31 @@
+/*
+ * RTL Style Sheet
+ */
+
+.wk-slideshow-tabs-venture .nav,
+.wk-slideshow-tabs-venture .nav li,
+.wk-slideshow-tabs-venture .nav span { float: right; }
+
+.wk-slideshow-tabs-venture .nav li {
+	margin-left: 0;
+	margin-right: 5px;
+}
+.wk-slideshow-tabs-venture .nav li:first-child { margin-right: 0; }
+
+
+/* Alignment: Navigation
+---------------------------------------------------------------------------------------------------*/
+
+/* Center */
+.wk-slideshow-tabs-venture .nav-center .nav {
+	left: auto;
+	right: 50%;
+}
+
+.wk-slideshow-tabs-venture .nav-center .nav li {
+	left: auto;
+	right: -50%;
+}
+
+/* Right */
+.wk-slideshow-tabs-venture .nav-right .nav { float: left; }

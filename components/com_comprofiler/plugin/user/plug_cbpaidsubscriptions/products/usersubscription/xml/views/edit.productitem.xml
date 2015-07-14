@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="editsubscription" type="params" ui="admin" label="Subscription" description="A Subscription is automatically created and administered. Don't touch things here, but do it from backend Community Builder User Management in Subscriptions tab please. This pannel is only provided for information, no warranty on effects of changes.">
+			<toolbarmenu>
+				<menu name="save"    action="save"   task="savePlugin"   label="Save" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="apply "  action="apply"  task="applyPlugin"  label="Apply" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="back"    action="back"   href=""             label="Back" />
+				<menu name="spacer1" action="spacer" />
+				<menu name="close"   action="linkAction" task="cancel" link="cb_action:show_subscriptions" label="Close" />
+			</toolbarmenu>
+			<tabpane name="cpayeditsubscription">
+				<tabpanetab name="subscription_presentation" label="Subscription" description="Subscription parameters:">
+					<param name="user_id"            type="text"   size="40" default=""  label="User id" description="id of the user subscribed" />
+					<param name="plan_id"            type="private" class="cbpaidParamsExt" method="datalist"  default=""  label="Plan"    description="The plan subscribed">
+						<data name="plansidsnames" type="sql:multiplerows" table="#__cbsubs_plans" class="cbpaidPlansMgr::productObjects" key="id">
+							<rows>
+								<field name="id" as="value" />
+								<field name="name" as="text" />
+								<!-- For the cbpaidPlansMgr::productObjects instanciator: -->
+								<field name="item_type" type="sql:field" />
+							</rows>
+							<orderby>
+								<field name="ordering" ordering="ASC" />
+							</orderby>
+						</data>
+					</param>
+					<param name="replaces_subscription"    type="text"   size="40" default=""  label="Replaces subscription" description="Upgrade of this subscription" />
+					<param name="subscription_date"  type="text"   size="40" default=""  label="Subscription date" description="Date of the user subscribing first time to this subscription" />
+					<param name="last_renewed_date"  type="text"   size="40" default=""  label="Last renewal date" description="Date of the user renewing last time this subscription" />
+					<param name="expiry_date"        type="text"   size="40" default=""  label="Expiration date" description="Date of the expiry this subscription" />
+					<param name="previous_expiry_date" type="text" size="40" default=""  label="Previous Expiration date" description="Previous date of expiry of this subscription" />
+					<param name="status"             type="xml:subscription_status"             size="1" default="" label="Status" description="Current status of subscription" />
+					<param name="previous_status"    type="xml:subscription_status"             size="1" default="" label="Previous Status" description="Previous status of subscription" />
+					<param name="autorenew_type"     type="xml:subscription_autorenew_type"     size="1" default="" label="Autorenew Type" description="Wether the subscription auto-renews itself (ARB Auto-renew-billing)" />
+					<param name="autorecurring_type" type="xml:subscription_autorecurring_type" size="1" default="" label="Autorecurring Type" description="Wether the subscription auto-renews itself (ARB Auto-renew-billing)" />
+					<param name="ip_addresses"       type="textarea"  cols="40" rows="5" default=""  label="IP address(es)" description="IP address(es) at subscription time" />
+					<if name="integrations" operator="!=" value="" valuetype="const:string" type="condition">
+						<param name="integrations"       type="textarea"  cols="60" rows="10" default=""  label="Integrations" description="Be careful here, you're on your own!" />
+					</if>
+				</tabpanetab>
+			</tabpane>
+		</view>
+	</views>
+</cbxml>

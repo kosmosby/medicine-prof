@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<extension method="upgrade" type="gateway" folder="pay_example">
+	<name>Example Payment Gateway</name>
+</extension>

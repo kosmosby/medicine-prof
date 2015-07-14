@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+        <field name="Terminal_id" type="text" label="Terminal ID" description="Add your terminal 12 digit number"
+            class="inputbox" size="30" required="true" default="" />
+        <field name="Logo_url" type="text" label="Banner" description="Merchant banner image to be displayed. Upload your banner via the Virtual Terminal."
+            class="inputbox" size="30" default="" />
+        <field name="B_color" type="text" label="Background color" description="Page Background Color (ie: FFFFFF)"
+            class="inputbox" size="30" default="" />
+        <field name="BF_color" type="text" label="Background Font Color" description="Background Font Color (ie: 000000)"
+            class="inputbox" size="30"  default="" />
+        <field name="M_color" type="text" label="Table Background Color" description="Table Background Color (ie: 0000FF)"
+            class="inputbox" size="30"  default="" />
+        <field name="F_color" type="text" label="Table Font Color" description="Table Font Color (ie: 00FF00)"
+            class="inputbox" size="30" default="" />
+	</fieldset>
+</form>

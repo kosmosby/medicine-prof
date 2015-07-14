@@ -1,0 +1,1062 @@
+.jubootstrap .clearfix {
+	zoom : 1
+}
+
+.jubootstrap .clearfix:before, .jubootstrap .clearfix:after {
+	display     : table;
+	line-height : 0;
+	content     : ""
+}
+
+.jubootstrap .clearfix:after {
+	clear : both
+}
+
+.jubootstrap .hide-text {
+	font             : 0/0 a;
+	color            : transparent;
+	text-shadow      : none;
+	background-color : transparent;
+	border           : 0
+}
+
+.jubootstrap .input-block-level {
+	display            : block;
+	width              : 100%;
+	min-height         : 30px;
+	-webkit-box-sizing : border-box;
+	-moz-box-sizing    : border-box;
+	box-sizing         : border-box
+}
+
+.jubootstrap .hidden {
+	display    : none;
+	visibility : hidden
+}
+
+.jubootstrap .visible-desktop {
+	display : inherit !important
+}
+
+.jubootstrap .visible-phone, .jubootstrap .visible-tablet, .jubootstrap .hidden-desktop, .jubootstrap .visible-print {
+	display : none !important
+}
+
+@media min-width 768px and max-width
+
+979px {
+
+	.jubootstrap .row {
+		margin-left : -20px;
+		zoom        : 1
+	}
+
+	.jubootstrap [class*=span] {
+		float       : left;
+		min-height  : 1px;
+		margin-left : 20px
+	}
+
+	.jubootstrap .span11 {
+		width : 662px
+	}
+
+	.jubootstrap .span10 {
+		width : 600px
+	}
+
+	.jubootstrap .span9 {
+		width : 538px
+	}
+
+	.jubootstrap .span8 {
+		width : 476px
+	}
+
+	.jubootstrap .span7 {
+		width : 414px
+	}
+
+	.jubootstrap .span6 {
+		width : 352px
+	}
+
+	.jubootstrap .span5 {
+		width : 290px
+	}
+
+	.jubootstrap .span4 {
+		width : 228px
+	}
+
+	.jubootstrap .span3 {
+		width : 166px
+	}
+
+	.jubootstrap .span2 {
+		width : 104px
+	}
+
+	.jubootstrap .span1 {
+		width : 42px
+	}
+
+	.jubootstrap .offset12 {
+		margin-left : 764px
+	}
+
+	.jubootstrap .offset11 {
+		margin-left : 702px
+	}
+
+	.jubootstrap .offset10 {
+		margin-left : 640px
+	}
+
+	.jubootstrap .offset9 {
+		margin-left : 578px
+	}
+
+	.jubootstrap .offset8 {
+		margin-left : 516px
+	}
+
+	.jubootstrap .offset7 {
+		margin-left : 454px
+	}
+
+	.jubootstrap .offset6 {
+		margin-left : 392px
+	}
+
+	.jubootstrap .offset5 {
+		margin-left : 330px
+	}
+
+	.jubootstrap .offset4 {
+		margin-left : 268px
+	}
+
+	.jubootstrap .offset3 {
+		margin-left : 206px
+	}
+
+	.jubootstrap .offset2 {
+		margin-left : 144px
+	}
+
+	.jubootstrap .offset1 {
+		margin-left : 82px
+	}
+
+	.jubootstrap .row-fluid {
+		width : 100%;
+		zoom  : 1
+	}
+
+	.jubootstrap .row-fluid [class*=span] {
+		display            : block;
+		float              : left;
+		width              : 100%;
+		min-height         : 30px;
+		margin-left        : 2.70923944986%;
+		-webkit-box-sizing : border-box;
+		-moz-box-sizing    : border-box;
+		box-sizing         : border-box
+	}
+
+	.jubootstrap .row-fluid .controls-row [class*=span] + [class*=span] {
+		margin-left : 2.76243093923%
+	}
+
+	.jubootstrap .row-fluid .span12 {
+		width : 99.9468085106%
+	}
+
+	.jubootstrap .row-fluid .span11 {
+		width : 91.383272599%
+	}
+
+	.jubootstrap .row-fluid .span10 {
+		width : 82.8197366874%
+	}
+
+	.jubootstrap .row-fluid .span9 {
+		width : 74.2562007758%
+	}
+
+	.jubootstrap .row-fluid .span8 {
+		width : 65.6926648642%
+	}
+
+	.jubootstrap .row-fluid .span7 {
+		width : 57.1291289526%
+	}
+
+	.jubootstrap .row-fluid .span6 {
+		width : 48.565593041%
+	}
+
+	.jubootstrap .row-fluid .span5 {
+		width : 40.0020571294%
+	}
+
+	.jubootstrap .row-fluid .span4 {
+		width : 31.4385212178%
+	}
+
+	.jubootstrap .row-fluid .span3 {
+		width : 22.8749853062%
+	}
+
+	.jubootstrap .row-fluid .span2 {
+		width : 14.3114493946%
+	}
+
+	.jubootstrap .row-fluid .span1 {
+		width : 5.74791348301%
+	}
+
+	.jubootstrap .row-fluid .offset12 {
+		margin-left : 105.4184789%
+	}
+
+	.jubootstrap .row-fluid .offset12:first-child {
+		margin-left : 102.656047961%
+	}
+
+	.jubootstrap .row-fluid .offset11 {
+		margin-left : 96.8549429881%
+	}
+
+	.jubootstrap .row-fluid .offset11:first-child {
+		margin-left : 94.0925120489%
+	}
+
+	.jubootstrap .row-fluid .offset10 {
+		margin-left : 88.2914070765%
+	}
+
+	.jubootstrap .row-fluid .offset10:first-child {
+		margin-left : 85.5289761373%
+	}
+
+	.jubootstrap .row-fluid .offset9 {
+		margin-left : 79.7278711649%
+	}
+
+	.jubootstrap .row-fluid .offset9:first-child {
+		margin-left : 76.9654402257%
+	}
+
+	.jubootstrap .row-fluid .offset8 {
+		margin-left : 71.1643352533%
+	}
+
+	.jubootstrap .row-fluid .offset8:first-child {
+		margin-left : 68.4019043141%
+	}
+
+	.jubootstrap .row-fluid .offset7 {
+		margin-left : 62.6007993417%
+	}
+
+	.jubootstrap .row-fluid .offset7:first-child {
+		margin-left : 59.8383684025%
+	}
+
+	.jubootstrap .row-fluid .offset6 {
+		margin-left : 54.0372634301%
+	}
+
+	.jubootstrap .row-fluid .offset6:first-child {
+		margin-left : 51.2748324909%
+	}
+
+	.jubootstrap .row-fluid .offset5 {
+		margin-left : 45.4737275185%
+	}
+
+	.jubootstrap .row-fluid .offset5:first-child {
+		margin-left : 42.7112965793%
+	}
+
+	.jubootstrap .row-fluid .offset4 {
+		margin-left : 36.9101916069%
+	}
+
+	.jubootstrap .row-fluid .offset4:first-child {
+		margin-left : 34.1477606677%
+	}
+
+	.jubootstrap .row-fluid .offset3 {
+		margin-left : 28.3466556953%
+	}
+
+	.jubootstrap .row-fluid .offset3:first-child {
+		margin-left : 25.5842247561%
+	}
+
+	.jubootstrap .row-fluid .offset2 {
+		margin-left : 19.7831197837%
+	}
+
+	.jubootstrap .row-fluid .offset2:first-child {
+		margin-left : 17.0206888445%
+	}
+
+	.jubootstrap .row-fluid .offset1 {
+		margin-left : 11.2195838721%
+	}
+
+	.jubootstrap .row-fluid .offset1:first-child {
+		margin-left : 8.45715293288%
+	}
+
+	.jubootstrap .controls-row [class*=span] + [class*=span] {
+		margin-left : 20px
+	}
+
+	.jubootstrap input.span12, .jubootstrap textarea.span12, .jubootstrap .uneditable-input.span12 {
+		width : 710px
+	}
+
+	.jubootstrap input.span11, .jubootstrap textarea.span11, .jubootstrap .uneditable-input.span11 {
+		width : 648px
+	}
+
+	.jubootstrap input.span10, .jubootstrap textarea.span10, .jubootstrap .uneditable-input.span10 {
+		width : 586px
+	}
+
+	.jubootstrap input.span9, .jubootstrap textarea.span9, .jubootstrap .uneditable-input.span9 {
+		width : 524px
+	}
+
+	.jubootstrap input.span8, .jubootstrap textarea.span8, .jubootstrap .uneditable-input.span8 {
+		width : 462px
+	}
+
+	.jubootstrap input.span7, .jubootstrap textarea.span7, .jubootstrap .uneditable-input.span7 {
+		width : 400px
+	}
+
+	.jubootstrap input.span6, .jubootstrap textarea.span6, .jubootstrap .uneditable-input.span6 {
+		width : 338px
+	}
+
+	.jubootstrap input.span5, .jubootstrap textarea.span5, .jubootstrap .uneditable-input.span5 {
+		width : 276px
+	}
+
+	.jubootstrap input.span4, .jubootstrap textarea.span4, .jubootstrap .uneditable-input.span4 {
+		width : 214px
+	}
+
+	.jubootstrap input.span3, .jubootstrap textarea.span3, .jubootstrap .uneditable-input.span3 {
+		width : 152px
+	}
+
+	.jubootstrap input.span2, .jubootstrap textarea.span2, .jubootstrap .uneditable-input.span2 {
+		width : 90px
+	}
+
+	.jubootstrap input.span1, .jubootstrap textarea.span1, .jubootstrap .uneditable-input.span1 {
+		width : 28px
+	}
+
+	.jubootstrap .hidden-desktop, .jubootstrap .visible-tablet {
+		display : inherit !important
+	}
+
+	.jubootstrap .visible-desktop, .jubootstrap .hidden-tablet {
+		display : none !important
+	}
+
+	.jubootstrap .row:before, .jubootstrap .row:after, .jubootstrap .row-fluid:before, .jubootstrap .row-fluid:after {
+		display     : table;
+		line-height : 0;
+		content     : ""
+	}
+
+	.jubootstrap .row:after, .jubootstrap .row-fluid:after {
+		clear : both
+	}
+
+	.jubootstrap .container, .jubootstrap .navbar-static-top .container, .jubootstrap .navbar-fixed-top .container, .jubootstrap .navbar-fixed-bottom .container, .jubootstrap .span12 {
+		width : 724px
+	}
+
+	.jubootstrap .row-fluid [class*=span]:first-child, .jubootstrap input, .jubootstrap textarea, .jubootstrap .uneditable-input {
+		margin-left : 0
+	}
+}
+
+@media max-width 767px {
+
+	.jubootstrap body {
+		padding-right : 20px;
+		padding-left  : 20px
+	}
+
+	.jubootstrap .navbar-fixed-top, .jubootstrap .navbar-fixed-bottom, .jubootstrap .navbar-static-top {
+		margin-right : -20px;
+		margin-left  : -20px
+	}
+
+	.jubootstrap .container-fluid {
+		padding : 0
+	}
+
+	.jubootstrap .dl-horizontal dt {
+		float      : none;
+		width      : auto;
+		clear      : none;
+		text-align : left
+	}
+
+	.jubootstrap .container {
+		width : auto
+	}
+
+	.jubootstrap .row-fluid {
+		width : 100%
+	}
+
+	.jubootstrap .thumbnails > li {
+		float       : none;
+		margin-left : 0
+	}
+
+	.jubootstrap [class*=span], .jubootstrap .uneditable-input[class*=span], .jubootstrap .row-fluid [class*=span] {
+		display            : block;
+		float              : none;
+		width              : 100%;
+		margin-left        : 0;
+		-webkit-box-sizing : border-box;
+		-moz-box-sizing    : border-box;
+		box-sizing         : border-box
+	}
+
+	.jubootstrap .span12, .jubootstrap .row-fluid .span12 {
+		width              : 100%;
+		-webkit-box-sizing : border-box;
+		-moz-box-sizing    : border-box;
+		box-sizing         : border-box
+	}
+
+	.jubootstrap .input-large, .jubootstrap .input-xlarge, .jubootstrap .input-xxlarge, .jubootstrap input[class*=span], .jubootstrap select[class*=span], .jubootstrap textarea[class*=span], .jubootstrap .uneditable-input {
+		display            : block;
+		width              : 100%;
+		min-height         : 30px;
+		-webkit-box-sizing : border-box;
+		-moz-box-sizing    : border-box;
+		box-sizing         : border-box
+	}
+
+	.jubootstrap .input-prepend input, .jubootstrap .input-append input, .jubootstrap .input-prepend input[class*=span], .jubootstrap .input-append input[class*=span] {
+		display : inline-block;
+		width   : auto
+	}
+
+	.jubootstrap .modal {
+		position : fixed;
+		top      : 20px;
+		right    : 20px;
+		left     : 20px;
+		width    : auto;
+		margin   : 0
+	}
+
+	.jubootstrap .modal.fade {
+		top : -100px
+	}
+
+	.jubootstrap .modal.fade.in {
+		top : 20px
+	}
+
+	.jubootstrap .hidden-desktop, .jubootstrap .visible-phone {
+		display : inherit !important
+	}
+
+	.jubootstrap .visible-desktop, .jubootstrap .hidden-phone {
+		display : none !important
+	}
+
+	.jubootstrap .dl-horizontal dd, .jubootstrap .row, .jubootstrap .thumbnails, .jubootstrap .row-fluid [class*=offset]:first-child, .jubootstrap .controls-row [class*=span] + [class*=span] {
+		margin-left : 0
+	}
+}
+
+@media print {
+	.jubootstrap .visible-print {
+		display : inherit !important
+	}
+
+	.jubootstrap .hidden-print {
+		display : none !important
+	}
+}
+
+@media min-width 1200px {
+
+	.jubootstrap .row {
+		margin-left : -30px;
+		zoom        : 1
+	}
+
+	.jubootstrap [class*=span] {
+		float       : left;
+		min-height  : 1px;
+		margin-left : 30px
+	}
+
+	.jubootstrap .span11 {
+		width : 1070px
+	}
+
+	.jubootstrap .span10 {
+		width : 970px
+	}
+
+	.jubootstrap .span9 {
+		width : 870px
+	}
+
+	.jubootstrap .span8 {
+		width : 770px
+	}
+
+	.jubootstrap .span7 {
+		width : 670px
+	}
+
+	.jubootstrap .span6 {
+		width : 570px
+	}
+
+	.jubootstrap .span5 {
+		width : 470px
+	}
+
+	.jubootstrap .span4 {
+		width : 370px
+	}
+
+	.jubootstrap .span3 {
+		width : 270px
+	}
+
+	.jubootstrap .span2 {
+		width : 170px
+	}
+
+	.jubootstrap .span1 {
+		width : 70px
+	}
+
+	.jubootstrap .offset12 {
+		margin-left : 1230px
+	}
+
+	.jubootstrap .offset11 {
+		margin-left : 1130px
+	}
+
+	.jubootstrap .offset10 {
+		margin-left : 1030px
+	}
+
+	.jubootstrap .offset9 {
+		margin-left : 930px
+	}
+
+	.jubootstrap .offset8 {
+		margin-left : 830px
+	}
+
+	.jubootstrap .offset7 {
+		margin-left : 730px
+	}
+
+	.jubootstrap .offset6 {
+		margin-left : 630px
+	}
+
+	.jubootstrap .offset5 {
+		margin-left : 530px
+	}
+
+	.jubootstrap .offset4 {
+		margin-left : 430px
+	}
+
+	.jubootstrap .offset3 {
+		margin-left : 330px
+	}
+
+	.jubootstrap .offset2 {
+		margin-left : 230px
+	}
+
+	.jubootstrap .offset1 {
+		margin-left : 130px
+	}
+
+	.jubootstrap .row-fluid {
+		width : 100%;
+		zoom  : 1
+	}
+
+	.jubootstrap .row-fluid [class*=span] {
+		display            : block;
+		float              : left;
+		width              : 100%;
+		min-height         : 30px;
+		margin-left        : 2.51091107474%;
+		-webkit-box-sizing : border-box;
+		-moz-box-sizing    : border-box;
+		box-sizing         : border-box
+	}
+
+	.jubootstrap .row-fluid .controls-row [class*=span] + [class*=span] {
+		margin-left : 2.5641025641%
+	}
+
+	.jubootstrap .row-fluid .span12 {
+		width : 99.9468085106%
+	}
+
+	.jubootstrap .row-fluid .span11 {
+		width : 91.3997999636%
+	}
+
+	.jubootstrap .row-fluid .span10 {
+		width : 82.8527914166%
+	}
+
+	.jubootstrap .row-fluid .span9 {
+		width : 74.3057828696%
+	}
+
+	.jubootstrap .row-fluid .span8 {
+		width : 65.7587743226%
+	}
+
+	.jubootstrap .row-fluid .span7 {
+		width : 57.2117657756%
+	}
+
+	.jubootstrap .row-fluid .span6 {
+		width : 48.6647572286%
+	}
+
+	.jubootstrap .row-fluid .span5 {
+		width : 40.1177486816%
+	}
+
+	.jubootstrap .row-fluid .span4 {
+		width : 31.5707401346%
+	}
+
+	.jubootstrap .row-fluid .span3 {
+		width : 23.0237315876%
+	}
+
+	.jubootstrap .row-fluid .span2 {
+		width : 14.4767230406%
+	}
+
+	.jubootstrap .row-fluid .span1 {
+		width : 5.92971449354%
+	}
+
+	.jubootstrap .row-fluid .offset12 {
+		margin-left : 105.021822149%
+	}
+
+	.jubootstrap .row-fluid .offset12:first-child {
+		margin-left : 102.457719585%
+	}
+
+	.jubootstrap .row-fluid .offset11 {
+		margin-left : 96.4748136025%
+	}
+
+	.jubootstrap .row-fluid .offset11:first-child {
+		margin-left : 93.9107110384%
+	}
+
+	.jubootstrap .row-fluid .offset10 {
+		margin-left : 87.9278050555%
+	}
+
+	.jubootstrap .row-fluid .offset10:first-child {
+		margin-left : 85.3637024914%
+	}
+
+	.jubootstrap .row-fluid .offset9 {
+		margin-left : 79.3807965085%
+	}
+
+	.jubootstrap .row-fluid .offset9:first-child {
+		margin-left : 76.8166939444%
+	}
+
+	.jubootstrap .row-fluid .offset8 {
+		margin-left : 70.8337879614%
+	}
+
+	.jubootstrap .row-fluid .offset8:first-child {
+		margin-left : 68.2696853973%
+	}
+
+	.jubootstrap .row-fluid .offset7 {
+		margin-left : 62.2867794144%
+	}
+
+	.jubootstrap .row-fluid .offset7:first-child {
+		margin-left : 59.7226768503%
+	}
+
+	.jubootstrap .row-fluid .offset6 {
+		margin-left : 53.7397708674%
+	}
+
+	.jubootstrap .row-fluid .offset6:first-child {
+		margin-left : 51.1756683033%
+	}
+
+	.jubootstrap .row-fluid .offset5 {
+		margin-left : 45.1927623204%
+	}
+
+	.jubootstrap .row-fluid .offset5:first-child {
+		margin-left : 42.6286597563%
+	}
+
+	.jubootstrap .row-fluid .offset4 {
+		margin-left : 36.6457537734%
+	}
+
+	.jubootstrap .row-fluid .offset4:first-child {
+		margin-left : 34.0816512093%
+	}
+
+	.jubootstrap .row-fluid .offset3 {
+		margin-left : 28.0987452264%
+	}
+
+	.jubootstrap .row-fluid .offset3:first-child {
+		margin-left : 25.5346426623%
+	}
+
+	.jubootstrap .row-fluid .offset2 {
+		margin-left : 19.5517366794%
+	}
+
+	.jubootstrap .row-fluid .offset2:first-child {
+		margin-left : 16.9876341153%
+	}
+
+	.jubootstrap .row-fluid .offset1 {
+		margin-left : 11.0047281324%
+	}
+
+	.jubootstrap .row-fluid .offset1:first-child {
+		margin-left : 8.44062556829%
+	}
+
+	.jubootstrap input.span12, .jubootstrap textarea.span12, .jubootstrap .uneditable-input.span12 {
+		width : 1156px
+	}
+
+	.jubootstrap input.span11, .jubootstrap textarea.span11, .jubootstrap .uneditable-input.span11 {
+		width : 1056px
+	}
+
+	.jubootstrap input.span10, .jubootstrap textarea.span10, .jubootstrap .uneditable-input.span10 {
+		width : 956px
+	}
+
+	.jubootstrap input.span9, .jubootstrap textarea.span9, .jubootstrap .uneditable-input.span9 {
+		width : 856px
+	}
+
+	.jubootstrap input.span8, .jubootstrap textarea.span8, .jubootstrap .uneditable-input.span8 {
+		width : 756px
+	}
+
+	.jubootstrap input.span7, .jubootstrap textarea.span7, .jubootstrap .uneditable-input.span7 {
+		width : 656px
+	}
+
+	.jubootstrap input.span6, .jubootstrap textarea.span6, .jubootstrap .uneditable-input.span6 {
+		width : 556px
+	}
+
+	.jubootstrap input.span5, .jubootstrap textarea.span5, .jubootstrap .uneditable-input.span5 {
+		width : 456px
+	}
+
+	.jubootstrap input.span4, .jubootstrap textarea.span4, .jubootstrap .uneditable-input.span4 {
+		width : 356px
+	}
+
+	.jubootstrap input.span3, .jubootstrap textarea.span3, .jubootstrap .uneditable-input.span3 {
+		width : 256px
+	}
+
+	.jubootstrap input.span2, .jubootstrap textarea.span2, .jubootstrap .uneditable-input.span2 {
+		width : 156px
+	}
+
+	.jubootstrap input.span1, .jubootstrap textarea.span1, .jubootstrap .uneditable-input.span1 {
+		width : 56px
+	}
+
+	.jubootstrap .thumbnails {
+		margin-left : -30px
+	}
+
+	.jubootstrap .row:before, .jubootstrap .row:after, .jubootstrap .row-fluid:before, .jubootstrap .row-fluid:after {
+		display     : table;
+		line-height : 0;
+		content     : ""
+	}
+
+	.jubootstrap .row:after, .jubootstrap .row-fluid:after {
+		clear : both
+	}
+
+	.jubootstrap .container, .jubootstrap .navbar-static-top .container, .jubootstrap .navbar-fixed-top .container, .jubootstrap .navbar-fixed-bottom .container, .jubootstrap .span12 {
+		width : 1170px
+	}
+
+	.jubootstrap .row-fluid [class*=span]:first-child, .jubootstrap input, .jubootstrap textarea, .jubootstrap .uneditable-input, .jubootstrap .row-fluid .thumbnails {
+		margin-left : 0
+	}
+
+	.jubootstrap .controls-row [class*=span] + [class*=span], .jubootstrap .thumbnails > li {
+		margin-left : 30px
+	}
+}
+
+@media max-width 480px {
+
+	.jubootstrap .nav-collapse {
+		-webkit-transform : translate3d(0, 0, 0)
+	}
+
+	.jubootstrap .page-header h1 small {
+		display     : block;
+		line-height : 20px
+	}
+
+	.jubootstrap input[type=checkbox], .jubootstrap input[type=radio] {
+		border : 1px solid #ccc
+	}
+
+	.jubootstrap .form-horizontal .control-label {
+		float       : none;
+		width       : auto;
+		padding-top : 0;
+		text-align  : left
+	}
+
+	.jubootstrap .form-horizontal .controls {
+		margin-left : 0
+	}
+
+	.jubootstrap .form-horizontal .control-list {
+		padding-top : 0
+	}
+
+	.jubootstrap .form-horizontal .form-actions {
+		padding-right : 10px;
+		padding-left  : 10px
+	}
+
+	.jubootstrap .media .pull-left, .jubootstrap .media .pull-right {
+		display       : block;
+		float         : none;
+		margin-bottom : 10px
+	}
+
+	.jubootstrap .media-object {
+		margin-right : 0;
+		margin-left  : 0
+	}
+
+	.jubootstrap .modal {
+		top   : 10px;
+		right : 10px;
+		left  : 10px
+	}
+
+	.jubootstrap .modal-header .close {
+		margin  : -10px;
+		padding : 10px
+	}
+
+	.jubootstrap .carousel-caption {
+		position : static
+	}
+}
+
+@media max-width 979px {
+
+	.jubootstrap body {
+		padding-top : 0
+	}
+
+	.jubootstrap .navbar-fixed-top, .jubootstrap .navbar-fixed-bottom {
+		position : static
+	}
+
+	.jubootstrap .navbar-fixed-top {
+		margin-bottom : 20px
+	}
+
+	.jubootstrap .navbar-fixed-bottom {
+		margin-top : 20px
+	}
+
+	.jubootstrap .navbar-fixed-top .navbar-inner, .jubootstrap .navbar-fixed-bottom .navbar-inner {
+		padding : 5px
+	}
+
+	.jubootstrap .navbar .container {
+		width   : auto;
+		padding : 0
+	}
+
+	.jubootstrap .navbar .brand {
+		padding-right : 10px;
+		padding-left  : 10px;
+		margin        : 0 0 0 -5px
+	}
+
+	.jubootstrap .nav-collapse {
+		clear : both
+	}
+
+	.jubootstrap .nav-collapse .nav {
+		float  : none;
+		margin : 0 0 10px
+	}
+
+	.jubootstrap .nav-collapse .nav > li {
+		float : none
+	}
+
+	.jubootstrap .nav-collapse .nav .nav-header {
+		color       : #777;
+		text-shadow : none
+	}
+
+	.jubootstrap .nav-collapse .nav > li > a, .jubootstrap .nav-collapse .dropdown-menu a {
+		font-weight           : 700;
+		color                 : #777;
+		-webkit-border-radius : 3px;
+		-moz-border-radius    : 3px;
+		border-radius         : 3px;
+		padding               : 9px 15px
+	}
+
+	.jubootstrap .nav-collapse .btn {
+		font-weight           : 400;
+		-webkit-border-radius : 4px;
+		-moz-border-radius    : 4px;
+		border-radius         : 4px;
+		padding               : 4px 10px
+	}
+
+	.jubootstrap .nav-collapse .nav > li > a:hover, .jubootstrap .nav-collapse .nav > li > a:focus, .jubootstrap .nav-collapse .dropdown-menu a:hover, .jubootstrap .nav-collapse .dropdown-menu a:focus {
+		background-color : #f2f2f2
+	}
+
+	.jubootstrap .navbar-inverse .nav-collapse .nav > li > a, .jubootstrap .navbar-inverse .nav-collapse .dropdown-menu a {
+		color : #999
+	}
+
+	.jubootstrap .navbar-inverse .nav-collapse .nav > li > a:hover, .jubootstrap .navbar-inverse .nav-collapse .nav > li > a:focus, .jubootstrap .navbar-inverse .nav-collapse .dropdown-menu a:hover, .jubootstrap .navbar-inverse .nav-collapse .dropdown-menu a:focus {
+		background-color : #111
+	}
+
+	.jubootstrap .nav-collapse.in .btn-group {
+		margin-top : 5px;
+		padding    : 0
+	}
+
+	.jubootstrap .nav-collapse .dropdown-menu {
+		position              : static;
+		top                   : auto;
+		left                  : auto;
+		display               : none;
+		float                 : none;
+		max-width             : none;
+		background-color      : transparent;
+		border                : none;
+		-webkit-border-radius : 0;
+		-moz-border-radius    : 0;
+		border-radius         : 0;
+		-webkit-box-shadow    : none;
+		-moz-box-shadow       : none;
+		box-shadow            : none;
+		margin                : 0 15px;
+		padding               : 0
+	}
+
+	.jubootstrap .nav-collapse .navbar-form, .jubootstrap .nav-collapse .navbar-search {
+		float              : none;
+		border-top         : 1px solid #f2f2f2;
+		border-bottom      : 1px solid #f2f2f2;
+		-webkit-box-shadow : inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
+		-moz-box-shadow    : inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
+		box-shadow         : inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
+		margin             : 10px 0;
+		padding            : 10px 15px
+	}
+
+	.jubootstrap .navbar-inverse .nav-collapse .navbar-form, .jubootstrap .navbar-inverse .nav-collapse .navbar-search {
+		border-top-color    : #111;
+		border-bottom-color : #111
+	}
+
+	.jubootstrap .navbar .nav-collapse .nav.pull-right {
+		float       : none;
+		margin-left : 0
+	}
+
+	.jubootstrap .nav-collapse, .jubootstrap .nav-collapse.collapse {
+		height   : 0;
+		overflow : hidden
+	}
+
+	.jubootstrap .navbar-static .navbar-inner {
+		padding-right : 10px;
+		padding-left  : 10px
+	}
+
+	.jubootstrap .nav-collapse .nav > li > a, .jubootstrap .nav-collapse .dropdown-menu li + li a {
+		margin-bottom : 2px
+	}
+
+	.jubootstrap .nav-collapse .nav > .divider-vertical, .jubootstrap .nav-collapse .dropdown-menu:before, .jubootstrap .nav-collapse .dropdown-menu:after, .jubootstrap .nav-collapse .dropdown-menu .divider, .jubootstrap .nav-collapse .nav > li > .dropdown-menu:before, .jubootstrap .nav-collapse .nav > li > .dropdown-menu:after {
+		display : none
+	}
+
+	.jubootstrap .nav-collapse .open > .dropdown-menu, .jubootstrap .navbar .btn-navbar {
+		display : block
+	}
+}
+
+@media min-width 980px {
+
+	.jubootstrap .nav-collapse.collapse {
+		height   : auto !important;
+		overflow : visible !important
+	}
+}

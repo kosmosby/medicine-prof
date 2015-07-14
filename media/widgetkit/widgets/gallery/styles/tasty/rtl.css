@@ -1,0 +1,39 @@
+/*
+ * RTL Style Sheet
+ */
+
+
+.wk-slideshow-tasty > div:hover .next {
+	right: auto;
+	left: -15px;
+	background-position: 0 -50px;
+}
+
+.wk-slideshow-tasty > div:hover .next:hover { background-position: 0 -150px; }
+.wk-slideshow-tasty > div:hover .next:active { background-position: 0 -250px; }
+
+.wk-slideshow-tasty > div:hover .prev {
+	left: auto;
+	right: -15px;
+	background-position: 0 0;
+}
+
+.wk-slideshow-tasty > div:hover .prev:hover { background-position: 0 -100px; }
+.wk-slideshow-tasty > div:hover .prev:active { background-position: 0 -200px; }
+
+.wk-slideshow-tasty .nav li {
+	margin-left: 0;
+	margin-right: 5px;
+}
+.wk-slideshow-tasty .nav li:first-child { margin-right: 0; }
+
+.wk-slideshow-inside-tasty .nav li {
+	padding-right: 0;
+	padding-left: 5px;
+	float: right;
+}
+
+.wk-slideshow-inside-tasty .nav li:hover:before {
+	left: 10px;
+	right: 5px;
+}

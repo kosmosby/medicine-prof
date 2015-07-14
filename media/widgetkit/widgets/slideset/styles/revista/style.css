@@ -1,0 +1,72 @@
+/*
+ * Widgetkit Slideset: Revista Style
+ */
+
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-revista .nav { text-align: center; }
+
+.wk-slideset-revista .nav li { display: inline-block; }
+.wk-slideset-revista .nav.icon li { margin-left: 3px; }
+.wk-slideset-revista .nav.text li { margin-left: 40px; }
+
+.wk-slideset-revista .nav li:first-child { margin-left: 0; }
+
+.wk-slideset-revista .nav.icon span {
+	width: 7px;
+	height: 7px;
+	background: url(images/nav.png) 0 0 no-repeat;
+	overflow: hidden;
+}
+
+.wk-slideset-revista .nav.icon span:hover { background-position: 0 -10px; }
+.wk-slideset-revista .nav.icon span:active { background-position: 0 -20px; }
+.wk-slideset-revista .nav.icon .active span { background-position: 0 -30px; }
+
+
+/* Buttons
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-revista > div { position: relative; }
+
+.wk-slideset-revista > div .next,
+.wk-slideset-revista > div .prev {
+	top: 50%;
+	width: 25px;
+	height: 25px;
+	margin-top: -12px;
+	background: url(images/buttons.png);
+	background-repeat: no-repeat;
+}
+.wk-slideset-revista > div .prev {
+	left: 15px;
+	background-position: 0 0;
+}
+.wk-slideset-revista > div .prev:hover { background-position: 0 -30px; }
+.wk-slideset-revista > div .prev:active { background-position: 0 -60px; }
+.wk-slideset-revista > div .next {
+	right: 15px;
+	background-position: 0 -90px;
+}
+.wk-slideset-revista > div .next:hover { background-position: 0 -120px; }
+.wk-slideset-revista > div .next:active { background-position: 0 -150px; }
+
+
+/* Title
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-revista ul.set li {  background: url(images/separator.png) 0 0 repeat-y; }
+.wk-slideset-revista ul.set li:first-child { background: none; }
+
+.wk-slideset-revista .wk-content { 
+	margin: 15px;
+	text-align: left;
+}
+
+
+/* IE7 Fixes */
+.wk-ie7 .wk-slideset-revista .nav li,
+.wk-ie7 .wk-slideset-revista .nav span { display: inline; }
+.wk-ie7 .wk-slideset-revista .nav span { zoom: 1; }

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="showgateways" type="params" ui="admin" label="Payment Gateway Accounts" description="Payment gateways settings.">
+			<extend toxpathnode="/cbxml/types/type[@name=&quot;gateway_type&quot;]" fromxpathnode="/*/types/type[@name=&quot;gateway_type&quot;]/option" file="processors/*/edit.gateway" />
+			<param name="checkv"  mode="show"   type="private" class="cbpaidParamsExt" method="checkPluginsPublished" groups="user/plug_cbpaidsubscriptions/processors" action="" path="" label=" " description="" />
+			<tablebrowser name="gatewaysbrowser" table="#__cbsubs_gateway_accounts" class="cbpaidGatewaysAccountsMgr::gatewayAccountObjects" label="Payment Gateways" description="List of payment gateway accounts:">
+				<tablemenu>
+					<menu action="cbo:newrow" label="Create New" description="Create new gateway account entry" />
+				</tablemenu>
+				<toolbarmenu>
+					<menu name="new"  action="linkAction" task="new" link="cbo:newrow" label="New" />
+					<menu name="edit"  action="linkAction" task="edit" link="cbo:editrows" label="Edit" />
+					<menu name="delete"  action="linkAction" task="delete" link="cbo:deleterows" label="Delete" />
+					<menu name="spacer1" action="spacer" />
+					<menu name="cancel"   action="cancel" task="cancelPluginAction" label="Close" />
+				</toolbarmenu>
+				<quicksearchfields>
+					<field name="name" />
+					<field name="id" valuetype="const:int" />
+				</quicksearchfields>
+				<filters>
+					<filter name="gateway_type" type="xml:gateway_type" value="gateway_type" valuetype="sql:string" size="1" default="" label="Gateway type" blanktext="--- By type ---" description="Filter accounts by the type of the account"/>
+					<filter name="id" type="field_show_only_if_selected" base="int" size="1" default="" label="Gateway account id"     blanktext="--- By id ---" description="Select a particular row by its id (used to show a given record only)" />
+				</filters>
+				<orderby>
+					<field name="ordering" ordering="ASC" />
+				</orderby>
+				<listfields>
+					<header type="standard" />
+					<rows type="standard" height="auto" limit="15" >
+						<field name=""          type="rownumber"       width="20px" align="right" label="#" />
+						<field name="id"        type="primarycheckbox" width="20px" />
+						<field name="name"      type="string"   translate="_UE"   link="cbo:rowedit"  parameters="tid" paramvalues="id" title="Edit this gatway account settings"     width="20%" label="Gateway Name" class="title">
+							<attributes>
+								<attribute name="class">
+									<param name="cssclass" type="text" />
+								</attribute>
+							</attributes>
+						</field>
+						<field name="gateway_type" type="xml:gateway_type" width="15%"  align="left" label="Gateway type" description="Gateway type: Multiple accounts and/or settings are possible." />
+						<field name="enabled"   type="xml:gateway_enable" width="25%"  align="left" label="Enabled" description="Gateway enabling type: Not enabled gateways are not valid at all.">
+							<attributes>
+								<attribute name="class">
+									<param name="enabled_cssclass" type="text" />
+								</attribute>
+							</attributes>
+						</field>
+						<field name="normal_gateway"   type="xml:normal_gateway" width="25%"  align="left" label="Payment Gateway" description="Overview of which payment processor gateway is configured for each gateway account.">
+							<attributes>
+								<attribute name="class">
+									<param name="normal_gateway_cssclass" type="text" />
+								</attribute>
+							</attributes>
+						</field>
+						<field name="ordering"  type="ordering" value="name"  width="5%"  label="Order" onclick="arrows,number" description="Ordering of plan within each parent plan" />
+						<field name="viewaccesslevel"  type="viewaccesslevel"   width="5%" label="Access" class="title" description="View Access Level for this gateway account" />
+						<field name="user_name"            type="string"   width="5%" label="Owner" class="title">
+							<data name="user_name" type="sql:function" operator="IF">
+								<data name="" type="sql:operator" operator="=">
+									<data name="owner" type="sql:field" />
+									<data name="0" type="const:int" />
+								</data>
+								<data name="System" type="const:string" translate="yes" />
+								<!-- This is here for translation tool to translate above correctly:
+									<field label="System" />
+								-->
+								<data name="username" type="sql:field" table="#__users" class="\CB\Database\Table\UserTable" key="id" value="owner" />
+							</data>
+						</field>
+						<field name="payment_baskets"    type="int"       link="cb_action:show_paymentbaskets" parameters="paymentbasketsbrowser[filter_gateway_account]" paramvalues="id" title="Show payment baskets having used this gateway account" width="5%"  align="right" label="Payment Baskets" description="Number of payment baskets with this gateway account. Click to see payment baskets">
+							<data name="payment_baskets" type="sql:count" distinct="id"  table="#__cbsubs_payment_baskets" class="cbpaidPaymentBasket"           key="gateway_account" value="id" />
+						</field>
+						<field name="notifications"      type="int"       link="cb_action:show_notifications" parameters="notificationsbrowser[filter_gateway_account]" paramvalues="id" title="Show these notifications" width="5%"  align="right" label="Notifications" description="Number of notifications for this gateway account. Click to see notifications">
+							<data name="notifications"   type="sql:count" distinct="id"  table="#__cbsubs_notifications" class="cbpaidPaymentNotification" key="gateway_account" value="id" />
+						</field>
+						<field name="change_logs"    type="int"       link="cb_action:show_history" parameters="historybrowser[filter_table_name] historybrowser[filter_table_key_id]" paramvalues="#__cbsubs_gateway_accounts id" paramvaluestypes="const:string sql:field" title="Show change-log for this item" width="5%"  align="right" label="Change Logs" description="Number of changes logged for each item. Click to see corresponding logs.">
+							<data type="sql:subquery" name="change_logs" as="change_logs">
+								<data name="change_logs" type="sql:count" distinct="id"  table="#__cbsubs_history" class="cbpaidHistory">
+									<where>
+										<column name="table_name"   operator="=" value="#__cbsubs_gateway_accounts" type="sql:field" valuetype="const:string" />
+										<column name="table_key_id" operator="=" value="id" type="sql:field" valuetype="sql:parentfield" />
+									</where>
+								</data>
+							</data>
+						</field>
+						<field name="id"        type="int"       width="5%"  align="right" label="Id" />
+						<field name="cssclass" type="hidden" width="0px" />
+						<field name="enabled_cssclass" type="hidden" width="0px">
+							<data name="enabled_cssclass" type="sql:function" operator="IF">
+								<data name="" type="sql:operator" operator="=">
+									<data name="enabled" type="sql:field" />
+									<data name="0" type="const:int" />
+								</data>
+								<data name="cbDisabled" type="const:string" />
+								<data name="cbEnabled" type="const:string" />
+							</data>
+						</field>
+						<field name="normal_gateway_cssclass" type="hidden" width="0px">
+							<data name="normal_gateway_cssclass" type="sql:function" operator="IF">
+								<data name="" type="sql:operator" operator="=">
+									<data name="normal_gateway" type="sql:field" />
+									<data name="0" type="const:int" />
+								</data>
+								<data name="cbDisabled" type="const:string" />
+								<data name="cbEnabled" type="const:string" />
+							</data>
+						</field>
+					</rows>
+				</listfields>
+			</tablebrowser>
+		</view>
+	</views>
+</cbxml>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<metadata>
+
+	<layout title="Mainwall Layout">
+
+		<message>
+
+			<![CDATA[AWDWALL MAINWALL LAYOUT DESCRIPTION]]>
+
+		</message>
+
+	</layout>
+
+	<state>
+
+		<name>Mainwall Layout</name>
+
+		<description>Mainwall Layout</description>
+
+        <url></url>
+
+		<params>
+
+
+
+		</params>
+
+		<advanced>
+
+
+
+		</advanced>
+
+	</state>
+
+</metadata>

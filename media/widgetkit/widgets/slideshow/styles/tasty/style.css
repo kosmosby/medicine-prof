@@ -1,0 +1,79 @@
+/*
+ * Widgetkit Slideshow: Tasty Style
+ */
+
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-tasty .nav {
+	margin-top: 15px;
+	text-align: center;
+}
+
+.wk-slideshow-tasty .nav li {
+	display: inline-block;
+	margin-left: 5px;
+}
+.wk-slideshow-tasty .nav li:first-child { margin-left: 0; }
+
+.wk-slideshow-tasty .nav span {
+	width: 16px;
+	height: 15px;
+	background: url(images/nav.png) 0 0 no-repeat;
+	overflow: hidden;
+}
+.wk-slideshow-tasty .nav span:hover { background-position: 0 -15px; }
+.wk-slideshow-tasty .nav span:active { background-position: 0 -30px; }
+.wk-slideshow-tasty .nav .active span { background-position: 0 -15px; }
+
+/* Buttons
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-tasty > div { position: relative; }
+
+.wk-slideshow-tasty > div:hover .next,
+.wk-slideshow-tasty > div:hover .prev {
+	top: 50%;
+	width: 44px;
+	height: 44px;
+	margin-top: -25px;
+	background: url(images/buttons.png) 0 50px no-repeat;
+}
+
+.wk-slideshow-tasty > div:hover .next {
+	right: -15px;
+	background-position: 0 0;
+}
+.wk-slideshow-tasty > div:hover .next:hover { background-position: 0 -100px; }
+.wk-slideshow-tasty > div:hover .next:active { background-position: 0 -200px; }
+
+.wk-slideshow-tasty > div:hover .prev {
+	left: -15px;
+	background-position: 0 -50px;
+}
+.wk-slideshow-tasty > div:hover .prev:hover { background-position: 0 -150px; }
+.wk-slideshow-tasty > div:hover .prev:active { background-position: 0 -250px; }
+
+
+/* Caption
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideshow-tasty .caption { 
+	background: #434343;
+	background: rgba(67,67,67,0.85); 
+}
+
+.wk-ie .wk-slideshow.wk-slideshow-tasty .caption { filter: none; }
+
+
+/* Responsive
+----------------------------------------------------------------------------------------------------*/
+
+/* Only Touch Devices */
+@media (max-device-width: 1024px) {
+
+	.wk-slideshow-tasty .next,
+	.wk-slideshow-tasty .prev { display: none; }
+
+}

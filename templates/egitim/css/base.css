@@ -1,0 +1,105 @@
+@import url(../warp/css/base.css);
+
+
+/* New style-related Base Values
+----------------------------------------------------------------------------------------------------*/
+
+body { 
+	font: normal 14px/18px Arial, Helvetica, sans-serif;
+	color: #92979E;
+ }
+
+ins, mark { border-radius: 4px; }
+
+hr { border-top-color: #dcdcdc; }
+
+pre {
+	border: 1px solid #dcdcdc;
+	background: #fff;
+}
+
+
+#content .grid_6 {
+    width: 230px;
+    float: left;
+}
+.aktif_sol {
+    margin-top: 20px;
+}
+
+.aktif_sol ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    width: 208px;
+}
+
+
+.aktif_sol ul li a.sol_ust_baslik, .aktif_sol ul li a.sol_ust_baslik:hover {
+    background: url("../images/egitim_sol_ust.png") no-repeat scroll 0 0 transparent;
+    font-weight: bold;
+    line-height: 13px;
+    padding-top: 7px;
+}
+.aktif_sol ul li a {
+    border-bottom: 1px solid #C3C3C3;
+    color: #3A3731;
+    display: block;
+    min-height: 12px;
+    padding: 10px 50px 8px 10px;
+    width: 148px;
+}
+
+.aktif_sol ul li a.sol_kategori {
+    background: none repeat scroll 0 0 #EAE9E9;
+    border-bottom: 1px solid #C3C3C3;
+    border-top: 2px solid #C3C3C3;
+    font-weight: bold;
+}
+
+.aktif_sol ul ul {
+    display: none;
+}
+
+#content .egitim_sag {
+    float: left;
+    width: 678px;
+}
+
+.aktif_sol ul li a:hover, #bolum_aktif {
+    background: url("../images/egitim_sol_hover.png") repeat-x scroll 0 0 #9CC1E0;
+}
+
+a.sol_kategori:hover {
+    background: none;
+}
+
+.aktif_sol ul li a {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 1px solid #C3C3C3;
+    color: #3A3731;
+    display: block;
+    min-height: 12px;
+    padding: 10px 50px 8px 10px;
+    width: 148px;
+}
+
+.aktif_sol ul li a.sol_kategori:hover {
+    background: none repeat scroll 0 0 #EAE9E9;
+    border-bottom: 1px solid #C3C3C3;
+    border-top: 2px solid #C3C3C3;
+    font-weight: bold;
+}
+.egitimer_giris {
+    background: url("../images/egitime_giris.png") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    height: 24px;
+    margin: 5px 0 0 40px;
+    padding: 9px 0 0;
+    text-align: center;
+    width: 130px;
+}

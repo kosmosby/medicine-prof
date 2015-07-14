@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="plugin" group="content">
+	<name>Content - Load Jomwall comment </name>
+	<author>AWDsolution.com</author>
+	<creationDate>June 2011</creationDate>
+	<copyright>AWDsolution.com</copyright>
+	<license>@license GNU/GPL http://www.gnu.org/copyleft/gpl.html</license>	
+	<authorEmail>support@awdsolution.com</authorEmail>
+	<authorUrl>http://www.awdsolution.com</authorUrl>
+	<version>3.0</version>
+	<description>JomWALL - Comment on article plugin will ad a comment box on the article by adding the code {loadjomwall} under the article </description>
+	<files>
+		<filename plugin="loadjomwall">loadjomwall.php</filename>
+		<filename plugin="loadjomwall">loadjomwall_ajax.php</filename>
+		<folder>loadjomwall</folder>
+	</files>
+
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="enabled" type="radio" default="1" label="Enable Plugin" description="PARAMENABLED">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="showavatar" type="radio" default="1" label="Show Avatar" description="Show Avatar">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="moderator_users" type="text" default=" " label="Moderator User id" description="Write moderator user id with comma separated" />
+			<field name="nocomment" type="text" default="10" label="Number Of Comment" description="How many comment to show before view all" />
+			</fieldset>
+
+		</fields>
+	</config>
+</extension>

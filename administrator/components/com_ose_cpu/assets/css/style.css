@@ -1,0 +1,434 @@
+/*
+Template Name: CleanDream
+Author: Rory Kranendonk
+Author URI: http://www.dreamwire.nl
+Version: 1.0
+*/
+
+/* //////////////////// LAYOUT \\\\\\\\\\\\\\\\\\\\ */
+
+html, body {
+	margin : 0;
+	padding : 0;
+	height : 100%;
+}
+
+img {border : 0;}
+
+.container {
+	position : relative;
+	overflow : hidden;
+	margin : 5 auto;
+	padding : 0 0 20px;
+	width : 98%;
+	min-height: 700px;
+		
+	background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    margin: auto;
+}
+
+.logo-labels {
+	background: none repeat scroll 0 0 #FFFFFF;
+    display: block;
+    height: 120px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 20px 0 0;
+    position: relative;
+    width: 100%;
+    z-index: 999;
+    border:0px solid rgba(0,0,2,0.8);background: -moz-linear-gradient(center top , #F9F9F9 0%, #F0F0F0 100%); background: -webkit-linear-gradient(top, #F9F9F9 0%, #F0F0F0 100%); background: -o-linear-gradient(top, #F9F9F9 0%, #F0F0F0 100%); background: -ms-linear-gradient(top, #F9F9F9 0%, #F0F0F0 100%); background: linear-gradient(top, #F9F9F9 0%, #F0F0F0 100%); box-shadow: none;margin: 0px; border-bottom: 1px solid #D5D5D5;border-top: 8px solid #DC1B21;
+}
+
+.logo-labels h1 {
+	position : absolute;
+	background : url(../images/oselogo-new.png) no-repeat left top;
+	left : 0;
+	top : 5px;
+	font-size : 0;
+	width : 500px;
+	height : 80px;
+}
+
+.logo-labels h1 a, .logo-labels h1 a:link, .logo-labels h1 a:visited, .logo-labels h1 a:active {
+	display : block;
+	width : 100%;
+	height : 100%;
+}
+
+.logo-labels ul {
+	float : right;
+	margin : 0;
+	padding : 20px 10px 0 0;
+	list-style : none;
+	width : auto;
+}
+
+.logo-labels ul li {
+	float : left;
+	background : none;
+	padding : 0 0 0 1px;
+	font : 11px Arial;
+	line-height : 1.9em;
+	text-transform : uppercase;
+	cursor : pointer;
+	color : #FFFFFF;
+	height : 22px;
+}
+
+.logo-labels ul li a, .logo-labels ul li a:link, .logo-labels ul li a:visited, .logo-labels ul li a:active{
+	float : left;
+	background : url(../gfx/label-icons.gif) no-repeat left top;
+	padding : 0 0 0 19px;
+	color : #FFFFFF;
+	text-decoration : none;
+	height : 22px;
+}
+
+.logo-labels ul li.usermessage a, .logo-labels ul li.usermessage a:link, .logo-labels ul li.usermessage a:visited, .logo-labels ul li.usermessage a:active{
+	background : url(../gfx/label-icons.gif) no-repeat left -22px;
+}
+
+.logo-labels ul li.logout a, .logo-labels ul li.logout a:link, .logo-labels ul li.logout a:visited, .logo-labels ul li.logout a:active{
+	background : url(../gfx/label-icons.gif) no-repeat left -44px;
+}
+
+.logo-labels ul li span{
+	float : left;
+	background : url(../gfx/label.gif) no-repeat right top;
+	padding : 0 8px 0 6px;
+	overflow : hidden;
+	cursor : pointer;
+	height : 22px;
+}
+
+.logo-labels ul li:hover span {
+	background : url(../gfx/label.gif) no-repeat right -22px;
+}
+
+.menu-search {
+	z-index : 999;
+	margin: 0px;
+	padding-left: 0px; 
+	padding-bottom: 0px;
+	border-bottom: 0px;  
+	width : 100%;
+	background: url("../images/menu.png") repeat-x scroll right top transparent;
+    display: block;
+    height: 33px;
+}
+
+.menu-search .search {
+	float : right;
+	padding : 4px 0 0;
+}
+
+.menu-search .search input {
+	float : left;
+	background : url(../gfx/search-input.gif) no-repeat left top transparent;
+	border : 0;
+	outline: none;
+	padding : 4px 7px 6px;
+	margin : 0;
+	font-size : 10px;
+	color : #c9c9c9;
+	line-height : 1.5em;
+	text-transform: uppercase;
+	width : 174px;
+}
+
+.menu-search .search input:focus {
+	color : #5a5a5a;
+}
+
+.menu-search .search button {
+	float : left;
+	background : url(../gfx/search-button.gif) no-repeat left top transparent;
+	border : none;
+	outline : none;
+	padding : 0;
+	margin : 0;
+	cursor : pointer;
+    overflow: visible;
+	width : 28px;
+	height : 22px;
+}
+
+.breadcrumbs{
+	float : left;
+	overflow : hidden;
+	font-size : 10px;
+	color : #adadad;
+	text-transform : uppercase;
+	width : 980px;
+	height : 29px;
+	border-bottom: 1px solid #DBDBDB;
+	border-right: 1px solid #DBDBDB
+}
+
+.breadcrumbs a, .breadcrumbs a:link, .breadcrumbs a:active, .breadcrumbs a:visited {
+	color : #adadad;
+	text-decoration : none;
+}
+
+.breadcrumbs a:hover {
+	color : #8f8f8f;
+}
+
+.breadcrumbs ul {
+	float : left;
+	margin : 0;
+	padding : 0;
+	list-style : none;
+}
+
+.breadcrumbs ul li{
+	float : left;
+	background : none;
+	padding : 9px 0 0;
+	line-height : 1.05em;
+}
+
+.breadcrumbs ul li.home{
+	float : left;
+	border-left : 1px solid #dbdbdb;
+	border-right : 1px solid #dbdbdb;
+	padding : 8px 6px 0;
+	width : 30px;
+	height : 29px;
+}
+
+.breadcrumbs ul li.home a, .breadcrumbs ul li.home a:link, .breadcrumbs ul li.home a:active, .breadcrumbs ul li.home a:visited {
+	float : left;
+	background : url(../gfx/icon-home.gif) no-repeat left top transparent;
+	width : 16px;
+	height : 14px;
+}
+
+.breadcrumbs ul li.home a:hover {
+	background : url(../gfx/icon-home.gif) no-repeat left bottom transparent;
+}
+
+.breadcrumbs ul li.break{
+	float : left;
+	padding : 9px 7px 0;
+	font-size : 11px;
+	line-height : 0.8em;
+}
+
+.section{
+	float : left;
+	width : 100%;
+	padding-left: 0%; 
+	padding-right: 0%; 
+	overflow: hidden;
+}
+
+.box{
+	float : left;
+	display : inline;
+	border : 1px solid #c3d0e1;
+	margin : 20px 20px 0 0;
+	width : 978px;
+}
+
+.box.small{
+	width : 228px;
+}
+
+.box.medium{
+	width : 478px;
+}
+
+.box.big{
+	width : 728px;
+}
+
+.box .title{
+	display : block;
+	background : url(../gfx/box-title.gif) repeat-x left top transparent;
+	border-bottom : 1px solid #e2e5e8;
+	border-left : 1px solid #FFFFFF;
+	border-right : 1px solid #FFFFFF;
+	padding : 10px 0 0 0;
+	overflow : hidden;
+	height : 24px;
+}
+
+.box .title h2{
+	float : left;
+	padding : 0 0 0 10px;
+	font: 14px 'MuseoSans700', Arial;
+	color : #002e68;
+	line-height : 1.0em;
+	text-transform : uppercase;
+	font-weight : 100;
+}
+
+@-moz-document url-prefix() {
+  .box .title h2 {
+     font-weight : 100;
+  }
+}
+
+.box .title span.hide{
+	float : right;
+	margin : -4px 5px 0;
+	background : url(../gfx/box-hide.png) no-repeat left top transparent;
+	overflow : hidden;
+	cursor : pointer;
+	width : 40px;
+	height : 21px;
+}
+
+.box .title span.hide:hover{
+	background : url(../gfx/box-hide.png) no-repeat left bottom transparent;
+}
+
+.box .content{
+	display : block;
+	background-color : #FFFFFF;
+	border : 4px solid #f2f4f7;
+	padding : 15px;
+}
+
+.box .content span.shadow{
+	display : inline-block;
+	border : 1px solid #f2f4f7;
+	cursor : pointer;
+}
+
+.box .content span.shadow.left{
+	float : left;
+	border : 1px solid #f2f4f7;
+	margin : 3px 14px 15px 0;
+}
+
+.box .content span.shadow.right{
+	float : right;
+	border : 1px solid #f2f4f7;
+	margin : 3px 0 15px 14px;
+}
+
+.box .content span.shadow img{
+	background-color : #FFFFFF;
+	border : 1px solid #c3d0e1;
+	padding : 1px;
+}
+
+.box .content.gallery{
+	display : block;
+	padding : 5px 6px 15px 15px;
+	*padding : 5px 5px 12px 15px;
+	line-height : 0.70em;
+	text-align : center;
+}
+
+.box .content.gallery a{
+	display : inline-block;
+}
+
+.box .content.gallery a span.shadow{
+	display : inline-block;
+	margin : 12px 7px 0 0;
+	*margin : 10px 7px 0 0;
+}
+
+.box .gallery .shadow img{
+	width : 74px;
+	height : 74px;
+}
+
+.box .content.gallery a:hover span.shadow img{
+	opacity : 0.5;
+	filter : alpha(opacity=50);
+}
+
+.box .content.gallery div.thumb{
+	display : inline-block;
+	*display : inline;
+	*zoom : 1;
+	position : relative;
+	overflow : hidden;
+	margin : 12px 7px 0 0;
+	*margin : 10px 9px 3px 1px;
+	width : 80px;
+	height : 80px;
+}
+
+.box .gallery .thumb div {
+	position : absolute;
+	background : url(../gfx/img-hover.png) repeat left bottom transparent;
+	display : none;
+	top : 0;
+	left : 0;
+	z-index : 999;
+	text-align : center;
+	width : 100%;
+	height : 100%;
+}
+
+.box .gallery .thumb div a.zoom{
+	display : inline-block;
+	margin : 18px 0 0;
+}
+
+.box .gallery .thumb div a:hover img{
+	opacity : 0.8;
+	filter : alpha(opacity=80);
+}
+
+.box .content .message{
+	display : block;
+	border-bottom : 1px solid #c3d0e1;
+	padding : 0 0 13px;
+	*padding : 0 0 8px;
+	font-size : 11px;
+}
+
+#preview_menus
+{
+	float: right; 
+	margin-right: 10px; 
+	margin-top: 40px; 
+	color: #fff; 
+}
+
+#preview_menus a{
+	color: #FFFFFF;
+	margin-right: 10px; 
+	padding: 5px 10px 5px 10px; 
+	text-shadow: 0px 0px 1px #999;
+	border-radius: 3px;
+	text-decoration: none; 
+	
+	background:#DC1b21; background:-moz-linear-gradient(top,  #DC1b21 0%, #BE161A 100%); background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#DC1b21), color-stop(100%,#BE161A)); background:-webkit-linear-gradient(top,  #DC1b21 0%,#BE161A 100%); background:-o-linear-gradient(top,  #DC1b21 0%,#BE161A 100%); background:-ms-linear-gradient(top,  #DC1b21 0%,#BE161A 100%); background:linear-gradient(top,  #DC1b21 0%,#BE161A 100%); filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#DC1b21', endColorstr='#BE161A',GradientType=0 );
+}
+
+/*
+ Jays Added
+*/
+div.osepagetitle {
+    background-repeat: no-repeat;
+    margin-left: 10px;
+    
+}
+
+
+
+div.osepagetitle h2 {
+    color: #146295;
+    font-size: 2em;
+    font-weight: bold;
+    line-height: 48px;
+    margin: 0;
+    padding-left: 380px;
+}
+
+
+.oselogo-labels{
+	background : url(../images/oselogo-new.png) no-repeat;
+}
+

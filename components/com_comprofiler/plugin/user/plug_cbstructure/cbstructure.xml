@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0" type="plugin" group="user" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="file:../../../../../validation/ahawow.xsd">
+    <name>CB Structure</name>
+    <author>Neurons</author>
+    <creationDate>2015-5-17</creationDate>
+    <copyright>(C) 2015 Neurons</copyright>
+    <license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2</license>
+    <authorEmail>alekseikonstantinov@gmail.com</authorEmail>
+    <description>Component plugin allowing users to provide structure of the company: e.g. departments, divisions.</description>
+    <version>2.0.2</version>
+    <files>
+        <filename plugin="cbstructure">cbstructure.php</filename>
+        <filename>component.cbstructure.php</filename>
+        <filename>cbstructure.php</filename>
+        <filename>index.html</filename>
+        <foldername>models</foldername>
+        <foldername>templates</foldername>
+        <foldername>xml</foldername>
+    </files>
+    <tabs>
+        <tab name="Отделения" translated-name="structure" description="" class="cbstructureTab" fields="0" sys="1" position="cb_tabmain" displaytype="tab">
+            <params>
+            </params>
+        </tab>
+    </tabs>
+    <params>
+    </params>
+    <database version="2">
+        <table name="#__comprofiler_plugin_department" class="" strict="true" drop="never">
+            <columns strict="true" drop="never">
+                <column name="id" type="sql:int(11)" unsigned="true" auto_increment="1" />
+                <column name="profile_id" type="sql:int(11)" />
+                <column name="clinic_id" type="sql:int(11)" default="0" />
+                <column name="title" type="sql:varchar(255)" />
+                <column name="url" type="sql:varchar(255)" />
+                <column name="published" type="sql:tinyint(1)" default="0" />
+            </columns>
+            <indexes strict="true" drop="never">
+                <index name="PRIMARY" type="primary">
+                    <column name="id" />
+                </index>
+                <index name="published">
+                    <column name="published" />
+                </index>
+            </indexes>
+            <engine type="InnoDB" sameastable="#__comprofiler" strict="updatewithtable" />
+        </table>
+        <table name="#__comprofiler_plugin_department_employees" class="" strict="true" drop="never">
+            <columns strict="true" drop="never">
+                <column name="user_id" type="sql:int(11)" />
+                <column name="department_id" type="sql:int(11)" />
+                <column name="position" type="sql:varchar(255)" />
+            </columns>
+            <indexes strict="true" drop="never">
+                <index name="department_id">
+                    <column name="department_id" />
+                </index>
+            </indexes>
+            <engine type="InnoDB" sameastable="#__comprofiler" strict="updatewithtable" />
+        </table>
+        <table name="#__comprofiler_plugin_department_clinic" class="" strict="true" drop="never">
+            <columns strict="true" drop="never">
+                <column name="id" type="sql:int(11)" unsigned="true" auto_increment="1" />
+                <column name="profile_id" type="sql:int(11)" />
+                <column name="title" type="sql:varchar(255)" />
+            </columns>
+            <indexes>
+                <index name="PRIMARY" type="primary">
+                    <column name="id" />
+                </index>
+            </indexes>
+            <engine type="InnoDB" sameastable="#__comprofiler" strict="updatewithtable" />
+        </table>
+    </database>
+</cbinstall>

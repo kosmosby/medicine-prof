@@ -1,0 +1,40 @@
+/* DOCUMENT GALLERY */
+.image-gallery {
+    margin: 20px 0px 0px 0px;
+    clear: both;
+}
+
+.image-gallery h3 {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    color: #222 !important;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ccc;
+    line-height: 1.2;
+}
+
+.image-gallery ul.images {
+    list-style: none !important;
+    margin: 0px 0px 0px 0px !important;
+    padding: 0px !important;
+}
+
+.image-gallery ul.images li.image {
+    border: 1px solid #ddd;
+    float: left;
+    margin-right: 10px !important;
+    margin-top: 10px !important;
+    padding: 3px;
+}
+
+.image-gallery ul.images li.image a {
+    display: block;
+}
+
+ul.gallery-browser {
+    margin-left: 0;
+}
+
+ul.gallery-browser li {
+    clear: both;
+}

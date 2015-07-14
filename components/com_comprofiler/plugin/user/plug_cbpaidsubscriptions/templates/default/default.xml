@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0" type="plugin" group="user/plug_cbpaidsubscriptions/templates" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<name>Default</name>
+	<author>Beat</author>
+	<creationDate>2014-10-09</creationDate>
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<authorEmail>beat@joomlapolis.com</authorEmail>
+	<authorUrl>www.joomlapolis.com</authorUrl>
+	<version>2.0.0</version>
+	<cbsubsversion version="4.0.0-rc.1" />
+	<description>CBSubs template plugin for the default template.</description>
+	<files>
+		<filename plugin="cbpaidsubscriptions.default">index.html</filename>
+		<filename>index.html</filename>
+		<filename>cbpaidsubscriptions.css</filename>
+		<filename>cbpaidsubscriptions.admin.css</filename>
+		<filename>basket/index.html</filename>
+		<filename>basket/default.php</filename>
+		<filename>basket/coupon.php</filename>
+		<filename>basket/paybutton.php</filename>
+		<filename>basket/payradio.php</filename>
+		<filename>images/index.html</filename>
+
+
+
+		<filename>images/icons/index.html</filename>
+		<filename>images/icons/cards/index.html</filename>
+		<filename>images/icons/cards/cc_amexco.png</filename>
+		<filename>images/icons/cards/cc_diners.png</filename>
+		<filename>images/icons/cards/cc_directdebitde.png</filename>
+		<filename>images/icons/cards/cc_discover.png</filename>
+		<filename>images/icons/cards/cc_jcb.png</filename>
+		<filename>images/icons/cards/cc_maestro.png</filename>
+		<filename>images/icons/cards/cc_mastercard.png</filename>
+		<filename>images/icons/cards/cc_paypal.png</filename>
+		<filename>images/icons/cards/cc_solo.png</filename>
+		<filename>images/icons/cards/cc_swisspostfinance.png</filename>
+		<filename>images/icons/cards/cc_swisspostfinancecard.png</filename>
+		<filename>images/icons/cards/cc_twocheckout.png</filename>
+		<filename>images/icons/cards/cc_visa.png</filename>
+		<filename>images/icons/cards/cc_visaelectron.png</filename>
+		<filename>images/icons/cards/cc_vpay.png</filename>
+		<filename>invoice/index.html</filename>
+		<filename>invoice/default.php</filename>
+		<filename>invoiceslist/index.html</filename>
+		<filename>invoiceslist/default.php</filename>
+		<filename>invoiceslist/invoiceslistlink.php</filename>
+		<filename>productdonation/index.html</filename>
+		<filename>productdonation/default.php</filename>
+		<filename>productmerchandise/index.html</filename>
+		<filename>productmerchandise/default.php</filename>
+		<filename>productusersubscription/index.html</filename>
+		<filename>productusersubscription/default.php</filename>
+		<filename>somethingusersubscription/index.html</filename>
+		<filename>somethingusersubscription/default.php</filename>
+		<filename>userprofilesubstab/index.html</filename>
+		<filename>userprofilesubstab/default.php</filename>
+		<filename>userregistrationplans/index.html</filename>
+		<filename>userregistrationplans/default.php</filename>
+		<filename>usersubscriptions/index.html</filename>
+		<filename>usersubscriptions/default.php</filename>
+		<filename>userupgradeplans/index.html</filename>
+		<filename>userupgradeplans/default.php</filename>
+		<filename>xml/index.html</filename>
+		<filename>xml/edit.template.xml</filename>
+	</files>
+    <params>
+    	<param name="remark"  type="spacer" label="Parameters settings"  default="Settings are done from within the paid subscriptions plugin in general settings and in each plan/product." description="" />
+    </params>
+</cbinstall>

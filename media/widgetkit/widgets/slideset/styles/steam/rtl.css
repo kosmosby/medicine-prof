@@ -1,0 +1,29 @@
+/*
+ * RTL Style Sheet
+ */
+
+.wk-slideset-steam .nav.icon li {
+	margin-left: 0;
+	margin-right: 5px;
+}
+.wk-slideset-steam .nav.text li {
+	margin-left: 0;
+	margin-right: 40px;
+}
+.wk-slideset-steam .nav li:first-child { margin-right: 0; }
+
+.wk-slideset-steam > div:hover .prev {
+	right: 10px;
+	left: auto;
+	background-position: 0 -90px;
+}
+.wk-slideset-steam > div:hover .prev:hover { background-position: 0 -120px; }
+.wk-slideset-steam > div:hover .prev:active { background-position: 0 -150px; }
+
+.wk-slideset-steam > div:hover .next {
+	right: auto;
+	left: 10px;
+	background-position: 0 0;
+}
+.wk-slideset-steam > div:hover .next:hover { background-position: 0 -30px; }
+.wk-slideset-steam > div:hover .next:active { background-position: 0 -60px; }

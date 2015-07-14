@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" version="3.0.0" group="logman" method="upgrade" overwrite="true">
+    <identifier>plg:logman.extension</identifier>
+    <name>LOGman - Extension</name>
+    <author>Joomlatools</author>
+    <creationDate>June 2013</creationDate>
+    <copyright>Copyright (C) 2011 - 2013 Timble CVBA (http://www.timble.net)</copyright>
+    <license>GNU GPLv3 - http://www.gnu.org/licenses/gpl.html</license>
+    <authorEmail>support@joomlatools.com</authorEmail>
+    <authorUrl>www.joomlatools.com</authorUrl>
+    <version>1.0.0RC5</version>
+    <description>Handles logging of extension level events</description>
+
+    <files>
+        <filename plugin="extension">extension.php</filename>
+    </files>
+
+    <params />
+
+    <config>
+        <fields name="params" />
+    </config>
+</extension>

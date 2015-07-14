@@ -1,0 +1,91 @@
+div.icon-48-logo {
+  background: url(../images/logo.png) no-repeat;
+}
+
+div.icon-48-plugin {
+  background: url(../images/plugin.png) no-repeat;
+}
+
+div.icon-48-add {
+  background: url(../images/add.png) no-repeat;
+}
+
+div.icon-48-config {
+  background: url(../images/config.png) no-repeat;
+}
+
+div.icon-48-upgrade {
+  background: url(../images/upgrade.png) no-repeat;
+}
+
+div.icon-48-member {
+  background: url(../images/icon-48-user.png) no-repeat;
+}
+
+div.icon-48-article {
+  background: url(../images/icon-48-article.png) no-repeat;
+}
+
+div.icon-48-menu {
+  background: url(../images/icon-48-menumgr.png) no-repeat;
+}
+
+div.icon-48-module {
+  background: url(../images/icon-48-module.png) no-repeat;
+}
+
+div.icon-48-category {
+  background: url(../images/icon-48-category.png) no-repeat;
+}
+
+div.icon-48-section {
+  background: url(../images/icon-48-section.png) no-repeat;
+}
+
+span.icon-32-member {
+  background: url(../images/member.png) no-repeat;
+}
+
+span.icon-32-article {
+  background: url(../images/article.png) no-repeat;
+}
+
+span.icon-32-menu {
+  background: url(../images/menu.png) no-repeat;
+}
+
+span.icon-32-module {
+  background: url(../images/module.png) no-repeat;
+}
+
+span.icon-32-category {
+  background: url(../images/category.png) no-repeat;
+}
+
+span.icon-32-section {
+  background: url(../images/section.png) no-repeat;
+}
+
+.button-next {
+  height: 34px;
+  line-height: 34px;
+  width: 200px;
+  text-align: center;
+  font-weight: 700;
+  color: #333;
+  background: #9c3;
+  border: solid 1px #690;
+  cursor: pointer;
+}
+
+#oseframe {
+  padding: 20px;
+  border: 1px solid #9c3;
+  background: #fff;
+  font-family: Verdana, Arial, Helvetica, sans-serif
+}
+
+.osebackground {
+  background: #2A2A2A;
+}
+

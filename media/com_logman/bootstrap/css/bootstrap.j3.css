@@ -1,0 +1,3043 @@
+/*!
+ * Bootstrap v2.0.3
+ *
+ * Copyright 2012 Twitter, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world @twitter by @mdo and @fat.
+ */
+div.com_logman {
+  /* <<< JUI <<< */
+
+  /* >>> JUI >>> */
+
+  /* <<< JUI <<< */
+  /* Allow for input prepend/append in search forms */
+
+  /* White icons with optional class, or on hover/active states of certain elements */
+
+  /* @group experimental CSS4 stuff */
+
+  /* CSS filter experiment that automatically hue rotate blue icons to match other color schemes */
+
+  /**
+ * @package     DOCman
+ * @copyright   Copyright (C) 2011 - 2013 Timble CVBA. (http://www.timble.net)
+ * @license     GNU GPLv3 <http://www.gnu.org/licenses/gpl.html>
+ * @link        http://www.joomlatools.com
+ *
+ * Chameleon autoskinning for Bootstrap
+ */
+
+  /* @group wells.less */
+
+  /* @end */
+  /* To avoid ugly white borders due to background images expecting a white background */
+
+  /* @TODO find a better way to be rid of the limit part */
+
+  /* resets hover styling applied by stuff like bootstrap */
+
+}
+div.com_logman article,
+div.com_logman aside,
+div.com_logman details,
+div.com_logman figcaption,
+div.com_logman figure,
+div.com_logman footer,
+div.com_logman header,
+div.com_logman hgroup,
+div.com_logman nav,
+div.com_logman section {
+  display: block;
+}
+div.com_logman audio,
+div.com_logman canvas,
+div.com_logman video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+div.com_logman audio:not([controls]) {
+  display: none;
+}
+div.com_logman html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+div.com_logman a:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+div.com_logman a:hover,
+div.com_logman a:active {
+  outline: 0;
+}
+div.com_logman sub,
+div.com_logman sup {
+  position: relative;
+  font-size: 75%;
+  line-height: 0;
+  vertical-align: baseline;
+}
+div.com_logman sup {
+  top: -0.5em;
+}
+div.com_logman sub {
+  bottom: -0.25em;
+}
+div.com_logman img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+}
+div.com_logman #map_canvas img {
+  max-width: none;
+}
+div.com_logman button,
+div.com_logman input,
+div.com_logman select,
+div.com_logman textarea {
+  margin: 0;
+  font-size: 100%;
+  vertical-align: middle;
+}
+div.com_logman button,
+div.com_logman input {
+  *overflow: visible;
+  line-height: normal;
+}
+div.com_logman button::-moz-focus-inner,
+div.com_logman input::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+div.com_logman button,
+div.com_logman input[type="button"],
+div.com_logman input[type="reset"],
+div.com_logman input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+div.com_logman input[type="search"] {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  -webkit-appearance: textfield;
+}
+div.com_logman input[type="search"]::-webkit-search-decoration,
+div.com_logman input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+div.com_logman textarea {
+  overflow: auto;
+  vertical-align: top;
+}
+div.com_logman .clearfix {
+  *zoom: 1;
+}
+div.com_logman .clearfix:before,
+div.com_logman .clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+div.com_logman .clearfix:after {
+  clear: both;
+}
+div.com_logman .hide-text {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+div.com_logman .input-block-level {
+  display: block;
+  width: 100%;
+  min-height: 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+div.com_logman p {
+  margin: 0 0 9px;
+}
+div.com_logman .lead {
+  margin-bottom: 18px;
+  font-size: 20px;
+  font-weight: 200;
+  line-height: 27px;
+}
+div.com_logman small {
+  font-size: 85%;
+}
+div.com_logman strong {
+  font-weight: bold;
+}
+div.com_logman em {
+  font-style: italic;
+}
+div.com_logman cite {
+  font-style: normal;
+}
+div.com_logman .muted {
+  color: #999999;
+}
+div.com_logman h1,
+div.com_logman h2,
+div.com_logman h3,
+div.com_logman h4,
+div.com_logman h5,
+div.com_logman h6 {
+  margin: 9px 0;
+  font-family: inherit;
+  font-weight: bold;
+  line-height: 1;
+  color: inherit;
+  text-rendering: optimizelegibility;
+}
+div.com_logman h1 small,
+div.com_logman h2 small,
+div.com_logman h3 small,
+div.com_logman h4 small,
+div.com_logman h5 small,
+div.com_logman h6 small {
+  font-weight: normal;
+  line-height: 1;
+  color: #999999;
+}
+div.com_logman h1 {
+  font-size: 36px;
+  line-height: 40px;
+}
+div.com_logman h2 {
+  font-size: 30px;
+  line-height: 40px;
+}
+div.com_logman h3 {
+  font-size: 24px;
+  line-height: 40px;
+}
+div.com_logman h4 {
+  font-size: 18px;
+  line-height: 20px;
+}
+div.com_logman h5 {
+  font-size: 14px;
+  line-height: 20px;
+}
+div.com_logman h6 {
+  font-size: 12px;
+  line-height: 20px;
+}
+div.com_logman h1 small {
+  font-size: 24px;
+}
+div.com_logman h2 small {
+  font-size: 18px;
+}
+div.com_logman h3 small {
+  font-size: 14px;
+}
+div.com_logman h4 small {
+  font-size: 14px;
+}
+div.com_logman .page-header {
+  padding-bottom: 8px;
+  margin: 18px 0 27px;
+  border-bottom: 1px solid #eeeeee;
+}
+div.com_logman ul,
+div.com_logman ol {
+  padding: 0;
+  margin: 0 0 9px 25px;
+}
+div.com_logman ul ul,
+div.com_logman ul ol,
+div.com_logman ol ol,
+div.com_logman ol ul {
+  margin-bottom: 0;
+}
+div.com_logman li {
+  line-height: 18px;
+}
+div.com_logman ul.unstyled,
+div.com_logman ol.unstyled {
+  margin-left: 0;
+  list-style: none;
+}
+div.com_logman dl {
+  margin-bottom: 18px;
+}
+div.com_logman dt,
+div.com_logman dd {
+  line-height: 18px;
+}
+div.com_logman dt {
+  font-weight: bold;
+}
+div.com_logman dd {
+  margin-left: 9px;
+}
+div.com_logman .dl-horizontal dt {
+  float: left;
+  width: 120px;
+  clear: left;
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+div.com_logman .dl-horizontal dd {
+  margin-left: 130px;
+}
+div.com_logman hr {
+  margin: 18px 0;
+  border: 0;
+  border-top: 1px solid #eeeeee;
+  border-bottom: 1px solid #ffffff;
+}
+div.com_logman abbr[title] {
+  cursor: help;
+  border-bottom: 1px dotted #999999;
+}
+div.com_logman abbr.initialism {
+  font-size: 90%;
+  text-transform: uppercase;
+}
+div.com_logman blockquote {
+  padding: 0 0 0 15px;
+  margin: 0 0 18px;
+  border-left: 5px solid #eeeeee;
+}
+div.com_logman blockquote p {
+  margin-bottom: 0;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 22.5px;
+}
+div.com_logman blockquote small {
+  display: block;
+  line-height: 18px;
+  color: #999999;
+}
+div.com_logman blockquote small:before {
+  content: '\2014 \00A0';
+}
+div.com_logman blockquote.pull-right {
+  float: right;
+  padding-right: 15px;
+  padding-left: 0;
+  border-right: 5px solid #eeeeee;
+  border-left: 0;
+}
+div.com_logman blockquote.pull-right p,
+div.com_logman blockquote.pull-right small {
+  text-align: right;
+}
+div.com_logman blockquote.pull-right small:before {
+  content: '';
+}
+div.com_logman blockquote.pull-right small:after {
+  content: '\00A0 \2014';
+}
+div.com_logman q:before,
+div.com_logman q:after,
+div.com_logman blockquote:before,
+div.com_logman blockquote:after {
+  content: "";
+}
+div.com_logman address {
+  display: block;
+  margin-bottom: 18px;
+  font-style: normal;
+  line-height: 18px;
+}
+div.com_logman form {
+  margin: 0 0 18px;
+}
+div.com_logman fieldset {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+div.com_logman legend {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 18px;
+  font-size: 19.5px;
+  line-height: 36px;
+  color: #333333;
+  border: 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+div.com_logman legend small {
+  font-size: 13.5px;
+  color: #999999;
+}
+div.com_logman label,
+div.com_logman input,
+div.com_logman button,
+div.com_logman select,
+div.com_logman textarea {
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+}
+div.com_logman input,
+div.com_logman button,
+div.com_logman select,
+div.com_logman textarea {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+div.com_logman label {
+  display: block;
+  margin-bottom: 5px;
+}
+div.com_logman select,
+div.com_logman textarea,
+div.com_logman input[type="text"],
+div.com_logman input[type="password"],
+div.com_logman input[type="datetime"],
+div.com_logman input[type="datetime-local"],
+div.com_logman input[type="date"],
+div.com_logman input[type="month"],
+div.com_logman input[type="time"],
+div.com_logman input[type="week"],
+div.com_logman input[type="number"],
+div.com_logman input[type="email"],
+div.com_logman input[type="url"],
+div.com_logman input[type="search"],
+div.com_logman input[type="tel"],
+div.com_logman input[type="color"],
+div.com_logman .uneditable-input {
+  display: inline-block;
+  height: 18px;
+  padding: 4px 6px;
+  margin-bottom: 9px;
+  font-size: 13px;
+  line-height: 18px;
+  color: #555555;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+div.com_logman input,
+div.com_logman textarea {
+  width: 210px;
+}
+div.com_logman textarea {
+  height: auto;
+}
+div.com_logman textarea,
+div.com_logman input[type="text"],
+div.com_logman input[type="password"],
+div.com_logman input[type="datetime"],
+div.com_logman input[type="datetime-local"],
+div.com_logman input[type="date"],
+div.com_logman input[type="month"],
+div.com_logman input[type="time"],
+div.com_logman input[type="week"],
+div.com_logman input[type="number"],
+div.com_logman input[type="email"],
+div.com_logman input[type="url"],
+div.com_logman input[type="search"],
+div.com_logman input[type="tel"],
+div.com_logman input[type="color"],
+div.com_logman .uneditable-input {
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border linear .2s, box-shadow linear .2s;
+  -moz-transition: border linear .2s, box-shadow linear .2s;
+  -o-transition: border linear .2s, box-shadow linear .2s;
+  transition: border linear .2s, box-shadow linear .2s;
+}
+div.com_logman textarea:focus,
+div.com_logman input[type="text"]:focus,
+div.com_logman input[type="password"]:focus,
+div.com_logman input[type="datetime"]:focus,
+div.com_logman input[type="datetime-local"]:focus,
+div.com_logman input[type="date"]:focus,
+div.com_logman input[type="month"]:focus,
+div.com_logman input[type="time"]:focus,
+div.com_logman input[type="week"]:focus,
+div.com_logman input[type="number"]:focus,
+div.com_logman input[type="email"]:focus,
+div.com_logman input[type="url"]:focus,
+div.com_logman input[type="search"]:focus,
+div.com_logman input[type="tel"]:focus,
+div.com_logman input[type="color"]:focus,
+div.com_logman .uneditable-input:focus {
+  border-color: rgba(82, 168, 236, 0.8);
+  outline: 0;
+  outline: thin dotted \9;
+  /* IE6-9 */
+
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+}
+div.com_logman input[type="radio"],
+div.com_logman input[type="checkbox"] {
+  margin: 4px 0 0;
+  *margin-top: 0;
+  /* IE7 */
+
+  margin-top: 1px \9;
+  /* IE8-9 */
+
+  line-height: normal;
+  cursor: pointer;
+}
+div.com_logman input[type="file"],
+div.com_logman input[type="image"],
+div.com_logman input[type="submit"],
+div.com_logman input[type="reset"],
+div.com_logman input[type="button"],
+div.com_logman input[type="radio"],
+div.com_logman input[type="checkbox"] {
+  width: auto;
+}
+div.com_logman select,
+div.com_logman input[type="file"] {
+  height: 30px;
+  /* In IE7, the height of the select element cannot be changed by height, only font-size */
+
+  *margin-top: 4px;
+  /* For IE7, add top margin to align select with labels */
+
+  line-height: 30px;
+}
+div.com_logman select {
+  width: 220px;
+  border: 1px solid #bbb;
+  background-color: #ffffff;
+}
+div.com_logman select[multiple],
+div.com_logman select[size] {
+  height: auto;
+}
+div.com_logman select:focus,
+div.com_logman input[type="file"]:focus,
+div.com_logman input[type="radio"]:focus,
+div.com_logman input[type="checkbox"]:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+div.com_logman .uneditable-input,
+div.com_logman .uneditable-textarea {
+  color: #999999;
+  background-color: #fcfcfc;
+  border-color: #cccccc;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.025);
+  -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.025);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.025);
+  cursor: not-allowed;
+}
+div.com_logman .uneditable-input {
+  overflow: hidden;
+  white-space: nowrap;
+}
+div.com_logman .uneditable-textarea {
+  width: auto;
+  height: auto;
+}
+div.com_logman input:-moz-placeholder,
+div.com_logman textarea:-moz-placeholder {
+  color: #999999;
+}
+div.com_logman input:-ms-input-placeholder,
+div.com_logman textarea:-ms-input-placeholder {
+  color: #999999;
+}
+div.com_logman input::-webkit-input-placeholder,
+div.com_logman textarea::-webkit-input-placeholder {
+  color: #999999;
+}
+div.com_logman .radio,
+div.com_logman .checkbox {
+  min-height: 18px;
+  padding-left: 18px;
+}
+div.com_logman .radio input[type="radio"],
+div.com_logman .checkbox input[type="checkbox"] {
+  float: left;
+  margin-left: -18px;
+}
+div.com_logman .controls > .radio:first-child,
+div.com_logman .controls > .checkbox:first-child {
+  padding-top: 5px;
+}
+div.com_logman .radio.inline,
+div.com_logman .checkbox.inline {
+  display: inline-block;
+  padding-top: 5px;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+div.com_logman .radio.inline + .radio.inline,
+div.com_logman .checkbox.inline + .checkbox.inline {
+  margin-left: 10px;
+}
+div.com_logman .input-mini {
+  width: 60px;
+}
+div.com_logman .input-small {
+  width: 90px;
+}
+div.com_logman .input-medium {
+  width: 150px;
+}
+div.com_logman .input-large {
+  width: 210px;
+}
+div.com_logman .input-xlarge {
+  width: 270px;
+}
+div.com_logman .input-xxlarge {
+  width: 530px;
+}
+div.com_logman input[class*="span"],
+div.com_logman select[class*="span"],
+div.com_logman textarea[class*="span"],
+div.com_logman .uneditable-input[class*="span"],
+div.com_logman .row-fluid input[class*="span"],
+div.com_logman .row-fluid select[class*="span"],
+div.com_logman .row-fluid textarea[class*="span"],
+div.com_logman .row-fluid .uneditable-input[class*="span"] {
+  float: none;
+  margin-left: 0;
+}
+div.com_logman .input-append input[class*="span"],
+div.com_logman .input-append .uneditable-input[class*="span"],
+div.com_logman .input-prepend input[class*="span"],
+div.com_logman .input-prepend .uneditable-input[class*="span"],
+div.com_logman .row-fluid input[class*="span"],
+div.com_logman .row-fluid select[class*="span"],
+div.com_logman .row-fluid textarea[class*="span"],
+div.com_logman .row-fluid .uneditable-input[class*="span"],
+div.com_logman .row-fluid .input-prepend [class*="span"],
+div.com_logman .row-fluid .input-append [class*="span"] {
+  display: inline-block;
+}
+div.com_logman input,
+div.com_logman textarea,
+div.com_logman .uneditable-input {
+  margin-left: 0;
+}
+div.com_logman .controls-row [class*="span"] + [class*="span"] {
+  margin-left: 20px;
+}
+div.com_logman input.span12, textarea.span12, .uneditable-input.span12 {
+  width: 926px;
+}
+div.com_logman input.span11, textarea.span11, .uneditable-input.span11 {
+  width: 846px;
+}
+div.com_logman input.span10, textarea.span10, .uneditable-input.span10 {
+  width: 766px;
+}
+div.com_logman input.span9, textarea.span9, .uneditable-input.span9 {
+  width: 686px;
+}
+div.com_logman input.span8, textarea.span8, .uneditable-input.span8 {
+  width: 606px;
+}
+div.com_logman input.span7, textarea.span7, .uneditable-input.span7 {
+  width: 526px;
+}
+div.com_logman input.span6, textarea.span6, .uneditable-input.span6 {
+  width: 446px;
+}
+div.com_logman input.span5, textarea.span5, .uneditable-input.span5 {
+  width: 366px;
+}
+div.com_logman input.span4, textarea.span4, .uneditable-input.span4 {
+  width: 286px;
+}
+div.com_logman input.span3, textarea.span3, .uneditable-input.span3 {
+  width: 206px;
+}
+div.com_logman input.span2, textarea.span2, .uneditable-input.span2 {
+  width: 126px;
+}
+div.com_logman input.span1, textarea.span1, .uneditable-input.span1 {
+  width: 46px;
+}
+div.com_logman .controls-row {
+  *zoom: 1;
+}
+div.com_logman .controls-row:before,
+div.com_logman .controls-row:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+div.com_logman .controls-row:after {
+  clear: both;
+}
+div.com_logman .controls-row [class*="span"] {
+  float: left;
+}
+div.com_logman input[disabled],
+div.com_logman select[disabled],
+div.com_logman textarea[disabled],
+div.com_logman input[readonly],
+div.com_logman select[readonly],
+div.com_logman textarea[readonly] {
+  cursor: not-allowed;
+  background-color: #eeeeee;
+}
+div.com_logman input[type="radio"][disabled],
+div.com_logman input[type="checkbox"][disabled],
+div.com_logman input[type="radio"][readonly],
+div.com_logman input[type="checkbox"][readonly] {
+  background-color: transparent;
+}
+div.com_logman .control-group.warning > label,
+div.com_logman .control-group.warning .help-block,
+div.com_logman .control-group.warning .help-inline {
+  color: #c09853;
+}
+div.com_logman .control-group.warning .checkbox,
+div.com_logman .control-group.warning .radio,
+div.com_logman .control-group.warning input,
+div.com_logman .control-group.warning select,
+div.com_logman .control-group.warning textarea {
+  color: #c09853;
+  border-color: #c09853;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+div.com_logman .control-group.warning .checkbox:focus,
+div.com_logman .control-group.warning .radio:focus,
+div.com_logman .control-group.warning input:focus,
+div.com_logman .control-group.warning select:focus,
+div.com_logman .control-group.warning textarea:focus {
+  border-color: #a47e3c;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #dbc59e;
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #dbc59e;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #dbc59e;
+}
+div.com_logman .control-group.warning .input-prepend .add-on,
+div.com_logman .control-group.warning .input-append .add-on {
+  color: #c09853;
+  background-color: #fcf8e3;
+  border-color: #c09853;
+}
+div.com_logman .control-group.error > label,
+div.com_logman .control-group.error .help-block,
+div.com_logman .control-group.error .help-inline {
+  color: #b94a48;
+}
+div.com_logman .control-group.error .checkbox,
+div.com_logman .control-group.error .radio,
+div.com_logman .control-group.error input,
+div.com_logman .control-group.error select,
+div.com_logman .control-group.error textarea {
+  color: #b94a48;
+  border-color: #b94a48;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+div.com_logman .control-group.error .checkbox:focus,
+div.com_logman .control-group.error .radio:focus,
+div.com_logman .control-group.error input:focus,
+div.com_logman .control-group.error select:focus,
+div.com_logman .control-group.error textarea:focus {
+  border-color: #953b39;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392;
+}
+div.com_logman .control-group.error .input-prepend .add-on,
+div.com_logman .control-group.error .input-append .add-on {
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #b94a48;
+}
+div.com_logman .control-group.success > label,
+div.com_logman .control-group.success .help-block,
+div.com_logman .control-group.success .help-inline {
+  color: #468847;
+}
+div.com_logman .control-group.success .checkbox,
+div.com_logman .control-group.success .radio,
+div.com_logman .control-group.success input,
+div.com_logman .control-group.success select,
+div.com_logman .control-group.success textarea {
+  color: #468847;
+  border-color: #468847;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+div.com_logman .control-group.success .checkbox:focus,
+div.com_logman .control-group.success .radio:focus,
+div.com_logman .control-group.success input:focus,
+div.com_logman .control-group.success select:focus,
+div.com_logman .control-group.success textarea:focus {
+  border-color: #356635;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b;
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b;
+}
+div.com_logman .control-group.success .input-prepend .add-on,
+div.com_logman .control-group.success .input-append .add-on {
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #468847;
+}
+div.com_logman input:focus:required:invalid,
+div.com_logman textarea:focus:required:invalid,
+div.com_logman select:focus:required:invalid {
+  color: #b94a48;
+  border-color: #ee5f5b;
+}
+div.com_logman input:focus:required:invalid:focus,
+div.com_logman textarea:focus:required:invalid:focus,
+div.com_logman select:focus:required:invalid:focus {
+  border-color: #e9322d;
+  -webkit-box-shadow: 0 0 6px #f8b9b7;
+  -moz-box-shadow: 0 0 6px #f8b9b7;
+  box-shadow: 0 0 6px #f8b9b7;
+}
+div.com_logman .form-actions {
+  padding: 17px 20px 18px;
+  margin-top: 18px;
+  margin-bottom: 18px;
+  background-color: #f5f5f5;
+  border-top: 1px solid #e5e5e5;
+  *zoom: 1;
+}
+div.com_logman .form-actions:before,
+div.com_logman .form-actions:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+div.com_logman .form-actions:after {
+  clear: both;
+}
+div.com_logman .help-block,
+div.com_logman .help-inline {
+  color: #595959;
+}
+div.com_logman .help-block {
+  display: block;
+  margin-bottom: 9px;
+}
+div.com_logman .help-inline {
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+
+  *zoom: 1;
+  vertical-align: middle;
+  padding-left: 5px;
+}
+div.com_logman .input-append,
+div.com_logman .input-prepend {
+  margin-bottom: 5px;
+  font-size: 0;
+  white-space: nowrap;
+}
+div.com_logman .input-append input,
+div.com_logman .input-prepend input,
+div.com_logman .input-append select,
+div.com_logman .input-prepend select,
+div.com_logman .input-append .uneditable-input,
+div.com_logman .input-prepend .uneditable-input {
+  position: relative;
+  margin-bottom: 0;
+  *margin-left: 0;
+  font-size: 13px;
+  vertical-align: top;
+  -webkit-border-radius: 0 3px 3px 0;
+  -moz-border-radius: 0 3px 3px 0;
+  border-radius: 0 3px 3px 0;
+}
+div.com_logman .input-append input:focus,
+div.com_logman .input-prepend input:focus,
+div.com_logman .input-append select:focus,
+div.com_logman .input-prepend select:focus,
+div.com_logman .input-append .uneditable-input:focus,
+div.com_logman .input-prepend .uneditable-input:focus {
+  z-index: 2;
+}
+div.com_logman .input-append .add-on,
+div.com_logman .input-prepend .add-on {
+  display: inline-block;
+  width: auto;
+  height: 18px;
+  min-width: 16px;
+  padding: 4px 5px;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  text-align: center;
+  text-shadow: 0 1px 0 #ffffff;
+  background-color: #eeeeee;
+  border: 1px solid #ccc;
+}
+div.com_logman .input-append .add-on,
+div.com_logman .input-prepend .add-on,
+div.com_logman .input-append .btn,
+div.com_logman .input-prepend .btn {
+  margin-left: -1px;
+  vertical-align: top;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+div.com_logman .input-append .active,
+div.com_logman .input-prepend .active {
+  background-color: #a9dba9;
+  border-color: #46a546;
+}
+div.com_logman .input-prepend .add-on,
+div.com_logman .input-prepend .btn {
+  margin-right: -1px;
+}
+div.com_logman .input-prepend .add-on:first-child,
+div.com_logman .input-prepend .btn:first-child {
+  -webkit-border-radius: 3px 0 0 3px;
+  -moz-border-radius: 3px 0 0 3px;
+  border-radius: 3px 0 0 3px;
+}
+div.com_logman .input-append input,
+div.com_logman .input-append select,
+div.com_logman .input-append .uneditable-input {
+  -webkit-border-radius: 3px 0 0 3px;
+  -moz-border-radius: 3px 0 0 3px;
+  border-radius: 3px 0 0 3px;
+}
+div.com_logman .input-append .add-on:last-child,
+div.com_logman .input-append .btn:last-child {
+  -webkit-border-radius: 0 3px 3px 0;
+  -moz-border-radius: 0 3px 3px 0;
+  border-radius: 0 3px 3px 0;
+}
+div.com_logman .input-prepend.input-append input,
+div.com_logman .input-prepend.input-append select,
+div.com_logman .input-prepend.input-append .uneditable-input {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+div.com_logman .input-prepend.input-append .add-on:first-child,
+div.com_logman .input-prepend.input-append .btn:first-child {
+  margin-right: -1px;
+  -webkit-border-radius: 3px 0 0 3px;
+  -moz-border-radius: 3px 0 0 3px;
+  border-radius: 3px 0 0 3px;
+}
+div.com_logman .input-prepend.input-append .add-on:last-child,
+div.com_logman .input-prepend.input-append .btn:last-child {
+  margin-left: -1px;
+  -webkit-border-radius: 0 3px 3px 0;
+  -moz-border-radius: 0 3px 3px 0;
+  border-radius: 0 3px 3px 0;
+}
+div.com_logman input.search-query {
+  padding-right: 14px;
+  padding-right: 4px \9;
+  padding-left: 14px;
+  padding-left: 4px \9;
+  /* IE7-8 doesn't have border-radius, so don't indent the padding */
+
+  margin-bottom: 0;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+div.com_logman .form-search .input-append .search-query,
+div.com_logman .form-search .input-prepend .search-query {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+div.com_logman .form-search .input-append .search-query {
+  -webkit-border-radius: 14px 0 0 14px;
+  -moz-border-radius: 14px 0 0 14px;
+  border-radius: 14px 0 0 14px;
+}
+div.com_logman .form-search .input-append .btn {
+  -webkit-border-radius: 0 14px 14px 0;
+  -moz-border-radius: 0 14px 14px 0;
+  border-radius: 0 14px 14px 0;
+}
+div.com_logman .form-search .input-prepend .search-query {
+  -webkit-border-radius: 0 14px 14px 0;
+  -moz-border-radius: 0 14px 14px 0;
+  border-radius: 0 14px 14px 0;
+}
+div.com_logman .form-search .input-prepend .btn {
+  -webkit-border-radius: 14px 0 0 14px;
+  -moz-border-radius: 14px 0 0 14px;
+  border-radius: 14px 0 0 14px;
+}
+div.com_logman .form-search input,
+div.com_logman .form-inline input,
+div.com_logman .form-horizontal input,
+div.com_logman .form-search textarea,
+div.com_logman .form-inline textarea,
+div.com_logman .form-horizontal textarea,
+div.com_logman .form-search select,
+div.com_logman .form-inline select,
+div.com_logman .form-horizontal select,
+div.com_logman .form-search .help-inline,
+div.com_logman .form-inline .help-inline,
+div.com_logman .form-horizontal .help-inline,
+div.com_logman .form-search .uneditable-input,
+div.com_logman .form-inline .uneditable-input,
+div.com_logman .form-horizontal .uneditable-input,
+div.com_logman .form-search .input-prepend,
+div.com_logman .form-inline .input-prepend,
+div.com_logman .form-horizontal .input-prepend,
+div.com_logman .form-search .input-append,
+div.com_logman .form-inline .input-append,
+div.com_logman .form-horizontal .input-append {
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+
+  *zoom: 1;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+div.com_logman .form-search .hide,
+div.com_logman .form-inline .hide,
+div.com_logman .form-horizontal .hide {
+  display: none;
+}
+div.com_logman .form-search label,
+div.com_logman .form-inline label,
+div.com_logman .form-search .btn-group,
+div.com_logman .form-inline .btn-group {
+  display: inline-block;
+}
+div.com_logman .form-search .input-append,
+div.com_logman .form-inline .input-append,
+div.com_logman .form-search .input-prepend,
+div.com_logman .form-inline .input-prepend {
+  margin-bottom: 0;
+}
+div.com_logman .form-search .radio,
+div.com_logman .form-search .checkbox,
+div.com_logman .form-inline .radio,
+div.com_logman .form-inline .checkbox {
+  padding-left: 0;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+div.com_logman .form-search .radio input[type="radio"],
+div.com_logman .form-search .checkbox input[type="checkbox"],
+div.com_logman .form-inline .radio input[type="radio"],
+div.com_logman .form-inline .checkbox input[type="checkbox"] {
+  float: left;
+  margin-right: 3px;
+  margin-left: 0;
+}
+div.com_logman .control-group {
+  margin-bottom: 9px;
+}
+div.com_logman legend + .control-group {
+  margin-top: 18px;
+  -webkit-margin-top-collapse: separate;
+}
+div.com_logman .form-horizontal .control-group {
+  margin-bottom: 18px;
+  *zoom: 1;
+}
+div.com_logman .form-horizontal .control-group:before,
+div.com_logman .form-horizontal .control-group:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+div.com_logman .form-horizontal .control-group:after {
+  clear: both;
+}
+div.com_logman .form-horizontal .control-label {
+  float: left;
+  width: 140px;
+  padding-top: 5px;
+  text-align: right;
+}
+div.com_logman .form-horizontal .controls {
+  *display: inline-block;
+  *padding-left: 20px;
+  margin-left: 160px;
+  *margin-left: 0;
+}
+div.com_logman .form-horizontal .controls:first-child {
+  *padding-left: 160px;
+}
+div.com_logman .form-horizontal .help-block {
+  margin-top: 9px;
+  margin-bottom: 0;
+}
+div.com_logman .form-horizontal .form-actions {
+  padding-left: 160px;
+}
+div.com_logman table {
+  max-width: 100%;
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+div.com_logman .table {
+  width: 100%;
+  margin-bottom: 18px;
+}
+div.com_logman .table th,
+div.com_logman .table td {
+  padding: 8px;
+  line-height: 18px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
+}
+div.com_logman .table th {
+  font-weight: bold;
+}
+div.com_logman .table thead th {
+  vertical-align: bottom;
+}
+div.com_logman .table caption + thead tr:first-child th,
+div.com_logman .table caption + thead tr:first-child td,
+div.com_logman .table colgroup + thead tr:first-child th,
+div.com_logman .table colgroup + thead tr:first-child td,
+div.com_logman .table thead:first-child tr:first-child th,
+div.com_logman .table thead:first-child tr:first-child td {
+  border-top: 0;
+}
+div.com_logman .table tbody + tbody {
+  border-top: 2px solid #dddddd;
+}
+div.com_logman .table-condensed th,
+div.com_logman .table-condensed td {
+  padding: 4px 5px;
+}
+div.com_logman .table-bordered {
+  border: 1px solid #dddddd;
+  border-collapse: separate;
+  *border-collapse: collapse;
+  border-left: 0;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+div.com_logman .table-bordered th,
+div.com_logman .table-bordered td {
+  border-left: 1px solid #dddddd;
+}
+div.com_logman .table-bordered caption + thead tr:first-child th,
+div.com_logman .table-bordered caption + tbody tr:first-child th,
+div.com_logman .table-bordered caption + tbody tr:first-child td,
+div.com_logman .table-bordered colgroup + thead tr:first-child th,
+div.com_logman .table-bordered colgroup + tbody tr:first-child th,
+div.com_logman .table-bordered colgroup + tbody tr:first-child td,
+div.com_logman .table-bordered thead:first-child tr:first-child th,
+div.com_logman .table-bordered tbody:first-child tr:first-child th,
+div.com_logman .table-bordered tbody:first-child tr:first-child td {
+  border-top: 0;
+}
+div.com_logman .table-bordered thead:first-child tr:first-child th:first-child,
+div.com_logman .table-bordered tbody:first-child tr:first-child td:first-child {
+  -webkit-border-top-left-radius: 4px;
+  border-top-left-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+}
+div.com_logman .table-bordered thead:first-child tr:first-child th:last-child,
+div.com_logman .table-bordered tbody:first-child tr:first-child td:last-child {
+  -webkit-border-top-right-radius: 4px;
+  border-top-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+}
+div.com_logman .table-bordered thead:last-child tr:last-child th:first-child,
+div.com_logman .table-bordered tbody:last-child tr:last-child td:first-child,
+div.com_logman .table-bordered tfoot:last-child tr:last-child td:first-child {
+  -webkit-border-radius: 0 0 0 4px;
+  -moz-border-radius: 0 0 0 4px;
+  border-radius: 0 0 0 4px;
+  -webkit-border-bottom-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  -moz-border-radius-bottomleft: 4px;
+}
+div.com_logman .table-bordered thead:last-child tr:last-child th:last-child,
+div.com_logman .table-bordered tbody:last-child tr:last-child td:last-child,
+div.com_logman .table-bordered tfoot:last-child tr:last-child td:last-child {
+  -webkit-border-bottom-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  -moz-border-radius-bottomright: 4px;
+}
+div.com_logman .table-bordered caption + thead tr:first-child th:first-child,
+div.com_logman .table-bordered caption + tbody tr:first-child td:first-child,
+div.com_logman .table-bordered colgroup + thead tr:first-child th:first-child,
+div.com_logman .table-bordered colgroup + tbody tr:first-child td:first-child {
+  -webkit-border-top-left-radius: 4px;
+  border-top-left-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+}
+div.com_logman .table-bordered caption + thead tr:first-child th:last-child,
+div.com_logman .table-bordered caption + tbody tr:first-child td:last-child,
+div.com_logman .table-bordered colgroup + thead tr:first-child th:last-child,
+div.com_logman .table-bordered colgroup + tbody tr:first-child td:last-child {
+  -webkit-border-top-right-radius: 4px;
+  border-top-right-radius: 4px;
+  -moz-border-right-topleft: 4px;
+}
+div.com_logman .table-striped tbody tr:nth-child(odd) td,
+div.com_logman .table-striped tbody tr:nth-child(odd) th {
+  background-color: #f9f9f9;
+}
+div.com_logman .table-hover tbody tr:hover td,
+div.com_logman .table-hover tbody tr:hover th {
+  background-color: #f5f5f5;
+}
+div.com_logman table [class*=span],
+div.com_logman .row-fluid table [class*=span] {
+  display: table-cell;
+  float: none;
+  margin-left: 0;
+}
+div.com_logman table .span1 {
+  float: none;
+  width: 44px;
+  margin-left: 0;
+}
+div.com_logman table .span2 {
+  float: none;
+  width: 124px;
+  margin-left: 0;
+}
+div.com_logman table .span3 {
+  float: none;
+  width: 204px;
+  margin-left: 0;
+}
+div.com_logman table .span4 {
+  float: none;
+  width: 284px;
+  margin-left: 0;
+}
+div.com_logman table .span5 {
+  float: none;
+  width: 364px;
+  margin-left: 0;
+}
+div.com_logman table .span6 {
+  float: none;
+  width: 444px;
+  margin-left: 0;
+}
+div.com_logman table .span7 {
+  float: none;
+  width: 524px;
+  margin-left: 0;
+}
+div.com_logman table .span8 {
+  float: none;
+  width: 604px;
+  margin-left: 0;
+}
+div.com_logman table .span9 {
+  float: none;
+  width: 684px;
+  margin-left: 0;
+}
+div.com_logman table .span10 {
+  float: none;
+  width: 764px;
+  margin-left: 0;
+}
+div.com_logman table .span11 {
+  float: none;
+  width: 844px;
+  margin-left: 0;
+}
+div.com_logman table .span12 {
+  float: none;
+  width: 924px;
+  margin-left: 0;
+}
+div.com_logman table .span13 {
+  float: none;
+  width: 1004px;
+  margin-left: 0;
+}
+div.com_logman table .span14 {
+  float: none;
+  width: 1084px;
+  margin-left: 0;
+}
+div.com_logman table .span15 {
+  float: none;
+  width: 1164px;
+  margin-left: 0;
+}
+div.com_logman table .span16 {
+  float: none;
+  width: 1244px;
+  margin-left: 0;
+}
+div.com_logman table .span17 {
+  float: none;
+  width: 1324px;
+  margin-left: 0;
+}
+div.com_logman table .span18 {
+  float: none;
+  width: 1404px;
+  margin-left: 0;
+}
+div.com_logman table .span19 {
+  float: none;
+  width: 1484px;
+  margin-left: 0;
+}
+div.com_logman table .span20 {
+  float: none;
+  width: 1564px;
+  margin-left: 0;
+}
+div.com_logman table .span21 {
+  float: none;
+  width: 1644px;
+  margin-left: 0;
+}
+div.com_logman table .span22 {
+  float: none;
+  width: 1724px;
+  margin-left: 0;
+}
+div.com_logman table .span23 {
+  float: none;
+  width: 1804px;
+  margin-left: 0;
+}
+div.com_logman table .span24 {
+  float: none;
+  width: 1884px;
+  margin-left: 0;
+}
+div.com_logman .table tbody tr.success td {
+  background-color: #dff0d8;
+}
+div.com_logman .table tbody tr.error td {
+  background-color: #f2dede;
+}
+div.com_logman .table tbody tr.info td {
+  background-color: #d9edf7;
+}
+div.com_logman [class^="icon-"],
+div.com_logman [class*=" icon-"] {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  *margin-right: .3em;
+  line-height: 14px;
+  vertical-align: text-top;
+  background-image: url("../img/glyphicons-halflings.png");
+  background-position: 14px 14px;
+  background-repeat: no-repeat;
+  margin-top: 1px;
+}
+div.com_logman .icon-white,
+div.com_logman .nav > .active > a > [class^="icon-"],
+div.com_logman .nav > .active > a > [class*=" icon-"],
+div.com_logman .dropdown-menu > li > a:hover > [class^="icon-"],
+div.com_logman .dropdown-menu > li > a:hover > [class*=" icon-"],
+div.com_logman .dropdown-menu > .active > a > [class^="icon-"],
+div.com_logman .dropdown-menu > .active > a > [class*=" icon-"] {
+  background-image: url("../img/glyphicons-halflings-white.png");
+}
+div.com_logman .icon-glass {
+  background-position: 0      0;
+}
+div.com_logman .icon-music {
+  background-position: -24px 0;
+}
+div.com_logman .icon-search {
+  background-position: -48px 0;
+}
+div.com_logman .icon-envelope {
+  background-position: -72px 0;
+}
+div.com_logman .icon-heart {
+  background-position: -96px 0;
+}
+div.com_logman .icon-star {
+  background-position: -120px 0;
+}
+div.com_logman .icon-star-empty {
+  background-position: -144px 0;
+}
+div.com_logman .icon-user {
+  background-position: -168px 0;
+}
+div.com_logman .icon-film {
+  background-position: -192px 0;
+}
+div.com_logman .icon-th-large {
+  background-position: -216px 0;
+}
+div.com_logman .icon-th {
+  background-position: -240px 0;
+}
+div.com_logman .icon-th-list {
+  background-position: -264px 0;
+}
+div.com_logman .icon-ok {
+  background-position: -288px 0;
+}
+div.com_logman .icon-remove {
+  background-position: -312px 0;
+}
+div.com_logman .icon-zoom-in {
+  background-position: -336px 0;
+}
+div.com_logman .icon-zoom-out {
+  background-position: -360px 0;
+}
+div.com_logman .icon-off {
+  background-position: -384px 0;
+}
+div.com_logman .icon-signal {
+  background-position: -408px 0;
+}
+div.com_logman .icon-cog {
+  background-position: -432px 0;
+}
+div.com_logman .icon-trash {
+  background-position: -456px 0;
+}
+div.com_logman .icon-home {
+  background-position: 0 -24px;
+}
+div.com_logman .icon-file {
+  background-position: -24px -24px;
+}
+div.com_logman .icon-time {
+  background-position: -48px -24px;
+}
+div.com_logman .icon-road {
+  background-position: -72px -24px;
+}
+div.com_logman .icon-download-alt {
+  background-position: -96px -24px;
+}
+div.com_logman .icon-download {
+  background-position: -120px -24px;
+}
+div.com_logman .icon-upload {
+  background-position: -144px -24px;
+}
+div.com_logman .icon-inbox {
+  background-position: -168px -24px;
+}
+div.com_logman .icon-play-circle {
+  background-position: -192px -24px;
+}
+div.com_logman .icon-repeat {
+  background-position: -216px -24px;
+}
+div.com_logman .icon-refresh {
+  background-position: -240px -24px;
+}
+div.com_logman .icon-list-alt {
+  background-position: -264px -24px;
+}
+div.com_logman .icon-lock {
+  background-position: -287px -24px;
+}
+div.com_logman .icon-flag {
+  background-position: -312px -24px;
+}
+div.com_logman .icon-headphones {
+  background-position: -336px -24px;
+}
+div.com_logman .icon-volume-off {
+  background-position: -360px -24px;
+}
+div.com_logman .icon-volume-down {
+  background-position: -384px -24px;
+}
+div.com_logman .icon-volume-up {
+  background-position: -408px -24px;
+}
+div.com_logman .icon-qrcode {
+  background-position: -432px -24px;
+}
+div.com_logman .icon-barcode {
+  background-position: -456px -24px;
+}
+div.com_logman .icon-tag {
+  background-position: 0 -48px;
+}
+div.com_logman .icon-tags {
+  background-position: -25px -48px;
+}
+div.com_logman .icon-book {
+  background-position: -48px -48px;
+}
+div.com_logman .icon-bookmark {
+  background-position: -72px -48px;
+}
+div.com_logman .icon-print {
+  background-position: -96px -48px;
+}
+div.com_logman .icon-camera {
+  background-position: -120px -48px;
+}
+div.com_logman .icon-font {
+  background-position: -144px -48px;
+}
+div.com_logman .icon-bold {
+  background-position: -167px -48px;
+}
+div.com_logman .icon-italic {
+  background-position: -192px -48px;
+}
+div.com_logman .icon-text-height {
+  background-position: -216px -48px;
+}
+div.com_logman .icon-text-width {
+  background-position: -240px -48px;
+}
+div.com_logman .icon-align-left {
+  background-position: -264px -48px;
+}
+div.com_logman .icon-align-center {
+  background-position: -288px -48px;
+}
+div.com_logman .icon-align-right {
+  background-position: -312px -48px;
+}
+div.com_logman .icon-align-justify {
+  background-position: -336px -48px;
+}
+div.com_logman .icon-list {
+  background-position: -360px -48px;
+}
+div.com_logman .icon-indent-left {
+  background-position: -384px -48px;
+}
+div.com_logman .icon-indent-right {
+  background-position: -408px -48px;
+}
+div.com_logman .icon-facetime-video {
+  background-position: -432px -48px;
+}
+div.com_logman .icon-picture {
+  background-position: -456px -48px;
+}
+div.com_logman .icon-pencil {
+  background-position: 0 -72px;
+}
+div.com_logman .icon-map-marker {
+  background-position: -24px -72px;
+}
+div.com_logman .icon-adjust {
+  background-position: -48px -72px;
+}
+div.com_logman .icon-tint {
+  background-position: -72px -72px;
+}
+div.com_logman .icon-edit {
+  background-position: -96px -72px;
+}
+div.com_logman .icon-share {
+  background-position: -120px -72px;
+}
+div.com_logman .icon-check {
+  background-position: -144px -72px;
+}
+div.com_logman .icon-move {
+  background-position: -168px -72px;
+}
+div.com_logman .icon-step-backward {
+  background-position: -192px -72px;
+}
+div.com_logman .icon-fast-backward {
+  background-position: -216px -72px;
+}
+div.com_logman .icon-backward {
+  background-position: -240px -72px;
+}
+div.com_logman .icon-play {
+  background-position: -264px -72px;
+}
+div.com_logman .icon-pause {
+  background-position: -288px -72px;
+}
+div.com_logman .icon-stop {
+  background-position: -312px -72px;
+}
+div.com_logman .icon-forward {
+  background-position: -336px -72px;
+}
+div.com_logman .icon-fast-forward {
+  background-position: -360px -72px;
+}
+div.com_logman .icon-step-forward {
+  background-position: -384px -72px;
+}
+div.com_logman .icon-eject {
+  background-position: -408px -72px;
+}
+div.com_logman .icon-chevron-left {
+  background-position: -432px -72px;
+}
+div.com_logman .icon-chevron-right {
+  background-position: -456px -72px;
+}
+div.com_logman .icon-plus-sign {
+  background-position: 0 -96px;
+}
+div.com_logman .icon-minus-sign {
+  background-position: -24px -96px;
+}
+div.com_logman .icon-remove-sign {
+  background-position: -48px -96px;
+}
+div.com_logman .icon-ok-sign {
+  background-position: -72px -96px;
+}
+div.com_logman .icon-question-sign {
+  background-position: -96px -96px;
+}
+div.com_logman .icon-info-sign {
+  background-position: -120px -96px;
+}
+div.com_logman .icon-screenshot {
+  background-position: -144px -96px;
+}
+div.com_logman .icon-remove-circle {
+  background-position: -168px -96px;
+}
+div.com_logman .icon-ok-circle {
+  background-position: -192px -96px;
+}
+div.com_logman .icon-ban-circle {
+  background-position: -216px -96px;
+}
+div.com_logman .icon-arrow-left {
+  background-position: -240px -96px;
+}
+div.com_logman .icon-arrow-right {
+  background-position: -264px -96px;
+}
+div.com_logman .icon-arrow-up {
+  background-position: -289px -96px;
+}
+div.com_logman .icon-arrow-down {
+  background-position: -312px -96px;
+}
+div.com_logman .icon-share-alt {
+  background-position: -336px -96px;
+}
+div.com_logman .icon-resize-full {
+  background-position: -360px -96px;
+}
+div.com_logman .icon-resize-small {
+  background-position: -384px -96px;
+}
+div.com_logman .icon-plus {
+  background-position: -408px -96px;
+}
+div.com_logman .icon-minus {
+  background-position: -433px -96px;
+}
+div.com_logman .icon-asterisk {
+  background-position: -456px -96px;
+}
+div.com_logman .icon-exclamation-sign {
+  background-position: 0 -120px;
+}
+div.com_logman .icon-gift {
+  background-position: -24px -120px;
+}
+div.com_logman .icon-leaf {
+  background-position: -48px -120px;
+}
+div.com_logman .icon-fire {
+  background-position: -72px -120px;
+}
+div.com_logman .icon-eye-open {
+  background-position: -96px -120px;
+}
+div.com_logman .icon-eye-close {
+  background-position: -120px -120px;
+}
+div.com_logman .icon-warning-sign {
+  background-position: -144px -120px;
+}
+div.com_logman .icon-plane {
+  background-position: -168px -120px;
+}
+div.com_logman .icon-calendar {
+  background-position: -192px -120px;
+}
+div.com_logman .icon-random {
+  background-position: -216px -120px;
+  width: 16px;
+}
+div.com_logman .icon-comment {
+  background-position: -240px -120px;
+}
+div.com_logman .icon-magnet {
+  background-position: -264px -120px;
+}
+div.com_logman .icon-chevron-up {
+  background-position: -288px -120px;
+}
+div.com_logman .icon-chevron-down {
+  background-position: -313px -119px;
+}
+div.com_logman .icon-retweet {
+  background-position: -336px -120px;
+}
+div.com_logman .icon-shopping-cart {
+  background-position: -360px -120px;
+}
+div.com_logman .icon-folder-close {
+  background-position: -384px -120px;
+}
+div.com_logman .icon-folder-open {
+  background-position: -408px -120px;
+  width: 16px;
+}
+div.com_logman .icon-resize-vertical {
+  background-position: -432px -119px;
+}
+div.com_logman .icon-resize-horizontal {
+  background-position: -456px -118px;
+}
+div.com_logman .icon-hdd {
+  background-position: 0 -144px;
+}
+div.com_logman .icon-bullhorn {
+  background-position: -24px -144px;
+}
+div.com_logman .icon-bell {
+  background-position: -48px -144px;
+}
+div.com_logman .icon-certificate {
+  background-position: -72px -144px;
+}
+div.com_logman .icon-thumbs-up {
+  background-position: -96px -144px;
+}
+div.com_logman .icon-thumbs-down {
+  background-position: -120px -144px;
+}
+div.com_logman .icon-hand-right {
+  background-position: -144px -144px;
+}
+div.com_logman .icon-hand-left {
+  background-position: -168px -144px;
+}
+div.com_logman .icon-hand-up {
+  background-position: -192px -144px;
+}
+div.com_logman .icon-hand-down {
+  background-position: -216px -144px;
+}
+div.com_logman .icon-circle-arrow-right {
+  background-position: -240px -144px;
+}
+div.com_logman .icon-circle-arrow-left {
+  background-position: -264px -144px;
+}
+div.com_logman .icon-circle-arrow-up {
+  background-position: -288px -144px;
+}
+div.com_logman .icon-circle-arrow-down {
+  background-position: -312px -144px;
+}
+div.com_logman .icon-globe {
+  background-position: -336px -144px;
+}
+div.com_logman .icon-wrench {
+  background-position: -360px -144px;
+}
+div.com_logman .icon-tasks {
+  background-position: -384px -144px;
+}
+div.com_logman .icon-filter {
+  background-position: -408px -144px;
+}
+div.com_logman .icon-briefcase {
+  background-position: -432px -144px;
+}
+div.com_logman .icon-fullscreen {
+  background-position: -456px -144px;
+}
+div.com_logman .btn {
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+
+  *zoom: 1;
+  padding: 4px 14px;
+  margin-bottom: 0;
+  font-size: 13px;
+  line-height: 18px;
+  *line-height: 18px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  color: #333333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: #f5f5f5;
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #e6e6e6;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  border: 1px solid #bbbbbb;
+  *border: 0;
+  border-bottom-color: #a2a2a2;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  *margin-left: .3em;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+}
+div.com_logman .btn:hover,
+div.com_logman .btn:active,
+div.com_logman .btn.active,
+div.com_logman .btn.disabled,
+div.com_logman .btn[disabled] {
+  color: #333333;
+  background-color: #e6e6e6;
+  *background-color: #d9d9d9;
+}
+div.com_logman .btn:active,
+div.com_logman .btn.active {
+  background-color: #cccccc \9;
+}
+div.com_logman .btn:first-child {
+  *margin-left: 0;
+}
+div.com_logman .btn:hover {
+  color: #333333;
+  text-decoration: none;
+  background-color: #e6e6e6;
+  *background-color: #d9d9d9;
+  /* Buttons in IE7 don't get borders, so darken on hover */
+
+  background-position: 0 -15px;
+  -webkit-transition: background-position 0.1s linear;
+  -moz-transition: background-position 0.1s linear;
+  -o-transition: background-position 0.1s linear;
+  transition: background-position 0.1s linear;
+}
+div.com_logman .btn:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+div.com_logman .btn.active,
+div.com_logman .btn:active {
+  background-color: #e6e6e6;
+  background-color: #d9d9d9 \9;
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
+  -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
+}
+div.com_logman .btn.disabled,
+div.com_logman .btn[disabled] {
+  cursor: default;
+  background-color: #e6e6e6;
+  background-image: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+div.com_logman .btn-large {
+  padding: 9px 14px;
+  font-size: 15px;
+  line-height: normal;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+div.com_logman .btn-large [class^="icon-"] {
+  margin-top: 2px;
+}
+div.com_logman .btn-small {
+  padding: 3px 9px;
+  font-size: 11px;
+  line-height: 16px;
+}
+div.com_logman .btn-small [class^="icon-"] {
+  margin-top: 0;
+}
+div.com_logman .btn-mini {
+  padding: 2px 6px;
+  font-size: 10px;
+  line-height: 14px;
+}
+div.com_logman .btn-mini [class^="icon-"] {
+  margin-top: -1px;
+}
+div.com_logman .btn-block {
+  display: block;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+div.com_logman .btn-block + .btn-block {
+  margin-top: 5px;
+}
+div.com_logman .btn-primary.active,
+div.com_logman .btn-warning.active,
+div.com_logman .btn-danger.active,
+div.com_logman .btn-success.active,
+div.com_logman .btn-info.active,
+div.com_logman .btn-inverse.active {
+  color: rgba(255, 255, 255, 0.75);
+}
+div.com_logman .btn {
+  border-color: #c5c5c5;
+  border-color: rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.25);
+}
+div.com_logman .btn-primary {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #1d6cb0;
+  background-image: -moz-linear-gradient(top, #2384d3, #15497c);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#2384d3), to(#15497c));
+  background-image: -webkit-linear-gradient(top, #2384d3, #15497c);
+  background-image: -o-linear-gradient(top, #2384d3, #15497c);
+  background-image: linear-gradient(to bottom, #2384d3, #15497c);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff2384d3', endColorstr='#ff15497c', GradientType=0);
+  border-color: #15497c #15497c #0a223b;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #15497c;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+div.com_logman .btn-primary:hover,
+div.com_logman .btn-primary:active,
+div.com_logman .btn-primary.active,
+div.com_logman .btn-primary.disabled,
+div.com_logman .btn-primary[disabled] {
+  color: #ffffff;
+  background-color: #15497c;
+  *background-color: #113c66;
+}
+div.com_logman .btn-primary:active,
+div.com_logman .btn-primary.active {
+  background-color: #0e2f50 \9;
+}
+div.com_logman .btn-warning {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #faa732;
+  background-image: -moz-linear-gradient(top, #fbb450, #f89406);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbb450), to(#f89406));
+  background-image: -webkit-linear-gradient(top, #fbb450, #f89406);
+  background-image: -o-linear-gradient(top, #fbb450, #f89406);
+  background-image: linear-gradient(to bottom, #fbb450, #f89406);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffbb450', endColorstr='#fff89406', GradientType=0);
+  border-color: #f89406 #f89406 #ad6704;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #f89406;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+div.com_logman .btn-warning:hover,
+div.com_logman .btn-warning:active,
+div.com_logman .btn-warning.active,
+div.com_logman .btn-warning.disabled,
+div.com_logman .btn-warning[disabled] {
+  color: #ffffff;
+  background-color: #f89406;
+  *background-color: #df8505;
+}
+div.com_logman .btn-warning:active,
+div.com_logman .btn-warning.active {
+  background-color: #c67605 \9;
+}
+div.com_logman .btn-danger {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #da4f49;
+  background-image: -moz-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#bd362f));
+  background-image: -webkit-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: -o-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: linear-gradient(to bottom, #ee5f5b, #bd362f);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffee5f5b', endColorstr='#ffbd362f', GradientType=0);
+  border-color: #bd362f #bd362f #802420;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #bd362f;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+div.com_logman .btn-danger:hover,
+div.com_logman .btn-danger:active,
+div.com_logman .btn-danger.active,
+div.com_logman .btn-danger.disabled,
+div.com_logman .btn-danger[disabled] {
+  color: #ffffff;
+  background-color: #bd362f;
+  *background-color: #a9302a;
+}
+div.com_logman .btn-danger:active,
+div.com_logman .btn-danger.active {
+  background-color: #942a25 \9;
+}
+div.com_logman .btn-success {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #5bb75b;
+  background-image: -moz-linear-gradient(top, #62c462, #51a351);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#51a351));
+  background-image: -webkit-linear-gradient(top, #62c462, #51a351);
+  background-image: -o-linear-gradient(top, #62c462, #51a351);
+  background-image: linear-gradient(to bottom, #62c462, #51a351);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff51a351', GradientType=0);
+  border-color: #51a351 #51a351 #387038;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #51a351;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+div.com_logman .btn-success:hover,
+div.com_logman .btn-success:active,
+div.com_logman .btn-success.active,
+div.com_logman .btn-success.disabled,
+div.com_logman .btn-success[disabled] {
+  color: #ffffff;
+  background-color: #51a351;
+  *background-color: #499249;
+}
+div.com_logman .btn-success:active,
+div.com_logman .btn-success.active {
+  background-color: #408140 \9;
+}
+div.com_logman .btn-info {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #49afcd;
+  background-image: -moz-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#5bc0de), to(#2f96b4));
+  background-image: -webkit-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: -o-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: linear-gradient(to bottom, #5bc0de, #2f96b4);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5bc0de', endColorstr='#ff2f96b4', GradientType=0);
+  border-color: #2f96b4 #2f96b4 #1f6377;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #2f96b4;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+div.com_logman .btn-info:hover,
+div.com_logman .btn-info:active,
+div.com_logman .btn-info.active,
+div.com_logman .btn-info.disabled,
+div.com_logman .btn-info[disabled] {
+  color: #ffffff;
+  background-color: #2f96b4;
+  *background-color: #2a85a0;
+}
+div.com_logman .btn-info:active,
+div.com_logman .btn-info.active {
+  background-color: #24748c \9;
+}
+div.com_logman .btn-inverse {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #363636;
+  background-image: -moz-linear-gradient(top, #444444, #222222);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#444444), to(#222222));
+  background-image: -webkit-linear-gradient(top, #444444, #222222);
+  background-image: -o-linear-gradient(top, #444444, #222222);
+  background-image: linear-gradient(to bottom, #444444, #222222);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff444444', endColorstr='#ff222222', GradientType=0);
+  border-color: #222222 #222222 #000000;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #222222;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+div.com_logman .btn-inverse:hover,
+div.com_logman .btn-inverse:active,
+div.com_logman .btn-inverse.active,
+div.com_logman .btn-inverse.disabled,
+div.com_logman .btn-inverse[disabled] {
+  color: #ffffff;
+  background-color: #222222;
+  *background-color: #151515;
+}
+div.com_logman .btn-inverse:active,
+div.com_logman .btn-inverse.active {
+  background-color: #080808 \9;
+}
+div.com_logman button.btn,
+div.com_logman input[type="submit"].btn {
+  *padding-top: 3px;
+  *padding-bottom: 3px;
+}
+div.com_logman button.btn::-moz-focus-inner,
+div.com_logman input[type="submit"].btn::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+div.com_logman button.btn.btn-large,
+div.com_logman input[type="submit"].btn.btn-large {
+  *padding-top: 7px;
+  *padding-bottom: 7px;
+}
+div.com_logman button.btn.btn-small,
+div.com_logman input[type="submit"].btn.btn-small {
+  *padding-top: 3px;
+  *padding-bottom: 3px;
+}
+div.com_logman button.btn.btn-mini,
+div.com_logman input[type="submit"].btn.btn-mini {
+  *padding-top: 1px;
+  *padding-bottom: 1px;
+}
+div.com_logman .btn-link,
+div.com_logman .btn-link:active {
+  background-color: transparent;
+  background-image: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+div.com_logman .btn-link {
+  border-color: transparent;
+  cursor: pointer;
+  color: #0088cc;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+div.com_logman .btn-link:hover {
+  color: #005580;
+  text-decoration: underline;
+  background-color: transparent;
+}
+div.com_logman .btn-group {
+  position: relative;
+  font-size: 0;
+  white-space: nowrap;
+  *margin-left: .3em;
+}
+div.com_logman .btn-group:first-child {
+  *margin-left: 0;
+}
+div.com_logman .btn-group + .btn-group {
+  margin-left: 5px;
+}
+div.com_logman .btn-toolbar {
+  font-size: 0;
+  margin-top: 9px;
+  margin-bottom: 9px;
+}
+div.com_logman .btn-toolbar .btn-group {
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+
+  *zoom: 1;
+}
+div.com_logman .btn-toolbar .btn + .btn,
+div.com_logman .btn-toolbar .btn-group + .btn,
+div.com_logman .btn-toolbar .btn + .btn-group {
+  margin-left: 5px;
+}
+div.com_logman .btn-group > .btn {
+  position: relative;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+div.com_logman .btn-group > .btn + .btn {
+  margin-left: -1px;
+}
+div.com_logman .btn-group > .btn,
+div.com_logman .btn-group > .dropdown-menu {
+  font-size: 13px;
+}
+div.com_logman .btn-group > .btn-mini {
+  font-size: 11px;
+}
+div.com_logman .btn-group > .btn-small {
+  font-size: 12px;
+}
+div.com_logman .btn-group > .btn-large {
+  font-size: 16px;
+}
+div.com_logman .btn-group > .btn:first-child {
+  margin-left: 0;
+  -webkit-border-top-left-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+  border-top-left-radius: 4px;
+  -webkit-border-bottom-left-radius: 4px;
+  -moz-border-radius-bottomleft: 4px;
+  border-bottom-left-radius: 4px;
+}
+div.com_logman .btn-group > .btn:last-child,
+div.com_logman .btn-group > .dropdown-toggle {
+  -webkit-border-top-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+  border-top-right-radius: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  -moz-border-radius-bottomright: 4px;
+  border-bottom-right-radius: 4px;
+}
+div.com_logman .btn-group > .btn.large:first-child {
+  margin-left: 0;
+  -webkit-border-top-left-radius: 6px;
+  -moz-border-radius-topleft: 6px;
+  border-top-left-radius: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+  -moz-border-radius-bottomleft: 6px;
+  border-bottom-left-radius: 6px;
+}
+div.com_logman .btn-group > .btn.large:last-child,
+div.com_logman .btn-group > .large.dropdown-toggle {
+  -webkit-border-top-right-radius: 6px;
+  -moz-border-radius-topright: 6px;
+  border-top-right-radius: 6px;
+  -webkit-border-bottom-right-radius: 6px;
+  -moz-border-radius-bottomright: 6px;
+  border-bottom-right-radius: 6px;
+}
+div.com_logman .btn-group > .btn:hover,
+div.com_logman .btn-group > .btn:focus,
+div.com_logman .btn-group > .btn:active,
+div.com_logman .btn-group > .btn.active {
+  z-index: 2;
+}
+div.com_logman .btn-group .dropdown-toggle:active,
+div.com_logman .btn-group.open .dropdown-toggle {
+  outline: 0;
+}
+div.com_logman .btn-group > .btn + .dropdown-toggle {
+  padding-left: 8px;
+  padding-right: 8px;
+  -webkit-box-shadow: inset 1px 0 0 rgba(255,255,255,.125), inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+  -moz-box-shadow: inset 1px 0 0 rgba(255,255,255,.125), inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+  box-shadow: inset 1px 0 0 rgba(255,255,255,.125), inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+  *padding-top: 5px;
+  *padding-bottom: 5px;
+}
+div.com_logman .btn-group > .btn-mini + .dropdown-toggle {
+  padding-left: 5px;
+  padding-right: 5px;
+  *padding-top: 2px;
+  *padding-bottom: 2px;
+}
+div.com_logman .btn-group > .btn-small + .dropdown-toggle {
+  *padding-top: 5px;
+  *padding-bottom: 4px;
+}
+div.com_logman .btn-group > .btn-large + .dropdown-toggle {
+  padding-left: 12px;
+  padding-right: 12px;
+  *padding-top: 7px;
+  *padding-bottom: 7px;
+}
+div.com_logman .btn-group.open .dropdown-toggle {
+  background-image: none;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
+  -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
+}
+div.com_logman .btn-group.open .btn.dropdown-toggle {
+  background-color: #e6e6e6;
+}
+div.com_logman .btn-group.open .btn-primary.dropdown-toggle {
+  background-color: #15497c;
+}
+div.com_logman .btn-group.open .btn-warning.dropdown-toggle {
+  background-color: #f89406;
+}
+div.com_logman .btn-group.open .btn-danger.dropdown-toggle {
+  background-color: #bd362f;
+}
+div.com_logman .btn-group.open .btn-success.dropdown-toggle {
+  background-color: #51a351;
+}
+div.com_logman .btn-group.open .btn-info.dropdown-toggle {
+  background-color: #2f96b4;
+}
+div.com_logman .btn-group.open .btn-inverse.dropdown-toggle {
+  background-color: #222222;
+}
+div.com_logman .btn .caret {
+  margin-top: 8px;
+  margin-left: 0;
+}
+div.com_logman .btn-mini .caret,
+div.com_logman .btn-small .caret,
+div.com_logman .btn-large .caret {
+  margin-top: 6px;
+}
+div.com_logman .btn-large .caret {
+  border-left-width: 5px;
+  border-right-width: 5px;
+  border-top-width: 5px;
+}
+div.com_logman .dropup .btn-large .caret {
+  border-bottom: 5px solid #000000;
+  border-top: 0;
+}
+div.com_logman .btn-primary .caret,
+div.com_logman .btn-warning .caret,
+div.com_logman .btn-danger .caret,
+div.com_logman .btn-info .caret,
+div.com_logman .btn-success .caret,
+div.com_logman .btn-inverse .caret {
+  border-top-color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+div.com_logman .btn-group-vertical {
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+
+  *zoom: 1;
+}
+div.com_logman .btn-group-vertical .btn {
+  display: block;
+  float: none;
+  width: 100%;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+div.com_logman .btn-group-vertical .btn + .btn {
+  margin-left: 0;
+  margin-top: -1px;
+}
+div.com_logman .btn-group-vertical .btn:first-child {
+  -webkit-border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
+}
+div.com_logman .btn-group-vertical .btn:last-child {
+  -webkit-border-radius: 0 0 4px 4px;
+  -moz-border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px;
+}
+div.com_logman .btn-group-vertical .btn-large:first-child {
+  -webkit-border-radius: 6px 6px 0 0;
+  -moz-border-radius: 6px 6px 0 0;
+  border-radius: 6px 6px 0 0;
+}
+div.com_logman .btn-group-vertical .btn-large:last-child {
+  -webkit-border-radius: 0 0 6px 6px;
+  -moz-border-radius: 0 0 6px 6px;
+  border-radius: 0 0 6px 6px;
+}
+div.com_logman .alert {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 18px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-color: #fcf8e3;
+  border: 1px solid #fbeed5;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  color: #c09853;
+}
+div.com_logman .alert h4 {
+  margin: 0;
+}
+div.com_logman .alert .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  line-height: 18px;
+}
+div.com_logman .alert-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #468847;
+}
+div.com_logman .alert-danger,
+div.com_logman .alert-error {
+  background-color: #f2dede;
+  border-color: #eed3d7;
+  color: #b94a48;
+}
+div.com_logman .alert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #3a87ad;
+}
+div.com_logman .alert-block {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+div.com_logman .alert-block > p,
+div.com_logman .alert-block > ul {
+  margin-bottom: 0;
+}
+div.com_logman .alert-block p + p {
+  margin-top: 5px;
+}
+@-webkit-keyframes progress-bar-stripes {
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@-moz-keyframes progress-bar-stripes {
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@-ms-keyframes progress-bar-stripes {
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@-o-keyframes progress-bar-stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 40px 0;
+  }
+}
+@keyframes progress-bar-stripes {
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+div.com_logman .progress {
+  overflow: hidden;
+  height: 18px;
+  margin-bottom: 18px;
+  background-color: #f7f7f7;
+  background-image: -moz-linear-gradient(top, #f5f5f5, #f9f9f9);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f5f5f5), to(#f9f9f9));
+  background-image: -webkit-linear-gradient(top, #f5f5f5, #f9f9f9);
+  background-image: -o-linear-gradient(top, #f5f5f5, #f9f9f9);
+  background-image: linear-gradient(to bottom, #f5f5f5, #f9f9f9);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', endColorstr='#fff9f9f9', GradientType=0);
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+div.com_logman .progress .bar {
+  width: 0%;
+  height: 100%;
+  color: #ffffff;
+  float: left;
+  font-size: 12px;
+  text-align: center;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #0e90d2;
+  background-image: -moz-linear-gradient(top, #149bdf, #0480be);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#149bdf), to(#0480be));
+  background-image: -webkit-linear-gradient(top, #149bdf, #0480be);
+  background-image: -o-linear-gradient(top, #149bdf, #0480be);
+  background-image: linear-gradient(to bottom, #149bdf, #0480be);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff149bdf', endColorstr='#ff0480be', GradientType=0);
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: width 0.6s ease;
+  -moz-transition: width 0.6s ease;
+  -o-transition: width 0.6s ease;
+  transition: width 0.6s ease;
+}
+div.com_logman .progress .bar + .bar {
+  -webkit-box-shadow: inset 1px 0 0 rgba(0,0,0,.15), inset 0 -1px 0 rgba(0,0,0,.15);
+  -moz-box-shadow: inset 1px 0 0 rgba(0,0,0,.15), inset 0 -1px 0 rgba(0,0,0,.15);
+  box-shadow: inset 1px 0 0 rgba(0,0,0,.15), inset 0 -1px 0 rgba(0,0,0,.15);
+}
+div.com_logman .progress-striped .bar {
+  background-color: #149bdf;
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  -webkit-background-size: 40px 40px;
+  -moz-background-size: 40px 40px;
+  -o-background-size: 40px 40px;
+  background-size: 40px 40px;
+}
+div.com_logman .progress.active .bar {
+  -webkit-animation: progress-bar-stripes 2s linear infinite;
+  -moz-animation: progress-bar-stripes 2s linear infinite;
+  -ms-animation: progress-bar-stripes 2s linear infinite;
+  -o-animation: progress-bar-stripes 2s linear infinite;
+  animation: progress-bar-stripes 2s linear infinite;
+}
+div.com_logman .progress-danger .bar,
+div.com_logman .progress .bar-danger {
+  background-color: #dd514c;
+  background-image: -moz-linear-gradient(top, #ee5f5b, #c43c35);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#c43c35));
+  background-image: -webkit-linear-gradient(top, #ee5f5b, #c43c35);
+  background-image: -o-linear-gradient(top, #ee5f5b, #c43c35);
+  background-image: linear-gradient(to bottom, #ee5f5b, #c43c35);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffee5f5b', endColorstr='#ffc43c35', GradientType=0);
+}
+div.com_logman .progress-danger.progress-striped .bar,
+div.com_logman .progress-striped .bar-danger {
+  background-color: #ee5f5b;
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+div.com_logman .progress-success .bar,
+div.com_logman .progress .bar-success {
+  background-color: #5eb95e;
+  background-image: -moz-linear-gradient(top, #62c462, #57a957);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#57a957));
+  background-image: -webkit-linear-gradient(top, #62c462, #57a957);
+  background-image: -o-linear-gradient(top, #62c462, #57a957);
+  background-image: linear-gradient(to bottom, #62c462, #57a957);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff57a957', GradientType=0);
+}
+div.com_logman .progress-success.progress-striped .bar,
+div.com_logman .progress-striped .bar-success {
+  background-color: #62c462;
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+div.com_logman .progress-info .bar,
+div.com_logman .progress .bar-info {
+  background-color: #4bb1cf;
+  background-image: -moz-linear-gradient(top, #5bc0de, #339bb9);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#5bc0de), to(#339bb9));
+  background-image: -webkit-linear-gradient(top, #5bc0de, #339bb9);
+  background-image: -o-linear-gradient(top, #5bc0de, #339bb9);
+  background-image: linear-gradient(to bottom, #5bc0de, #339bb9);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5bc0de', endColorstr='#ff339bb9', GradientType=0);
+}
+div.com_logman .progress-info.progress-striped .bar,
+div.com_logman .progress-striped .bar-info {
+  background-color: #5bc0de;
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+div.com_logman .progress-warning .bar,
+div.com_logman .progress .bar-warning {
+  background-color: #faa732;
+  background-image: -moz-linear-gradient(top, #fbb450, #f89406);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbb450), to(#f89406));
+  background-image: -webkit-linear-gradient(top, #fbb450, #f89406);
+  background-image: -o-linear-gradient(top, #fbb450, #f89406);
+  background-image: linear-gradient(to bottom, #fbb450, #f89406);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffbb450', endColorstr='#fff89406', GradientType=0);
+}
+div.com_logman .progress-warning.progress-striped .bar,
+div.com_logman .progress-striped .bar-warning {
+  background-color: #fbb450;
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+div.com_logman .pull-right {
+  float: right;
+}
+div.com_logman .pull-left {
+  float: left;
+}
+div.com_logman .hide {
+  display: none;
+}
+div.com_logman .show {
+  display: block;
+}
+div.com_logman .invisible {
+  visibility: hidden;
+}
+div.com_logman .affix {
+  position: fixed;
+}
+div.com_logman .well {
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+div.com_logman fieldset label {
+  float: none;
+  clear: none;
+  margin: 0;
+}
+div.com_logman input,
+div.com_logman textarea,
+div.com_logman input:focus,
+div.com_logman textarea:focus {
+  background-color: white;
+}
+div.com_logman [class^="icon-"]:before,
+div.com_logman [class*=" icon-"]:before {
+  content: none;
+}
+div.com_logman table {
+  /*tr.activities-activity.greyed { // Highlight activities from others.
+    td.message span.text, td.time {
+      .muted;
+      a {
+        .opacity(0.6);
+      }
+    }
+    i {
+      .opacity(0.3);
+    }
+  }*/
+
+}
+div.com_logman table a,
+div.com_logman table a:link,
+div.com_logman table a:visited {
+  color: #025A8D;
+}
+div.com_logman table a:hover {
+  color: #005580;
+}
+div.com_logman table tr.activities-activity i {
+  opacity: 0.5;
+}
+div.com_logman table tr.activities-activity td.time {
+  text-align: right;
+}
+div.com_logman .pagination .button2-right div,
+div.com_logman .pagination .button2-left div,
+div.com_logman .pagination .button2-right,
+div.com_logman .pagination .button2-left,
+div.com_logman .pagination a {
+  border-radius: 5px;
+}
+div.com_logman .pagination .button2-right div {
+  border-radius: 5px;
+}
+div.com_logman .pagination .limit select {
+  vertical-align: 1%;
+  font-size: inherit;
+}
+#mc-component div.com_logman .pagination div.limit {
+  float: left;
+  height: 22px;
+  margin: 0 5px;
+  color: #666666;
+  text-shadow: 1px 1px 0 white;
+  font-size: 12px;
+  line-height: 20px;
+}
+#mc-component div.com_logman .pagination div.limit select {
+  height: 1.8em;
+  margin-top: 0.1em;
+  font-size: 1em;
+}
+#mc-component div.com_logman .pagination .button2-left,
+#mc-component div.com_logman .pagination .button2-right {
+  float: left;
+  margin-left: 5px;
+  margin-right: 10px;
+  font-size: 12px;
+  margin-left: 2px;
+  margin-right: 0px;
+}
+#mc-component div.com_logman .pagination .button2-left a,
+#mc-component div.com_logman .pagination .button2-right a,
+#mc-component div.com_logman .pagination .button2-left span,
+#mc-component div.com_logman .pagination .button2-right span,
+#mc-component div.com_logman .pagination .button2-left .page,
+#mc-component div.com_logman .pagination .button2-right .page {
+  display: block;
+  float: left;
+  cursor: pointer;
+  height: auto;
+  padding: 3px 8px;
+  background: #5c5c5c;
+  color: white;
+  font-size: 12px;
+  line-height: 13px;
+  border-radius: 4px;
+}
+#mc-component div.com_logman .pagination .button2-left.off,
+#mc-component div.com_logman .pagination .button2-right.off {
+  opacity: 0.5;
+}
+#mc-component div.com_logman .pagination .button2-left.off a,
+#mc-component div.com_logman .pagination .button2-right.off a {
+  cursor: default;
+  text-decoration: none;
+}
+#mc-component div.com_logman .pagination .button2-left .page,
+#mc-component div.com_logman .pagination .button2-right .page {
+  padding: 0 7px;
+  cursor: default;
+}
+#mc-component div.com_logman .pagination .button2-left .page a,
+#mc-component div.com_logman .pagination .button2-right .page a,
+#mc-component div.com_logman .pagination .button2-left .page span,
+#mc-component div.com_logman .pagination .button2-right .page span {
+  background: none;
+  padding: 3px 7px;
+  margin: 0;
+}
+#mc-component div.com_logman .pagination .button2-left .page span,
+#mc-component div.com_logman .pagination .button2-right .page span {
+  text-decoration: underline;
+}
+div.com_logman form {
+  margin-bottom: 0;
+}
+div.com_logman .table td {
+  vertical-align: middle;
+}
+div.com_logman .table td select {
+  width: auto;
+  line-height: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+}
+div.com_logman .table {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  color: #616161;
+}
+div.com_logman .table thead {
+  background-color: #eeeeee;
+}
+div.com_logman .table thead th {
+  padding: 4px 8px;
+}
+div.com_logman .table thead td {
+  background-color: #f6f6f6;
+}
+div.com_logman .table tbody.selected-single tr.selected td {
+  border-top-color: #2375d3;
+  background-color: #1d6cb0;
+  background-image: -moz-linear-gradient(top, #2384d3, #15497c);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#2384d3), to(#15497c));
+  background-image: -webkit-linear-gradient(top, #2384d3, #15497c);
+  background-image: -o-linear-gradient(top, #2384d3, #15497c);
+  background-image: linear-gradient(to bottom, #2384d3, #15497c);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff2384d3', endColorstr='#ff15497c', GradientType=0);
+  -webkit-box-shadow: rgba(255, 255, 255, 0.2) 0 1px 0 inset;
+  -moz-box-shadow: rgba(255, 255, 255, 0.2) 0 1px 0 inset;
+  box-shadow: rgba(255, 255, 255, 0.2) 0 1px 0 inset;
+  text-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0;
+}
+div.com_logman .table tbody.selected-multiple tr.selected td {
+  background: #2384d3;
+}
+div.com_logman .table tbody tr td a {
+  font-size: 1.1em;
+}
+div.com_logman .table tbody tr td small {
+  display: block;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+div.com_logman .table tbody tr.selected td,
+div.com_logman .table tbody tr.selected td a,
+div.com_logman .table tbody tr.selected td small,
+div.com_logman .table tbody tr.selected td span {
+  color: white!important;
+}
+div.com_logman .table tfoot td {
+  background-color: #eeeeee;
+  text-align: center;
+}
+div.com_logman .table tfoot td .pagination {
+  display: inline-block;
+  padding: 0;
+  margin: 0 auto;
+}
+div.com_logman .table tfoot td .pagination .limit {
+  float: left;
+  line-height: 26px;
+  margin: 0 10px;
+}
+div.com_logman .table tfoot td .pagination ul {
+  margin: 0;
+}
+div.com_logman #activities {
+  background-color: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  border-spacing: 0;
+  width: 100%;
+}
+div.com_logman #activities .table tbody,
+div.com_logman #activities .table thead {
+  background: white;
+}
+div.com_logman #activities .activities-days-back input {
+  width: 3em;
+}
+div.com_logman .activities-filter-by-user {
+  clear: left;
+}
+div.com_logman .activities-sidebar {
+  width: 20%;
+  margin: 0;
+  background-color: #F7F7F7;
+  border-right: 1px solid #E0E0E0;
+  padding: 0 0 15px 0;
+  vertical-align: top;
+}
+div.com_logman .activities-calendar,
+div.com_logman .activities-days-back {
+  clear: left;
+}
+div.com_logman .activities-days-back {
+  padding-top: 5px;
+}
+div.com_logman .activities-filter-by-user {
+  padding-top: 10px;
+}
+div.com_logman #activities .activities-sidebar label {
+  display: block;
+  float: none;
+}
+div.com_logman #activities .activities-filter fieldset {
+  padding: 0 0 0 20px;
+}
+div.com_logman #sidebar h4 {
+  padding: 10px 10px 5px 10px;
+  margin: 0 0 10px 0;
+}
+div.com_logman #sidebar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+div.com_logman #sidebar ul li a,
+div.com_logman #sidebar ul li a:hover {
+  display: block;
+  margin: 0;
+  padding: 5px 7px 5px 20px;
+  font-weight: bold;
+  color: #333;
+  text-transform: capitalize;
+  text-shadow: 0 1px 0 rgba(225, 230, 234, 0.75);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-top: 1px solid transparent;
+}
+div.com_logman #sidebar ul li.active a,
+div.com_logman #sidebar ul li.active a:hover {
+  color: white;
+  border-top-color: #2375d3;
+  background-color: #1d6cb0;
+  background-image: -moz-linear-gradient(top, #2384d3, #15497c);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#2384d3), to(#15497c));
+  background-image: -webkit-linear-gradient(top, #2384d3, #15497c);
+  background-image: -o-linear-gradient(top, #2384d3, #15497c);
+  background-image: linear-gradient(to bottom, #2384d3, #15497c);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff2384d3', endColorstr='#ff15497c', GradientType=0);
+  -webkit-box-shadow: rgba(255, 255, 255, 0.2) 0 1px 0 inset;
+  -moz-box-shadow: rgba(255, 255, 255, 0.2) 0 1px 0 inset;
+  box-shadow: rgba(255, 255, 255, 0.2) 0 1px 0 inset;
+  text-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0;
+}
+div.com_logman #sidebar ul li a:hover {
+  text-decoration: none;
+}
+div.com_logman .activities-body {
+  width: 80%;
+  vertical-align: top;
+  padding: 0;
+}
+div.com_logman #filter {
+  border-bottom: 1px solid #cccccc;
+}
+div.com_logman #filter ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background-color: #e0e0e0;
+}
+div.com_logman #filter ul li {
+  display: inline-block;
+}
+div.com_logman #filter ul li a:link {
+  display: block;
+  padding: 6px 15px;
+}
+div.com_logman #filter ul li.active a:link {
+  background-color: #b7b7b7;
+  color: #424242;
+  text-decoration: none;
+}
+div.com_logman #activities tfoot .container {
+  margin-right: auto;
+  margin-left: auto;
+}
+div.com_logman #activities tbody tr.activities-timeago:hover td {
+  background-color: transparent;
+}
+div.com_logman tr.activities-timeago td,
+div.com_logman table.adminlist tbody tr.activities-timeago:nth-child(even) td {
+  height: auto;
+  text-align: center;
+  font-weight: bold;
+  border-bottom: 1px solid #dddddd;
+}
+div.com_logman .activities-activity .time {
+  width: 10px;
+}
+div.com_logman .activities-time {
+  font-weight: bold;
+}
+div.com_logman .activities-action {
+  font-weight: bold;
+}
+div.com_logman #activities th.activities-time,
+div.com_logman #activities th.activities-message {
+  font-size: 14px;
+  line-height: 20px;
+}
+div.com_logman .activities-item,
+div.com_logman table.adminlist thead th.-activities-item {
+  text-align: left;
+}
+div.com_logman .activities-deleted {
+  text-decoration: line-through;
+}
+div.com_logman .activities-filter {
+  margin: 20px 0 0 0;
+}
+div.com_logman .activities-filter h4 {
+  padding: 5px 0 0 0;
+  margin: 0;
+  clear: both;
+  color: #515151;
+}
+div.com_logman #sidebar fieldset {
+  margin: 10px 0 0 0;
+  padding: 0 10px;
+  border: none;
+}
+div.com_logman .activities-calendar > * {
+  float: left;
+}
+div.com_logman .activities-buttons {
+  margin: 30px 0 0 0;
+  clear: both;
+}
+div.com_logman .activities-buttons .btn {
+  float: none;
+}
+div.com_logman #activities .table.simple .activities-activity .time {
+  width: 5px;
+  white-space: nowrap;
+}
+div.com_logman #activities .table.simple .browse-view-all {
+  text-align: center;
+}
+div.com_logman #activities .table.simple .browse-view-all .btn {
+  display: block;
+}
+div.com_logman .logman-file-preview {
+  text-align: center;
+}
+.toolbar-list a.disabled {
+  color: gray;
+  font-weight: normal;
+}
+.toolbar-list .disabled span {
+  background-position: bottom;
+}
+.row-fluid div.com_logman [class*="span"] {
+  min-height: 28px;
+}
+.logman-tip {
+  text-align: left !important;
+  max-width: 640px !important;
+}
+.logman-tip .tip .tip-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

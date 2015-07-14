@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+        <field name="mode" type="list"
+      			default="1"
+      			description=""
+      			label="Mode"
+      			size="1"
+      			required="true"
+      		>
+      			<option value="live">Live System</option>
+      			<option value="test">Test System</option>
+      			<option value="simulator">Simulator</option>
+      		</field>
+
+        <field name="email" type="text" label="Email" description=""
+            class="inputbox" size="30" required="true" default="change@me.com" />
+        <field name="vendor_name" type="text" label="Sage Pay Vendor Login Name" description=""
+            class="inputbox" size="30" default="" />
+        <field name="encryption_password" type="text" label="Sage Pay Encryption password" description=""
+            class="inputbox" size="30" default="" />
+        <field name="referrer_id" type="text" label="Sage Pay Referrer ID" description=""
+            class="inputbox" size="30" default="" />
+        <field name="confirmation_email" type="text" label="Confirmation email address" description=""
+            class="inputbox" size="30" default="" />
+        <field name="send_email" type="list"
+      			default="1"
+      			description=""
+      			label="Send confirmation email"
+      			size="1"
+      			required="true"
+      		>
+      			<option value="0">Do not send either customer or vendor e-mails</option>
+      			<option value="1">Send customer and vendor e-mails (default)</option>
+      			<option value="2">Send vendor e-mail but NOT the customer e-mail</option>
+    	</field>
+        <field name="content" type="editor"
+      			buttons="true"
+      			description=""
+      			filter="html"
+      			label="Email message"
+      		/>
+        <field name="allow_gift_aid" type="list"
+      			default="0"
+      			description=""
+      			label="Send confirmation email"
+      			size="1"
+      			required="true"
+      		>
+      			<option value="0">No (default)</option>
+      			<option value="1">Yes</option>
+    	</field>
+        <field name="apply_avscv2" type="list"
+      			default="0"
+      			description=""
+      			label="AVS/CV2 checks"
+      			size="1"
+      			required="true"
+      		>
+      			<option value="0">If AVS/CV2 enabled then check them. If rules apply, use rules (default)</option>
+      			<option value="1">Force AVS/CV2 checks even if not enabled for the account. If rules apply, use rules</option>
+                <option value="2">Force NO AVS/CV2 checks even if enabled on account</option>
+                <option value="3">Force AVS/CV2 checks even if not enabled for the account but DON’T apply any rules</option>
+    	</field>
+        <field name="apply_3dsecure" type="list"
+      			default="0"
+      			description=""
+      			label="3D-Secure checks"
+      			size="1"
+      			required="true"
+      		>
+      			<option value="0">If 3D-Secure checks are possible and rules allow, perform the checks and apply the authorisation rules (default)</option>
+      			<option value="1">Force 3D-Secure checks if possible and apply rules for authorisation</option>
+                <option value="2">Do not perform 3D-Secure checks and always authorise</option>
+                <option value="3">Force 3D-Secure checks if possible but ALWAYS obtain an auth code, irrespective of rule base</option>
+    	</field>
+        <field name="use_sandbox" type="checkbox" value="1" label="Enable Gift Aid" description=""
+            class="inputbox"  />
+        <field name="auto_accept" type="checkbox" value="1" label="Autoaccept valid payments" description=""
+            class="inputbox"  />
+	</fieldset>
+</form>

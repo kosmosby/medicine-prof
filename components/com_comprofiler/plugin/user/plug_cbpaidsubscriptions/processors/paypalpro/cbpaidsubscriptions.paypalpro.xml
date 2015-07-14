@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0" type="plugin" group="user/plug_cbpaidsubscriptions/processors" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../cb/validation/ahawow.xsd">
+	<name>Paypal Pro</name>
+	<author>Kyle (aka Krileon)</author>
+	<creationDate>2014-10-09</creationDate>
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+    <license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<authorEmail>beat@joomlapolis.com</authorEmail>
+	<authorUrl>www.joomlapolis.com</authorUrl>
+	<version>2.0.0</version>
+	<release>4.0.0-rc.1</release>
+	<cbsubsversion version="4.0.0-rc.1" />
+	<description>CBSubs payment gateway plugin for Paypal Pro payment processor gateway.</description>
+	<files>
+		<filename plugin="cbpaidsubscriptions.paypalpro">cbpaidsubscriptions.paypalpro.php</filename>
+		<filename>index.html</filename>
+		<filename>edit.gateway.oem.xml</filename>
+		<filename>edit.gateway.xml</filename>
+	</files>
+    <params>
+    	<param name="remark" type="spacer" label="Parameters settings" default="Settings are done from within the paid subscriptions plugin in payment gateways." description="" />
+    </params>
+	<database>
+	</database>
+</cbinstall>

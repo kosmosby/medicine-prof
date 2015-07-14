@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="file:../../../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<actions ui="admin" permission="core.manage" permissionasset="com_cbsubs">
+		<action name="show_merchandises" request="action table" action="showtable merchandises" requestparameters="merchandisesbrowser[filter_plan_id]" permission="cbsubs.merchandiseview">
+			<showview view="showmerchandises" mode="show" type="xml" file="products/merchandise/xml/views/edit.productitems" path="/*/views/view[@name=&quot;showmerchandises&quot;]" mandatory="true" />
+		</action>
+		<action name="edit_merchandise" request="action table" action="editrow merchandisesbrowser" requestparameters="sid" permission="cbsubs.merchandisemanage">
+			<showview view="editmerchandiserecord" mode="edit" type="xml" file="products/merchandise/xml/views/edit.productitem" path="/*/views/view[@name=&quot;editmerchandiserecord&quot;]" mandatory="true">
+				<data name="merchandiserow" type="sql:row" table="#__cbsubs_merchandises" class="cbpaidMerchandiseRecord" key="id" value="sid" valuetype="request:int" />
+			</showview>
+		</action>
+	</actions>
+
+</cbxml>

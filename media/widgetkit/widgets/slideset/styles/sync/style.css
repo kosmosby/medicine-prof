@@ -1,0 +1,145 @@
+/*
+ * Widgetkit Slideset: Default Style
+ */
+
+
+/* Navigation
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-sync .nav {
+	margin-top: 10px;
+	text-align: center;
+}
+
+.wk-slideset-sync .nav li { display: inline-block; }
+.wk-slideset-sync .nav.icon li { margin-left: 5px; }
+.wk-slideset-sync .nav.text li { margin-left: 10px; }
+
+.wk-slideset-sync .nav li:first-child { margin-left: 0; }
+
+.wk-slideset-sync .nav.icon span {
+	width: 7px;
+	height: 8px;
+	background: url(images/nav.png) 0 0 no-repeat;
+	overflow: hidden;
+}
+
+.wk-slideset-sync .nav.icon span:hover { background-position: 0 -16px; }
+.wk-slideset-sync .nav.icon span:active { background-position: 0 -24px; }
+.wk-slideset-sync .nav.icon .active span { background-position: 0 -8px; }
+
+.wk-slideset-sync .nav.text span {
+	border-radius: 4px;
+ 	padding: 1px 8px; 
+ 	border: 1px solid #E0E0E0;
+	border-bottom-color: #CDCDCD;
+	background: #f9f9f9;
+	background: -webkit-linear-gradient(top, #f9f9f9 0%, #f7f7f7 100%);
+	background: -moz-linear-gradient(top, #f9f9f9 0%, #f7f7f7 100%);
+	background: -o-linear-gradient(top, #f9f9f9 0%, #f7f7f7 100%);
+	background: -ms-linear-gradient(top, #f9f9f9 0%, #f7f7f7 100%);
+	background: linear-gradient(top, #f9f9f9 0%, #f7f7f7 100%);
+	box-shadow: inset 0px 1px 0 rgba(255, 255, 255, 1); 
+	color: #444;
+}
+
+.wk-slideset-sync .nav.text span:hover {
+	border-color: #E0E0E0;
+	border-bottom-color: #CDCDCD;
+	background: #F1F1F1;
+	background: -webkit-linear-gradient(top, #F1F1F1 0%, #E7E7E7 100%);
+	background: -moz-linear-gradient(top, #F1F1F1 0%, #E7E7E7 100%);
+	background: -o-linear-gradient(top, #F1F1F1 0%, #E7E7E7 100%);
+	background: -ms-linear-gradient(top, #F1F1F1 0%, #E7E7E7 100%);
+	background: linear-gradient(top, #F1F1F1 0%, #E7E7E7 100%);
+	box-shadow: inset 0px 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.wk-slideset-sync .nav.text .active span {
+	border-color: #D2D2D2;
+	background: #E7E7E7;
+	background: -webkit-linear-gradient(top, #E7E7E7 0%, #F1F1F1 100%);
+	background: -moz-linear-gradient(top, #E7E7E7 0%, #F1F1F1 100%);
+	background: -o-linear-gradient(top, #E7E7E7 0%, #F1F1F1 100%);
+	background: -ms-linear-gradient(top, #E7E7E7 0%, #F1F1F1 100%);
+	background: linear-gradient(top, #E7E7E7 0%, #F1F1F1 100%);
+	box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.05),
+				0 1px 0 #fff;	
+}
+
+
+/* Buttons
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-sync > div { position: relative; }
+
+.wk-slideset-sync > div .next,
+.wk-slideset-sync > div .prev,
+.wk-slideset-sync > div:hover .next,
+.wk-slideset-sync > div:hover .prev {
+	top: 50%;
+	width: 13px;
+	height: 20px;
+	margin-top: -10px;
+	background: url(images/buttons.png) 0 0 no-repeat;
+}
+
+.wk-slideset-sync > div .next {
+	right: 0;
+	background-position: 0 -60px;
+}
+
+.wk-slideset-sync > div:hover .next {
+	right: 0;
+	background-position: 0 -60px;
+}
+
+.wk-slideset-sync > div .next:hover { background-position: 0 -80px; }
+.wk-slideset-sync > div .next:active { background-position: 0 -100px; }
+
+.wk-slideset-sync > div:hover .prev {
+	left: 0;
+	background-position: 0 0px;
+}
+
+.wk-slideset-sync > div .prev {
+	left: 0;
+	background-position: 0 0px;
+}
+
+.wk-slideset-sync > div .prev:hover { background-position: 0 -20px; }
+.wk-slideset-sync > div .prev:active { background-position: 0 -40px; }
+
+/* Title
+----------------------------------------------------------------------------------------------------*/
+
+.wk-slideset-sync article { margin: 0 10px; }
+
+.wk-slideset-sync article + strong.title { font-weight: normal; }
+
+
+/* Responsive
+----------------------------------------------------------------------------------------------------*/
+
+/* Only Touch Devices */
+@media (max-device-width: 1024px)  {
+
+	.wk-slideset-sync .next,
+	.wk-slideset-sync .prev { display: none; }
+
+}
+
+/* Only Phones */
+@media (max-width: 767px) {
+
+	.wk-slideset-sync .nav.text li { margin-left: 10px; }
+	.wk-slideset-sync .nav.text li:first-child { margin-left: 0; }
+
+	.wk-slideset-sync .nav.text span {
+		padding: 0 6px;
+		font-size: 12px;
+	}
+
+	.wk-slideset-sync .nav.text .active span { padding: 0 5px; }
+
+}

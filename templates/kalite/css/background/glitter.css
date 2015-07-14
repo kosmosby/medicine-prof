@@ -1,0 +1,31 @@
+/* Background: Glitter
+----------------------------------------------------------------------------------------------------*/
+
+body#page { background: #b4b5b6; }
+
+#page-bg { background: url(../../images/background/glitter/page.png) 50% 0 repeat-y; }
+
+@media only screen and (min-device-width: 769px) {
+	
+	body#page { 
+		background: #b4b5b6 url(../../images/background/glitter/gradient.svg) 50% 0 no-repeat fixed;
+		background-size: 100% 1500px;
+	}
+
+	.wrapper {
+		-moz-box-shadow: 0 0 15px rgba(0,0,0,0.3);
+		-webkit-box-shadow: 0 0 15px rgba(0,0,0,0.3);
+		box-shadow: 0 0 15px rgba(0,0,0,0.3);
+	}
+
+}
+
+/* WidgetKit
+----------------------------------------------------------------------------------------------------*/
+
+/* Slideshow */
+.wk-slideshow-downtown .nav span { background-image: url(../../images/widgetkit/color/pink/nav.png); }
+
+.wk-slideshow-downtown > div .next,
+.wk-slideshow-downtown > div .prev { background-image: url(../../images/widgetkit/color/pink/buttons.png); }
+

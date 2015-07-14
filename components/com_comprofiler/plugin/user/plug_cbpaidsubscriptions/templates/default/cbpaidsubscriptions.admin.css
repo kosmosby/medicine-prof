@@ -1,0 +1,477 @@
+
+div.cbDIVtotalsbrowser {
+	width: 100%;
+	text-align: center;
+}
+div.cbDIVtotalsbrowser td.cbregAdminTotalGraph {
+	padding: 5px 3px 0px 8px;
+	height: 100%;
+}
+div.cbDIVtotalsbrowser td.cbregAdminStatsGraph {
+	padding: 5px 3px 0px 8px;
+	height: 400px;
+}
+div.cbDIVtotalsbrowser table.adminlist {
+	width: 100%;
+	text-align: left;
+	margin:auto;
+}
+table.cbTAtotalsbrowser th.cbTHtotalsbrowser {
+	background: url(../../icons/normal/coin_stack_24.gif) no-repeat left;
+}
+
+.cbPlugTitle-cbpaidsubscriptions-paycontrolcenterstats, table.cbTApaycontrolcenterstats th.cbTHpaycontrolcenterstats {
+	background: url(../../icons/normal/coin_stack_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showplans, table.cbTAplansbrowser th.cbTHplansbrowser {
+	background: url(../../icons/normal/time_sheet_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showsubscriptions, table.cbTAsubscriptionsbrowser th.cbTHsubscriptionsbrowser {
+	background: url(../../icons/normal/user_id_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showmerchandises, table.cbTAmerchandisesbrowser th.cbTHmerchandisesbrowser {
+	background: url(../../icons/normal/objects_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showdonations, table.cbTAdonationsbrowser th.cbTHdonationsbrowser {
+	background: url(../../icons/normal/payment_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showpaymentbaskets, table.cbTApaymentbasketsbrowser th.cbTHpaymentbasketsbrowser {
+	background: url(../../icons/normal/shopping_cart_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showpayments, table.cbTApaymentsbrowser th.cbTHpaymentsbrowser {
+	background: url(../../icons/normal/taxes_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-shownotifications, table.cbTAnotificationsbrowser th.cbTHnotificationsbrowser {
+	background: url(../../icons/normal/datagram_back_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showcurrencies, table.cbTAcurrenciesbrowser th.cbTHcurrenciesbrowser {
+	background: url(../../icons/normal/currency_conversion_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-editproduct, table.cbTAcbpaidsubscriptions th.cbTHeditproduct {
+	background: url(../../icons/normal/time_sheet_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-editsubscription, table.cbTAcbpaidsubscriptions th.cbTHeditsubscription {
+	background: url(../../icons/normal/user_id_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showparams, table.cbTAcbpaidsubscriptions th.cbTHshowparams {
+	background: url(../../icons/normal/gear_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showimport, table.cbTAcbpaidsubscriptions th.cbTHshowimport {
+	background: url(../../icons/normal/user_id_add_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-editmerchandiserecord, table.cbTAcbpaidsubscriptions th.cbTHeditmerchandiserecord {
+	background: url(../../icons/normal/objects_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-editdonationrecord, table.cbTAcbpaidsubscriptions th.cbTHeditdonationrecord {
+	background: url(../../icons/normal/payment_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-editbasket, table.cbTAcbpaidsubscriptions th.cbTHeditbasket {
+	background: url(../../icons/normal/shopping_cart_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showhistorydetails, table.cbTAcbpaidsubscriptions th.cbTHshowhistorydetails {
+	background: url(../../icons/normal/record_a_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showhistory, table.cbTAhistorybrowser th.cbTHhistorybrowser {
+	background: url(../../icons/normal/record_a_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showstatistics {
+	background: url(../../icons/normal/deposit_48.gif) no-repeat left;
+}
+
+.cbPlugTitle-cbpaidsubscriptions-showstatisticsmonthly, table.cbTAmonthlybrowser th.cbTHmonthlybrowser {
+	background: url(../../icons/normal/calendaryear_money_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showstatisticsweekly, table.cbTAweeklybrowser th.cbTHweeklybrowser {
+	background: url(../../icons/normal/calendar_week_money_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showstatisticsdayofweek, table.cbTAdayofweekbrowser th.cbTHdayofweekbrowser {
+	background: url(../../icons/normal/calendar_weekday_money_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showstatisticshourofday, table.cbTAhourofdaybrowser th.cbTHhourofdaybrowser {
+	background: url(../../icons/normal/clock_money_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showstatscountrypayments, table.cbTAstatisticscountrypaymentsbrowser th.cbTHstatisticscountrypaymentsbrowser {
+	background: url(../../icons/normal/world_money_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showstatisticsfreequery, table.cbTAstatisticsfreequerybrowser th.cbTHstatisticsfreequerybrowser {
+	/* background: url(../../icons/normal/deposit_search_48.gif) no-repeat left; */
+	background: url(../../icons/normal/economics_money_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showstatisticsitemsmonthly, table.cbTAitemsmonthlybrowser th.cbTHitemsmonthlybrowser {
+	background: url(../../icons/normal/calendaryear_cart_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showstatisticsitemsweekly, table.cbTAitemsweeklybrowser th.cbTHitemsweeklybrowser {
+	background: url(../../icons/normal/calendar_week_cart_48.gif) no-repeat left;
+}
+.cbPlugTitle-cbpaidsubscriptions-showstatisticsitemsdayofweek, table.cbTAitemsdayofweekbrowser th.cbTHitemsdayofweekbrowser {
+	background: url(../../icons/normal/calendar_weekday_cart_48.gif) no-repeat left;
+}
+
+/*
+.cbPlugTitle-cbpaidsubscriptions-showgateways, table.cbTAcbpaidsubscriptions th.cbTHshowgateways {
+	background: url(../../icons/normal/bank_transaction_48.gif) no-repeat left;
+}
+*/
+.cbPlugTitle-cbpaidsubscriptions-showgateways, table.cbTAgatewaysbrowser th.cbTHgatewaysbrowser {
+	background: url(../../icons/normal/bank_transaction_48.gif) no-repeat left;
+}
+
+/* not needed anymore for now: was displaying icon at left of title in tab:
+
+h3.cbTHcpayallparamssettings {
+	background: url(../../icons/normal/gear_48.gif) no-repeat left;
+	text-align: left;
+	line-height: 50px;
+	padding-left: 60px;
+	font-size: 16px;
+}
+h3.cbTHcpayallparamsgateways {
+	background: url(../../icons/normal/bank_transaction_48.gif) no-repeat left;
+	text-align: left;
+	line-height: 50px;
+	padding-left: 60px;
+	font-size: 16px;
+}
+*/
+
+div.cbButtonMenuItem div.cbDIIMplans {
+	background: url(../../icons/normal/time_sheet_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMsubscriptions {
+	background: url(../../icons/normal/user_id_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMbaskets {
+	background: url(../../icons/normal/shopping_cart_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMpayments {
+	background: url(../../icons/normal/taxes_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMnotifications {
+	background: url(../../icons/normal/datagram_back_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMcurrencies {
+	background: url(../../icons/normal/currency_conversion_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMgateways {
+	background: url(../../icons/normal/bank_transaction_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMsettings {
+	background: url(../../icons/normal/gear_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMaccounting {
+	background: url(../../icons/normal/statistic_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMstatistics {
+	background: url(../../icons/normal/deposit_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMimport {
+	background: url(../../icons/normal/user_id_add_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMmerchandises {
+	background: url(../../icons/normal/objects_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMdonations {
+	background: url(../../icons/normal/payment_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMhistory {
+	background: url(../../icons/normal/record_a_128.gif) no-repeat center;
+}
+
+div.cbButtonMenuItem div.cbDIIMmonthly {
+	background: url(../../icons/normal/calendaryear_money_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMweekly {
+	background: url(../../icons/normal/calendar_week_money_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMdayofweek {
+	background: url(../../icons/normal/calendar_weekday_money_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMhourofday {
+	background: url(../../icons/normal/clock_money_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMcountrypayments {
+	background: url(../../icons/normal/world_money_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMfreequery {
+	/* background: url(../../icons/normal/deposit_search_128.gif) no-repeat center; */
+	background: url(../../icons/normal/economics_money_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMitemsmonthly {
+	background: url(../../icons/normal/calendaryear_cart_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMitemsweekly {
+	background: url(../../icons/normal/calendar_week_cart_128.gif) no-repeat center;
+}
+div.cbButtonMenuItem div.cbDIIMitemsdayofweek {
+	background: url(../../icons/normal/calendar_weekday_cart_128.gif) no-repeat center;
+}
+
+fieldset.cbfieldset_paymentitems legend {
+	background: url(../../icons/normal/user_id_24.gif) no-repeat left;
+	text-align: left;
+	line-height: 25px;
+	padding-left: 32px;
+}
+fieldset.cbfieldset_currencypayments legend {
+	background: url(../../icons/normal/payment_24.gif) no-repeat left;
+	text-align: left;
+	line-height: 25px;
+	padding-left: 32px;
+}
+fieldset.cbfieldset_statusplanset legend {
+	background: url(../../icons/normal/time_sheet_24.gif) no-repeat left;
+	text-align: left;
+	line-height: 25px;
+	padding-left: 32px;
+}
+fieldset.cbfieldset_calendarperiod legend,
+fieldset.cbfieldset_subcalendarperiod legend,
+fieldset.cbfieldset_rencalendarperiod legend,
+fieldset.cbfieldset_expcalendarperiod legend {
+	background: url(../../icons/normal/clock_24.gif) no-repeat left;
+	text-align: left;
+	line-height: 25px;
+	padding-left: 32px;
+}
+
+/* For MenuController: first 3 is trick to avoid clear:both; extra-div: thanks http://www.positioniseverything.net/easyclearing.html */
+
+.cbButtonMenu:after {
+    content: "."; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden; }
+.cbButtonMenu {display: inline-block;}
+/* Hides from IE-mac \*/
+* html .cbButtonMenu {height: 1%;}
+.cbButtonMenu {display: block;}
+/* End hide from IE-mac */
+
+.cbButtonMenu {
+	min-width: 860px;
+}
+
+.cbButtonMenu .cbButtonMenuItem {
+	float: left;
+	padding: 0px;
+	margin: 10px;
+	text-align: center;
+	width: 192px;
+	height: 192px;
+	background:			url("../../icons/normal/menubutton.png") no-repeat;
+}
+
+.cbButtonMenu .cbButtonMenuItem:hover {
+	background:			url("../../icons/hot/menubutton.png") no-repeat;
+}
+
+.cbButtonMenu .cbButtonMenuItem img {
+	border:0px;
+	padding:0px;
+	margin:0px;
+}
+.cbButtonMenu .cbButtonMenuItem a {
+	padding:0px 1px 1px 0px;
+	display:block;
+	height:100%
+}
+.cbButtonMenu .cbButtonMenuItem a:hover {
+	text-decoration: none;
+	padding:1px 0px 0px 1px;
+}
+.cbButtonMenu h2 {
+	font-size:17px;
+	margin:2px;
+	padding:10px 1px 6px 1px;
+	line-height:90%;
+}
+.cbButtonMenu .cbButtonMenuItem a div.cbdivbgimg {
+	position:relative;
+	width:100%;
+	height:100%;
+	text-align:center;
+}
+div.cbAbsBottom {
+	position:absolute;
+	bottom:0px;
+	left:0px;
+	width:100%;
+	padding-bottom:6px;
+}
+
+.cbButtonMenu .cbButtonMenuItem .cbFieldSpan {
+	left:35px;
+	margin:0px;
+	padding:0px;
+	border-width:0px;
+	width:29px;
+	font-weight:bold;
+	font-size:110%;
+	color:black;
+}
+.cbButtonMenu .cbButtonMenuItem .cbLabelSpan td {
+	padding:5px;
+}
+.cbButtonMenu .cbButtonMenuItem .cbLabelSpan {
+	font-size:110%;
+	color:black;
+}
+
+.cbicon-32-paybasket	{ background-image:url(../../icons/normal/loan_32.gif); }
+.cbicon-32-refund		{ background-image:url(../../icons/normal/refund_32.gif); }
+
+/* For tables highlighting: */
+
+.cbDisabled {
+	color: red;
+	font-weight: bold;
+}
+.cbEnabled {
+	color: green;
+}
+.cbSpecial {
+	color: #DD7700;
+}
+.cbSpecialWarning {
+	font-weight:inherit;
+}
+.cbSpecialWarning a {
+	font-weight:bold;
+}
+table.adminform {
+	margin-bottom: 20px;
+}
+div.cbTableBr table.adminheading th {
+	color:#000;
+}
+
+/* For buttons in tables */
+
+.cbadminLinksAsButtons a {
+	padding: 1px 5px;
+	border: 1px solid black;
+	background: #ddd;
+	border-radius: 3px;
+	text-decoration: none;
+}
+.cbadminLinksAsButtons a:hover, .cbadminLinksAsMinorButtons a:hover {
+	background: #ffa;
+	text-decoration: none;
+}
+.cbadminLinksAsMinorButtons a {
+	font-size: 94% !important;
+	padding: 1px 1px;
+	border: 1px solid #ddd;
+	background: #f6f6f6;
+	border-radius: 3px;
+	text-decoration: none;
+}
+.cbadminHorizontal {
+	display: inline-block;
+}
+.cbadminHorizontal.cbadminSecondaryValue {
+	font-size: 90%;
+	font-style: italic;
+}
+.cbadminHorizontal.cbadminSecondaryValue:before {
+	content: '(';
+}
+.cbadminHorizontal.cbadminSecondaryValue:after {
+	content: ')';
+	position: relative;
+	left: -0.2em;
+}
+.cbadminRowButton, .cbadminRowMinorButton {
+	margin-left: 6px;
+}
+
+.cbsubsAdminSmallLink {
+	font-size: 90%;
+	font-weight: normal;
+	font-style: italic;
+}
+
+/* For hierarchy displaying: */
+.cbpaidAdminParentLevel0 {
+}
+.cbpaidAdminParentLevel1 {
+	padding-left: 27px !important;
+	background-image:		url("../../icons/normal/hierarchy_level1.gif") !important;
+	background-repeat:		no-repeat !important;
+	background-position:	center left !important;
+}
+
+/* For change diffs: */
+
+table.cbregChangeDiffs {
+	width:450px;
+}
+table.cbregChangeDiffs td, table.cbregChangeDiffs th {
+	text-align:left;
+}
+table.cbregChangeDiffs tr {
+	border-bottom: 1px black dotted;
+}
+table.cbregChangeDiffs th {
+	border-bottom: 1px black solid;
+}
+table.cbregChangeDiffs tbody tr th {
+	border: 1px black solid;
+	background: none;
+}
+table.cbregChangeDiffs td {
+}
+table.cbregChangeDiffs td.cbregDiffold {
+	color:red;
+	border: 1px black solid;
+}
+table.cbregChangeDiffs td.cbregDiffnew {
+	color:green;
+	border: 1px black solid;
+}
+.cbregCopyrightfooter {
+	font-size: 11px;
+	color: black;
+	display: block;
+}
+
+.paramlist .cbregautoheight table td {
+	height: auto;
+}
+
+/* For json param display: */
+.cbjsondump {
+	width: 400px;
+	clear: both;
+}
+.cbjsondump dt {
+	float: left;
+	clear: left;
+	width: 70px;
+	font-weight: bold;
+}
+.cbjsondump dd {
+	float: left;
+	width: 180px;
+}
+.cbjsondump div {
+	display: block;
+}
+
+
+/* j1.6 overrides: */
+.cb_form fieldset input, .cb_form fieldset textarea, .cb_form fieldset select, .cb_form fieldset img, .cb_form fieldset button, .cb_form fieldset label {
+	float: none;
+	clear: none;
+	display: inline;
+}
+.cb_form fieldset img {
+	margin: auto;
+}
+.cbFilters table.adminform {
+	border: 0px;
+}
+.tip-wrap {
+	z-index: 100;
+}

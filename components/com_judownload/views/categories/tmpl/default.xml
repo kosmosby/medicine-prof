@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_JUDOWNLOAD_MENU_CATEGORIES_DEFAULT_LAYOUT_TITLE">
+        <message>
+            <![CDATA[COM_JUDOWNLOAD_MENU_CATEGORIES_DEFAULT_LAYOUT_DESC]]>
+        </message>
+    </layout>
+
+    <!-- Add fields to the request variables for the layout. -->
+    <fields name="request">
+        <fieldset name="request"
+                  addfieldpath="/administrator/components/com_judownload/models/fields">
+            <field name="id"
+                   type="categorytreepublish"
+                   checkpublished="true"
+                   label="COM_JUDOWNLOAD_FIELD_CATEGORY_LABEL"
+                   description="COM_JUDOWNLOAD_FIELD_CATEGORY_DESC"
+                   required="true"
+                    />
+        </fieldset>
+    </fields>
+
+    <!-- Add fields to the parameters object for the layout. -->
+    <fields name="params">
+        <fieldset name="basic"
+                  label="COM_JUDOWNLOAD_BASIC_OPTIONS">
+            <field name="all_categories_show_category_title"
+                   type="list"
+                   default=""
+                   label="COM_JUDOWNLOAD_CONFIG_ALL_CATEGORIES_SHOW_CATEGORY_TITLE_LABEL"
+                   description="COM_JUDOWNLOAD_CONFIG_ALL_CATEGORIES_SHOW_CATEGORY_TITLE_DESC">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+
+            <field name="all_categories_subcategory_level"
+                   type="list"
+                   default=""
+                   label="COM_JUDOWNLOAD_CONFIG_ALL_CATEGORIES_SUBCATEGORY_LEVEL_LABEL"
+                   description="COM_JUDOWNLOAD_CONFIG_ALL_CATEGORIES_SUBCATEGORY_LEVEL_DESC">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="-1">COM_JUDOWNLOAD_ALL</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </field>
+
+            <field name="all_categories_show_empty_category"
+                   type="list"
+                   default=""
+                   label="COM_JUDOWNLOAD_CONFIG_ALL_CATEGORIES_SHOW_EMPTY_CATEGORY_LABEL"
+                   description="COM_JUDOWNLOAD_CONFIG_ALL_CATEGORIES_SHOW_EMPTY_CATEGORY_DESC">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+
+            <field name="all_categories_show_total_subcategories"
+                   type="list"
+                   default=""
+                   label="COM_JUDOWNLOAD_CONFIG_ALL_CATEGORIES_SHOW_TOTAL_SUBCATEGORIES_LABEL"
+                   description="COM_JUDOWNLOAD_CONFIG_ALL_CATEGORIES_SHOW_TOTAL_SUBCATEGORIES_DESC">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+
+            <field name="all_categories_show_total_documents"
+                   type="list"
+                   default=""
+                   label="COM_JUDOWNLOAD_CONFIG_ALL_CATEGORIES_SHOW_TOTAL_DOCUMENTS_LABEL"
+                   description="COM_JUDOWNLOAD_CONFIG_ALL_CATEGORIES_SHOW_TOTAL_DOCUMENTS_DESC">
+                <option value="">JGLOBAL_USE_GLOBAL</option>
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+
+            <field name="all_categories_columns"
+                   type="text"
+                   size="10"
+                   default=""
+                   label="COM_JUDOWNLOAD_CONFIG_ALL_CATEGORIES_COLUMNS_LABEL"
+                   description="COM_JUDOWNLOAD_CONFIG_ALL_CATEGORIES_COLUMNS_DESC"
+                    />
+
+            <field name="all_categories_row_class"
+                   type="text"
+                   size="60"
+                   label="COM_JUDOWNLOAD_CONFIG_ALL_CATEGORIES_ROW_CLASS_LABEL"
+                   description="COM_JUDOWNLOAD_CONFIG_ALL_CATEGORIES_ROW_CLASS_DESC"
+                    />
+
+            <field name="all_categories_column_class"
+                   type="text"
+                   size="60"
+                   label="COM_JUDOWNLOAD_CONFIG_ALL_CATEGORIES_COLUMN_CLASS_LABEL"
+                   description="COM_JUDOWNLOAD_CONFIG_ALL_CATEGORIES_COLUMN_CLASS_DESC"
+                    />
+
+        </fieldset>
+    </fields>
+</metadata>

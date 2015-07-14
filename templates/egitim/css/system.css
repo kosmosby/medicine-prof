@@ -1,0 +1,34 @@
+@import url(../warp/css/system.css);
+@import url(../warp/systems/joomla/css/system.css);
+@import url(system-all.css);
+
+
+/* Items (Addition)
+----------------------------------------------------------------------------------------------------*/
+ 
+#system .items .leading .item {
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+	padding-top: 0;
+	border-top: none;
+	border-bottom: 1px solid #ddd;
+	box-shadow: 0 1px 0 #fff;
+	background: none;
+}
+
+
+/* Item List
+----------------------------------------------------------------------------------------------------*/
+
+#system .item-list {
+	margin: 20px -20px 0 -20px ;
+	padding: 0 20px;
+	border-top: 1px solid #ddd;
+	box-shadow: inset 0 1px 0 #fff;
+}
+
+
+/* Search
+----------------------------------------------------------------------------------------------------*/
+
+#system span.highlight { background-color: #ffffaa; }

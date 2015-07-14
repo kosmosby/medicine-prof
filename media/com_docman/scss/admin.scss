@@ -1,0 +1,48 @@
+// Core variables and mixins without output available outside .koowa scope
+@import "../../../../../koowa/code/media/koowa/com_koowa/scss/bootstrap/variables";
+@import "../../../../../koowa/code/media/koowa/com_koowa/scss/bootstrap/mixins";
+
+// Custom variables and mixins
+$koowaPath: '../../koowa/com_koowa';
+@import "generic/mixins";
+
+// Import Nooku
+@import "../../../../../koowa/code/media/koowa/com_koowa/scss/koowa";
+
+// Import user interface
+@import "../../../../../koowa/code/media/koowa/com_koowa/scss/admin";
+
+// Keep outside .koowa for it to work properly everywhere
+@import "generic/dropdowngrid";
+@import "admin/global_overrides";
+@import "admin/joomla3sidebar";
+
+// Namespacing with Koowa
+.koowa {
+
+  // Com files
+  @import "koowa/files";
+  @import "admin/files";
+
+  // Generic
+  @import "generic/footable";
+  @import "generic/iconpicker";
+  @import "generic/mixins";
+  @import "generic/oldie";
+  @import "generic/select2";
+  @import "generic/tooltip";
+  @import "generic/validator";
+
+  // Admin
+  @import "admin/admin";
+  @import "admin/joomla3";
+
+  // Shame
+  @import "generic/shame";
+
+  // RTL
+  &.koowa--rtl {
+    @import "admin/rtl";
+  }
+}
+

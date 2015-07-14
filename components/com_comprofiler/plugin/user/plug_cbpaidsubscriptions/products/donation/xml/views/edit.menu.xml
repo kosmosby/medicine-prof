@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../../../../../cb/validation/ahawow.xsd">
+	<copyright>(C) 2007-2014 and Trademark of Lightning MultiCom SA, Switzerland - www.joomlapolis.com - and its licensors, all rights reserved</copyright>
+	<license>GNU General Public License version 2 http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</license>
+	<cbsubsversion version="4.0.0-rc.1" />
+
+	<views>
+		<view name="productmenus3" type="params" ui="admin">
+			<menu name="donations"     action="cb_action:show_donations" label="Donations" description="Show donation records">
+				<fields>
+					<field name="donations_count" label="donations received" type="int">
+						<data  name="donations_count" type="sql:count" table="#__cbsubs_donations" class="cbpaidDonationRecord" key="status" value="A" valuetype="const:string" />
+					</field>
+				</fields>
+			</menu>
+		</view>
+	</views>
+</cbxml>

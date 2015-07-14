@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.0.0" client="administrator" method="upgrade">
+	<identifier>mod://admin/logman</identifier>
+	<name>MOD_LOGMAN</name>
+ 	<author>Joomlatools</author>
+    <creationDate>June 2013</creationDate>
+    <copyright>Copyright (C) 2011 - 2013 Timble CVBA (http://www.timble.net)</copyright>
+    <license>GNU GPLv3 - http://www.gnu.org/licenses/gpl.html</license>
+    <authorEmail>support@joomlatools.com</authorEmail>
+    <authorUrl>www.joomlatools.com</authorUrl>
+	<version>1.0.0RC5</version>
+	<description>Lists activities logged by LOGman</description>
+
+	<files>
+		<filename module="mod_logman">mod_logman.php</filename>
+		<filename>mod_logman.xml</filename>
+	</files>
+
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.mod_logman.ini</language>
+		<language tag="en-GB">en-GB/en-GB.mod_logman.sys.ini</language>
+	</languages>
+
+	<params>
+		<param name="limit" type="text" default="10" label="LIST_COUNT" description="LIST_COUNT_DESCRIPTION" />
+		<param name="direction" type="list" default="desc" label="LIST_ORDERING" description="LIST_ORDERING_DESCRIPTION">
+			<option value="desc">DESC</option>
+			<option value="asc">ASC</option>
+		</param>
+        <param name="user_filter" type="radio" default="0" label="LOGGED_IN_USER_ONLY" description="LOGGED_IN_USER_ONLY_DESC">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </param>
+	</params>
+
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="limit" type="text" default="10" label="LIST_COUNT" description="LIST_COUNT_DESCRIPTION" />
+				<field name="direction" type="list" default="desc" label="LIST_ORDERING" description="LIST_ORDERING_DESCRIPTION">
+					<option value="desc">DESC</option>
+					<option value="asc">ASC</option>
+				</field>
+                <field name="user_filter" type="radio" default="0" label="LOGGED_IN_USER_ONLY" description="LOGGED_IN_USER_ONLY_DESC">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
