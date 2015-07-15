@@ -1625,4 +1625,5 @@ return	array(
 'USERLIST_TITLE_COLUMN1'	=>	'Column 1',
 // 1 language strings from file components/com_comprofiler/plugin/user/plug_cbcore/xml/views/view.com_comprofiler.editfield.xml
 'NOT_A_VALID_INPUT_00200b'	=>	'Not a valid input',
+'MY_PROFILE_LINK' => 'My profile'
 );
