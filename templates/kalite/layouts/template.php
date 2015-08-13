@@ -5,7 +5,7 @@ include($this['path']->path('layouts:template.config.php'));
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo $this['config']->get('language'); ?>" dir="<?php echo $this['config']->get('direction'); ?>">
 <head>
-
+    <link rel="icon" type="image/png" href="/templates/favicon.ico"/>
 
     <div style="color: #666666; font-family: Verdana, Geneva, sans-serif; font-size:12px; cursor: pointer; font-weight: bold;width: 170px; height: 30px; background-color: #ecf3f9; position: fixed; z-index: 10000; border-top-left-radius: 5px; border-top-right-radius: 5px; bottom: 0px; right: 211px; border-left: 2px solid #6a6a6a;border-top: 2px solid #6a6a6a;border-right: 2px solid #6a6a6a;" onclick="window.open('https://medicine-prof.info/consultant','_blank')">
         <p style="margin: 7px 0px 0px 20px;"><?php echo JText::_('TPL_VIDEOCONSULTANT'); ?></p>
