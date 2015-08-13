@@ -66,6 +66,10 @@ abstract class Stream extends Registry implements StreamInterface
 	 */
 	public function id()
 	{
+		if ( ! $this->id ) {
+			$this->id		=	uniqid();
+		}
+
 		return $this->id;
 	}
 

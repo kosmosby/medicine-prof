@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -65,7 +65,7 @@ class plgAcymailingStats extends JPlugin
 		$type['deliverstat'] = JText::_('STATISTICS');
 
 		$db = JFactory::getDBO();
-		$db->setQuery("SELECT `mailid`,CONCAT(`subject`,' [',".$db->Quote(JText::_('ACY_ID').' ').",`mailid`,']') as 'value' FROM `#__acymailing_mail` WHERE `type` IN('news','welcome','unsub','followup') ORDER BY `subject` ASC ");
+		$db->setQuery("SELECT `mailid`,CONCAT(`subject`,' [',".$db->Quote(JText::_('ACY_ID').' ').",`mailid`,']') as 'value' FROM `#__acymailing_mail` WHERE `type` IN('news','welcome','unsub','followup') ORDER BY `senddate` DESC LIMIT 5000");
 		$allemails = $db->loadObjectList();
 		$element = new stdClass();
 		$element->mailid = 0;

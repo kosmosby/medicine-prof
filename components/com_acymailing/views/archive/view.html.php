@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -109,19 +109,16 @@ class archiveViewArchive extends acymailingView
 		global $Itemid;
 
 		$app = JFactory::getApplication();
-
 		$my = JFactory::getUser();
-		$pathway = $app->getPathway();
 
 		$values = new stdClass();
 		$jsite = JFactory::getApplication('site');
 		$menus = $jsite->getMenu();
-		$menu	= $menus->getActive();
-		$config = acymailing_config();
+		$menu = $menus->getActive();
 
 		if(empty($menu) AND !empty($Itemid)){
 			$menus->setActive($Itemid);
-			$menu	= $menus->getItem($Itemid);
+			$menu = $menus->getItem($Itemid);
 		}
 
 		$myItem = empty($Itemid) ? '' : '&Itemid='.$Itemid;
@@ -139,7 +136,8 @@ class archiveViewArchive extends acymailingView
 		$pageInfo->elements = new stdClass();
 
 		$paramBase = ACYMAILING_COMPONENT.'.'.$this->getName();
-		$pageInfo->filter->order->dir	= $app->getUserStateFromRequest( $paramBase.".filter_order_Dir", 'filter_order_Dir',	'desc',	'word' );
+		$pageInfo->filter->order->dir = $app->getUserStateFromRequest( $paramBase.".filter_order_Dir", 'filter_order_Dir', 'desc', 'word' );
+		$pageInfo->filter->order->value = $app->getUserStateFromRequest( $paramBase.".filter_order", 'filter_order', 'a.senddate','cmd' );
 		if(strtolower($pageInfo->filter->order->dir) !== 'desc') $pageInfo->filter->order->dir = 'asc';
 		$pageInfo->search = $app->getUserStateFromRequest( $paramBase.".search", 'search', '', 'string' );
 		$pageInfo->search = JString::strtolower(trim($pageInfo->search));
@@ -154,78 +152,61 @@ class archiveViewArchive extends acymailingView
 			$listid = $menuparams->get('listid');
 		}
 
-		if(empty($listid) AND acymailing_level(3)){
-			$listClass = acymailing_get('class.list');
-			$allAllowedLists = $listClass->getFrontendLists();
-			if(!empty($allAllowedLists)){
-				$firstList = reset($allAllowedLists);
-				$listid = $firstList->listid;
-				JRequest::setVar('listid',$listid);
-			}
-		}
-
 		if(empty($listid)){
-			return JError::raiseError( 404, 'Mailing List not found' );
+			$allLists = $listClass->getLists('listid');
+		}else{
+			$oneList = $listClass->get($listid);
+			if(empty($oneList->listid)) return JError::raiseError(404, 'Mailing List not found : '.$listid);
+			$allLists = array($oneList->listid => $oneList);
+			if($oneList->access_sub != 'all' && ($oneList->access_sub == 'none' || empty($my->id) || !acymailing_isAllowed($oneList->access_sub))) $allLists = array();
 		}
-		$oneList = $listClass->get($listid);
 
-		if(empty($oneList->listid)){
-			return JError::raiseError( 404, 'Mailing List not found : '.$listid );
-		}
-
-		$access = new stdClass();
-		$access->frontEndManagement = false;
-		$access->frontEndAccess = true;
-
-		if(!$access->frontEndManagement AND (!$oneList->published OR !$oneList->visible OR !$access->frontEndAccess)){
+		if(empty($allLists)){
 			if(empty($my->id)){
-				$usercomp = !ACYMAILING_J16 ? 'com_user' : 'com_users';
+				$usercomp = ACYMAILING_J16 ? 'com_users' : 'com_user';
 				$uri = JFactory::getURI();
-				$url = 'index.php?option='.$usercomp.'&view=login&return='.base64_encode($uri->toString());
-				$app->redirect($url, JText::_('ACY_NOTALLOWED') );
-				return false;
+				$app->redirect('index.php?option='.$usercomp.'&view=login&return='.base64_encode($uri->toString()), JText::_('ACY_NOTALLOWED'));
 			}else{
-				$app->enqueueMessage(JText::_('ACY_NOTALLOWED'),'error');
-				$app->redirect(acymailing_completeLink('lists',false,true));
-				return false;
+				$app->enqueueMessage(JText::_('ACY_NOTALLOWED'), 'error');
+				$app->redirect(acymailing_completeLink('lists', false, true));
 			}
+			return false;
 		}
 
-		if($config->get('open_popup',1)) JHTML::_('behavior.modal','a.modal');
+		$doc = JFactory::getDocument();
+		$db = JFactory::getDBO();
+		$pathway = $app->getPathway();
+		$config = acymailing_config();
+
 
 		if(!empty($menuparams)){
-			$values->suffix = $menuparams->get('pageclass_sfx','');
+			$values->suffix = $menuparams->get('pageclass_sfx', '');
 			$values->page_title = $menuparams->get('page_title');
 			$values->page_heading = ACYMAILING_J16 ? $menuparams->get('page_heading') : $menuparams->get('page_title');
-			$values->show_page_heading = ACYMAILING_J16 ? $menuparams->get('show_page_heading',1) : $menuparams->get('show_page_title',1);
+			$values->show_page_heading = ACYMAILING_J16 ? $menuparams->get('show_page_heading', 1) : $menuparams->get('show_page_title', 1);
 		}else{
 			$values->suffix = '';
 			$values->show_page_heading = 1;
 		}
 
-		$values->show_description = $config->get('show_description',1);
-		$values->show_senddate = $config->get('show_senddate',1);
-		$values->show_receiveemail = $config->get('show_receiveemail',0) && acymailing_level(1);
-		$values->filter = $config->get('show_filter',1);
+		$values->show_description = $config->get('show_description', 1);
+		$values->show_senddate = $config->get('show_senddate', 1);
+		$values->show_receiveemail = $config->get('show_receiveemail', 0) && acymailing_level(1);
+		$values->filter = $config->get('show_filter', 1);
 
-		if(empty($values->page_title)) $values->page_title = $oneList->name;
-		if(empty($values->page_heading)) $values->page_heading = $oneList->name;
+		if(empty($values->page_title)) $values->page_title = count($allLists) > 1 ? JText::_('NEWSLETTERS') : $allLists[$listid]->name;
+		if(empty($values->page_heading)) $values->page_heading = count($allLists) > 1 ? JText::_('NEWSLETTERS') : $allLists[$listid]->name;
 
 		if(empty($menuparams)){
-			$pathway->addItem(JText::_('MAILING_LISTS'),acymailing_completeLink('lists'));
+			$pathway->addItem(JText::_('MAILING_LISTS'), acymailing_completeLink('lists'));
 			$pathway->addItem($values->page_title);
 		}elseif(!$menuparams->get('listid')){
 			$pathway->addItem($values->page_title);
 		}
 
-		$document = JFactory::getDocument();
 		acymailing_setPageTitle($values->page_title);
 
 		$this->addFeed();
-
-		$db = JFactory::getDBO();
-
-		$pageInfo->filter->order->value = $app->getUserStateFromRequest( $paramBase.".filter_order", 'filter_order', $access->frontEndManagement ? 'a.mailid' : 'a.senddate','cmd' );
 
 		$searchMap = array('a.mailid','a.subject','a.alias');
 		$filters = array();
@@ -235,18 +216,33 @@ class archiveViewArchive extends acymailingView
 		}
 
 		$filters[] = 'a.type = \'news\'';
-		if(!$access->frontEndManagement){
-			$filters[] = 'a.published = 1';
-			$filters[] = 'a.visible = 1';
-		}
-		$filters[] = 'c.listid = '.$oneList->listid;
 
-		$selection = array_merge($searchMap,array('a.senddate','a.created','a.visible','a.published','a.fromname','a.fromemail','a.replyname','a.replyemail','a.userid','a.summary','a.thumb'));
+		$noManageableLists = array();
+		foreach($allLists as &$oneList){
+			if(empty($my->id)) $noManageableLists[] = $oneList->listid;
+			if((int)$my->id == (int)$oneList->userid) continue;
+			if($oneList->access_manage == 'all' || acymailing_isAllowed($oneList->access_manage)) continue;
+			$noManageableLists[] = $oneList->listid;
+		}
+
+		$accessFilter = '';
+		$manageableLists = array_diff(array_keys($allLists), $noManageableLists);
+		if(!empty($manageableLists)) $accessFilter = 'c.listid IN ('.implode(',', $manageableLists).')';
+		if(!empty($noManageableLists)){
+			if(empty($accessFilter)) $accessFilter = 'c.listid IN ('.implode(',', $noManageableLists).') AND a.published = 1 AND a.visible = 1';
+			else $accessFilter .= ' OR (c.listid IN ('.implode(',', $noManageableLists).') AND a.published = 1 AND a.visible = 1)';
+		}
+		if(!empty($accessFilter)) $filters[] = $accessFilter;
+
+		if($config->get('open_popup',1) || !empty($manageableLists)) JHTML::_('behavior.modal', 'a.modal');
+
+		$selection = array_merge($searchMap,array('a.senddate','a.created','a.visible','a.published','a.fromname','a.fromemail','a.replyname','a.replyemail','a.userid','a.summary','a.thumb','c.listid'));
 
 		$query = 'SELECT "" AS body, "" AS altbody, html AS sendHTML, '.implode(',',$selection);
 		$query .= ' FROM '.acymailing_table('listmail').' as c';
 		$query .= ' JOIN '.acymailing_table('mail').' as a on a.mailid = c.mailid ';
 		$query .= ' WHERE ('.implode(') AND (',$filters).')';
+		$query .= ' GROUP BY c.mailid';
 		$query .= ' ORDER BY '.acymailing_secureField($pageInfo->filter->order->value).' '.acymailing_secureField($pageInfo->filter->order->dir).', c.mailid DESC';
 
 		$db->setQuery($query,$pageInfo->limit->start,$pageInfo->limit->value);
@@ -258,7 +254,7 @@ class archiveViewArchive extends acymailingView
 		}else{
 			$queryCount = 'SELECT COUNT(c.mailid) FROM '.acymailing_table('listmail').' as c';
 			$queryCount .= ' JOIN '.acymailing_table('mail').' as a on a.mailid = c.mailid ';
-			$queryCount .= ' WHERE ('.implode(') AND (',$filters).')';
+			$queryCount .= ' WHERE ('.implode(') AND (',$filters).') GROUP BY c.`mailid`';
 			$db->setQuery($queryCount);
 			$pageInfo->elements->total = $db->loadResult();
 		}
@@ -307,15 +303,20 @@ class archiveViewArchive extends acymailingView
 		}
 		';
 
-
-		$doc = JFactory::getDocument();
-		$doc->addScriptDeclaration( $js);
+		$doc->addScriptDeclaration($js);
 
 
-		$this->assignRef('access',$access);
 		$this->assignRef('rows',$rows);
 		$this->assignRef('values',$values);
-		$this->assignRef('list',$oneList);
+		if(count($allLists) > 1){
+			$list = new stdClass();
+			$list->listid = 0;
+			$list->description = '';
+		}else{
+			$list = array_pop($allLists);
+		}
+		$this->assignRef('list', $list);
+		$this->assignRef('manageableLists',$manageableLists);
 		$this->assignRef('pagination',$pagination);
 		$this->assignRef('pageInfo',$pageInfo);
 		$this->assignRef('config',$config);

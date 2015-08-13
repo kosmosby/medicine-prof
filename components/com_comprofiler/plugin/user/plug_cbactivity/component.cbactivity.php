@@ -279,11 +279,13 @@ class CBplug_cbactivity extends cbPluginHandler
 
 						$menu				=	JFactory::getApplication()->getMenu()->getActive();
 
-						if ( $menu ) {
-							CBActivity::loadStreamDefaults( $stream, $menu->params );
+						if ( $menu && isset( $menu->id ) ) {
+							CBActivity::loadStreamDefaults( $stream, $menu->params, 'activity_' );
 						}
 
 						$this->showActivity( $id, $stream, ( $raw ? 1 : 0 ), true, $user, $viewer );
+
+						$_CB_framework->setMenuMeta();
 						break;
 					case 'my':
 						$tab				=	new TabTable();
@@ -305,9 +307,11 @@ class CBplug_cbactivity extends cbPluginHandler
 
 						$stream->source( 'profile' );
 
-						CBActivity::loadStreamDefaults( $activity, $tab->params, 'tab_' );
+						CBActivity::loadStreamDefaults( $activity, $tab->params, 'tab_activity_' );
 
 						$this->showActivity( $id, $stream, ( $raw ? 1 : 0 ), true, $user, $viewer );
+
+						$_CB_framework->setMenuMeta();
 						break;
 					case 'show':
 					default:
@@ -337,6 +341,7 @@ class CBplug_cbactivity extends cbPluginHandler
 					case 'comments':
 						$stream->source( 'hidden' );
 
+						$stream->set( 'create_access', -1 );
 						$stream->set( 'replies', 0 );
 
 						$this->showComments( $id, $stream, ( $raw ? 1 : 0 ), true, $user, $viewer );
@@ -344,11 +349,14 @@ class CBplug_cbactivity extends cbPluginHandler
 					case 'activity':
 						$stream->source( 'hidden' );
 
+						$stream->set( 'create_access', -1 );
 						$stream->set( 'comments', 0 );
 
 						$this->showActivity( $id, $stream, ( $raw ? 1 : 0 ), true, $user, $viewer );
 						break;
 				}
+
+				$_CB_framework->setMenuMeta();
 				break;
 			case 'tags':
 				if ( ! $stream ) {
@@ -430,9 +438,7 @@ class CBplug_cbactivity extends cbPluginHandler
 	 */
 	private function showComments( $id, $stream, $output, $data, $user, $viewer )
 	{
-		$loadCss			=	( $output == 1 ? false : true );
-
-		CBActivity::getTemplate( array( 'comments', 'twemoji' ), $loadCss, $loadCss );
+		CBActivity::getTemplate( 'comments', false, false );
 
 		if ( $id ) {
 			$stream->set( 'id', $id );
@@ -480,13 +486,11 @@ class CBplug_cbactivity extends cbPluginHandler
 	 */
 	private function saveComment( $id, $stream, $user, $viewer )
 	{
-		global $_CB_framework;
-
-		$stream->source( 'save' );
+		global $_CB_framework, $_PLUGINS;
 
 		$cbModerator		=	CBActivity::isModerator( (int) $viewer->get( 'id' ) );
 
-		CBActivity::getTemplate( 'comments', true, false );
+		CBActivity::getTemplate( 'comments', false, false );
 
 		$row				=	new CommentTable();
 
@@ -553,7 +557,9 @@ class CBplug_cbactivity extends cbPluginHandler
 
 		CBActivity::preFetchUsers( $rows );
 
-		echo HTML_cbactivityComments::showComments( $rows, $stream, 1, $user, $viewer, $this );
+		$_PLUGINS->trigger( 'activity_onPushComments', array( $stream, $row ) );
+
+		echo HTML_cbactivityComments::showComments( $rows, $stream, 4, $user, $viewer, $this );
 
 		header( 'HTTP/1.0 200 OK' );
 		exit();
@@ -570,7 +576,7 @@ class CBplug_cbactivity extends cbPluginHandler
 	 */
 	private function deleteComment( $id, $stream, $user, $viewer, $silent = false )
 	{
-		$stream->source( 'delete' );
+		global $_PLUGINS;
 
 		$row	=	new CommentTable();
 
@@ -590,6 +596,8 @@ class CBplug_cbactivity extends cbPluginHandler
 			header( 'HTTP/1.0 500 Internal Server Error' );
 			exit();
 		}
+
+		$_PLUGINS->trigger( 'activity_onRemoveComments', array( $stream, $row ) );
 
 		if ( ! $silent ) {
 			if ( $stream->get( 'type' ) == 'comment' ) {
@@ -614,8 +622,6 @@ class CBplug_cbactivity extends cbPluginHandler
 	 */
 	private function hideComment( $id, $stream, $user, $viewer, $silent = false )
 	{
-		$stream->source( 'hide' );
-
 		$item		=	new CommentTable();
 
 		$item->load( (int) $id );
@@ -672,8 +678,6 @@ class CBplug_cbactivity extends cbPluginHandler
 	 */
 	private function unhideComment( $id, $stream, $user, $viewer )
 	{
-		$stream->source( 'delete' );
-
 		$row	=	new HiddenTable();
 
 		$row->load( array( 'user_id' => (int) $viewer->get( 'id' ), 'type' => 'comment', 'item' => (int) $id ) );
@@ -709,9 +713,7 @@ class CBplug_cbactivity extends cbPluginHandler
 	 */
 	private function showActivity( $id, $stream, $output, $data, $user, $viewer )
 	{
-		$loadCss			=	( $output == 1 ? false : true );
-
-		CBActivity::getTemplate( array( 'activity', 'twemoji' ), $loadCss, $loadCss );
+		CBActivity::getTemplate( 'activity', false, false );
 
 		if ( $id ) {
 			$stream->set( 'id', $id );
@@ -763,13 +765,11 @@ class CBplug_cbactivity extends cbPluginHandler
 	 */
 	private function saveActivity( $id, $stream, $user, $viewer )
 	{
-		global $_CB_framework;
-
-		$stream->source( 'save' );
+		global $_CB_framework, $_PLUGINS;
 
 		$cbModerator					=	CBActivity::isModerator( (int) $viewer->get( 'id' ) );
 
-		CBActivity::getTemplate( 'activity', true, false );
+		CBActivity::getTemplate( 'activity', false, false );
 
 		$row							=	new ActivityTable();
 
@@ -872,12 +872,12 @@ class CBplug_cbactivity extends cbPluginHandler
 
 			$locationId					=	( $locationPlace ? $locationId : 0 );
 
-			$newAction					=	array(	'id'		=>	$locationId,
+			$newLocation				=	array(	'id'		=>	$locationId,
 													'place'		=>	( $locationId ? $locationPlace : '' ),
 													'address'	=>	( $locationId ? $locationAddress : '' )
 												);
 
-			$row->params()->set( 'location', $newAction );
+			$row->params()->set( 'location', $newLocation );
 		}
 
 		if ( $showLinks ) {
@@ -990,7 +990,9 @@ class CBplug_cbactivity extends cbPluginHandler
 
 		CBActivity::preFetchUsers( $rows );
 
-		echo HTML_cbactivityActivity::showActivity( $rows, $stream, 1, $user, $viewer, $this );
+		$_PLUGINS->trigger( 'activity_onPushActivity', array( $stream, $row ) );
+
+		echo HTML_cbactivityActivity::showActivity( $rows, $stream, 4, $user, $viewer, $this );
 
 		header( 'HTTP/1.0 200 OK' );
 		exit();
@@ -1007,7 +1009,7 @@ class CBplug_cbactivity extends cbPluginHandler
 	 */
 	private function deleteActivity( $id, $stream, $user, $viewer, $silent = false )
 	{
-		$stream->source( 'delete' );
+		global $_PLUGINS;
 
 		$row	=	new ActivityTable();
 
@@ -1028,6 +1030,8 @@ class CBplug_cbactivity extends cbPluginHandler
 			exit();
 		}
 
+		$_PLUGINS->trigger( 'activity_onRemoveActivity', array( $stream, $row ) );
+
 		if ( ! $silent ) {
 			echo CBTxt::T( 'This activity has been deleted.' );
 		}
@@ -1047,8 +1051,6 @@ class CBplug_cbactivity extends cbPluginHandler
 	 */
 	private function hideActivity( $id, $stream, $user, $viewer, $silent = false )
 	{
-		$stream->source( 'hide' );
-
 		$item		=	new ActivityTable();
 
 		$item->load( (int) $id );
@@ -1101,8 +1103,6 @@ class CBplug_cbactivity extends cbPluginHandler
 	 */
 	private function unhideActivity( $id, $stream, $user, $viewer )
 	{
-		$stream->source( 'delete' );
-
 		$row	=	new HiddenTable();
 
 		$row->load( array( 'user_id' => (int) $viewer->get( 'id' ), 'type' => 'activity', 'item' => (int) $id ) );
@@ -1130,7 +1130,7 @@ class CBplug_cbactivity extends cbPluginHandler
 	 * Displays tags stream
 	 *
 	 * @param int       $id
-	 * @param Activity  $stream
+	 * @param Tags      $stream
 	 * @param int       $output
 	 * @param bool      $data
 	 * @param UserTable $user
@@ -1138,9 +1138,7 @@ class CBplug_cbactivity extends cbPluginHandler
 	 */
 	private function showTags( $id, $stream, $output, $data, $user, $viewer )
 	{
-		$loadCss			=	( $output == 1 ? false : true );
-
-		CBActivity::getTemplate( 'tags', $loadCss, $loadCss );
+		CBActivity::getTemplate( 'tags', false, false );
 
 		if ( $id ) {
 			$stream->set( 'id', $id );

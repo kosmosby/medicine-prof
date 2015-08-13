@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -24,7 +24,7 @@ class plgAcymailingTagsubscription extends JPlugin
 		}
 	}
 
-	 function acymailing_getPluginType() {
+	function acymailing_getPluginType(){
 
 		$app = JFactory::getApplication();
 	 	if($this->params->get('frontendaccess') == 'none' && !$app->isAdmin()) return;
@@ -34,7 +34,7 @@ class plgAcymailingTagsubscription extends JPlugin
 	 	$onePlugin->help = 'plugin-tagsubscription';
 
 	 	return $onePlugin;
-	 }
+	}
 
 	function onAcyDisplayActions(&$type){
 	 	$type['list'] = JText::_('ACYMAILING_LIST');
@@ -77,14 +77,25 @@ class plgAcymailingTagsubscription extends JPlugin
 			$delay[] = JHTML::_('select.option', 'week',JText::_('WEEKS'));
 			$delay[] = JHTML::_('select.option', 'month',JText::_('MONTHS'));
 
-	 		$return .= '<br /><span id="campaigndelay__num__">'.JText::sprintf('TRIGGER_CAMPAIGN','<input type="text" name="action[__num__][list][delaynum]" value="0" style="width:50px" />',JHTML::_('select.genericlist', $delay, "action[__num__][list][delaytype]", 'class="inputbox" size="1" style="width:120px;"', 'value', 'text')).'</span>';	
-	 	}
+			$listHours = array();
+			$listHours[] = JHTML::_('select.option', '', '- -');
+			for($i=0; $i<24; $i++) $listHours[] = JHTML::_('select.option', ($i<10?'0'.$i:$i), ($i<10?'0'.$i:$i));
+			$hours = JHTML::_('select.genericlist', $listHours, 'action[__num__][list][sendhours]', 'class="inputbox" size="1" style="width:60px;"', 'value', 'text', '');
+
+			$listMinutess = array();
+			$listMinutess[] = JHTML::_('select.option', '', '- -');
+			for($i=0; $i<60; $i+=5) $listMinutess[] = JHTML::_('select.option', ($i<10?'0'.$i:$i), ($i<10?'0'.$i:$i));
+			$minutes = JHTML::_('select.genericlist', $listMinutess, 'action[__num__][list][sendminutes]', 'class="inputbox" size="1" style="width:60px;"', 'value', 'text', '');
+
+	 		$return .= '<br /><span id="campaigndelay__num__">'.JText::sprintf('TRIGGER_CAMPAIGN','<input type="text" name="action[__num__][list][delaynum]" value="0" style="width:50px" />',JHTML::_('select.genericlist', $delay, "action[__num__][list][delaytype]", 'class="inputbox" size="1" style="width:120px;"', 'value', 'text')).' @ '.$hours.' : '.$minutes;
+			$return .= '<br />'.JText::sprintf('ACY_CAMPAIGN_NB_FOLLOW_SKIPED','<input type="text" name="action[__num__][list][skipedfollowups]" value="0" style="width:25px;" />').'</span>';
+		}
 	 	$return .= '</div>';
 
 	 	return $return;
-	 }
+	}
 
-	 private function _getLists(){
+	private function _getLists(){
 	 	if(!empty($this->allLists)) return $this->allLists;
 	 	$list = acymailing_get('class.list');
 	 	$app = JFactory::getApplication();
@@ -95,9 +106,9 @@ class plgAcymailingTagsubscription extends JPlugin
 	 	}
 
 		return $this->allLists;
-	 }
+	}
 
-	 function onAcyDisplayFilters(&$type,$context="massactions"){
+	function onAcyDisplayFilters(&$type,$context="massactions"){
 
 		if($this->params->get('displayfilter_'.$context,true) == false) return;
 
@@ -118,9 +129,9 @@ class plgAcymailingTagsubscription extends JPlugin
 	 	$filter = '<div id="filter__num__list">'.$status->display("filter[__num__][list][status]",1,false).' '.JHTML::_('select.genericlist',   $listsdrop, "filter[__num__][list][selectedlist]", 'class="inputbox" style="max-width:200px" size="1" onchange="countresults(__num__)"', 'value', 'text');
 	 	$filter .= '<br /><input type="text" name="filter[__num__][list][subdateinf]" onclick="displayDatePicker(this,event)" onchange="countresults(__num__)" style="width:60px;" /> < '.JHTML::_('select.genericlist', $dates, "filter[__num__][list][dates]", 'class="inputbox" style="max-width:200px" size="1" onchange="countresults(__num__)"', 'value', 'text').' < <input type="text" name="filter[__num__][list][subdatesup]" onclick="displayDatePicker(this,event)" onchange="countresults(__num__)" style="width:60px;" /></div>';
 	 	return $filter;
-	 }
+	}
 
-	 function onAcyProcessFilter_list(&$query,$filter,$num){
+	function onAcyProcessFilter_list(&$query,$filter,$num){
 	 	$otherconditions = '';
 	 	$field = empty($filter['dates']) ? 'subdate' : 'unsubdate';
 	 	if(!empty($filter['subdateinf'])){
@@ -141,7 +152,7 @@ class plgAcymailingTagsubscription extends JPlugin
 		}else{
 			$query->where[] = 'list'.$num.'.status = '.intval($filter['status']);
 		}
-	 }
+	}
 
  	function onAcyProcessFilterCount_list(&$query,$filter,$num){
 		$this->onAcyProcessFilter_list($query,$filter,$num);
@@ -207,14 +218,32 @@ class plgAcymailingTagsubscription extends JPlugin
 		if(!empty($cquery->leftjoin)) $query .= ' LEFT JOIN '.implode(' LEFT JOIN ',$cquery->leftjoin);
 		$query .= $condition;
 		if(!empty($cquery->where)) $query .= ' AND ('.implode(') AND (',$cquery->where).')';
-
+		if(!empty($cquery->orderBy)) $query .= ' ORDER BY '.$cquery->orderBy;
+		if(!empty($cquery->limit)) $query .= ' LIMIT '.intval($cquery->limit);
 		$cquery->db->setQuery($query);
 		$subids =  acymailing_loadResultArray($cquery->db);
 
 		if(!empty($subids)){
 			$listsubClass = acymailing_get('class.listsub');
+			$time = time();
+			$timeFunction = 'acymailing_getTime';
+			if(!isset($action['sendhours']) || strlen($action['sendhours']) < 1){
+				$action['sendhours'] = '%H';
+				$timeFunction = 'strftime';
+			}
+			if(!isset($action['sendminutes']) || strlen($action['sendminutes']) < 1) $action['sendminutes'] = '%M';
+			$format = '%Y-%m-%d '.$action['sendhours'].':'.$action['sendminutes'].':00';
 			if($action['status'] == 1 && !empty($action['delaynum'])){
-				$listsubClass->campaigndelay = strtotime('+'.intval($action['delaynum']).' '.$action['delaytype']) - time();
+				$listsubClass->campaigndelay = $timeFunction(strftime($format, strtotime('+'.intval($action['delaynum']).' '.$action['delaytype'])));
+			}else{
+				$listsubClass->campaigndelay = $timeFunction(strftime($format, $time));
+			}
+			if($listsubClass->campaigndelay < $time) $listsubClass->campaigndelay = 0;
+			else $listsubClass->campaigndelay -= $time;
+
+			if(!empty($action['skipedfollowups'])){
+				$action['skipedfollowups'] = intval($action['skipedfollowups']);
+				if(!empty($action['skipedfollowups'])) $listsubClass->skipedfollowups = $action['skipedfollowups'];
 			}
 			$listsubClass->checkAccess = false;
 			$listsubClass->sendNotif = false;
@@ -485,7 +514,6 @@ class plgAcymailingTagsubscription extends JPlugin
 		}else{
 			$listid = $parameter->listid;
 		}
-
 
 		$db = JFactory::getDBO();
 		if(empty($listid)){

@@ -2,12 +2,12 @@
 <!DOCTYPE install SYSTEM "http://dev.joomla.org/xml/1.5/plugin-install.dtd">
 <install type="plugin" version="1.5" method="upgrade" group="system">
 	<name>AcyMailing : (auto)Subscribe during Joomla registration</name>
-	<creationDate>mai 2015</creationDate>
-	<version>4.9.3</version>
+	<creationDate>juillet 2015</creationDate>
+	<version>4.9.4</version>
 	<author>Acyba</author>
 	<authorEmail>dev@acyba.com</authorEmail>
 	<authorUrl>http://www.acyba.com</authorUrl>
-	<copyright>Copyright (C) 2009-2015 ACYBA SARL - All rights reserved.</copyright>
+	<copyright>Copyright (C) 2009-2015 ACYBA SAS - All rights reserved.</copyright>
 	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
 	<description>Automatically subscribe the user to AcyMailing during the Joomla registration process</description>
 	<files>
@@ -47,7 +47,12 @@
 		</param>
 		<param name="@spacer" type="spacer" default="" label="" description="" />
 		<param name="customcss" cols="40" rows="5" type="textarea" default="" label="Custom CSS" description="You can specify here some CSS which will be added to the registration page" />
-	</params>
+        <param name="deletebehavior" type="radio" default="0" label="User deletion behavior" description="Choose if the AcyMailing user should also be deleted when the Joomla account is deleted">
+            <option value="0">Delete AcyMailing user</option>
+            <option value="1">Keep AcyMailing user</option>
+        </param>
+        <param label="Excluded components" name="excluded" size="50" type="text" value="" description="Acy won't display the subscription lists on the components you exclude with this option. Each value should be separated by a coma, here are the possible values: com_user, com_users, com_alpharegistration, com_ccusers, com_community, com_extendedreg, com_gcontact, com_hikashop, com_jblance, com_jshopping, com_juser, com_mijoshop, com_osemsc, com_redshop, com_tienda, com_virtuemart." />
+    </params>
 	<config>
 		<fields name="params" addfieldpath="/components/com_acymailing/params">
 			<fieldset name="basic">
@@ -84,6 +89,28 @@
 				</field>
 				<field name="@spacer" type="spacer" default="" label="" description="" />
 				<field name="customcss" cols="40" rows="5" type="textarea" default="" label="Custom CSS" description="You can specify here some CSS which will be added to the registration page" />
+                <field name="deletebehavior" type="radio" default="0" label="User deletion behavior" description="Choose if the AcyMailing user should also be deleted when the Joomla account is deleted">
+                    <option value="0">Delete AcyMailing user</option>
+                    <option value="1">Keep AcyMailing user</option>
+                </field>
+                <field label="Excluded components" name="excluded" type="checkboxes" description="Acy won't display the subscription lists on the components you exclude with this option">
+                    <option value="com_user">com_user</option>
+                    <option value="com_users">com_users</option>
+                    <option value="com_alpharegistration">com_alpharegistration</option>
+                    <option value="com_ccusers">com_ccusers</option>
+                    <option value="com_community">com_community</option>
+                    <option value="com_extendedreg">com_extendedreg</option>
+                    <option value="com_gcontact">com_gcontact</option>
+                    <option value="com_hikashop">com_hikashop</option>
+                    <option value="com_jblance">com_jblance</option>
+                    <option value="com_jshopping">com_jshopping</option>
+                    <option value="com_juser">com_juser</option>
+                    <option value="com_mijoshop">com_mijoshop</option>
+                    <option value="com_osemsc">com_osemsc</option>
+                    <option value="com_redshop">com_redshop</option>
+                    <option value="com_tienda">com_tienda</option>
+                    <option value="com_virtuemart">com_virtuemart</option>
+                </field>
 			</fieldset>
 		</fields>
 	</config>

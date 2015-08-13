@@ -28,6 +28,8 @@ class Tags extends Stream implements TagsInterface
 	 */
 	public function push( $data = array(), $keys = null )
 	{
+		global $_PLUGINS;
+
 		$row					=	new TagTable();
 
 		if ( isset( $data['id'] ) ) {
@@ -86,6 +88,8 @@ class Tags extends Stream implements TagsInterface
 			return false;
 		}
 
+		$_PLUGINS->trigger( 'activity_onPushTags', array( $this, $row ) );
+
 		$this->resetCount		=	true;
 		$this->resetSelect		=	true;
 
@@ -100,6 +104,8 @@ class Tags extends Stream implements TagsInterface
 	 */
 	public function remove( $keys = null )
 	{
+		global $_PLUGINS;
+
 		if ( ( $keys === null ) && $this->get( 'id' ) ) {
 			$keys			=	(int) $this->get( 'id', null, GetterInterface::INT );
 		}
@@ -115,6 +121,8 @@ class Tags extends Stream implements TagsInterface
 		if ( ! $row->delete() ) {
 			return false;
 		}
+
+		$_PLUGINS->trigger( 'activity_onRemoveTags', array( $this, $row ) );
 
 		$this->resetCount	=	true;
 		$this->resetSelect	=	true;

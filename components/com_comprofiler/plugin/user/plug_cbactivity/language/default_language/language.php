@@ -15,7 +15,7 @@
 defined('CBLIB') or die();
 
 return	array(
-// 55 language strings from file plug_cbactivity/cbactivity.xml
+// 54 language strings from file plug_cbactivity/cbactivity.xml
 'SELECT_THE_DIRECTION_THE_STREAM_DISPLAYS_60e1b9'	=>	'Select the direction the stream displays.',
 'DIRECTION_02674a'	=>	'Direction',
 'DOWN_08a382'	=>	'Down',
@@ -101,7 +101,7 @@ return	array(
 // 25 language strings from file plug_cbactivity/templates/default/activity.php
 'MORE_d3da97'	=>	'More',
 'ACTIVITY_STATUS_TAGS'	=>	'with [tags]',
-'COMMENTED_ON_THIS_44ed23'	=>	'commented on this',
+'ACTIVITY_OF_ACTIVITY_TITLE'	=>	'[title] [date]',
 'EDITED_67ed6d'	=>	'Edited',
 'SEE_MORE_1f7e18'	=>	'See More',
 'ARE_YOU_SURE_YOU_WANT_TO_HIDE_THIS_ACTIVITY_d9a553'	=>	'Are you sure you want to hide this Activity?',

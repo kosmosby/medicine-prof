@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -16,6 +16,10 @@ class plgSystemRegacymailing extends JPlugin
 
 	function plgSystemRegacymailing(&$subject, $config){
 		parent::__construct($subject, $config);
+		if(!isset($this->params)){
+			$plugin = JPluginHelper::getPlugin('system', 'regacymailing');
+			$this->params = new JParameter($plugin->params);
+		}
 	}
 
 	function onAfterRoute(){
@@ -61,7 +65,6 @@ class plgSystemRegacymailing extends JPlugin
 			}
 		}
 	}
-
 
 	private function _saveInSession(){
 		$acysub = JRequest::getVar( 'acysub', array(), '', 'array' );
@@ -120,7 +123,22 @@ class plgSystemRegacymailing extends JPlugin
 		$userClass->saveSubscription($subid,$formLists);
 	}
 
+	function _getVmVersion(){
+		$file = ACYMAILING_ROOT.'administrator'.DS.'components'.DS.'com_virtuemart'.DS.'version.php';
+		if(!file_exists($file)) return '0.0.0';
+		include_once($file);
+		$vmversion = new vmVersion();
+		if(empty($vmversion->RELEASE)){
+			return vmVersion::$RELEASE;
+		}else{
+			return $vmversion->RELEASE;
+		}
+	}
+
 	function onAfterRender(){
+		$helperFile = rtrim(JPATH_ADMINISTRATOR,DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_acymailing'.DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'helper.php';
+		if(!file_exists($helperFile) || !include_once($helperFile)) return;
+
 		$option = JRequest::getCmd('option','','GET');
 		if(empty($option)) $option = JRequest::getCmd('option');
 
@@ -148,25 +166,32 @@ class plgSystemRegacymailing extends JPlugin
 		$this->components['com_osemsc'] = array('view' => array('register'),'lengthafter' => 200,'email' => 'oseemail','password' => 'osepassword2');
 		$this->components['com_redshop'] = array('view' => array('registration'),'lengthafter' => 200,'password' => 'password2','email'=>'email1');
 		$this->components['com_tienda'] = array('view' => array('checkout'),'lengthafter' => 500 ,  'email' => 'email_address','password' => 'password2');
-		$this->components['com_virtuemart'] = array('view' => array('shop.registration','account.billing','checkout.index','user','cart','editaddresscart','editaddresscheckout'), 'displayLoggedin' => true,'viewvar' => 'page','lengthafter' => 500, 'acysubscribestyle' => 'style="clear:both"');
+		$vmViews = array('shop.registration','account.billing','checkout.index','user','cart','editaddresscart','editaddresscheckout');
+		if(version_compare($this->_getVmVersion(),'3.0.10','>=')) $vmViews[] = 'askquestion';
+		$this->components['com_virtuemart'] = array('view' => $vmViews, 'displayLoggedin' => true,'viewvar' => 'page','lengthafter' => 500, 'acysubscribestyle' => 'style="clear:both"');
 
-		if($option == 'com_rsform')
-		{
+		if($option == 'com_rsform'){
 			$formId = JRequest::getCmd('formId','','GET');
 			if(empty($formId)) $formId = JRequest::getCmd('formId');
 			$db = JFactory::getDBO();
-			if(!empty($formId) && in_array($db->getPrefix().'rsform_registration', $db->getTableList()))
-			{
+			if(!empty($formId) && in_array($db->getPrefix().'rsform_registration', $db->getTableList())){
 				$db->setQuery('SELECT * FROM #__rsform_registration WHERE form_id = '.intval($formId).' AND published = 1');
 				$registration = $db->loadObject();
-				if(!empty($registration))
-				{
-					$registration->reg_merge_vars = unserialize($registration->reg_merge_vars);
-					$this->components['com_rsform'] = array('view' => array('rsform'),'lengthafter' => 220,'lengthaftermin' => 190,'password' => array('form['.$registration->reg_merge_vars['password2'].']', 'form['.$registration->reg_merge_vars['password1'].']'),'email' => array('form['.$registration->reg_merge_vars['email2'].']', 'form['.$registration->reg_merge_vars['email1'].']'));
+				if(!empty($registration)){
+					$regVar = empty($registration->reg_merge_vars) ? 'vars' : 'reg_merge_vars';
+					$registrationVars = unserialize($registration->$regVar);
+					$this->components['com_rsform'] = array('view' => array('rsform'), 'lengthafter' => 220, 'lengthaftermin' => 190, 'password' => array('form['.$registrationVars['password2'].']', 'form['.$registrationVars['password1'].']'), 'email' => array('form['.$registrationVars['email2'].']', 'form['.$registrationVars['email1'].']'));
 				}
 			}
 		}
 
+		$excludedComponents = $this->params->get('excluded');
+		if(!empty($excludedComponents)){
+			if(!ACYMAILING_J16) $excludedComponents = explode(',', $excludedComponents);
+			foreach($excludedComponents as $oneComponent){
+				unset($this->components[$oneComponent]);
+			}
+		}
 
 		if(!isset($this->components[$option])) return;
 		$viewVar = (isset($this->components[$option]['viewvar']) ? $this->components[$option]['viewvar'] : 'view');
@@ -201,14 +226,6 @@ class plgSystemRegacymailing extends JPlugin
 
 
 		if($option == 'com_community' && in_array(JRequest::getString('task'),array('registerAvatar','registerProfile'))) return;
-
-		$helperFile = rtrim(JPATH_ADMINISTRATOR,DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.'components'.DIRECTORY_SEPARATOR.'com_acymailing'.DIRECTORY_SEPARATOR.'helpers'.DIRECTORY_SEPARATOR.'helper.php';
-		if(!file_exists($helperFile) || !include_once($helperFile)) return;
-
-		if(!isset($this->params)){
-			$plugin = JPluginHelper::getPlugin('system', 'regacymailing');
-			$this->params = new JParameter( $plugin->params );
-		}
 
 		$this->_addFields();
 		$this->_addLists();
@@ -597,6 +614,25 @@ class plgSystemRegacymailing extends JPlugin
 		return $this->onBeforeStoreUser($user, $isnew);
 	}
 
+	function plgVmOnAskQuestion($VendorEmail, $vars, $function){
+		$user = JFactory::getUser();
+
+		$db = JFactory::getDBO();
+		$db->setQuery('SELECT id FROM #__users WHERE email = '.$db->Quote($vars['user'][email]));
+		$id = $db->loadResult();
+		if(empty($id)){
+			$isnew = true;
+			$user->id = 0;
+		}else{
+			$isnew = false;
+			$user->id = $id;
+		}
+		$user->email = $vars['user'][email];
+		$user->name = $vars['user'][name];
+		$user->block = 0;
+
+		$this->onAfterStoreUser($user, $isnew, true, '');
+	}
 
 	function onBeforeStoreUser($user, $isnew){
 
@@ -815,7 +851,12 @@ class plgSystemRegacymailing extends JPlugin
 		$userClass = acymailing_get('class.subscriber');
 		$subid = $userClass->subid($user['email']);
 		if(!empty($subid)){
-			$userClass->delete($subid);
+			if($this->params->get('deletebehavior','0') == 0) $userClass->delete($subid);
+			else{
+				$db = JFactory::getDBO();
+				$db->setQuery('UPDATE #__acymailing_subscriber SET `userid` = 0 WHERE subid = '.intval($subid));
+				$db->query();
+			}
 		}
 
 		return true;

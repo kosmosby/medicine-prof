@@ -94,7 +94,7 @@ class cbactivityTab extends cbTabHandler
 	{
 		$activity	=	new Activity( 'profile', $user );
 
-		CBActivity::loadStreamDefaults( $activity, $this->params, 'tab_' );
+		CBActivity::loadStreamDefaults( $activity, $this->params, 'tab_activity_' );
 
 		return $activity->stream();
 	}
@@ -125,7 +125,7 @@ class cbactivityField extends cbFieldHandler
 			$comments->set( 'item', (int) $field->get( 'fieldid' ) );
 			$comments->set( 'parent', (int) $user->get( 'id' ) );
 
-			CBActivity::loadStreamDefaults( $comments, $field->params, 'field_' );
+			CBActivity::loadStreamDefaults( $comments, $field->params, 'field_comments_' );
 
 			$return		=	$comments->stream( true );
 		} else {
@@ -136,7 +136,7 @@ class cbactivityField extends cbFieldHandler
 			$activity->set( 'item', (int) $field->get( 'fieldid' ) );
 			$activity->set( 'parent', (int) $user->get( 'id' ) );
 
-			CBActivity::loadStreamDefaults( $activity, $field->params, 'field_' );
+			CBActivity::loadStreamDefaults( $activity, $field->params, 'field_activity_' );
 
 			$return		=	$activity->stream( true );
 		}

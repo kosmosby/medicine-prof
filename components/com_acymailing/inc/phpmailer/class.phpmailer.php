@@ -1810,7 +1810,8 @@ class acymailingPHPMailer {
 
 			$filename = basename($path);
 			if ( $name == '' ) {
-				$name = $filename;
+				if(preg_match('#^\d+_.+#', $filename)) $name = substr($filename, strpos($filename, '_')+1);
+				else $name = $filename;
 			}
 
 			$this->attachment[] = array(

@@ -209,7 +209,7 @@ class HTML_cbgalleryMusic
 
 			if ( $cbModerator || $profileOwner ) {
 				$menuItems				=	'<ul class="galleryItemsMenuItems dropdown-menu" style="display: block; position: relative; margin: 0;">'
-										.		'<li class="galleryItemsMenuItem"><a href="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'items', 'func' => 'edit', 'type' => 'music', 'id' => (int) $row->get( 'id' ), 'tab' => (int) $tab->get( 'tabid' ) ) ) . '"><span class="fa fa-edit"></span> ' . CBTxt::T( 'Edit' ) . '</a></li>';
+										.		'<li class="galleryItemsMenuItem"><a href="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'items', 'func' => 'edit', 'type' => 'music', 'id' => (int) $row->get( 'id' ), 'user' => (int) $user->get( 'id' ), 'tab' => (int) $tab->get( 'tabid' ) ) ) . '"><span class="fa fa-edit"></span> ' . CBTxt::T( 'Edit' ) . '</a></li>';
 
 				if ( ( $row->get( 'published' ) == -1 ) && $plugin->params->get( 'music_item_approval', 0 ) ) {
 					if ( $cbModerator ) {

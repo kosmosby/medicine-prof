@@ -125,6 +125,20 @@ class CommentTable extends Table
 			return false;
 		}
 
+		// Deletes activity about this comment:
+		$query				=	'SELECT *'
+							.	"\n FROM " . $this->getDbo()->NameQuote( '#__comprofiler_plugin_activity' )
+							.	"\n WHERE " . $this->getDbo()->NameQuote( 'type' ) . " = " . $this->getDbo()->Quote( 'activity' )
+							.	"\n AND " . $this->getDbo()->NameQuote( 'subtype' ) . " = " . $this->getDbo()->Quote( 'comment' )
+							.	"\n AND " . $this->getDbo()->NameQuote( 'item' ) . " = " . (int) $this->get( 'id' );
+		$this->getDbo()->setQuery( $query );
+		$activities			=	$this->getDbo()->loadObjectList( null, '\CB\Plugin\Activity\Table\ActivityTable', array( $this->getDbo() ) );
+
+		/** @var ActivityTable[] $activities */
+		foreach ( $activities as $activity ) {
+			$activity->delete();
+		}
+
 		// Deletes comment replies:
 		$query			=	'SELECT *'
 						.	"\n FROM " . $this->getDbo()->NameQuote( '#__comprofiler_plugin_activity_comments' )
@@ -173,6 +187,17 @@ class CommentTable extends Table
 
 			$stream->set( 'type', 'comment' );
 			$stream->set( 'item', (int) $this->get( 'id' ) );
+
+			$object			=	array(	'source'	=>	'comment',
+										'id'		=>	(int) $this->get( 'id' ),
+										'user_id'	=>	(int) $this->get( 'user_id' ),
+										'type'		=>	$this->get( 'type' ),
+										'subtype'	=>	$this->get( 'subtype' ),
+										'item'		=>	$this->get( 'item' ),
+										'parent'	=>	$this->get( 'parent' )
+									);
+
+			$stream->set( 'object', $object );
 
 			$cache[$id]		=	$stream;
 		}

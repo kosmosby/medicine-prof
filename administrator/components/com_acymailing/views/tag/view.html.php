@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -13,8 +13,7 @@ defined('_JEXEC') or die('Restricted access');
 class TagViewTag extends acymailingView
 {
 
-	function display($tpl = null)
-	{
+	function display($tpl = null){
 		$function = $this->getLayout();
 		if(method_exists($this,$function)) $this->$function();
 
@@ -44,7 +43,6 @@ class TagViewTag extends acymailingView
 		$js .='function hideTagButton(){}';
 		$js .= 'try{window.parent.previousSelection = window.parent.getPreviousSelection(); }catch(err){window.parent.previousSelection=false; }';
 
-		$doc = JFactory::getDocument();
 		$doc->addScriptDeclaration( $js );
 
 
@@ -57,5 +55,20 @@ class TagViewTag extends acymailingView
 		$this->assignRef('app',$app);
 		$ctrl = JRequest::getString('ctrl');
 		$this->assignRef('ctrl',$ctrl);
+	}
+
+	function form(){
+		$plugin = JRequest::getString('plugin');
+		$plugin = preg_replace('#[^a-zA-Z0-9]#Uis', '', $plugin);
+		$templatePath = ACYMAILING_MEDIA.'plugins'.DS.$plugin.'.php';
+		$body = '';
+		if(file_exists($templatePath)) $body = file_get_contents($templatePath);
+		$help = JRequest::getString('help');
+		$help = preg_replace('#[^a-zA-Z0-9]#Uis', '', $help);
+		$help = empty($help) ? $plugin : $help;
+
+		$this->assignRef('help', $help);
+		$this->assignRef('plugin', $plugin);
+		$this->assignRef('body', $body);
 	}
 }

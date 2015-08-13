@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -274,8 +274,8 @@ class templateClass extends acymailingClass{
 		if(preg_match('#< *body[^>]*>(.*)< */ *body *>#Uis',$fileContent,$results)){ $newTemplate->body = $results[1];}else{$newTemplate->body = $fileContent;}
 
 		$newTemplate->stylesheet = '';
-		if(preg_match('#< *style[^>]*>(.*)< */ *style *>#Uis',$fileContent,$results)){
-			$newTemplate->stylesheet .= preg_replace('#(<!--|-->)#s','',$results[1]);
+		if(preg_match_all('#< *style[^>]*>(.*)< */ *style *>#Uis',$fileContent,$results)){
+			$newTemplate->stylesheet .= preg_replace('#(<!--|-->)#s','',implode("\n",$results[1]));
 		}
 		$cssFiles = array();
 		$cssFiles[ACYMAILING_TEMPLATE.$newTemplateFolder] = JFolder::files(ACYMAILING_TEMPLATE.$newTemplateFolder,'\.css$');

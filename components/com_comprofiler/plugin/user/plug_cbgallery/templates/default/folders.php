@@ -118,7 +118,7 @@ class HTML_cbgalleryFolders
 
 			if ( $cbModerator || $profileOwner ) {
 				$menuItems				=	'<ul class="galleryFoldersMenuItems dropdown-menu" style="display: block; position: relative; margin: 0;">'
-										.		'<li class="galleryFoldersMenuItem"><a href="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'folders', 'func' => 'edit', 'type' => $type, 'id' => (int) $row->get( 'id' ), 'tab' => (int) $tab->get( 'tabid' ) ) ) . '"><span class="fa fa-edit"></span> ' . CBTxt::T( 'Edit' ) . '</a></li>';
+										.		'<li class="galleryFoldersMenuItem"><a href="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'folders', 'func' => 'edit', 'type' => $type, 'id' => (int) $row->get( 'id' ), 'user' => (int) $user->get( 'id' ), 'tab' => (int) $tab->get( 'tabid' ) ) ) . '"><span class="fa fa-edit"></span> ' . CBTxt::T( 'Edit' ) . '</a></li>';
 
 				if ( ( $row->get( 'published' ) == -1 ) && $plugin->params->get( $type . '_folder_approval', 0 ) ) {
 					if ( $cbModerator ) {

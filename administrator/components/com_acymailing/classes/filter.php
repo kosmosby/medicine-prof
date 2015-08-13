@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -388,7 +388,7 @@ class filterClass extends acymailingClass{
 				function toggleDateBtn(btnToActive){
 					if(btnToActive == 'specific'){
 						if(typeof jQuery != 'undefined'){
-							jQuery('#dateDetail_type label[for=dateDetail_typespecificdate]').click();
+							jQuery('#dateDetail_typefieldset label[for=dateDetail_typespecificdate]').click();
 						}else{
 							document.getElementById('dateDetail_typerelativedate').checked='';
 							document.getElementById('dateDetail_typespecificdate').checked='checked';

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -13,9 +13,7 @@ class JButtonPophelp extends JButton
 {
 	var $_name = 'Pophelp';
 
-
-	function fetchButton( $type='Pophelp', $namekey = '', $id = 'pophelp' )
-	{
+	function fetchButton($type='Pophelp', $namekey = '', $id = 'pophelp'){
 		acymailing_loadMootools();
 
 		$doc = JFactory::getDocument();
@@ -50,13 +48,11 @@ class JButtonPophelp extends JButton
 				}
 			} openHelp = !openHelp; return false;}";
 		$doc->addScriptDeclaration( $js );
-		if(JRequest::getCmd('tmpl') == 'component' || !ACYMAILING_J30)
-			return '<a href="'.$url.'" target="_blank" onclick="return displayDoc();" class="toolbar"><span class="icon-32-help" title="'.JText::_('ACY_HELP',true).'"></span>'.JText::_('ACY_HELP').'</a>';
+		if(JRequest::getCmd('tmpl') == 'component' || !ACYMAILING_J30) return '<a href="'.$url.'" target="_blank" onclick="return displayDoc();" class="toolbar"><span class="icon-32-help" title="'.JText::_('ACY_HELP',true).'"></span>'.JText::_('ACY_HELP').'</a>';
 		return '<button class="btn btn-small" onclick="return displayDoc();"><i class="icon-help"></i> '.JText::_('ACY_HELP').'</button>';
 	}
 
-	function fetchId( $type='Pophelp', $html = '', $id = 'pophelp' )
-	{
+	function fetchId($type='Pophelp', $html = '', $id = 'pophelp'){
 		return $this->_name.'-'.$id;
 	}
 }

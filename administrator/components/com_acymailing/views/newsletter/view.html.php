@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -20,8 +20,7 @@ class NewsletterViewNewsletter extends acymailingView
 	var $aclCat = 'newsletters';
 	var $doc = 'newsletter';
 
-	function display($tpl = null)
-	{
+	function display($tpl = null){
 		$function = $this->getLayout();
 		if(method_exists($this,$function)) $this->$function();
 
@@ -68,6 +67,13 @@ class NewsletterViewNewsletter extends acymailingView
 
 		if(!empty($selectedList)) $filters[] = 'c.listid = '.$selectedList;
 		if(!empty($selectedCreator)) $filters[] = 'a.userid = '.$selectedCreator;
+		if($this->type == 'news'){
+			$selectedDate = $app->getUserStateFromRequest($paramBase."filter_date", 'filter_date', 0, 'string');
+			if(!empty($selectedDate)){
+				if(strlen($selectedDate) > 4) $filters[] = 'DATE_FORMAT(FROM_UNIXTIME(senddate),"%Y-%m") = '.$database->Quote($selectedDate);
+				else $filters[] = 'DATE_FORMAT(FROM_UNIXTIME(senddate),"%Y") = '.$database->Quote($selectedDate);
+			}
+		}
 
 		$selection = array_merge($searchMap,array('a.created','a.frequency','a.senddate','a.published','a.type','a.visible','a.abtesting'));
 
@@ -93,7 +99,7 @@ class NewsletterViewNewsletter extends acymailingView
 
 		if(count($filters)>1) $queryCount.= ' LEFT JOIN '.acymailing_table('users',false).' as b on a.userid = b.id ';
 
-		$queryCount.= ' WHERE ('.implode(') AND (',$filters).')';
+		$queryCount .= ' WHERE ('.implode(') AND (',$filters).')';
 
 		if(!$app->isAdmin()){
 			$listClass = acymailing_get('class.list');
@@ -108,6 +114,7 @@ class NewsletterViewNewsletter extends acymailingView
 					$queryCount .= ' AND c.listid IN ('.implode(',',$frontListsIds).')';
 				}
 			}
+			$query .= ' GROUP BY a.mailid ';
 		}
 
 		if(!empty($pageInfo->filter->order->value)){
@@ -155,7 +162,7 @@ class NewsletterViewNewsletter extends acymailingView
 			JToolBarHelper::editList();
 			if(acymailing_isAllowed($config->get('acl_'.$this->aclCat.'_delete','all'))) JToolBarHelper::deleteList(JText::_('ACY_VALIDDELETEITEMS'));
 			JToolBarHelper::spacer();
-			if(acymailing_level(3) && acymailing_isAllowed($config->get('acl_'.$this->aclCat.'_abtesting','all')) && $this->type == 'news') $bar->appendButton('Acyabtesting');
+			if(acymailing_level(3) && acymailing_isAllowed($config->get('acl_'.$this->aclCat.'_abtesting','all')) && $this->type == 'news') $bar->appendButton('Acypopup', 'acyabtesting', JText::_('ABTESTING'), '', 800, 600);
 			if(acymailing_isAllowed($config->get('acl_'.$this->aclCat.'_copy','all'))) JToolBarHelper::custom( 'copy', 'copy.png', 'copy.png', JText::_('ACY_COPY') );
 			if(acymailing_level(3)){
 				$bar->appendButton( 'Acypopup', 'upload', JText::_('IMPORT'), "index.php?option=com_acymailing&ctrl=newsletter&task=upload&tmpl=component");
@@ -184,6 +191,25 @@ class NewsletterViewNewsletter extends acymailingView
 		$mailcreatorType->type = $this->type;
 
 		$filters->creator = $mailcreatorType->display('filter_creator',$selectedCreator);
+
+		if($this->type == 'news'){
+			$database->setQuery('SELECT DATE_FORMAT(FROM_UNIXTIME(senddate),"%Y-%m") AS date FROM #__acymailing_mail WHERE senddate IS NOT NULL AND senddate != 0 AND type = "news" GROUP BY date ORDER BY date DESC');
+			$senddates = acymailing_loadResultArray($database);
+			$sendFilter = array();
+			$sendFilter[] = JHTML::_('select.option', '0', JText::_('SEND_DATE'));
+			if(!empty($senddates)){
+				$currentYear = '';
+				foreach($senddates as $oneSenddate){
+					list($year, $month) = explode('-', $oneSenddate);
+					if($year != $currentYear){
+						$sendFilter[] = JHTML::_('select.option', $year, '- '.$year.' -');
+						$currentYear = $year;
+					}
+					$sendFilter[] = JHTML::_('select.option', $oneSenddate, JHTML::_('date', strtotime($oneSenddate.'-15'), ACYMAILING_J16 ? 'F' : '%B', false));
+				}
+			}
+			$filters->date = JHTML::_('select.genericlist', $sendFilter, 'filter_date', 'class="inputbox" size="1" onchange="document.adminForm.submit();"', 'value', 'text', $selectedDate);
+		}
 
 		$this->assignRef('filters',$filters);
 		$toggleClass = acymailing_get('helper.toggle');
@@ -324,7 +350,7 @@ class NewsletterViewNewsletter extends acymailingView
 				$bar->appendButton( 'Acypopup', 'acytemplate', JText::_('ACY_TEMPLATE'), "index.php?option=com_acymailing&ctrl=template&task=theme&tmpl=component",750,550);
 			}
 
-			if(acymailing_isAllowed($config->get('acl_tags_view','all'))) $bar->appendButton( 'Acytags',$this->type);
+			if(acymailing_isAllowed($config->get('acl_tags_view','all'))) $bar->appendButton('Acypopup', 'acytags', JText::_('TAGS'), JURI::base()."index.php?option=com_acymailing&ctrl=tag&task=tag&tmpl=component&type=".$this->type, 780, 550);
 
 			if(in_array($this->type,array('news','followup')) && acymailing_isAllowed($config->get('acl_tags_view','all'))){
 				JToolBarHelper::custom('replacetags', 'replacetag', '',JText::_('REPLACE_TAGS'), false);

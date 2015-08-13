@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -110,6 +110,6 @@ defined('_JEXEC') or die('Restricted access');
 
 		echo $this->tabs->endPanel();
 		$this->config = acymailing_config();
-		if(acymailing_level(3) && acymailing_isAllowed($this->config->get('acl_newsletters_inbox_actions','all'))) include(ACYMAILING_BACK.'views'.DS.'newsletter'.DS.'tmpl'.DS.'inboxactions.php');
+		if(acymailing_level(3) && acymailing_isAllowed($this->config->get('acl_newsletters_inbox_actions','all')) && JPluginHelper::isEnabled('acymailing', 'plginboxactions')) include(ACYMAILING_BACK.'views'.DS.'newsletter'.DS.'tmpl'.DS.'inboxactions.php');
 		echo $this->tabs->endPane(); ?>
 	</div>

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -297,7 +297,7 @@ if (is_callable("date_default_timezone_set")) date_default_timezone_set(@date_de
 		$replaceBy = array();
 		if($mainurl !== ACYMAILING_LIVE){
 
-			$replace[] = '#(href|src|action|background)[ ]*=[ ]*\"(?!(\{|%7B|\#|\\\\|[a-z]{3,7}:|/))(?:\.\./)#i';
+			$replace[] = '#(href|src|action|background)[ ]*=[ ]*\"(?!(\{|%7B|\[|\#|\\\\|[a-z]{3,7}:|/))(?:\.\./)#i';
 			$replaceBy[] = '$1="'.substr(ACYMAILING_LIVE,0,strrpos(rtrim(ACYMAILING_LIVE,'/'),'/')+1);
 
 
@@ -305,9 +305,9 @@ if (is_callable("date_default_timezone_set")) date_default_timezone_set(@date_de
 			$replace[] = '#(href|src|action|background)[ ]*=[ ]*\"'.preg_quote($subfolder,'#').'(\{|%7B)#i';
 			$replaceBy[] = '$1="$2';
 		}
-		$replace[] = '#(href|src|action|background)[ ]*=[ ]*\"(?!(\{|%7B|\#|\\\\|[a-z]{3,7}:|/))(?:\.\./|\./)?#i';
+		$replace[] = '#(href|src|action|background)[ ]*=[ ]*\"(?!(\{|%7B|\[|\#|\\\\|[a-z]{3,7}:|/))(?:\.\./|\./)?#i';
 		$replaceBy[] = '$1="'.ACYMAILING_LIVE;
-		$replace[] = '#(href|src|action|background)[ ]*=[ ]*\"(?!(\{|%7B|\#|\\\\|[a-z]{3,7}:))/#i';
+		$replace[] = '#(href|src|action|background)[ ]*=[ ]*\"(?!(\{|%7B|\[|\#|\\\\|[a-z]{3,7}:))/#i';
 		$replaceBy[] = '$1="'.$mainurl;
 
 		$replace[] = '#((background-image|background)[ ]*:[ ]*url\(\'?"?(?!(\\\\|[a-z]{3,7}:|/|\'|"))(?:\.\./|\./)?)#i';
@@ -650,6 +650,28 @@ if (is_callable("date_default_timezone_set")) date_default_timezone_set(@date_de
 		$errorPluginTxt = 'Some required AcyMailing plugins have not been installed.<br />Please make sure your plugins folders are writables by checking the user/group permissions:<br />* Joomla / Plugins'.$results[0].'<br />* Joomla / Plugins / User'.$results[1].'<br />* Joomla / Plugins / System'.$results[0].'<br />';
 		if(empty($writableIssue)) $errorPluginTxt .= 'Please also empty your plugins cache: System => Clear cache => com_plugins => Delete<br />';
 		acymailing_display($errorPluginTxt.'<a href="index.php?option=com_acymailing&amp;ctrl=update&amp;task=install">'.JText::_('ACY_ERROR_INSTALLAGAIN').'</a>','warning');
+	}
+
+	function acymailing_fileGetContent($url){
+		if(function_exists('file_get_contents')){
+			$data = file_get_contents($url);
+		}
+
+		if(!$data && function_exists('curl_exec')){
+			$conn = curl_init($url);
+			curl_setopt($conn, CURLOPT_SSL_VERIFYPEER, true);
+			curl_setopt($conn, CURLOPT_FRESH_CONNECT,  true);
+			curl_setopt($conn, CURLOPT_RETURNTRANSFER, 1);
+			$data = curl_exec($conn);
+			curl_close($conn);
+		}
+
+		if(!$data && function_exists('fopen') && function_exists('stream_get_contents')){
+			$handle = fopen($url, "r");
+			$data = stream_get_contents($handle);
+		}
+
+		return $data;
 	}
 
 class acymailing{

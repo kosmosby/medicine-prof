@@ -253,6 +253,10 @@ class CBplug_cbgallery extends cbPluginHandler
 		$canAccess							=	false;
 
 		if ( ! $row->get( 'id' ) ) {
+			if ( ( $user->get( 'id' ) != $viewer->get( 'id' ) ) && ( ! $cbModerator ) ) {
+				$user						=	$viewer;
+			}
+
 			$canAccess						=	cbgalleryClass::canUserCreate( $viewer, $type, false );
 		} elseif ( ( $row->get( 'type' ) == $type ) && ( $cbModerator || ( $viewer->get( 'id' ) == $row->get( 'user_id' ) ) ) ) {
 			$canAccess						=	true;
@@ -261,7 +265,7 @@ class CBplug_cbgallery extends cbPluginHandler
 		if ( $row->get( 'folder' ) ) {
 			$returnUrl						=	$_CB_framework->pluginClassUrl( $this->element, false, array( 'action' => 'folders', 'func' => 'show', 'type' => $type, 'id' => (int) $row->get( 'folder' ), 'user' => (int) $user->get( 'id' ), 'tab' => (int) $tab->get( 'tabid' ) ) );
 		} else {
-			$returnUrl						=	$_CB_framework->userProfileUrl( (int) $user->get( 'id' ), false, $tab->get( 'tabid' ) );
+			$returnUrl						=	$_CB_framework->userProfileUrl( (int) $row->get( 'user_id', $user->get( 'id' ) ), false, $tab->get( 'tabid' ) );
 		}
 
 		if ( ! $canAccess ) {
@@ -290,7 +294,6 @@ class CBplug_cbgallery extends cbPluginHandler
 		}
 
 		$extLimit							=	cbgalleryClass::getExtensions( $type );
-		$mimeLimit							=	cbgalleryClass::getMimeTypes( $extLimit );
 
 		switch( $type ) {
 			case 'photos':
@@ -328,7 +331,7 @@ class CBplug_cbgallery extends cbPluginHandler
 		$query								=	'SELECT *'
 											.	"\n FROM " . $_CB_database->NameQuote( '#__comprofiler_plugin_gallery_folders' )
 											.	"\n WHERE " . $_CB_database->NameQuote( 'type' ) . " = " . $_CB_database->Quote( $type )
-											.	"\n AND " . $_CB_database->NameQuote( 'user_id' ) . " = " . (int) $user->get( 'id' )
+											.	"\n AND " . $_CB_database->NameQuote( 'user_id' ) . " = " . (int) $row->get( 'user_id', $user->get( 'id' ) )
 											.	"\n ORDER BY " . $_CB_database->NameQuote( 'date' ) . " DESC";
 		$_CB_database->setQuery( $query );
 		$folders							=	$_CB_database->loadObjectList( null, 'cbgalleryFolderTable', array( $_CB_database ) );
@@ -491,6 +494,10 @@ class CBplug_cbgallery extends cbPluginHandler
 		$canAccess					=	false;
 
 		if ( ! $row->get( 'id' ) ) {
+			if ( ( $user->get( 'id' ) != $viewer->get( 'id' ) ) && ( ! $cbModerator ) ) {
+				$user				=	$viewer;
+			}
+
 			$canAccess				=	cbgalleryClass::canUserCreate( $viewer, $type, false );
 		} elseif ( ( $row->get( 'type' ) == $type ) && ( $cbModerator || ( $viewer->get( 'id' ) == $row->get( 'user_id' ) ) ) ) {
 			$canAccess				=	true;
@@ -499,7 +506,7 @@ class CBplug_cbgallery extends cbPluginHandler
 		if ( $row->get( 'folder' ) ) {
 			$returnUrl				=	$_CB_framework->pluginClassUrl( $this->element, false, array( 'action' => 'folders', 'func' => 'show', 'type' => $type, 'id' => (int) $row->get( 'folder' ), 'user' => (int) $user->get( 'id' ), 'tab' => (int) $tab->get( 'tabid' ) ) );
 		} else {
-			$returnUrl				=	$_CB_framework->userProfileUrl( (int) $user->get( 'id' ), false, $tab->get( 'tabid' ) );
+			$returnUrl				=	$_CB_framework->userProfileUrl( (int) $row->get( 'user_id', $user->get( 'id' ) ), false, $tab->get( 'tabid' ) );
 		}
 
 		$uploading					=	( ( ! isset( $_FILES['file']['tmp_name'] ) ) || empty( $_FILES['file']['tmp_name'] ) ? false : true );
@@ -545,7 +552,7 @@ class CBplug_cbgallery extends cbPluginHandler
 				$query				=	'SELECT ' . $_CB_database->NameQuote( 'id' )
 									.	"\n FROM " . $_CB_database->NameQuote( '#__comprofiler_plugin_gallery_folders' )
 									.	"\n WHERE " . $_CB_database->NameQuote( 'type' ) . " = " . $_CB_database->Quote( $type )
-									.	"\n AND " . $_CB_database->NameQuote( 'user_id' ) . " = " . (int) $user->get( 'id' );
+									.	"\n AND " . $_CB_database->NameQuote( 'user_id' ) . " = " . (int) $row->get( 'user_id', $user->get( 'id' ) );
 				$_CB_database->setQuery( $query );
 				$folderIds			=	$_CB_database->loadResultArray();
 
@@ -696,7 +703,7 @@ class CBplug_cbgallery extends cbPluginHandler
 		if ( $row->get( 'folder' ) ) {
 			$returnUrl				=	$_CB_framework->pluginClassUrl( $this->element, false, array( 'action' => 'folders', 'func' => 'show', 'type' => $type, 'id' => (int) $row->get( 'folder' ), 'user' => (int) $user->get( 'id' ), 'tab' => (int) $tab->get( 'tabid' ) ) );
 		} else {
-			$returnUrl				=	$_CB_framework->userProfileUrl( (int) $user->get( 'id' ), false, $tab->get( 'tabid' ) );
+			$returnUrl				=	$_CB_framework->userProfileUrl( (int) $row->get( 'user_id', $user->get( 'id' ) ), false, $tab->get( 'tabid' ) );
 		}
 
 		if ( ( ! $row->get( 'id' ) ) || ( $row->get( 'type' ) != $type ) || ( ( $viewer->get( 'id' ) != $row->get( 'user_id' ) ) && ( ! Application::User( (int) $viewer->get( 'id' ) )->isGlobalModerator() ) ) || ( ( $viewer->get( 'id' ) == $row->get( 'user_id' ) ) && ( $row->get( 'published' ) == -1 ) && $this->params->get( $type . '_item_approval', 0 ) ) ) {
@@ -750,7 +757,7 @@ class CBplug_cbgallery extends cbPluginHandler
 		if ( $row->get( 'folder' ) ) {
 			$returnUrl				=	$_CB_framework->pluginClassUrl( $this->element, false, array( 'action' => 'folders', 'func' => 'show', 'type' => $type, 'id' => (int) $row->get( 'folder' ), 'user' => (int) $user->get( 'id' ), 'tab' => (int) $tab->get( 'tabid' ) ) );
 		} else {
-			$returnUrl				=	$_CB_framework->userProfileUrl( (int) $user->get( 'id' ), false, $tab->get( 'tabid' ) );
+			$returnUrl				=	$_CB_framework->userProfileUrl( (int) $row->get( 'user_id', $user->get( 'id' ) ), false, $tab->get( 'tabid' ) );
 		}
 
 		if ( ( ! $row->get( 'id' ) ) || ( $row->get( 'type' ) != $type ) || ( ( $viewer->get( 'id' ) != $row->get( 'user_id' ) ) && ( ! Application::User( (int) $viewer->get( 'id' ) )->isGlobalModerator() ) ) ) {
@@ -814,6 +821,8 @@ class CBplug_cbgallery extends cbPluginHandler
 
 			$_PLUGINS->trigger( 'gallery_onLoadFolders', array( &$folders, $user ) );
 
+			$profileUrl					=	$_CB_framework->userProfileUrl( (int) $row->get( 'user_id', $user->get( 'id' ) ), false, $tab->get( 'tabid' ) );
+
 			if ( ( empty( $folders ) ) || ( ! $row->get( 'id' ) ) || ( $row->get( 'type' ) != $type ) || ( ( ! $row->get( 'published' ) ) && ( ( $viewer->get( 'id' ) != $row->get( 'user_id' ) ) || ( ! Application::User( (int) $viewer->get( 'id' ) )->isGlobalModerator() ) ) ) ) {
 				cbRedirect( $profileUrl, CBTxt::T( 'Not authorized.' ), 'error' );
 			}
@@ -858,7 +867,7 @@ class CBplug_cbgallery extends cbPluginHandler
 		$query							=	'SELECT COUNT(*)'
 										.	"\n FROM " . $_CB_database->NameQuote( '#__comprofiler_plugin_gallery_items' )
 										.	"\n WHERE " . $_CB_database->NameQuote( 'type' ) . " = " . $_CB_database->Quote( $type )
-										.	"\n AND " . $_CB_database->NameQuote( 'user_id' ) . " = " . (int) $user->get( 'id' )
+										.	"\n AND " . $_CB_database->NameQuote( 'user_id' ) . " = " . (int) $row->get( 'user_id', $user->get( 'id' ) )
 										.	"\n AND " . $_CB_database->NameQuote( 'folder' ) . " = " . (int) $row->get( 'id' )
 										.	( $publishedOnly ? "\n AND " . $_CB_database->NameQuote( 'published' ) . " = 1" : null )
 										.	$where;
@@ -884,7 +893,7 @@ class CBplug_cbgallery extends cbPluginHandler
 		$query							=	'SELECT *'
 										.	"\n FROM " . $_CB_database->NameQuote( '#__comprofiler_plugin_gallery_items' )
 										.	"\n WHERE " . $_CB_database->NameQuote( 'type' ) . " = " . $_CB_database->Quote( $type )
-										.	"\n AND " . $_CB_database->NameQuote( 'user_id' ) . " = " . (int) $user->get( 'id' )
+										.	"\n AND " . $_CB_database->NameQuote( 'user_id' ) . " = " . (int) $row->get( 'user_id', $user->get( 'id' ) )
 										.	"\n AND " . $_CB_database->NameQuote( 'folder' ) . " = " . (int) $row->get( 'id' )
 										.	( $publishedOnly ? "\n AND " . $_CB_database->NameQuote( 'published' ) . " = 1" : null )
 										.	$where
@@ -953,6 +962,10 @@ class CBplug_cbgallery extends cbPluginHandler
 		$canAccess					=	false;
 
 		if ( ! $row->get( 'id' ) ) {
+			if ( ( $user->get( 'id' ) != $viewer->get( 'id' ) ) && ( ! $cbModerator ) ) {
+				$user				=	$viewer;
+			}
+
 			$canAccess				=	cbgalleryClass::canUserCreate( $viewer, $type, true );
 		} elseif ( ( $row->get( 'type' ) == $type ) && ( $cbModerator || ( $viewer->get( 'id' ) == $row->get( 'user_id' ) ) ) ) {
 			$canAccess				=	true;
@@ -961,7 +974,7 @@ class CBplug_cbgallery extends cbPluginHandler
 		if ( $this->input( 'folder', false, GetterInterface::BOOLEAN ) ) {
 			$returnUrl				=	$_CB_framework->pluginClassUrl( $this->element, false, array( 'action' => 'folders', 'func' => 'show', 'type' => $type, 'id' => (int) $row->get( 'id' ), 'user' => (int) $user->get( 'id' ), 'tab' => (int) $tab->get( 'tabid' ) ) );
 		} else {
-			$returnUrl				=	$_CB_framework->userProfileUrl( (int) $user->get( 'id' ), false, $tab->get( 'tabid' ) );
+			$returnUrl				=	$_CB_framework->userProfileUrl( (int) $row->get( 'user_id', $user->get( 'id' ) ), false, $tab->get( 'tabid' ) );
 		}
 
 		if ( ! $canAccess ) {
@@ -1027,6 +1040,10 @@ class CBplug_cbgallery extends cbPluginHandler
 		$canAccess					=	false;
 
 		if ( ! $row->get( 'id' ) ) {
+			if ( ( $user->get( 'id' ) != $viewer->get( 'id' ) ) && ( ! $cbModerator ) ) {
+				$user				=	$viewer;
+			}
+
 			$canAccess				=	cbgalleryClass::canUserCreate( $viewer, $type, true );
 		} elseif ( ( $row->get( 'type' ) == $type ) && ( $cbModerator || ( $viewer->get( 'id' ) == $row->get( 'user_id' ) ) ) ) {
 			$canAccess				=	true;
@@ -1035,7 +1052,7 @@ class CBplug_cbgallery extends cbPluginHandler
 		if ( $this->input( 'folder', false, GetterInterface::BOOLEAN ) ) {
 			$returnUrl				=	$_CB_framework->pluginClassUrl( $this->element, false, array( 'action' => 'folders', 'func' => 'show', 'type' => $type, 'id' => (int) $row->get( 'id' ), 'user' => (int) $user->get( 'id' ), 'tab' => (int) $tab->get( 'tabid' ) ) );
 		} else {
-			$returnUrl				=	$_CB_framework->userProfileUrl( (int) $user->get( 'id' ), false, $tab->get( 'tabid' ) );
+			$returnUrl				=	$_CB_framework->userProfileUrl( (int) $row->get( 'user_id', $user->get( 'id' ) ), false, $tab->get( 'tabid' ) );
 		}
 
 		if ( ! $canAccess ) {
@@ -1144,7 +1161,7 @@ class CBplug_cbgallery extends cbPluginHandler
 		if ( $this->input( 'folder', false, GetterInterface::BOOLEAN ) ) {
 			$returnUrl				=	$_CB_framework->pluginClassUrl( $this->element, false, array( 'action' => 'folders', 'func' => 'show', 'type' => $type, 'id' => (int) $row->get( 'id' ), 'user' => (int) $user->get( 'id' ), 'tab' => (int) $tab->get( 'tabid' ) ) );
 		} else {
-			$returnUrl				=	$_CB_framework->userProfileUrl( (int) $user->get( 'id' ), false, $tab->get( 'tabid' ) );
+			$returnUrl				=	$_CB_framework->userProfileUrl( (int) $row->get( 'user_id', $user->get( 'id' ) ), false, $tab->get( 'tabid' ) );
 		}
 
 		if ( ( ! $row->get( 'id' ) ) || ( $row->get( 'type' ) != $type ) || ( ( $viewer->get( 'id' ) != $row->get( 'user_id' ) ) && ( ! Application::User( (int) $viewer->get( 'id' ) )->isGlobalModerator() ) ) || ( ( $viewer->get( 'id' ) == $row->get( 'user_id' ) ) && ( $row->get( 'published' ) == -1 ) && $this->params->get( $type . '_folder_approval', 0 ) ) ) {
@@ -1188,7 +1205,7 @@ class CBplug_cbgallery extends cbPluginHandler
 
 		$row->load( (int) $id );
 
-		$profileUrl					=	$_CB_framework->userProfileUrl( (int) $user->get( 'id' ), false, $tab->get( 'tabid' ) );
+		$profileUrl					=	$_CB_framework->userProfileUrl( (int) $row->get( 'user_id', $user->get( 'id' ) ), false, $tab->get( 'tabid' ) );
 
 		if ( ( ! $row->get( 'id' ) ) || ( $row->get( 'type' ) != $type ) || ( ( $viewer->get( 'id' ) != $row->get( 'user_id' ) ) && ( ! Application::User( (int) $viewer->get( 'id' ) )->isGlobalModerator() ) ) ) {
 			cbRedirect( $profileUrl, CBTxt::T( 'Not authorized.' ), 'error' );

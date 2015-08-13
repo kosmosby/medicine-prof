@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -63,11 +63,12 @@ class EmailViewEmail extends acymailingView
 
 
 		$editor = acymailing_get('helper.editor');
+		$editor->setTemplate($mail->tempid);
 		$editor->name = 'editor_body';
 		$editor->content = $mail->body;
 
 		$js = "function updateAcyEditor(htmlvalue){";
-			$js .= 'if(htmlvalue == \'0\'){window.document.getElementById("htmlfieldset").style.display = \'none\'}else{window.document.getElementById("htmlfieldset").style.display = \'block\'}';
+		$js .= 'if(htmlvalue == \'0\'){window.document.getElementById("htmlfieldset").style.display = \'none\'}else{window.document.getElementById("htmlfieldset").style.display = \'block\'}';
 		$js .= '}';
 		$js .='window.addEvent(\'load\', function(){ updateAcyEditor('.$mail->html.'); });';
 
@@ -100,7 +101,15 @@ class EmailViewEmail extends acymailingView
 			$script .= 'submitform( pressbutton );} ';
 		}else{ $script .= 'Joomla.submitform(pressbutton,document.adminForm);}; '; }
 
-		$script .= "function insertTag(tag){ try{jInsertEditorText(tag,'editor_body'); document.getElementById('iframetag').style.display = 'none'; displayTags(); return true;} catch(err){alert('Your editor does not enable AcyMailing to automatically insert the tag, please copy/paste it manually in your Newsletter'); return false;}}";
+		$script .= "function insertTag(tag){
+		try{
+			if(window.parent.tinymce){ parentTinymce = window.parent.tinymce; window.parent.tinymce = false; }
+			jInsertEditorText(tag,'editor_body');
+			if(typeof parentTinymce !== 'undefined'){ window.parent.tinymce = parentTinymce; }
+			document.getElementById('iframetag').style.display = 'none';
+			displayTags();
+			return true;
+		}catch(err){alert('Your editor does not enable AcyMailing to automatically insert the tag, please copy/paste it manually in your Newsletter'); return false;}}";
 
 		$typeMail = 'news';
 		if(strpos($mail->alias, 'notification') !== false){

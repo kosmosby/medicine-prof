@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -199,7 +199,6 @@ class dataViewdata extends acymailingView
 		$this->assignRef('selectedFilters', $selectedFilters);
 		$this->assignRef('config',$config);
 
-		$whereSubscribers = '';
 		if(JRequest::getInt('sessionvalues')){
 			if(!empty($_SESSION['acymailing']['exportusers'])){
 				$i = 1;
@@ -218,6 +217,8 @@ class dataViewdata extends acymailingView
 			}elseif(!empty($_SESSION['acymailing']['exportlist'])){
 				$filterList = $_SESSION['acymailing']['exportlist'];
 				$this->assignRef('exportlist',$filterList);
+				$filterListStatus = $_SESSION['acymailing']['exportliststatus'];
+				$this->assignRef('exportliststatus',$filterListStatus);
 			}
 		}
 

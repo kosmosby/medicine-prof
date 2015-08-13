@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -137,7 +137,7 @@ class SubscriberViewSubscriber extends acymailingView
 			$pageInfo->elements->total = $pageInfo->limit->start + $pageInfo->elements->page;
 		}else{
 			$queryCount = 'SELECT COUNT('.$countField.') '.$fromQuery;
-			if(!empty($pageInfo->search) || !empty($selectedStatus) || $selectedStatusList == -2){
+			if(!empty($pageInfo->search) || !empty($selectedStatus) || $selectedStatusList == -2 || !empty($fieldfilter)){
 				if(!empty($joinQuery)) $queryCount .= ' JOIN '.implode(' JOIN ',$joinQuery);
 				if(!empty($leftJoinQuery)) $queryCount .= ' LEFT JOIN '.implode(' LEFT JOIN ',$leftJoinQuery);
 			}
@@ -199,7 +199,7 @@ class SubscriberViewSubscriber extends acymailingView
 
 			$bar = JToolBar::getInstance('toolbar');
 			if(acymailing_isAllowed($config->get('acl_lists_filter','all'))){
-				$bar->appendButton( 'Acyactions');
+				$bar->appendButton('Acypopup', 'acyaction', JText::_('ACTIONS'), '', 700, 500);
 				JToolBarHelper::divider();
 			}
 			if(acymailing_isAllowed($config->get('acl_subscriber_import','all'))) $bar->appendButton( 'Link', 'import', JText::_('IMPORT'), acymailing_completeLink('data&task=import&filter_lists='.$selectedList) );

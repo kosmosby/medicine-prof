@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -208,6 +208,7 @@ if($params->get('effect') == 'mootools-slide'){
  				jQuery("#acymailing_togglemodule_'.$formName.'").click(function(){
 					jQuery("#acymailing_fulldiv_'.$formName.'").slideToggle("fast");
 					jQuery("#acymailing_togglemodule_'.$formName.'").toggleClass("acyactive");
+					return false;
 				});
 			});
 		} else{

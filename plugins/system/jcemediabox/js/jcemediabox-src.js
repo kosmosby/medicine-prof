@@ -1,11 +1,11 @@
 /**
- * JCEMediaBox 		1.1.22
+ * JCEMediaBox 		1.1.24
  * @package 		JCEMediaBox
  * @url				http://www.joomlacontenteditor.net
  * @copyright 		Copyright (C) 2006 - 2015 Ryan Demmer. All rights reserved
  * @copyright		Copyright 2009, Moxiecode Systems AB
  * @license 		GNU/GPL Version 2 - http://www.gnu.org/licenses/gpl-2.0.html
- * @date			04 April 2015
+ * @date			21 July 2015
  * This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
@@ -166,20 +166,18 @@
      * Copyright (c) 2009-2011 Faruk Ates, Paul Irish, Alex Sexton
      */
     support.video = (function () {
-        var el = document.createElement('video');
-        var bool = false;
+        var elem = document.createElement('video'), bool = false;
+
         // IE9 Running on Windows Server SKU can cause an exception to be thrown, bug #224
         try {
-            if (bool = !!el.canPlayType) {
+            if (bool = !!elem.canPlayType) {
                 bool = new Boolean(bool);
-                bool.ogg = el.canPlayType('video/ogg; codecs="theora"');
+                bool.ogg = elem.canPlayType('video/ogg; codecs="theora"').replace(/^no$/, '');
 
-                // Workaround required for IE9, which doesn't report video support without audio codec specified.
-                //   bug 599718 @ msft connect
-                var h264 = 'video/mp4; codecs="avc1.42E01E';
-                bool.mp4 = el.canPlayType(h264 + '"') || el.canPlayType(h264 + ', mp4a.40.2"');
+                // Without QuickTime, this value will be `undefined`. github.com/Modernizr/Modernizr/issues/546
+                bool.h264 = elem.canPlayType('video/mp4; codecs="avc1.42E01E"').replace(/^no$/, '');
 
-                bool.webm = el.canPlayType('video/webm; codecs="vp8, vorbis"');
+                bool.webm = elem.canPlayType('video/webm; codecs="vp8, vorbis"').replace(/^no$/, '');
             }
 
         } catch (e) {
@@ -202,20 +200,20 @@
      * Copyright (c) 2009-2011 Faruk Ates, Paul Irish, Alex Sexton
      */
     support.audio = (function () {
-        var el = document.createElement('audio');
+        var elem = document.createElement('audio'), bool = false;
 
         try {
-            if (bool = !!el.canPlayType) {
+            if (bool = !!elem.canPlayType) {
                 bool = new Boolean(bool);
-                bool.ogg = el.canPlayType('audio/ogg; codecs="vorbis"');
-                bool.mp3 = el.canPlayType('audio/mpeg;');
+                bool.ogg = elem.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/, '');
+                bool.mp3 = elem.canPlayType('audio/mpeg;').replace(/^no$/, '');
 
                 // Mimetypes accepted:
-                //   https://developer.mozilla.org/En/Media_formats_supported_by_the_audio_and_video_elements
-                //   http://bit.ly/iphoneoscodecs
-                bool.wav = el.canPlayType('audio/wav; codecs="1"');
-                bool.m4a = el.canPlayType('audio/x-m4a;') || el.canPlayType('audio/aac;');
-                bool.webm = el.canPlayType('audio/webm; codecs="vp8, vorbis"');
+                //   developer.mozilla.org/En/Media_formats_supported_by_the_audio_and_video_elements
+                //   bit.ly/iphoneoscodecs
+                bool.wav = elem.canPlayType('audio/wav; codecs="1"').replace(/^no$/, '');
+                bool.m4a = (elem.canPlayType('audio/x-m4a;') ||
+                        elem.canPlayType('audio/aac;')).replace(/^no$/, '');
             }
         } catch (e) {
         }
@@ -224,6 +222,7 @@
     })();
 
     window.JCEMediaBox = {
+        domLoaded: false,
         /**
          * Global Options Object
          */
@@ -286,56 +285,93 @@
         },
         /**
          * Function to determine if DOM is ready.
-         * Based on JQuery 'bindReady' function - http://jquery.com/
-         * Copyright (c) 2009 John Resig
+         * Based on JQuery ready.js - https://github.com/jquery/jquery/blob/1.11-stable/src/core/ready.js
+         * Copyright 2005, 2014 jQuery Foundation, Inc. and other contributors
+         * Released under the MIT license
+         * http://jquery.org/license
          */
         ready: function () {
-            // Mozilla, Opera and webkit nightlies currently support this event
-            if (document.addEventListener) {
-                // Use the handy event callback
-                document.addEventListener("DOMContentLoaded", function () {
-                    document.removeEventListener("DOMContentLoaded", arguments.callee, false);
-                    return JCEMediaBox._init();
-                }, false);
+            var win = window, doc = win.document, self = JCEMediaBox;
 
-                // If IE event model is used
-            } else if (document.attachEvent) {
-                // ensure firing before onload,
-                // maybe late but safe also for iframes
-                document.attachEvent("onreadystatechange", function () {
-                    if (document.readyState === "complete") {
-                        document.detachEvent("onreadystatechange", arguments.callee);
-                        return JCEMediaBox._init();
-                    }
-                });
+            if (self.domLoaded) {
+                return self._init();
+            }
 
-                // If IE and not an iframe
-                // continually check to see if the document is ready
-                if (document.documentElement.doScroll && window == window.top) {
-                    (function () {
-                        if (JCEMediaBox.domLoaded)
-                            return;
+            /**
+             * Clean-up method for dom ready events
+             */
+            function detach() {
+                if (doc.addEventListener) {
+                    doc.removeEventListener("DOMContentLoaded", completed, false);
+                    win.removeEventListener("load", completed, false);
 
-                        try {
-                            // If IE is used, use the trick by Diego Perini
-                            // http://javascript.nwbox.com/IEContentLoaded/
-                            document.documentElement.doScroll("left");
-                        } catch (error) {
-                            setTimeout(arguments.callee, 0);
-                            return;
-                        }
-
-                        // and execute any waiting functions
-                        return JCEMediaBox._init();
-                    })();
-
+                } else {
+                    doc.detachEvent("onreadystatechange", completed);
+                    win.detachEvent("onload", completed);
                 }
             }
 
-            // A fallback to window.onload, that will always work
-            JCEMediaBox.Event.add(window, "load", function () {
-                return JCEMediaBox._init();
-            });
+            /**
+             * The ready event handler and self cleanup method
+             */
+            function completed(event) {
+                // readyState === "complete" is good enough for us to call the dom ready in oldIE
+                //if (doc.addEventListener || event && event.type === "load" || doc.readyState === "complete") {
+                    detach();
+
+                    self.domLoaded = true;
+
+                    self._init();
+                //}
+            }
+
+            if (doc.readyState === "complete") {
+                // Handle it asynchronously to allow scripts the opportunity to delay ready
+                setTimeout(completed);
+
+                // Standards-based browsers support DOMContentLoaded
+            } else if (doc.addEventListener) {
+                // Use the handy event callback
+                doc.addEventListener("DOMContentLoaded", completed, false);
+
+                // A fallback to window.onload, that will always work
+                win.addEventListener("load", completed, false);
+
+                // If IE event model is used
+            } else {
+                // Ensure firing before onload, maybe late but safe also for iframes
+                doc.attachEvent("onreadystatechange", completed);
+
+                // A fallback to window.onload, that will always work
+                win.attachEvent("onload", completed);
+
+                // If IE and not a frame
+                // continually check to see if the document is ready
+                var top = false;
+
+                try {
+                    top = win.frameElement == null && doc.documentElement;
+                } catch (e) {
+                }
+
+                if (top && top.doScroll) {
+                    (function doScrollCheck() {
+                        if (!self.domLoaded) {
+
+                            try {
+                                // Use the trick by Diego Perini
+                                // http://javascript.nwbox.com/IEContentLoaded/
+                                top.doScroll("left");
+                            } catch (e) {
+                                return setTimeout(doScrollCheck, 50);
+                            }
+
+                            // and execute any waiting functions
+                            completed();
+                        }
+                    })();
+                }
+            }
         },
         /**
          * Get the Site Base URL
@@ -372,11 +408,6 @@
          * Initialize JCEMediaBox
          */
         _init: function () {
-            if (this.domLoaded)
-                return;
-
-            this.domLoaded = true;
-
             var t = this, na = navigator, ua = na.userAgent;
 
             /**
@@ -438,6 +469,8 @@
             t.isiOS = /(iPad|iPhone)/.test(ua);
 
             t.isAndroid = /Android/.test(ua);
+
+            t.isMobile = t.isiOS || t.isAndroid;
 
             /**
              * Get the Site URL
@@ -931,7 +964,7 @@
                 el = document.createElement("div");
                 el.innerHTML = s;
 
-                return el.textContent || el.innerText || s;
+                return el.innerHTML || s;
             }
 
         },
@@ -1170,7 +1203,6 @@
                                 CollectGarbage();
                         }
                     }
-                    ;
 
                     function fakeUnload() {
                         var d = document;
@@ -1187,7 +1219,6 @@
 
                                 d = 0;
                             }
-                            ;
 
                             // Fire unload when the currently loading page is stopped
                             if (d)
@@ -1203,7 +1234,6 @@
 
                         }
                     }
-                    ;
 
                     // Attach unload handler
                     if (window.attachEvent) {
@@ -1246,24 +1276,18 @@
              * Get client window width
              */
             getWidth: function () {
-                return document.documentElement.clientWidth || document.body.clientWidth || window.innerWidth || 0;
+                return window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth || 0;
             },
             /**
              * Get client window height
              */
             getHeight: function () {
                 if (JCEMediaBox.isiOS || JCEMediaBox.isAndroid) {
-                    // Get zoom level of mobile Safari
-                    // Note, that such zoom detection might not work correctly in other browsers
-                    // We use width, instead of height, because there are no vertical toolbars :)
                     var zoomLevel = document.documentElement.clientWidth / window.innerWidth;
-
-                    // window.innerHeight returns height of the visible area. 
-                    // We multiply it by zoom and get out real height.
                     return window.innerHeight * zoomLevel;
                 }
 
-                return document.documentElement.clientHeight || document.body.clientHeight || window.innerHeight || 0;
+                return window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight || 0;
             },
             /**
              * Get client window scroll height
@@ -1281,7 +1305,7 @@
              * Get client window scroll top
              */
             getScrollTop: function () {
-                return document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop || 0;
+                return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
             },
             /**
              * Get the page scrollbar width
@@ -2281,22 +2305,20 @@
                 return true;
             }
         },
-        
-        protocolRelative : function(url) {
+        protocolRelative: function (url) {
             if (JCEMediaBox.isIE6) {
                 return url;
             }
-            
+
             var local = document.location.href;
-            
+
             // both ssl
             if (url.indexOf('https://') !== -1 && local.indexOf('https://') !== -1) {
                 return url;
             }
-            
+
             return url.replace(/http(s)?:\/\//i, '//');
         },
-        
         /**
          * Get the width of the container frame
          */
@@ -2596,13 +2618,28 @@
             return JCEMediaBox.DOM.select(s || selector, p);
         },
         getData: function (n) {
-            var DOM = JCEMediaBox.DOM, o = {}, data;
+            var DOM = JCEMediaBox.DOM, each = JCEMediaBox.each, o = {}, data;
             var re = /\w+\[[^\]]+\]/;
 
-            data = DOM.attribute(n, 'data-mediabox') || DOM.attribute(n, 'data-json');
+            data = n.getAttribute('data-mediabox') || n.getAttribute('data-json');
 
-            // try title or rel attributes
             if (!data) {
+                // try data-mediabox-* attributes (since 1.1.23, JCE 2.5.3)
+                var i, attrs = n.attributes, x = 0;
+                
+                for (i = attrs.length - 1; i >= 0; i--) {
+                    var attrName = attrs[i].name;
+                    if (attrName && attrName.indexOf('data-mediabox-') !== -1) {
+                        var attr = attrName.replace('data-mediabox-', '');
+                        o[attr] = attrs[i].value;
+                        x++;
+                    }
+                }
+                
+                if (x) {
+                    return o;
+                }
+
                 var title = DOM.attribute(n, 'title');
                 var rel = DOM.attribute(n, 'rel');
 
@@ -3025,11 +3062,11 @@
             // Set top position
             DOM.style(this.body, 'top', top);
             // Changes if IE6 or scrollpopup
-            if (JCEMediaBox.isIE6 || JCEMediaBox.isiOS || JCEMediaBox.options.popup.scrolling == 'scroll') {
-                DOM.style(this.page, 'position', 'absolute');
+            if (JCEMediaBox.isIE6 || JCEMediaBox.options.popup.scrolling == 'scroll') {
+                DOM.addClass(this.page, 'scrolling');
                 DOM.style(this.overlay, 'height', DIM.getScrollHeight());
                 DOM.style(this.body, 'top', DIM.getScrollTop() + top);
-            }
+            }            
             // Fade in overlay
             if (JCEMediaBox.options.popup.overlay == 1 && this.overlay) {
                 DOM.show(this.overlay);
@@ -3352,9 +3389,9 @@
             }
 
             // decode title
-            title = decodeURIComponent(title);
+            title = decodeURIComponent(DOM.decode(title));
             // decode caption
-            caption = decodeURIComponent(caption);
+            caption = decodeURIComponent(DOM.decode(caption));
 
             extend(this.active, {
                 'src': p.src || o.src,
@@ -3466,7 +3503,7 @@
                         for (n in p) {
                             if (p[n] !== '') {
                                 if (/^(id|name|style|width|height)$/.test(n)) {
-                                    t.object += ' ' + n + '="' + decodeURIComponent(p[n]) + '"';
+                                    t.object += ' ' + n + '="' + decodeURIComponent(DOM.decode(p[n])) + '"';
                                     delete p[n];
                                 }
                             }
@@ -3478,7 +3515,7 @@
                         this.object += '>';
                         // Create param elements
                         for (n in p) {
-                            t.object += '<param name="' + n + '" value="' + decodeURIComponent(p[n]) + '" />';
+                            t.object += '<param name="' + n + '" value="' + decodeURIComponent(DOM.decode(p[n])) + '" />';
                         }
                         // Add closing object element
                         this.object += '</object>';
@@ -3520,7 +3557,7 @@
                     for (n in p) {
                         if (p[n] !== '') {
                             if (/^(id|name|style|width|height)$/.test(n)) {
-                                t.object += ' ' + n + '="' + decodeURIComponent(p[n]) + '"';
+                                t.object += ' ' + n + '="' + decodeURIComponent(DOM.decode(p[n])) + '"';
                             } else if (/^(wmode|allowfullscreen|play|menu|quality|scale|salign|wmode|bgcolor|base|fullScreenAspectRatio)$/i.test(n)) {
                                 params[n] = p[n];
                             } else {
@@ -3560,29 +3597,34 @@
                 case 'video/webm':
                 case 'audio/webm':
                     var type = this.active.type;
+
+                    var hasSupport = (type == 'video/mp4' && support.video.mp4) || (type == 'video/webm' && support.video.webm) || (type == 'audio/mp3' && support.audio.mp3) || (type == 'audio/webm' && support.audio.webm);
+
                     var tag = /video/.test(type) ? 'video' : 'audio';
 
-                    p.width = p.width || this.active.width;
-                    p.height = p.height || this.active.height;
+                    this.object = '';
+                    // create <audio> / <video> tag if suported
+                    if (hasSupport) {
+                        p.width = p.width || this.active.width;
+                        p.height = p.height || this.active.height;
 
-                    this.object = '<' + tag + ' type="' + type + '"';
+                        this.object += '<' + tag + ' type="' + type + '"';
 
-                    for (n in p) {
-                        if (p[n] !== '') {
-                            if (/(loop|autoplay|controls|preload)$/.test(n)) {
-                                t.object += ' ' + n + '="' + n + '"';
-                            }
+                        for (n in p) {
+                            if (p[n] !== '') {
+                                if (/(loop|autoplay|controls|preload)$/.test(n)) {
+                                    t.object += ' ' + n + '="' + n + '"';
+                                }
 
-                            if (/(id|style|poster|audio)$/.test(n)) {
-                                t.object += ' ' + n + '="' + decodeURIComponent(p[n]) + '"';
+                                if (/(id|style|poster|audio)$/.test(n)) {
+                                    t.object += ' ' + n + '="' + decodeURIComponent(DOM.decode(p[n])) + '"';
+                                }
                             }
                         }
+
+                        this.object += '>';
+                        this.object += '<source src="' + this.active.src + '" type="' + type + '" />';
                     }
-
-                    this.object += '>';
-
-                    this.object += '<source src="' + this.active.src + '" type="' + type + '" />';
-
                     if (type == 'video/mp4' || type == 'audio/mp3') {
                         this.object += '<object type="application/x-shockwave-flash" data="' + JCEMediaBox.site + 'plugins/system/jcemediabox/mediaplayer/mediaplayer.swf"';
 
@@ -3620,7 +3662,7 @@
                                 }
 
                                 if (/(id|style)$/.test(n)) {
-                                    t.object += ' ' + n + '="' + decodeURIComponent(p[n]) + '"';
+                                    t.object += ' ' + n + '="' + decodeURIComponent(DOM.decode(p[n])) + '"';
                                 }
                             }
                         }
@@ -3635,7 +3677,9 @@
                         this.object += '</object>';
                     }
 
-                    this.object += '</' + tag + '>';
+                    if (hasSupport) {
+                        this.object += '</' + tag + '>';
+                    }
 
                     //DOM.addClass(this.content, 'broken-media');
 
@@ -3729,7 +3773,7 @@
                 case 'video/vimeo':
                 default:
                     // iOS Safari cannot open PDF files properly
-                    if (JCEMediaBox.isiOS || JCEMediaBox.isAndroid && this.active.type === "pdf") {
+                    if (JCEMediaBox.isMobile && this.active.type === "pdf") {
                         this.close();
                         return window.open(this.active.src);
                     }
@@ -3737,16 +3781,16 @@
                     if (this.print) {
                         this.print.style.visibility = 'hidden';
                     }
-                    
-                    // make URL protocol relative
-                    this.active.src = this.protocolRelative(this.active.src);
-                    
+
                     if (this.islocal(this.active.src)) {
                         // add tmpl=component to internal links, skip pdf
                         if (!/tmpl=component/i.test(this.active.src) && !/\.pdf\b/i.test(this.active.src)) {
                             this.active.src += /\?/.test(this.active.src) ? '&tmpl=component' : '?tmpl=component';
                         }
                     }
+
+                    // make URL protocol relative
+                    this.active.src = this.protocolRelative(this.active.src);
 
                     this.active.width = this.active.width || this.width();
                     this.active.height = this.active.height || this.height();
@@ -3758,7 +3802,6 @@
             }
             return false;
         },
-
         /**
          * Proportional resizing method
          * @param {Object} w
@@ -3964,26 +4007,31 @@
                             DOM.hide(t.loader);
                         }
                     } else {
-                        var doc = iframe.contentWindow.document;
+                        var win = iframe.contentWindow, doc = win.document, _timer;
 
-                        var _timer = setInterval(function () {
-                            if (doc.readyState === 'complete') {
-                                clearInterval(_timer);
+                        // fallback iframe load for iOS WebKit
+                        if (JCEMediaBox.isiOS && JCEMediaBox.isWebKit) {
+                            _timer = setInterval(function () {
+                                if (doc.readyState === 'complete') {
+                                    clearInterval(_timer);
 
-                                if (t.loader) {
-                                    DOM.hide(t.loader);
+                                    if (t.loader) {
+                                        DOM.hide(t.loader);
+                                    }
                                 }
-                            }
-                        }, 1000);
+                            }, 1000);
+                        }
 
-                        Event.add(iframe, 'load', function () {
-                            clearInterval(_timer);
+                        iframe.onload = function () {
+                            if (_timer) {
+                                clearInterval(_timer);
+                            }
 
                             // Hide loader
                             if (t.loader) {
                                 DOM.hide(t.loader);
                             }
-                        });
+                        };
                     }
 
                     iframe.setAttribute('src', t.active.src);

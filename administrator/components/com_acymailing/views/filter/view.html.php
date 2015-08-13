@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -76,7 +76,9 @@ class FilterViewFilter extends acymailingView
 		}
 
 		$js = "function updateAction(actionNum){
-				currentActionType =window.document.getElementById('actiontype'+actionNum).value;
+				var actiontype = window.document.getElementById('actiontype'+actionNum);
+				if(actiontype == 'undefined' || actiontype == null) return;
+				currentActionType = actiontype.value;
 				if(!currentActionType){
 					window.document.getElementById('actionarea_'+actionNum).innerHTML = '';
 					return;
@@ -95,7 +97,8 @@ class FilterViewFilter extends acymailingView
 					newdiv.id = 'action'+numActions;
 					newdiv.className = 'plugarea';
 					newdiv.innerHTML = document.getElementById('actions_original').innerHTML.replace(/__num__/g, numActions);
-					document.getElementById('allactions').appendChild(newdiv); updateAction(numActions); numActions++;
+					var allactions = document.getElementById('allactions');
+					if(allactions != 'undefined' && allactions != null) allactions.appendChild(newdiv); updateAction(numActions); numActions++;
 				}";
 
 		$js .= "window.addEvent('domready', function(){ addAcyFilter(); addAction(); });";

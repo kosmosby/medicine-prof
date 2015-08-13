@@ -1,6 +1,6 @@
 /**
  * @package    AcyMailing for Joomla!
- * @version    4.9.3
+ * @version    4.9.4
  * @author     acyba.com
  * @copyright  (C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -32,9 +32,9 @@ var tooltipTemplatePicture;
 var tooltipShowAreas;
 var templateShown = false;
 var urlAcyeditor;
-var boutonTags = "toolbar-popup-Acytags";
+var boutonTags = "toolbar-acytags";
 var boutonMediaBrowser = "toolbar-popup-Acymediabrowser";
-var acyVersion = "4.9.3";
+var acyVersion = "4.9.4";
 var pasteType = "plain";
 var acyEnterMode = "br";
 var urlSite = "";
@@ -425,27 +425,27 @@ function Initialisation(id, type, urlBase, urlAdminBase, cssUrl, forceComplet, m
 	}
 
 	CKEDITOR.on( 'instanceCreated', function( ev ){
-												var editor = ev.editor;
+        var editor = ev.editor;
 
-												editor.on( 'pluginsLoaded', function() {
+        editor.on( 'pluginsLoaded', function() {
 
-																if ( !CKEDITOR.dialog.exists( 'myDialog' ) ) {
-																				var href = document.location.href.split( '/' );
-																				href.pop();
-																				href.push( 'assets/my_dialog.js' );
-																				href = href.join( '/' );
+            if ( !CKEDITOR.dialog.exists( 'myDialog' ) ) {
+                var href = document.location.href.split( '/' );
+                href.pop();
+                href.push( 'assets/my_dialog.js' );
+                href = href.join( '/' );
 
-																				CKEDITOR.dialog.add( 'myDialog', href );
-																}
+                CKEDITOR.dialog.add( 'myDialog', href );
+            }
 
-																editor.addCommand( 'myDialogCmd', new CKEDITOR.dialogCommand( 'myDialog' ) );
+            editor.addCommand( 'myDialogCmd', new CKEDITOR.dialogCommand( 'myDialog' ) );
 
-																editor.ui.add( 'MyButton', CKEDITOR.UI_BUTTON, {
-																				label: 'My Dialog',
-																				command: 'myDialogCmd'
-																});
-												});
-								});
+            editor.ui.add( 'MyButton', CKEDITOR.UI_BUTTON, {
+                label: 'My Dialog',
+                command: 'myDialogCmd'
+            });
+        });
+    });
 
 
 }
@@ -1215,7 +1215,7 @@ function CreateZoneMore(zone, element, id, zoneBoutonSuppression){
 	btnPlus.id = "BoutonPlus_" + element.id;
 	btnPlus.title = titleBtnDupliAfter; //titleBtnMore;
 	btnPlus.className = "acyeditor_btnplus";
-	acyJquery(btnPlus).on('click', function (evt) {
+    acyJquery(btnPlus).on('click', function (evt) {
 		var zoneBody = acyJquery('#' + id + "_ifr")[0].contentWindow.document.body.getElementsByTagName('*');
 		acyJquery(zoneBody).find('.acyeditor_text').addClass('nepasediter');
 		acyJquery(zoneBody).find('.acyeditor_picture').addClass('nepasediter');
@@ -1236,7 +1236,7 @@ function CreateZoneMore(zone, element, id, zoneBoutonSuppression){
 
 			elemCopy[0].id = "";
 			elementsZones = acyJquery(elemCopy).find('*');
-			for (indexZone = 0; indexZone < elementsZones.length; ++indexZone){
+			for (var indexZone = 0; indexZone < elementsZones.length; ++indexZone){
 				elementsZones[indexZone].id = "";
 			}
 			acyJquery(elem).after(elemCopy);
@@ -1245,13 +1245,30 @@ function CreateZoneMore(zone, element, id, zoneBoutonSuppression){
 			ResizeIframe(id);
 
 
-	});
-	zoneBoutonSuppression.appendChild(btnPlus);
+    });
+    zoneBoutonSuppression.appendChild(btnPlus);
+
+    var lineTr = acyJquery(zoneBoutonSuppression).closest('tr');
+    if(lineTr.length != 0) {
+        var btnMore = document.createElement("div");
+        btnMore.id = "BoutonMore_" + element.id;
+        btnMore.title = titleBtnMore; //titleBtnMore;
+        btnMore.className = "acyeditor_btnMore";
+        acyJquery(btnMore).on('click', function (evt) {
+            var zoneBody = acyJquery('#' + id + "_ifr")[0].contentWindow.document.body.getElementsByTagName('*');
+            acyJquery(zoneBody).find('.acyeditor_text').addClass('nepasediter');
+            acyJquery(zoneBody).find('.acyeditor_picture').addClass('nepasediter');
+            acyJquery(zoneBoutonSuppression).closest('acyeditor_delete').addClass('nepasediter');
+            addActionsButtons(id, zoneBoutonSuppression, evt);
+        });
+        zoneBoutonSuppression.appendChild(btnMore);
+    }
 }
 
+var blockHide = false;
 function addActionsButtons(id, zoneBoutonSuppression, evt){
 	var zoneBody = acyJquery('#' + id + "_ifr")[0].contentWindow.document.body;
-
+    var iframe = acyJquery('#' + id + "_ifr")[0];
 	hideActionButtons(id, null, 'noClick', true);
 	acyJquery(zoneBody.childNodes).addClass("acyeditor_disable");
 	var zoneFade = document.createElement("div");
@@ -1259,31 +1276,96 @@ function addActionsButtons(id, zoneBoutonSuppression, evt){
 	zoneFade.className = "acyeditor_mask";
 	zoneFade.style.width = zoneBody.clientWidth + "px";
 	zoneFade.style.height = zoneBody.clientHeight + "px";
-	zoneFade.onclick = function(){ hideAll(id); };
+
+    var isColorPickEnabled = acyJquery('.colorPicker');
+	zoneFade.onclick = function(){ if(!blockHide && isColorPickEnabled.length == 0){ hideAll(id); }};
 	zoneFade.id = "zoneFade";
 
 	var zoneAction = document.createElement("div");
 	zoneAction.style.position = "absolute";
 	zoneAction.className = "acyeditor_action";
 	zoneAction.id = "zoneAction";
+    blockHide = true;
 	if (evt != null && evt != undefined){
-		if(evt.clientX + 100 <= zoneBody.clientWidth) zoneAction.style.left = evt.clientX - 50 + "px";
-		else zoneAction.style.left = zoneBody.clientWidth - 100 + "px";
+		if(evt.clientX + 142 <= iframe.clientWidth) zoneAction.style.left = evt.clientX - 50 + "px";
+		else zoneAction.style.left = iframe.clientWidth - 142 + "px";
 		if(evt.layerY != undefined && evt.layerY > 0 && evt.layerY != evt.clientY){ decaY = evt.layerY; }
 		else if(evt.offsetY != undefined){ decaY = evt.offsetY; }
 		else{ decaY = 0; }
 		zoneAction.style.top = evt.clientY - decaY + "px";
 	}
 
-	var zoneCopyAfterButton = document.createElement("div");
-	zoneCopyAfterButton.title = titleBtnDupliAfter;
-	zoneCopyAfterButton.id = "zoneCopyAfterButton";
-	zoneCopyAfterButton.className = "acyeditor_copyButton acyeditor_copyButtonAfter";
-	zoneCopyAfterButton.onclick = function(){ duplicateZone(id, zoneBoutonSuppression, 'after'); }
-	zoneAction.appendChild(zoneCopyAfterButton);
+
+    var lineTr = acyJquery(zoneBoutonSuppression).closest('tr');
+    if(lineTr.length != 0) {
+        var legendBground = document.createElement("p");
+        acyJquery(legendBground).text(bgroundColorTxt + ':');
+        legendBground.id = 'legendBground';
+        var colorSelector = document.createElement("div");
+        colorSelector.id = "colorSelector";
+        var colorStr = acyJquery(lineTr).find('td').css('background-color');
+        acyJquery(colorSelector).css('background-color', '#' + rgb2hex(colorStr));
+
+        acyJquery(colorSelector).ColorPicker({
+            color: rgb2hex(colorStr),
+            onSubmit: function(hsb, hex, rgb, el) {
+                blockHide = true;
+                acyJquery(el).ColorPickerHide();
+                hideColorPicker();
+                var elem = acyJquery(zoneBoutonSuppression).closest('.acyeditor_delete');
+                acyJquery(elem).find('td').css('background-color', '#' + hex);
+                InitContent(id, txtSup, titleSup, titleEd, urlSite);
+                Sauvegarde(id);
+                ResizeIframe(id);
+            },
+            onShow: function(colpkr){
+                var iframe = acyJquery('#' + id + "_ifr");
+                var offsetParent = iframe.offset().top;
+                var xButton = acyJquery(colpkr).css('top').replace('px', '');
+                var newTop = Number(xButton) + Number(offsetParent);
+                acyJquery(colpkr).css('top', newTop + 'px');
+                acyJquery(colpkr).fadeIn(500);
+                return false;
+            },
+            onHide: function(colpkr) {
+                acyJquery(colpkr).fadeOut(500);
+                return false;
+            },
+            onChange: function (hsb, hex, rgb) {
+                acyJquery(colorSelector).css('backgroundColor', '#' + hex);
+            }
+        });
+        zoneAction.appendChild(legendBground);
+        zoneAction.appendChild(colorSelector);
+    }
+    var closeButton = document.createElement('div');
+    closeButton.id = 'closeButton';
+    closeButton.className = 'acyeditor_closebutton';
+    acyJquery(closeButton).on('click', function (evt) {
+        hideColorPicker();
+        hideAll(id);
+        InitContent(id, txtSup, titleSup, titleEd, urlSite);
+        Sauvegarde(id);
+        ResizeIframe(id);
+    });
+    zoneAction.appendChild(closeButton);
+
 
 	zoneFade.appendChild(zoneAction);
-	zoneBody.appendChild(zoneFade);
+    zoneBody.appendChild(zoneFade);
+}
+
+function hideColorPicker() {
+    var pickers = acyJquery('.colorpicker');
+    for (var i = 0; i < pickers.length; i++) {
+        pickers[i].style.display = 'none';
+    }
+}
+function rgb2hex(rgb){
+    rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+    return (rgb && rgb.length === 4) ? ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+    ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+    ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
 }
 
 function duplicateZone(id, zoneCopy, action){
@@ -1309,24 +1391,25 @@ function hideAll(id){
 	var zoneBody = acyJquery('#' + id + "_ifr")[0].contentWindow.document.body;
 	acyJquery(zoneBody).children('.acyeditor_disable').removeClass('acyeditor_disable');
 	var zoneGlob = zoneBody.getElementsByTagName('*');
-	acyJquery(zoneGlob).remove('.acyeditor_mask');
+    acyJquery(zoneGlob).remove('.acyeditor_mask');
 }
 
 function hideActionButtons(id, e, zoneClick, protectEditor){
+    if(e && ((e.srcElement && acyJquery(e.srcElement).closest('.colorpicker').length > 0) || (e.target && acyJquery(e.target).closest('.colorpicker').length > 0))) return;
 	var canHide = false;
 	if(zoneClick == 'editor'){
-		if (e != null && e != undefined){
-			srcEvent = e.srcElement? e.srcElement : (e.target ? e.target : e);
-			parentDelete = acyJquery(srcEvent).closest('.acyeditor_delete');
-			if(parentDelete == null || parentDelete == undefined){
-				canHide == true;
-			}else if(zoneActionActive != null){
-				childActive = acyJquery(parentDelete).find('#'+zoneActionActive.id);
-				if(childActive[0] == null || childActive[0] == undefined) canHide = true;
-			}
-		}else{
-			canHide = true;
-		}
+        if (e != null && e != undefined) {
+            srcEvent = e.srcElement ? e.srcElement : (e.target ? e.target : e);
+            parentDelete = acyJquery(srcEvent).closest('.acyeditor_delete');
+            if (parentDelete == null || parentDelete == undefined) {
+                canHide == true;
+            } else if (zoneActionActive != null) {
+                childActive = acyJquery(parentDelete).find('#' + zoneActionActive.id);
+                if (childActive[0] == null || childActive[0] == undefined) canHide = true;
+            }
+        } else {
+            canHide = true;
+        }
 	}
 
 	if(zoneClick == 'outside' || zoneClick == 'noClick' || canHide){
@@ -1654,88 +1737,75 @@ function ClickTemplateCKEditor(id, idElement, e){
 				okPourEdition = false;
 			}
 
-			if (okPourEdition)
-			{
-				var zone = GetElement(id, "ZoneEditionSuppression_" + elementToEdit.id);
+			if (okPourEdition) {
+                var zone = GetElement(id, "ZoneEditionSuppression_" + elementToEdit.id);
 
-				elementToEditJQ.removeClass('acyeditor_editablehover');
-				zone.removeClass('acyeditor_zoneeditionsuppressionhover');
+                elementToEditJQ.removeClass('acyeditor_editablehover');
+                zone.removeClass('acyeditor_zoneeditionsuppressionhover');
 
-				if (zone[0] != null && zone[0] != undefined)
-				{
-					zone.detach();
-				}
-				var code = elementToEdit.innerHTML;
+                if (zone[0] != null && zone[0] != undefined) {
+                    zone.detach();
+                }
+                var code = elementToEdit.innerHTML;
 
-				var iframeCKEDITOR = acyJquery('#' + idIframe)[0].contentWindow.CKEDITOR;
+                var iframeCKEDITOR = acyJquery('#' + idIframe)[0].contentWindow.CKEDITOR;
 
-				var headerIFrame = acyJquery('#' + idIframe)[0].contentWindow.document;
-				headerIFrame = headerIFrame.head || headerIFrame;
-				var urlBase = headerIFrame.getElementsByTagName("base")[0].href;
+                var headerIFrame = acyJquery('#' + idIframe)[0].contentWindow.document;
+                headerIFrame = headerIFrame.head || headerIFrame;
+                var urlBase = headerIFrame.getElementsByTagName("base")[0].href;
 
-				var borderSize = 1;
-				var left = elementToEditJQ.css("padding-left");
-				var right = elementToEditJQ.css("padding-right");
-				var top = elementToEditJQ.css("padding-top");
-				var bottom = elementToEditJQ.css("padding-bottom");
-				var leftPad = (elementToEditJQ.css("padding-left").replace("px", "") - borderSize);
-				var rightPad = (elementToEditJQ.css("padding-right").replace("px", "") - borderSize);
-				var topPad = (elementToEditJQ.css("padding-top").replace("px", "") - borderSize);
-				var bottomPad = (elementToEditJQ.css("padding-bottom").replace("px", "") - borderSize);
-				leftPad = leftPad < 0 ? 0 : leftPad;
-				rightPad = rightPad < 0 ? 0 : rightPad;
-				topPad = topPad < 0 ? 0 : topPad;
-				bottomPad = bottomPad < 0 ? 0 : bottomPad;
-				elementToEdit.innerHTML = "<div id='edition_en_cours' contenteditable='true' style='border:solid " + borderSize + "px orange;padding:" + topPad + "px " + rightPad + "px " + bottomPad + "px " + leftPad + "px;margin:-" + top + " -" + right + " -" + bottom + " -" + left + ";color:inherit;background:inherit;font:inherit;text-indent:inherit;text-decoration:inherit;text-transform:inherit;text-justify:inherit;text-kashida-space:inherit;text-overflow:inherit;text-shadow:inherit;text-underline-position:inherit;unicode-bidi:inherit;word-spacing:inherit;writing-mode:inherit;word-break:inherit;word-wrap:inherit;zoom:inherit;marker-offset:inherit;marks:inherit;quotes:inherit;table-layout:inherit;text-align-last:inherit;text-autospace:inherit;outline:inherit;overflow:inherit;min-height:inherit;max-height:inherit;line-break:inherit;letter-spacing:inherit;layout-flow:inherit;layout-grid:inherit;line-height:inherit;white-space:inherit;text-align:inherit;direction:inherit;list-style:inherit;float:inherit;ime-mode:inherit;layer-background-color:inherit;layer-background-image:inherit;filter:inherit;behavior:inherit;position:inherit;clear:inherit;clip:inherit;cursor:inherit;vertical-align:inherit'>" + code + "</div><div id='bottom' style='width:" + largeurMenuInline + "px;position:absolute'></div>";
-				iframeCKEDITOR.disableAutoInline = true;
+                var borderSize = 1;
+                var left = elementToEditJQ.css("padding-left");
+                var right = elementToEditJQ.css("padding-right");
+                var top = elementToEditJQ.css("padding-top");
+                var bottom = elementToEditJQ.css("padding-bottom");
+                var leftPad = (elementToEditJQ.css("padding-left").replace("px", "") - borderSize);
+                var rightPad = (elementToEditJQ.css("padding-right").replace("px", "") - borderSize);
+                var topPad = (elementToEditJQ.css("padding-top").replace("px", "") - borderSize);
+                var bottomPad = (elementToEditJQ.css("padding-bottom").replace("px", "") - borderSize);
+                leftPad = leftPad < 0 ? 0 : leftPad;
+                rightPad = rightPad < 0 ? 0 : rightPad;
+                topPad = topPad < 0 ? 0 : topPad;
+                bottomPad = bottomPad < 0 ? 0 : bottomPad;
+                elementToEdit.innerHTML = "<div id='edition_en_cours' contenteditable='true' style='border:solid " + borderSize + "px orange;padding:" + topPad + "px " + rightPad + "px " + bottomPad + "px " + leftPad + "px;margin:-" + top + " -" + right + " -" + bottom + " -" + left + ";color:inherit;background:inherit;font:inherit;text-indent:inherit;text-decoration:inherit;text-transform:inherit;text-justify:inherit;text-kashida-space:inherit;text-overflow:inherit;text-shadow:inherit;text-underline-position:inherit;unicode-bidi:inherit;word-spacing:inherit;writing-mode:inherit;word-break:inherit;word-wrap:inherit;zoom:inherit;marker-offset:inherit;marks:inherit;quotes:inherit;table-layout:inherit;text-align-last:inherit;text-autospace:inherit;outline:inherit;overflow:inherit;min-height:inherit;max-height:inherit;line-break:inherit;letter-spacing:inherit;layout-flow:inherit;layout-grid:inherit;line-height:inherit;white-space:inherit;text-align:inherit;direction:inherit;list-style:inherit;float:inherit;ime-mode:inherit;layer-background-color:inherit;layer-background-image:inherit;filter:inherit;behavior:inherit;position:inherit;clear:inherit;clip:inherit;cursor:inherit;vertical-align:inherit'>" + code + "</div><div id='bottom' style='width:" + largeurMenuInline + "px;position:absolute'></div>";
+                iframeCKEDITOR.disableAutoInline = true;
 
-				var toolbarGroupsCKEditor = [{ name: 'mode' },
-											 { name: 'undo' },
-											 { name: 'links' }];
+                var toolbarGroupsCKEditor = [{name: 'mode'},
+                    {name: 'undo'},
+                    {name: 'links'}];
 
-				var extraPluginsCKEditor = '';
-				extraPluginsCKEditor += ',acymediabrowser';
+                var extraPluginsCKEditor = '';
+                extraPluginsCKEditor += ',acymediabrowser';
 
-				if (!acyeditor_listmode && isTagAllowed)
-				{
-					extraPluginsCKEditor += ',addtag';
-					toolbarGroupsCKEditor.push({ name: 'insert', groups: [ "acymediabrowser", "addtag" ]});
-				}
-				else
-				{
-					toolbarGroupsCKEditor.push({ name: 'insert', groups: [ "acymediabrowser" ]});
-				}
-				toolbarGroupsCKEditor.push({ name: 'basicstyles' },
-											{ name: 'colors' },
-											'/',
-											{ name: 'paragraph',   groups: [ 'list', 'indent', 'blocks' ] },
-											{ name: 'align' },
-											{ name: 'styles' });
-				if (acyeditor_templatemode)
-				{
-					toolbarGroupsCKEditor.push({ name: 'templatemode', groups: [ "textarea", "picturearea", "deletearea", "-", "showarea" ] });
-				}
+                if (!acyeditor_listmode && isTagAllowed) {
+                    extraPluginsCKEditor += ',addtag';
+                    toolbarGroupsCKEditor.push({name: 'insert', groups: ["acymediabrowser", "addtag"]});
+                }
+                else {
+                    toolbarGroupsCKEditor.push({name: 'insert', groups: ["acymediabrowser"]});
+                }
+                toolbarGroupsCKEditor.push({name: 'basicstyles'},
+                    {name: 'colors'},
+                    '/',
+                    {name: 'paragraph', groups: ['list', 'indent', 'blocks']},
+                    {name: 'align'},
+                    {name: 'styles'});
+                if (acyeditor_templatemode) {
+                    toolbarGroupsCKEditor.push({name: 'templatemode', groups: ["textarea", "picturearea", "deletearea", "-", "showarea"]});
+                }
+                var elementEditor = GetElement(id, "edition_en_cours")[0];
+                var xEditor = elementEditor.offsetLeft;
+                var yEditor = elementEditor.offsetTop;
+                var parentOffset = elementEditor.offsetParent;
+                while (parentOffset != null && parentOffset != undefined) {
+                    xEditor = xEditor + parentOffset.offsetLeft;
+                    yEditor = yEditor + parentOffset.offsetTop;
+                    parentOffset = parentOffset.offsetParent;
+                }
+                var largeurEditor = elementEditor.clientWidth;
+                var newX = ((largeurEditor - largeurMenuInline) / 2);
+                var newX = ((largeurEditor - largeurMenuInline) / 2);
 
-				var elementEditor = GetElement(id, "edition_en_cours")[0];
-				var xEditor = elementEditor.offsetLeft;
-				var yEditor = elementEditor.offsetTop;
-				var parentOffset = elementEditor.offsetParent;
-				while (parentOffset != null && parentOffset != undefined)
-				{
-					xEditor = xEditor + parentOffset.offsetLeft;
-					yEditor = yEditor + parentOffset.offsetTop;
-					parentOffset = parentOffset.offsetParent;
-				}
-				var largeurEditor = elementEditor.clientWidth;
-				var newX = ((largeurEditor - largeurMenuInline) / 2);
-				if (newX + largeurMenuInline > window.outerWidth)
-				{
-					newX = window.outerWidth - largeurMenuInline;
-				}
-				else if (newX + xEditor < 0)
-				{
-					newX = 0;
-				}
 				GetElement(id, 'bottom')[0].style.marginLeft = newX + "px";
 				GetElement(id, 'bottom')[0].style.marginTop = (((GetElement(id, 'edition_en_cours').css("margin-bottom").replace("px", "") - 1) + 1) * -1) + "px";
 
@@ -1775,7 +1845,7 @@ function ClickTemplateCKEditor(id, idElement, e){
 				});
 
 				var previousScroll;
-				acyJquery(window).on('scroll', function(e) {
+				var editorOnScreen = function () {
 					var isScrollDown = true;
 					var iframe = acyJquery('#editor_body_ifr');
 					var toolbar = iframe.contents().find('#cke_edition_en_cours');
@@ -1788,8 +1858,10 @@ function ClickTemplateCKEditor(id, idElement, e){
 					var divEdited = iframe.contents().find('#edition_en_cours');
 					var divEditedHeight = divEdited.height();
 					var offsetdivEdited = divEdited.offset().top;
+					var windowHeight = acyJquery(window).height();
+					var divEditedBottomCoordinate;
 
-					if(isNaN(topValue)) topValue = 0;
+					if (isNaN(topValue)) topValue = 0;
 
 					offsetToolbar = Number(offsetToolbar);
 					scrollWindows = Number(scrollWindows);
@@ -1797,15 +1869,20 @@ function ClickTemplateCKEditor(id, idElement, e){
 					topValue = Number(topValue);
 					divEditedHeight = Number(divEditedHeight);
 
-					isScrollDown = (previousScroll < scrollWindows) ? true : false;
+					isScrollDown = (previousScroll > scrollWindows) ? -1 : 1;
 
-					if(isScrollDown) {
-						if(offsetParent + offsetToolbar - toolbar.height()  < scrollWindows) {
+					if ((offsetParent + offsetToolbar - toolbar.height() - marginTop) * isScrollDown < scrollWindows) {
 
-							newToolbarVerticalPosition = scrollWindows - (offsetToolbar + offsetParent);
-							topValue = newToolbarVerticalPosition + marginTop + topValue;
+						divEditedBottomCoordinate = (offsetdivEdited + offsetParent + divEditedHeight) + toolbar.height();
+						if (divEditedBottomCoordinate > scrollWindows && divEditedBottomCoordinate < scrollWindows + windowHeight) {
+							toolbar.css('top', offsetdivEdited + divEditedHeight + 'px');
+						} else {
+							newToolbarVerticalPosition = (isScrollDown == 1) ? scrollWindows - (offsetToolbar + offsetParent) : (offsetToolbar + offsetParent) - scrollWindows;
+							topValue = topValue + (newToolbarVerticalPosition * isScrollDown) + marginTop;
 
-							if(topValue <= offsetdivEdited + divEditedHeight) {
+							if (topValue <= offsetdivEdited) {
+								toolbar.css('top', offsetdivEdited - toolbar.height() + 'px');
+							} else if (topValue <= offsetdivEdited + divEditedHeight) {
 								toolbar.css('position', 'absolute');
 								toolbar.css('top', topValue + 'px');
 
@@ -1813,23 +1890,10 @@ function ClickTemplateCKEditor(id, idElement, e){
 								toolbar.css('top', offsetdivEdited + divEditedHeight + 'px');
 							}
 						}
-					} else {
-						if(offsetParent + offsetToolbar - toolbar.height() > scrollWindows) {
-
-							newToolbarVerticalPosition = (offsetToolbar + offsetParent) - scrollWindows;
-							topValue = topValue - newToolbarVerticalPosition + marginTop;
-
-							if(topValue >= offsetdivEdited) {
-								toolbar.css('position', 'absolute');
-								toolbar.css('top', topValue + 'px');
-
-							} else {
-								toolbar.css('top', offsetdivEdited - toolbar.height() + 'px');
-							}
-						}
 					}
 					previousScroll = scrollWindows;
-				});
+				};
+				acyJquery(window).on('scroll', function(e) {editorOnScreen()});
 
 				editor.on('dialogShow', function (e) {
 					var iframe = acyJquery('#editor_body_ifr');
@@ -1861,8 +1925,27 @@ function ClickTemplateCKEditor(id, idElement, e){
 
 					editor.on('selectionChange', function(e) { IeCursorFix(); });
 					editor.on('change', function(e) { ResizeIframe(id); });
-
 					editor.focus();
+
+					editorOnScreen();
+
+                    var iframe = acyJquery('#editor_body_ifr');
+                    var toolbar = iframe.contents().find('#cke_edition_en_cours');
+                    var iframeEditionWidth = window.document.getElementById(idIframe).clientWidth;
+                    if(toolbar.offset().left < 0){
+                        if((xEditor + newX) < 0){
+                            toolbar.css('left', '0px');
+                        }else{
+                           var newLeftToolbar = xEditor + newX;
+                            toolbar.css('left', newLeftToolbar + 'px');
+                        }
+                    } else if((toolbar.offset().left + largeurMenuInline) > iframeEditionWidth){
+                        var newLeftToolbar = iframeEditionWidth - largeurMenuInline;
+                        toolbar.css('left', newLeftToolbar + 'px');
+                        var bottomZone = iframe.contents().find('#bottom');
+                        bottomZone.css('left', newLeftToolbar + 'px');
+                        bottomZone.css('margin-left', '0px');
+                    }
 				});
 
 				if (zone[0] != null && zone[0] != undefined)
@@ -2061,7 +2144,7 @@ function Sauvegarde(id)
 	var elements = newNoeud.getElementsByTagName('*');
 	for (i = 0; i < elements.length; ++i)
 	{
-		if (acyJquery(elements[i]).hasClass("acyeditor_zoneeditionsuppression"))
+		if (acyJquery(elements[i]).hasClass("acyeditor_zoneeditionsuppression") || acyJquery(elements[i]).hasClass("acyeditor_action") || acyJquery(elements[i]).hasClass("acyeditor_mask"))
 		{
 			elements[i].outerHTML = "";
 			i = i - 1;

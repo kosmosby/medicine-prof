@@ -1,14 +1,14 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 defined('_JEXEC') or die('Restricted access');
 ?><?php
-if(acymailing_isAllowed($this->config->get('acl_newsletters_lists','all')) || acymailing_isAllowed($this->config->get('acl_newsletters_attachments','all')) || acymailing_isAllowed($this->config->get('acl_newsletters_sender_informations','all')) || acymailing_isAllowed($this->config->get('acl_newsletters_meta_data','all')) || acymailing_isAllowed($this->config->get('acl_newsletters_inbox_actions','all'))){ ?>
+if(acymailing_isAllowed($this->config->get('acl_newsletters_lists','all')) || acymailing_isAllowed($this->config->get('acl_newsletters_attachments','all')) || acymailing_isAllowed($this->config->get('acl_newsletters_sender_informations','all')) || acymailing_isAllowed($this->config->get('acl_newsletters_meta_data','all')) || (acymailing_isAllowed($this->config->get('acl_newsletters_inbox_actions','all')) && JPluginHelper::isEnabled('acymailing', 'plginboxactions'))){ ?>
 	 <div id="newsletterparams">
 
 	<?php echo $this->tabs->startPane( 'mail_tab');
@@ -137,7 +137,7 @@ if(acymailing_isAllowed($this->config->get('acl_newsletters_lists','all')) || ac
 		}
 	}
 	if($this->type == 'joomlanotification') echo '</div>';
-	if(acymailing_level(3) && acymailing_isAllowed($this->config->get('acl_newsletters_inbox_actions','all'))) include(dirname(__FILE__).DS.'inboxactions.php');
+	if(acymailing_level(3) && acymailing_isAllowed($this->config->get('acl_newsletters_inbox_actions','all')) && JPluginHelper::isEnabled('acymailing', 'plginboxactions')) include(dirname(__FILE__).DS.'inboxactions.php');
 	echo $this->tabs->endPane(); ?>
 	</div>
 <?php } ?>

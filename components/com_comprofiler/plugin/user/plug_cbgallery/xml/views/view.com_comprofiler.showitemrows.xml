@@ -19,7 +19,7 @@
 					<field name="id" valuetype="const:int" />
 				</quicksearchfields>
 				<filters>
-					<filter name="folder" valuetype="sql:string" type="list" label="" blanktext="- Select Folder -">
+					<filter name="folder" valuetype="sql:string" type="data" label="" blanktext="- Select Folder -">
 						<data name="folders" type="sql:multiplerows" table="#__comprofiler_plugin_gallery_folders" key="id">
 							<rows>
 								<field name="id" as="value" />

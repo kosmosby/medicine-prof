@@ -86,6 +86,8 @@ class Activity extends StreamDirection implements ActivityInterface
 	 */
 	public function push( $data = array(), $keys = null )
 	{
+		global $_PLUGINS;
+
 		$row					=	new ActivityTable();
 
 		if ( isset( $data['id'] ) ) {
@@ -144,6 +146,8 @@ class Activity extends StreamDirection implements ActivityInterface
 			return false;
 		}
 
+		$_PLUGINS->trigger( 'activity_onPushActivity', array( $this, $row ) );
+
 		$this->resetCount		=	true;
 		$this->resetSelect		=	true;
 
@@ -158,6 +162,8 @@ class Activity extends StreamDirection implements ActivityInterface
 	 */
 	public function remove( $keys = null )
 	{
+		global $_PLUGINS;
+
 		if ( ( $keys === null ) && $this->get( 'id' ) ) {
 			$keys			=	(int) $this->get( 'id', null, GetterInterface::INT );
 		}
@@ -173,6 +179,8 @@ class Activity extends StreamDirection implements ActivityInterface
 		if ( ! $row->delete() ) {
 			return false;
 		}
+
+		$_PLUGINS->trigger( 'activity_onRemoveActivity', array( $this, $row ) );
 
 		$this->resetCount	=	true;
 		$this->resetSelect	=	true;
@@ -229,6 +237,45 @@ class Activity extends StreamDirection implements ActivityInterface
 										.	' AND e.' . $_CB_database->NameQuote( 'referenceid' ) . ' = ' . (int) $this->user->get( 'id' );
 		}
 
+		if ( ( ! $this->get( 'id' ) ) && ( ! $this->get( 'type' ) ) && ( ! $this->get( 'item' ) ) && in_array( $this->source, array( 'recent', 'profile' ) ) ) {
+			$query						.=	"\n LEFT JOIN " . $_CB_database->NameQuote( '#__comprofiler_plugin_activity' ) . " AS f"
+										.	' ON ( ( f.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'activity' )
+										.	' AND f.' . $_CB_database->NameQuote( 'item' ) . ' = a.' . $_CB_database->NameQuote( 'id' ) . ' )'
+										.	' OR ( f.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'activity' )
+										.	' AND a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'activity' )
+										.	' AND f.' . $_CB_database->NameQuote( 'item' ) . ' = a.' . $_CB_database->NameQuote( 'item' ) . ' ) )'
+										.	' AND f.' . $_CB_database->NameQuote( 'id' ) . ' NOT IN ('
+										.		'SELECT ' . $_CB_database->NameQuote( 'item' )
+										.		' FROM ' . $_CB_database->NameQuote( '#__comprofiler_plugin_activity_hidden' )
+										.		' WHERE ' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'activity' )
+										.		' AND ' . $_CB_database->NameQuote( 'item' ) . ' = f.' . $_CB_database->NameQuote( 'id' )
+										.		' AND ' . $_CB_database->NameQuote( 'user_id' ) . ' = ' . (int) Application::MyUser()->getUserId()
+										.		')';
+
+			if ( $this->source == 'profile' ) {
+				if ( $isSelf ) {
+					$query				.=	' AND ( f.' . $_CB_database->NameQuote( 'user_id' ) . ' = ' . (int) $this->user->get( 'id' ) . ' OR e.' . $_CB_database->NameQuote( 'memberid' ) . ' IS NOT NULL )';
+				} else {
+					$query				.=	' AND ( f.' . $_CB_database->NameQuote( 'user_id' ) . ' = ' . (int) $this->user->get( 'id' ) . ' OR a.' . $_CB_database->NameQuote( 'parent' ) . ' = ' . (int) $this->user->get( 'id' ) . ' )';
+				}
+			}
+
+			if ( $this->get( 'subtype' ) ) {
+				$query					.=	' AND f.' . $_CB_database->NameQuote( 'subtype' ) . ' = ' . $_CB_database->Quote( $this->get( 'subtype', null, GetterInterface::STRING ) );
+			}
+
+			if ( $this->get( 'parent' ) ) {
+				$query					.=	' AND f.' . $_CB_database->NameQuote( 'parent' ) . ' = ' . $_CB_database->Quote( $this->get( 'parent', null, GetterInterface::STRING ) );
+			}
+
+			if ( $this->get( 'filter' ) ) {
+				$query					.=	' AND ( f.' . $_CB_database->NameQuote( 'title' ) . ' LIKE ' . $_CB_database->Quote( '%' . $_CB_database->getEscaped( $this->get( 'filter', null, GetterInterface::STRING ), true ) . '%', false )
+										.	' OR f.' . $_CB_database->NameQuote( 'message' ) . ' LIKE ' . $_CB_database->Quote( '%' . $_CB_database->getEscaped( $this->get( 'filter', null, GetterInterface::STRING ), true ) . '%', false ) . ' )';
+			}
+
+			$query						.=	' AND f.' . $_CB_database->NameQuote( 'date' ) . ' > a.' . $_CB_database->NameQuote( 'date' );
+		}
+
 		$query							.=	( $join ? "\n " . implode( "\n ", $join ) : null );
 
 		if ( $this->source == 'hidden' ) {
@@ -236,6 +283,10 @@ class Activity extends StreamDirection implements ActivityInterface
 										.	"\n AND b." . $_CB_database->NameQuote( 'user_id' ) . " = " . (int) Application::MyUser()->getUserId();
 		} else {
 			$query						.=	"\n WHERE b." . $_CB_database->NameQuote( 'id' ) . " IS NULL";
+		}
+
+		if ( ( ! $this->get( 'id' ) ) && ( ! $this->get( 'type' ) ) && ( ! $this->get( 'item' ) ) && in_array( $this->source, array( 'recent', 'profile' ) ) ) {
+			$query						.=	"\n AND f." . $_CB_database->NameQuote( 'id' ) . " IS NULL";
 		}
 
 		$query							.=	"\n AND c." . $_CB_database->NameQuote( 'approved' ) . " = 1"
@@ -272,7 +323,7 @@ class Activity extends StreamDirection implements ActivityInterface
 
 		if ( $this->get( 'filter' ) ) {
 			$query						.=	"\n AND ( a." . $_CB_database->NameQuote( 'title' ) . " LIKE " . $_CB_database->Quote( '%' . $_CB_database->getEscaped( $this->get( 'filter', null, GetterInterface::STRING ), true ) . '%', false )
-										.	" OR " . "a." . $_CB_database->NameQuote( 'message' ) . " LIKE " . $_CB_database->Quote( '%' . $_CB_database->getEscaped( $this->get( 'filter', null, GetterInterface::STRING ), true ) . '%', false ) . " )";
+										.	" OR a." . $_CB_database->NameQuote( 'message' ) . " LIKE " . $_CB_database->Quote( '%' . $_CB_database->getEscaped( $this->get( 'filter', null, GetterInterface::STRING ), true ) . '%', false ) . " )";
 		}
 
 		$query							.=	( $where ? "\n AND " . explode( "\n AND ", $where ) : null )

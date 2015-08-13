@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -9,7 +9,21 @@
 defined('_JEXEC') or die('Restricted access');
 ?><div id="page-security">
 <?php if(acymailing_level(1)) {
-} ?>
+} else{ ?>
+	<fieldset class="adminform">
+		<legend><?php echo JText::_( 'CAPTCHA' ); ?></legend>
+		<table class="admintable" cellspacing="1">
+			<tr>
+				<td class="key" >
+					<?php echo JText::_('ENABLE_CATCHA'); ?>
+				</td>
+				<td>
+					<?php echo acymailing_getUpgradeLink('essential'); ?>
+				</td>
+			</tr>
+		</table>
+	</fieldset>
+<?php } ?>
 
 	<fieldset class="adminform">
 	<legend><?php echo JText::_('ADVANCED_EMAIL_VERIFICATION'); ?></legend>

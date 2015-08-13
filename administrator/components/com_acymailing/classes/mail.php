@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -60,7 +60,7 @@ class mailClass extends acymailingClass{
 		foreach($formData['mail'] as $column => $value){
 			if(!$app->isAdmin() && !in_array($column,$this->allowedFields)) continue;
 			acymailing_secureField($column);
-			if($column == 'params'){
+			if(in_array($column, array('params','summary'))){
 				$mail->$column = $value;
 			}else{
 				$mail->$column = strip_tags($value,'<ADV>');

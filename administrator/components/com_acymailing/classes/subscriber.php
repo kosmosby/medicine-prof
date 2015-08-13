@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -184,7 +184,14 @@ class subscriberClass extends acymailingClass{
 		$mailClass->checkEnabled = false;
 		$mailClass->checkAccept = false;
 		$mailClass->report = $config->get('confirm_message',0);
-		$this->confirmationSentSuccess = $mailClass->sendOne('confirmation',$myuser);
+		$alias = "confirmation";
+		if(JRequest::getCMD('acy_source')){
+			$sourceparams = explode('_',JRequest::getCMD('acy_source'));
+			$this->database->setQuery('SELECT alias FROM #__acymailing_mail WHERE published = 1 AND alias IN ("confirmation",'.$this->database->Quote('confirmation-'.$sourceparams[0]).','.$this->database->Quote('confirmation-'.$sourceparams[0].'-'.@$sourceparams[1]).','.$this->database->Quote('confirmation-'.$sourceparams[0].'-'.@$sourceparams[1].'-'.@$sourceparams[2]).') ORDER BY alias DESC');
+			$alias = $this->database->loadResult();
+		}
+
+		$this->confirmationSentSuccess = $mailClass->sendOne($alias,$myuser);
 		$this->confirmationSentError = $mailClass->reportMessage;
 		$this->confirmationSent = true;
 		return true;
@@ -217,20 +224,20 @@ class subscriberClass extends acymailingClass{
 	function getFrontendSubscription($subid,$index = ''){
 		$subscription = $this->getSubscription($subid,$index);
 		$copyAllLists = $subscription;
-	$my = JFactory::getUser();
-	foreach($copyAllLists as $id => $oneList){
-		if(!$oneList->published OR empty($my->id)){
-			unset($subscription[$id]);
-			continue;
+		$my = JFactory::getUser();
+		foreach($copyAllLists as $id => $oneList){
+			if(!$oneList->published OR empty($my->id)){
+				unset($subscription[$id]);
+				continue;
+			}
+			if((int)$my->id == (int)$oneList->userid) continue;
+			if(!acymailing_isAllowed($oneList->access_manage)){
+				unset($subscription[$id]);
+				continue;
+			}
 		}
-		if((int)$my->id == (int)$oneList->userid) continue;
-		if(!acymailing_isAllowed($oneList->access_manage)){
-			unset($subscription[$id]);
-			continue;
-		}
-	}
 
-	return $subscription;
+		return $subscription;
 	}
 
 	function getSubscription($subid,$index = ''){
@@ -437,6 +444,11 @@ class subscriberClass extends acymailingClass{
 			$mailer->checkConfirmField = false;
 			$mailer->report = false;
 			foreach($subscriber as $field => $value) $mailer->addParam('user:'.$field,$value);
+			if(empty($subscriber->email)){
+				$myUser = $this->get($subscriber->subid);
+				$mailer->addParam('user:name',$myUser->name);
+				$mailer->addParam('user:email',$myUser->email);
+			}
 			$mailer->addParam('user:subscription',$listsubClass->getSubscriptionString($subscriber->subid));
 			$mailer->addParam('user:ip',$userHelper->getIP());
 			if(!empty($this->geolocData)){

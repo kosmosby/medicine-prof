@@ -21,7 +21,7 @@ class HTML_cbactivityComments
 	/**
 	 * @param CommentTable[]  $rows
 	 * @param Comments        $stream
-	 * @param int             $output 0: Normal, 1: Raw, 2: Inline, 3: Load
+	 * @param int             $output 0: Normal, 1: Raw, 2: Inline, 3: Load, 4: Save
 	 * @param UserTable       $user
 	 * @param UserTable       $viewer
 	 * @param cbPluginHandler $plugin
@@ -31,18 +31,17 @@ class HTML_cbactivityComments
 	{
 		global $_CB_framework, $_PLUGINS;
 
-		initToolTip();
+		CBActivity::loadHeaders( $output );
 
-		$_CB_framework->addJQueryPlugin( 'cbactivity', '/components/com_comprofiler/plugin/user/plug_cbactivity/js/jquery.cbactivity.js' );
+		$_CB_framework->outputCbJQuery( "$( '.commentsStream' ).cbactivity();" );
 
-		$_CB_framework->outputCbJQuery( "$( '.commentsStream' ).cbactivity();", array( 'form', 'cbmoreless', 'cbrepeat', 'cbselect', 'media', 'autosize', 'cbactivity' ) );
-
+		$canCreate						=	CBActivity::canCreate( $user, $viewer, $stream );
 		$cbModerator					=	CBActivity::isModerator( (int) $viewer->get( 'id' ) );
 		$sourceClean					=	htmlspecialchars( $stream->source() );
 		$newForm						=	null;
 		$moreButton						=	null;
 
-		if ( ( $stream->source() != 'save' ) && $stream->get( 'paging' ) && $stream->get( 'limit' ) && $rows ) {
+		if ( ( $output != 4 ) && $stream->get( 'paging' ) && $stream->get( 'limit' ) && $rows ) {
 			$moreButton					=	'<a href="' . $stream->endpoint( 'show', array( 'limitstart' => ( $stream->get( 'limitstart' ) + $stream->get( 'limit' ) ), 'limit' => $stream->get( 'limit' ) ) ) . '" class="commentButton commentButtonMore streamMore">' . ( $stream->get( 'type' ) == 'comment' ? CBTxt::T( 'Show more replies' ) : CBTxt::T( 'Show more comments' ) ) . '</a>';
 		}
 
@@ -50,7 +49,7 @@ class HTML_cbactivityComments
 
 		$_PLUGINS->trigger( 'activity_onBeforeDisplayComments', array( &$return, &$rows, $stream, $output ) );
 
-		if ( $output != 1 ) {
+		if ( ! in_array( $output, array( 1, 4 ) ) ) {
 			$return						.=	'<div class="' . $sourceClean . 'Comments commentsStream streamContainer ' . ( $stream->direction() ? 'streamContainerUp' : 'streamContainerDown' ) . '" data-cbactivity-stream="' . base64_encode( (string) $stream ) . '" data-cbactivity-direction="' . (int) $stream->direction() . '">';
 
 			if ( ( $stream->source() != 'hidden' ) && ( ! $stream->get( 'id' ) ) && ( ! $stream->get( 'filter' ) ) ) {
@@ -59,10 +58,10 @@ class HTML_cbactivityComments
 		}
 
 		$return							.=		( $stream->direction() ? $moreButton : $newForm )
-										.		( $output != 1 ? '<div class="' . $sourceClean . 'CommentsItems commentsStreamItems streamItems">' : null );
+										.		( ! in_array( $output, array( 1, 4 ) ) ? '<div class="' . $sourceClean . 'CommentsItems commentsStreamItems streamItems">' : null );
 
 		if ( $rows ) foreach ( $rows as $row ) {
-			$rowId						=	$sourceClean . 'CommentContainer' . (int) $row->get( 'id' );
+			$rowId						=	$stream->id() . '_' . (int) $row->get( 'id' );
 			$rowOwner					=	( $viewer->get( 'id' ) == $row->get( 'user_id' ) );
 			$typeClass					=	( $row->get( 'type' ) ? ucfirst( strtolower( preg_replace( '/[^-a-zA-Z0-9_]/', '', $row->get( 'type' ) ) ) ) : null );
 			$subTypeClass				=	( $row->get( 'subtype' ) ? ucfirst( strtolower( preg_replace( '/[^-a-zA-Z0-9_]/', '', $row->get( 'subtype' ) ) ) ) : null );
@@ -85,13 +84,8 @@ class HTML_cbactivityComments
 
 				$replies				=	$row->replies( $stream->source(), $stream->user() );
 
-				// Comments
-				$replies->set( 'paging', (int) $stream->get( 'replies_paging', 1 ) );
-				$replies->set( 'limit', (int) $stream->get( 'replies_limit', 4 ) );
-				$replies->set( 'create_access', (int) $stream->get( 'replies_create_access', 2 ) );
-				$replies->set( 'message_limit', (int) $stream->get( 'replies_message_limit', 400 ) );
+				CBActivity::loadStreamDefaults( $replies, $stream );
 
-				// Replies
 				$replies->set( 'replies', 0 );
 
 				$footer					.=	$replies->stream( true, ( $row->get( '_comments' ) ? true : false ) );
@@ -120,14 +114,14 @@ class HTML_cbactivityComments
 										.					( $footer ? '<div class="commentContainerContentFooter">' . $footer . '</div>' : null )
 										.				'</div>';
 
-			if ( $cbModerator || $rowOwner ) {
+			if ( ( $cbModerator || $rowOwner ) && $canCreate ) {
 				$return					.=				self::showEdit( $row, $stream, $output, $user, $viewer, $plugin );
 			}
 
 			if ( $cbModerator || $rowOwner || ( $viewer->get( 'id' ) && ( ! $rowOwner ) ) || $menu ) {
 				$menuItems				=	'<ul class="streamItemMenuItems commentMenuItems dropdown-menu" style="display: block; position: relative; margin: 0;">';
 
-				if ( $cbModerator || $rowOwner ) {
+				if ( ( $cbModerator || $rowOwner ) && $canCreate ) {
 					$menuItems			.=		'<li class="streamItemMenuItem commentMenuItem"><a href="javascript: void(0);" class="commentMenuItemEdit streamItemEditDisplay" data-cbactivity-container="#' . $rowId . '"><span class="fa fa-edit"></span> ' . CBTxt::T( 'Edit' ) . '</a></li>';
 				}
 
@@ -172,33 +166,10 @@ class HTML_cbactivityComments
 			return null;
 		}
 
-		$return							.=		( $output != 1 ? '</div>' : null )
+		$return							.=		( ! in_array( $output, array( 1, 4 ) ) ? '</div>' : null )
 										.		( ! $stream->direction() ? $moreButton : $newForm )
-										.	( $output != 1 ? '</div>' : null );
-
-		if ( in_array( $output, array( 1, 3 ) ) ) {
-			$_CB_framework->getAllJsPageCodes();
-
-			// Reset meta headers as they can't be used inline anyway:
-			$_CB_framework->document->_head['metaTags']	=	array();
-
-			// Remove all non-jQuery scripts as they'll likely just cause errors due to redeclaration:
-			foreach( $_CB_framework->document->_head['scriptsUrl'] as $url => $script ) {
-				if ( ( strpos( $url, 'jquery.' ) === false ) || ( strpos( $url, 'migrate' ) !== false ) ) {
-					unset( $_CB_framework->document->_head['scriptsUrl'][$url] );
-				}
-			}
-
-			if ( $stream->source() == 'save' ) {
-				$return					.=	'<div class="streamItemHeaders">';
-			}
-
-			$return						.=	$_CB_framework->document->outputToHead();
-
-			if ( $stream->source() == 'save' ) {
-				$return					.=	'</div>';
-			}
-		}
+										.	( ! in_array( $output, array( 1, 4 ) ) ? '</div>' : null )
+										.	CBActivity::reloadHeaders( $output );
 
 		$_PLUGINS->trigger( 'activity_onAfterDisplayComments', array( &$return, $rows, $stream, $output ) );
 
@@ -207,7 +178,7 @@ class HTML_cbactivityComments
 
 	/**
 	 * @param Comments        $stream
-	 * @param int             $output 0: Normal, 1: Raw, 2: Inline, 3: Load
+	 * @param int             $output 0: Normal, 1: Raw, 2: Inline, 3: Load, 4: Save
 	 * @param UserTable       $user
 	 * @param UserTable       $viewer
 	 * @param cbPluginHandler $plugin
@@ -224,8 +195,7 @@ class HTML_cbactivityComments
 		$cbModerator	=	CBActivity::isModerator( (int) $viewer->get( 'id' ) );
 		$messageLimit	=	( $cbModerator ? 0 : (int) $stream->get( 'message_limit', 400 ) );
 
-		$sourceClean	=	htmlspecialchars( $stream->source() );
-		$rowId			=	$sourceClean . 'CommentContainerNew';
+		$rowId			=	$stream->id() . '_new';
 		$newBody		=	null;
 		$newFooter		=	null;
 
@@ -238,7 +208,7 @@ class HTML_cbactivityComments
 						.					CBuser::getInstance( (int) $viewer->get( 'user_id' ), false )->getField( 'avatar', null, 'html', 'none', 'list', 0, true )
 						.				'</div>'
 						.				'<div class="streamItemNew commentContainerContent media-body text-small">'
-						.					'<textarea id="' . $sourceClean . '_message_new" name="message" rows="1" class="streamInput streamInputAutosize streamInputMessage form-control" placeholder="' . htmlspecialchars( ( $stream->get( 'type' ) == 'comment' ? CBTxt::T( 'Write a reply...' ) : CBTxt::T( 'Write a comment...' ) ) ) . '"' . ( $messageLimit ? ' data-cbactivity-input-limit="' . (int) $messageLimit . '" maxlength="' . (int) $messageLimit . '"' : null ) . '></textarea>'
+						.					'<textarea id="' . $stream->id() . '_message_new" name="message" rows="1" class="streamInput streamInputAutosize streamInputMessage form-control" placeholder="' . htmlspecialchars( ( $stream->get( 'type' ) == 'comment' ? CBTxt::T( 'Write a reply...' ) : CBTxt::T( 'Write a comment...' ) ) ) . '"' . ( $messageLimit ? ' data-cbactivity-input-limit="' . (int) $messageLimit . '" maxlength="' . (int) $messageLimit . '"' : null ) . '></textarea>'
 						.					$newBody
 						.					'<div class="streamItemDisplay commentContainerFooter hidden">'
 						.						'<div class="commentContainerFooterRow clearfix">'
@@ -262,7 +232,7 @@ class HTML_cbactivityComments
 	/**
 	 * @param CommentTable    $row
 	 * @param Comments        $stream
-	 * @param int             $output 0: Normal, 1: Raw, 2: Inline, 3: Load
+	 * @param int             $output 0: Normal, 1: Raw, 2: Inline, 3: Load, 4: Save
 	 * @param UserTable       $user
 	 * @param UserTable       $viewer
 	 * @param cbPluginHandler $plugin
@@ -275,8 +245,7 @@ class HTML_cbactivityComments
 		$cbModerator	=	CBActivity::isModerator( (int) $viewer->get( 'id' ) );
 		$messageLimit	=	( $cbModerator ? 0 : (int) $stream->get( 'message_limit', 400 ) );
 
-		$sourceClean	=	htmlspecialchars( $stream->source() );
-		$rowId			=	$sourceClean . 'CommentContainer' . (int) $row->get( 'id' );
+		$rowId			=	$stream->id() . '_edit_' . (int) $row->get( 'id' );
 
 		$editBody		=	null;
 		$editFooter		=	null;
@@ -285,7 +254,7 @@ class HTML_cbactivityComments
 
 		$return			=	'<div class="streamItemEdit commentContainerContentEdit media-body text-small hidden">'
 						.		'<form action="' . $stream->endpoint( 'save', array( 'id' => (int) $row->get( 'id' ) ) ) . '" method="post" enctype="multipart/form-data" name="' . $rowId . 'Form" id="' . $rowId . 'Form" class="cb_form streamItemForm form">'
-						.			'<textarea id="' . $sourceClean . '_message_edit_' . (int) $row->get( 'id' ) . '" name="message" rows="1" class="streamInput streamInputAutosize streamInputMessage form-control" placeholder="' . htmlspecialchars( ( $stream->get( 'type' ) == 'comment' ? CBTxt::T( 'Write a reply...' ) : CBTxt::T( 'Write a comment...' ) ) ) . '"' . ( $messageLimit ? ' data-cbactivity-input-limit="' . (int) $messageLimit . '" maxlength="' . (int) $messageLimit . '"' : null ) . '>' . htmlspecialchars( $row->get( 'message' ) ) . '</textarea>'
+						.			'<textarea id="' . $stream->id() . '_message_edit_' . (int) $row->get( 'id' ) . '" name="message" rows="1" class="streamInput streamInputAutosize streamInputMessage form-control" placeholder="' . htmlspecialchars( ( $stream->get( 'type' ) == 'comment' ? CBTxt::T( 'Write a reply...' ) : CBTxt::T( 'Write a comment...' ) ) ) . '"' . ( $messageLimit ? ' data-cbactivity-input-limit="' . (int) $messageLimit . '" maxlength="' . (int) $messageLimit . '"' : null ) . '>' . htmlspecialchars( $row->get( 'message' ) ) . '</textarea>'
 						.			$editBody
 						.			'<div class="commentContainerFooter">'
 						.				'<div class="commentContainerFooterRow clearfix">'

@@ -29,8 +29,9 @@ class CBActivity
 	 * @param null|array $files
 	 * @param bool       $loadGlobal
 	 * @param bool       $loadHeader
+	 * @param bool       $loadPHP
 	 */
-	static public function getTemplate( $files = null, $loadGlobal = true, $loadHeader = true )
+	static public function getTemplate( $files = null, $loadGlobal = true, $loadHeader = true, $loadPHP = true )
 	{
 		global $_CB_framework, $_PLUGINS;
 
@@ -42,7 +43,7 @@ class CBActivity
 			$files								=	array( $files );
 		}
 
-		$id										=	md5( serialize( array( $files, $loadGlobal, $loadHeader ) ) );
+		$id										=	md5( serialize( array( $files, $loadGlobal, $loadHeader, $loadPHP ) ) );
 
 		if ( ! isset( $tmpl[$id] ) ) {
 			$plugin								=	$_PLUGINS->getLoadedPlugin( 'user', 'cbactivity' );
@@ -86,14 +87,16 @@ class CBActivity
 				}
 
 				if ( $file ) {
-					if ( ! file_exists( $php ) ) {
-						$php					=	$absPath . '/templates/default/' . $file . '.php';
-					}
+					if ( $loadPHP ) {
+						if ( ! file_exists( $php ) ) {
+							$php				=	$absPath . '/templates/default/' . $file . '.php';
+						}
 
-					if ( file_exists( $php ) ) {
-						require_once( $php );
+						if ( file_exists( $php ) ) {
+							require_once( $php );
 
-						$paths['php']			=	$php;
+							$paths['php']		=	$php;
+						}
 					}
 
 					if ( $loadHeader ) {
@@ -130,6 +133,85 @@ class CBActivity
 
 			$tmpl[$id]							=	$paths;
 		}
+	}
+
+	/**
+	 * Loads and caches headers for initial output
+	 *
+	 * @param int $output 0: Normal, 1: Raw, 2: Inline, 3: Load , 4: Save
+	 */
+	static public function loadHeaders( $output )
+	{
+		global $_CB_framework;
+
+		if ( $output != 0 ) {
+			return;
+		}
+
+		static $loaded	=	0;
+
+		if ( ! $loaded++ ) {
+			CBActivity::getTemplate( array( 'activity', 'comments', 'tags', 'twemoji' ), true, true, false );
+
+			initToolTip();
+
+			$_CB_framework->addJQueryPlugin( 'cbactivity', '/components/com_comprofiler/plugin/user/plug_cbactivity/js/jquery.cbactivity.js' );
+
+			$_CB_framework->outputCbJQuery( null, array( 'form', 'cbmoreless', 'cbrepeat', 'cbselect', 'media', 'autosize', 'cbtimeago', 'cbactivity' ) );
+		}
+	}
+
+	/**
+	 * Reloads page headers for ajax responses
+	 *
+	 * @param int $output 0: Normal, 1: Raw, 2: Inline, 3: Load , 4: Save
+	 * @return null|string
+	 */
+	static public function reloadHeaders( $output )
+	{
+		global $_CB_framework;
+
+		if ( ! in_array( $output, array( 1, 3, 4 ) ) ) {
+			return null;
+		}
+
+		// Inform the header of core jQuery plugins already loaded by loadHeaders:
+		$preLoaded											=	array(	'ui-all', 'form', 'cbmoreless',
+																		'cbrepeat', 'cbselect', 'select2',
+																		'multiple.select', 'media', 'autosize',
+																		'qtip', 'cbtooltip', 'livestamp',
+																		'cbtimeago', 'cbactivity', '/components/com_comprofiler/plugin/templates/default/jquery/qtip/qtip.css'
+																	);
+
+		foreach ( $preLoaded as $loaded ) {
+			$_CB_framework->_jQueryPluginsSent[$loaded]		=	true;
+		}
+
+		$_CB_framework->getAllJsPageCodes();
+
+		// Reset meta headers as they can't be used inline anyway:
+		$_CB_framework->document->_head['metaTags']			=	array();
+
+		// Remove all non-jQuery scripts as they'll likely just cause errors due to redeclaration:
+		foreach( $_CB_framework->document->_head['scriptsUrl'] as $url => $script ) {
+			if ( ( strpos( $url, 'jquery.' ) === false ) || ( strpos( $url, 'migrate' ) !== false ) ) {
+				unset( $_CB_framework->document->_head['scriptsUrl'][$url] );
+			}
+		}
+
+		$return				=	null;
+
+		if ( $output == 4 ) {
+			$return			.=	'<div class="streamItemHeaders">';
+		}
+
+		$return				.=	$_CB_framework->document->outputToHead();
+
+		if ( $output == 4 ) {
+			$return			.=	'</div>';
+		}
+
+		return $return;
 	}
 
 	/**
@@ -251,189 +333,189 @@ class CBActivity
 	{
 		if ( $stream instanceof ActivityInterface ) {
 			// Activity
-			$paging								=	(string) $params->get( $prefix . 'activity_paging', '' );
+			$paging								=	(string) $params->get( $prefix . 'paging', '' );
 
 			if ( $paging != '' ) {
 				$stream->set( 'paging', (int) $paging );
 			}
 
-			$limit								=	(string) $params->get( $prefix . 'activity_limit', '' );
+			$limit								=	(string) $params->get( $prefix . 'limit', '' );
 
 			if ( $limit != '' ) {
 				$stream->set( 'limit', (int) $limit );
 			}
 
-			$createAccess						=	(string) $params->get( $prefix . 'activity_create_access', '' );
+			$createAccess						=	(string) $params->get( $prefix . 'create_access', '' );
 
 			if ( $createAccess != '' ) {
 				$stream->set( 'create_access', (int) $createAccess );
 			}
 
-			$messageLimit						=	(string) $params->get( $prefix . 'activity_message_limit', '' );
+			$messageLimit						=	(string) $params->get( $prefix . 'message_limit', '' );
 
 			if ( $messageLimit != '' ) {
 				$stream->set( 'message_limit', (int) $messageLimit );
 			}
 
 			// Actions
-			$actions							=	(string) $params->get( $prefix . 'activity_actions', '' );
+			$actions							=	(string) $params->get( $prefix . 'actions', '' );
 
 			if ( $actions != '' ) {
 				$stream->set( 'actions', (int) $actions );
 			}
 
-			$actionsMessageLimit				=	(string) $params->get( $prefix . 'activity_actions_message_limit', '' );
+			$actionsMessageLimit				=	(string) $params->get( $prefix . 'actions_message_limit', '' );
 
 			if ( $actionsMessageLimit != '' ) {
 				$stream->set( 'actions_message_limit', (int) $actionsMessageLimit );
 			}
 
 			// Locations
-			$locations							=	(string) $params->get( $prefix . 'activity_locations', '' );
+			$locations							=	(string) $params->get( $prefix . 'locations', '' );
 
 			if ( $locations != '' ) {
 				$stream->set( 'locations', (int) $locations );
 			}
 
-			$locationsAddressLimit				=	(string) $params->get( $prefix . 'activity_locations_address_limit', '' );
+			$locationsAddressLimit				=	(string) $params->get( $prefix . 'locations_address_limit', '' );
 
 			if ( $locationsAddressLimit != '' ) {
 				$stream->set( 'locations_address_limit', (int) $locationsAddressLimit );
 			}
 
 			// Links
-			$links								=	(string) $params->get( $prefix . 'activity_links', '' );
+			$links								=	(string) $params->get( $prefix . 'links', '' );
 
 			if ( $links != '' ) {
 				$stream->set( 'links', (int) $links );
 			}
 
-			$linksLinkLimit						=	(string) $params->get( $prefix . 'activity_links_link_limit', '' );
+			$linksLinkLimit						=	(string) $params->get( $prefix . 'links_link_limit', '' );
 
 			if ( $linksLinkLimit != '' ) {
 				$stream->set( 'links_link_limit', (int) $linksLinkLimit );
 			}
 
 			// Tags
-			$tags								=	(string) $params->get( $prefix . 'activity_tags', '' );
+			$tags								=	(string) $params->get( $prefix . 'tags', '' );
 
 			if ( $tags != '' ) {
 				$stream->set( 'tags', (int) $tags );
 			}
 
 			// Comments
-			$comments							=	(string) $params->get( $prefix . 'activity_comments', '' );
+			$comments							=	(string) $params->get( $prefix . 'comments', '' );
 
 			if ( $comments != '' ) {
 				$stream->set( 'comments', (int) $comments );
 			}
 
-			$commentsPaging						=	(string) $params->get( $prefix . 'activity_comments_paging', '' );
+			$commentsPaging						=	(string) $params->get( $prefix . 'comments_paging', '' );
 
 			if ( $commentsPaging != '' ) {
 				$stream->set( 'comments_paging', (int) $commentsPaging );
 			}
 
-			$commentsLimit						=	(string) $params->get( $prefix . 'activity_comments_limit', '' );
+			$commentsLimit						=	(string) $params->get( $prefix . 'comments_limit', '' );
 
 			if ( $commentsLimit != '' ) {
 				$stream->set( 'comments_limit', (int) $commentsLimit );
 			}
 
-			$commentsCreateAccess				=	(string) $params->get( $prefix . 'activity_comments_create_access', '' );
+			$commentsCreateAccess				=	(string) $params->get( $prefix . 'comments_create_access', '' );
 
 			if ( $commentsCreateAccess != '' ) {
 				$stream->set( 'comments_create_access', (int) $commentsCreateAccess );
 			}
 
-			$commentsMessageLimit				=	(string) $params->get( $prefix . 'activity_comments_message_limit', '' );
+			$commentsMessageLimit				=	(string) $params->get( $prefix . 'comments_message_limit', '' );
 
 			if ( $commentsMessageLimit != '' ) {
 				$stream->set( 'comments_message_limit', (int) $commentsMessageLimit );
 			}
 
 			// Comment Replies
-			$commentsReplies					=	(string) $params->get( $prefix . 'activity_comments_replies', '' );
+			$commentsReplies					=	(string) $params->get( $prefix . 'comments_replies', '' );
 
 			if ( $commentsReplies != '' ) {
 				$stream->set( 'comments_replies', (int) $commentsReplies );
 			}
 
-			$commentsRepliesPaging				=	(string) $params->get( $prefix . 'activity_comments_replies_paging', '' );
+			$commentsRepliesPaging				=	(string) $params->get( $prefix . 'comments_replies_paging', '' );
 
 			if ( $commentsRepliesPaging != '' ) {
 				$stream->set( 'comments_replies_paging', (int) $commentsRepliesPaging );
 			}
 
-			$commentsRepliesLimit				=	(string) $params->get( $prefix . 'activity_comments_replies_limit', '' );
+			$commentsRepliesLimit				=	(string) $params->get( $prefix . 'comments_replies_limit', '' );
 
 			if ( $commentsRepliesLimit != '' ) {
 				$stream->set( 'comments_replies_limit', (int) $commentsRepliesLimit );
 			}
 
-			$commentsRepliesCreateAccess		=	(string) $params->get( $prefix . 'activity_comments_replies_create_access', '' );
+			$commentsRepliesCreateAccess		=	(string) $params->get( $prefix . 'comments_replies_create_access', '' );
 
 			if ( $commentsRepliesCreateAccess != '' ) {
 				$stream->set( 'comments_replies_create_access', (int) $commentsRepliesCreateAccess );
 			}
 
-			$commentsRepliesMessageLimit		=	(string) $params->get( $prefix . 'activity_comments_replies_message_limit', '' );
+			$commentsRepliesMessageLimit		=	(string) $params->get( $prefix . 'comments_replies_message_limit', '' );
 
 			if ( $commentsRepliesMessageLimit != '' ) {
 				$stream->set( 'comments_replies_message_limit', (int) $commentsRepliesMessageLimit );
 			}
 		} elseif ( $stream instanceof CommentsInterface ) {
 			// Comments
-			$paging								=	(string) $params->get( $prefix . 'comments_paging', '' );
+			$paging								=	(string) $params->get( $prefix . 'paging', '' );
 
 			if ( $paging != '' ) {
 				$stream->set( 'paging', (int) $paging );
 			}
 
-			$limit								=	(string) $params->get( $prefix . 'comments_limit', '' );
+			$limit								=	(string) $params->get( $prefix . 'limit', '' );
 
 			if ( $limit != '' ) {
 				$stream->set( 'limit', (int) $limit );
 			}
 
-			$createAccess						=	(string) $params->get( $prefix . 'comments_create_access', '' );
+			$createAccess						=	(string) $params->get( $prefix . 'create_access', '' );
 
 			if ( $createAccess != '' ) {
 				$stream->set( 'create_access', (int) $createAccess );
 			}
 
-			$messageLimit						=	(string) $params->get( $prefix . 'comments_message_limit', '' );
+			$messageLimit						=	(string) $params->get( $prefix . 'message_limit', '' );
 
 			if ( $messageLimit != '' ) {
 				$stream->set( 'message_limit', (int) $messageLimit );
 			}
 
 			// Comment Replies
-			$replies							=	(string) $params->get( $prefix . 'comments_replies', '' );
+			$replies							=	(string) $params->get( $prefix . 'replies', '' );
 
 			if ( $replies != '' ) {
 				$stream->set( 'replies', (int) $replies );
 			}
 
-			$repliesPaging						=	(string) $params->get( $prefix . 'comments_replies_paging', '' );
+			$repliesPaging						=	(string) $params->get( $prefix . 'replies_paging', '' );
 
 			if ( $repliesPaging != '' ) {
 				$stream->set( 'replies_paging', (int) $repliesPaging );
 			}
 
-			$repliesLimit						=	(string) $params->get( $prefix . 'comments_replies_limit', '' );
+			$repliesLimit						=	(string) $params->get( $prefix . 'replies_limit', '' );
 
 			if ( $repliesLimit != '' ) {
 				$stream->set( 'replies_limit', (int) $repliesLimit );
 			}
 
-			$repliesCreateAccess				=	(string) $params->get( $prefix . 'comments_replies_create_access', '' );
+			$repliesCreateAccess				=	(string) $params->get( $prefix . 'replies_create_access', '' );
 
 			if ( $repliesCreateAccess != '' ) {
 				$stream->set( 'replies_create_access', (int) $repliesCreateAccess );
 			}
 
-			$repliesMessageLimit				=	(string) $params->get( $prefix . 'comments_replies_message_limit', '' );
+			$repliesMessageLimit				=	(string) $params->get( $prefix . 'replies_message_limit', '' );
 
 			if ( $repliesMessageLimit != '' ) {
 				$stream->set( 'replies_message_limit', (int) $repliesMessageLimit );

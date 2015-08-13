@@ -6,12 +6,12 @@
 	<state>
 		<name>Mailing List Archive (Single)</name>
 		<params addpath="/components/com_acymailing/params">
-			<param name="listid" type="listid" label="List" description="" />
+			<param name="listid" type="listid" label="List" description="" menu="archive" />
 		</params>
 	</state>
 	<fields name="params" addfieldpath="/components/com_acymailing/params">
 		<fieldset name="basic">
-			<field name="listid" type="listid" label="List" description="" />
+			<field name="listid" type="listid" label="List" description="" menu="archive" />
 		</fieldset>
 	</fields>
 </metadata>

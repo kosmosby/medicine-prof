@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -247,7 +247,7 @@ class SubController extends acymailingController{
 			if($allowSubscriptionModifications){
 				if($statusAdd == 2){
 					if($userClass->confirmationSentSuccess){
-						$msg = JText::_('CONFIRMATION_SENT');
+						$msg = 'CONFIRMATION_SENT';
 						$code = 2;
 						$msgtype = 'success';
 					}else{
@@ -257,23 +257,23 @@ class SubController extends acymailingController{
 					}
 				}else{
 					if($insertMessage){
-						$msg = JText::_('SUBSCRIPTION_OK');
+						$msg = 'SUBSCRIPTION_OK';
 						$code = 3;
 						$msgtype = 'success';
 					}elseif($updateMessage){
 
-						$msg = JText::_('SUBSCRIPTION_UPDATED_OK');
+						$msg = 'SUBSCRIPTION_UPDATED_OK';
 						$code = 4;
 						$msgtype = 'success';
 					}else{
-						$msg = JText::_('ALREADY_SUBSCRIBED');
+						$msg = 'ALREADY_SUBSCRIBED';
 						$code = 5;
 						$msgtype = 'success';
 					}
 				}
 			}else{
 				if($modifySubscriptionSuccess){
-					$msg = JText::_('IDENTIFICATION_SENT');
+					$msg = 'IDENTIFICATION_SENT';
 					$code = 6;
 					$msgtype = 'warning';
 				}else{
@@ -281,6 +281,15 @@ class SubController extends acymailingController{
 					$code = 8;
 					$msgtype = 'error';
 				}
+			}
+
+			if($msg == strtoupper($msg)){
+				$source = JRequest::getCmd('acy_source');
+				if(strpos($source, 'module_') !== false){
+					$moduleId = '_'.strtoupper($source);
+					if(JText::_($msg.$moduleId) != $msg.$moduleId) $msg = $msg.$moduleId;
+				}
+				$msg = JText::_($msg);
 			}
 
 			$replace = array();

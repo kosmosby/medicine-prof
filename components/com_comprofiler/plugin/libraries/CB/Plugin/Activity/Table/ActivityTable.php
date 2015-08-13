@@ -133,11 +133,10 @@ class ActivityTable extends Table
 			return false;
 		}
 
-		// Deletes commented on activity:
+		// Deletes activity about this activity:
 		$query				=	'SELECT *'
 							.	"\n FROM " . $this->getDbo()->NameQuote( '#__comprofiler_plugin_activity' )
 							.	"\n WHERE " . $this->getDbo()->NameQuote( 'type' ) . " = " . $this->getDbo()->Quote( 'activity' )
-							.	"\n AND " . $this->getDbo()->NameQuote( 'subtype' ) . " = " . $this->getDbo()->Quote( 'comment' )
 							.	"\n AND " . $this->getDbo()->NameQuote( 'item' ) . " = " . (int) $this->get( 'id' );
 		$this->getDbo()->setQuery( $query );
 		$activities			=	$this->getDbo()->loadObjectList( null, '\CB\Plugin\Activity\Table\ActivityTable', array( $this->getDbo() ) );
@@ -390,6 +389,17 @@ class ActivityTable extends Table
 				$stream->set( 'item', (int) $this->get( 'id' ) );
 			}
 
+			$object			=	array(	'source'	=>	'activity',
+										'id'		=>	(int) $this->get( 'id' ),
+										'user_id'	=>	(int) $this->get( 'user_id' ),
+										'type'		=>	$this->get( 'type' ),
+										'subtype'	=>	$this->get( 'subtype' ),
+										'item'		=>	$this->get( 'item' ),
+										'parent'	=>	$this->get( 'parent' )
+									);
+
+			$stream->set( 'object', $object );
+
 			$cache[$id]		=	$stream;
 		}
 
@@ -426,6 +436,17 @@ class ActivityTable extends Table
 				$stream->set( 'type', 'activity' );
 				$stream->set( 'item', (int) $this->get( 'id' ) );
 			}
+
+			$object			=	array(	'source'	=>	'activity',
+										'id'		=>	(int) $this->get( 'id' ),
+										'user_id'	=>	(int) $this->get( 'user_id' ),
+										'type'		=>	$this->get( 'type' ),
+										'subtype'	=>	$this->get( 'subtype' ),
+										'item'		=>	$this->get( 'item' ),
+										'parent'	=>	$this->get( 'parent' )
+									);
+
+			$stream->set( 'object', $object );
 
 			$cache[$id]		=	$stream;
 		}

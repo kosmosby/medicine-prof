@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -87,9 +87,12 @@ html{
 	width:auto !important;
 	background-color:#f6f7f9 !important;
 }
+#adminForm{
+	text-align:center;
+}
 
 </style>
-<form action="index.php?tmpl=component&amp;option=<?php echo ACYMAILING_COMPONENT ?>" method="post" name="adminForm" id="adminForm" >
+<form action="index.php?tmpl=component&amp;option=<?php echo ACYMAILING_COMPONENT ?>" method="post" name="adminForm" id="adminForm">
 <?php if($this->pageInfo->elements->total > $this->pageInfo->elements->page || !empty($this->pageInfo->search) || !empty($this->pageInfo->category)){ ?>
 	<table class="adminlist table table-striped table-hover" cellpadding="1" style="width:100%;">
 		<thead>
@@ -153,12 +156,7 @@ if(empty($this->pageInfo->limit->start)){
 						<div style="display:none" id="fromname_<?php echo $row->tempid;?>"><?php echo $row->fromname;?></div>
 						<div style="display:none" id="fromemail_<?php echo $row->tempid;?>"><?php echo $row->fromemail;?></div>
 				</div>
-			<?php
-			if($num%3 == 0){
-				echo '<div clear="both"></div>';
-			}
-				}
-			?>
+			<?php }	?>
 	<input type="hidden" name="option" value="<?php echo ACYMAILING_COMPONENT; ?>" />
 	<input type="hidden" name="task" value="theme" />
 	<input type="hidden" name="defaulttask" value="theme" />

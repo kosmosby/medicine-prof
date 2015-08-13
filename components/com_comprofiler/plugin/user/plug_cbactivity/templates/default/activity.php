@@ -22,7 +22,7 @@ class HTML_cbactivityActivity
 	/**
 	 * @param ActivityTable[] $rows
 	 * @param Activity        $stream
-	 * @param int             $output 0: Normal, 1: Raw, 2: Inline, 3: Load
+	 * @param int             $output 0: Normal, 1: Raw, 2: Inline, 3: Load, 4: Save
 	 * @param UserTable       $user
 	 * @param UserTable       $viewer
 	 * @param cbPluginHandler $plugin
@@ -37,18 +37,17 @@ class HTML_cbactivityActivity
 		$showLinks						=	(int) $stream->get( 'links', 1 );
 		$showTags						=	(int) $stream->get( 'tags', 1 );
 
-		initToolTip();
+		CBActivity::loadHeaders( $output );
 
-		$_CB_framework->addJQueryPlugin( 'cbactivity', '/components/com_comprofiler/plugin/user/plug_cbactivity/js/jquery.cbactivity.js' );
+		$_CB_framework->outputCbJQuery( "$( '.activityStream' ).cbactivity();" );
 
-		$_CB_framework->outputCbJQuery( "$( '.activityStream' ).cbactivity();", array( 'form', 'cbmoreless', 'cbrepeat', 'cbselect', 'media', 'autosize', 'cbactivity' ) );
-
+		$canCreate						=	CBActivity::canCreate( $user, $viewer, $stream );
 		$cbModerator					=	CBActivity::isModerator( (int) $viewer->get( 'id' ) );
 		$sourceClean					=	htmlspecialchars( $stream->source() );
 		$newForm						=	null;
 		$moreButton						=	null;
 
-		if ( ( $stream->source() != 'save' ) && $stream->get( 'paging' ) && $stream->get( 'limit' ) && $rows ) {
+		if ( ( $output != 4 ) && $stream->get( 'paging' ) && $stream->get( 'limit' ) && $rows ) {
 			$moreButton					=	'<a href="' . $stream->endpoint( 'show', array( 'limitstart' => ( $stream->get( 'limitstart' ) + $stream->get( 'limit' ) ), 'limit' => $stream->get( 'limit' ) ) ) . '" class="activityButton activityButtonMore streamMore btn btn-primary btn-sm btn-block">' . CBTxt::T( 'More' ) . '</a>';
 		}
 
@@ -56,7 +55,7 @@ class HTML_cbactivityActivity
 
 		$_PLUGINS->trigger( 'activity_onBeforeDisplayActivity', array( &$return, &$rows, $stream, $output ) );
 
-		if ( $output != 1 ) {
+		if ( ! in_array( $output, array( 1, 4 ) ) ) {
 			$return						.=	'<div class="' . $sourceClean . 'Activity activityStream streamContainer ' . ( $stream->direction() ? 'streamContainerUp' : 'streamContainerDown' ) . '" data-cbactivity-direction="' . (int) $stream->direction() . '">';
 
 			if ( ( $stream->source() != 'hidden' ) && ( ! $stream->get( 'id' ) ) && ( ! $stream->get( 'filter' ) ) ) {
@@ -65,10 +64,10 @@ class HTML_cbactivityActivity
 		}
 
 		$return							.=		( $stream->direction() ? $moreButton : $newForm )
-										.		( $output != 1 ? '<div class="' . $sourceClean . 'ActivityItems activityStreamItems streamItems">' : null );
+										.		( ! in_array( $output, array( 1, 4 ) ) ? '<div class="' . $sourceClean . 'ActivityItems activityStreamItems streamItems">' : null );
 
 		if ( $rows ) foreach ( $rows as $row ) {
-			$rowId						=	$sourceClean . 'ActivityContainer' . (int) $row->get( 'id' );
+			$rowId						=	$stream->id() . '_' . (int) $row->get( 'id' );
 			$rowOwner					=	( $viewer->get( 'id' ) == $row->get( 'user_id' ) );
 			$typeClass					=	( $row->get( 'type' ) ? ucfirst( strtolower( preg_replace( '/[^-a-zA-Z0-9_]/', '', $row->get( 'type' ) ) ) ) : null );
 			$subTypeClass				=	( $row->get( 'subtype' ) ? ucfirst( strtolower( preg_replace( '/[^-a-zA-Z0-9_]/', '', $row->get( 'subtype' ) ) ) ) : null );
@@ -129,10 +128,13 @@ class HTML_cbactivityActivity
 				$row->set( '_tags', false );
 				$row->set( '_links', false );
 
+				$title					=	CBTxt::T( 'ACTIVITY_OF_ACTIVITY_TITLE', '[title] [date]', array( '[title]' => $title, '[date]' => cbFormatDate( $row->get( 'date' ), true, 'timeago' ) ) );
 				$message				=	null;
 				$footer					=	null;
 
 				$subActivity			=	new Activity( 'activity', $cbUser->getUserData() );
+
+				CBActivity::loadStreamDefaults( $subActivity, $stream );
 
 				$subActivity->set( 'id', $row->get( 'item' ) );
 
@@ -161,18 +163,7 @@ class HTML_cbactivityActivity
 			if ( ( $stream->source() != 'hidden' ) && $stream->get( 'comments' ) && ( $row->get( '_comments' ) !== false ) ) {
 				$comments				=	$row->comments( 'activity', $cbUser->getUserData() );
 
-				// Comments
-				$comments->set( 'paging', (int) $stream->get( 'comments_paging', 1 ) );
-				$comments->set( 'limit', (int) $stream->get( 'comments_limit', 4 ) );
-				$comments->set( 'create_access', (int) $stream->get( 'comments_create_access', 2 ) );
-				$comments->set( 'message_limit', (int) $stream->get( 'comments_message_limit', 400 ) );
-
-				// Replies
-				$comments->set( 'replies', (int) $stream->get( 'comments_replies', 0 ) );
-				$comments->set( 'replies_paging', (int) $stream->get( 'comments_replies_paging', 1 ) );
-				$comments->set( 'replies_limit', (int) $stream->get( 'comments_replies_limit', 4 ) );
-				$comments->set( 'replies_create_access', (int) $stream->get( 'comments_replies_create_access', 2 ) );
-				$comments->set( 'replies_message_limit', (int) $stream->get( 'comments_replies_message_limit', 400 ) );
+				CBActivity::loadStreamDefaults( $comments, $stream, 'comments_' );
 
 				$footer					.=	$comments->stream( true, ( $row->get( '_comments' ) ? true : false ) );
 			}
@@ -221,14 +212,14 @@ class HTML_cbactivityActivity
 
 			$return						.=				( $footer ? '<div class="streamItemDisplay activityContainerFooter panel-footer">' . $footer . '</div>' : null );
 
-			if ( $isStatus && ( $cbModerator || $rowOwner ) ) {
+			if ( $isStatus && ( $cbModerator || $rowOwner ) && $canCreate ) {
 				$return					.=				self::showEdit( $row, $stream, $output, $user, $viewer, $plugin );
 			}
 
 			if ( $cbModerator || $rowOwner || ( $viewer->get( 'id' ) && ( ! $rowOwner ) ) || $menu ) {
 				$menuItems				=	'<ul class="streamItemMenuItems activityMenuItems dropdown-menu" style="display: block; position: relative; margin: 0;">';
 
-				if ( $isStatus && ( $cbModerator || $rowOwner ) ) {
+				if ( $isStatus && ( $cbModerator || $rowOwner ) && $canCreate ) {
 					$menuItems			.=		'<li class="streamItemMenuItem activityMenuItem"><a href="javascript: void(0);" class="activityMenuItemEdit streamItemEditDisplay" data-cbactivity-container="#' . $rowId . '"><span class="fa fa-edit"></span> ' . CBTxt::T( 'Edit' ) . '</a></li>';
 				}
 
@@ -273,33 +264,10 @@ class HTML_cbactivityActivity
 			return null;
 		}
 
-		$return							.=		( $output != 1 ? '</div>' : null )
+		$return							.=		( ! in_array( $output, array( 1, 4 ) ) ? '</div>' : null )
 										.		( ! $stream->direction() ? $moreButton : $newForm )
-										.	( $output != 1 ? '</div>' : null );
-
-		if ( in_array( $output, array( 1, 3 ) ) ) {
-			$_CB_framework->getAllJsPageCodes();
-
-			// Reset meta headers as they can't be used inline anyway:
-			$_CB_framework->document->_head['metaTags']	=	array();
-
-			// Remove all non-jQuery scripts as they'll likely just cause errors due to redeclaration:
-			foreach( $_CB_framework->document->_head['scriptsUrl'] as $url => $script ) {
-				if ( ( strpos( $url, 'jquery.' ) === false ) || ( strpos( $url, 'migrate' ) !== false ) ) {
-					unset( $_CB_framework->document->_head['scriptsUrl'][$url] );
-				}
-			}
-
-			if ( $stream->source() == 'save' ) {
-				$return					.=	'<div class="streamItemHeaders">';
-			}
-
-			$return						.=	$_CB_framework->document->outputToHead();
-
-			if ( $stream->source() == 'save' ) {
-				$return					.=	'</div>';
-			}
-		}
+										.	( ! in_array( $output, array( 1, 4 ) ) ? '</div>' : null )
+										.	CBActivity::reloadHeaders( $output );
 
 		$_PLUGINS->trigger( 'activity_onAfterDisplayActivity', array( &$return, $rows, $stream, $output ) );
 
@@ -308,7 +276,7 @@ class HTML_cbactivityActivity
 
 	/**
 	 * @param Activity        $stream
-	 * @param int             $output 0: Normal, 1: Raw, 2: Inline, 3: Load
+	 * @param int             $output 0: Normal, 1: Raw, 2: Inline, 3: Load, 4: Save
 	 * @param UserTable       $user
 	 * @param UserTable       $viewer
 	 * @param cbPluginHandler $plugin
@@ -332,7 +300,6 @@ class HTML_cbactivityActivity
 		$linkLimit			=	( $cbModerator ? 0 : (int) $stream->get( 'links_link_limit', 5 ) );
 		$showTags			=	(int) $stream->get( 'tags', 1 );
 
-		$sourceClean		=	htmlspecialchars( $stream->source() );
 		$actionTooltip		=	cbTooltip( null, CBTxt::T( 'What are you doing or feeling?' ), null, 'auto', null, null, null, 'data-hascbtooltip="true" data-cbtooltip-position-my="bottom center" data-cbtooltip-position-at="top center" data-cbtooltip-classes="qtip-simple"' );
 		$locationTooltip	=	cbTooltip( null, CBTxt::T( 'Share your location.' ), null, 'auto', null, null, null, 'data-hascbtooltip="true" data-cbtooltip-position-my="bottom center" data-cbtooltip-position-at="top center" data-cbtooltip-classes="qtip-simple"' );
 		$tagTooltip			=	cbTooltip( null, CBTxt::T( 'Are you with anyone?' ), null, 'auto', null, null, null, 'data-hascbtooltip="true" data-cbtooltip-position-my="bottom center" data-cbtooltip-position-at="top center" data-cbtooltip-classes="qtip-simple"' );
@@ -340,7 +307,7 @@ class HTML_cbactivityActivity
 		$actionOptions		=	( $showActions ? CBActivity::loadActionOptions() : array() );
 		$locationOptions	=	( $showLocations ? CBActivity::loadLocationOptions() : array() );
 
-		$rowId				=	$sourceClean . 'ActivityContainerNew';
+		$rowId				=	$stream->id() . '_new';
 
 		$newBody			=	null;
 		$newFooter			=	null;
@@ -351,7 +318,7 @@ class HTML_cbactivityActivity
 							.		'<div class="streamItemInner">'
 							.			'<form action="' . $stream->endpoint( 'new' ) . '" method="post" enctype="multipart/form-data" name="' . $rowId . 'Form" id="' . $rowId . 'Form" class="cb_form streamItemForm form">'
 							.				'<div class="streamItemNew">'
-							.					'<textarea id="' . $sourceClean . '_message_new" name="message" rows="1" class="streamInput streamInputAutosize streamInputMessage form-control no-border" placeholder="' . htmlspecialchars( CBTxt::T( "What's on your mind?" ) ) . '" data-cbactivity-input-size="3"' . ( $messageLimit ? ' data-cbactivity-input-limit="' . (int) $messageLimit . '" maxlength="' . (int) $messageLimit . '"' : null ) . '></textarea>';
+							.					'<textarea id="' . $stream->id() . '_message_new" name="message" rows="1" class="streamInput streamInputAutosize streamInputMessage form-control no-border" placeholder="' . htmlspecialchars( CBTxt::T( "What's on your mind?" ) ) . '" data-cbactivity-input-size="3"' . ( $messageLimit ? ' data-cbactivity-input-limit="' . (int) $messageLimit . '" maxlength="' . (int) $messageLimit . '"' : null ) . '></textarea>';
 
 		if ( $showLinks ) {
 			if ( ( ! $linkLimit ) || ( $linkLimit > 1 ) ) {
@@ -362,13 +329,13 @@ class HTML_cbactivityActivity
 							.								'<button type="button" class="cbRepeatRowRemove btn btn-xs btn-danger"><span class="fa fa-minus"></span></button>'
 							.							'</span>'
 							.							'<div class="streamItemInputGroupInput border-default">'
-							.								'<input type="text" id="' . $sourceClean . '_links__0__url_new" name="links[0][url]" class="streamInput streamInputLinkURL form-control no-border" placeholder="' . htmlspecialchars( CBTxt::T( "What link would you like to share?" ) ) . '" disabled="disabled" />'
+							.								'<input type="text" id="' . $stream->id() . '_links__0__url_new" name="links[0][url]" class="streamInput streamInputLinkURL form-control no-border" placeholder="' . htmlspecialchars( CBTxt::T( "What link would you like to share?" ) ) . '" disabled="disabled" />'
 							.							'</div>'
 							.						'</div>'
 							.					'</div>';
 			} else {
 				$return		.=					'<div class="streamItemInputGroup streamInputLinkContainer border-default clearfix hidden">'
-							.						'<input type="text" id="' . $sourceClean . '_links__0__url_new" name="links[0][url]" class="streamInput streamInputLinkURL form-control no-border" placeholder="' . htmlspecialchars( CBTxt::T( "What link would you like to share?" ) ) . '" disabled="disabled" />'
+							.						'<input type="text" id="' . $stream->id() . '_links__0__url_new" name="links[0][url]" class="streamInput streamInputLinkURL form-control no-border" placeholder="' . htmlspecialchars( CBTxt::T( "What link would you like to share?" ) ) . '" disabled="disabled" />'
 							.					'</div>';
 			}
 		}
@@ -379,8 +346,8 @@ class HTML_cbactivityActivity
 			$return			.=					'<div class="streamItemInputGroup streamInputActionContainer border-default clearfix hidden">'
 							.						'<span class="streamItemInputGroupLabel streamInputSelectToggleLabel form-control"></span>'
 							.						'<div class="streamItemInputGroupInput border-default">'
-							.							'<input type="text" id="' . $sourceClean . '_actions_message_new" name="actions[message]" class="streamInput streamInputActionMessage streamInputSelectTogglePlaceholder form-control no-border"' . ( $actionLimit ? ' maxlength="' . (int) $actionLimit . '"' : null ) . ' disabled="disabled" />'
-							.							( $emoteOptions ? str_replace( 'actions__emote', $sourceClean . '_actions_emote_new', moscomprofilerHTML::selectList( $emoteOptions, 'actions[emote]', 'class="streamInputSelect streamInputEmote" data-cbselect-width="auto" data-cbselect-height="100%" data-cbselect-dropdown-css-class="streamEmoteOptions" disabled="disabled"', 'value', 'text', null, 0, false, false, false ) ) : null )
+							.							'<input type="text" id="' . $stream->id() . '_actions_message_new" name="actions[message]" class="streamInput streamInputActionMessage streamInputSelectTogglePlaceholder form-control no-border"' . ( $actionLimit ? ' maxlength="' . (int) $actionLimit . '"' : null ) . ' disabled="disabled" />'
+							.							( $emoteOptions ? str_replace( 'actions__emote', $stream->id() . '_actions_emote_new', moscomprofilerHTML::selectList( $emoteOptions, 'actions[emote]', 'class="streamInputSelect streamInputEmote" data-cbselect-width="auto" data-cbselect-height="100%" data-cbselect-dropdown-css-class="streamEmoteOptions" disabled="disabled"', 'value', 'text', null, 0, false, false, false ) ) : null )
 							.						'</div>'
 							.					'</div>';
 		}
@@ -389,8 +356,8 @@ class HTML_cbactivityActivity
 			$return			.=					'<div class="streamItemInputGroup streamInputLocationContainer border-default clearfix hidden">'
 							.						'<span class="streamItemInputGroupLabel streamInputSelectToggleLabel form-control"></span>'
 							.						'<div class="streamItemInputGroupInput border-default">'
-							.							'<input type="text" id="' . $sourceClean . '_location_place_new" name="location[place]" class="streamInput streamInputLocationPlace form-control no-border" placeholder="' . CBTxt::T( 'Where are you?' ) . '"' . ( $locationLimit ? ' maxlength="' . (int) $locationLimit . '"' : null ) . ' disabled="disabled" />'
-							.							'<input type="text" id="' . $sourceClean . '_location_address_new" name="location[address]" class="streamInput streamInputLocationAddress form-control no-border" placeholder="' . CBTxt::T( 'Have the address to share?' ) . '"' . ( $locationLimit ? ' maxlength="' . (int) $locationLimit . '"' : null ) . ' disabled="disabled" />'
+							.							'<input type="text" id="' . $stream->id() . '_location_place_new" name="location[place]" class="streamInput streamInputLocationPlace form-control no-border" placeholder="' . CBTxt::T( 'Where are you?' ) . '"' . ( $locationLimit ? ' maxlength="' . (int) $locationLimit . '"' : null ) . ' disabled="disabled" />'
+							.							'<input type="text" id="' . $stream->id() . '_location_address_new" name="location[address]" class="streamInput streamInputLocationAddress form-control no-border" placeholder="' . CBTxt::T( 'Have the address to share?' ) . '"' . ( $locationLimit ? ' maxlength="' . (int) $locationLimit . '"' : null ) . ' disabled="disabled" />'
 							.							'<div class="streamFindLocation fa fa-map-marker fa-lg" data-cbactivity-location-target=".streamInputLocationAddress"></div>'
 							.						'</div>'
 							.					'</div>';
@@ -400,7 +367,7 @@ class HTML_cbactivityActivity
 			$tagOptions		=	CBActivity::loadTagOptions( null, (int) $viewer->get( 'id' ) );
 
 			$return			.=					'<div class="streamItemInputGroup streamInputTagContainer border-default clearfix hidden">'
-							.						str_replace( 'tags__', $sourceClean . '_tags_new', moscomprofilerHTML::selectList( $tagOptions, 'tags[]', 'multiple="multiple" class="streamInputSelect streamInputTags form-control no-border" data-cbselect-placeholder="' . htmlspecialchars( CBTxt::T( 'Who are you with?' ) ) . '" data-cbselect-tags="true" data-cbselect-width="100%" data-cbselect-height="100%" data-cbselect-dropdown-css-class="streamTagsOptions" disabled="disabled"', 'value', 'text', null, 0, true, false, false ) )
+							.						str_replace( 'tags__', $stream->id() . '_tags_new', moscomprofilerHTML::selectList( $tagOptions, 'tags[]', 'multiple="multiple" class="streamInputSelect streamInputTags form-control no-border" data-cbselect-placeholder="' . htmlspecialchars( CBTxt::T( 'Who are you with?' ) ) . '" data-cbselect-tags="true" data-cbselect-width="100%" data-cbselect-height="100%" data-cbselect-dropdown-css-class="streamTagsOptions" disabled="disabled"', 'value', 'text', null, 0, true, false, false ) )
 							.					'</div>';
 		}
 
@@ -409,10 +376,10 @@ class HTML_cbactivityActivity
 							.				'<div class="streamItemDisplay activityContainerFooter panel-footer hidden">'
 							.					'<div class="activityContainerFooterRow clearfix">'
 							.						'<div class="activityContainerFooterRowLeft pull-left">'
-							.							( $actionOptions ? str_replace( 'actions__id', $sourceClean . '_actions_id_new', moscomprofilerHTML::selectList( $actionOptions, 'actions[id]', 'class="streamInputSelect streamInputSelectToggle streamInputAction btn btn-xs btn-default" data-cbactivity-toggle-target=".streamInputActionContainer" data-cbactivity-toggle-active-classes="btn-primary" data-cbactivity-toggle-inactive-classes="btn-default" data-cbactivity-toggle-icon="fa fa-smile-o" data-cbselect-dropdown-css-class="streamSelectOptions"' . $actionTooltip, 'value', 'text', null, 0, false, false, false ) ) : null )
-							.							( $locationOptions ? ( $actionOptions ? ' ' : null ) . str_replace( 'location__id', $sourceClean . '_location_id_new', moscomprofilerHTML::selectList( $locationOptions, 'location[id]', 'class="streamInputSelect streamInputSelectToggle streamInputLocation btn btn-xs btn-default" data-cbactivity-toggle-target=".streamInputLocationContainer" data-cbactivity-toggle-active-classes="btn-primary" data-cbactivity-toggle-inactive-classes="btn-default" data-cbactivity-toggle-icon="fa fa-map-marker" data-cbselect-dropdown-css-class="streamSelectOptions"' . $locationTooltip, 'value', 'text', null, 0, false, false, false ) ) : null )
-							.							( $showTags ? ( $actionOptions || $locationOptions ? ' ' : null ) . '<button type="button" id="' . $sourceClean . '_tags_new" class="streamToggle streamInputTag btn btn-default btn-xs" data-cbactivity-toggle-target=".streamInputTagContainer" data-cbactivity-toggle-active-classes="btn-primary" data-cbactivity-toggle-inactive-classes="btn-default"' . $tagTooltip . '><span class="fa fa-user"></span></button>' : null )
-							.							( $showLinks ? ( $actionOptions || $locationOptions || $showTags ? ' ' : null ) . '<button type="button" id="' . $sourceClean . '_links_new" class="streamToggle streamInputLink btn btn-default btn-xs" data-cbactivity-toggle-target=".streamInputLinkContainer" data-cbactivity-toggle-active-classes="btn-primary" data-cbactivity-toggle-inactive-classes="btn-default"' . $linkTooltip . '><span class="fa fa-link"></span></button>' : null )
+							.							( $actionOptions ? str_replace( 'actions__id', $stream->id() . '_actions_id_new', moscomprofilerHTML::selectList( $actionOptions, 'actions[id]', 'class="streamInputSelect streamInputSelectToggle streamInputAction btn btn-xs btn-default" data-cbactivity-toggle-target=".streamInputActionContainer" data-cbactivity-toggle-active-classes="btn-primary" data-cbactivity-toggle-inactive-classes="btn-default" data-cbactivity-toggle-icon="fa fa-smile-o" data-cbselect-dropdown-css-class="streamSelectOptions"' . $actionTooltip, 'value', 'text', null, 0, false, false, false ) ) : null )
+							.							( $locationOptions ? ( $actionOptions ? ' ' : null ) . str_replace( 'location__id', $stream->id() . '_location_id_new', moscomprofilerHTML::selectList( $locationOptions, 'location[id]', 'class="streamInputSelect streamInputSelectToggle streamInputLocation btn btn-xs btn-default" data-cbactivity-toggle-target=".streamInputLocationContainer" data-cbactivity-toggle-active-classes="btn-primary" data-cbactivity-toggle-inactive-classes="btn-default" data-cbactivity-toggle-icon="fa fa-map-marker" data-cbselect-dropdown-css-class="streamSelectOptions"' . $locationTooltip, 'value', 'text', null, 0, false, false, false ) ) : null )
+							.							( $showTags ? ( $actionOptions || $locationOptions ? ' ' : null ) . '<button type="button" id="' . $stream->id() . '_tags_new" class="streamToggle streamInputTag btn btn-default btn-xs" data-cbactivity-toggle-target=".streamInputTagContainer" data-cbactivity-toggle-active-classes="btn-primary" data-cbactivity-toggle-inactive-classes="btn-default"' . $tagTooltip . '><span class="fa fa-user"></span></button>' : null )
+							.							( $showLinks ? ( $actionOptions || $locationOptions || $showTags ? ' ' : null ) . '<button type="button" id="' . $stream->id() . '_links_new" class="streamToggle streamInputLink btn btn-default btn-xs" data-cbactivity-toggle-target=".streamInputLinkContainer" data-cbactivity-toggle-active-classes="btn-primary" data-cbactivity-toggle-inactive-classes="btn-default"' . $linkTooltip . '><span class="fa fa-link"></span></button>' : null )
 							.							$newFooter
 							.						'</div>'
 							.						'<div class="activityContainerFooterRowRight pull-right text-right">'
@@ -431,7 +398,7 @@ class HTML_cbactivityActivity
 	/**
 	 * @param ActivityTable   $row
 	 * @param Activity        $stream
-	 * @param int             $output 0: Normal, 1: Raw, 2: Inline, 3: Load
+	 * @param int             $output 0: Normal, 1: Raw, 2: Inline, 3: Load, 4: Save
 	 * @param UserTable       $user
 	 * @param UserTable       $viewer
 	 * @param cbPluginHandler $plugin
@@ -451,7 +418,6 @@ class HTML_cbactivityActivity
 		$linkLimit					=	( $cbModerator ? 0 : (int) $stream->get( 'links_link_limit', 5 ) );
 		$showTags					=	(int) $stream->get( 'tags', 1 );
 
-		$sourceClean				=	htmlspecialchars( $stream->source() );
 		$actionTooltip				=	cbTooltip( null, CBTxt::T( 'What are you doing or feeling?' ), null, 'auto', null, null, null, 'data-hascbtooltip="true" data-cbtooltip-position-my="bottom center" data-cbtooltip-position-at="top center" data-cbtooltip-classes="qtip-simple"' );
 		$locationTooltip			=	cbTooltip( null, CBTxt::T( 'Share your location.' ), null, 'auto', null, null, null, 'data-hascbtooltip="true" data-cbtooltip-position-my="bottom center" data-cbtooltip-position-at="top center" data-cbtooltip-classes="qtip-simple"' );
 		$tagTooltip					=	cbTooltip( null, CBTxt::T( 'Are you with anyone?' ), null, 'auto', null, null, null, 'data-hascbtooltip="true" data-cbtooltip-position-my="bottom center" data-cbtooltip-position-at="top center" data-cbtooltip-classes="qtip-simple"' );
@@ -459,7 +425,7 @@ class HTML_cbactivityActivity
 		$actionOptions				=	( $showActions ? CBActivity::loadActionOptions() : array() );
 		$locationOptions			=	( $showLocations ? CBActivity::loadLocationOptions() : array() );
 
-		$rowId						=	$sourceClean . 'ActivityContainer' . (int) $row->get( 'id' );
+		$rowId						=	$stream->id() . '_edit_' . (int) $row->get( 'id' );
 		$actionId					=	null;
 		$locationId					=	null;
 		$tags						=	array();
@@ -472,7 +438,7 @@ class HTML_cbactivityActivity
 
 		$return						=	'<div class="streamItemEdit activityContainerContentEdit border-default hidden">'
 									.		'<form action="' . $stream->endpoint( 'save', array( 'id' => (int) $row->get( 'id' ) ) ) . '" method="post" enctype="multipart/form-data" name="' . $rowId . 'Form" id="' . $rowId . 'Form" class="cb_form streamItemForm form">'
-									.			'<textarea id="' . $sourceClean . '_message_edit_' . (int) $row->get( 'id' ) . '" name="message" rows="3" class="streamInput streamInputAutosize streamInputMessage form-control no-border" placeholder="' . htmlspecialchars( CBTxt::T( "What's on your mind?" ) ) . '" data-cbactivity-input-size="3"' . ( $messageLimit ? ' data-cbactivity-input-limit="' . (int) $messageLimit . '" maxlength="' . (int) $messageLimit . '"' : null ) . '>' . htmlspecialchars( $row->get( 'message' ) ) . '</textarea>';
+									.			'<textarea id="' . $stream->id() . '_message_edit_' . (int) $row->get( 'id' ) . '" name="message" rows="3" class="streamInput streamInputAutosize streamInputMessage form-control no-border" placeholder="' . htmlspecialchars( CBTxt::T( "What's on your mind?" ) ) . '" data-cbactivity-input-size="3"' . ( $messageLimit ? ' data-cbactivity-input-limit="' . (int) $messageLimit . '" maxlength="' . (int) $messageLimit . '"' : null ) . '>' . htmlspecialchars( $row->get( 'message' ) ) . '</textarea>';
 
 		if ( $showLinks ) {
 			$links					=	$row->attachments();
@@ -494,7 +460,7 @@ class HTML_cbactivityActivity
 									.						'<button type="button" class="cbRepeatRowRemove btn btn-xs btn-danger"><span class="fa fa-minus"></span></button>'
 									.					'</span>'
 									.					'<div class="streamItemInputGroupInput border-default">'
-									.						'<input type="text" id="' . $sourceClean . '_links__' . $i . '__url_edit_' . (int) $row->get( 'id' ) . '" name="links[' . $i . '][url]" value="' . htmlspecialchars( $link['url'] ) . '" class="streamInput streamInputLinkURL form-control no-border" placeholder="' . htmlspecialchars( CBTxt::T( "What link would you like to share?" ) ) . '" />'
+									.						'<input type="text" id="' . $stream->id() . '_links__' . $i . '__url_edit_' . (int) $row->get( 'id' ) . '" name="links[' . $i . '][url]" value="' . htmlspecialchars( $link['url'] ) . '" class="streamInput streamInputLinkURL form-control no-border" placeholder="' . htmlspecialchars( CBTxt::T( "What link would you like to share?" ) ) . '" />'
 									.					'</div>'
 									.				'</div>';
 					}
@@ -505,7 +471,7 @@ class HTML_cbactivityActivity
 									.						'<button type="button" class="cbRepeatRowRemove btn btn-xs btn-danger"><span class="fa fa-minus"></span></button>'
 									.					'</span>'
 									.					'<div class="streamItemInputGroupInput border-default">'
-									.						'<input type="text" id="' . $sourceClean . '_links__0__url_edit_' . (int) $row->get( 'id' ) . '" name="links[0][url]" class="streamInput streamInputLinkURL form-control no-border" placeholder="' . htmlspecialchars( CBTxt::T( "What link would you like to share?" ) ) . '" disabled="disabled" />'
+									.						'<input type="text" id="' . $stream->id() . '_links__0__url_edit_' . (int) $row->get( 'id' ) . '" name="links[0][url]" class="streamInput streamInputLinkURL form-control no-border" placeholder="' . htmlspecialchars( CBTxt::T( "What link would you like to share?" ) ) . '" disabled="disabled" />'
 									.					'</div>'
 									.				'</div>';
 				}
@@ -513,7 +479,7 @@ class HTML_cbactivityActivity
 				$return				.=			'</div>';
 			} else {
 				$return				.=			'<div class="streamItemInputGroup streamInputLinkContainer border-default clearfix' . ( ! $links ? ' hidden' : null ) . '">'
-									.				'<input type="text" id="' . $sourceClean . '_links__0__url_edit_' . (int) $row->get( 'id' ) . '" name="links[0][url]" value="' . htmlspecialchars( ( $links ? $links[0]['url'] : null ) ) . '" class="streamInput streamInputLinkURL form-control no-border" placeholder="' . htmlspecialchars( CBTxt::T( "What link would you like to share?" ) ) . '"' . ( ! $links ? ' disabled="disabled"' : null ) . ' />'
+									.				'<input type="text" id="' . $stream->id() . '_links__0__url_edit_' . (int) $row->get( 'id' ) . '" name="links[0][url]" value="' . htmlspecialchars( ( $links ? $links[0]['url'] : null ) ) . '" class="streamInput streamInputLinkURL form-control no-border" placeholder="' . htmlspecialchars( CBTxt::T( "What link would you like to share?" ) ) . '"' . ( ! $links ? ' disabled="disabled"' : null ) . ' />'
 									.			'</div>';
 			}
 		}
@@ -526,8 +492,8 @@ class HTML_cbactivityActivity
 			$return					.=			'<div class="streamItemInputGroup streamInputActionContainer border-default clearfix' . ( ! $actionId ? ' hidden' : null ) . '">'
 									.				'<span class="streamItemInputGroupLabel streamInputSelectToggleLabel form-control"></span>'
 									.				'<div class="streamItemInputGroupInput border-default">'
-									.					'<input type="text" id="' . $sourceClean . '_actions_message_edit_' . (int) $row->get( 'id' ) . '" name="actions[message]" value="' . htmlspecialchars( $action->get( 'message' ) ) . '" class="streamInput streamInputActionMessage streamInputSelectTogglePlaceholder form-control no-border"' . ( $actionLimit ? ' maxlength="' . (int) $actionLimit . '"' : null ) . ( ! $actionId ? ' disabled="disabled"' : null ) . ' />'
-									.					( $emoteOptions ? str_replace( 'action__emote', $sourceClean . '_actions_emote_edit_' . (int) $row->get( 'id' ), moscomprofilerHTML::selectList( $emoteOptions, 'actions[emote]', 'class="streamInputSelect streamInputEmote" data-cbselect-width="auto" data-cbselect-height="100%" data-cbselect-dropdown-css-class="streamEmoteOptions"' . ( ! $actionId ? ' disabled="disabled"' : null ), 'value', 'text', $action->get( 'emote' ), 0, false, false, false ) ) : null )
+									.					'<input type="text" id="' . $stream->id() . '_actions_message_edit_' . (int) $row->get( 'id' ) . '" name="actions[message]" value="' . htmlspecialchars( $action->get( 'message' ) ) . '" class="streamInput streamInputActionMessage streamInputSelectTogglePlaceholder form-control no-border"' . ( $actionLimit ? ' maxlength="' . (int) $actionLimit . '"' : null ) . ( ! $actionId ? ' disabled="disabled"' : null ) . ' />'
+									.					( $emoteOptions ? str_replace( 'action__emote', $stream->id() . '_actions_emote_edit_' . (int) $row->get( 'id' ), moscomprofilerHTML::selectList( $emoteOptions, 'actions[emote]', 'class="streamInputSelect streamInputEmote" data-cbselect-width="auto" data-cbselect-height="100%" data-cbselect-dropdown-css-class="streamEmoteOptions"' . ( ! $actionId ? ' disabled="disabled"' : null ), 'value', 'text', $action->get( 'emote' ), 0, false, false, false ) ) : null )
 									.				'</div>'
 									.			'</div>';
 		}
@@ -539,8 +505,8 @@ class HTML_cbactivityActivity
 			$return					.=			'<div class="streamItemInputGroup streamInputLocationContainer border-default clearfix' . ( ! $locationId ? ' hidden' : null ) . '">'
 									.				'<span class="streamItemInputGroupLabel streamInputSelectToggleLabel form-control"></span>'
 									.				'<div class="streamItemInputGroupInput border-default">'
-									.					'<input type="text" id="' . $sourceClean . '_location_place_edit_' . (int) $row->get( 'id' ) . '" name="location[place]" value="' . htmlspecialchars( $location->get( 'place' ) ) . '" class="streamInput streamInputLocationPlace form-control no-border" placeholder="' . CBTxt::T( 'Where are you?' ) . '"' . ( $locationLimit ? ' maxlength="' . (int) $locationLimit . '"' : null ) . ( ! $locationId ? ' disabled="disabled"' : null ) . ' />'
-									.					'<input type="text" id="' . $sourceClean . '_location_address_edit_' . (int) $row->get( 'id' ) . '" name="location[address]" value="' . htmlspecialchars( $location->get( 'address' ) ) . '" class="streamInput streamInputLocationAddress form-control no-border" placeholder="' . CBTxt::T( 'Have the address to share?' ) . '"' . ( $locationLimit ? ' maxlength="' . (int) $locationLimit . '"' : null ) . ( ! $locationId ? ' disabled="disabled"' : null ) . ' />'
+									.					'<input type="text" id="' . $stream->id() . '_location_place_edit_' . (int) $row->get( 'id' ) . '" name="location[place]" value="' . htmlspecialchars( $location->get( 'place' ) ) . '" class="streamInput streamInputLocationPlace form-control no-border" placeholder="' . CBTxt::T( 'Where are you?' ) . '"' . ( $locationLimit ? ' maxlength="' . (int) $locationLimit . '"' : null ) . ( ! $locationId ? ' disabled="disabled"' : null ) . ' />'
+									.					'<input type="text" id="' . $stream->id() . '_location_address_edit_' . (int) $row->get( 'id' ) . '" name="location[address]" value="' . htmlspecialchars( $location->get( 'address' ) ) . '" class="streamInput streamInputLocationAddress form-control no-border" placeholder="' . CBTxt::T( 'Have the address to share?' ) . '"' . ( $locationLimit ? ' maxlength="' . (int) $locationLimit . '"' : null ) . ( ! $locationId ? ' disabled="disabled"' : null ) . ' />'
 							.							'<div class="streamFindLocation fa fa-map-marker fa-lg" data-cbactivity-location-target=".streamInputLocationAddress"></div>'
 									.				'</div>'
 									.			'</div>';
@@ -557,7 +523,7 @@ class HTML_cbactivityActivity
 			$tagOptions				=	CBActivity::loadTagOptions( (int) $row->get( 'id' ), (int) $row->get( 'user_id' ) );
 
 			$return					.=			'<div class="streamItemInputGroup streamInputTagContainer border-default clearfix' . ( ! $tags ? ' hidden' : null ) . '">'
-									.				str_replace( 'tags__', $sourceClean . '_tags_edit_' . (int) $row->get( 'id' ), moscomprofilerHTML::selectList( $tagOptions, 'tags[]', 'multiple="multiple" class="streamInputSelect streamInputTags form-control no-border" data-cbselect-placeholder="' . htmlspecialchars( CBTxt::T( 'Who are you with?' ) ) . '" data-cbselect-tags="true" data-cbselect-width="100%" data-cbselect-height="100%" data-cbselect-dropdown-css-class="streamTagsOptions"' . ( ! $tags ? ' disabled="disabled"' : null ), 'value', 'text', $tags, 0, true, false, false ) )
+									.				str_replace( 'tags__', $stream->id() . '_tags_edit_' . (int) $row->get( 'id' ), moscomprofilerHTML::selectList( $tagOptions, 'tags[]', 'multiple="multiple" class="streamInputSelect streamInputTags form-control no-border" data-cbselect-placeholder="' . htmlspecialchars( CBTxt::T( 'Who are you with?' ) ) . '" data-cbselect-tags="true" data-cbselect-width="100%" data-cbselect-height="100%" data-cbselect-dropdown-css-class="streamTagsOptions"' . ( ! $tags ? ' disabled="disabled"' : null ), 'value', 'text', $tags, 0, true, false, false ) )
 									.			'</div>';
 		}
 
@@ -565,10 +531,10 @@ class HTML_cbactivityActivity
 									.			'<div class="activityContainerFooter panel-footer">'
 									.				'<div class="activityContainerFooterRow clearfix">'
 									.					'<div class="activityContainerFooterRowLeft pull-left">'
-									.						( $actionOptions ? str_replace( 'actions__id', $sourceClean . '_actions_id_edit_' . (int) $row->get( 'id' ), moscomprofilerHTML::selectList( $actionOptions, 'actions[id]', 'class="streamInputSelect streamInputSelectToggle streamInputAction btn btn-xs ' . ( $actionId ? 'btn-primary' : 'btn-default' ) . '" data-cbactivity-toggle-target=".streamInputActionContainer" data-cbactivity-toggle-active-classes="btn-primary" data-cbactivity-toggle-inactive-classes="btn-default" data-cbactivity-toggle-icon="fa fa-smile-o" data-cbselect-dropdown-css-class="streamSelectOptions"' . $actionTooltip, 'value', 'text', $actionId, 0, false, false, false ) ) : null )
-									.						( $locationOptions ? ( $actionOptions ? ' ' : null ) . str_replace( 'location__id', $sourceClean . '_location_id_edit_' . (int) $row->get( 'id' ), moscomprofilerHTML::selectList( $locationOptions, 'location[id]', 'class="streamInputSelect streamInputSelectToggle streamInputLocation btn btn-xs ' . ( $locationId ? 'btn-primary' : 'btn-default' ) . '" data-cbactivity-toggle-target=".streamInputLocationContainer" data-cbactivity-toggle-active-classes="btn-primary" data-cbactivity-toggle-inactive-classes="btn-default" data-cbactivity-toggle-icon="fa fa-map-marker" data-cbselect-dropdown-css-class="streamSelectOptions"' . $locationTooltip, 'value', 'text', $locationId, 0, false, false, false ) ) : null )
-									.						( $showTags ? ( $actionOptions || $locationOptions ? ' ' : null ) . '<button type="button" id="' . $sourceClean . '_tags_edit_' . (int) $row->get( 'id' ) . '" class="streamToggle streamInputTag btn btn-xs' . ( $tags ? ' btn-primary streamToggleOpen' : ' btn-default' ) . '" data-cbactivity-toggle-target=".streamInputTagContainer" data-cbactivity-toggle-active-classes="btn-primary" data-cbactivity-toggle-inactive-classes="btn-default"' . $tagTooltip . '><span class="fa fa-user"></span></button>' : null )
-									.						( $showLinks ? ( $actionOptions || $locationOptions || $showTags ? ' ' : null ) . '<button type="button" id="' . $sourceClean . '_links_edit_' . (int) $row->get( 'id' ) . '" class="streamToggle streamInputLink btn btn-xs' . ( $links ? ' btn-primary streamToggleOpen' : ' btn-default' ) . '" data-cbactivity-toggle-target=".streamInputLinkContainer" data-cbactivity-toggle-active-classes="btn-primary" data-cbactivity-toggle-inactive-classes="btn-default"' . $linkTooltip . '><span class="fa fa-link"></span></button>' : null )
+									.						( $actionOptions ? str_replace( 'actions__id', $stream->id() . '_actions_id_edit_' . (int) $row->get( 'id' ), moscomprofilerHTML::selectList( $actionOptions, 'actions[id]', 'class="streamInputSelect streamInputSelectToggle streamInputAction btn btn-xs ' . ( $actionId ? 'btn-primary' : 'btn-default' ) . '" data-cbactivity-toggle-target=".streamInputActionContainer" data-cbactivity-toggle-active-classes="btn-primary" data-cbactivity-toggle-inactive-classes="btn-default" data-cbactivity-toggle-icon="fa fa-smile-o" data-cbselect-dropdown-css-class="streamSelectOptions"' . $actionTooltip, 'value', 'text', $actionId, 0, false, false, false ) ) : null )
+									.						( $locationOptions ? ( $actionOptions ? ' ' : null ) . str_replace( 'location__id', $stream->id() . '_location_id_edit_' . (int) $row->get( 'id' ), moscomprofilerHTML::selectList( $locationOptions, 'location[id]', 'class="streamInputSelect streamInputSelectToggle streamInputLocation btn btn-xs ' . ( $locationId ? 'btn-primary' : 'btn-default' ) . '" data-cbactivity-toggle-target=".streamInputLocationContainer" data-cbactivity-toggle-active-classes="btn-primary" data-cbactivity-toggle-inactive-classes="btn-default" data-cbactivity-toggle-icon="fa fa-map-marker" data-cbselect-dropdown-css-class="streamSelectOptions"' . $locationTooltip, 'value', 'text', $locationId, 0, false, false, false ) ) : null )
+									.						( $showTags ? ( $actionOptions || $locationOptions ? ' ' : null ) . '<button type="button" id="' . $stream->id() . '_tags_edit_' . (int) $row->get( 'id' ) . '" class="streamToggle streamInputTag btn btn-xs' . ( $tags ? ' btn-primary streamToggleOpen' : ' btn-default' ) . '" data-cbactivity-toggle-target=".streamInputTagContainer" data-cbactivity-toggle-active-classes="btn-primary" data-cbactivity-toggle-inactive-classes="btn-default"' . $tagTooltip . '><span class="fa fa-user"></span></button>' : null )
+									.						( $showLinks ? ( $actionOptions || $locationOptions || $showTags ? ' ' : null ) . '<button type="button" id="' . $stream->id() . '_links_edit_' . (int) $row->get( 'id' ) . '" class="streamToggle streamInputLink btn btn-xs' . ( $links ? ' btn-primary streamToggleOpen' : ' btn-default' ) . '" data-cbactivity-toggle-target=".streamInputLinkContainer" data-cbactivity-toggle-active-classes="btn-primary" data-cbactivity-toggle-inactive-classes="btn-default"' . $linkTooltip . '><span class="fa fa-link"></span></button>' : null )
 									.						$editFooter
 									.					'</div>'
 									.					'<div class="activityContainerFooterRowRight pull-right text-right">'
@@ -586,7 +552,7 @@ class HTML_cbactivityActivity
 	/**
 	 * @param ActivityTable   $row
 	 * @param Activity        $stream
-	 * @param int             $output 0: Normal, 1: Raw, 2: Inline, 3: Load
+	 * @param int             $output 0: Normal, 1: Raw, 2: Inline, 3: Load, 4: Save
 	 * @param UserTable       $user
 	 * @param UserTable       $viewer
 	 * @param cbPluginHandler $plugin
@@ -610,7 +576,6 @@ class HTML_cbactivityActivity
 
 		$cbModerator			=	CBActivity::isModerator( (int) $viewer->get( 'id' ) );
 
-		$sourceClean			=	htmlspecialchars( $stream->source() );
 		$isStatus				=	( ( $row->get( 'type' ) == 'status' ) || ( $row->get( 'subtype' ) == 'status' ) );
 		$rowOwner				=	( $viewer->get( 'id' ) == $row->get( 'user_id' ) );
 
@@ -683,13 +648,13 @@ class HTML_cbactivityActivity
 
 			if ( $isStatus && ( $cbModerator || $rowOwner ) ) {
 				$return			.=			'<div class="streamItemEdit activityContainerAttachmentInfo panel-footer' . ( $link['type'] == 'url' ? ' media-body' : null ) . ' hidden">'
-								.				'<input type="text" id="' . $sourceClean . '_links_title_edit_' . (int) $row->get( 'id' ) . '_' . ( $i + 1 ) . '" name="links[' . $i . '][title]" value="' . htmlspecialchars( $link['title'] ) . '" class="streamInput streamInputLinkTitle form-control" placeholder="' . htmlspecialchars( CBTxt::T( 'Title' ) ) . '" />'
-								.				'<textarea id="' . $sourceClean . '_links_description_edit_' . (int) $row->get( 'id' ) . '_' . ( $i + 1 ) . '" name="links[' . $i . '][description]" rows="1" class="streamInput streamInputAutosize streamInputLinkDescription form-control" placeholder="' . htmlspecialchars( CBTxt::T( 'Description' ) ) . '">' . htmlspecialchars( $link['description'] ) . '</textarea>';
+								.				'<input type="text" id="' . $stream->id() . '_links_title_edit_' . (int) $row->get( 'id' ) . '_' . ( $i + 1 ) . '" name="links[' . $i . '][title]" value="' . htmlspecialchars( $link['title'] ) . '" class="streamInput streamInputLinkTitle form-control" placeholder="' . htmlspecialchars( CBTxt::T( 'Title' ) ) . '" />'
+								.				'<textarea id="' . $stream->id() . '_links_description_edit_' . (int) $row->get( 'id' ) . '_' . ( $i + 1 ) . '" name="links[' . $i . '][description]" rows="1" class="streamInput streamInputAutosize streamInputLinkDescription form-control" placeholder="' . htmlspecialchars( CBTxt::T( 'Description' ) ) . '">' . htmlspecialchars( $link['description'] ) . '</textarea>';
 
 				if ( $link['type'] == 'url' ) {
 					$return		.=				'<div class="streamInput">'
 								.					'<label class="checkbox-inline">'
-								.						'<input type="checkbox" id="' . $sourceClean . '_links_thumbnail_edit_' . (int) $row->get( 'id' ) . '_' . ( $i + 1 ) . '" name="links[' . $i . '][thumbnail]" value="0"' . ( ! $link['thumbnail'] ? ' checked="checked"' : null ) . '> ' . CBTxt::T( 'Do not display thumbnail' )
+								.						'<input type="checkbox" id="' . $stream->id() . '_links_thumbnail_edit_' . (int) $row->get( 'id' ) . '_' . ( $i + 1 ) . '" name="links[' . $i . '][thumbnail]" value="0"' . ( ! $link['thumbnail'] ? ' checked="checked"' : null ) . '> ' . CBTxt::T( 'Do not display thumbnail' )
 								.					'</label>'
 								.				'</div>';
 				}

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
 		<div class="toolbar" id="toolbar" style="float: right;">
 			<table><tr>
 			<td><a onclick="displayTemplates(); return false;" href="#" ><span class="icon-32-acytemplate" title="<?php echo JText::_('ACY_TEMPLATES',true); ?>"></span><?php echo JText::_('ACY_TEMPLATES'); ?></a></td>
-			<td><a onclick="try{IeCursorFix();}catch(e){}; displayTags(); return false;" href="#" ><span class="icon-32-tag" title="<?php echo JText::_('TAGS',true); ?>"></span><?php echo JText::_('TAGS'); ?></a></td>
+			<td><a onclick="try{IeCursorFix();}catch(e){}; displayTags(); return false;" href="#" ><span class="icon-32-acytags" title="<?php echo JText::_('TAGS',true); ?>"></span><?php echo JText::_('TAGS'); ?></a></td>
 			<td><span class="divider"></span></td>
 			<td><a onclick="javascript:submitbutton('test'); return false;" href="#" ><span class="icon-32-acysend" title="<?php echo JText::_('SEND_TEST',true); ?>"></span><?php echo JText::_('SEND_TEST'); ?></a></td>
 			<td><a onclick="javascript:submitbutton('apply'); return false;" href="#" ><span class="icon-32-save" title="<?php echo JText::_('ACY_SAVE',true); ?>"></span><?php echo JText::_('ACY_SAVE'); ?></a></td>

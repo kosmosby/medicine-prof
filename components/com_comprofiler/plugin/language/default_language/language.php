@@ -1625,5 +1625,300 @@ return	array(
 'USERLIST_TITLE_COLUMN1'	=>	'Column 1',
 // 1 language strings from file components/com_comprofiler/plugin/user/plug_cbcore/xml/views/view.com_comprofiler.editfield.xml
 'NOT_A_VALID_INPUT_00200b'	=>	'Not a valid input',
-'MY_PROFILE_LINK' => 'My profile'
+'MY_PROFILE_LINK' => 'My profile',
+'TERMS_AND_CONDITIONS_TEXT' => '<b> USER AGREEMENT </b>
+<br/>This User Agreement (hereinafter referred to as „Agreement“) governs the usage of materials and services of the website www.MEDICINE-PROF.COM  
+(hereinafter referred to as „Website“) 
+<br/>1. Basic terms
+<br/>1.1. The use of materials and services of the Website subjects to the current legislation of the Russian Federation.
+<br/>1.2. Present Agreement is public offer. By accessing this Website, you are entering into this Agreement and you agree to be bound by the terms of  
+this agreement. The User uses the services of the Website at your own risk. The services are provided "as is". The Website Administration does not  
+assume any responsibility, including compliance services of the Website with the User’s goals.
+<br/>1.3. The Website Administration has the right to unilaterally change the Agreement at any time without any special notice. A new version of the  
+Agreement shall come into effect upon its posting on the Website or communicated to the User at any convenient for the Administration of the Website  
+form. 
+<br/>1.4. Starting to use any service of the Website and / or its separate functions, either through the registration procedure, the User is deemed to  
+have accepted the Terms in full, without any reservations and exceptions. In case the User disagrees with any of the provisions of these Terms, the User  
+may not use the services of the Website. If the Website Administration has made any changes to the Agreement in the manner provided in paragraph 1.3 of  
+the Agreement and the User does not agree with them, he must stop using the Website services.
+<br/>2. General provisions of the User Agreement
+<br/>2.1. The terms and their definitions used for the purposes of the Agreement: Platform — software and hardware integrated with the Website; the User  
+is a capable person who has acceded to this Agreement in its own interest or acting on behalf of and in the interests of the represented legal entity.  
+Website — Internet sites hosted on the domain________.ru and its subdomains. Service — a set of services and the license granted to the User using the  
+Platform. Agreement — this user agreement with all additions and changes.
+<br/>2.2. Use of the Service by any person in any manner and in any form within its declared functionality, including: viewing of materials posted on  
+the Website; registering and / or signing up to the Website, posting or displaying any materials on the Website, including, but not limited to such as:  
+text, hypertext links, images, audio and video files, data and / or other information - is the conclusion of the agreement on the terms of this  
+Agreement in accordance with the provisions of Art. 437 and Art. 438 of the Civil Code of the Russian Federation.
+<br/>2.3. By using Service in any possible way mentioned above, the User confirms that:
+<br/>2.3.1. has read the terms of given Agreement in full before using the Service;
+<br/>2.3.2. accepts all the conditions of the given  Agreement in its entirety without any exceptions and limitations or qualifications, and undertakes  
+to comply with them or stop using the Service. If the user does not agree with the terms of given Agreement or not allowed (does not have the legal and  
+(or) legal capacity) to conclude an agreement based on them, the User must immediately cease all use of the Service.
+<br/>3. Agreements for the use of the Services of the Website
+<br/>3.1. Use of the functionality of the Website is permitted only after User’s registration and authorization on the Website in accordance with the  
+Administration procedure.
+<br/>3.2. Technical, organizational and commercial conditions for the use of the Service, including its capabilities are delated to the user through  
+posts on the Website.
+<br/>3.3. The selected User name and password are necessary and sufficient information for user access to the Website as a result of which a unique User  
+account will be created. The User has no right to pass their login and password to third parties, shall be fully responsible for their safety, lack of  
+information about their content of third parties, independently choosing their method of storage.
+<br/>3.4. The User agrees to provide accurate and complete information about themselves as prompted in the registration form to register on the Website, and keep this information up to date. If the user provides incorrect information or the Administration has reason to believe that the information they provide incomplete or incorrect, Administration has the right in its sole discretion to block or remove user account and deny user to use its services (or their individual functions).
+<br/>3.5.The Administration reserves the right to require the User to confirm the information specified in the registration and request in connection with the supporting documents (in particular - the identity documents) at any time, failing to do so, at the discretion of the Administation may be assimilated to the provision false information and lead to the consequences envisaged by para. 3.4 of the Agreement.
+<br/>If the User data specified in the documents given to them, do not correspond to the data provided during registration, as well as when the data specified in the registration does not allow to identify the User, the Administration has the right to deny the User access to the account and the use of services of the Website.
+<br/>3.6.  Personal information of  Users contained in the user account is stored and processed by the Administration of the Website solely according to the requirements of confidentiality.
+<br/>3.7. Username and password to access the User account. While signing up the User chooses login (unique character user account name) and password to access their account. The Administration has the right to prohibit the use of certain logins, as well as to establish requirements for username and password (length, allowed characters, etc.)
+<br/>3.8.The User is solely responsible for the security of the password selected, as well as independently ensures the confidentiality of their password. The User is solely responsible for all activities and their implications in the framework of or while using the Website services under a User account, including the cases of voluntary transfer of Users data to access the User’s account to third parties on any terms (including treaties or agreements). Moreover, all actions within or while using the services of the Website by the User account are considered to be produced by the User, except in cases where the User, in the manner prescribed by para. 3.9, has notified the Administration of any unauthorized access to the services of the Website using the User’s account and/or any other breach (suspected breach) of  confidentiality of their password.
+<br/>3.9 The User is obliged to immediately notify the Administration of any unauthorized (not permitted by the User) access to the services of the  
+Website using the User’s account and/or any other breach (suspected breach) of confidentiality of their  password. For safety reasons, the User is  
+obliged to carry out a safe shutdown under their account at the end of each work session with the services of the Website. The Administration is not  
+held responsible for any loss or damage of data, and other consequences of any nature that may occur due to violations of the provisions of this part of  
+the User Agreement.
+<br/>3.10. The User’s use of their account:
+<br/>3.10.1. The User has no legal right to reproduce, repeat, copy, sell or resell, aas well as use for any commercial purposes, any portion of the  
+Site services (including content available to users through services), or provide access to them, except when the User has received such permission from  
+the Administration, or when it is directly provided by the User agreement of any service.
+<br/>3.10.2. Certain categories of User accounts can restrict or prohibit the use of certain services of the Website or their individual functions if it  
+is provided at registration or in the conditions of use of a particular service.
+<br/>3.11. Termination of registration.
+<br/>The Administration has the right to block or delete the User account, and deny access to the use of any account to certain services of the Website  
+and to remove any content without giving any reasons, including for violations of the Terms of Agreement, as well as in case of non-corresponding  
+service, in particular, on the mailbox service of the site will be deleted if the User has not used it for more than 24 months.
+<br/>3.12. Deleting a User account. The user may at any time delete their account on all services of the Website or to terminate it in respect of some  
+of them using the appropriate function.
+<br/>3.12.1. The Administration deletes the account in the following order: the account is blocked for a period of one month during which the User’s  
+access to their account becomes impossible, and the content posted via this account can be removed; if during the above period the User account is  
+restored, User’s access to the account is recovered, but the content placed using this account may not be subject to recovery; if the User’s account is  
+not restored during the above period, all of the content posted tusing the account will be deleted and the login will be available to use by other  
+users. Since then, the recovery of the account as well as any information relating thereto, and equal access to the services of Yandex using this  
+account becomes impossible. The above procedure is also applicable to ban of the access using any account to certain services.
+<br/>4.The License to use the Website and the permissible use of the Service
+<br/>4.1.The Administration provides registered and / or authorized User the right to free functional use of the Platform and the Website under a simple  
+(non-exclusive) nontransferable license within the features of the Service.
+<br/>4.2. The Administration has the right to set limits on the volume and content of information materials posted by the User, as well as introduce  
+other technical restrictions on the use of the Platform, and (or) the Website, which will be delated to the Users in the form and manner on the  
+Administration’s option.
+<br/>4.3. Other means of use of the Platform and (or) of the Website are strictly prohibited.
+<br/>4.4. The User is solely responsible for the compliance of the content posted by the Users to requirements of the current legislation, including  
+third-party liability in cases where publishing of the content violates the rights and legitimate interests of third parties, including moral rights of  
+authors, other intellectual rights of third parties and / or aggresses intangible benefits belonging to them.
+<br/>4.5. The User acknowledges and agrees that the Administration is not obliged to view the content of any kind placed and/or distributed by the  
+user via   services of the Website, as well as the fact that the Administration has the right (but not the obligation) in their sole discretion to  
+refuse the User in the placement and/or distribution of their content or remove any content that is available through the services of the Website. The  
+User acknowledges and agrees that they should independently evaluate any risks associated with the use of content, including the assessment of  
+reliability, completeness or usefulness of the given content.
+<br/>4.6. User acknowledges and agrees that the technology of service performance may require copy (reproduction) of the Website User’s content, as well  
+as its processing by the Administration for compliance with the technical requirements of a particular service.
+<br/>4.7. When using the services of the Site User has no legal right to:
+<br/>4.7.1. upload, send, transmit, place and/or distribute in any other way content that is unlawful, harmful, defamatory, offensive to the morality,  
+shows (or promotes), violence and cruelty, violates intellectual property rights, promotes hatred and / or discrimination against people on racial,  
+ethnic, sexual, religious, social grounds, contains insults to any persons or organizations, contains elements (or promotes) pornography, child  
+pornography, advertising of sexual services of any kind (including those disguised as other services), instructutions for manufacture and use of drugs  
+and their precursors, explosives or other weapons;
+<br/>4.7.2. violate the rights of third parties, including minors and/or harm them in any form;
+<br/>4.7.3. impersonate another person or company representative and/or community representative without sufficient rights, including employees of the  
+Administration, forum moderators, owner of the Website, and to use any other forms and ways of illegal representation of other parties in the network,  
+as well as mislead Users or the Administration  about properties and characteristics of any subjects or objects;
+<br/>4.7.4. upload, send, transmit or place and/or distribute the content in any other way, without legal right to do so under the law or any  
+contractual relations;
+<br/>4.7.5. upload, send, transmit or place and/or distribute in any other way advertisments without a special permission, spam (including search),  
+lists of e-mail addresses belonging to third parties, schemes of  "pyramids", multilevel (network) marketing (MLM), internet earnings systems and e-mail-businesses, "chain letters", and use services of the Website to participate in given activities or to use the services of the Website solely to redirect users to pages in other domains;
+<br/>4.7.6. upload, send, transmit or place and/or distribute in any other way any materials that contain viruses or any other computer codes, files or programs designed to interrupt, destroy or limit the functionality of any computer or telecommunications equipment or software for unauthorized access as well as the serial numbers for commercial software products and programs for generation of serial numbers, logins, passwords and other means to gain unauthorized access to commercial resources on the Internet, as well as placing links to the above information;
+<br/>4.7.7. illegally collect and store personal data of third parties;
+<br/>4.7.8. disrupt the normal performance of services of the Website;
+<br/>4.7.9. promote actions aimed at violation of the restrictions and prohibitions imposed by the Agreement;
+<br/>4.7.10. violate the rules of law, including international law in any other way.
+<br/>4.8. Websites and content of third parties.
+<br/>Services of the Website may contain links to other Internet websites (third party websites). Said third parties and their content is not checked by the Administration for compliance with any requirements (accuracy, completeness, legality, etc.). The Administration is not responsible for any information, materials placed on the websites of third parties the User can access using the service, including any opinions or statements expressed on third party websites, advertisements, etc., as well as the availability of such websites or the content and consequences of their use by the User. Link (in any form) to any website, product, service, or any information of commercial or non-commercial nature published on the Website is not an endorsement or recommendation of the products (services) by the Administration, unless it is stated otherwise by the Administration.
+<br/>4.9.Exclusive rights for the content of services and content.
+<br/>All the facilities available using the services of the Website, including design elements, text, graphics, illustrations, videos, computer programs, databases, music, sounds and other objects (hereinafter – the content of the services), and any content posted on services on the Website are subject to the exclusive rights of the Administration, Users and other rights holders. Use of the content, as well as any other elements of service is only possible in the framework of  the certain service functionality. No elements of the content of services of the Website, and no content posted on the Website’s service can be used in any other way without the prior permission of the copyright holder. By use is implied reproduction, copying, processing, distribution on any basis, display in a framework, etc. Exceptions are provided by the legislation of the Russian Federation or the conditions of use of a particular service of the Website. The User’s use of the elements of content services, as well as any content for personal, non-commercial use is permitted provided that all the signs of copyright and related rights, trademarks and other notices of authorship, name (or nickname) of the author / copyright owner names remain unchanged, as well as the given object remains unchanged. Exceptions are provided by the legislation of the Russian Federation.
+<br/>5. User obligations
+<br/>By accepting terms of given User Agreement User states, confirms and assures the following:
+<br/>5.1. Holds all rights and has the power to enter and execute the given Contract for the use of Service.
+<br/>5.2. Service will only be used by User for purposes authorized by given User Agreement, subject to the provisions and applicable law as well as  
+general practice.
+<br/>5.3. User will abstain from commission of an action of any kind that contradicts or prevents providing of Service, or operation of relevant  
+equipment, network or software used to provide Service.
+<br/>5.4. Use of Service for specific purposes does not violate the property right and/or personal non-property right of third parties, as well as  
+regulatory restrictions and prohibitions established by applicable law including without limitation: copyright and related rights, trademark rights,  
+service mark, appellation of origin, copyright in industrial design, rights to use pictures of people. Content provided by User does not include  
+defamatory information or/and images, does not advocate violence, pornography, narcotic drugs or race hatred, as well as User has all necessary permits  
+to use such materials.
+<br/>6. License to use User content
+<br/>6.1. By accepting terms of given User Agreement User voluntarily provides to Website Administration permit to use all materials added (copied, reproduced, streamed) to the Website by User. It is required to use hyperlinks when quoting Website materials including copyright protected ones (Civil Code of the Russian Federation, Art.1274,para.1, subpt. 1)
+<br/>6.2. Permit to use given to Website Administration applies to all materials placed on Website by Users for the duration of the exclusive rights to intellectual property or non-property rights protection on the territory of all countries of the world.
+<br/>6.3.Within the frame of the ordinary (non-exclusive) license given to the Website Administration it is allowed to use materials in the following way: to replicate  materials, i.e., to produce one or more copies of the materials in any form, as well as to copy materials to the electronic media of any kind (reproduction rights); to distribute copies of the materials, i.e., to provide access to the material in any form, including access by network or any other means, as well as by selling, renting, leasing, lending, including import for any of these purposes (distribution right); publicly display material (right of public display); publicly perform material (right of representation and performance); to report material in such a way that any party can have access to it in an interactive mode from any place and at any time of their choice (right of making available to the public); modify materials, i.e. adaptation or other transformation of materials, including the transfer of materials from one language to another (adaptation right); the right to assign all or part of the obtained rights to third parties (sublicensing right).
+<br/>7. By accepting terms of given User Agreement User understands, realizes and admits that:
+<br/>7.1. The parties’ relations in providing free services shall not be subject to consumer protection legislation.
+<br/>7.2.Service is provided in the form, quantity and quality in which it operates at the moment of User’s  familiarization with given User Agreement, therefore  Users are not given any guarantees for the following: Service will meet User’s requirements; Services will be provided continuously, quickly, secure or error free; results that can be obtained with the use of the Service will be accurate and reliable; the quality of any product, service, information and user materials obtained with the use of the Service will meet the User’s expectations; any errors in the software of the Service will be corrected.
+<br/>7.3.  All responsibility for content and its competence held by the party that added or/and created given content on the Website.  
+<br/>7.4. Website Administration is not responsible for materials provided and/or placed (broadcasted included) by Users on the Website, and does not  
+check content, authenticity and safety of these materials, or their components, as well as their compliance with the applicable law, and User’s permit  
+to use these materials. 
+<br/>7.5. More specifically it is forbidden to use the Service for: placing and/or distribution of infringing materials; placement and/or distribution  
+of pornographic materials, as well as pornography and child pornography, advertising of sexual services of any kind; placement and/or distribution of  
+any other prohibited information, including materials of a terrorist and extremist nature, and aimed at suppressing human rights and freedom based on  
+race, nationality, religion, language and gender, inciting to commit acts of violence against the person, or inhuman treatment of animals, advocating  
+any other illegal acts, including  instructions for manufacture and use of weapons, drugs and their precursors, etc .; predominantly or exclusively  
+providing hyperlinks; distribution of advertisings by personal messages to other users without their prior consent to receive them (spam); restrictions  
+by password or other means of access to the files posted on the website or broadcasted on it.
+<br/>7.6. Website Administration admits that despite an established proscription User may get the materials that they may find offensive or obscene,  
+violating the applicable law, or the rights and/or interests of third parties.
+<br/>7.7. In case of violation of the rights and/or interests of Users in connection with the provision of the Service, including the illegal placement  
+of materials  by other users, User, who discover such facts, shall notify Website Administration. User should send a written notice to Website  
+Administration detailing the circumstances of the violation, and hyperlink to the page of Website containing materials which, according to the User  
+violate their legal rights and/or interests. 
+<br/>7.8.  Should any claims of third parties appear in respect of  violation of any of the property and/or personal non-property rights of third  
+parties, as well as prohibitions or restrictions established in accordance with legislation, User is obliged to pass a formal identification by Website  
+Administration request, giving Website Administration a notarized commitment to settle claims arising on their own and at their own expense together  
+with an indication of their passport or registration data.
+<br/>7.9. Website Administration reserves the right to remove any materials from Website or to temporarily restrict access to them unilaterally without  
+explanation.
+<br/>7.10.In the case of repeated or gross violation of the terms of given User Agreement and/or the requirements of the law,  Website Administration  
+reserves the right to block the user account, the User entirely, delete it, or otherwise limit (stop) the Service delivery.
+<br/>7.11. Should Website Administration be made liable or  have sanctions imposed against themselves in connection to the admitted violations of the  
+User and/or interests of third parties, as well as restrictions and prohibitions established by applicable law, the user is obliged to fully compensate  
+for the losses of the Administration.
+<br/>7.12. The Website Administration is not responsible for the use of publicly available user personal data. 
+<br/>7.13. Under all circumstances, the responsibility of Website Administration is limited to 1 000 (one thousand) Russian Rubles and imposed on them  
+only if Website Administration is found guilty. 
+<br/>7.14. Comments and other User entries on the Website should not become non-compliant with the legislative requirements of the Russian Federation  
+and the generally accepted norms of morality and ethics. 
+<br/>8.  Notifications
+<br/>8.1. User consents to receive informative electronic messages (hereinafter - "notifications") about important events on Website or in connection  
+with it from Website Administration to e-mail address given in the user account.
+<br/>8.2. Website Administration may use notifications to inform User about the capabilities of the Platform and (or) Website and/or changes in  
+information resources posted on them.
+<br/>9. Terms of use of personal data
+<br/>9.1. By accepting terms of given User Agreement User gives the following written consent to the automated processing of their personal data  
+provided for the implementation of the given User Agreement and its subsequent execution.
+<br/>9.2. In cases allowed by functional capabilities of the Service, User determines the degree of accessibility of their personal data to other users  
+of the Internet as it deems appropriate.
+<br/>9.3.User acknowledges and agrees that in the event of placement of his personal data using the Service in a manner providing the possibility of it  
+being obtained by other Internet users, personal data is  considered public. User is also aware that their personal data is considered public in cases  
+when it is not covered by the requirement of confidentiality in accordance with the federal law.
+<br/>10. Other terms and conditions
+<br/>10.1. Registered User shall determine the conditions and procedure for the use of an account (Profile)  they created, which, however, under no  
+circumstances cannot be inconsistent with given User Agreement.If the User data specified in the documents given to them, do not correspond to the data  
+provided during registration, as well as when the data specified in the registration does not allow to identify the User, the Administration has the  
+right to deny the User access to the account and the use of services of the Website.
+<br/>10.2. Controlling Law.
+<br/>Given User Agreement, procedure for entering and execution of the contract, as well as matters not regulated by User Agreement are regulated by the current legislation of the Russian Federation.
+<br/>10.3 Arbitration
+<br/>All disputes under the User Agreement or in connection therewith shall be referred to the court at the location of Website Owner in accordance with the applicable law of the Russian Federation.
+<br/>10.4. Modification Given User Agreement may be unilaterally modified  or dissolved by Website Owner without notice and without payment of any compensation for that matter.
+<br/>10.5. Nothing in the given User Agreement shall be understood as the establishment of agency relationship, friendly relations, relations on joint activities, relationship of employment, or any other kind of relationship between the User and Website Owner, not expressly provided for by the User Agreement. Date of revision «___» ______ 201_ .
+</p>
+
+<p><b> PRIVACY POLICY</p></b>
+<b> Chapter 1.General terms.</b>
+<br/>1. Privacy Policy (personal Information protection policy) (hereinafter the "Policy") applies to all information, that ООО (Limited liability company) “Energo Data Centre” and/or its affiliates can obtain about user whilst using any website, service, program or product of the Website. If user’s consent to submitting personal information, given according to the Policy, applies to one of Website’s services it applies to all Website services.
+<br/>2. Use of Website Services constitutes user’s acceptance of, and compliance with the following Policy and given conditions of Collection and Use of Personal Information. If user does not agree to these terms and conditions, user should immediately discontinue any use of Website Services.
+<br/> <b>Chapter 2. Personal information obtained and processed by Website Administration.</b>
+<br/>3. In this Policy “user´s personal information” means the following:
+<br/>3.1.1. Personal information given voluntarily by user whilst signing up (creating a user account) or whilst using Services, including personal data of user. Information required for use of the Services is highlighted to user. Supply of all other information is optional.
+<br/>3.1.2. Automatically obtained data, provided to Website services by user’s software such as IP addresses, aggregate user data, Site usage information, and browser type (or any other software used to access Website Services), access time, search terms.
+<br/>3.1.3. All other information, obtained and/or provided as stated in Regulatory Documents of specific Website Services.
+<br/>4. Present Policy only applies to Website Services. Website Administration does not control and is not responsible for the privacy practices or the content of third party websites, available by hyperlinks or recall. These websites might collect or obtain personal information or take other actions.
+<br/>5. As a general matter Website Administration does not check the authencity of provided personal information and does not control user’s legal capacity to act. Website Administration relies upon users providing valid and accurate personal information required for signing up and keeps this information up-to-date. Consequences of providing invalid information are established in User Agreement.
+<br/> <b>Chapter 3.Purpose of Information collecting and processing.</b>
+<br/>6. Website Administration only obtains and keeps personal information required for providing Services (performance of agreements and contracts).
+<br/>7. Personal information can be used for following:
+<br/>7.1. To identify the party within the frame of Terms and Conditions provided by Website Administration.
+<br/>7.2. To provide user with personalized Services.
+<br/>7.3. To contact the user using alerts, requests and providing information addressing use of Services as well as processing requests from user.
+<br/>7.4. To improve the performance and facility of Services, and to assist in development of new services.
+<br/>7.5. To target advertisements.
+<br/>7.6. To conduct statistical or other such surveys based on depersonalized data.
+<br/><b>Chapter 4.Terms and conditions of processing the personal information and transmission to the third parties.</b>
+<br/>8. Website Administration keeps personal information according to internal regulations of specific services.
+<br/>9. Personal information is kept confidential unless user voluntarily consents to disclose information to public access. To use specific Services user must give their consent to undisclose some of their personal information to public access.
+<br/>10. Website Administration can transmit personal information of users to third parties in the following circumstances:
+<br/>10.1. User gave his consent to such actions.
+<br/>10.2. Transmission is required within the frame of use of specific Service in order to provide the service.
+<br/>10.3. Transmission is statutorily required in the RF or any other controlling law within the frame of statutorily established procedure.
+<br/>10.4. If transmission takes place within the frame of selling or any other kind of business transfer (wholly or partly) all responsibilities concerning the present Policy are therefore transferred to the buyer.
+<br/>10.5. For the purpose of protecting the rights and legal interests of Website Administration and third parties in the instance of users violating the Terms of User Agreement.
+<br/>11. The Website Administration obeys the Russian Federal Law on Personal Data whilst processing the personal data of users.
+<br/> <b>Chapter 5.Modification of personal information by the user.</b>
+<br/>12. User may modify (update, add) all information provided before, as well as its confidentiality in Website personal section of relevant Service.
+<br/>13. User may delete personal information provided within the frame of user account. Deleting account may cause inability to use some Website Services.
+<br/> <b>Chapter 6.Measures taken to protect user’s personal information.</b>
+<br/>14. The Website Administration takes all adequate technical and organizing measures needed for protecting user’s personal information from illegal or inadvertent access, destruction, modification, blocking, copying, distribution or other illegal acts conducted by third parties.
+<br/> <b>Chapter 7.Modification of Privacy and confidentiality of personal information Policy.Applicable legislation.</b>
+<br/>15. The Site Administration may modify the Privacy and confidentiality of personal information Policy. The date of the last modification will appear at the top of current version of the Policy. New Policy comes into effect the moment it has been published unless new modification of the Policy stated otherwise. Last modification is available here ___________
+<br/>16. The Law of Russian Federation applies to the following Policy and Customer-Website Administration relationship based on Privacy and confidentiality of personal information Policy.
+<br/> <b>Chapter 8.Questions and feedback.</b>
+<br/>17. All questions and proposals considering the present Policy should be given to Website Customer Support.
+',
+'Имя' => 'Name',
+'Ваш статус' => 'Your status',
+'специалист' => 'Expert',
+'Специалистам:' => 'For Specialists:',
+'клиника' => 'Clinic',
+'общественная организация' => 'Public organization',
+'производитель' => 'Producer',
+'страховая компания' => 'Insurance company',
+'коммерческая организация' => 'Commercial organization',
+'орган государственного управления' => 'State administrative body',
+'учебное заведение' => 'Educational institution',
+'структурное подразделение' => 'Department',
+'студент' => 'Student',
+'Главная' => 'Home',
+'имя латинскими буквами' => 'Name in Latin letters',
+'страна' => 'Country',
+'пол' => 'Gender',
+'О себе' => 'About myself',
+'Фото' => 'Photo',
+'Видео' => 'Video',
+'Статьи' => 'Articles',
+'Книги/Видео' => 'Books/Videos',
+'Конференция' => 'Conference',
+'Блоги' => 'Blogs',
+'Сообщества' => 'Communities',
+'имя' => 'Name',
+'дата рождения' => 'Date of birth',
+'ученая степень, звание' => 'Academic degree, rank',
+'образование' => 'Education',
+'работа' => 'Work',
+'переподготовка' => 'Additional training',
+'публикации' => 'Publications',
+'родной язык' => 'Native language',
+'владение языками (письменно)' => 'Language skills (written)',
+'аудио файл' => 'Audio file',
+'Файл (pdf, word)' => 'File (pdf, word)',
+'лицензия' => 'License',
+'данные лицензии' => 'License data',
+'cайт' => 'Site',
+'владение языками (устное)' => 'Language skills (spoken)',
+'cпециализация (основная)' => 'Specialization (main) ',
+'специализация (дополнительная)' => 'Specialization (additional)',
+'научные интересы' => 'Scientific interests',
+'Прикрепить расширенное резюме' => 'Attach expanded resume',
+'Активность' => 'Activity',
+'Сообщение' => 'Message',
+'Специализация' => 'Specialization',
+'Владение языками' => 'Language skills',
+'Представитель' => 'Representative',
+'Страна' => 'Country',
+'Специалисты' => 'Specialists',
+'Студенты' => 'Students',
+'Гости' => 'Guests',
+'Клиники' => 'Clinics',
+'Общественные организации' => 'Public organizations',
+'Коммерческие организации' => 'Commercial organizations',
+'Органы государственного управеления' => 'State administrative bodies',
+'Учебные заведения' => 'Educational institutions',
+'Производители' => 'Producers',
+'Страховые компании' => 'Insurance companies',
+'русский' => 'Russian',
+'Вакансии' => 'Job vacancies',
+'вакансии' => 'Job vacancies',
+'Новости' => 'News',
+'Структура' => 'Structure',
+'Услуги и цены' => 'Services & Prices',
+'Анестезиология' => 'Anesthesiology',
+'OPTION_GUEST' => 'Guest',
+'о нас' => 'About us',
+'Медицинские изделия' => 'Medical Products',
 );

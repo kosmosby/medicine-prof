@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -50,6 +50,8 @@ class acyimportHelper{
 			$newList = new stdClass();
 			$newList->name = $newListName;
 			$newList->published = 1;
+			$colors = array('#3366ff','#7240A4','#7A157D','#157D69','#ECE649');
+			$newList->color = $colors[rand(0,count($colors)-1)];
 
 			$listClass = acymailing_get('class.list');
 			$listid = $listClass->save($newList);
@@ -544,7 +546,7 @@ class acyimportHelper{
 
 		$subdate = time();
 
-		$listClass= acymailing_get('class.list');
+		$listClass = acymailing_get('class.list');
 
 		if(empty($this->importUserInLists)){
 			$lists = $this->getImportedLists();
@@ -630,6 +632,10 @@ class acyimportHelper{
 	function _insertUsers($users){
 		if(empty($users)) return true;
 
+		$importedCols = array_keys(get_object_vars($users[0]));
+		if($this->forceconfirm) $importedCols[] = 'confirmed';
+		if($this->importblocked) $importedCols[] = 'enabled';
+
 		foreach($users as $a => $oneUser){
 			$this->_checkData($users[$a]);
 		}
@@ -659,10 +665,10 @@ class acyimportHelper{
 		$query .= implode('),(',$values).')';
 		if($this->overwrite){
 			$query .= ' ON DUPLICATE KEY UPDATE ';
-			foreach($colNames as &$oneColumn){
+			foreach($importedCols as &$oneColumn){
 				$oneColumn = '`'.$oneColumn.'`=VALUES(`'.$oneColumn.'`)';
 			}
-			$query .= implode(',', $colNames);
+			$query .= implode(',', $importedCols);
 		}
 
 		$this->db->setQuery($query);

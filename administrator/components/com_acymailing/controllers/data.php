@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -132,15 +132,19 @@ class DataController extends acymailingController{
 		$exportFormat = JRequest::getString('exportformat');
 		if(!in_array($inseparator,array(',',';'))) $inseparator = ';';
 
+		$exportUnsubLists = array();
+		$exportWaitLists = array();
 		$exportLists = array();
 		if(!empty($filtersExport['subscribed'])){
-			foreach($listsToExport as $listid => $checked){
-				if(!empty($checked)) $exportLists[] = (int) $listid;
+			foreach($listsToExport as $listid => $status){
+				if($status == -1) $exportUnsubLists[] = (int) $listid;
+				elseif($status == 2) $exportWaitLists[] = (int) $listid;
+				elseif(!empty($status)) $exportLists[] = (int) $listid;
 			}
 		}
 
 		$app = JFactory::getApplication();
-		if(!$app->isAdmin() && (empty($filtersExport['subscribed']) || empty($exportLists))){
+		if(!$app->isAdmin() && (empty($filtersExport['subscribed']) || (empty($exportLists) && empty($exportUnsubLists) && empty($exportWaitLists)))){
 			$listClass = acymailing_get('class.list');
 			$frontLists = $listClass->getFrontendLists();
 			foreach($frontLists as $frontList){
@@ -152,7 +156,6 @@ class DataController extends acymailingController{
 		$exportFieldsList = array();
 		$exportFieldsOthers = array();
 		$exportFieldsGeoloc = array();
-		$selectOthers = '';
 		foreach($fieldsToExport as $fieldName => $checked){
 			if(!empty($checked)) $exportFields[] = acymailing_secureField($fieldName);
 		}
@@ -186,12 +189,16 @@ class DataController extends acymailingController{
 		$config->save($newConfig);
 
 		$where = array();
-		if(empty($exportLists)){
+		if(empty($exportLists) && empty($exportUnsubLists) && empty($exportWaitLists)){
 			$querySelect = 'SELECT s.`subid`, '.$selectFields.' FROM '.acymailing_table('subscriber').' as s';
 		}else{
 			$querySelect = 'SELECT DISTINCT s.`subid`, '.$selectFields.' FROM '.acymailing_table('listsub').' as a JOIN '.acymailing_table('subscriber').' as s on a.subid = s.subid';
-			$where[] = 'a.listid IN ('.implode(',',$exportLists).')';
-			$where[] = 'a.status = 1';
+			if(!empty($exportLists)) $conditions[] = 'a.status = 1 AND a.listid IN ('.implode(',',$exportLists).')';
+			if(!empty($exportUnsubLists)) $conditions[] = 'a.status = -1 AND a.listid IN ('.implode(',',$exportUnsubLists).')';
+			if(!empty($exportWaitLists)) $conditions[] = 'a.status = 2 AND a.listid IN ('.implode(',',$exportWaitLists).')';
+
+			if(count($conditions) == 1) $where[] = $conditions[0];
+			else $where[] = '('.implode(') OR (', $conditions).')';
 		}
 
 		if(!empty($filtersExport['confirmed'])) $where[] = 's.confirmed = 1';

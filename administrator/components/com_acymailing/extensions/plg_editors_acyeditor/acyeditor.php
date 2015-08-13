@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -38,6 +38,8 @@ class plgEditorAcyEditor extends JPlugin
 			$doc->addScript($websiteurl.'plugins/editors/acyeditor/ckeditor/ckeditor.js?v='.@filemtime(ACYMAILING_ROOT.'plugins'.DS.'editors'.DS.'acyeditor'.DS.'ckeditor'.DS.'ckeditor.js'));
 		}
 		$doc->addScript($websiteurl.'media/com_acymailing/js/jquery/jquery-1.9.1.min.js?v='.@filemtime(ACYMAILING_ROOT.'media'.DS.'com_acymailing'.DS.'js'.DS.'jquery'.DS.'jquery-1.9.1.min.js'));
+		$doc->addStyleSheet($websiteurl.'media/com_acymailing/js/colorpicker/css/colorpicker.css?v='.@filemtime(ACYMAILING_ROOT.'media'.DS.'com_acymailing'.DS.'js'.DS.'colorpicker'.DS.'css'.DS.'colorpicker.css'));
+		$doc->addScript($websiteurl.'media/com_acymailing/js/colorpicker/js/colorpicker.js?v='.@filemtime(ACYMAILING_ROOT.'media'.DS.'com_acymailing'.DS.'js'.DS.'colorpicker'.DS.'js'.DS.'colorpicker.js'));
 		$doc->addScript($websiteurl.'media/com_acymailing/js/jquery/jquery-ui.min.js?v='.@filemtime(ACYMAILING_ROOT.'media'.DS.'com_acymailing'.DS.'js'.DS.'jquery'.DS.'jquery-ui.min.js'));
 		return '';
 	}
@@ -157,6 +159,7 @@ class plgEditorAcyEditor extends JPlugin
 		tooltipInitAreas='".str_replace("'", "\'", JText::_('ACYEDITOR_REINIT_ZONE_TOOLTIP'))."';
 		confirmInitAreas='".str_replace("'", "\'", JText::_('ACYEDITOR_REINIT_ZONE_CONFIRMATION'))."';
 		tooltipTemplateSortable='".str_replace("'", "\'", JText::_('ACYEDITOR_SORTABLE_AREA_TOOLTIP'))."';
+		var bgroundColorTxt='".str_replace("'", "\'", JText::_('BACKGROUND_COLOUR'))."';
 		inlineSource='".$inlineSource."';
 		";
 

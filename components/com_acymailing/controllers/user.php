@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -281,8 +281,14 @@ class UserController extends acymailingController{
 
 		if($incrementUnsub){
 			$db= JFactory::getDBO();
-			$db->setQuery('UPDATE '.acymailing_table('stats').' SET `unsub` = `unsub` +1 WHERE `mailid` = '.(int)$mailid);
-			$db->query();
+
+			$db->setQuery('SELECT subid FROM #__acymailing_history WHERE `action` = "unsubscribed" AND `subid` = '.intval($subscriber->subid).' AND `mailid` = '.intval($mailid).' LIMIT 1');
+			$alreadythere = $db->loadResult();
+
+			if(empty($alreadythere)){
+				$db->setQuery('UPDATE '.acymailing_table('stats').' SET `unsub` = `unsub` +1 WHERE `mailid` = '.(int)$mailid);
+				$db->query();
+			}
 		}
 
 		$classGeoloc = acymailing_get('class.geolocation');

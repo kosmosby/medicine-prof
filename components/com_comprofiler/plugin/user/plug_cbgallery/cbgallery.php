@@ -423,12 +423,17 @@ class cbgalleryItemTable extends Table
 			$linkDomain						=	preg_replace( '/^(?:(?:\w+\.)*)?(\w+)\..+$/', '\1', parse_url( $this->get( 'value' ), PHP_URL_HOST ) );
 
 			if ( $linkDomain && ( ! ( in_array( $linkDomain, array( 'youtube', 'youtu' ) ) && ( $this->get( 'type' ) == 'videos' ) ) ) ) {
-				$linkHeaders				=	@get_headers( $this->get( 'value' ) );
 				$linkExists					=	false;
 
-				if ( $linkHeaders ) {
-					$linkExists				=	( isset( $linkHeaders[0] ) && ( strpos( $linkHeaders[0], '200' ) !== false ) ? true : false );
-				}
+				try {
+					$request				=	new GuzzleHttp\Client();
+
+					$header					=	$request->head( $this->get( 'value' ) );
+
+					if ( ( $header !== false ) && ( $header->getStatusCode() == 200 ) ) {
+						$linkExists			=	true;
+					}
+				} catch( Exception $e ) {}
 
 				if ( ! $linkExists ) {
 					$this->setError( CBTxt::T( 'ITEM_LINK_INVALID_URL', 'Invalid file URL. Please ensure the URL exists!' ) );
@@ -460,6 +465,9 @@ class cbgalleryItemTable extends Table
 	public function store( $updateNulls = false )
 	{
 		global $_CB_framework, $_PLUGINS;
+
+		// TODO: Store the filename, filesize, extension, and mimetype to params
+		// TODO: Also store height/width for image fields (add new functions for this as well)
 
 		$new							=	( $this->get( 'id' ) ? false : true );
 
@@ -586,6 +594,8 @@ class cbgalleryItemTable extends Table
 			}
 		} elseif ( preg_replace( '/^(?:(?:\w+\.)*)?(\w+)\..+$/', '\1', parse_url( $this->get( 'value' ), PHP_URL_HOST ) ) )  {
 			$this->set( 'file', '' );
+		} elseif ( ! $this->get( 'file' ) ) {
+			$this->set( 'file', $this->get( 'value' ) );
 		}
 
 		$this->set( 'date', $this->get( 'date', $_CB_framework->getUTCDate() ) );
@@ -691,32 +701,36 @@ class cbgalleryItemTable extends Table
 	 */
 	public function checkExists( $thumbnail = false )
 	{
-		static $cache					=	array();
+		static $cache						=	array();
 
-		$id								=	$this->getFilePath( $thumbnail );
+		$id									=	$this->getFilePath( $thumbnail );
 
 		if ( ! isset( $cache[$id] ) ) {
-			$exists						=	false;
+			$exists							=	false;
 
 			if ( $id ) {
-				$domain					=	$this->getLinkDomain();
+				$domain						=	$this->getLinkDomain();
 
 				if ( $domain ) {
 					if ( in_array( $domain, array( 'youtube', 'youtu' ) ) ) {
-						$exists			=	true;
+						$exists				=	true;
 					} else {
-						$headers		=	@get_headers( $id );
+						try {
+							$request		=	new GuzzleHttp\Client();
 
-						if ( $headers ) {
-							$exists		=	( isset( $headers[0] ) && ( strpos( $headers[0], '200' ) !== false ) ? true : false );
-						}
+							$header			=	$request->head( $id );
+
+							if ( ( $header !== false ) && ( $header->getStatusCode() == 200 ) ) {
+								$exists		=	true;
+							}
+						} catch( Exception $e ) {}
 					}
 				} else {
-					$exists				=	file_exists( $id );
+					$exists					=	file_exists( $id );
 				}
 			}
 
-			$cache[$id]					=	$exists;
+			$cache[$id]						=	$exists;
 		}
 
 		return $cache[$id];
@@ -732,38 +746,37 @@ class cbgalleryItemTable extends Table
 	public function getFileSize( $raw = false, $thumbnail = false )
 	{
 		if ( Application::Cms()->getClientId() ) {
-			$thumbnail							=	false;
+			$thumbnail						=	false;
 		}
 
-		static $cache							=	array();
+		static $cache						=	array();
 
-		$id										=	$this->getFilePath( $thumbnail );
+		$id									=	$this->getFilePath( $thumbnail );
 
 		if ( ! isset( $cache[$id] ) ) {
-			$fileSize							=	0;
+			$fileSize						=	0;
 
 			if ( $this->checkExists( $thumbnail ) ) {
-				$domain							=	$this->getLinkDomain();
+				$domain						=	$this->getLinkDomain();
 
 				if ( $domain ) {
 					if ( ! in_array( $domain, array( 'youtube', 'youtu' ) ) ) {
-						$headers				=	@get_headers( $id, 1 );
+						try {
+							$request		=	new GuzzleHttp\Client();
 
-						if ( $headers ) {
-							foreach ( $headers as $k => $v ) {
-								$k				=	strtolower( $k );
-								$headers[$k]	=	$v;
+							$header			=	$request->head( $id );
+
+							if ( ( $header !== false ) && ( $header->getStatusCode() == 200 ) ) {
+								$fileSize	=	(int) $header->getHeader( 'Content-Length' );
 							}
-
-							$fileSize			=	(int) ( isset( $headers['content-length'] ) ? $headers['content-length'] : 0 );
-						}
+						} catch( Exception $e ) {}
 					}
 				} else {
-					$fileSize					=	@filesize( $id );
+					$fileSize				=	@filesize( $id );
 				}
 			}
 
-			$cache[$id]							=	$fileSize;
+			$cache[$id]						=	$fileSize;
 		}
 
 		if ( ! $raw ) {
@@ -904,6 +917,10 @@ class cbgalleryItemTable extends Table
 		}
 
 		if ( $this->getLinkDomain() || ( ! $this->checkExists( $thumbnail ) ) ) {
+			cbRedirect( $this->getFilePath( $thumbnail ) );
+		}
+
+		if ( ! $this->checkExists( $thumbnail ) ) {
 			header( 'HTTP/1.0 404 Not Found' );
 			exit();
 		}

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -103,8 +103,24 @@ class plgAcymailingTagsubscriber extends JPlugin
 		$this->pluginsHelper->replaceTags($email, $tags);
 	}
 
-	private function replaceSubTag(&$mytag,&$user)
+	private function replaceSubTag(&$mytag,$user)
 	{
+		if(!empty($mytag->juser)){
+			$subClass = acymailing_get('class.subscriber');
+			if(strpos($mytag->juser,'@') !== false){
+				$userTmp = $subClass->get($mytag->juser);
+			} else{
+				$db = JFactory::getDBO();
+				$query = "SELECT * FROM #__users WHERE username= ".$db->quote($mytag->juser);
+				$db->setQuery($query);
+				$JuserTmp = $db->loadObject();
+				if(!empty($JuserTmp->email)) $userTmp = $subClass->get($JuserTmp->email);
+			}
+			$app = JFactory::getApplication();
+			if(!empty($userTmp)) $user = $userTmp;
+			else $app->enqueueMessage('User not found for tag juser','warning');
+		}
+
 		$field = $mytag->id;
 		if(empty($mytag->titlevalue)){
 			$replaceme = (isset($user->$field) && strlen($user->$field) > 0) ? $user->$field : $mytag->default;
@@ -232,7 +248,7 @@ class plgAcymailingTagsubscriber extends JPlugin
 		$operator[] = JHTML::_('select.option','addbegin', JText::_('ACY_OPERATOR_ADDBEGINNING'));
 
 		$content .= '<div id="action__num__acymailingfieldval">'.JHTML::_('select.genericlist', $field, "action[__num__][acymailingfieldval][map]", 'onchange="'.$jsOnChange.'" class="inputbox" size="1"', 'value', 'text');
-		$content .= ' '.JHTML::_('select.genericlist',   $operator, "action[__num__][acymailingfieldval][operator]", 'class="inputbox" size="1" style="width:150px;"', 'value', 'text', '=');
+		$content .= ' '.JHTML::_('select.genericlist',   $operator, "action[__num__][acymailingfieldval][operator]", 'onchange="'.$jsOnChange.'" class="inputbox" size="1" style="width:150px;"', 'value', 'text', '=');
 		$content .= ' <span id="toChangeAction__num__"><input class="inputbox" type="text" id="action__num__acymailingfieldvalvalue" name="action[__num__][acymailingfieldval][value]" style="width:200px" value=""></span></div>';
 
 		$type['acymailingfieldval'] = JText::_('SET_SUBSCRIBER_VALUE');
@@ -252,7 +268,7 @@ class plgAcymailingTagsubscriber extends JPlugin
 			$emptyInputReturn = '<input class="inputbox" type="text" name="action['.$num.'][acymailingfieldval][value]" id="action'.$num.'acymailingfieldvalvalue" style="width:200px" value="'.$value.'">';
 		}
 
-		if(empty($map) || $map == 'key') return $emptyInputReturn;
+		if(empty($map) || $map == 'key' || $operator != '=') return $emptyInputReturn;
 
 		$fieldClass = acymailing_get('class.fields');
 		$myField = $fieldClass->get($map);

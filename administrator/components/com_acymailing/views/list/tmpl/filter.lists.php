@@ -1,26 +1,23 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 defined('_JEXEC') or die('Restricted access');
-?><?php
-	if(count($this->lists) > 10){
-?>
+?><?php if(count($this->lists) > 10){ ?>
 	<script language="javascript" type="text/javascript">
 	<!--
 		function acymailing_searchAList(){
 			var filter = document.getElementById("acymailing_searchList").value.toLowerCase();
-			for(i=0 ; i<<?php echo count($this->lists); ?> ; i++){
-				itemName = document.getElementById("listName_"+i).innerHTML.toLowerCase();
-				itemId = document.getElementById("listId_"+i).innerHTML;
-				if(document.getElementById(<?php echo $currentPage == 'newsletter' ? 'itemId+"listmail' : '"exportlists"+itemId+"_'; ?>1").checked || itemName.indexOf(filter)>-1){
-					document.getElementById("acylist_"+i).style.display = "table-row";
+			for(var i=0 ; i<<?php echo count($this->lists); ?> ; i++){
+				var itemName = document.getElementById("listName_"+i).innerHTML.toLowerCase();
+				if(itemName.indexOf(filter)>-1){
+					document.getElementById("acylistrow_"+i).style.display = "table-row";
 				}else{
-					document.getElementById("acylist_"+i).style.display = "none";
+					document.getElementById("acylistrow_"+i).style.display = "none";
 				}
 			}
 		}
@@ -67,27 +64,46 @@ defined('_JEXEC') or die('Restricted access');
 		echo '<table class="adminlist table table-striped" cellpadding="1"><tbody>';
 	}
 
+	if($currentPage == 'export'){
+		$possibleStatuses = array();
+		$possibleStatuses[] = JHTML::_('select.option', "0", JText::_('JOOMEXT_NO'));
+		$possibleStatuses[] = JHTML::_('select.option', "-1", JText::_('ACTION_UNSUBSCRIBED'));
+		$possibleStatuses[] = JHTML::_('select.option', "2", JText::_('PENDING_SUBSCRIPTION'));
+		$possibleStatuses[] = JHTML::_('select.option', "1", JText::_('JOOMEXT_YES'));
+
+		if(!$app->isAdmin()){
+			$possibleStatuses[0]->class = 'btn-danger';
+			$possibleStatuses[1]->class = 'btn-success';
+			$possibleStatuses[2]->class = 'btn-success';
+			$possibleStatuses[3]->class = 'btn-success';
+		}
+	}
+
 	foreach($this->lists as $row){
 		if(empty($row->category)) $row->category = JText::_('ACY_NO_CATEGORY');
 		if(count($allCats) > 1 && (empty($currentCatgeory) || $row->category != $currentCatgeory)){
 			$currentCatgeory = $row->category; ?>
 			<tr class="<?php echo "row$k"; ?>">
 				<td colspan="2">
-					<a href="#" onclick="checkCats('<?php echo htmlspecialchars(str_replace("'", "\'", $row->category == JText::_('ACY_NO_CATEGORY') ? -1 : $row->category), ENT_QUOTES, "UTF-8"); ?>');"><strong><?php echo htmlspecialchars($row->category, ENT_QUOTES, "UTF-8"); ?></strong></a>
+					<a href="#" onclick="checkCats('<?php echo htmlspecialchars(str_replace("'", "\'", $row->category == JText::_('ACY_NO_CATEGORY') ? -1 : $row->category), ENT_QUOTES, "UTF-8"); ?>'); return false;"><strong><?php echo htmlspecialchars($row->category, ENT_QUOTES, "UTF-8"); ?></strong></a>
 				</td>
 			</tr>
 	<?php }
 		if($currentPage == 'newsletter'){
-			$filter_list = JRequest::getInt( 'filter_list');
-			if(empty($filter_list)) $filter_list=JRequest::getInt('listid');
+			$filter_list = JRequest::getInt('filter_list');
+			if(empty($filter_list)) $filter_list = JRequest::getInt('listid');
 			$selectedLists = explode(',',JRequest::getString('listids'));
 			$checked = (bool) ($row->mailid || (empty($row->mailid) && empty($this->mail->mailid) && $filter_list == $row->listid) || (empty($this->mail->mailid) && count($this->lists) == 1) || (in_array($row->listid,$selectedLists)));
-		}else{
-			$checked = ((empty($this->exportlist) && in_array($row->listid,$this->selectedlists)) || (!empty($this->exportlist) && $this->exportlist == $row->listid)) ? 1 : 0;
+		}elseif($currentPage == 'export'){
+			$checked = (empty($this->exportlist) && in_array($row->listid,$this->selectedlists)) ? 1 : 0;
+		}elseif($currentPage == 'import'){
+			if(!empty($row->campaign)) $checked = JRequest::getCmd('importlists['.$row->listid.']', $row->listid == JRequest::getInt('filter_lists') ? 2 : 0);
+			else $checked = !empty($currentValues[$row->listid]) || JRequest::getInt('filter_lists')==$row->listid || $listid==$row->listid;
 		}
+
 		$classList = $checked ? 'acy_list_checked' : 'acy_list_unchecked';
 	?>
-		<tr id="acylist_<?php echo $i; ?>" class="<?php echo "row$k $classList"; ?>">
+		<tr id="acylistrow_<?php echo $i; ?>" class="<?php echo "row$k $classList"; ?>">
 			<td style="display:none;" id="listId_<?php echo $i; ?>"><?php echo $row->listid;?></td>
 			<td style="display:none;" id="listName_<?php echo $i; ?>"><?php echo $row->name;?></td>
 			<td>
@@ -99,16 +115,32 @@ defined('_JEXEC') or die('Restricted access');
 				?>
 			</td>
 			<td align="center" nowrap="nowrap" style="text-align:center">
-				<?php echo JHTML::_('acyselect.booleanlist', ($currentPage == 'newsletter' ? "data[listmail]" : "exportlists")."[".$row->listid."]" , '',$checked,JText::_('JOOMEXT_YES'),JText::_('JOOMEXT_NO'),$currentPage == 'newsletter' ? $row->listid.'listmail' : 'exportlists'.$row->listid.'_'); ?>
+				<?php
+					if($currentPage == 'newsletter'){
+						echo JHTML::_('acyselect.booleanlist', "data[listmail][".$row->listid."]" , '', $checked, JText::_('JOOMEXT_YES'), JText::_('JOOMEXT_NO'), $row->listid.'listmail');
+					}elseif($currentPage == 'export'){
+						if(!empty($this->exportlist) && $this->exportlist == $row->listid){
+							$checked = $this->exportliststatus;
+							if($this->exportliststatus == -2) $checked = 0;
+						}
+						echo JHTML::_('acyselect.radiolist', $possibleStatuses, "exportlists[".$row->listid."]", '', 'value', 'text', $checked, $row->listid.'listmail');
+					}elseif($currentPage == 'import'){
+						if(!empty($row->campaign)){
+							echo JHTML::_('acyselect.radiolist', $this->campaignValues[$row->listid], "importlists[".$row->listid."]", '', 'value', 'text', $checked, $row->listid.'listmail');
+						}else{
+							echo JHTML::_('acyselect.booleanlist', "importlists[".$row->listid."]", '', $checked, JText::_('JOOMEXT_YES'), JTEXT::_('JOOMEXT_NO'), $row->listid.'listmail');
+						}
+					}
+				?>
 			</td>
 		</tr>
 	<?php
 		$k = 1-$k;
 		$i++;
 	}
-	if(count($this->lists)>3){ ?>
+	if(count($this->lists) > 3){ ?>
 		<tr>
-			<td/>
+			<td></td>
 			<td align="center" nowrap="nowrap">
 				<script language="javascript" type="text/javascript">
 				<!--
@@ -120,13 +152,8 @@ defined('_JEXEC') or die('Restricted access');
 					?>
 					function updateStatus(selection){
 						<?php
-							if($currentPage == 'newsletter'){
-								$listidAll = "selectedLists['all'][i]+'listmail";
-								$listidSelection = "selectedLists[selection][i]+'listmail";
-							}else{
-								$listidAll = "'exportlists'+selectedLists['all'][i]+'_";
-								$listidSelection = "'exportlists'+selectedLists[selection][i]+'_";
-							}
+							$listidAll = "selectedLists['all'][i]+'listmail";
+							$listidSelection = "selectedLists[selection][i]+'listmail";
 						?>
 						for(var i=0; i < selectedLists['all'].length; i++){
 							if(searchParent(window.document.getElementById(<?php echo $listidAll; ?>0'), 'tr').style.display == 'none') continue;
@@ -134,7 +161,7 @@ defined('_JEXEC') or die('Restricted access');
 							window.document.getElementById(<?php echo $listidAll; ?>0').checked = true;
 						}
 						if(!selectedLists[selection]) return;
-						for(var i=0; i < selectedLists[selection].length; i++){
+						for(i=0; i < selectedLists[selection].length; i++){
 							if(searchParent(window.document.getElementById(<?php echo $listidSelection; ?>1'), 'tr').style.display == 'none') continue;
 							<?php if(ACYMAILING_J30) echo "jQuery('label[for='+".$listidSelection."1]').click();"; ?>
 							window.document.getElementById(<?php echo $listidSelection; ?>1').checked = true;
@@ -177,7 +204,9 @@ defined('_JEXEC') or die('Restricted access');
 		if(empty($val)) $val = '-1';
 		echo "listsCats['".str_replace("'", "\'", $val)."'] = new Array('".implode("','",$listids)."'); ";
 	}
-	$listCatsSelection = $currentPage == 'newsletter' ? 'listsCats[selection][i]+"listmail' : '"exportlists"+listsCats[selection][i]+"_';
+
+	$listCatsSelection = 'listsCats[selection][i]+"listmail';
+
 	?>
 	function checkCats(selection){
 		if(!listsCats[selection]) return;
@@ -188,13 +217,13 @@ defined('_JEXEC') or die('Restricted access');
 			unselect = false;
 			break;
 		}
-		for(var i=0; i < listsCats[selection].length; i++){
+		for(i=0; i < listsCats[selection].length; i++){
 			if(searchParent(window.document.getElementById(<?php echo $listCatsSelection; ?>0"), 'tr').style.display == 'none') continue;
 			if(unselect){
-				<?php if(ACYMAILING_J30) echo 'jQuery("input[id="+'.$listCatsSelection.'0]").next().click();'; ?>
+				<?php if(ACYMAILING_J30) echo 'jQuery("label[for="+'.$listCatsSelection.'0]").click();'; ?>
 				window.document.getElementById(<?php echo $listCatsSelection; ?>0").checked = true;
 			}else{
-				<?php if(ACYMAILING_J30) echo 'jQuery("input[id="+'.$listCatsSelection.'1]").next().click();'; ?>
+				<?php if(ACYMAILING_J30) echo 'jQuery("label[for="+'.$listCatsSelection.'1]").click();'; ?>
 				window.document.getElementById(<?php echo $listCatsSelection; ?>1").checked = true;
 			}
 		}

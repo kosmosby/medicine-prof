@@ -2,13 +2,13 @@
 <cbinstall version="1.0" type="plugin" group="user">
 	<name>CB Gallery</name>
 	<author>Krileon</author>
-	<creationDate>2015-04-29</creationDate>
+	<creationDate>2015-07-24</creationDate>
 	<copyright>(C) 2004-2015 www.joomlapolis.com / Lightning MultiCom SA - and its licensors, all rights reserved</copyright>
 	<license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2</license>
 	<authorEmail>krileon@joomlapolis.com</authorEmail>
 	<description>Adds photo, file, video, and music user galleries.</description>
-	<version>2.0.8</version>
-	<release>1.0.4</release>
+	<version>2.0.9</version>
+	<release>1.0.5.ci.2015.07.24.11.44.22+514867625</release>
 	<installfile>install.cbgallery.php</installfile>
 	<files>
 		<filename plugin="cbgallery">cbgallery.php</filename>

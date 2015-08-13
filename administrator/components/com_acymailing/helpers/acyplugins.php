@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -50,6 +50,7 @@ class acypluginsHelper{
 		$type = 'table';
 		$cols = 1;
 		if(!empty($parameter->displaytype)) $type = $parameter->displaytype;
+		if($type == 'none') return implode('',$elements);
 		if(!empty($parameter->cols)) $cols = $parameter->cols;
 
 		$string = $beforeAll[$type];
@@ -119,6 +120,14 @@ class acypluginsHelper{
 		if(!empty($mytag->ucfirst)) $replaceme = ucfirst($replaceme);
 		if(isset($mytag->rtrim)) $replaceme = empty($mytag->rtrim) ? rtrim($replaceme) : rtrim($replaceme,$mytag->rtrim);
 		if(!empty($mytag->urlencode)) $replaceme = urlencode($replaceme);
+		if(!empty($mytag->substr)){
+			$args = explode(',',$mytag->substr);
+			if(isset($args[1])){
+				$replaceme = substr($replaceme,intval($args[0]),intval($args[1]));
+			}else{
+				$replaceme = substr($replaceme,intval($args[0]));
+			}
+		}
 
 
 		if(!empty($mytag->maxheight) || !empty($mytag->maxwidth)){
@@ -481,81 +490,87 @@ class acypluginsHelper{
 	}
 
 	function getStandardDisplay($format){
-		if(empty($format->columns)){
-			$table = '<span>';
-			$tableText = '<span style="text-align:justify;">';
-			$endTable = '</span><br />';
-		}else{
-			$table = '<tr><td colspan="'.$format->columns.'">';
-			$tableText = '<tr><td colspan="'.$format->columns.'" style="text-align:justify;">';
-			$endTable = '</td></tr>';
-		}
+		if(empty($format->tag->format)) $format->tag->format = 'TOP_LEFT';
+		if(!in_array($format->tag->format, array('TOP_LEFT', 'TOP_RIGHT', 'TITLE_IMG', 'TITLE_IMG_RIGHT', 'CENTER_IMG', 'TOP_IMG', 'COL_LEFT', 'COL_RIGHT'))) return 'Wrong format suppied: '.$format->tag->format;
 
-		if(!empty($format->tag->type) && $format->tag->type == 'title'){
-			$h2 = '';
-			$endH2 = '';
-		}else{
-			$h2 = '<h2 class="acymailing_title">';
-			$endH2 = '</h2>';
-		}
-
-		if(!empty($format->link)){
-			$link = '<a href="'.$format->link.'">';
-			$endLink = '</a>';
-		}else{
-			$endLink = '';
-		}
-
-		if(empty($format->tag->format) || !in_array($format->tag->format, array('TOP-LEFT', 'TOP-RIGHT', 'LEFT-IMG', 'CENTER-IMG', 'TOP-IMG'))) $format->tag->format = 'DEFAULT';
-
-		if(!empty($format->title)) $format->title = $link.$format->title.$endLink;
+		$invertValues = array('TOP_LEFT' => 'TOP_RIGHT', 'TITLE_IMG' => 'TITLE_IMG_RIGHT', 'COL_LEFT' => 'COL_RIGHT', 'TOP_RIGHT' => 'TOP_LEFT', 'TITLE_IMG_RIGHT' => 'TITLE_IMG', 'COL_RIGHT' => 'COL_LEFT');
+		if(!empty($format->tag->invert) && !empty($invertValues[$format->tag->format])) $format->tag->format = $invertValues[$format->tag->format];
 
 		$image = '';
 		if(!empty($format->imagePath)){
-			$image .= '<img src="'.$format->imagePath.'" style="float:';
-			if(in_array($format->tag->format, array('TOP-LEFT','DEFAULT'))) $image .= 'left';
-			if($format->tag->format == 'TOP-RIGHT') $image .= 'right';
-			$image .= ';" />';
-			$image = $link.$image.$endLink;
+			$style = '';
+			if(in_array($format->tag->format, array('TOP_LEFT','TITLE_IMG'))) $style = ' style="float:left;"';
+			elseif(in_array($format->tag->format, array('TOP_RIGHT','TITLE_IMG_RIGHT'))) $style = ' style="float:right;"';
+			$image = '<img alt="" src="'.$format->imagePath.'"'.$style.' />';
 		}
 
+		$result = '';
+		if($format->tag->format == 'TITLE_IMG' || $format->tag->format == 'TITLE_IMG_RIGHT'){
+			$format->title = $image.$format->title;
+			$image = '';
+		}
+
+		if($format->tag->format == 'TOP_IMG' && !empty($image)){
+			if(!empty($format->link)) $result = '<a href="'.$format->link.'">'.$image.'</a>';
+			else $result = $image;
+			$image = '';
+		}
+
+		if(in_array($format->tag->format, array('COL_LEFT', 'COL_RIGHT'))){
+			if(empty($image)){
+				$format->tag->format = 'TOP_LEFT';
+			}else{
+				$result = '<table><tr><td valign="top" class="acyleftcol">';
+				if($format->tag->format == 'COL_LEFT') $result .= $image.'</td><td valign="top" class="acyrightcol">';
+			}
+		}
+
+		if(!empty($format->title)){
+			if(!empty($format->link)) $format->title = '<a href="'.$format->link.'">'.$format->title.'</a>';
+			if(empty($format->tag->type) || $format->tag->type != 'title') $format->title = '<h2 class="acymailing_title">'.$format->title.'</h2>';
+			$result .= $format->title;
+		}
+
+		if(!empty($format->afterTitle)) $result .= $format->afterTitle;
 		if(!empty($format->description)) $format->description = $this->wrapText($format->description, $format->tag);
 
 
-		$result = '';
-		if(in_array($format->tag->format, array('DEFAULT', 'TOP-LEFT', 'TOP-RIGHT'))){
-			if(!empty($format->title) && empty($tag->notitle))
-				$result .= $table.$h2.$format->title.$endH2.$endTable;
-
-			if(!empty($format->afterTitle) && $format->tag->format == 'DEFAULT')
-				$result .= $format->afterTitle;
-
-			if(!empty($image) || !empty($format->description)){
-				$result .= $tableText;
-				if(!empty($image)) $result .= $image;
-				if(!empty($format->description)) $result .= $format->description;
-				$result .= $endTable;
-			}
-		}elseif($format->tag->format == 'LEFT-IMG'){
-			if(!empty($image) || !empty($format->title)){
-				$result .= $table.$h2;
-				if(!empty($image)) $result .= $image;
-				if(!empty($format->title)) $result .= $format->title;
-				$result .= $endH2.$endTable;
-			}
-
-			if(!empty($format->description)) $result .= $tableText.$format->description.$endTable;
-		}elseif($format->tag->format == 'CENTER-IMG'){
-			if(!empty($format->title)) $result .= $table.$h2.$format->title.$endH2.$endTable;
-			if(!empty($image)) $result .= '<tr><td colspan="'.$format->columns.'" align="center">'.$image.$endTable;
-			if(!empty($format->description)) $result .= $tableText.$format->description.$endTable;
-		}elseif($format->tag->format == 'TOP-IMG'){
-			if(!empty($image)) $result .= $table.$image.$endTable;
-			if(!empty($format->title)) $result .= $table.$h2.$format->title.$endH2.$endTable;
-			if(!empty($format->description)) $result .= $tableText.$format->description.$endTable;
+		$rowText = '<span style="text-align:justify;" class="acydescription">';
+		$endRow = '</span><br />';
+		if(in_array($format->tag->format, array('TOP_LEFT', 'TOP_RIGHT', 'TITLE_IMG', 'TITLE_IMG_RIGHT', 'TOP_IMG'))){
+			if(!empty($image) || !empty($format->description)) $result .= $rowText.$image.$format->description.$endRow;
+		}elseif($format->tag->format == 'CENTER_IMG'){
+			if(!empty($image)) $result .= '<span class="acymainimage">'.$image.$endRow;
+			if(!empty($format->description)) $result .= $rowText.$format->description.$endRow;
+		}elseif(in_array($format->tag->format, array('COL_LEFT', 'COL_RIGHT'))){
+			if(!empty($format->description)) $result .= $rowText.$format->description.$endRow;
+			if($format->tag->format == 'COL_RIGHT') $result .= '</td><td valign="top" class="acyrightcol">'.$image;
+			$result .= '</td></tr></table>';
 		}
 
-		if(!empty($format->afterTitle) && in_array($format->tag->format, array('TOP-LEFT', 'TOP-RIGHT', 'LEFT-IMG', 'CENTER-IMG', 'TOP-IMG'))) $result .= $format->afterTitle;
+		if(!empty($format->customFields)){
+			$result .= '<table style="width:100%;"><tr>';
+
+			if(empty($format->cols)) $format->cols = 1;
+			$i = 0;
+			foreach($format->customFields as $oneField){
+				if($i != 0 && $i%$format->cols == 0) $result .= '</tr><tr>';
+				$result .= '<td nowrap="nowrap" class="';
+				if(empty($oneField[0])) $result .= 'cfvalue" colspan="2">';
+				else $result .= 'cflabel">'.$oneField[0].'</td><td class="cfvalue">';
+				$result .= $oneField[1].'</td>';
+				$i++;
+			}
+
+			while($i%$format->cols != 0){
+				$result .= '<td colspan="2"></td>';
+				$i++;
+			}
+
+			$result .= '</tr></table>';
+		}
+
+		if(!empty($format->afterArticle)) $result .= $format->afterArticle;
 
 		return $result;
 	}
@@ -592,5 +607,110 @@ class acypluginsHelper{
 		$orderingDirections[] = JHTML::_('select.option', "ASC", 'ASC');
 
 		return JHTML::_('select.genericlist', $orderingValues, 'contentorder' , 'size="1" onchange="'.$function.'();" style="width:100px;"', 'value', 'text', $ordering).' '.JHTML::_('select.genericlist', $orderingDirections, 'contentorderdir' , 'size="1" onchange="'.$function.'();" style="width:80px;"', 'value', 'text', $direction);
+	}
+
+	function translateItem(&$item, &$tag, $referenceTable, $referenceId = 0){
+		if(empty($tag->lang) || (!file_exists(JPATH_SITE.DS.'components'.DS.'com_falang') && !file_exists(JPATH_SITE.DS.'components'.DS.'com_joomfish'))) return;
+		$langid = (int) substr($tag->lang,strpos($tag->lang,',')+1);
+
+		if(empty($langid)) return;
+
+		$db = JFactory::getDBO();
+		if(empty($referenceId)) $referenceId = $tag->id;
+		$table = (ACYMAILING_J16 && file_exists(JPATH_SITE.DS.'components'.DS.'com_falang')) ? '`#__falang_content`' : '`#__jf_content`';
+		$query = "SELECT reference_field, value FROM ".$table." WHERE `published` = 1 AND `reference_table` = ".$db->Quote($referenceTable)." AND `language_id` = $langid AND `reference_id` = ".$referenceId;
+		$db->setQuery($query);
+		$translations = $db->loadObjectList();
+
+		if(empty($translations)) return;
+
+		foreach($translations as $oneTranslation){
+			if(empty($oneTranslation->value)) continue;
+			$translatedfield =  $oneTranslation->reference_field;
+			$item->$translatedfield = $oneTranslation->value;
+		}
+	}
+
+	function getFormatOption($plugin, $default = 'TOP_LEFT', $singleElement = true, $function = 'updateTag'){
+		$contentformat = array('TOP_LEFT' => '-208','TOP_RIGHT' => '-260','TITLE_IMG' => '0','TITLE_IMG_RIGHT' => '-52','CENTER_IMG' => '-104','TOP_IMG' => '-156','COL_LEFT' => '-312','COL_RIGHT' => '-364');
+
+		$name = $singleElement ? 'contentformat' : 'contentformatauto';
+
+		$result = '<input type="hidden" name="'.$name.'" id="'.$name.'" value="'.$default.'" size="1"/>';
+		$result .= '<span id="'.$name.'button" class="btn acybuttonformat" style="margin: 0px 10px 0px 0px; background-position: '.$contentformat[$default].'px -6px;height:34px;" onclick="togglediv'.$name.'();"></span>';
+		$result .= '<div id="'.$name.'div" class="formatbox" style="display:none;">';
+
+		$reset = '';
+		if(file_exists(ACYMAILING_MEDIA.'plugins')){
+
+			jimport('joomla.filesystem.folder');
+
+			$files = JFolder::files(ACYMAILING_MEDIA.'plugins', '^'.$plugin);
+			foreach($files as $oneFile){
+				$reset .= "document.getElementById('".$name.$oneFile."').style.backgroundPosition = '-480px -5px';document.getElementById('".$name.$oneFile."').style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05)';";
+				$result .= '<span id="'.$name.$oneFile.'" class="btn acybuttonformat" style="background-position: -480px -5px;height:34px;" onclick="selectFormat'.$name.'(\''.$oneFile.'\',\''.$oneFile.'\',true);"></span>'.substr($oneFile,0,strlen($oneFile)-4).'<br/>';
+			}
+			$result .= '<br />';
+		}
+
+		foreach($contentformat as $value => $position){
+			$reset .= "document.getElementById('".$name.$value."').style.backgroundPosition = '".$position."px -10px';document.getElementById('".$name.$value."').style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05)';";
+			$result .= '<span id="'.$name.$value.'" class="btn acybuttonformat" style="background-position: '.$position.'px '.($value == $default ? -64 : -10).'px;" onclick="selectFormat'.$name.'(\''.$value.'\',\''.$position.'\',false);"></span>';
+		}
+
+		$result .= '<br />';
+
+		if(!$singleElement){
+			$result .= '<br /><input type="hidden" id="'.$name.'invert" value="0"/>';
+			$result .= '<span id="'.$name.'invertbutton" class="btn acybuttonformat" style="background-position:-415px -8px;width:58px;height:30px;" onclick="toggleInvert'.$name.'();"></span>'.acymailing_tooltip('Alternatively display the image on the left and right', 'Alternate', '', 'Alternate');
+		}
+
+		$result .= '<span class="btn acyokbutton acybuttonformat" onclick="togglediv'.$name.'();">'.JText::_('ACY_CLOSE').'</span>';
+		$result .= '</div>';
+		ob_start();
+?>
+		<script type="text/javascript">
+		<!--
+			function togglediv<?php echo $name; ?>(){
+				var divelement = document.getElementById('<?php echo $name; ?>div');
+				if(divelement.style.display == 'none') divelement.style.display = '';
+				else divelement.style.display = 'none';
+			}
+<?php if(!$singleElement){ ?>
+			function toggleInvert<?php echo $name; ?>() {
+				var invertElement = document.getElementById('<?php echo $name; ?>invert');
+				var posy = '8';
+				var shadow = 'inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05)';
+				if(invertElement.value == 0){
+					posy = '60';
+					shadow = 'inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05)';
+				}
+				invertElement.value = 1-invertElement.value;
+				document.getElementById('<?php echo $name; ?>invertbutton').style.backgroundPosition = '-415px -'+posy+'px';
+				document.getElementById('<?php echo $name; ?>invertbutton').style.boxShadow = shadow;
+				<?php echo $function; ?>();
+			}
+<?php } ?>
+
+			function selectFormat<?php echo $name; ?>(format, position, custom){
+				<?php echo $reset; ?>
+				var prosy = '64';
+				var newVal = format;
+				if(custom){
+					position = '-480';
+					prosy = '58';
+					newVal = '<?php echo $default; ?>| template:'+format;
+				}
+				document.getElementById('<?php echo $name; ?>').value = newVal;
+				document.getElementById('<?php echo $name; ?>button').style.backgroundPosition = position+'px -5px';
+				document.getElementById('<?php echo $name; ?>'+format).style.backgroundPosition = position+'px -'+prosy+'px';
+				document.getElementById('<?php echo $name; ?>'+format).style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05)';
+				<?php echo $function; ?>();
+			}
+		-->
+		</script>
+<?php
+		$result .= ob_get_clean();
+		return $result;
 	}
 }

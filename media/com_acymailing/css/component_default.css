@@ -1,6 +1,6 @@
 /**
  * @package    AcyMailing for Joomla!
- * @version    4.9.3
+ * @version    4.9.4
  * @author     acyba.com
  * @copyright  (C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -190,7 +190,7 @@ img.captchaimagecomponent{
 .icon-32-acyusers {background-image:url(../images/icons/icon-32-acyusers.png);}
 .icon-32-copy {background-image:url(../images/icons/icon-32-copy.png);}
 .icon-32-acytemplate {background-image:url(../images/icons/icon-32-acytemplate.png) !important; background-position:0% 0% !important;}
-.icon-32-tag {background-image:url(../images/icons/icon-32-tag.png) !important; background-position:0% 0% !important;}
+.icon-32-acytags {background-image:url(../images/icons/icon-32-tag.png) !important; background-position:0% 0% !important;}
 .icon-32-replacetag {background-image:url(../images/icons/icon-32-replacetag.png) !important; background-position:0% 0% !important;}
 .icon-32-acyaction {background-image:url(../images/icons/icon-32-acyaction.png);}
 .icon-32-acyabtesting {background-image:url(../images/icons/icon-32-acyabtesting.png);}
@@ -198,7 +198,7 @@ img.captchaimagecomponent{
 .icon-32-fields {background-image:url(../images/icons/icon-32-fields.png);}
 .icon-32-filter {background-image:url(../images/icons/icon-32-filter.png);}
 .icon-32-share {background-image:url(../images/icons/icon-32-share.png);}
-.icon-32-acyprint {background-image:url(../images/icons/icon-32-acyprint.png);}
+.icon-32-acyprint {background-image:url(../images/icons/icon-32-acyprint.png) !important;}
 .icon-32-bounces {background-image:url(../images/icons/icon-32-bounces.png);}
 .icon-32-installbounces {background-image:url(../images/icons/icon-32-installbounces.png);}
 .icon-32-spamtest {background-image:url(../images/icons/icon-32-spamtest.png);}
@@ -208,7 +208,7 @@ img.captchaimagecomponent{
 .icon-48-import {background-image:url(../images/icons/icon-48-import.png);}
 .icon-48-acyexport {background-image:url(../images/icons/icon-48-acyexport.png);}
 .icon-48-process {background-image:url(../images/icons/icon-48-process.png);}
-.icon-48-stats {background-image:url(../images/icons/icon-48-stats.png);}
+.icon-48-stats {background-image:url(../images/icons/icon-48-stats.png) !important;}
 .icon-48-acymailing {background-image:url(../images/icons/icon-48-acymailing.png);}
 .icon-48-acytemplate {background-image:url(../images/icons/icon-48-acytemplate.png);}
 .icon-48-newsletter {background-image:url(../images/icons/icon-48-newsletter.png);}
@@ -227,12 +227,10 @@ img.captchaimagecomponent{
 .icon-48-joomlanotification {background-image:url(../images/icons/icon-48-joomlanotification.png);}
 
 
-.icon-14-acyaction { background-image:url(../images/icons/icon-14-color-action.png); vertical-align:middle; }
-.icon-14-acyabtesting { background-image:url(../images/icons/icon-14-acyabtesting.png); vertical-align:middle; }
-.icon-14-tag { background-image:url(../images/icons/icon-14-color-tag.png); vertical-align:middle; }
 .icon-14-acyprint { background-image:url(../images/icons/icon-14-color-print.png); vertical-align:middle; }
 
-
+.btn-small .icon-acyabtesting { background-image:url(../images/icons/icon-14-acyabtesting.png); vertical-align:middle; }
+.btn-small .icon-acytags { background-image:url(../images/icons/icon-14-color-tag.png); vertical-align:middle; }
 .btn-small .icon-acymailing { background-image:url(../images/icons/icon-14-acymailing.png); vertical-align:middle; }
 .btn-small .icon-process { background-image:url(../images/icons/icon-14-color-process.png); vertical-align:middle; }
 .btn-small .icon-acypreview { background-image:url(../images/icons/icon-14-color-acypreview.png); vertical-align:middle; }
@@ -463,7 +461,6 @@ div.acytagpopup #inserttagdiv{
 div.acytagpopup #plugarea{
 	 clear:both;
 	 padding :10px;
-	 width:700px;
 }
 div.acytagpopup table.adminlist tr.selectedrow td{
 	 background-color:#FDE2BA;
@@ -844,4 +841,43 @@ dl.tabs dt{
 
 .subscriber_filter{
 	text-align:left;
+}
+
+
+.acyplugformat .formatbox{
+    width: 235px;
+    position: absolute;
+    padding: 12px 20px;
+    border: 1px solid #CCC;
+    box-shadow: 1px 1px 5px #CCC;
+    background-color: white;
+    border-radius: 4px;
+    z-index: 3;
+}
+
+.acyplugformat .acybuttonformat{
+    background-image: url("../images/article_format.png");
+    background-repeat: no-repeat;
+    width: 46px;
+    height: 26px;
+    display: inline-block;
+    margin: 5px;
+    text-shadow: 0 1px 1px rgba(255,255,255,0.75);
+    border: 1px solid #bbb;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    transition: background-position .1s linear;
+    padding: 0;
+}
+
+.acyplugformat .acyokbutton{
+    background: linear-gradient(to bottom,#62c462,#51a351)!important;
+    color: #fff!important;
+    text-shadow: none;
+    float: right;
+    margin: 5px 8px;
+    line-height: 26px;
 }

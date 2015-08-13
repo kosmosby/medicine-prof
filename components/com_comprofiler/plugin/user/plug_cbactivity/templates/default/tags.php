@@ -10,7 +10,8 @@
 use CB\Database\Table\UserTable;
 use CBLib\Language\CBTxt;
 use CB\Plugin\Activity\Table\TagTable;
-use CB\Plugin\Activity\Comments;
+use CB\Plugin\Activity\Tags;
+use CB\Plugin\Activity\CBActivity;
 
 if ( ! ( defined( '_VALID_CB' ) || defined( '_JEXEC' ) || defined( '_VALID_MOS' ) ) ) { die( 'Direct Access to this location is not allowed.' ); }
 
@@ -19,8 +20,8 @@ class HTML_cbactivityTags
 
 	/**
 	 * @param TagTable[]      $rows
-	 * @param Comments        $stream
-	 * @param int             $output 0: Normal, 1: Raw, 2: Inline, 3: Load
+	 * @param Tags            $stream
+	 * @param int             $output 0: Normal, 1: Raw, 2: Inline, 3: Load , 4: Save
 	 * @param UserTable       $user
 	 * @param UserTable       $viewer
 	 * @param cbPluginHandler $plugin
@@ -28,9 +29,9 @@ class HTML_cbactivityTags
 	 */
 	static public function showTags( $rows, $stream, $output, $user, $viewer, $plugin )
 	{
-		global $_CB_framework, $_PLUGINS;
+		global $_PLUGINS;
 
-		initToolTip();
+		CBActivity::loadHeaders( $output );
 
 		$sourceClean			=	htmlspecialchars( $stream->source() );
 
@@ -58,7 +59,7 @@ class HTML_cbactivityTags
 		}
 
 		if ( $tags ) {
-			$return				.=	( $output != 1 ? '<span class="' . $sourceClean . 'Tags streamTags">' : null );
+			$return				.=	( ! in_array( $output, array( 1, 4 ) ) ? '<span class="' . $sourceClean . 'Tags streamTags">' : null );
 
 			if ( count( $tags ) > 2 ) {
 				$tagOne			=	array_shift( $tags );
@@ -74,32 +75,10 @@ class HTML_cbactivityTags
 				$return			.=		$tags[0];
 			}
 
-			$return				.=	( $output != 1 ? '</span>' : null );
+			$return				.=	( ! in_array( $output, array( 1, 4 ) ) ? '</span>' : null );
 		}
 
-		if ( in_array( $output, array( 1, 3 ) ) ) {
-			$_CB_framework->getAllJsPageCodes();
-
-			// Reset meta headers as they can't be used inline anyway:
-			$_CB_framework->document->_head['metaTags']	=	array();
-
-			// Remove all non-jQuery scripts as they'll likely just cause errors due to redeclaration:
-			foreach( $_CB_framework->document->_head['scriptsUrl'] as $url => $script ) {
-				if ( ( strpos( $url, 'jquery.' ) === false ) || ( strpos( $url, 'migrate' ) !== false ) ) {
-					unset( $_CB_framework->document->_head['scriptsUrl'][$url] );
-				}
-			}
-
-			if ( $stream->source() == 'save' ) {
-				$return			.=	'<div class="streamItemHeaders">';
-			}
-
-			$return				.=	$_CB_framework->document->outputToHead();
-
-			if ( $stream->source() == 'save' ) {
-				$return			.=	'</div>';
-			}
-		}
+		$return					.=	CBActivity::reloadHeaders( $output );
 
 		$_PLUGINS->trigger( 'activity_onAfterDisplayTags', array( &$return, $rows, $stream, $output ) );
 

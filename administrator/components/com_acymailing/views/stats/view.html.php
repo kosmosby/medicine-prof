@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -106,7 +106,6 @@ class StatsViewStats extends acymailingView
 		$pageInfo->search = $app->getUserStateFromRequest( $paramBase.".search", 'search', '', 'string' );
 		$pageInfo->search = JString::strtolower(trim($pageInfo->search));
 		$selectedMail = $app->getUserStateFromRequest( $paramBase."filter_mail",'filter_mail',0,'int');
-
 		$pageInfo->limit->value = $app->getUserStateFromRequest( $paramBase.'.list_limit', 'limit', $app->getCfg('list_limit'), 'int' );
 		$pageInfo->limit->start = JRequest::getInt('start', $app->getUserStateFromRequest( $paramBase.'.limitstart', 'limitstart', 0, 'int' ));
 
@@ -161,14 +160,15 @@ class StatsViewStats extends acymailingView
 			$emails = $db->loadObjectList();
 		}
 
+
 		$newsletters = array();
 		$newsletters[] = JHTML::_('select.option', '0', JText::_('ALL_EMAILS') );
 		foreach($emails as $oneMail){
 			$newsletters[] = JHTML::_('select.option', $oneMail->mailid, $oneMail->subject );
 		}
-
 		$filterMail = JHTML::_('select.genericlist', $newsletters,'filter_mail', 'class="inputbox" size="1" onchange="document.adminForm.submit( );"', 'value', 'text', (int) $selectedMail );
 
+		$this->assign('app', $app);
 		$this->assignRef('filterMail',$filterMail);
 		$this->assignRef('rows',$rows);
 		$this->assignRef('pageInfo',$pageInfo);
@@ -283,7 +283,7 @@ class StatsViewStats extends acymailingView
 				JToolBarHelper::custom('export', 'acyexport', '',JText::_('ACY_EXPORT'), false);
 			}
 			JToolBarHelper::divider();
-			$bar->appendButton( 'Pophelp','stats-detaillisting');
+			$bar->appendButton( 'Pophelp','statistics');
 			if(acymailing_isAllowed($config->get('acl_cpanel_manage','all'))) $bar->appendButton( 'Link', 'acymailing', JText::_('ACY_CPANEL'), acymailing_completeLink('dashboard') );
 		}
 
@@ -325,10 +325,10 @@ class StatsViewStats extends acymailingView
 		}
 
 		$query = 'SELECT '.implode(' , ',$this->selectFields);
-		$query .= ', CASE WHEN (a.senthtml+a.senttext-a.bounceunique) = 0 THEN 0 ELSE (a.openunique/(a.senthtml+a.senttext-a.bounceunique)) END AS openprct';
-		$query .= ', CASE WHEN (a.senthtml+a.senttext-a.bounceunique) = 0 THEN 0 ELSE (a.clickunique/(a.senthtml+a.senttext-a.bounceunique)) END AS clickprct';
+		$query .= ', CASE WHEN (a.senthtml+a.senttext) <= a.bounceunique THEN 0 ELSE (a.openunique/(a.senthtml+a.senttext-a.bounceunique)) END AS openprct';
+		$query .= ', CASE WHEN (a.senthtml+a.senttext) <= a.bounceunique THEN 0 ELSE (a.clickunique/(a.senthtml+a.senttext-a.bounceunique)) END AS clickprct';
 		$query .= ', CASE WHEN a.openunique = 0 THEN 0 ELSE (a.clickunique/a.openunique) END AS efficiencyprct';
-		$query .= ', CASE WHEN (a.senthtml+a.senttext-a.bounceunique) = 0 THEN 0 ELSE (a.unsub/(a.senthtml+a.senttext-a.bounceunique)) END AS unsubprct';
+		$query .= ', CASE WHEN (a.senthtml+a.senttext) <= a.bounceunique THEN 0 ELSE (a.unsub/(a.senthtml+a.senttext-a.bounceunique)) END AS unsubprct';
 		$query .= ', (a.senthtml+a.senttext) as totalsent';
 		$query .= ', CASE WHEN (a.senthtml+a.senttext) = 0 THEN 0 ELSE (a.bounceunique/(a.senthtml+a.senttext)) END AS bounceprct';
 		$query .= ' FROM '.acymailing_table('stats').' as a';
@@ -373,7 +373,7 @@ class StatsViewStats extends acymailingView
 		JToolBarHelper::spacer();
 		if(acymailing_isAllowed($config->get('acl_statistics_delete','all'))) JToolBarHelper::deleteList(JText::_('ACY_VALIDDELETEITEMS'));
 		JToolBarHelper::divider();
-		$bar->appendButton( 'Pophelp','stats-listing');
+		$bar->appendButton( 'Pophelp','statistics');
 		if(acymailing_isAllowed($config->get('acl_cpanel_manage','all'))) $bar->appendButton( 'Link', 'acymailing', JText::_('ACY_CPANEL'), acymailing_completeLink('dashboard') );
 
 		$this->assignRef('rows',$rows);
@@ -432,8 +432,8 @@ class StatsViewStats extends acymailingView
 			$mydata[$list->listid]['nbUnsub'] = 0;
 			$mydata[$list->listid]['nbUnsubRatio'] = 0;
 
-			$mydata[$list->listid]['color'] = $list->color;
-			array_push($arrayColors, $list->color);
+			$mydata[$list->listid]['color'] = (!empty($list->color)?$list->color:'#162955');
+			array_push($arrayColors, (!empty($list->color)?$list->color:'#162955'));
 			array_push($arrayList, $list->listid);
 		}
 		$listColors = "'" . implode("', '", $arrayColors) . "'";

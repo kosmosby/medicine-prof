@@ -154,7 +154,7 @@ class ActionTable extends OrderedTable
 		global $_CB_framework;
 
 		if ( Application::Cms()->getClientId() ) {
-			CBActivity::getTemplate( 'twemoji', false );
+			CBActivity::getTemplate( 'twemoji', false, true, false );
 		}
 
 		$icon			=	null;

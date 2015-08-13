@@ -1,9 +1,3 @@
-.cb_template .streamItems {
-	overflow-x: hidden;
-	overflow-y: auto;
-	max-height: 100%;
-}
-
 .cb_template .streamItem {
 	position: relative;
 	display: block;
@@ -505,20 +499,20 @@
 	right: 0;
 }
 
-.cb_template .activityContainerActivityComment > .streamItemInner > .activityContainerHeader .activityContainerLogo,
-.cb_template .activityContainerActivityComment > .streamItemInner > .activityContainerHeader .activityContainerTitleBottom,
-.cb_template .activityContainerActivityComment > .streamItemInner > .activityContainerContent,
-.cb_template .activityContainerActivityComment > .streamItemInner > .activityContainerAttachments,
-.cb_template .activityContainerActivityComment > .streamItemInner > .activityContainerFooter {
+.cb_template .activityContainerActivity > .streamItemInner > .activityContainerHeader .activityContainerLogo,
+.cb_template .activityContainerActivity > .streamItemInner > .activityContainerHeader .activityContainerTitleBottom,
+.cb_template .activityContainerActivity > .streamItemInner > .activityContainerContent,
+.cb_template .activityContainerActivity > .streamItemInner > .activityContainerAttachments,
+.cb_template .activityContainerActivity > .streamItemInner > .activityContainerFooter {
 	display: none;
 }
 
-.cb_template .activityContainerActivityComment > .streamItemInner > .activityContainerHeader .activityContainerTitle {
+.cb_template .activityContainerActivity > .streamItemInner > .activityContainerHeader .activityContainerTitle {
 	padding-left: 10px;
 }
 
-.cb_template .activityContainerActivityComment > .streamItemInner > .activityContainerHeader,
-.cb_template .activityContainerActivityComment > .streamItemInner > .activityContainerHeader .activityContainerTitleTop {
+.cb_template .activityContainerActivity > .streamItemInner > .activityContainerHeader,
+.cb_template .activityContainerActivity > .streamItemInner > .activityContainerHeader .activityContainerTitleTop {
 	min-height: 0;
 }
 

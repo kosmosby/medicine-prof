@@ -31,7 +31,7 @@ jimport('joomla.plugin.plugin');
  */
 class plgSystemJCEMediabox extends JPlugin {
 
-    private $version = '1.1.22';
+    private $version = '1.1.24';
 
     /**
      * Constructor

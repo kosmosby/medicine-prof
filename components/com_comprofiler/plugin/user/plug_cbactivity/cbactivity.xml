@@ -2,13 +2,13 @@
 <cbinstall version="1.0" type="plugin" group="user">
 	<name>CB Activity</name>
 	<author>Krileon</author>
-	<creationDate>2015-07-01</creationDate>
+	<creationDate>2015-07-14</creationDate>
 	<copyright>(C) 2004-2015 www.joomlapolis.com / Lightning MultiCom SA - and its licensors, all rights reserved</copyright>
 	<license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2</license>
 	<authorEmail>krileon@joomlapolis.com</authorEmail>
 	<description>Displays various user activity on profile.</description>
-	<version>2.0.9</version>
-	<release>3.0.0-rc.4</release>
+	<version>2.0.10</version>
+	<release>3.0.0</release>
 	<files>
 		<filename plugin="cbactivity">cbactivity.php</filename>
 		<filename>index.html</filename>
@@ -339,6 +339,11 @@
 				<index name="PRIMARY" type="primary">
 					<column name="id" />
 				</index>
+				<index name="type_item_date">
+					<column name="type" size="30" />
+					<column name="item" size="30" />
+					<column name="date" />
+				</index>
 			</indexes>
 			<engine type="InnoDB" sameastable="#__comprofiler" strict="updatewithtable" />
 		</table>
@@ -378,7 +383,7 @@
 				<index name="PRIMARY" type="primary">
 					<column name="id" />
 				</index>
-				<index name="type_item_user">
+				<index name="type_item_user" type="unique">
 					<column name="type" size="30" />
 					<column name="item" size="30" />
 					<column name="user_id" />
@@ -427,7 +432,7 @@
 					<column name="id" />
 				</index>
 				<index name="value" type="unique">
-					<column name="value" />
+					<column name="value" size="30" />
 				</index>
 			</indexes>
 			<rows strict="false">
@@ -538,7 +543,7 @@
 					<column name="id" />
 				</index>
 				<index name="value" type="unique">
-					<column name="value" />
+					<column name="value" size="30" />
 				</index>
 			</indexes>
 			<rows strict="false">
@@ -595,7 +600,7 @@
 					<column name="id" />
 				</index>
 				<index name="value" type="unique">
-					<column name="value" />
+					<column name="value" size="30" />
 				</index>
 			</indexes>
 			<rows strict="false">

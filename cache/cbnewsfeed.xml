@@ -5,9 +5,47 @@
 		<title>Joomlapolis News</title>
 		<description>Joomla social networking and Subscription Management software. Community Builder is the top rated, best supported, most complete and reliable community system there is for Joomla!</description>
 		<link>http://www.joomlapolis.com:80/news</link>
-		<lastBuildDate>Tue, 14 Jul 2015 11:35:18 +0000</lastBuildDate>
+		<lastBuildDate>Wed, 12 Aug 2015 12:02:43 +0000</lastBuildDate>
 		<generator>Joomla! 1.5 - Open Source Content Management</generator>
 		<language>en-gb</language>
+		<item>
+			<title>CB Activity 3.0 - new generation user engagement is here!</title>
+			<link>http://www.joomlapolis.com:80/news/18509-cb-activity-30-new-generation-user-engagement-is-here</link>
+			<guid>http://www.joomlapolis.com:80/news/18509-cb-activity-30-new-generation-user-engagement-is-here</guid>
+			<description><![CDATA[<p style="text-align: center;"><img src="http://www.joomlapolis.com:80/images/jpnewsletter/jpn201507/cbactivity30.gif" alt="cbactivity30" width="500" height="480" /></p>
+<p style="text-align: center;">The next generation <strong>CB Activity 3.0 stable</strong> release is here<br />and <a href="http://www.joomlapolis.com:80/index.php?option=com_docman&amp;task=doc_details&amp;gid=776">ready to download</a> for all paid-up Professional/Developer subscribers!</p>
+<h3>Watch the buzz effect appear right before your eyes on your website!</h3>
+<p>Users will just love the <strong>clean and engaging look</strong> of CB Activity and start <strong>sharing their feelings and thoughts</strong>. Friends will review movies they saw, music they heard, places they visited and anything interesting that happened to them.&nbsp;This will inspire commenting and online discussions.</p>
+<p>Just install and publish CB Activity 3.0 and see user participation explode on your website.</p>
+<p>Users can start conversations by posting their thoughts, emotions, experiences, links, etc. directly on the activity wall. These posts can be enhanced with <strong>@mentions</strong>, <strong>#hash-tags</strong>, <strong>Google map supported locations</strong> and <strong>emotion icons</strong>. The <a href="http://www.joomlapolis.com:80/index.php?option=com_content&amp;view=article&amp;id=18506:cb-activity-30-rc4-a-step-closer-to-perfection&amp;catid=6:news&amp;Itemid=19">built-in features are just awesome</a> and you can extend them to suit your needs.</p>
+<h3>System Auto Actions for Activity Posting</h3>
+<p>You can also install <a href="http://www.joomlapolis.com:80/index.php?option=com_docman&amp;task=doc_details&amp;gid=772">CB Auto Actions 6.3.1</a> and publish preconfigured system actions to start conversation about <strong>profile updates</strong>, <strong>user logins</strong>, <strong>blogs</strong>, <strong>gallery uploads</strong>, <strong>GroupJive actions</strong> and <strong>forum posts</strong> (Kunena). You can also create your own activity related auto actions for your specific use case need.</p>
+<p><a href="http://www.joomlapolis.com:80/forum/6-news-and-publicity/230507-cb-activity-30-new-generation-user-engagement-is-here">Discuss this on our forums</a>.</p>]]></description>
+			<author>nant@joomlapolis.com (Nick A.)</author>
+			<category>News</category>
+			<pubDate>Thu, 16 Jul 2015 10:27:44 +0000</pubDate>
+		</item>
+		<item>
+			<title>CBSubs GPL 4.0.1 released</title>
+			<link>http://www.joomlapolis.com:80/news/18508-cbsubs-gpl-401-released</link>
+			<guid>http://www.joomlapolis.com:80/news/18508-cbsubs-gpl-401-released</guid>
+			<description><![CDATA[<p style="text-align: center;"><img src="http://www.joomlapolis.com:80/images/jpnewsletter/jpn201507/cbsubs401.gif" alt="cbsubs401" width="500" height="183" />&nbsp;</p>
+<p style="text-align: center;"><strong>CBSubs GPL Paid Subscriptions 4.0.1</strong> is here and CB 2.0.10+ compatible!<br />It is available for <a href="http://www.joomlapolis.com:80/index.php?option=com_docman&amp;task=doc_details&amp;gid=775">download</a> by all CBSubs/Dev subscribers.</p>
+<p>&nbsp;</p>
+<p>As promised in our <a href="http://www.joomlapolis.com:80/index.php?option=com_content&amp;view=article&amp;id=18499:cbsubs-gpl-40-stable-released&amp;catid=6:news&amp;Itemid=19">CBSubs GPL 4.0 release announcement</a> we have now switched processes and provide continuous integration (nightly builds) and quick maintenance releases.</p>
+<p>This is a maintenance release that <strong>fixes 11 bugs</strong> (see discussion thread for details) and also adds the following <strong>3 features</strong>:</p>
+<ul>
+<li>Better filtering with multi-select plan subscription selector in CB User Manager</li>
+<li>Existing subscriptions no longer display initial plan duration and only show expiration date</li>
+<li>More choices for plan durations</li>
+</ul>
+<p><strong>CBSubs GPL 4.0.1 requires CB 2.0.10+</strong> (<a href="http://www.joomlapolis.com:80/index.php?option=com_docman&amp;task=doc_details&amp;gid=773">nightly build of CB</a> is recommended) and the <a href="http://www.joomlapolis.com:80/index.php?option=com_docman&amp;task=doc_details&amp;gid=767">CBSubs GPL 4.0 manual</a> is still valid.</p>
+<p>The <strong>upgrade process</strong> is a <strong>simple install over</strong> (take full backup first) of all needed elements. All your configuration settings are kept.</p>
+<p><a href="http://www.joomlapolis.com:80/forum/6-news-and-publicity/230489-cbsubs-gpl-401-released">Discuss this release announcement on forums</a>.</p>]]></description>
+			<author>nant@joomlapolis.com (Nick A.)</author>
+			<category>News</category>
+			<pubDate>Tue, 14 Jul 2015 10:34:07 +0000</pubDate>
+		</item>
 		<item>
 			<title>Joomla 3.4.3 and CB 2.0.10 are great together</title>
 			<link>http://www.joomlapolis.com:80/news/18507-joomla-343-and-cb-2010-are-great-together</link>
@@ -196,57 +234,6 @@
 			<author>nant@joomlapolis.com (Nick A.)</author>
 			<category>News</category>
 			<pubDate>Mon, 04 May 2015 13:50:57 +0000</pubDate>
-		</item>
-		<item>
-			<title>Community Builder 2.0.8 Released</title>
-			<link>http://www.joomlapolis.com:80/news/18495-community-builder-208-released</link>
-			<guid>http://www.joomlapolis.com:80/news/18495-community-builder-208-released</guid>
-			<description><![CDATA[<p style="text-align: center;"><a href="http://www.joomlapolis.com:80/component/docman/doc_details/758-community-builder-208"><img src="http://www.joomlapolis.com:80/images/jpnewsletter/jpn201504/cb208_500.gif" alt="cb208 500" width="500" height="181" /></a></p>
-<p style="text-align: center;">The Next Generation Community Builder 2.0.8 is here<br />and it's <a href="http://www.joomlapolis.com:80/component/docman/doc_details/758-community-builder-208">free to download</a>.<br />-----</p>
-<p><strong>Community Builder 2.0.8</strong> is here and fixes 19 issues (detailed list in discussion thread) also has 2 audio/video field feature improvements that:</p>
-<ul>
-<li>make playback process now work much better (following that of <a href="http://www.joomlapolis.com:80/index.php?option=com_content&amp;view=article&amp;id=18487:new-cb-gallery-supports-photos-files-videos-and-music&amp;catid=6:news&amp;Itemid=19">CB Gallery</a>) and</li>
-<li>lets you style the fields with percent width/height support</li>
-</ul>
-<p>Upgrading to Community Builder 2.0.8 can be done using the Joomla Extensions Update functionality or by simply downloading the CB 2.0.8 package and installing over your existing CB 2.0+ environment. If you are upgrading from CB 1.9.1, you should first take a look at video #30: <a class="pl-video-title-link yt-uix-tile-link yt-uix-sessionlink  spf-link " dir="ltr" href="https://www.youtube.com/watch?v=AtMsAhScimg&amp;list=PLp0puRITgC7PuyzPsMUECDI46VE7IFSAX&amp;index=30" target="_blank" data-sessionlink="ei=BaSGVP6CDufmiwaLt4HYCA&amp;feature=plpp_video">CB 2.0 Tutorials - 30 - Upgrading from CB 1.9.1 to CB 2.0 - Expectations and first steps</a>, our <a href="http://www.joomlapolis.com:80/documentation/community-builder/getting-started">Getting started</a> articles and of course the <a href="http://www.joomlapolis.com:80/index.php?option=com_content&amp;view=article&amp;id=18492:cb-primer-book-designed-to-help-you-learn&amp;catid=6:news&amp;Itemid=19">CB Primer Book</a>.</p>
-<p>With the release of CB 2.0.8, we are now focusing on:</p>
-<ul>
-<li>releasing <a href="http://www.joomlapolis.com:80/forum/6-news-and-publicity/229508-cb-connect-700-beta-1-released">CB Connect 7.0.0 beta 1</a> (already released)</li>
-<li>releasing the new <a href="http://www.joomlapolis.com:80/index.php?option=com_content&amp;view=article&amp;id=18493:cb-activity-30-preview&amp;catid=6:news&amp;Itemid=19">CB Activity 3.0 RC1</a> (for Professional members) in the upcoming days</li>
-</ul>
-<p><a href="http://www.joomlapolis.com:80/forum/6-news-and-publicity/229515-community-builder-208-released">Discuss the Community Builder 2.0.8 release on our forums</a>.</p>]]></description>
-			<author>nant@joomlapolis.com (Nick A.)</author>
-			<category>News</category>
-			<pubDate>Wed, 29 Apr 2015 00:00:00 +0000</pubDate>
-		</item>
-		<item>
-			<title>CB Activity 3.0 Preview</title>
-			<link>http://www.joomlapolis.com:80/news/18493-cb-activity-30-preview</link>
-			<guid>http://www.joomlapolis.com:80/news/18493-cb-activity-30-preview</guid>
-			<description><![CDATA[<p><a href="https://youtu.be/K2LSoGsOINA" target="_blank"><img style="display: block; margin-left: auto; margin-right: auto;" src="http://www.joomlapolis.com:80/images/jpnewsletter/jpn201504/cbactivity30previewc_500.gif" alt="cbactivity30previewc 500" width="500" height="361" /></a></p>
-<p>The new CB Activty 3.0 is just around the corner with awesome totally responsive fantastic looking features!</p>
-<p>We are completely thrilled by the upcoming CB Activity 3.0. It is totally re-designed with pixel-perfect polishings and it includes best of bread activity streaming features. This brings a delightful User Experience (UX) to members and even surpasses features present on popular social networks!</p>
-<p>In 3 words, it's the activity streaming <strong>Of Your Dreams</strong>. At least it's the one of our dreams.</p>
-<p>Here are some of the main features in the soon to be released CB Activity 3.0 RC1:</p>
-<ul>
-<li>"What's on your mind?" posting</li>
-<li>Commenting everywhere</li>
-<li>Inline #hashtag support</li>
-<li>Inline emotions support (e.g., :smile:)</li>
-<li>Inline @username and @name type mentions</li>
-<li>Activity URLs automatically converted to clickable links</li>
-<li>10 built-in Actions (Feeling, Watching, Reading, ...) and you can add your own!</li>
-<li>62 built-in Emotions (smile, laughing, blush, ...) and you can add your own!</li>
-<li>Configurable limits everywhere (number of chars per post, comment, ...)</li>
-</ul>
-<p>Every profile gets it's own Activity tab, but you can also create Joomla menu items to your activity streams!</p>
-<p>And of course everything is responsive and lightning fast!</p>
-<p>CB Activity 3.0 will be available for Professional and Developer members. A first Release Candidate (RC) is scheduled to take place soon after CB 2.0.8 is released (prerequisite for CB Activity 3.0).</p>
-<p>In the meantime you can take a quick look at our <a href="https://youtu.be/K2LSoGsOINA" target="_blank">CB Activity preview tutorial</a> and join the discussion below.</p>
-<p><a href="http://www.joomlapolis.com:80/forum/6-news-and-publicity/229413-cb-activity-30-preview">Discuss this on our forums</a>.</p>]]></description>
-			<author>nant@joomlapolis.com (Nick A.)</author>
-			<category>News</category>
-			<pubDate>Tue, 21 Apr 2015 10:34:23 +0000</pubDate>
 		</item>
 	</channel>
 </rss>

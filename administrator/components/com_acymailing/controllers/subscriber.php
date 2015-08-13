@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	4.9.4
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -28,7 +28,10 @@ class SubscriberController extends acymailingController{
 		$_SESSION['acymailing'] = array();
 		if(!empty($cids) || !empty($selectedList)){
 			if(!empty($cids)) $_SESSION['acymailing']['exportusers'] = $cids;
-			else $_SESSION['acymailing']['exportlist'] = $selectedList;
+			else{
+				$_SESSION['acymailing']['exportlist'] = $selectedList;
+				$_SESSION['acymailing']['exportliststatus'] = JRequest::getInt('filter_statuslist');
+			}
 			$this->setRedirect(acymailing_completeLink(($app->isAdmin() ? '' : 'front').'data&task=export&sessionvalues=1',false,true));
 		}else{
 			$this->setRedirect(acymailing_completeLink(($app->isAdmin() ? '' : 'front').'data&task=export',false,true));

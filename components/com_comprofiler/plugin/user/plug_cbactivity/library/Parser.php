@@ -128,7 +128,7 @@ class Parser
 				$user						=	$users[$cleanWord];
 
 				if ( $user->get( 'id' ) ) {
-					$this->parsed			=	str_replace( array( $word, '@' . $user->get( 'id' ), '@' . $user->get( 'username' ), '@' . $user->get( 'name' ) ), '<a href="' . $_CB_framework->userProfileUrl( (int) $user->get( 'id' ) ) . '" rel="nofollow">@' . htmlspecialchars( getNameFormat( $user->get( 'name' ), $user->get( 'username' ), Application::Config()->get( 'name_format' ) ) ) . '</a>', $this->parsed );
+					$this->parsed			=	str_replace( array( '@' . $user->get( 'id' ), '@' . $user->get( 'name' ), '@' . $user->get( 'username' ), $word ), '<a href="' . $_CB_framework->userProfileUrl( (int) $user->get( 'id' ) ) . '" rel="nofollow">@' . htmlspecialchars( getNameFormat( $user->get( 'name' ), $user->get( 'username' ), Application::Config()->get( 'name_format' ) ) ) . '</a>', $this->parsed );
 				}
 			}
 		}

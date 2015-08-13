@@ -46,6 +46,10 @@ abstract class StreamDirection extends Stream implements StreamDirectionInterfac
 		$this->source		=	$source;
 		$this->user			=	$user;
 		$this->direction	=	$direction;
+
+		if ( ! $this->id ) {
+			$this->id		=	uniqid();
+		}
 	}
 
 	/**

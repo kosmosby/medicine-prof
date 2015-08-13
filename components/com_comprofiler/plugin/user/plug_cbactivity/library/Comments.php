@@ -64,6 +64,8 @@ class Comments extends StreamDirection implements CommentsInterface
 	 */
 	public function push( $data = array(), $keys = null )
 	{
+		global $_PLUGINS;
+
 		$row					=	new CommentTable();
 
 		if ( isset( $data['id'] ) ) {
@@ -122,6 +124,8 @@ class Comments extends StreamDirection implements CommentsInterface
 			return false;
 		}
 
+		$_PLUGINS->trigger( 'activity_onPushComments', array( $this, $row ) );
+
 		$this->resetCount		=	true;
 		$this->resetSelect		=	true;
 
@@ -136,6 +140,8 @@ class Comments extends StreamDirection implements CommentsInterface
 	 */
 	public function remove( $keys = null )
 	{
+		global $_PLUGINS;
+
 		if ( ( $keys === null ) && $this->get( 'id' ) ) {
 			$keys			=	(int) $this->get( 'id', null, GetterInterface::INT );
 		}
@@ -151,6 +157,8 @@ class Comments extends StreamDirection implements CommentsInterface
 		if ( ! $row->delete() ) {
 			return false;
 		}
+
+		$_PLUGINS->trigger( 'activity_onRemoveComments', array( $this, $row ) );
 
 		$this->resetCount	=	true;
 		$this->resetSelect	=	true;

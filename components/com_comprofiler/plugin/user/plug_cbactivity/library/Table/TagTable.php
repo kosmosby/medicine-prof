@@ -122,6 +122,20 @@ class TagTable extends Table
 			return false;
 		}
 
+		// Deletes activity about this tag:
+		$query				=	'SELECT *'
+							.	"\n FROM " . $this->getDbo()->NameQuote( '#__comprofiler_plugin_activity' )
+							.	"\n WHERE " . $this->getDbo()->NameQuote( 'type' ) . " = " . $this->getDbo()->Quote( 'activity' )
+							.	"\n AND " . $this->getDbo()->NameQuote( 'subtype' ) . " = " . $this->getDbo()->Quote( 'tag' )
+							.	"\n AND " . $this->getDbo()->NameQuote( 'item' ) . " = " . (int) $this->get( 'id' );
+		$this->getDbo()->setQuery( $query );
+		$activities			=	$this->getDbo()->loadObjectList( null, '\CB\Plugin\Activity\Table\ActivityTable', array( $this->getDbo() ) );
+
+		/** @var ActivityTable[] $activities */
+		foreach ( $activities as $activity ) {
+			$activity->delete();
+		}
+
 		$_PLUGINS->trigger( 'activity_onAfterDeleteTag', array( $this ) );
 
 		return true;
