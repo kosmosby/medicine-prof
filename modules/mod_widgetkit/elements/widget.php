@@ -1,30 +1,25 @@
 <?php
-/**
-* @package   Widgetkit
-* @author    YOOtheme http://www.yootheme.com
-* @copyright Copyright (C) YOOtheme GmbH
-* @license   http://www.gnu.org/licenses/gpl.html GNU/GPL
-*/
 
-// no direct access
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 
-jimport('joomla.html.html');
-jimport('joomla.form.formfield');
+class JFormFieldWidget extends JFormField
+{
+    protected $type = 'Widget';
 
-// load widgetkit
-require_once(JPATH_ADMINISTRATOR.'/components/com_widgetkit/widgetkit.php');
+    function getInput()
+    {
+        if (!$app = @include(JPATH_ADMINISTRATOR . '/components/com_widgetkit/widgetkit-app.php')) {
+            return;
+        }
 
-class JFormFieldWidget extends JFormField {
+        $app->trigger('init.admin', array($app));
 
-	protected $type = 'Widget';
-
-	function getInput() {
-
-		// get widgetkit
-		$widgetkit = Widgetkit::getInstance();
-
-		return $widgetkit['field']->render('widget', $this->name, $this->value, null);
-	}
-
+        $value = htmlspecialchars($this->value, ENT_QUOTES, 'UTF-8');
+        return <<<EOT
+    <button type="button" class="btn btn-small widgetkit-widget">
+        <span>{$app['translator']->trans('Select Widget')}</span>
+    </button>
+    <input type="hidden" name="$this->name" value="$value">
+EOT;
+    }
 }

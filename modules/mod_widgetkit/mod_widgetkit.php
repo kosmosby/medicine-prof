@@ -1,25 +1,15 @@
 <?php
-/**
-* @package   Widgetkit
-* @author    YOOtheme http://www.yootheme.com
-* @copyright Copyright (C) YOOtheme GmbH
-* @license   http://www.gnu.org/licenses/gpl.html GNU/GPL
-*/
 
-// no direct access
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 
-// load widgetkit
-require_once(JPATH_ADMINISTRATOR.'/components/com_widgetkit/widgetkit.php');
+$render = function() use ($params) {
 
-// render widget
-if ($widget_id = (int) $params->get('widget_id', '')) {
+    if (!$app = @include(JPATH_ADMINISTRATOR . '/components/com_widgetkit/widgetkit-app.php')) {
+        return;
+    }
 
-	// get widgetkit
-	$widgetkit = Widgetkit::getInstance();
+    $output = $app->renderWidget(json_decode($params->get('widgetkit', '[]'), true));
+    echo $output === false ? $app['translator']->trans('Could not load widget') : $output;
+};
 
-	// render output
-	$output = $widgetkit['widget']->render($widget_id);
-	echo ($output === false) ? "Could not load widget with the id $widget_id." : $output;
-
-}
+return $render();
