@@ -69,3 +69,6 @@ height: auto !important;
 
 #comments .comments-list {height: auto !important; }
 
+. test {
+    width: 100%;
+}
