@@ -69,6 +69,7 @@ height: auto !important;
 
 #comments .comments-list {height: auto !important; }
 
-. test {
-    width: 100%;
+#maininner #innertop .grid-box .mod-line {
+    padding-left: 0px;
+    padding-right: 0px;
 }
