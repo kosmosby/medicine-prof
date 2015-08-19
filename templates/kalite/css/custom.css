@@ -109,7 +109,7 @@ height: auto !important;
 
 .uk-button:hover, .uk-button:focus {
     background-color: rgba(0,0,0,0);
-    color: #aa8163;
+    color: #ffffff !important;
     outline: none;
     text-decoration: none;
     border-color: #aa8163;
