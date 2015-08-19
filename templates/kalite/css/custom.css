@@ -73,3 +73,44 @@ height: auto !important;
     padding-left: 0px;
     padding-right: 0px;
 }
+
+
+/* read more button */
+.uk-overlay-panel .uk-button {
+    border-color: #fff;
+    color: #fff;
+}
+.uk-button:not(:disabled) {
+    cursor: pointer;
+}
+
+.uk-button {
+    -webkit-appearance: none;
+    margin: 0;
+    border: none;
+    overflow: visible;
+    font: inherit;
+    color: #8b8e97;
+    text-transform: none;
+    display: inline-block;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0 12px;
+    background: rgba(0,0,0,0);
+    vertical-align: middle;
+    line-height: 34px;
+    min-height: 36px;
+    font-size: 14px;
+    text-decoration: none;
+    text-align: center;
+    border: 1px solid #8b8e97;
+    text-transform: uppercase;
+}
+
+.uk-button:hover, .uk-button:focus {
+    background-color: rgba(0,0,0,0);
+    color: #aa8163;
+    outline: none;
+    text-decoration: none;
+    border-color: #aa8163;
+}
