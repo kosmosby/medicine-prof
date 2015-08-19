@@ -103,8 +103,9 @@ height: auto !important;
     font-size: 14px;
     text-decoration: none;
     text-align: center;
-    border: 1px solid #8b8e97;
+    border: 1px solid #ffffff !important;
     text-transform: uppercase;
+
 }
 
 .uk-button:hover, .uk-button:focus {
@@ -112,5 +113,5 @@ height: auto !important;
     color: #ffffff !important;
     outline: none;
     text-decoration: none;
-    border-color: #aa8163;
+    border-color: #ffffff !important;
 }
