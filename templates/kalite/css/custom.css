@@ -115,3 +115,7 @@ height: auto !important;
     text-decoration: none;
     border-color: #ffffff !important;
 }
+
+h3.uk-h2 {
+    color: #333333;
+}
