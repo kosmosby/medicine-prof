@@ -117,3 +117,18 @@ height: auto !important;
 }
 
 
+.uk-slidenav-contrast.uk-slidenav-previous, .uk-slidenav-contrast.uk-slidenav-next {
+    background-image: url("/templates/yoo_salt/less/uikit/images/default/buttons_contrast.svg");
+    border: 1px solid #fff;
+}
+
+
+h3.uk-h2 {
+    margin: 0 !important;
+    padding: 0;
+    color: #eeeeee !important;
+    text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
