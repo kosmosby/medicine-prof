@@ -131,7 +131,7 @@ height: auto !important;
 }
 
 .uk-slidenav-position .uk-slidenav {
-    display: none;
+    display: block;
     position: absolute;
     top: 50%;
     z-index: 1;
