@@ -63,6 +63,7 @@
 		<position>mobile-bottom</position>
 		<position>mobile-footer</position>
         <position>header_social_login</position>
+        <position>position-for-widgets</position>
 	</positions>
 	<config>
 		<fields name="params" addfieldpath="/templates/kalite/warp/systems/joomla/config/elements">	

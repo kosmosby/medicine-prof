@@ -53,8 +53,8 @@ class JConfig {
 	public $sef_suffix = '0';
 	public $unicodeslugs = '0';
 	public $feed_limit = '10';
-	public $log_path = '/var/www/html/logs';
-	public $tmp_path = '/var/www/html/tmp';
+	public $log_path = '/Users/kosmos/Documents/sites/medicine-prof/logs';
+	public $tmp_path = '/Users/kosmos/Documents/sites/medicine-prof/tmp';
 	public $lifetime = '99999';
 	public $session_handler = 'database';
 	public $MetaRights = '(c) 2015 Medicine-prof
