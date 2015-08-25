@@ -104,7 +104,11 @@ include($this['path']->path('layouts:template.config.php'));
 			<div id="main"><div><div class="grid-block">
 			
 				<div id="maininner" class="grid-box">
-				
+
+                    <?php if ($this['modules']->count('position-for-widgets')) : ?>
+                        <section id="position-for-widgets"><?php echo $this['modules']->render('position-for-widgets', array('layout'=>$this['config']->get('position-for-widgets'))); ?></section>
+                    <?php endif; ?>
+
 					<?php if ($this['modules']->count('innertop')) : ?>
 					<section id="innertop" class="grid-block"><?php echo $this['modules']->render('innertop', array('layout'=>$this['config']->get('innertop'))); ?></section>
 					<?php endif; ?>

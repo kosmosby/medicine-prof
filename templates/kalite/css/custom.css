@@ -69,9 +69,13 @@ height: auto !important;
 
 #comments .comments-list {height: auto !important; }
 
-#maininner #innertop .grid-box .mod-line {
-    padding-left: 0px;
-    padding-right: 0px;
+#position-for-widgets {
+    padding: 20px 0px 20px 0px;
+
+}
+
+#maininner #innertop .grid-box {
+    float: none !important;
 }
 
 
@@ -259,4 +263,10 @@ h3.uk-h2 {
     outline: none;
     border-color: #ffffff;
 }
+
+#position-for-widgets .module {
+    margin-bottom: 40px;
+}
+
+
 
