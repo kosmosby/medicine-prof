@@ -14,6 +14,8 @@ defined('_JEXEC') or die;
  * @subpackage  com_openfire
  * @since       1.5
  */
+require_once __DIR__.'/vendor/autoload.php';
+
 class OpenfireController extends JControllerLegacy
 {
 	/**
@@ -59,4 +61,26 @@ class OpenfireController extends JControllerLegacy
       echo json_encode($result);
       exit;
 	}
+
+    public function get_contacts(){
+        header('Content-Type: application/json');
+        $phone = trim(JRequest::getVar("phone"));
+        if($phone[0]!='+'){
+            $phone = '+'.$phone;
+        }
+        $phoneUtil = \libphonenumber\PhoneNumberUtil::getInstance();
+        try {
+            $numberProto = $phoneUtil->parse($phone);
+            $countryCode = $numberProto->getCountryCode();
+            $nationalNumber = $numberProto->getNationalNumber();
+            $regionCode = $phoneUtil->getRegionCodeForCountryCode($countryCode);
+            echo(json_encode(array('status'=>'OK',
+                                   'counry_code'=>$countryCode,
+                                   'national_number'=>$nationalNumber,
+                                   'region_code'=>$regionCode)));
+        } catch (\libphonenumber\NumberParseException $e) {
+            echo json_encode(array('status'=>'BAD_PHONE'));
+        }
+        exit;
+    }
 }

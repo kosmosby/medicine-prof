@@ -14,7 +14,7 @@
 		<filename>index.html</filename>
 		<filename>openfire.php</filename>
 		<folder>classes</folder>
-
+		<folder>vendor</folder>
 		<folder>tests</folder>
 	</files>
 	<install>
