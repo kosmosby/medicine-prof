@@ -57,4 +57,25 @@ class OpenFireService
         mysql_close($link);
         return array("status"=>"OK", "user"=>$login."@medicine-prof.com", "password"=>$password);
     }
+
+    public function filterContacts($phones){
+        $result = array();
+        if(count($phones)==0){
+            return $result;
+        }
+        $link = mysql_connect('localhost', 'root', 'staSPE8e');
+        mysql_select_db('openfire', $link);
+        foreach($phones as $key=>$value){
+            $phones[$key] = '\''.mysql_real_escape_string($value).'\'';
+        }
+        $query = "SELECT username FROM ofUser where username in (".implode(',', $phones).")";
+        $res = mysql_query($query, $link);
+
+        while(($val=mysql_fetch_field($res))!=null){
+            $result[] = $val;
+        }
+
+        mysql_close($link);
+        return $result;
+    }
 }

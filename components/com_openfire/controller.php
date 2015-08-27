@@ -63,8 +63,11 @@ class OpenfireController extends JControllerLegacy
 	}
 
     public function get_contacts(){
+        $jinput = JFactory::getApplication()->input;
         header('Content-Type: application/json');
-        $phone = trim(JRequest::getVar("phone"));
+        $phone = trim($jinput->getString("phone"));
+        $contacts = $jinput->get('contacts', array(), 'ARRAY');
+
         if($phone[0]!='+'){
             $phone = '+'.$phone;
         }
@@ -72,15 +75,29 @@ class OpenfireController extends JControllerLegacy
         try {
             $numberProto = $phoneUtil->parse($phone);
             $countryCode = $numberProto->getCountryCode();
-            $nationalNumber = $numberProto->getNationalNumber();
             $regionCode = $phoneUtil->getRegionCodeForCountryCode($countryCode);
-            echo(json_encode(array('status'=>'OK',
-                                   'counry_code'=>$countryCode,
-                                   'national_number'=>$nationalNumber,
-                                   'region_code'=>$regionCode)));
         } catch (\libphonenumber\NumberParseException $e) {
             echo json_encode(array('status'=>'BAD_PHONE'));
+            exit;
         }
+            $preparedPhones = array();
+            foreach($contacts as $contactPhone){
+                try {
+                    $numberProto = $phoneUtil->parse($contactPhone, $regionCode);
+                    $countryCode = $numberProto->getCountryCode();
+                    $nationalNumber = $numberProto->getNationalNumber();
+                    $preparedPhones[] = $countryCode . $nationalNumber;
+                }catch (\libphonenumber\NumberParseException $e) {
+                    //do nothing. just skip this phone.
+                }
+            }
+        require_once dirname(__FILE__).'/classes/OpenFireService.php';
+        $ofService = new OpenFireService();
+        $result = $ofService->filterContacts($preparedPhones);
+
+            echo(json_encode(array('status'=>'OK',
+                                   'contacts'=>$result)));
+
         exit;
     }
 }
