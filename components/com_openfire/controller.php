@@ -27,18 +27,32 @@ class OpenfireController extends JControllerLegacy
 	 */
   public function register_phone()
   {
-    header('Content-Type: application/json');
-    require_once dirname(__FILE__).'/classes/OpenFireService.php';
-    $ofService = new OpenFireService();
+      header('Content-Type: application/json');
+      require_once dirname(__FILE__).'/classes/OpenFireService.php';
+      $ofService = new OpenFireService();
 
-    $phone = JRequest::getVar('phone');
-    $ip = $_SERVER['REMOTE_ADDR'];
+      $phone = JRequest::getVar('phone');
       if($phone[0]=="+"){
           $phone = substr($phone, 1);
       }
-    $result = $ofService->registerPhone($phone, $ip);
-    echo json_encode(array('status'=>$result));
-    exit;
+      //Verify that phone is correct.
+      $phoneUtil = \libphonenumber\PhoneNumberUtil::getInstance();
+      try {
+          $numberProto = $phoneUtil->parse($phone);
+          $countryCode = $numberProto->getCountryCode();
+          $regionCode = $phoneUtil->getRegionCodeForCountryCode($countryCode);
+      } catch (\libphonenumber\NumberParseException $e) {
+          echo json_encode(array('status'=>'BAD_PHONE'));
+          exit;
+      }
+
+      $ip = $_SERVER['REMOTE_ADDR'];
+      if($phone[0]=="+"){
+          $phone = substr($phone, 1);
+      }
+      $result = $ofService->registerPhone($phone, $ip);
+      echo json_encode(array('status'=>$result));
+      exit;
   }
 
 	public function verify_code()
