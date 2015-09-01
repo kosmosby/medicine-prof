@@ -31,9 +31,13 @@ class OpenfireController extends JControllerLegacy
       require_once dirname(__FILE__).'/classes/OpenFireService.php';
       $ofService = new OpenFireService();
 
-      $phone = JRequest::getVar('phone');
-      if($phone[0]=="+"){
-          $phone = substr($phone, 1);
+      $phone = trim(JRequest::getVar('phone'),'');
+      if(empty($phone)){
+          echo json_encode(array('status'=>'BAD_PHONE'));
+          exit;
+      }
+      if($phone[0]!="+"){
+          $phone = '+'.$phone;
       }
       //Verify that phone is correct.
       $phoneUtil = \libphonenumber\PhoneNumberUtil::getInstance();
@@ -45,12 +49,16 @@ class OpenfireController extends JControllerLegacy
           echo json_encode(array('status'=>'BAD_PHONE'));
           exit;
       }
-
+      if(!$phoneUtil->isValidNumber($numberProto)){
+          echo json_encode(array('status'=>'BAD_PHONE'));
+          exit;
+      }
       $ip = $_SERVER['REMOTE_ADDR'];
       if($phone[0]=="+"){
           $phone = substr($phone, 1);
       }
-      $result = $ofService->registerPhone($phone, $ip);
+      //$result = $ofService->registerPhone($phone, $ip);
+      $result = "OK";
       echo json_encode(array('status'=>$result));
       exit;
   }
@@ -80,7 +88,8 @@ class OpenfireController extends JControllerLegacy
         $jinput = JFactory::getApplication()->input;
         header('Content-Type: application/json');
         $phone = trim($jinput->getString("phone"));
-        $contacts = $jinput->get('contacts', array(), 'ARRAY');
+        $contactPhones = $jinput->get('contact_phones', array(), 'ARRAY');
+        $contactNames = $jinput->get('contact_names', array(), 'ARRAY');
 
         if($phone[0]!='+'){
             $phone = '+'.$phone;
@@ -94,23 +103,41 @@ class OpenfireController extends JControllerLegacy
             echo json_encode(array('status'=>'BAD_PHONE'));
             exit;
         }
-            $preparedPhones = array();
-            foreach($contacts as $contactPhone){
-                try {
-                    $numberProto = $phoneUtil->parse($contactPhone, $regionCode);
-                    $countryCode = $numberProto->getCountryCode();
-                    $nationalNumber = $numberProto->getNationalNumber();
-                    $preparedPhones[] = $countryCode . $nationalNumber;
-                }catch (\libphonenumber\NumberParseException $e) {
-                    //do nothing. just skip this phone.
-                }
+
+        $contacts = array();
+        for($i=0;$i<count($contactPhones);$i++){
+            $contacts[] = array("phone"=>$contactPhones[$i], "name"=>$contactNames[$i]);
+        }
+        $preparedPhones = array();
+
+        foreach ($contacts as $contact) {
+            try {
+                $contactPhone = $contact["phone"];
+                $numberProto = $phoneUtil->parse($contactPhone, $regionCode);
+                $countryCode = $numberProto->getCountryCode();
+                $nationalNumber = $numberProto->getNationalNumber();
+                $preparedPhones[] = $countryCode . $nationalNumber;
+                $contact['phone'] = $countryCode . $nationalNumber;
+
+            } catch (\libphonenumber\NumberParseException $e) {
+                //do nothing. just skip this phone.
             }
+        }
+
         require_once dirname(__FILE__).'/classes/OpenFireService.php';
         $ofService = new OpenFireService();
         $result = $ofService->filterContacts($preparedPhones);
+        $fileredContacts = array();
+        $processedPhones = array();
 
+        foreach ($contacts as $contact) {
+            if(in_array($contact["phone"], $result) && !in_array($contact["phone"], $processedPhones)){
+                $fileredContacts[] = $contact;
+                $processedPhones[] = $contact["phone"];
+            }
+        }
             echo(json_encode(array('status'=>'OK',
-                                   'contacts'=>$result)));
+                                   'contacts'=>$fileredContacts)));
 
         exit;
     }
