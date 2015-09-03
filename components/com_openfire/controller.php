@@ -57,8 +57,7 @@ class OpenfireController extends JControllerLegacy
       if($phone[0]=="+"){
           $phone = substr($phone, 1);
       }
-      //$result = $ofService->registerPhone($phone, $ip);
-      $result = "OK";
+      $result = $ofService->registerPhone($phone, $ip);
       echo json_encode(array('status'=>$result));
       exit;
   }
