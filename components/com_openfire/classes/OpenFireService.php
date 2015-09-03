@@ -53,6 +53,7 @@ class OpenFireService
                          VALUES(
                          '".mysql_real_escape_string($login)."',
                          '".mysql_real_escape_string($password)."',
+                         NULL,
                          '$insertDate',
                          '$insertDate'
                          )", $link);
