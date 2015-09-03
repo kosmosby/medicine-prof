@@ -47,12 +47,15 @@ class OpenFireService
                          encryptedPassword=NULL
                          WHERE username='".mysql_real_escape_string($login)."'", $link);
         }else{
+            $insertDate = round(microtime(true) * 1000);
             mysql_query("INSERT INTO ofUser
-                         (username, plainPassword, encryptedPassword)
+                         (username, plainPassword, encryptedPassword, creationDate, modificationDate)
                          VALUES(
                          '".mysql_real_escape_string($login)."',
                          '".mysql_real_escape_string($password)."',
-                         NULL )", $link);
+                         '$insertDate',
+                         '$insertDate'
+                         )", $link);
         }
         mysql_close($link);
         return array("status"=>"OK", "user"=>$login."@medicine-prof.com", "password"=>$password);
