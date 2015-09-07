@@ -40,7 +40,7 @@ class OpenFireService
         mysql_select_db('openfire', $link);
         $query = "SELECT 1 FROM ofUser WHERE username='".mysql_real_escape_string($login)."'";
         $res = mysql_query($query, $link);
-        $userExists = mysql_fetch_field($res);
+        $userExists = mysql_result($res, 0);
         if($userExists=='1'){
             mysql_query("UPDATE ofUser
                          SET plainPassword='".mysql_real_escape_string($password)."',
@@ -74,8 +74,8 @@ class OpenFireService
         }
         $query = "SELECT username FROM ofUser where username in (".implode(',', $phones).")";
         $res = mysql_query($query, $link);
-
-        while(($val=mysql_fetch_field($res))!=null){
+        $i = 0;
+        while(($val=mysql_result($res,$i++))!=null){
             $result[] = $val;
         }
 
