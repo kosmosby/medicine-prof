@@ -86,8 +86,11 @@ class OpenfireController extends JControllerLegacy
     public function get_contacts(){
         $jinput = JFactory::getApplication()->input;
         header('Content-Type: application/json');
-        $phone = trim($jinput->getString("phone"));
+
         $user = trim($jinput->getString("user"));
+        $arr = explode('@', $user);
+        $phone = $arr[0];
+        
         $contactPhones = $jinput->get('contact_phones', array(), 'ARRAY');
         $contactNames = $jinput->get('contact_names', array(), 'ARRAY');
 
