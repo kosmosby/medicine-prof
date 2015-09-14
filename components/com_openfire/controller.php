@@ -87,6 +87,7 @@ class OpenfireController extends JControllerLegacy
         $jinput = JFactory::getApplication()->input;
         header('Content-Type: application/json');
         $phone = trim($jinput->getString("phone"));
+        $user = trim($jinput->getString("user"));
         $contactPhones = $jinput->get('contact_phones', array(), 'ARRAY');
         $contactNames = $jinput->get('contact_names', array(), 'ARRAY');
 
@@ -125,7 +126,7 @@ class OpenfireController extends JControllerLegacy
 
         require_once dirname(__FILE__).'/classes/OpenFireService.php';
         $ofService = new OpenFireService();
-        $result = $ofService->filterContacts($preparedPhones);
+        $result = $ofService->filterContacts($preparedPhones, $user);
         $fileredContacts = array();
         $processedPhones = array();
 

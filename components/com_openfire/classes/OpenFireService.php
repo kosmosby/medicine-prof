@@ -62,7 +62,8 @@ class OpenFireService
         return array("status"=>"OK", "user"=>$login."@medicine-prof.com", "password"=>$password);
     }
 
-    public function filterContacts($phones){
+    public function filterContacts($phones, $user){
+        $user = mysql_real_escape_string($user);
         $result = array();
         if(count($phones)==0){
             return $result;
@@ -72,7 +73,13 @@ class OpenFireService
         foreach($phones as $key=>$value){
             $phones[$key] = '\''.mysql_real_escape_string($value).'\'';
         }
-        $query = "SELECT username FROM ofUser where username in (".implode(',', $phones).")";
+        $query = "SELECT u.username
+                  FROM ofUser u
+                  WHERE u.username in (".implode(',', $phones).")
+                    AND NOT EXISTS ( SELECT 1 FROM ofRoster r
+                                     WHERE r.username=u.username
+                                        AND r.jid='$user')
+        ";
         $res = mysql_query($query, $link);
         $i = 0;
         while(($val=mysql_result($res,$i++))!=null){
