@@ -131,15 +131,15 @@ class OpenfireController extends JControllerLegacy
         $ofService = new OpenFireService();
         $result = $ofService->filterContacts($preparedPhones, $user);
 
-        foreach ($contacts as &$contact) {
+        foreach ($contacts as $key => $contact) {
             if(in_array($contact["phoneCanonical"], $result) ){
-                $contact['jabberUsername'] = $contact["phoneCanonical"]."@medicine-prof.com";
-                $contact['contactAdded'] = false;
-                $contact['contactExists'] = true;
+                $contacts[$key]['jabberUsername'] = $contact["phoneCanonical"]."@medicine-prof.com";
+                $contacts[$key]['contactAdded'] = false;
+                $contacts[$key]['contactExists'] = true;
             }else{
-                $contact['jabberUsername'] = null;
-                $contact['contactAdded'] = false;
-                $contact['contactExists'] = false;
+                $contacts[$key]['jabberUsername'] = null;
+                $contacts[$key]['contactAdded'] = false;
+                $contacts[$key]['contactExists'] = false;
             }
         }
             echo(json_encode(array('status'=>'OK',
