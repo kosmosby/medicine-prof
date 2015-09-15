@@ -120,7 +120,7 @@ class OpenfireController extends JControllerLegacy
                 $countryCode = $numberProto->getCountryCode();
                 $nationalNumber = $numberProto->getNationalNumber();
                 $preparedPhones[] = $countryCode . $nationalNumber;
-                $contact['phone'] = $countryCode . $nationalNumber;
+                $contact['phoneCanonical'] = $countryCode . $nationalNumber;
 
             } catch (\libphonenumber\NumberParseException $e) {
                 //do nothing. just skip this phone.
@@ -130,17 +130,20 @@ class OpenfireController extends JControllerLegacy
         require_once dirname(__FILE__).'/classes/OpenFireService.php';
         $ofService = new OpenFireService();
         $result = $ofService->filterContacts($preparedPhones, $user);
-        $fileredContacts = array();
-        $processedPhones = array();
 
-        foreach ($contacts as $contact) {
-            if(in_array($contact["phone"], $result) && !in_array($contact["phone"], $processedPhones)){
-                $fileredContacts[] = $contact;
-                $processedPhones[] = $contact["phone"];
+        foreach ($contacts as &$contact) {
+            if(in_array($contact["phoneCanonical"], $result) ){
+                $contact['jabberUsername'] = $contact["phoneCanonical"]."@medicine-prof.com";
+                $contact['contactAdded'] = false;
+                $contact['contactExists'] = true;
+            }else{
+                $contact['jabberUsername'] = null;
+                $contact['contactAdded'] = false;
+                $contact['contactExists'] = false;
             }
         }
             echo(json_encode(array('status'=>'OK',
-                                   'contacts'=>$fileredContacts)));
+                                   'contacts'=>$contacts)));
 
         exit;
     }
