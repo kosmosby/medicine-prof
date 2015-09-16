@@ -113,7 +113,7 @@ class OpenfireController extends JControllerLegacy
         }
         $preparedPhones = array();
 
-        foreach ($contacts as $contact) {
+        foreach ($contacts as &$contact) {
             try {
                 $contactPhone = $contact["phone"];
                 $numberProto = $phoneUtil->parse($contactPhone, $regionCode);
