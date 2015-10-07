@@ -299,5 +299,8 @@ h3.uk-h2 {
     border-color: #aa8163;
 }
 
+h3.uk-accordion-title {
+    font-size: 19px !important;
+}
 
 
