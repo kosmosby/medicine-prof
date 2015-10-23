@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.4
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -42,7 +42,7 @@ class FileController extends acymailingController{
 		$alreadyExists = file_exists($path);
 
 		if(JFile::write($path, $csscontent)){
-			acymailing_display(JText::_('JOOMEXT_SUCC_SAVED'), 'success');
+			acymailing_enqueueMessage(JText::_('JOOMEXT_SUCC_SAVED'), 'success');
 			$varName = JRequest::getCmd('var');
 			if(!$alreadyExists){
 				$js = "var optn = document.createElement(\"OPTION\");
@@ -59,7 +59,7 @@ class FileController extends acymailingController{
 			$newConfig->$varName = $fileName;
 			$config->save($newConfig);
 		}else{
-			acymailing_display(JText::sprintf('FAIL_SAVE', $path), 'error');
+			acymailing_enqueueMessage(JText::sprintf('FAIL_SAVE', $path), 'error');
 		}
 
 		return $this->css();
@@ -140,21 +140,21 @@ class FileController extends acymailingController{
 		$path = JLanguage::getLanguagePath(JPATH_ROOT).DS.$code.DS.$code.'.com_acymailing.ini';
 		$result = JFile::write($path, $content);
 		if($result){
-			acymailing_display(JText::_('JOOMEXT_SUCC_SAVED'), 'success');
-			$js = "window.top.document.getElementById('image$code').src = '".ACYMAILING_IMAGES."icons/icon-16-edit.png'";
+			acymailing_enqueueMessage(JText::_('JOOMEXT_SUCC_SAVED'), 'success');
+			$js = "window.top.document.getElementById('image$code').className = 'acyicon-edit'";
 			$doc = JFactory::getDocument();
 			$doc->addScriptDeclaration($js);
 
 			$updateHelper = acymailing_get('helper.update');
 			$updateHelper->installMenu($code);
 		}else{
-			acymailing_display(JText::sprintf('FAIL_SAVE', $path), 'error');
+			acymailing_enqueueMessage(JText::sprintf('FAIL_SAVE', $path), 'error');
 		}
 
 		$customcontent = JRequest::getVar('customcontent', '', '', 'string', JREQUEST_ALLOWHTML);
 		$custompath = JLanguage::getLanguagePath(JPATH_ROOT).DS.$code.DS.$code.'.com_acymailing_custom.ini';
 		$customresult = JFile::write($custompath, $customcontent);
-		if(!$customresult) acymailing_display(JText::sprintf('FAIL_SAVE', $custompath), 'error');
+		if(!$customresult) acymailing_enqueueMessage(JText::sprintf('FAIL_SAVE', $custompath), 'error');
 
 		return $result;
 	}
@@ -168,7 +168,7 @@ class FileController extends acymailingController{
 
 		if(empty($languagesContent)){
 			acymailing_display('Could not load the language files from our server, you can update them in the AcyMailing configuration page, tab "Languages" or start your own translation and share it', 'error');
-			return;
+			exit;
 		}
 
 		$decodedLanguages = json_decode($languagesContent, true);
@@ -192,7 +192,13 @@ class FileController extends acymailingController{
 			}
 		}
 
-		if(!empty($success)) acymailing_display(implode('<br />', $success), 'success');
-		if(!empty($error)) acymailing_display(implode('<br />', $error), 'error');
+		if(!empty($success)) acymailing_display($success, 'success');
+		if(!empty($error)) acymailing_display($error, 'error');
+		exit;
+	}
+
+	function select(){
+		JRequest::setVar('layout', 'select');
+		return parent::display();
 	}
 }

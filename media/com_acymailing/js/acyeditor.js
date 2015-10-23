@@ -1,6 +1,6 @@
 /**
  * @package    AcyMailing for Joomla!
- * @version    4.9.4
+ * @version    5.0.0
  * @author     acyba.com
  * @copyright  (C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -32,9 +32,9 @@ var tooltipTemplatePicture;
 var tooltipShowAreas;
 var templateShown = false;
 var urlAcyeditor;
-var boutonTags = "toolbar-acytags";
+var boutonTags = "toolbar-tag";
 var boutonMediaBrowser = "toolbar-popup-Acymediabrowser";
-var acyVersion = "4.9.4";
+var acyVersion = "5.0.0";
 var pasteType = "plain";
 var acyEnterMode = "br";
 var urlSite = "";
@@ -50,6 +50,8 @@ var confirmInitAreas = "";
 var tooltipInitAreas = "";
 var tooltipTemplateSortable = "";
 var ckFileVersion = "";
+var confirmDeleteBtnTxt = "";
+var confirmCancelBtnTxt = "";
 
 var initIE = false;
 function Initialisation(id, type, urlBase, urlAdminBase, cssUrl, forceComplet, modeList, modeTemplate, modeArticle, joomla2_5, joomla3, back, tagAllowed, texteSuppression, titleSuppression, titleEdition, titleTemplateDelete, titleTemplateText, titleTemplatePicture, titleShowAreas, ckEditorFileVersion) {
@@ -324,6 +326,14 @@ function Initialisation(id, type, urlBase, urlAdminBase, cssUrl, forceComplet, m
 		else if(acyEnterMode == 'div'){ enterM = CKEDITOR.ENTER_DIV;}
 		else{ enterM = CKEDITOR.ENTER_BR; }
 
+		extraPluginsCKEditor += ',codemirror';
+		var codemirrorOptions = {
+			showFormatButton: false,
+			showCommentButton: false,
+			showUncommentButton: false,
+			showAutoCompleteButton: false
+		};
+
 		editor = CKEDITOR.replace("edition_en_cours",{
 			toolbarGroups : toolbarGroupsCKEditor,
 			height : hauteur,
@@ -335,6 +345,7 @@ function Initialisation(id, type, urlBase, urlAdminBase, cssUrl, forceComplet, m
 			extraPlugins: extraPluginsCKEditor,
 			forcePasteAsPlainText: pastePlain,
 			pasteFromWordRemoveFontStyles: pasteWordSimple,
+			codemirror: codemirrorOptions,
 			enterMode: enterM
 		});
 
@@ -1180,7 +1191,7 @@ function CreationZone(id, element , texteSuppression, titleSuppression, titleEdi
 					boutonSuppression.id = "BoutonSuppression_" + element.id;
 					boutonSuppression.title = titleSuppression;
 					boutonSuppression.onclick = function () {
-						Suppression(id, element, boutonSuppression, texteSuppression);
+						confirmSuppression(id, element, boutonSuppression, texteSuppression);
 					};
 					zoneBoutonSuppression.appendChild(boutonSuppression);
 					zone.onmousemove = function(e) { CheckToujoursAuDessus(id, e); };
@@ -1324,6 +1335,9 @@ function addActionsButtons(id, zoneBoutonSuppression, evt){
                 var xButton = acyJquery(colpkr).css('top').replace('px', '');
                 var newTop = Number(xButton) + Number(offsetParent);
                 acyJquery(colpkr).css('top', newTop + 'px');
+				var zoneAction = acyJquery(iframe[0].contentWindow.document.body).find('#zoneAction');
+				var newLeft = zoneAction.css('left').replace('px', '');
+				acyJquery(colpkr).css('left', newLeft + 'px');
                 acyJquery(colpkr).fadeIn(500);
                 return false;
             },
@@ -1347,7 +1361,7 @@ function addActionsButtons(id, zoneBoutonSuppression, evt){
         InitContent(id, txtSup, titleSup, titleEd, urlSite);
         Sauvegarde(id);
         ResizeIframe(id);
-    });
+		});
     zoneAction.appendChild(closeButton);
 
 
@@ -1526,34 +1540,78 @@ function EffaceZone(zone){
 		zone.style.borderStyle = "hidden";
 	}
 }
+function confirmSuppression(id, element, boutonSuppression, texteSuppression){
+	GetElement(id, boutonSuppression.parentElement.parentElement.parentElement.id).addClass('nepasediter');
+
+	var zoneBody = acyJquery('#' + id + "_ifr")[0].contentWindow.document.body;
+	var zoneFade = document.createElement("div");
+	zoneFade.style.position = "absolute";
+	zoneFade.className = "acyeditor_mask";
+	zoneFade.style.width = acyJquery('#htmlfieldset').width() - 20 + "px";
+	zoneFade.style.height = acyJquery('#htmlfieldset').height() - 20 + "px";
+	zoneFade.id = "zoneFade";
+
+	var offsettop = acyJquery(boutonSuppression).offset().top;
+	var offsetleft = acyJquery(boutonSuppression).offset().left - 400;
+
+    var confirmBox = document.createElement('div');
+    confirmBox.id = 'confirmBox';
+    confirmBox.className = 'confirmBox';
+	confirmBox.style.top = offsettop + 'px';
+	confirmBox.style.left = offsetleft + 'px';
+	var confirmContent = document.createElement('div');
+	confirmContent.id = 'acy_popup_content';
+    var confirmTxt = document.createElement('span');
+    confirmTxt.id = 'confirmTxt';
+    confirmTxt.className = 'confirmTxt';
+    confirmTxt.innerHTML = texteSuppression+'<br />';
+    var confirmOk = document.createElement('button');
+    confirmOk.id = 'confirmOk';
+    confirmOk.className = 'confirmOk';
+	confirmOk.innerHTML = confirmDeleteBtnTxt;
+    confirmOk.onclick = function(){
+		Suppression(id, element, boutonSuppression, texteSuppression);
+		acyJquery(zoneFade).remove();
+	};
+    var confirmCancel = document.createElement('button');
+    confirmCancel.id = 'confirmCancel';
+    confirmCancel.className = 'confirmCancel';
+	confirmCancel.innerHTML = confirmCancelBtnTxt;
+    confirmCancel.onclick = function(){
+		acyJquery(zoneFade).remove();
+    };
+	confirmContent.appendChild(confirmTxt);
+	confirmContent.appendChild(confirmOk);
+	confirmContent.appendChild(confirmCancel);
+    confirmBox.appendChild(confirmContent);
+
+	zoneFade.appendChild(confirmBox);
+	zoneBody.appendChild(zoneFade);
+}
 
 function Suppression(id, element, boutonSuppression, texteSuppression){
-	GetElement(id, boutonSuppression.parentElement.parentElement.parentElement.id).addClass('nepasediter');
-	if (confirm(texteSuppression))
+	var idParent = boutonSuppression.parentElement.parentElement.id;
+	if (element.tagName == "TD")
 	{
-		var idParent = boutonSuppression.parentElement.parentElement.id;
-		if (element.tagName == "TD")
+		var parentTR = element;
+		while (parentTR != null
+			&& parentTR != undefined
+			&& (parentTR.tagName != "TR"
+			 || !acyJquery(parentTR).hasClass("acyeditor_delete")))
 		{
-			var parentTR = element;
-			while (parentTR != null
-				&& parentTR != undefined
-				&& (parentTR.tagName != "TR"
-				 || !acyJquery(parentTR).hasClass("acyeditor_delete")))
-			{
-				parentTR = parentTR.parentElement;
-			}
-			if (parentTR != null && parentTR != undefined)
-			{
-				parentTR.parentElement.removeChild(parentTR);
-			}
+			parentTR = parentTR.parentElement;
 		}
-		else
+		if (parentTR != null && parentTR != undefined)
 		{
-			element.parentElement.removeChild(element);
+			parentTR.parentElement.removeChild(parentTR);
 		}
-		Sauvegarde(id);
-		ResizeIframe(id);
 	}
+	else
+	{
+		element.parentElement.removeChild(element);
+	}
+	Sauvegarde(id);
+	ResizeIframe(id);
 }
 
 function SetMouseOver(id, zone){
@@ -1830,10 +1888,18 @@ function ClickTemplateCKEditor(id, idElement, e){
 				else if(acyEnterMode == 'div'){ enterM = CKEDITOR.ENTER_DIV;}
 				else{ enterM = CKEDITOR.ENTER_BR; }
 
+				extraPluginsCKEditor += ',codemirror';
+				var codemirrorOptions = {
+					showFormatButton: false,
+					showCommentButton: false,
+					showUncommentButton: false,
+					showAutoCompleteButton: false
+				};
+
 				editor = iframeCKEDITOR.inline('edition_en_cours',
 				{
 					toolbarGroups: toolbarGroupsCKEditor,
-					removeButtons: 'Cut,Copy,Paste,Blockquote,RemoveFormat,Subscript,Superscript,Table,HorizontalRule,SpecialChar,Font,Symbol',
+					removeButtons: 'Cut,Copy,Paste,Blockquote,RemoveFormat,Subscript,Superscript,Table,HorizontalRule,SpecialChar,Font,Symbol,Source',
 					removePlugins: 'contextmenu,liststyle,tabletools,image,forms,sourcearea'+pluginToRemove,
 					filebrowserImageUploadUrl : urlBase + urlAcyeditor + 'kcfinder/upload.php?type=images',
 					extraPlugins: extraPluginsCKEditor,
@@ -1841,6 +1907,7 @@ function ClickTemplateCKEditor(id, idElement, e){
 					sharedSpaces: { top: topValue },
 					forcePasteAsPlainText: pastePlain,
 					pasteFromWordRemoveFontStyles: pasteWordSimple,
+					codemirror: codemirrorOptions,
 					enterMode: enterM
 				});
 

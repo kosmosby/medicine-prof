@@ -99,7 +99,7 @@
 									<param name="" type="private" class="self" method="getPluginMenu" />
 									<grid fluid="true">
 										<gridrow>
-											<showview mode="view" type="xml" path="/*/views/view[@name=&quot;pluginmenu&quot;]" file="/components/com_comprofiler/plugin/user/{raw:folder}/xml/controllers/frontcontroller" mandatory="false" />
+											<showview mode="view" type="xml" path="/*/views/view[@name=&quot;pluginmenu&quot;]" file="/components/com_comprofiler/plugin/{raw:type}/{raw:folder}/xml/controllers/frontcontroller" mandatory="false" />
 										</gridrow>
 									</grid>
 								</then>

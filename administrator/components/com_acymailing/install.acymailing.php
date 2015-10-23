@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.4
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -64,7 +64,7 @@ class com_acymailingInstallerScript {
 class acymailingInstall{
 
 	var $level = 'starter';
-	var $version = '4.9.4';
+	var $version = '5.0.0';
 	var $update = false;
 	var $fromLevel = '';
 	var $fromVersion = '';
@@ -77,7 +77,7 @@ class acymailingInstall{
 	function displayInfo(){
 
 		echo '<h1>Please wait... </h1><h2>AcyMailing will now automatically install the Plugins and the Module</h2>';
-		$url = 'index.php?option=com_acymailing&ctrl=update&task=install&fromversion='.$this->fromVersion;
+		$url = 'index.php?option=com_acymailing&ctrl=update&task=install&fromlevel='.$this->fromLevel.'&fromversion='.$this->fromVersion;
 		echo '<a href="'.$url.'">Please click here if you are not automatically redirected within 3 seconds</a>';
 		echo "<script language=\"javascript\" type=\"text/javascript\">document.location.href='$url';</script>\n";
 	}
@@ -122,33 +122,24 @@ class acymailingInstall{
 			$replace2 = "REPLACE( $replace1 , 'showhtml=0\nshowname=1', 'customfields=name,email' )";
 			$replace3 = "REPLACE( $replace2 , 'showhtml=1\nshowname=0', 'customfields=email,html' )";
 			$replace4 = "REPLACE( $replace3 , 'showhtml=0\nshowname=0', 'customfields=email' )";
-			$this->db->setQuery("UPDATE #__modules SET `params`= $replace4 WHERE `module` = 'mod_acymailing' ");
-			$this->db->query();
+			$this->updateQuery("UPDATE #__modules SET `params`= $replace4 WHERE `module` = 'mod_acymailing' ");
 		}
 
 		if(version_compare($this->fromVersion,'1.2.1','<')){
-			$this->db->setQuery("UPDATE `#__acymailing_config` SET `value` = 'data' WHERE `value` = '0' AND `namekey` = 'allow_modif' LIMIT 1");
-			$this->db->query();
-			$this->db->setQuery("UPDATE `#__acymailing_config` SET `value` = 'all' WHERE `value` = '1' AND `namekey` = 'allow_modif' LIMIT 1");
-			$this->db->query();
+			$this->updateQuery("UPDATE `#__acymailing_config` SET `value` = 'data' WHERE `value` = '0' AND `namekey` = 'allow_modif' LIMIT 1");
+			$this->updateQuery("UPDATE `#__acymailing_config` SET `value` = 'all' WHERE `value` = '1' AND `namekey` = 'allow_modif' LIMIT 1");
 		}
 
 		if(version_compare($this->fromVersion,'1.2.2','<')){
-			$this->db->setQuery("ALTER TABLE `#__acymailing_mail` ADD `sentby` INT UNSIGNED NULL DEFAULT NULL");
-			$this->db->query();
-			$this->db->setQuery("ALTER TABLE `#__acymailing_template` ADD `subject` VARCHAR( 250 ) NULL DEFAULT NULL");
-			$this->db->query();
-			$this->db->setQuery("DELETE FROM `#__plugins` WHERE `folder` = 'acymailing' AND `element` = 'autocontent'");
-			$this->db->query();
+			$this->updateQuery("ALTER TABLE `#__acymailing_mail` ADD `sentby` INT UNSIGNED NULL DEFAULT NULL");
+			$this->updateQuery("ALTER TABLE `#__acymailing_template` ADD `subject` VARCHAR( 250 ) NULL DEFAULT NULL");
+			$this->updateQuery("DELETE FROM `#__plugins` WHERE `folder` = 'acymailing' AND `element` = 'autocontent'");
 		}
 
 		if(version_compare($this->fromVersion,'1.2.3','<')){
-			$this->db->setQuery("UPDATE `#__plugins` SET `folder` = 'system', `element`= 'regacymailing', `name` = 'AcyMailing : (auto)Subscribe during Joomla registration', `params`= REPLACE(`params`, 'lists=', 'autosub=' ) WHERE `folder` = 'user' AND `element` = 'acymailing'");
-			$this->db->query();
-			$this->db->setQuery("DELETE FROM `#__plugins` WHERE `folder` = 'acymailing' AND `element` = 'autocontent'");
-			$this->db->query();
-			$this->db->setQuery("ALTER TABLE `#__acymailing_template` ADD `stylesheet` TEXT NULL");
-			$this->db->query();
+			$this->updateQuery("UPDATE `#__plugins` SET `folder` = 'system', `element`= 'regacymailing', `name` = 'AcyMailing : (auto)Subscribe during Joomla registration', `params`= REPLACE(`params`, 'lists=', 'autosub=' ) WHERE `folder` = 'user' AND `element` = 'acymailing'");
+			$this->updateQuery("DELETE FROM `#__plugins` WHERE `folder` = 'acymailing' AND `element` = 'autocontent'");
+			$this->updateQuery("ALTER TABLE `#__acymailing_template` ADD `stylesheet` TEXT NULL");
 
 			if(is_dir(rtrim(JPATH_ADMINISTRATOR,DS).DS.'components'.DS.ACYMAILING_COMPONENT.DS.'plugins'.DS.'plg_user_acymailing')){
 				JFolder::delete(rtrim(JPATH_ADMINISTRATOR,DS).DS.'components'.DS.ACYMAILING_COMPONENT.DS.'plugins'.DS.'plg_user_acymailing');
@@ -159,15 +150,11 @@ class acymailingInstall{
 		}
 
 		if(version_compare($this->fromVersion,'1.3.1','<')){
-			$this->db->setQuery("ALTER TABLE `#__acymailing_config` CHANGE `value` `value` TEXT NULL ");
-			$this->db->query();
+			$this->updateQuery("ALTER TABLE `#__acymailing_config` CHANGE `value` `value` TEXT NULL ");
 
-			$this->db->setQuery("ALTER TABLE `#__acymailing_fields` ADD `listing` TINYINT NULL DEFAULT NULL ");
-			$this->db->query();
-			$this->db->setQuery("UPDATE `#__acymailing_fields` SET `listing` = 1 WHERE `namekey` IN ('name','email','html') ");
-			$this->db->query();
-			$this->db->setQuery("ALTER TABLE `#__acymailing_template` ADD `fromname` VARCHAR( 250 ) NULL , ADD `fromemail` VARCHAR( 250 ) NULL , ADD `replyname` VARCHAR( 250 ) NULL , ADD `replyemail` VARCHAR( 250 ) NULL ");
-			$this->db->query();
+			$this->updateQuery("ALTER TABLE `#__acymailing_fields` ADD `listing` TINYINT NULL DEFAULT NULL ");
+			$this->updateQuery("UPDATE `#__acymailing_fields` SET `listing` = 1 WHERE `namekey` IN ('name','email','html') ");
+			$this->updateQuery("ALTER TABLE `#__acymailing_template` ADD `fromname` VARCHAR( 250 ) NULL , ADD `fromemail` VARCHAR( 250 ) NULL , ADD `replyname` VARCHAR( 250 ) NULL , ADD `replyemail` VARCHAR( 250 ) NULL ");
 		}
 
 		if(version_compare($this->fromVersion,'1.5.2','<')){
@@ -178,30 +165,25 @@ class acymailingInstall{
 			if(preg_match('#autosub=(.*)#i',$existingEntry,$autosubResult)){
 				$listids = $autosubResult[1];
 			}
-			$this->db->setQuery("INSERT IGNORE INTO `#__acymailing_config` (`namekey`,`value`) VALUES ('autosub',".$this->db->Quote($listids).")");
-			$this->db->query();
+			$this->updateQuery("INSERT IGNORE INTO `#__acymailing_config` (`namekey`,`value`) VALUES ('autosub',".$this->db->Quote($listids).")");
 		}
 
 		if(version_compare($this->fromVersion,'1.5.3','<')){
-			$this->db->setQuery('UPDATE #__acymailing_config SET `value` = REPLACE(`value`,\'<sup style="font-size: 4px;">TM</sup>\',\'™\')');
-			$this->db->query();
+			$this->updateQuery('UPDATE #__acymailing_config SET `value` = REPLACE(`value`,\'<sup style="font-size: 4px;">TM</sup>\',\'™\')');
 		}
 
 
 		if(version_compare($this->fromVersion,'1.6.2','<')){
 
-			$this->db->setQuery("UPDATE #__acymailing_config SET `value` = 'media/com_acymailing/upload' WHERE `namekey` = 'uploadfolder' AND `value` = 'components/com_acymailing/upload' ");
-			$this->db->query();
+			$this->updateQuery("UPDATE #__acymailing_config SET `value` = 'media/com_acymailing/upload' WHERE `namekey` = 'uploadfolder' AND `value` = 'components/com_acymailing/upload' ");
 
-			$this->db->setQuery("UPDATE #__acymailing_config SET `value` = 'media/com_acymailing/logs/report".rand(0,999999999).".log' WHERE `namekey` = 'cron_savepath' ");
-			$this->db->query();
+			$this->updateQuery("UPDATE #__acymailing_config SET `value` = 'media/com_acymailing/logs/report".rand(0,999999999).".log' WHERE `namekey` = 'cron_savepath' ");
 
 			if(!ACYMAILING_J16){
-				$this->db->setQuery("UPDATE #__plugins SET `params` = REPLACE(`params`,'components/com_acymailing/images','media/com_acymailing/images') ");
+				$this->updateQuery("UPDATE #__plugins SET `params` = REPLACE(`params`,'components/com_acymailing/images','media/com_acymailing/images') ");
 			}else{
-				$this->db->setQuery("UPDATE #__extensions SET `params` = REPLACE(`params`,'components\/com_acymailing\/images','media\/com_acymailing\/images') ");
+				$this->updateQuery("UPDATE #__extensions SET `params` = REPLACE(`params`,'components\/com_acymailing\/images','media\/com_acymailing\/images') ");
 			}
-			$this->db->query();
 
 
 			$updateClass = acymailing_get('helper.update');
@@ -242,43 +224,32 @@ class acymailingInstall{
 		}
 
 		if(version_compare($this->fromVersion,'1.7.1','<')){
-			$this->db->setQuery("CREATE TABLE IF NOT EXISTS `#__acymailing_history` (`subid` INT UNSIGNED NOT NULL ,`date` INT UNSIGNED NOT NULL ,`ip` VARCHAR( 50 ) NULL ,
+			$this->updateQuery("CREATE TABLE IF NOT EXISTS `#__acymailing_history` (`subid` INT UNSIGNED NOT NULL ,`date` INT UNSIGNED NOT NULL ,`ip` VARCHAR( 50 ) NULL ,
 								`action` VARCHAR( 50 ) NOT NULL , `data` TEXT NULL , `source` TEXT NULL , INDEX ( `subid` , `date` ) ) ;");
-			$this->db->query();
 		}
 
 		if(version_compare($this->fromVersion,'1.7.3','<')){
-			$this->db->setQuery("ALTER TABLE `#__acymailing_mail` ADD `metakey` TEXT NULL , ADD `metadesc` TEXT NULL ");
-			$this->db->query();
+			$this->updateQuery("ALTER TABLE `#__acymailing_mail` ADD `metakey` TEXT NULL , ADD `metadesc` TEXT NULL ");
 		}
 
 		if(version_compare($this->fromVersion,'1.8.4','<')){
-			$this->db->setQuery("UPDATE `#__acymailing_config` as a, `#__acymailing_config` as b SET a.`value` = b.`value` WHERE a.`namekey`= 'queue_nbmail_auto' AND b.`namekey`= 'queue_nbmail' ");
-			$this->db->query();
-
-			$this->db->setQuery("UPDATE `#__acymailing_mail` SET `body` = CONCAT(`body`,'<p>{survey}</p>') WHERE type = 'notification' AND `alias` IN ('notification_refuse','notification_unsub','notification_unsuball')");
-			$this->db->query();
-
+			$this->updateQuery("UPDATE `#__acymailing_config` as a, `#__acymailing_config` as b SET a.`value` = b.`value` WHERE a.`namekey`= 'queue_nbmail_auto' AND b.`namekey`= 'queue_nbmail' ");
+			$this->updateQuery("UPDATE `#__acymailing_mail` SET `body` = CONCAT(`body`,'<p>{survey}</p>') WHERE type = 'notification' AND `alias` IN ('notification_refuse','notification_unsub','notification_unsuball')");
 		}
 
 		if(version_compare($this->fromVersion,'1.8.5','<')){
 			$metaFile = ACYMAILING_FRONT.'metadata.xml';
 			if(file_exists($metaFile)) JFile::delete($metaFile);
-			$this->db->setQuery('ALTER TABLE #__acymailing_url DROP INDEX url');
-			$this->db->query();
-			$this->db->setQuery('ALTER TABLE `#__acymailing_url` CHANGE `url` `url` TEXT NOT NULL');
-			$this->db->query();
-			$this->db->setQuery('ALTER TABLE `#__acymailing_url` ADD INDEX `url` ( `url` ( 250 ) ) ');
-			$this->db->query();
-			$this->db->setQuery("UPDATE `#__acymailing_mail` SET `body` = CONCAT(`body`,'<p>Subscription : {user:subscription}</p>') WHERE type = 'notification' AND `alias` = 'notification_created'");
-			$this->db->query();
+			$this->updateQuery('ALTER TABLE #__acymailing_url DROP INDEX url');
+			$this->updateQuery('ALTER TABLE `#__acymailing_url` CHANGE `url` `url` TEXT NOT NULL');
+			$this->updateQuery('ALTER TABLE `#__acymailing_url` ADD INDEX `url` ( `url` ( 250 ) ) ');
+			$this->updateQuery("UPDATE `#__acymailing_mail` SET `body` = CONCAT(`body`,'<p>Subscription : {user:subscription}</p>') WHERE type = 'notification' AND `alias` = 'notification_created'");
 		}
 
 		if(version_compare($this->fromVersion,'1.9.1','<')){
-			$this->db->setQuery('ALTER TABLE `#__acymailing_history` ADD `mailid` MEDIUMINT UNSIGNED NULL' );
-			$this->db->query();
+			$this->updateQuery('ALTER TABLE `#__acymailing_history` ADD `mailid` MEDIUMINT UNSIGNED NULL' );
 
-			$this->db->setQuery('CREATE TABLE IF NOT EXISTS `#__acymailing_rules` (
+			$this->updateQuery('CREATE TABLE IF NOT EXISTS `#__acymailing_rules` (
 				`ruleid` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 				`name` VARCHAR( 250 ) NOT NULL ,
 				`ordering` SMALLINT UNSIGNED NULL ,
@@ -288,71 +259,44 @@ class acymailingInstall{
 				`action_user` TEXT NOT NULL ,
 				`published` TINYINT UNSIGNED NOT NULL
 				)');
-
-			$this->db->query();
-
-			$this->db->setQuery("UPDATE `#__acymailing_mail` SET `body` = CONCAT(`body`,'<p>Subscription : {user:subscription}</p>') WHERE type = 'notification' AND `alias` IN ( 'notification_unsuball','notification_refuse','notification_unsub')");
-			$this->db->query();
-
-			$this->db->setQuery("REPLACE INTO `#__acymailing_config` (`namekey`,`value`) VALUES ('auto_bounce','0')");
-			$this->db->query();
-
+			$this->updateQuery("UPDATE `#__acymailing_mail` SET `body` = CONCAT(`body`,'<p>Subscription : {user:subscription}</p>') WHERE type = 'notification' AND `alias` IN ( 'notification_unsuball','notification_refuse','notification_unsub')");
+			$this->updateQuery("REPLACE INTO `#__acymailing_config` (`namekey`,`value`) VALUES ('auto_bounce','0')");
 		}
 
 		if(version_compare($this->fromVersion,'3.0.1','<')){
-			$this->db->setQuery('ALTER TABLE `#__acymailing_mail` ADD `filter` TEXT NULL' );
-			$this->db->query();
+			$this->updateQuery('ALTER TABLE `#__acymailing_mail` ADD `filter` TEXT NULL' );
 
-			$this->db->setQuery("ALTER TABLE `#__acymailing_subscriber` CHANGE `userid` `userid` INT UNSIGNED NOT NULL DEFAULT '0'" );
-			$this->db->query();
+			$this->updateQuery("ALTER TABLE `#__acymailing_subscriber` CHANGE `userid` `userid` INT UNSIGNED NOT NULL DEFAULT '0'" );
 		}
 
 		if(version_compare($this->fromVersion,'3.5.1','<')){
 			if(file_exists(ACYMAILING_FRONT.'sef_ext.php')) JFile::delete(ACYMAILING_FRONT.'sef_ext.php');
 
-			$this->db->setQuery("ALTER TABLE `#__acymailing_queue` ADD `paramqueue` VARCHAR( 250 ) NULL " );
-			$this->db->query();
+			$this->updateQuery("ALTER TABLE `#__acymailing_queue` ADD `paramqueue` VARCHAR( 250 ) NULL " );
 
 			if(!ACYMAILING_J16){
-				$this->db->setQuery("DELETE FROM `#__plugins` WHERE folder = 'acymailing' AND element LIKE 'tagvm%'");
+				$this->updateQuery("DELETE FROM `#__plugins` WHERE folder = 'acymailing' AND element LIKE 'tagvm%'");
 			}else{
-				$this->db->setQuery("DELETE FROM `#__extensions` WHERE folder = 'acymailing' AND element LIKE 'tagvm%'");
+				$this->updateQuery("DELETE FROM `#__extensions` WHERE folder = 'acymailing' AND element LIKE 'tagvm%'");
 			}
-			$this->db->query();
 		}
 
 		if(version_compare($this->fromVersion,'3.6.1','<')){
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_rules` CHANGE `regex` `regex` TEXT NOT NULL" );
-				$this->db->query();
-			}catch(Exception $e){}
-
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_stats` ADD `bouncedetails` TEXT NULL" );
-				$this->db->query();
-			}catch(Exception $e){}
+			$this->updateQuery("ALTER TABLE `#__acymailing_rules` CHANGE `regex` `regex` TEXT NOT NULL" );
+			$this->updateQuery("ALTER TABLE `#__acymailing_stats` ADD `bouncedetails` TEXT NULL" );
 		}
 
 		if(version_compare($this->fromVersion,'3.7.1','<')){
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_userstats` ADD `ip` VARCHAR( 100 ) NULL" );
-				$this->db->query();
-			}catch(Exception $e){}
-
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_urlclick` ADD `ip` VARCHAR( 100 ) NULL" );
-				$this->db->query();
-			}catch(Exception $e){}
+			$this->updateQuery("ALTER TABLE `#__acymailing_userstats` ADD `ip` VARCHAR( 100 ) NULL" );
+			$this->updateQuery("ALTER TABLE `#__acymailing_urlclick` ADD `ip` VARCHAR( 100 ) NULL" );
 		}
 
 		if(version_compare($this->fromVersion,'3.8.1','<')){
-			$this->db->setQuery("UPDATE #__acymailing_mail SET subject = CONCAT(subject,' ','{mainreport}') WHERE type = 'notification' AND alias = 'report' AND subject NOT LIKE '%mainreport%' LIMIT 1");
-			$this->db->query();
+			$this->updateQuery("UPDATE #__acymailing_mail SET subject = CONCAT(subject,' ','{mainreport}') WHERE type = 'notification' AND alias = 'report' AND subject NOT LIKE '%mainreport%' LIMIT 1");
 		}
 
 		if(version_compare($this->fromVersion,'3.8.2','<')){
-			$this->db->setQuery("INSERT IGNORE INTO `#__acymailing_config` (`namekey`,`value`) VALUES ('optimize_listsub',0),('optimize_stats',0),('optimize_list',0),('optimize_mail',0),('optimize_userstats',0),('optimize_urlclick',0),('optimize_history',0),('optimize_template',0),('optimize_queue',0),('optimize_subscriber',0) ");
-			$this->db->query();
+			$this->updateQuery("INSERT IGNORE INTO `#__acymailing_config` (`namekey`,`value`) VALUES ('optimize_listsub',0),('optimize_stats',0),('optimize_list',0),('optimize_mail',0),('optimize_userstats',0),('optimize_urlclick',0),('optimize_history',0),('optimize_template',0),('optimize_queue',0),('optimize_subscriber',0) ");
 		}
 
 		$file = ACYMAILING_FRONT.'views'.DS.'newsletter'.DS.'metadata.xml';
@@ -369,8 +313,7 @@ class acymailingInstall{
 			foreach($allModules as $oneMod){
 				$newParams = preg_replace('#fieldsize=.*#i','fieldsize=80%',$oneMod->params);
 				$newParams = preg_replace('#"fieldsize":"[^"]*"#i','"fieldsize":"80%"',$newParams);
-				$this->db->setQuery("UPDATE #__modules SET params = ".$this->db->Quote($newParams)." WHERE id = ".intval($oneMod->id));
-				$this->db->query();
+				$this->updateQuery("UPDATE #__modules SET params = ".$this->db->Quote($newParams)." WHERE id = ".intval($oneMod->id));
 			}
 
 			$this->db->setQuery("SELECT options,fieldid FROM #__acymailing_fields WHERE type IN ('phone','text','date','file') AND options LIKE '%size%'");
@@ -379,8 +322,7 @@ class acymailingInstall{
 			foreach($allFields as $oneField){
 				$options = unserialize($oneField->options);
 				$options['size'] = intval($options['size']*5);
-				$this->db->setQuery("UPDATE #__acymailing_fields SET options = ".$this->db->Quote(serialize($options))." WHERE fieldid = ".intval($oneField->fieldid));
-				$this->db->query();
+				$this->updateQuery("UPDATE #__acymailing_fields SET options = ".$this->db->Quote(serialize($options))." WHERE fieldid = ".intval($oneField->fieldid));
 			}
 		}
 
@@ -392,51 +334,22 @@ class acymailingInstall{
 		}
 
 		if(version_compare($this->fromVersion,'4.2.0','<')){
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_template` ADD `thumb` VARCHAR( 250 ) NULL , ADD `readmore` VARCHAR( 250 ) NULL ");
-				$res = $this->db->query();
-			}catch(Exception $e){
-				$res = null;
-			}
-
-			if($res === null){
-				acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
-			}
+			$this->updateQuery("ALTER TABLE `#__acymailing_template` ADD `thumb` VARCHAR( 250 ) NULL , ADD `readmore` VARCHAR( 250 ) NULL ");
 
 			$this->db->setQuery("SELECT tempid, description FROM #__acymailing_template WHERE `thumb` IS NULL");
 			$allTemplates = $this->db->loadObjectList();
 			foreach($allTemplates as $oneTemplate){
 				if(preg_match('#<img[^>]*src="([^"]*)"[^>]*>#Ui',$oneTemplate->description,$onethumb)){
-					$this->db->setQuery('UPDATE #__acymailing_template SET `description` = '.$this->db->Quote(str_replace($onethumb[0],'',$oneTemplate->description)).', `thumb` = '.$this->db->Quote($onethumb[1]).' WHERE tempid = '.$oneTemplate->tempid);
-					$this->db->query();
+					$this->updateQuery('UPDATE #__acymailing_template SET `description` = '.$this->db->Quote(str_replace($onethumb[0],'',$oneTemplate->description)).', `thumb` = '.$this->db->Quote($onethumb[1]).' WHERE tempid = '.$oneTemplate->tempid);
 				}
 			}
 
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_subscriber` ADD `confirmed_date` INT UNSIGNED NOT NULL DEFAULT '0', ADD `confirmed_ip` VARCHAR(100) NULL , ADD `lastopen_date` INT UNSIGNED NOT NULL DEFAULT '0', ADD `lastclick_date` INT UNSIGNED NOT NULL DEFAULT '0'");
-				$res = $this->db->query();
-			}catch(Exception $e){
-				$res = null;
-			}
-
-			if($res === null){
-				acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
-			}
-
-			$this->db->setQuery('UPDATE #__acymailing_subscriber as sub JOIN #__acymailing_history as hist ON sub.subid = hist.subid AND hist.action = "confirmed" SET sub.confirmed_date = hist.date, sub.confirmed_ip = hist.ip WHERE sub.confirmed_date = 0');
-			$this->db->query();
-
-			$this->db->setQuery('UPDATE #__acymailing_subscriber as sub JOIN #__acymailing_userstats as stats ON sub.subid = stats.subid SET sub.lastopen_date = stats.opendate WHERE sub.lastopen_date = 0');
-			$this->db->query();
-
-			$this->db->setQuery('UPDATE #__acymailing_subscriber as sub JOIN #__acymailing_urlclick as url ON sub.subid = url.subid SET sub.lastclick_date = url.date WHERE sub.lastclick_date = 0');
-			$this->db->query();
-
-			$this->db->setQuery('ALTER TABLE `#__acymailing_list` CHANGE `ordering` `ordering` SMALLINT UNSIGNED NULL DEFAULT \'0\'');
-			$this->db->query();
-
-			$this->db->setQuery('ALTER TABLE `#__acymailing_template` CHANGE `ordering` `ordering` SMALLINT UNSIGNED NULL DEFAULT \'0\'');
-			$this->db->query();
+			$this->updateQuery("ALTER TABLE `#__acymailing_subscriber` ADD `confirmed_date` INT UNSIGNED NOT NULL DEFAULT '0', ADD `confirmed_ip` VARCHAR(100) NULL , ADD `lastopen_date` INT UNSIGNED NOT NULL DEFAULT '0', ADD `lastclick_date` INT UNSIGNED NOT NULL DEFAULT '0'");
+			$this->updateQuery('UPDATE #__acymailing_subscriber as sub JOIN #__acymailing_history as hist ON sub.subid = hist.subid AND hist.action = "confirmed" SET sub.confirmed_date = hist.date, sub.confirmed_ip = hist.ip WHERE sub.confirmed_date = 0');
+			$this->updateQuery('UPDATE #__acymailing_subscriber as sub JOIN #__acymailing_userstats as stats ON sub.subid = stats.subid SET sub.lastopen_date = stats.opendate WHERE sub.lastopen_date = 0');
+			$this->updateQuery('UPDATE #__acymailing_subscriber as sub JOIN #__acymailing_urlclick as url ON sub.subid = url.subid SET sub.lastclick_date = url.date WHERE sub.lastclick_date = 0');
+			$this->updateQuery('ALTER TABLE `#__acymailing_list` CHANGE `ordering` `ordering` SMALLINT UNSIGNED NULL DEFAULT \'0\'');
+			$this->updateQuery('ALTER TABLE `#__acymailing_template` CHANGE `ordering` `ordering` SMALLINT UNSIGNED NULL DEFAULT \'0\'');
 
 			$templateClass = acymailing_get('class.template');
 			for($i=1; $i<=10;$i++){
@@ -450,8 +363,7 @@ class acymailingInstall{
 			}else{
 				$queryReplace = "UPDATE `#__extensions` SET `name` = REPLACE(`name`,'(beta)','') WHERE `element` = 'acyeditor'";
 			}
-			$this->db->setQuery($queryReplace);
-			$this->db->query();
+			$this->updateQuery($queryReplace);
 
 			if(!ACYMAILING_J16){
 				$this->db->setQuery("SELECT `params` FROM #__plugins WHERE `element` = 'urltracker' LIMIT 1");
@@ -466,8 +378,7 @@ class acymailingInstall{
 				$trackingMode = $autosubResult[1];
 			}
 			if($trackingMode == 'googleacy') $trackingMode = 'acymailing,google';
-			$this->db->setQuery("INSERT IGNORE INTO `#__acymailing_config` (`namekey`,`value`) VALUES ('trackingsystem',".$this->db->Quote($trackingMode).")");
-			$this->db->query();
+			$this->updateQuery("INSERT IGNORE INTO `#__acymailing_config` (`namekey`,`value`) VALUES ('trackingsystem',".$this->db->Quote($trackingMode).")");
 		}
 
 		if(version_compare($this->fromVersion, '4.3.1', '<')){
@@ -477,29 +388,16 @@ class acymailingInstall{
 			$query .= ' `geolocation_country` varchar(255) NOT NULL DEFAULT \'\', `geolocation_country_code` varchar(255) NOT NULL DEFAULT \'\', `geolocation_state` varchar(255) NOT NULL DEFAULT \'\',';
 			$query .= ' `geolocation_state_code` varchar(255) NOT NULL DEFAULT \'\', `geolocation_city` varchar(255) NOT NULL DEFAULT \'\',';
 			$query .= ' PRIMARY KEY (`geolocation_id`), KEY `geolocation_type` (`geolocation_subid`, `geolocation_type`)) ;';
-			$this->db->setQuery($query);
-			$this->db->query();
+			$this->updateQuery($query);
 		}
 
 		if(version_compare($this->fromVersion, '4.3.3', '<')){
-			$this->db->setQuery('UPDATE #__acymailing_list SET access_manage = CONCAT(",",access_manage) WHERE access_manage NOT IN ("all","none","")');
-			$this->db->query();
+			$this->updateQuery('UPDATE #__acymailing_list SET access_manage = CONCAT(",",access_manage) WHERE access_manage NOT IN ("all","none","")');
 		}
 
 		if(version_compare($this->fromVersion, '4.4.2', '<')){
-			try{
-				$this->db->setQuery('ALTER TABLE `#__acymailing_fields` ADD `frontlisting` TINYINT( 3 ) UNSIGNED NOT NULL DEFAULT \'0\', ADD `frontjoomlaprofile` TINYINT( 3 ) UNSIGNED NOT NULL DEFAULT \'0\', ADD `frontjoomlaregistration` TINYINT( 3 ) UNSIGNED NOT NULL DEFAULT \'0\', ADD `joomlaprofile` TINYINT( 3 ) UNSIGNED NOT NULL DEFAULT \'0\'');
-				$res = $this->db->query();
-
-				$this->db->setQuery('UPDATE `#__acymailing_fields` SET `frontlisting`  = `listing`');
-				$res = $this->db->query();
-			}catch(Exception $e){
-				$res = null;
-			}
-
-			if($res === null){
-				acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
-			}
+			$this->updateQuery('ALTER TABLE `#__acymailing_fields` ADD `frontlisting` TINYINT( 3 ) UNSIGNED NOT NULL DEFAULT \'0\', ADD `frontjoomlaprofile` TINYINT( 3 ) UNSIGNED NOT NULL DEFAULT \'0\', ADD `frontjoomlaregistration` TINYINT( 3 ) UNSIGNED NOT NULL DEFAULT \'0\', ADD `joomlaprofile` TINYINT( 3 ) UNSIGNED NOT NULL DEFAULT \'0\'');
+			$this->updateQuery('UPDATE `#__acymailing_fields` SET `frontlisting`  = `listing`');
 
 			if(!ACYMAILING_J16){
 				$this->db->setQuery("SELECT `params` FROM #__plugins WHERE `element` = 'regacymailing' LIMIT 1");
@@ -512,21 +410,11 @@ class acymailingInstall{
 			if(preg_match($pattern, $existingEntry, $pregResult)){
 				$existingEntries = explode(',',$pregResult[1]);
 				foreach($existingEntries as $fieldToDisplay){
-					$this->db->setQuery("UPDATE `#__acymailing_fields` SET frontjoomlaregistration=1 WHERE namekey=".$this->db->Quote(trim($fieldToDisplay)));
-					$this->db->query();
+					$this->updateQuery("UPDATE `#__acymailing_fields` SET frontjoomlaregistration=1 WHERE namekey=".$this->db->Quote(trim($fieldToDisplay)));
 				}
 			}
 
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_list` ADD `startrule` VARCHAR(50) NOT NULL DEFAULT '0'");
-				$res = $this->db->query();
-			}catch(Exception $e){
-				$res = null;
-			}
-
-			if($res === null){
-				acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
-			}
+			$this->updateQuery("ALTER TABLE `#__acymailing_list` ADD `startrule` VARCHAR(50) NOT NULL DEFAULT '0'");
 
 			if(is_dir(ACYMAILING_ROOT.'plugins'.DS.'editors'.DS.'acyeditor'.DS.'acyeditor'.DS.'kcfinder')){
 				JFolder::delete(ACYMAILING_ROOT.'plugins'.DS.'editors'.DS.'acyeditor'.DS.'acyeditor'.DS.'kcfinder');
@@ -543,46 +431,17 @@ class acymailingInstall{
 			$this->db->setQuery("SELECT * FROM #__acymailing_config WHERE namekey='acl_newsletters_manage'");
 			$res = $this->db->query();
 			if(!empty($res)){
-				$this->db->setQuery("INSERT IGNORE INTO `#__acymailing_config` (`namekey`,`value`) VALUES ('acl_newsletters_lists', 'all'), ('acl_newsletters_attachments', 'all'), ('acl_newsletters_sender_informations', 'all'), ('acl_newsletters_meta_data','all')");
-				$this->db->query();
+				$this->updateQuery("INSERT IGNORE INTO `#__acymailing_config` (`namekey`,`value`) VALUES ('acl_newsletters_lists', 'all'), ('acl_newsletters_attachments', 'all'), ('acl_newsletters_sender_informations', 'all'), ('acl_newsletters_meta_data','all')");
 			}
 
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_template` ADD `access` VARCHAR( 250 ) NOT NULL DEFAULT 'all'");
-				$res = $this->db->query();
-			}catch(Exception $e){
-				$res = null;
-			}
+			$this->updateQuery("ALTER TABLE `#__acymailing_template` ADD `access` VARCHAR( 250 ) NOT NULL DEFAULT 'all'");
+			$this->updateQuery("ALTER TABLE `#__acymailing_subscriber` ADD `lastopen_ip` VARCHAR( 100 ) NULL, ADD `lastsent_date` INT UNSIGNED NOT NULL DEFAULT '0'");
 
-			if($res === null){
-				acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
-			}
+			$this->updateQuery("UPDATE #__acymailing_subscriber as sub JOIN #__acymailing_userstats as stats ON sub.subid = stats.subid SET sub.lastopen_ip = stats.ip WHERE stats.ip != ''");
 
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_subscriber` ADD `lastopen_ip` VARCHAR( 100 ) NULL, ADD `lastsent_date` INT UNSIGNED NOT NULL DEFAULT '0'");
-				$res = $this->db->query();
-			}catch(Exception $e){
-				$res = null;
-			}
+			$this->updateQuery("UPDATE #__acymailing_subscriber as sub JOIN #__acymailing_userstats as stats ON sub.subid = stats.subid SET sub.lastsent_date = stats.senddate");
 
-			if($res === null){
-				acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
-			}
-
-			$this->db->setQuery("UPDATE #__acymailing_subscriber as sub JOIN #__acymailing_userstats as stats ON sub.subid = stats.subid SET sub.lastopen_ip = stats.ip WHERE stats.ip != ''");
-			$this->db->query();
-
-			$this->db->setQuery("UPDATE #__acymailing_subscriber as sub JOIN #__acymailing_userstats as stats ON sub.subid = stats.subid SET sub.lastsent_date = stats.senddate");
-			$this->db->query();
-
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_mail` MODIFY `type` ENUM('news','autonews','followup','unsub','welcome','notification','joomlanotification') NOT NULL DEFAULT 'news'");
-				$res = $this->db->query();
-			}catch(Exception $e){
-				$res = null;
-			}
-			if($res === null) acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
-
+			$this->updateQuery("ALTER TABLE `#__acymailing_mail` MODIFY `type` ENUM('news','autonews','followup','unsub','welcome','notification','joomlanotification') NOT NULL DEFAULT 'news'");
 		}
 
 		if(version_compare($this->fromVersion, '4.6.3', '<')){
@@ -606,21 +465,9 @@ class acymailingInstall{
 				$config->save($newConfig);
 			}
 
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_userstats` ADD `browser` VARCHAR( 255 ) DEFAULT NULL, ADD `browser_version` TINYINT UNSIGNED DEFAULT NULL, ADD `is_mobile` TINYINT UNSIGNED DEFAULT NULL, ADD `mobile_os` VARCHAR( 255 ) DEFAULT NULL, ADD `user_agent` VARCHAR( 255 ) DEFAULT NULL");
-				$res = $this->db->query();
-			}catch(Exception $e){
-				$res = null;
-			}
-			if($res === null) acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
+			$this->updateQuery("ALTER TABLE `#__acymailing_userstats` ADD `browser` VARCHAR( 255 ) DEFAULT NULL, ADD `browser_version` TINYINT UNSIGNED DEFAULT NULL, ADD `is_mobile` TINYINT UNSIGNED DEFAULT NULL, ADD `mobile_os` VARCHAR( 255 ) DEFAULT NULL, ADD `user_agent` VARCHAR( 255 ) DEFAULT NULL");
 
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_mail` ADD `language` VARCHAR( 50 ) NOT NULL DEFAULT ''");
-				$res = $this->db->query();
-			}catch(Exception $e){
-				$res = null;
-			}
-			if($res === null) acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
+			$this->updateQuery("ALTER TABLE `#__acymailing_mail` ADD `language` VARCHAR( 50 ) NOT NULL DEFAULT ''");
 		}
 
 		if(version_compare($this->fromVersion, '4.7.3', '<')){
@@ -628,126 +475,77 @@ class acymailingInstall{
 				$this->db->setQuery("SELECT * FROM #__acymailing_config WHERE namekey='acl_newsletters_manage'");
 				$res = $this->db->query();
 				if(!empty($res)){
-					$this->db->setQuery("INSERT IGNORE INTO `#__acymailing_config` (`namekey`,`value`) VALUES ('acl_newsletters_abtesting', 'all')");
-					$this->db->query();
+					$this->updateQuery("INSERT IGNORE INTO `#__acymailing_config` (`namekey`,`value`) VALUES ('acl_newsletters_abtesting', 'all')");
 				}
 			}catch(Exception $e){
 				$res = null;
 			}
-			if($res === null) acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
+			if($res === null) acymailing_enqueueMessage(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
 
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_mail` ADD `abtesting` VARCHAR( 250 ) DEFAULT NULL");
-				$res = $this->db->query();
-			}catch(Exception $e){
-				$res = null;
-			}
-			if($res === null) acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
+			$this->updateQuery("ALTER TABLE `#__acymailing_mail` ADD `abtesting` VARCHAR( 250 ) DEFAULT NULL");
 
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_subscriber` ADD `source` VARCHAR( 250 ) NOT NULL DEFAULT ''");
-				$res = $this->db->query();
-			}catch(Exception $e){
-				$res = null;
-			}
-			if($res === null) acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
+			$this->updateQuery("ALTER TABLE `#__acymailing_subscriber` ADD `source` VARCHAR( 250 ) NOT NULL DEFAULT ''");
 		}
 
 		if(version_compare($this->fromVersion, '4.8.2', '<')){
 			$tagsFile = JPATH_SITE.DS.'plugins'.DS.'acymailing'.DS.'tagcontent'.DS.'tagcontenttags.xml';
 			if(file_exists($tagsFile)) JFile::delete($tagsFile);
 
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_mail` ADD `thumb` VARCHAR( 250 ) DEFAULT NULL");
-				$res = $this->db->query();
-			}catch(Exception $e){
-				$res = null;
-			}
-			if($res === null) acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
+			$this->updateQuery("ALTER TABLE `#__acymailing_mail` ADD `thumb` VARCHAR( 250 ) DEFAULT NULL");
+			$this->updateQuery("ALTER TABLE `#__acymailing_mail` ADD `summary` TEXT NOT NULL DEFAULT ''");
+			$this->updateQuery("ALTER TABLE `#__acymailing_template` ADD `category` VARCHAR( 250 ) NOT NULL DEFAULT ''");
+			$this->updateQuery("ALTER TABLE `#__acymailing_list` ADD `category` VARCHAR( 250 ) NOT NULL DEFAULT ''");
+			$this->updateQuery("ALTER TABLE `#__acymailing_fields` ADD `access` VARCHAR( 250 ) NOT NULL DEFAULT 'all'");
+			$this->updateQuery("ALTER TABLE `#__acymailing_fields` ADD `fieldcat` INT( 11 ) NOT NULL DEFAULT '0'");
 
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_mail` ADD `summary` TEXT NOT NULL DEFAULT ''");
-				$res = $this->db->query();
-			}catch(Exception $e){
-				$res = null;
-			}
-			if($res === null) acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
-
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_template` ADD `category` VARCHAR( 250 ) NOT NULL DEFAULT ''");
-				$res = $this->db->query();
-			}catch(Exception $e){
-				$res = null;
-			}
-			if($res === null) acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
-
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_list` ADD `category` VARCHAR( 250 ) NOT NULL DEFAULT ''");
-				$res = $this->db->query();
-			}catch(Exception $e){
-				$res = null;
-			}
-			if($res === null) acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
-
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_fields` ADD `access` VARCHAR( 250 ) NOT NULL DEFAULT 'all'");
-				$res = $this->db->query();
-			}catch(Exception $e){
-				$res = null;
-			}
-			if($res === null) acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
-
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_fields` ADD `fieldcat` INT( 11 ) NOT NULL DEFAULT '0'");
-				$res = $this->db->query();
-			}catch(Exception $e){
-				$res = null;
-			}
-			if($res === null) acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
-
-
-			try{
-				$this->db->setQuery("UPDATE `#__acymailing_template` SET body = REPLACE(body,'<tbody>','<tbody class=\"acyeditor_sortable\">') WHERE body LIKE '%acyeditor_%' ");
-				$this->db->query();
-			}catch(Exception $e){
-				$res = null;
-			}
-			if($res === null) acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
+			$this->updateQuery("UPDATE `#__acymailing_template` SET body = REPLACE(body,'<tbody>','<tbody class=\"acyeditor_sortable\">') WHERE body LIKE '%acyeditor_%' ");
 		}
 
 		if(version_compare($this->fromVersion, '4.9.1', '<')){
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_geolocation` ADD KEY `geolocation_ip_created` (`geolocation_ip`, `geolocation_created`)");
-				$res = $this->db->query();
-			}catch(Exception $e){
-				$res = null;
-			}
-			if($res === null) acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
+			$this->updateQuery("ALTER TABLE `#__acymailing_geolocation` ADD KEY `geolocation_ip_created` (`geolocation_ip`, `geolocation_created`)");
 		}
 
 		if(version_compare($this->fromVersion, '4.9.3', '<')){
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_userstats` ADD `bouncerule` VARCHAR( 255 ) NULL");
-				$res = $this->db->query();
-			}catch(Exception $e){
-				$res = null;
-			}
-			if($res === null) acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_fields` ADD `listingfilter` TINYINT NULL DEFAULT NULL ");
-				$res = $this->db->query();
-			}catch(Exception $e){
-				$res = null;
-			}
-			if($res === null) acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
-			try{
-				$this->db->setQuery("ALTER TABLE `#__acymailing_fields` ADD `frontlistingfilter` TINYINT NULL DEFAULT NULL ");
-				$res = $this->db->query();
-			}catch(Exception $e){
-				$res = null;
-			}
-			if($res === null) acymailing_display(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
+			$this->updateQuery("ALTER TABLE `#__acymailing_userstats` ADD `bouncerule` VARCHAR( 255 ) NULL");
+			$this->updateQuery("ALTER TABLE `#__acymailing_fields` ADD `listingfilter` TINYINT NULL DEFAULT NULL ");
+			$this->updateQuery("ALTER TABLE `#__acymailing_fields` ADD `frontlistingfilter` TINYINT NULL DEFAULT NULL ");
 		}
+
+		if(version_compare($this->fromVersion, '4.9.4', '<')){
+			$this->updateQuery("UPDATE #__acymailing_mail SET body = REPLACE(REPLACE(body, 'newsletter-4/top.png', 'newsletter-4/images/top.png'), 'newsletter-4/bottom.png', 'newsletter-4/images/bottom.png')");
+		}
+
+		if(version_compare($this->fromVersion, '5.0.0', '<')){
+			$this->db->setQuery('SELECT mailid, attach FROM #__acymailing_mail WHERE attach IS NOT NULL');
+			$mails = $this->db->loadObjectList();
+			if(!empty($mails)){
+				$query = 'INSERT INTO #__acymailing_mail (`mailid`,`attach`) VALUES ';
+				foreach($mails as $oneMail){
+					$attachments = unserialize($oneMail->attach);
+					foreach($attachments as &$oneAttach){
+						$oneAttach->filename = acymailing_getFilesFolder().'/'.$oneAttach->filename;
+					}
+					$query .= '('.$oneMail->mailid.','.$this->db->Quote(serialize($attachments)).'),';
+				}
+				$query = rtrim($query, ',');
+				$query .= ' ON DUPLICATE KEY UPDATE `attach` = VALUES(`attach`)';
+				$this->updateQuery($query);
+			}
+			$config = acymailing_config();
+			$newConfig = new stdClass();
+			$newConfig->css_backend = '';
+			$config->save($newConfig);
+		}
+	}
+
+	function updateQuery($query){
+		try{
+			$this->db->setQuery($query);
+			$res = $this->db->query();
+		}catch(Exception $e){
+			$res = null;
+		}
+		if($res === null) acymailing_enqueueMessage(isset($e) ? $e->getMessage() : substr(strip_tags($this->db->getErrorMsg()),0,200).'...','error');
 	}
 
 	function updateJoomailing(){
@@ -905,12 +703,11 @@ class acymailingInstall{
 
 		$allPref['priority_followup'] =  '2';
 		$allPref['unsub_redirect'] =  '';
-		$allPref['show_footer'] = '1';
 		$allPref['use_sef'] =  '0';
 		$allPref['itemid'] =  '0';
 		$allPref['css_module'] = 'default';
 		$allPref['css_frontend'] = 'default';
-		$allPref['css_backend'] = 'default';
+		$allPref['css_backend'] = '';
 		$allPref['bootstrap_frontend'] = 0;
 
 		$allPref['menu_position'] = 'under';

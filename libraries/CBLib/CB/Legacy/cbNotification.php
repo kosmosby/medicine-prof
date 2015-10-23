@@ -250,8 +250,8 @@ class cbNotification
 	{
 		global $_CB_framework, $ueConfig;
 
-		$fromEmail							=	null;
-		$fromName							=	null;
+		$fromEmail							=	false;
+		$fromName							=	false;
 
 		if ( $replaceVariables ) {
 			$subject						=	$this->_replaceVariables( $subject, $rowFrom, $mode, $extraStrings );
@@ -401,7 +401,7 @@ class cbNotification
 		$moderators		=	Application::CmsPermissions()->getGroupsOfViewAccessLevel( Application::Config()->get( 'moderator_viewaccesslevel', 3, \CBLib\Registry\GetterInterface::INT ), true );
 
 		if ( $moderators ) {
-			$query		=	'SELECT u.id'
+			$query		=	'SELECT DISTINCT u.id'
 				.	"\n FROM #__users u"
 				.	"\n INNER JOIN #__comprofiler c"
 				.	' ON u.id = c.id';

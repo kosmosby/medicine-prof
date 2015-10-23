@@ -1,18 +1,19 @@
 .cb_template {
   /*!
- *  Font Awesome 4.3.0 by @davegandy - http://fontawesome.io - @fontawesome
+ *  Font Awesome 4.4.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
  */
   /* FONT PATH
  * -------------------------- */
   /* makes the font 33% larger relative to the icon container */
+  /* Deprecated as of 4.4.0 */
   /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
    readers do not read off random characters that represent icons */
 }
 @font-face {
   font-family: 'FontAwesome';
-  src: url('font/fontawesome-webfont.eot?v=4.3.0');
-  src: url('font/fontawesome-webfont.eot?#iefix&v=4.3.0') format('embedded-opentype'), url('font/fontawesome-webfont.woff2?v=4.3.0') format('woff2'), url('font/fontawesome-webfont.woff?v=4.3.0') format('woff'), url('font/fontawesome-webfont.ttf?v=4.3.0') format('truetype'), url('font/fontawesome-webfont.svg?v=4.3.0#fontawesomeregular') format('svg');
+  src: url('font/fontawesome-webfont.eot?v=4.4.0');
+  src: url('font/fontawesome-webfont.eot?#iefix&v=4.4.0') format('embedded-opentype'), url('font/fontawesome-webfont.woff2?v=4.4.0') format('woff2'), url('font/fontawesome-webfont.woff?v=4.4.0') format('woff'), url('font/fontawesome-webfont.ttf?v=4.4.0') format('truetype'), url('font/fontawesome-webfont.svg?v=4.4.0#fontawesomeregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -28,9 +29,6 @@
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-transform: translate(0, 0);
-      -ms-transform: translate(0, 0);
-          transform: translate(0, 0);
 }
 .cb_template .fa-lg,
 .cb_template .fa-before-lg:before {
@@ -81,16 +79,16 @@
   border: solid 0.08em #eeeeee;
   border-radius: .1em;
 }
-.cb_template .pull-right {
-  float: right;
-}
-.cb_template .pull-left {
+.cb_template .fa-pull-left {
   float: left;
 }
-.cb_template .fa.pull-left {
+.cb_template .fa-pull-right {
+  float: right;
+}
+.cb_template .fa.fa-pull-left {
   margin-right: .3em;
 }
-.cb_template .fa.pull-right {
+.cb_template .fa.fa-pull-right {
   margin-left: .3em;
 }
 .cb_template .fa-spin {
@@ -643,6 +641,7 @@
 .cb_template .fa-credit-card:before {
   content: "\f09d";
 }
+.cb_template .fa-feed:before,
 .cb_template .fa-rss:before {
   content: "\f09e";
 }
@@ -1524,6 +1523,8 @@
 .cb_template .fa-git:before {
   content: "\f1d3";
 }
+.cb_template .fa-y-combinator-square:before,
+.cb_template .fa-yc-square:before,
 .cb_template .fa-hacker-news:before {
   content: "\f1d4";
 }
@@ -1548,7 +1549,6 @@
 .cb_template .fa-history:before {
   content: "\f1da";
 }
-.cb_template .fa-genderless:before,
 .cb_template .fa-circle-thin:before {
   content: "\f1db";
 }
@@ -1753,6 +1753,7 @@
 .cb_template .fa-mercury:before {
   content: "\f223";
 }
+.cb_template .fa-intersex:before,
 .cb_template .fa-transgender:before {
   content: "\f224";
 }
@@ -1779,6 +1780,9 @@
 }
 .cb_template .fa-neuter:before {
   content: "\f22c";
+}
+.cb_template .fa-genderless:before {
+  content: "\f22d";
 }
 .cb_template .fa-facebook-official:before {
   content: "\f230";
@@ -1813,6 +1817,213 @@
 }
 .cb_template .fa-medium:before {
   content: "\f23a";
+}
+.cb_template .fa-yc:before,
+.cb_template .fa-y-combinator:before {
+  content: "\f23b";
+}
+.cb_template .fa-optin-monster:before {
+  content: "\f23c";
+}
+.cb_template .fa-opencart:before {
+  content: "\f23d";
+}
+.cb_template .fa-expeditedssl:before {
+  content: "\f23e";
+}
+.cb_template .fa-battery-4:before,
+.cb_template .fa-battery-full:before {
+  content: "\f240";
+}
+.cb_template .fa-battery-3:before,
+.cb_template .fa-battery-three-quarters:before {
+  content: "\f241";
+}
+.cb_template .fa-battery-2:before,
+.cb_template .fa-battery-half:before {
+  content: "\f242";
+}
+.cb_template .fa-battery-1:before,
+.cb_template .fa-battery-quarter:before {
+  content: "\f243";
+}
+.cb_template .fa-battery-0:before,
+.cb_template .fa-battery-empty:before {
+  content: "\f244";
+}
+.cb_template .fa-mouse-pointer:before {
+  content: "\f245";
+}
+.cb_template .fa-i-cursor:before {
+  content: "\f246";
+}
+.cb_template .fa-object-group:before {
+  content: "\f247";
+}
+.cb_template .fa-object-ungroup:before {
+  content: "\f248";
+}
+.cb_template .fa-sticky-note:before {
+  content: "\f249";
+}
+.cb_template .fa-sticky-note-o:before {
+  content: "\f24a";
+}
+.cb_template .fa-cc-jcb:before {
+  content: "\f24b";
+}
+.cb_template .fa-cc-diners-club:before {
+  content: "\f24c";
+}
+.cb_template .fa-clone:before {
+  content: "\f24d";
+}
+.cb_template .fa-balance-scale:before {
+  content: "\f24e";
+}
+.cb_template .fa-hourglass-o:before {
+  content: "\f250";
+}
+.cb_template .fa-hourglass-1:before,
+.cb_template .fa-hourglass-start:before {
+  content: "\f251";
+}
+.cb_template .fa-hourglass-2:before,
+.cb_template .fa-hourglass-half:before {
+  content: "\f252";
+}
+.cb_template .fa-hourglass-3:before,
+.cb_template .fa-hourglass-end:before {
+  content: "\f253";
+}
+.cb_template .fa-hourglass:before {
+  content: "\f254";
+}
+.cb_template .fa-hand-grab-o:before,
+.cb_template .fa-hand-rock-o:before {
+  content: "\f255";
+}
+.cb_template .fa-hand-stop-o:before,
+.cb_template .fa-hand-paper-o:before {
+  content: "\f256";
+}
+.cb_template .fa-hand-scissors-o:before {
+  content: "\f257";
+}
+.cb_template .fa-hand-lizard-o:before {
+  content: "\f258";
+}
+.cb_template .fa-hand-spock-o:before {
+  content: "\f259";
+}
+.cb_template .fa-hand-pointer-o:before {
+  content: "\f25a";
+}
+.cb_template .fa-hand-peace-o:before {
+  content: "\f25b";
+}
+.cb_template .fa-trademark:before {
+  content: "\f25c";
+}
+.cb_template .fa-registered:before {
+  content: "\f25d";
+}
+.cb_template .fa-creative-commons:before {
+  content: "\f25e";
+}
+.cb_template .fa-gg:before {
+  content: "\f260";
+}
+.cb_template .fa-gg-circle:before {
+  content: "\f261";
+}
+.cb_template .fa-tripadvisor:before {
+  content: "\f262";
+}
+.cb_template .fa-odnoklassniki:before {
+  content: "\f263";
+}
+.cb_template .fa-odnoklassniki-square:before {
+  content: "\f264";
+}
+.cb_template .fa-get-pocket:before {
+  content: "\f265";
+}
+.cb_template .fa-wikipedia-w:before {
+  content: "\f266";
+}
+.cb_template .fa-safari:before {
+  content: "\f267";
+}
+.cb_template .fa-chrome:before {
+  content: "\f268";
+}
+.cb_template .fa-firefox:before {
+  content: "\f269";
+}
+.cb_template .fa-opera:before {
+  content: "\f26a";
+}
+.cb_template .fa-internet-explorer:before {
+  content: "\f26b";
+}
+.cb_template .fa-tv:before,
+.cb_template .fa-television:before {
+  content: "\f26c";
+}
+.cb_template .fa-contao:before {
+  content: "\f26d";
+}
+.cb_template .fa-500px:before {
+  content: "\f26e";
+}
+.cb_template .fa-amazon:before {
+  content: "\f270";
+}
+.cb_template .fa-calendar-plus-o:before {
+  content: "\f271";
+}
+.cb_template .fa-calendar-minus-o:before {
+  content: "\f272";
+}
+.cb_template .fa-calendar-times-o:before {
+  content: "\f273";
+}
+.cb_template .fa-calendar-check-o:before {
+  content: "\f274";
+}
+.cb_template .fa-industry:before {
+  content: "\f275";
+}
+.cb_template .fa-map-pin:before {
+  content: "\f276";
+}
+.cb_template .fa-map-signs:before {
+  content: "\f277";
+}
+.cb_template .fa-map-o:before {
+  content: "\f278";
+}
+.cb_template .fa-map:before {
+  content: "\f279";
+}
+.cb_template .fa-commenting:before {
+  content: "\f27a";
+}
+.cb_template .fa-commenting-o:before {
+  content: "\f27b";
+}
+.cb_template .fa-houzz:before {
+  content: "\f27c";
+}
+.cb_template .fa-vimeo:before {
+  content: "\f27d";
+}
+.cb_template .fa-black-tie:before {
+  content: "\f27e";
+}
+.cb_template .fa-fonticons:before {
+  content: "\f280";
 }
 .cb_template .fa-sm,
 .cb_template .fa-before-sm:before {
@@ -1873,9 +2084,6 @@
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-transform: translate(0, 0);
-      -ms-transform: translate(0, 0);
-          transform: translate(0, 0);
   font-family: FontAwesome !important;
   /* MARKED IMPORTANT TO AVOID BEING OVERRIDDEN */
   content: "\f00d";
@@ -1888,9 +2096,6 @@
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-transform: translate(0, 0);
-      -ms-transform: translate(0, 0);
-          transform: translate(0, 0);
   font-family: FontAwesome !important;
   /* MARKED IMPORTANT TO AVOID BEING OVERRIDDEN */
   content: "\f071";
@@ -1903,9 +2108,6 @@
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-transform: translate(0, 0);
-      -ms-transform: translate(0, 0);
-          transform: translate(0, 0);
   font-family: FontAwesome !important;
   /* MARKED IMPORTANT TO AVOID BEING OVERRIDDEN */
   content: "\f00c";
@@ -1918,9 +2120,6 @@
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-transform: translate(0, 0);
-      -ms-transform: translate(0, 0);
-          transform: translate(0, 0);
   font-family: FontAwesome !important;
   /* MARKED IMPORTANT TO AVOID BEING OVERRIDDEN */
   content: "\f00d";
@@ -1933,9 +2132,6 @@
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-transform: translate(0, 0);
-      -ms-transform: translate(0, 0);
-          transform: translate(0, 0);
   font-family: FontAwesome !important;
   /* MARKED IMPORTANT TO AVOID BEING OVERRIDDEN */
   content: "\f071";
@@ -1948,9 +2144,6 @@
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-transform: translate(0, 0);
-      -ms-transform: translate(0, 0);
-          transform: translate(0, 0);
   font-family: FontAwesome !important;
   /* MARKED IMPORTANT TO AVOID BEING OVERRIDDEN */
   content: "\f00c";

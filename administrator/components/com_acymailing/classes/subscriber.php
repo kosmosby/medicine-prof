@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.4
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -289,7 +289,7 @@ class subscriberClass extends acymailingClass{
 
 		jimport('joomla.filesystem.file');
 		$config= acymailing_config();
-		$uploadFolder = trim(JPath::clean(html_entity_decode($config->get('uploadfolder'))),DS.' ').DS;
+		$uploadFolder = trim(JPath::clean(html_entity_decode(acymailing_getFilesFolder())),DS.' ').DS;
 		$uploadPath = JPath::clean(ACYMAILING_ROOT.$uploadFolder.'userfiles'.DS);
 		acymailing_createDir(JPath::clean(ACYMAILING_ROOT.$uploadFolder),true);
 		acymailing_createDir($uploadPath,true);
@@ -544,8 +544,6 @@ class subscriberClass extends acymailingClass{
 	}
 
 	function identify($onlyvalue = false){
-		$app = JFactory::getApplication();
-
 		$subid = JRequest::getInt("subid",0);
 		$key = JRequest::getString("key",'');
 
@@ -556,7 +554,7 @@ class subscriberClass extends acymailingClass{
 				return $userIdentified;
 			}
 			if(!$onlyvalue){
-				$app->enqueueMessage(JText::_('ASK_LOG'),'error');
+				acymailing_enqueueMessage(JText::_('ASK_LOG'),'error');
 			}
 			return false;
 		}
@@ -565,7 +563,7 @@ class subscriberClass extends acymailingClass{
 		$userIdentified = $this->database->loadObject();
 
 		if(empty($userIdentified)){
-			if(!$onlyvalue) $app->enqueueMessage(JText::_('INVALID_KEY'),'error');
+			if(!$onlyvalue) acymailing_enqueueMessage(JText::_('INVALID_KEY'),'error');
 			return false;
 		}
 

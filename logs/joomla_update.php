@@ -219,3 +219,11 @@
 2015-07-04T07:02:25+00:00	INFO 93.84.56.210	update	Deleting removed files and folders.
 2015-07-04T07:02:31+00:00	INFO 93.84.56.210	update	Cleaning up after installation.
 2015-07-04T07:02:31+00:00	INFO 93.84.56.210	update	Update to version 3.4.3 is complete.
+2015-10-22T19:06:10+00:00	INFO 178.121.247.230	update	Update started by user Super User (42). Old version is 3.4.3.
+2015-10-22T19:06:12+00:00	INFO 178.121.247.230	update	Downloading update file from https://github.com/joomla/joomla-cms/releases/download/3.4.5/Joomla_3.4.x_to_3.4.5-Stable-Patch_Package.zip.
+2015-10-22T19:06:19+00:00	INFO 178.121.247.230	update	File Joomla_3.4.x_to_3.4.5-Stable-Patch_Package.zip successfully downloaded.
+2015-10-22T19:06:19+00:00	INFO 178.121.247.230	update	Starting installation of new version.
+2015-10-22T19:06:34+00:00	INFO 178.121.247.230	update	Finalising installation.
+2015-10-22T19:06:35+00:00	INFO 178.121.247.230	update	Deleting removed files and folders.
+2015-10-22T19:06:39+00:00	INFO 178.121.247.230	update	Cleaning up after installation.
+2015-10-22T19:06:39+00:00	INFO 178.121.247.230	update	Update to version 3.4.5 is complete.

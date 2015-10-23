@@ -5,7 +5,7 @@ class JConfig {
 	public $display_offline_message = '1';
 	public $offline_image = '';
 	public $sitename = 'Medicine-prof';
-	public $editor = 'jce';
+	public $editor = 'tinymce';
 	public $captcha = '0';
 	public $list_limit = '20';
 	public $access = '1';
@@ -14,7 +14,7 @@ class JConfig {
 	public $dbtype = 'mysqli';
 	public $host = 'localhost';
 	public $user = 'root';
-	public $password = 'password';
+	public $password = 'staSPE8e';
 	public $db = 'medicine-prof';
 	public $dbprefix = 'ju5ej_';
 	public $live_site = '';
@@ -53,8 +53,8 @@ class JConfig {
 	public $sef_suffix = '0';
 	public $unicodeslugs = '0';
 	public $feed_limit = '10';
-	public $log_path = '/Users/kosmos/Documents/sites/medicine-prof/logs';
-	public $tmp_path = '/Users/kosmos/Documents/sites/medicine-prof/tmp';
+	public $log_path = '/var/www/html/logs';
+	public $tmp_path = '/var/www/html/tmp';
 	public $lifetime = '99999';
 	public $session_handler = 'database';
 	public $MetaRights = '(c) 2015 Medicine-prof
@@ -83,7 +83,7 @@ info@medicine-prof.com';
 	public $session_memcache_server_port = '11211';
 	public $session_memcached_server_host = 'localhost';
 	public $session_memcached_server_port = '11211';
-	public $frontediting = '1';
+	public $frontediting = '0';
 	public $redis_persist = '1';
 	public $redis_server_host = 'localhost';
 	public $redis_server_port = '6379';

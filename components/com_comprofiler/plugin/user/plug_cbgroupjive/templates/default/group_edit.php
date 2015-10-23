@@ -1,246 +1,232 @@
 <?php
+/**
+* Community Builder (TM)
+* @version $Id: $
+* @package CommunityBuilder
+* @copyright (C) 2004-2014 www.joomlapolis.com / Lightning MultiCom SA - and its licensors, all rights reserved
+* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2
+*/
+
+use CBLib\Language\CBTxt;
+use CB\Database\Table\UserTable;
+use CB\Plugin\GroupJive\Table\CategoryTable;
+use CB\Plugin\GroupJive\Table\GroupTable;
+use CB\Plugin\GroupJive\CBGroupJive;
+
 if ( ! ( defined( '_VALID_CB' ) || defined( '_JEXEC' ) || defined( '_VALID_MOS' ) ) ) { die( 'Direct Access to this location is not allowed.' ); }
 
-class HTML_groupjiveGroupEdit {
+class HTML_groupjiveGroupEdit
+{
 
 	/**
 	 * render frontend group edit
 	 *
-	 * @param cbgjGroup $row
-	 * @param array $input
-	 * @param cbgjCategory $category
-	 * @param moscomprofilerUser $user
-	 * @param object $plugin
+	 * @param GroupTable         $row
+	 * @param array              $input
+	 * @param CategoryTable      $category
+	 * @param UserTable          $user
+	 * @param CBplug_cbgroupjive $plugin
+	 * @return string
 	 */
-	static function showGroupEdit( $row, $input, $category, $user, $plugin ) {
-		$authorized		=	cbgjClass::getAuthorization( $category, $row, $user );
-		$pageTitle		=	CBTxt::P( ( $row->get( 'id' ) ? 'Edit [group]' : 'Create [group]' ), array( '[group]' => cbgjClass::getOverride( 'group' ) ) );
+	static function showGroupEdit( $row, $input, $category, $user, $plugin )
+	{
+		global $_CB_framework, $_PLUGINS;
 
-		$row->setPathway( $pageTitle, cbgjClass::getPluginURL( ( $row->get( 'id' ) ? array( 'groups', 'edit', (int) $category->get( 'id' ), (int) $row->get( 'id' ) ) : array( 'groups', 'new', (int) $category->get( 'id' ), (int) $row->get( 'parent' ) ) ) ) );
+		cbValidator::loadValidation();
+		initToolTip();
 
-		$tabs			=	new cbTabs( 0, 1 );
+		$js							=	"$( '#canvas_method' ).on( 'change', function() {"
+									.		"if ( $( this ).val() == 1 ) {"
+									.			"$( '#gjCanvasUpload' ).removeClass( 'hidden' ).find( 'input' ).removeClass( 'cbValidationDisabled' );"
+									.		"} else {"
+									.			"$( '#gjCanvasUpload' ).addClass( 'hidden' ).find( 'input' ).addClass( 'cbValidationDisabled' ).val( '' );"
+									.		"}"
+									.	"}).change();"
+									.	"$( '#logo_method' ).on( 'change', function() {"
+									.		"if ( $( this ).val() == 1 ) {"
+									.			"$( '#gjLogoUpload' ).removeClass( 'hidden' ).find( 'input' ).removeClass( 'cbValidationDisabled' );"
+									.		"} else {"
+									.			"$( '#gjLogoUpload' ).addClass( 'hidden' ).find( 'input' ).addClass( 'cbValidationDisabled' ).val( '' );"
+									.		"}"
+									.	"}).change();";
 
-		$onEdit			=	cbgjClass::getIntegrations( 'gj_onGroupEdit', array( $tabs, $row, $category, $user, $plugin ), null, null );
+		$_CB_framework->outputCbJQuery( $js );
 
-		$return			=	'<div class="gjGroupEdit">'
-						.		'<form action="' . cbgjClass::getPluginURL( array( 'groups', 'save', (int) $category->get( 'id' ), (int) $row->get( 'id' ) ), null, true, false, null, 'current' ) . '" method="post" enctype="multipart/form-data" name="gjForm" id="gjForm" class="gjForm form-horizontal">'
-						.			'<legend class="gjEditTitle">' . $pageTitle . '</legend>';
+		$isModerator				=	CBGroupJive::isModerator( $user->get( 'id' ) );
+		$returnUrl					=	CBGroupJive::getReturn( true, true );
+		$return						=	null;
 
-		if ( cbgjClass::hasAccess( 'mod_lvl1', $authorized ) || $row->getParentAccess( array( 'mod_lvl2', $user ) ) ) {
-			$return		.=			'<div class="gjEditContentInput control-group">'
-						.				'<label class="gjEditContentInputTitle control-label">' . CBTxt::Th( 'Published' ) . '</label>'
-						.				'<div class="gjEditContentInputField controls">'
-						.					$input['publish']
-						.					'<span class="gjEditContentInputIcon help-inline">'
-						.						cbgjClass::getIcon( CBTxt::P( 'Select publish status of [group]. Unpublished [groups] will not be visible to the public.', array( '[group]' => cbgjClass::getOverride( 'group' ), '[groups]' => cbgjClass::getOverride( 'group', true ) ) ) )
-						.					'</span>'
-						.				'</div>'
-						.			'</div>';
-		}
+		$integrations				=	$_PLUGINS->trigger( 'gj_onBeforeDisplayGroupEdit', array( &$return, &$row, &$input, $category, $user ) );
 
-		if ( cbgjClass::hasAccess( 'usr_mod', $authorized ) || ( ! $category->get( 'id' ) ) ) {
-			$return		.=			'<div class="gjEditContentInput control-group">'
-						.				'<label class="gjEditContentInputTitle control-label">' . cbgjClass::getOverride( 'category' ) . '</label>'
-						.				'<div class="gjEditContentInputField controls">'
-						.					$input['category']
-						.					'<span class="gjEditContentInputIcon help-inline">'
-						.						cbgjClass::getIcon( CBTxt::P( 'Select [group] [category]. This is the [category] a [group] will belong to and decide its navigation path.', array( '[group]' => cbgjClass::getOverride( 'group' ), '[category]' => cbgjClass::getOverride( 'category' ) ) ) )
-						.					'</span>'
-						.				'</div>'
-						.			'</div>';
-		} elseif ( $category->id ) {
-			$return		.=			'<div class="gjEditContentInput control-group">'
-						.				'<label class="gjEditContentInputTitle control-label">' . cbgjClass::getOverride( 'category' ) . '</label>'
-						.				'<div class="gjEditContentInputField controls">'
-						.					$category->getName()
-						.					'<input type="hidden" id="category" name="category" value="' . (int) $category->get( 'id' ) . '" />'
-						.				'</div>'
-						.			'</div>';
-		}
+		if ( $row->get( 'id' ) ) {
+			$pageTitle				=	CBTxt::T( 'Edit Group' );
 
-		if ( cbgjClass::hasAccess( 'usr_mod', $authorized ) || ( $plugin->params->get( 'group_nested', 1 ) && ( ! $row->get( 'parent' ) ) ) ) {
-			$return		.=			'<div class="gjEditContentInput control-group">'
-						.				'<label class="gjEditContentInputTitle control-label">' . CBTxt::Th( 'Parent' ) . '</label>'
-						.				'<div class="gjEditContentInputField controls">'
-						.					$input['parent']
-						.					'<span class="gjEditContentInputIcon help-inline">'
-						.						cbgjClass::getIcon( CBTxt::P( 'Select parent [group]. Selecting parent [group] allows for nested [group] display.', array( '[group]' => cbgjClass::getOverride( 'group' ) ) ) )
-						.					'</span>'
-						.				'</div>'
-						.			'</div>';
-		} elseif ( $row->get( 'parent' ) ) {
-			$return		.=			'<div class="gjEditContentInput control-group">'
-						.				'<label class="gjEditContentInputTitle control-label">' . CBTxt::Th( 'Parent' ) . '</label>'
-						.				'<div class="gjEditContentInputField controls">'
-						.					$row->getParent()->getName()
-						.					'<input type="hidden" id="parent" name="parent" value="' . (int) $row->get( 'parent' ) . '" />'
-						.				'</div>'
-						.			'</div>';
-		}
-
-		$return			.=			'<div class="gjEditContentInput control-group">'
-						.				'<label class="gjEditContentInputTitle control-label">' . CBTxt::Th( 'Name' ) . '</label>'
-						.				'<div class="gjEditContentInputField controls">'
-						.					$input['name']
-						.					'<span class="gjEditContentInputIcon help-inline">'
-						.						cbgjClass::getIcon( null, CBTxt::T( 'Required' ), 'icon-star' )
-						.						cbgjClass::getIcon( CBTxt::P( 'Input [group] name. This is the name that will distinguish this [group] from others. Suggested to input something unique and intuitive.', array( '[group]' => cbgjClass::getOverride( 'group' ) ) ) )
-						.					'</span>'
-						.				'</div>'
-						.			'</div>'
-						.			'<div class="gjEditContentInput control-group">'
-						.				'<label class="gjEditContentInputTitle control-label">' . CBTxt::Th( 'Description' ) . '</label>'
-						.				'<div class="gjEditContentInputField controls">'
-						.					$input['description']
-						.					'<span class="gjEditContentInputIcon help-inline">'
-						.						cbgjClass::getIcon( CBTxt::P( 'Input [group] description. Your [group] description should be short and to the point; describing what your [group] is all about.', array( '[group]' => cbgjClass::getOverride( 'group' ) ) ) )
-						.					'</span>'
-						.				'</div>'
-						.			'</div>';
-
-		if ( $input['inputlimit'] !== false ) {
-			$return		.=			'<div class="gjEditContentInput control-group">'
-						.				'<label class="gjEditContentInputTitle control-label">' . CBTxt::Th( 'Input Limit' ) . '</label>'
-						.				'<div class="gjEditContentInputField controls">'
-						.					$input['inputlimit']
-						.				'</div>'
-						.			'</div>';
-		}
-
-		$return			.=			'<div class="gjEditContentInput control-group">'
-						.				'<label class="gjEditContentInputTitle control-label">' . CBTxt::Th( 'Logo' ) . '</label>'
-						.				'<div class="gjEditContentInputField controls">'
-						.					'<div style="margin-bottom: 10px;">' . $row->getLogo( true ) . '</div>'
-						.					( $row->get( 'logo' ) ? '<div style="margin-bottom: 5px;">' . $input['del_logo'] . '</div>' : null )
-						.					'<div>'
-						.						$input['file']
-						.						'<span class="gjEditContentInputIcon help-inline">'
-						.							cbgjClass::getIcon( CBTxt::P( 'Select [group] logo. A logo should represent the topic of your [group]; please be respectful and tasteful when selecting a logo.', array( '[group]' => cbgjClass::getOverride( 'group' ) ) ) )
-						.						'</span>'
-						.					'</div>'
-						.				'</div>'
-						.			'</div>';
-
-		if ( $plugin->params->get( 'group_type_config', 1 ) || cbgjClass::hasAccess( 'usr_mod', $authorized ) ) {
-			$return		.=			'<div class="gjEditContentInput control-group">'
-						.				'<label class="gjEditContentInputTitle control-label">' . CBTxt::Th( 'Type' ) . '</label>'
-						.				'<div class="gjEditContentInputField controls">'
-						.					$input['type']
-						.					'<span class="gjEditContentInputIcon help-inline">'
-						.						cbgjClass::getIcon( CBTxt::P( 'Select [group] type. Type determines the way your [group] is joined (e.g. Invite requires new [users] to be invited to join your [group]).', array( '[group]' => cbgjClass::getOverride( 'group' ), '[users]' => cbgjClass::getOverride( 'user', true ) ) ) )
-						.					'</span>'
-						.				'</div>'
-						.			'</div>';
-		}
-
-		if ( $plugin->params->get( 'group_access_config', 1 ) || cbgjClass::hasAccess( 'usr_mod', $authorized ) ) {
-			$return		.=			'<div class="gjEditContentInput control-group">'
-						.				'<label class="gjEditContentInputTitle control-label">' . CBTxt::Th( 'Access' ) . '</label>'
-						.				'<div class="gjEditContentInputField controls">'
-						.					$input['access']
-						.					'<span class="gjEditContentInputIcon help-inline">'
-						.						cbgjClass::getIcon( CBTxt::P( 'Select [group] access. Access determines who can effectively see your [group]. The group selected as well as those above it will have access (e.g. Registered will also be accessible to Author).', array( '[group]' => cbgjClass::getOverride( 'group' ) ) ) )
-						.					'</span>'
-						.				'</div>'
-						.			'</div>';
-		}
-
-		if ( $plugin->params->get( 'group_invite_config', 1 ) || cbgjClass::hasAccess( 'usr_mod', $authorized ) ) {
-			$return		.=			'<div class="gjEditContentInput control-group">'
-						.				'<label class="gjEditContentInputTitle control-label">' . CBTxt::Th( 'Invite Access' ) . '</label>'
-						.				'<div class="gjEditContentInputField controls">'
-						.					$input['invite']
-						.					'<span class="gjEditContentInputIcon help-inline">'
-						.						cbgjClass::getIcon( CBTxt::P( 'Select [group] invite access. Invite access determines what type of [users] can invite others to join your [group] (e.g. [users] signify only those a member of your [group] can invite). The [users] above the selected will also have access.', array( '[group]' => cbgjClass::getOverride( 'group' ), '[users]' => cbgjClass::getOverride( 'user', true ) ) ) )
-						.					'</span>'
-						.				'</div>'
-						.			'</div>';
-		}
-
-		if ( $plugin->params->get( 'group_users_config', 1 ) || cbgjClass::hasAccess( 'usr_mod', $authorized ) ) {
-			$return		.=			'<div class="gjEditContentInput control-group">'
-						.				'<label class="gjEditContentInputTitle control-label">' . CBTxt::Ph( '[users] Public', array( '[users]' => cbgjClass::getOverride( 'user', true ) ) ) . '</label>'
-						.				'<div class="gjEditContentInputField controls">'
-						.					$input['users']
-						.					'<span class="gjEditContentInputIcon help-inline">'
-						.						cbgjClass::getIcon( CBTxt::P( 'Select if [group] [users] tab is publicly visible.', array( '[group]' => cbgjClass::getOverride( 'group' ), '[users]' => cbgjClass::getOverride( 'user', true ) ) ) )
-						.					'</span>'
-						.				'</div>'
-						.			'</div>';
-		}
-
-		if ( cbgjClass::hasAccess( 'grp_nested', $authorized ) ) {
-			if ( $plugin->params->get( 'group_nested_config', 1 ) || cbgjClass::hasAccess( 'usr_mod', $authorized ) ) {
-				$return	.=			'<div class="gjEditContentInput control-group">'
-						.				'<label class="gjEditContentInputTitle control-label">' . CBTxt::Th( 'Nested' ) . '</label>'
-						.				'<div class="gjEditContentInputField controls">'
-						.					$input['nested']
-						.					'<span class="gjEditContentInputIcon help-inline">'
-						.						cbgjClass::getIcon( CBTxt::P( 'Enable or disable the creation of [groups] in this [group]. Moderators and [owner] are exempt from this configuration and can always create [groups].', array( '[group]' => cbgjClass::getOverride( 'group' ), '[groups]' => cbgjClass::getOverride( 'group', true ), '[owner]' => cbgjClass::getOverride( 'owner' ) ) ) )
-						.					'</span>'
-						.				'</div>'
-						.			'</div>';
+			if ( ! $returnUrl ) {
+				$returnUrl			=	$_CB_framework->pluginClassUrl( $plugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'id' ) ) );;
 			}
+		} else {
+			$pageTitle				=	CBTxt::T( 'New Group' );
 
-			if ( $plugin->params->get( 'group_nestedaccess_config', 1 ) || cbgjClass::hasAccess( 'usr_mod', $authorized ) ) {
-				$return	.=			'<div class="gjEditContentInput control-group">'
-						.				'<label class="gjEditContentInputTitle control-label">' . CBTxt::Th( 'Nested Access' ) . '</label>'
-						.				'<div class="gjEditContentInputField controls">'
-						.					$input['nested_access']
-						.					'<span class="gjEditContentInputIcon help-inline">'
-						.						cbgjClass::getIcon( CBTxt::P( 'Select [groups] create access. Create access determines who can create [groups] in this [group]. The group selected as well as those above it will have access (e.g. Registered will also be accessible to Author). Moderators and [owner] are exempt from this configuration and can always create [groups].', array( '[group]' => cbgjClass::getOverride( 'group' ), '[groups]' => cbgjClass::getOverride( 'group', true ), '[owner]' => cbgjClass::getOverride( 'owner' ) ) ) )
-						.					'</span>'
-						.				'</div>'
-						.			'</div>';
+			if ( ! $returnUrl ) {
+				$returnUrl			=	$_CB_framework->pluginClassUrl( $plugin->element, false, array( 'action' => 'categories', 'func' => 'show', 'id' => (int) $category->get( 'id' ) ) );
 			}
 		}
 
-		if ( cbgjClass::hasAccess( 'usr_mod', $authorized ) ) {
-			$return		.=			'<div class="gjEditContentInput control-group">'
-						.				'<label class="gjEditContentInputTitle control-label">' . cbgjClass::getOverride( 'owner' ) . '</label>'
-						.				'<div class="gjEditContentInputField controls">'
-						.					$input['owner']
-						.					'<span class="gjEditContentInputIcon help-inline">'
-						.						cbgjClass::getIcon( null, CBTxt::T( 'Required' ), 'icon-star' )
-						.						cbgjClass::getIcon( CBTxt::P( 'Input [group] [owner]. [group] [owner] determines the creator of the [group] specified as User ID.', array( '[group]' => cbgjClass::getOverride( 'group' ), '[owner]' => cbgjClass::getOverride( 'owner' ) ) ) )
-						.					'</span>'
-						.				'</div>'
-						.			'</div>';
+		$_CB_framework->setPageTitle( $pageTitle );
+
+		$return						.=	'<div class="gjGroupEdit">'
+									.		'<form action="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'groups', 'func' => 'save', 'id' => (int) $row->get( 'id' ), 'return' => CBGroupJive::getReturn( true ) ) ) . '" method="post" enctype="multipart/form-data" name="gjGroupEditForm" id="gjGroupEditForm" class="cb_form gjGroupEditForm form-auto cbValidation">'
+									.			( $pageTitle ? '<div class="gjGroupEditTitle page-header"><h3>' . $pageTitle . '</h3></div>' : null );
+
+		if ( $isModerator || ( $row->get( 'published' ) != -1 ) || ( ! $plugin->params->get( 'groups_create_approval', 0 ) ) ) {
+			$return					.=			'<div class="cbft_select cbtt_select form-group cb_form_line clearfix">'
+									.				'<label for="published" class="col-sm-3 control-label">' . CBTxt::T( 'Published' ) . '</label>'
+									.				'<div class="cb_field col-sm-9">'
+									.					$input['published']
+									.					getFieldIcons( null, 0, null, CBTxt::T( 'Select publish state of this group. Unpublished groups will not be visible to the public.' ) )
+									.				'</div>'
+									.			'</div>';
 		}
 
-		if ( $onEdit ) {
-			$return		.=			'<div class="gjEditContentInput control-group">'
-						.				'<label class="gjEditContentInputTitle control-label">' . CBTxt::Th( 'Integrations' ) . '</label>'
-						.				'<div class="gjEditContentInputField controls">'
-						.					$tabs->startPane( 'gjIntegrationsTabs' )
-						.						$onEdit
-						.					$tabs->endPane()
-						.				'</div>'
-						.			'</div>';
+		if ( $input['category'] ) {
+			$return					.=			'<div class="cbft_select cbtt_select form-group cb_form_line clearfix">'
+									.				'<label for="category" class="col-sm-3 control-label">' . CBTxt::T( 'Category' ) . '</label>'
+									.				'<div class="cb_field col-sm-9">'
+									.					$input['category']
+									.					getFieldIcons( null, 0, null, CBTxt::T( 'Select the group category. This is the category a group will belong to and decide its navigation path.' ) )
+									.				'</div>'
+									.			'</div>';
 		}
 
-		if ( $input['captcha'] !== false ) {
-			$return		.=			'<div class="gjEditContentInput control-group">'
-						.				'<label class="gjEditContentInputTitle control-label">' . CBTxt::Th( 'Captcha' ) . '</label>'
-						.				'<div class="gjEditContentInputField controls">'
-						.					'<div style="margin-bottom: 5px;">' . $input['captcha']['code'] . '</div>'
-						.					'<div>' . $input['captcha']['input'] . '</div>'
-						.					'<span class="gjEditContentInputIcon help-inline">'
-						.						cbgjClass::getIcon( null, CBTxt::T( 'Required' ), 'icon-star' )
-						.					'</span>'
-						.				'</div>'
-						.			'</div>';
+		$return						.=			'<div class="cbft_select cbtt_select form-group cb_form_line clearfix">'
+									.				'<label for="type" class="col-sm-3 control-label">' . CBTxt::T( 'Type' ) . '</label>'
+									.				'<div class="cb_field col-sm-9">'
+									.					$input['type']
+									.					getFieldIcons( null, 0, null, CBTxt::T( 'Select the group type. Type determines the way your group is joined (e.g. Invite requires new users to be invited to join your group).' ) )
+									.				'</div>'
+									.			'</div>'
+									.			'<div class="cbft_text cbtt_input form-group cb_form_line clearfix">'
+									.				'<label for="name" class="col-sm-3 control-label">' . CBTxt::T( 'Name' ) . '</label>'
+									.				'<div class="cb_field col-sm-9">'
+									.					$input['name']
+									.					getFieldIcons( null, 1, null, CBTxt::T( 'Input the group name. This is the name that will distinguish this group from others. Suggested to input something unique and intuitive.' ) )
+									.				'</div>'
+									.			'</div>'
+									.			'<div class="cbft_textarea cbtt_textarea form-group cb_form_line clearfix">'
+									.				'<label for="description" class="col-sm-3 control-label">' . CBTxt::T( 'Description' ) . '</label>'
+									.				'<div class="cb_field col-sm-9">'
+									.					$input['description']
+									.					getFieldIcons( null, 0, null, CBTxt::T( 'Optionally input the group description. The group description should be short and to the point; describing what your group is all about.' ) )
+									.				'</div>'
+									.			'</div>';
+
+		if ( $row->get( 'canvas' ) ) {
+			$return					.=			'<div class="cbft_delimiter form-group cb_form_line clearfix">'
+									.				'<label for="canvas_method" class="col-sm-3 control-label">' . CBTxt::T( 'Canvas' ) . '</label>'
+									.				'<div class="cb_field col-sm-9">'
+									.					$row->canvas()
+									.				'</div>'
+									.			'</div>'
+									.			'<div id="gjCanvasMethod" class="cbft_select cbtt_select form-group cb_form_line clearfix">'
+									.				'<div class="cb_field col-sm-offset-3 col-sm-9">'
+									.					$input['canvas_method']
+									.				'</div>'
+									.			'</div>';
 		}
 
-		$return			.=			'<div class="gjButtonWrapper form-actions">'
-						.				'<input type="submit" value="' . htmlspecialchars( ( $row->get( 'id' ) ? CBTxt::P( 'Update [group]', array( '[group]' => cbgjClass::getOverride( 'group' ) ) ) : CBTxt::P( 'Create [group]', array( '[group]' => cbgjClass::getOverride( 'group' ) ) ) ) ) . '" class="gjButton gjButtonSubmit btn btn-primary" />&nbsp;'
-						.				'<input type="button" value="' . htmlspecialchars( CBTxt::T( 'Cancel' ) ) . '" class="gjButton gjButtonCancel btn btn-mini" onclick="' . cbgjClass::getPluginURL( ( $row->get( 'id' ) ? array( 'groups', 'show', (int) $category->get( 'id' ), (int) $row->get( 'id' ) ) : ( $row->get( 'parent' ) ? array( 'groups', 'show', (int) $category->get( 'id' ), (int) $row->get( 'parent' ) ) : array( 'categories', 'show', (int) $category->get( 'id' ) ) ) ), CBTxt::T( 'Are you sure you want to cancel? All unsaved data will be lost!' ), true, false, null, false, false, true ) . '" />'
-						.			'</div>'
-						.			cbGetSpoofInputTag( 'plugin' )
-						.		'</form>'
-						.	'</div>';
+		$return						.=			'<div id="gjCanvasUpload" class="cbft_file cbtt_input form-group cb_form_line clearfix' . ( $row->get( 'canvas' ) ? ' hidden' : null ) . '">'
+									.				( ! $row->get( 'canvas' ) ? '<label for="canvas" class="col-sm-3 control-label">' . CBTxt::T( 'Canvas' ) . '</label>' : null )
+									.				'<div class="cb_field' . ( $row->get( 'canvas' ) ? ' col-sm-offset-3' : null ) . ' col-sm-9">'
+									.					$input['canvas']
+									.					getFieldIcons( null, 0, null, CBTxt::T( 'Optionally select the group canvas. A canvas should represent the topic of your group; please be respectful and tasteful when selecting a canvas.' ) )
+									.					'<div class="help-block">' . implode( ' ', $input['canvas_limits'] ) . '</div>'
+									.				'</div>'
+									.			'</div>';
+
+		if ( $row->get( 'logo' ) ) {
+			$return					.=			'<div class="cbft_delimiter form-group cb_form_line clearfix">'
+									.				'<label for="logo_method" class="col-sm-3 control-label">' . CBTxt::T( 'Logo' ) . '</label>'
+									.				'<div class="cb_field col-sm-9">'
+									.					$row->logo()
+									.				'</div>'
+									.			'</div>'
+									.			'<div id="gjLogoMethod" class="cbft_select cbtt_select form-group cb_form_line clearfix">'
+									.				'<div class="cb_field col-sm-offset-3 col-sm-9">'
+									.					$input['logo_method']
+									.				'</div>'
+									.			'</div>';
+		}
+
+		$return						.=			'<div id="gjLogoUpload" class="cbft_file cbtt_input form-group cb_form_line clearfix' . ( $row->get( 'logo' ) ? ' hidden' : null ) . '">'
+									.				( ! $row->get( 'logo' ) ? '<label for="logo" class="col-sm-3 control-label">' . CBTxt::T( 'Logo' ) . '</label>' : null )
+									.				'<div class="cb_field' . ( $row->get( 'logo' ) ? ' col-sm-offset-3' : null ) . ' col-sm-9">'
+									.					$input['logo']
+									.					getFieldIcons( null, 0, null, CBTxt::T( 'Optionally select the group logo. A logo should represent the topic of your group; please be respectful and tasteful when selecting a logo.' ) )
+									.					'<div class="help-block">' . implode( ' ', $input['logo_limits'] ) . '</div>'
+									.				'</div>'
+									.			'</div>';
+
+		if ( ( $row->get( 'type' ) != 3 ) && ( $isModerator || $plugin->params->get( 'groups_invites_display', 1 ) ) ) {
+			$return					.=			'<div class="cbft_select cbtt_select form-group cb_form_line clearfix">'
+									.				'<label for="params__invites" class="col-sm-3 control-label">' . CBTxt::T( 'Invites' ) . '</label>'
+									.				'<div class="cb_field col-sm-9">'
+									.					$input['invites']
+									.					getFieldIcons( null, 0, null, CBTxt::T( 'Optionally enable or disable usage of group invites. Group invites allow group users to invite other users to join the group. Group owner and group administrators are exempt from this configuration and can always invite users. Note existing invites will still be accessible.' ) )
+									.				'</div>'
+									.			'</div>';
+		}
+
+		if ( is_array( $integrations ) && $integrations ) {
+			$return					.=			implode( '', $integrations );
+		}
+
+		if ( $isModerator ) {
+			$return					.=			'<div class="cbft_text cbtt_input form-group cb_form_line clearfix">'
+									.				'<label for="user_id" class="col-sm-3 control-label">' . CBTxt::T( 'Owner' ) . '</label>'
+									.				'<div class="cb_field col-sm-9">'
+									.					$input['user_id']
+									.					getFieldIcons( null, 1, null, CBTxt::T( 'Input the group owner id. Group owner determines the creator of the group specified as User ID.' ) )
+									.				'</div>'
+									.			'</div>';
+		}
+
+		if ( ( ! $isModerator ) && $plugin->params->get( 'groups_create_captcha', 0 ) ) {
+			$_PLUGINS->loadPluginGroup( 'user' );
+
+			$captcha				=	$_PLUGINS->trigger( 'onGetCaptchaHtmlElements', array( false ) );
+
+			if ( ! empty( $captcha ) ) {
+				$captcha			=	$captcha[0];
+
+				$return				.=			'<div class="form-group cb_form_line clearfix">'
+									.				'<label class="col-sm-3 control-label">' . CBTxt::T( 'Captcha' ) . '</label>'
+									.				'<div class="cb_field col-sm-9">'
+									.					( isset( $captcha[0] ) ? $captcha[0] : null )
+									.				'</div>'
+									.			'</div>'
+									.			'<div class="form-group cb_form_line clearfix">'
+									.				'<div class="cb_field col-sm-offset-3 col-sm-9">'
+									.					str_replace( 'inputbox', 'form-control', ( isset( $captcha[1] ) ? $captcha[1] : null ) )
+									.					getFieldIcons( null, 1, null )
+									.				'</div>'
+									.			'</div>';
+			}
+		}
+
+		$return						.=			'<div class="form-group cb_form_line clearfix">'
+									.				'<div class="col-sm-offset-3 col-sm-9">'
+									.					'<input type="submit" value="' . htmlspecialchars( ( $row->get( 'id' ) ? CBTxt::T( 'Update Group' ) : CBTxt::T( 'Create Group' ) ) ) . '" class="gjButton gjButtonSubmit btn btn-primary" ' . cbValidator::getSubmitBtnHtmlAttributes() . ' />'
+									.					' <input type="button" value="' . htmlspecialchars( CBTxt::T( 'Cancel' ) ) . '" class="gjButton gjButtonCancel btn btn-default" onclick="cbjQuery.cbconfirm( \'' . addslashes( CBTxt::T( 'Are you sure you want to cancel? All unsaved data will be lost!' ) ) . '\' ).done( function() { window.location.href = \'' . $returnUrl . '\'; })" />'
+									.				'</div>'
+									.			'</div>'
+									.			cbGetSpoofInputTag( 'plugin' )
+									.		'</form>'
+									.	'</div>';
+
+		$_PLUGINS->trigger( 'gj_onAfterDisplayGroupEdit', array( &$return, $row, $input, $category, $user ) );
+
+		$_CB_framework->setMenuMeta();
 
 		echo $return;
 	}
 }
-?>

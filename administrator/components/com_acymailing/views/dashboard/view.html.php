@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.4
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -9,65 +9,77 @@
 defined('_JEXEC') or die('Restricted access');
 ?><?php
 
-class dashboardViewDashboard extends acymailingView
-{
-	function display($tpl = null)
-	{
-		$doc = JFactory::getDocument();
+class dashboardViewDashboard extends acymailingView{
+
+	function display($tpl = null){
+
 		$config = acymailing_config();
+		$doc = JFactory::getDocument();
 
-		$buttons = array();
-		$desc = array();
-		$desc['subscriber'] = '<ul><li>'.JText::_('USERS_DESC_CREATE').'</li><li>'.JText::_('USERS_DESC_MANAGE').'</li><li>'.JText::_('USERS_DESC_IMPORT').'</li></ul>';
-		$desc['list'] = '<ul><li>'.JText::_('LISTS_DESC_CREATE').'</li><li>'.JText::_('LISTS_DESC_SUBSCRIPTION').'</li></ul>';
-		$desc['newsletter'] = '<ul><li>'.JText::_('NEWSLETTERS_DESC_CREATE').'</li><li>'.JText::_('NEWSLETTERS_DESC_TEST').'</li><li>'.JText::_('NEWSLETTERS_DESC_SEND').'</li></ul>';
-		$desc['template'] = '<ul><li>'.JText::_('TEMPLATES_DESC_CREATE').'</li></ul>';
-		$desc['queue'] = '<ul><li>'.JText::_('QUEUE_DESC_CONTROL').'</li></ul>';
-		$desc['cpanel'] = '<ul><li>'.JText::_('CONFIG_DESC_CONFIG').'</li><li>'.JText::_('CONFIG_DESC_MODIFY').'</li><li>'.JText::_('CONFIG_DESC_PLUGIN').'</li><li>'.JText::_('QUEUE_DESC_BOUNCE');
-		if(!acymailing_level(3)){ $desc['cpanel'] .= acymailing_getUpgradeLink('enterprise'); }
-		$desc['cpanel'] .= '</li></ul>';
-		$desc['stats'] = '<ul><li>'.JText::_('STATS_DESC_VIEW').'</li><li>'.JText::_('STATS_DESC_CLICK');
-		if(!acymailing_level(1)){ $desc['stats'] .= acymailing_getUpgradeLink('essential'); }
-		$desc['stats'] .= '</li><li>'.JText::_('STATS_DESC_CHARTS');
-		if(!acymailing_level(1)){ $desc['stats'] .= acymailing_getUpgradeLink('essential'); }
-		$desc['stats'] .= '</li></ul>';
-		$desc['autonews'] = '<ul><li>'.JText::_('AUTONEWS_DESC');
-		if(!acymailing_level(2)){ $desc['autonews'] .= acymailing_getUpgradeLink('business'); }
-		$desc['autonews'] .='</li></ul>';
-		$desc['campaign'] = '<ul><li>'.JText::_('CAMPAIGN_DESC_CREATE');
-		if(!acymailing_level(3)){ $desc['campaign'] .= acymailing_getUpgradeLink('enterprise'); }
-		$desc['campaign'] .= '</li><li>'.JText::_('CAMPAIGN_DESC_AFFECT');
-		if(!acymailing_level(3)){ $desc['campaign'] .= acymailing_getUpgradeLink('enterprise'); }
-		$desc['campaign'] .='</li></ul>';
-		$desc['update'] = '<ul><li>'.JText::_('UPDATE_DESC').'</li><li>'.JText::_('CHANGELOG_DESC').'</li><li>'.JText::_('ABOUT_DESC').'</li></ul>';
 
-		$buttons[] = array('link'=>'subscriber','level'=>0,'image'=>'acyusers','text'=>JText::_('USERS'),'acl' => 'acl_subscriber_manage');
-		$buttons[] = array('link'=>'list','level'=>0,'image'=>'acylist','text'=>JText::_('LISTS'),'acl' => 'acl_lists_manage');
-		$buttons[] = array('link'=>'newsletter','level'=>0,'image'=>'newsletter','text'=>JText::_('NEWSLETTERS'),'acl' => 'acl_newsletters_manage');
-		$buttons[] = array('link'=>'autonews','level'=>2,'image'=>'autonewsletter','text'=>JText::_('AUTONEWSLETTERS'),'acl' => 'acl_autonewsletters_manage');
-		$buttons[] = array('link'=>'campaign','level'=>3,'image'=>'campaign','text'=>JText::_('CAMPAIGN'), 'acl' => 'acl_campaign_manage');
-		$buttons[] = array('link'=>'template','level'=>0,'image'=>'acytemplate','text'=>JText::_('ACY_TEMPLATES'), 'acl' => 'acl_templates_manage');
-		$buttons[] = array('link'=>'queue','level'=>0,'image'=>'process','text'=>JText::_('QUEUE'), 'acl' => 'acl_queue_manage');
-		$buttons[] = array('link'=>'stats','level'=>0,'image'=>'stats','text'=>JText::_('STATISTICS'), 'acl' => 'acl_statistics_manage');
-		if(!ACYMAILING_J16 || JFactory::getUser()->authorise('core.admin', 'com_acymailing')) $buttons[] = array('link'=>'cpanel','level'=>0,'image'=>'acyconfig','text'=>JText::_('CONFIGURATION'), 'acl' => 'acl_configuration_manage');
-		$buttons[] = array('link'=>'update','level'=>0,'image'=>'acyupdate','text'=>JText::_('UPDATE_ABOUT'), 'acl' => 'acl_configuration_manage');
+		$acyToolbar = acymailing::get('helper.toolbar');
+		$acyToolbar->help('dashboard');
+		$acyToolbar->setTitle(JText::_('ACY_CPANEL'), 'dashboard');
+		$acyToolbar->display();
 
-		$htmlbuttons = array();
-		foreach($buttons as $oneButton){
-			if(acymailing_isAllowed($config->get($oneButton['acl'],'all'))){
-				$htmlbuttons[] = $this->_quickiconButton($oneButton['link'],$oneButton['image'],$oneButton['text'],$desc[$oneButton['link']],$oneButton['level']);
-			}
-		}
+		$db = JFactory::getDBO();
+
+		$userQuery = 'SELECT (confirmed + enabled) AS addition, COUNT(subid) AS total FROM #__acymailing_subscriber GROUP BY addition';
+		$db->setQuery($userQuery);
+		$userResult = $db->loadObjectList('addition');
+
+		$userStats = new stdClass();
+		$userStats->nbUnconfirmedAndDisabled = (empty($userResult[0]->total) ? 0 : $userResult[0]->total);
+		$userStats->nbConfirmed = (empty($userResult[1]->total) ? 0 : $userResult[1]->total);
+		$userStats->nbConfirmed += (empty($userResult[2]->total) ? 0 : $userResult[2]->total);
+		$userStats->total = $userStats->nbConfirmed + $userStats->nbUnconfirmedAndDisabled;
+
+		$userStats->confirmedPercent = (empty($userStats->total) ? 0 : round((($userStats->nbConfirmed * 100) / $userStats->total), 0, PHP_ROUND_HALF_UP));
+
+		$listsQuery = 'SELECT COUNT(DISTINCT listid) AS total FROM #__acymailing_listsub WHERE status=1';
+		$db->setQuery($listsQuery);
+		$atLeastOneSub = $db->loadResult();
+
+		$db->setQuery('SELECT COUNT(listid) FROM #__acymailing_list WHERE type = "list"');
+		$nbLists = $db->loadResult();
+
+		$listStats = new stdClass();
+		$listStats->atLeastOneSub = $atLeastOneSub;
+		$listStats->noSub = $nbLists - $atLeastOneSub;
+		$listStats->total = $nbLists;
+
+		$listStats->subscribedPercent = (empty($nbLists) ? 0 : round((($atLeastOneSub * 100) / $nbLists), 0, PHP_ROUND_HALF_UP));
+
+		$nlQuery = 'SELECT count(mailid) AS total, published FROM #__acymailing_mail WHERE type = "news" GROUP BY published';
+		$db->setQuery($nlQuery);
+		$nlResult = $db->loadObjectList('published');
+
+		$nlStats = new stdClass();
+		$nlStats->nbUnpublished = (empty($nlResult[0]->total) ? 0 : $nlResult[0]->total);
+		$nlStats->nbpublished = (empty($nlResult[1]->total) ? 0 : $nlResult[1]->total);
+		$nlStats->total = $nlStats->nbpublished + $nlStats->nbUnpublished;
+
+		$nlStats->publishedPercent = (empty($nlStats->total) ? 0 : round((($nlStats->nbpublished * 100) / $nlStats->total), 0, PHP_ROUND_HALF_UP));
+
+
+		$this->assignRef('nlStats', $nlStats);
+		$this->assignRef('userStats', $userStats);
+		$this->assignRef('listStats', $listStats);
+		$this->assignRef('config', $config);
+
+
+
 
 		$geolocParam = $config->get('geolocation');
 		if(!empty($geolocParam) && $geolocParam != 1){
 			$condition = '';
-			if(strpos($geolocParam, 'creation') !== false)
+			if(strpos($geolocParam, 'creation') !== false){
 				$condition = " WHERE geolocation_type='creation'";
+			}
 
 			$db = JFactory::getDBO();
-			$query = 'SELECT geolocation_type, geolocation_subid, geolocation_country_code, geolocation_city';
-			$query .= ' FROM #__acymailing_geolocation' . $condition . ' GROUP BY geolocation_subid ORDER BY geolocation_created DESC LIMIT 100';
+			$query = 'SELECT geolocation_type, geolocation_subid, geolocation_country_code, geolocation_city, geolocation_country, geolocation_state';
+			$query .= ' FROM #__acymailing_geolocation'.$condition.' GROUP BY geolocation_subid ORDER BY geolocation_created DESC LIMIT 100';
 			$db->setQuery($query);
 			$geoloc = $db->loadObjectList();
 
@@ -75,12 +87,14 @@ class dashboardViewDashboard extends acymailingView
 				$markCities = array();
 				$diffCountries = false;
 				$dataDetails = array();
+				$addresses = array();
 				foreach($geoloc as $mark){
 					$indexCity = array_search($mark->geolocation_city, $markCities);
 					if($indexCity === false){
 						array_push($markCities, $mark->geolocation_city);
 						array_push($dataDetails, 1);
-					} else{
+						$addresses[] = $mark->geolocation_city.' '.$mark->geolocation_state.' '.$mark->geolocation_country;
+					}else{
 						$dataDetails[$indexCity] += 1;
 					}
 
@@ -88,65 +102,68 @@ class dashboardViewDashboard extends acymailingView
 						if(!empty($region) && $region != $mark->geolocation_country_code){
 							$region = 'world';
 							$diffCountries = true;
-						} else{
+						}else{
 							$region = $mark->geolocation_country_code;
 						}
-
 					}
 				}
 				$this->assignRef('geoloc_city', $markCities);
 				$this->assignRef('geoloc_details', $dataDetails);
 				$this->assignRef('geoloc_region', $region);
+				$this->assignRef('geoloc_addresses', $addresses);
 			}
 		}
-
-		acymailing_setTitle( ACYMAILING_NAME , 'acymailing' ,'dashboard' );
-
-		$bar = JToolBar::getInstance('toolbar');
-		if(ACYMAILING_J16 && JFactory::getUser()->authorise('core.admin', 'com_acymailing')) {
-			JToolBarHelper::preferences('com_acymailing');
-		}
-		$bar->appendButton( 'Pophelp','dashboard');
-
-		$this->assignRef('buttons',$htmlbuttons);
-		$toggleClass = acymailing_get('helper.toggle');
-		$this->assignRef('toggleClass',$toggleClass);
-
-		$db = JFactory::getDBO();
-		$db->setQuery('SELECT name,email,html,confirmed,subid,created FROM '.acymailing_table('subscriber').' ORDER BY subid DESC LIMIT 15');
-		$users10 = $db->loadObjectList();
-		$this->assignRef('users',$users10);
-
-		$db->setQuery('SELECT a.*, b.subject FROM '.acymailing_table('stats').' as a JOIN '.acymailing_table('mail').' as b on a.mailid = b.mailid ORDER BY a.senddate DESC LIMIT 15');
-		$newsletters10 = $db->loadObjectList();
-		$this->assignRef('stats',$newsletters10);
 
 		$doc->addScript("https://www.google.com/jsapi");
 		$today = acymailing_getTime(date('Y-m-d'));
 		$joomConfig = JFactory::getConfig();
 		$offset = ACYMAILING_J30 ? $joomConfig->get('offset') : $joomConfig->getValue('config.offset');
-		$diff = date('Z') + intval($offset*60*60);
+		$diff = date('Z') + intval($offset * 60 * 60);
 		$db->setQuery("SELECT count(`subid`) as total, DATE_FORMAT(FROM_UNIXTIME(`created` - $diff),'%Y-%m-%d') as subday FROM ".acymailing_table('subscriber')." WHERE `created` > 100000 GROUP BY subday ORDER BY subday DESC LIMIT 15");
 		$statsusers = $db->loadObjectList();
-		$this->assignRef('statsusers',$statsusers);
+		$this->assignRef('statsusers', $statsusers);
 
-		$tabs = acymailing_get('helper.acytabs');
-		$tabs->setOptions(array('useCookie' => true));
+		$db = JFactory::getDBO();
+		$db->setQuery('SELECT name,email,html,confirmed,subid,created FROM '.acymailing_table('subscriber').' ORDER BY subid DESC LIMIT 10');
+		$users10 = $db->loadObjectList();
+		$this->assignRef('users', $users10);
 
-		$this->assignRef('tabs',$tabs);
+		$toggleClass = acymailing_get('helper.toggle');
+		$this->assignRef('toggleClass', $toggleClass);
 
-		$this->assignRef('config',$config);
+
+		$listStatusQuery = 'SELECT count(subid) AS total, list.name AS listname, list.listid, listsub.status FROM #__acymailing_list AS list JOIN #__acymailing_listsub AS listsub ON list.listid = listsub.listid GROUP BY listsub.listid, listsub.status';
+		$db->setQuery($listStatusQuery);
+		$listStatusResult = $db->loadObjectList();
+
+		$listStatusData = array();
+		foreach($listStatusResult as $oneResult){
+			$listStatusData[$oneResult->listname][$oneResult->status] = $oneResult->total;
+		}
+		$this->assignRef('listStatusData', $listStatusData);
+
+
+		$db->setQuery("SELECT count(userstats.`mailid`) as total,  userstats.sent, DATE_FORMAT(FROM_UNIXTIME(`senddate` - $diff), '%Y-%m-%d') AS senddate
+							FROM ".acymailing_table('userstats')." AS userstats
+							WHERE userstats.senddate > ".intval(time() - 2628000)."
+							GROUP BY userstats.sent, senddate
+							ORDER BY senddate DESC");
+
+		$newsletters = $db->loadObjectList();
+		$this->assignRef('newsletters', $newsletters);
+
+
+		$progressBarSteps = new stdClass();
+		$progressBarSteps->listCreated = (!empty($listStats->total) ? 1 : 0);
+		$progressBarSteps->contactCreated = (!empty($userStats->total) ? 1 : 0);
+		$progressBarSteps->newsletterCreated = (!empty($nlStats->total) ? 1 : 0);
+
+		$db->setQuery('SELECT subid FROM #__acymailing_userstats LIMIT 1');
+		$result = $db->loadResult();
+
+		$progressBarSteps->newsletterSent = (!empty($result) ? 1 : 0);
+		$this->assignRef('progressBarSteps', $progressBarSteps);
 
 		parent::display($tpl);
-	}
-
-	function _quickiconButton( $link, $image, $text,$description,$level)
-	{
-		$url = acymailing_level($level) ? 'onclick="document.location.href=\''.acymailing_completeLink($link).'\';"' : '';
-		$html = '<div style="float:left;width: 100%;" '.$url.' class="icon"><table width="100%"><tr><td style="text-align: center;" width="100px">';
-		$html .= '<span class="icon-48-'.$image.'" style="background-repeat:no-repeat;background-position:center;width:auto;height:48px" title="'.$text.'"> </span>';
-		$html .= '<span>'.$text.'</span></td><td style="text-align:left;">'.$description.'</td></tr></table>';
-		$html .= '</div>';
-		return $html;
 	}
 }

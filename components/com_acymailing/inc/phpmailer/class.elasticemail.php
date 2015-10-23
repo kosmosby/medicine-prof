@@ -60,7 +60,7 @@ class acymailingElasticemail {
 		$to = array_merge($object->to, $object->cc, $object->bcc);
 		$data .="&to=";
 		foreach($to as $oneRecipient){
-			$data .= urlencode($object->AddrFormat($oneRecipient).";");
+			$data .= urlencode($object->addrFormat($oneRecipient).";");
 		}
 		$data = trim($data,';');
 

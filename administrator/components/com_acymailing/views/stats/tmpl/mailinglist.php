@@ -1,29 +1,30 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.4
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 defined('_JEXEC') or die('Restricted access');
-?><div id="acy_content" >
+?><div id="acy_content">
 	<?php
 	if(empty($this->isData)) return;
-	if(JRequest::getString('tmpl') == 'component') include(dirname(__FILE__).DS.'menu.mailinglist.php'); ?>
+	if(!$this->app->isAdmin() && JRequest::getString('tmpl') == 'component') include(dirname(__FILE__).DS.'menu.mailinglist.php'); ?>
 	<style type="text/css">
-		 .mailingListChart{
-		 	float:left;
-			margin:2px;
-		 }
-		 .noDataChart{
-		 	display:none;
-		 }
+		.mailingListChart{
+			float: left;
+			margin: 2px;
+		}
+
+		.noDataChart{
+			display: none;
+		}
 	</style>
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<script language="JavaScript" type="text/javascript">
 		function getDataMailSent(){
-		 	var data = new google.visualization.DataTable();
+			var data = new google.visualization.DataTable();
 			data.addColumn('string', 'Name');
 			data.addColumn('number', 'Value');
 			data.addRows(<?php echo count($this->mydata); ?>);
@@ -44,24 +45,13 @@ defined('_JEXEC') or die('Restricted access');
 		function drawMailSent(){
 			var vis = new google.visualization.PieChart(document.getElementById('chartMailSent'));
 			var options = {
-				width: 350,
-				height: 350,
-				colors: [<?php echo $this->listColors; ?>],
-				legend:'right',
-				title: '<?php echo str_replace("'", "\'", JText::_('ACY_SENT_EMAILS')); ?>',
-				legendTextStyle: {color:'#333333'},
-				pieSliceText: 'value',
-				is3D:true
+				width: 350, height: 350, colors: [<?php echo $this->listColors; ?>], legend: 'right', title: '<?php echo str_replace("'", "\'", JText::_('ACY_SENT_EMAILS')); ?>', legendTextStyle: {color: '#333333'}, pieSliceText: 'value', is3D: true
 			};
 			vis.draw(getDataMailSent(), options);
 		}
 
 		var optionsColumnChart = {
-			width: 350,
-			height: 350,
-			colors: [<?php echo $this->listColors; ?>],
-			legend: 'none',
-			vAxis: {minValue:0, maxValue: 100}
+			width: 350, height: 350, colors: [<?php echo $this->listColors; ?>], legend: 'none', vAxis: {minValue: 0, maxValue: 100}
 		};
 
 		function getDataOpen(){
@@ -87,14 +77,14 @@ defined('_JEXEC') or die('Restricted access');
 		function drawOpen(){
 			var vis = new google.visualization.ColumnChart(document.getElementById('chartMailOpen'));
 			optionsColumnChart['title'] = '<?php echo str_replace("'", "\'", JText::_('OPEN')); ?> (%)';
-			<?php if(!$dataOpen) echo	"optionsColumnChart['vAxis'] = {minValue:0, maxValue:100};";
+			<?php if(!$dataOpen) {echo	"optionsColumnChart['vAxis'] = {minValue:0, maxValue:100};";}
 			else echo	"optionsColumnChart['vAxis'] = {minValue:0};"; ?>
 			vis.draw(getDataOpen(), optionsColumnChart);
 		}
 
 		function getDataBounce(){
-		 	var data = new google.visualization.DataTable();
-		 	data.addColumn('string', 'Columns');
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Columns');
 			<?php foreach($this->mydata as $list){
 				echo 'data.addColumn(\'number\', \''. str_replace("'", "\'", $list['listname']) .'\'); ';
 			} ?>
@@ -115,13 +105,13 @@ defined('_JEXEC') or die('Restricted access');
 		function drawBounce(){
 			var vis = new google.visualization.ColumnChart(document.getElementById('chartBounce'));
 			optionsColumnChart['title'] = '<?php echo str_replace("'", "\'", JText::_('BOUNCES')); ?> (%)';
-			<?php if(!$dataBounce) echo	"optionsColumnChart['vAxis'] = {minValue:0, maxValue:100};";
+			<?php if(!$dataBounce) {echo	"optionsColumnChart['vAxis'] = {minValue:0, maxValue:100};";}
 			else echo	"optionsColumnChart['vAxis'] = {minValue:0};"; ?>
 			vis.draw(getDataBounce(), optionsColumnChart);
 		}
 
 		function getDataClic(){
-		 	var data = new google.visualization.DataTable();
+			var data = new google.visualization.DataTable();
 			data.addColumn('string', 'Columns');
 			<?php foreach($this->mydata as $list){
 				echo 'data.addColumn(\'number\', \''. str_replace("'", "\'", $list['listname']) .'\'); ';
@@ -143,13 +133,13 @@ defined('_JEXEC') or die('Restricted access');
 		function drawClic(){
 			var vis = new google.visualization.ColumnChart(document.getElementById('chartClic'));
 			optionsColumnChart['title'] = '<?php echo str_replace("'", "\'", JText::_('CLICKED_LINK')); ?> (%)';
-			<?php if(!$dataClic) echo	"optionsColumnChart['vAxis'] = {minValue:0, maxValue:100};";
+			<?php if(!$dataClic) {echo	"optionsColumnChart['vAxis'] = {minValue:0, maxValue:100};";}
 			else echo	"optionsColumnChart['vAxis'] = {minValue:0};"; ?>
 			vis.draw(getDataClic(), optionsColumnChart);
 		}
 
 		function getDataUnsub(){
-		 	var data = new google.visualization.DataTable();
+			var data = new google.visualization.DataTable();
 			data.addColumn('string', 'Columns');
 			<?php foreach($this->mydata as $list){
 				echo 'data.addColumn(\'number\', \''. str_replace("'", "\'", $list['listname']) .'\'); ';
@@ -171,13 +161,13 @@ defined('_JEXEC') or die('Restricted access');
 		function drawUnsub(){
 			var vis = new google.visualization.ColumnChart(document.getElementById('chartUnsubscribed'));
 			optionsColumnChart['title'] = '<?php echo str_replace("'", "\'", JText::_('UNSUBSCRIBED')); ?> (%)';
-			<?php if(!$dataUnsub) echo	"optionsColumnChart['vAxis'] = {minValue:0, maxValue:100};";
+			<?php if(!$dataUnsub) {echo	"optionsColumnChart['vAxis'] = {minValue:0, maxValue:100};";}
 			else echo	"optionsColumnChart['vAxis'] = {minValue:0};"; ?>
 			vis.draw(getDataUnsub(), optionsColumnChart);
 		}
 
 		function getDataForward(){
-		 	var data = new google.visualization.DataTable();
+			var data = new google.visualization.DataTable();
 			data.addColumn('string', 'Columns');
 			<?php foreach($this->mydata as $list){
 				echo 'data.addColumn(\'number\', \''. str_replace("'", "\'", $list['listname']) .'\'); ';
@@ -199,12 +189,12 @@ defined('_JEXEC') or die('Restricted access');
 		function drawForward(){
 			var vis = new google.visualization.ColumnChart(document.getElementById('chartForward'));
 			optionsColumnChart['title'] = '<?php echo str_replace("'", "\'", JText::_('FORWARDED')); ?>';
-			<?php if(!$dataForward) echo	"optionsColumnChart['vAxis'] = {minValue:0, maxValue:100};";
+			<?php if(!$dataForward) {echo	"optionsColumnChart['vAxis'] = {minValue:0, maxValue:100};";}
 			else echo	"optionsColumnChart['vAxis'] = {minValue:0};"; ?>
 			vis.draw(getDataForward(), optionsColumnChart);
 		}
 
-		google.load("visualization", "1", {packages:["corechart"]});
+		google.load("visualization", "1", {packages: ["corechart"]});
 		google.setOnLoadCallback(drawMailSent);
 		google.setOnLoadCallback(drawOpen);
 		google.setOnLoadCallback(drawBounce);
@@ -213,48 +203,51 @@ defined('_JEXEC') or die('Restricted access');
 		google.setOnLoadCallback(drawForward);
 
 		function showData(typeGraph){
-			if(document.getElementById('exporteddata_'+typeGraph).style.display == 'none'){
-				document.getElementById('exporteddata_'+typeGraph).style.display = '';
+			if(document.getElementById('exporteddata_' + typeGraph).style.display == 'none'){
+				document.getElementById('exporteddata_' + typeGraph).style.display = '';
 			}else{
-				document.getElementById('exporteddata_'+typeGraph).style.display = 'none';
+				document.getElementById('exporteddata_' + typeGraph).style.display = 'none';
 			}
 		}
 	</script>
 
 	<div id="iframedoc"></div>
-	<?php echo JText::_('SEND_DATE').' : <span class="statnumber">'.acymailing_getDate($this->mailing->senddate); ?></span><br />
+	<?php echo JText::_('SEND_DATE').' : <span class="statnumber">'.acymailing_getDate($this->mailing->senddate); ?></span><br/>
+
 	<div class="acychart mailingListChart" width="350px" height="350px">
-		<div id="chartMailSent" ></div>
-		<img style="position:relative;cursor:pointer;margin-top:-30px;" onclick="showData('sent');" class="donotprint" src="<?php echo ACYMAILING_IMAGES.'smallexport.png'; ?>" alt="<?php echo JText::_('VIEW_DETAILS',true)?>" title="<?php echo JText::_('VIEW_DETAILS',true)?>" width="30px" />
+		<div id="chartMailSent"></div>
+		<img style="position:relative;cursor:pointer;margin-top:-30px;" onclick="showData('sent');" class="donotprint" src="<?php echo ACYMAILING_IMAGES.'smallexport.png'; ?>" alt="<?php echo JText::_('VIEW_DETAILS', true) ?>" title="<?php echo JText::_('VIEW_DETAILS', true) ?>" width="30px"/>
 		<textarea cols="25" rows="9" id="exporteddata_sent" style="display:none;position:absolute;margin-top:-160px;z-index:2;width:300px;" class="donotprint"><?php echo $detailSent; ?></textarea>
 	</div>
 	<div class="acychart mailingListChart" width="350px" height="350px">
-		<div id="chartMailOpen" ></div>
-		<img style="position:relative;cursor:pointer;margin-top:-30px;" onclick="showData('open');" class="donotprint" src="<?php echo ACYMAILING_IMAGES.'smallexport.png'; ?>" alt="<?php echo JText::_('VIEW_DETAILS',true)?>" title="<?php echo JText::_('VIEW_DETAILS',true)?>" width="30px" />
+		<div id="chartMailOpen"></div>
+		<img style="position:relative;cursor:pointer;margin-top:-30px;" onclick="showData('open');" class="donotprint" src="<?php echo ACYMAILING_IMAGES.'smallexport.png'; ?>" alt="<?php echo JText::_('VIEW_DETAILS', true) ?>" title="<?php echo JText::_('VIEW_DETAILS', true) ?>" width="30px"/>
 		<textarea cols="35" rows="9" id="exporteddata_open" style="display:none;position:absolute;margin-top:-160px;z-index:2;width:300px;" class="donotprint"><?php echo $detailOpen; ?></textarea>
 	</div>
 
-	<!--[if !IE]><!--><div style="page-break-after: always;">&nbsp;</div><!--<![endif]-->
+	<!--[if !IE]><!-->
+	<div style="page-break-after: always;">&nbsp;</div>
+	<!--<![endif]-->
 	<div class="acychart mailingListChart" width="350px" height="350px">
-		<div id="chartClic" ></div>
-		<img style="position:relative;cursor:pointer;margin-top:-30px;" onclick="showData('clic');" class="donotprint" src="<?php echo ACYMAILING_IMAGES.'smallexport.png'; ?>" alt="<?php echo JText::_('VIEW_DETAILS',true)?>" title="<?php echo JText::_('VIEW_DETAILS',true)?>" width="30px" />
+		<div id="chartClic"></div>
+		<img style="position:relative;cursor:pointer;margin-top:-30px;" onclick="showData('clic');" class="donotprint" src="<?php echo ACYMAILING_IMAGES.'smallexport.png'; ?>" alt="<?php echo JText::_('VIEW_DETAILS', true) ?>" title="<?php echo JText::_('VIEW_DETAILS', true) ?>" width="30px"/>
 		<textarea cols="35" rows="9" id="exporteddata_clic" style="display:none;position:absolute;margin-top:-160px;z-index:2;width:300px;" class="donotprint"><?php echo $detailClic; ?></textarea>
 	</div>
-	<div class="acychart mailingListChart <?php echo ($dataForward==false?'noDataChart':''); ?>" width="350px" height="350px">
+	<div class="acychart mailingListChart <?php echo($dataForward == false ? 'noDataChart' : ''); ?>" width="350px" height="350px">
 		<div id="chartForward">"></div>
-		<img style="position:relative;cursor:pointer;margin-top:-30px;" onclick="showData('forward');" class="donotprint" src="<?php echo ACYMAILING_IMAGES.'smallexport.png'; ?>" alt="<?php echo JText::_('VIEW_DETAILS',true)?>" title="<?php echo JText::_('VIEW_DETAILS',true)?>" width="30px" />
+		<img style="position:relative;cursor:pointer;margin-top:-30px;" onclick="showData('forward');" class="donotprint" src="<?php echo ACYMAILING_IMAGES.'smallexport.png'; ?>" alt="<?php echo JText::_('VIEW_DETAILS', true) ?>" title="<?php echo JText::_('VIEW_DETAILS', true) ?>" width="30px"/>
 		<textarea cols="35" rows="9" id="exporteddata_forward" style="display:none;position:absolute;margin-top:-160px;z-index:2;width:300px;" class="donotprint"><?php echo $detailClic; ?></textarea>
 	</div>
-	<?php echo($dataForward!=false?'<!--[if !IE]><!--><div style="page-break-after: always">&nbsp;</div><!--<![endif]-->':''); ?>
+	<?php echo($dataForward != false ? '<!--[if !IE]><!--><div style="page-break-after: always">&nbsp;</div><!--<![endif]-->' : ''); ?>
 	<div class="acychart mailingListChart" width="350px" height="350px">
-		<div id="chartBounce" ></div>
-		<img style="position:relative;cursor:pointer;margin-top:-30px;" onclick="showData('bounce');" class="donotprint" src="<?php echo ACYMAILING_IMAGES.'smallexport.png'; ?>" alt="<?php echo JText::_('VIEW_DETAILS',true)?>" title="<?php echo JText::_('VIEW_DETAILS',true)?>" width="30px" />
+		<div id="chartBounce"></div>
+		<img style="position:relative;cursor:pointer;margin-top:-30px;" onclick="showData('bounce');" class="donotprint" src="<?php echo ACYMAILING_IMAGES.'smallexport.png'; ?>" alt="<?php echo JText::_('VIEW_DETAILS', true) ?>" title="<?php echo JText::_('VIEW_DETAILS', true) ?>" width="30px"/>
 		<textarea cols="35" rows="9" id="exporteddata_bounce" style="display:none;position:absolute;margin-top:-160px;z-index:2;width:300px;" class="donotprint"><?php echo $detailBounce; ?></textarea>
 	</div>
-	<?php echo($dataForward==false?'<!--[if !IE]><!--><div style="page-break-after: always">&nbsp;</div><!--<![endif]-->':''); ?>
+	<?php echo($dataForward == false ? '<!--[if !IE]><!--><div style="page-break-after: always">&nbsp;</div><!--<![endif]-->' : ''); ?>
 	<div class="acychart mailingListChart" width="350px" height="350px">
-		<div id="chartUnsubscribed" ></div>
-		<img style="position:relative;cursor:pointer;margin-top:-30px;" onclick="showData('unsub');" class="donotprint" src="<?php echo ACYMAILING_IMAGES.'smallexport.png'; ?>" alt="<?php echo JText::_('VIEW_DETAILS',true)?>" title="<?php echo JText::_('VIEW_DETAILS',true)?>" width="30px" />
+		<div id="chartUnsubscribed"></div>
+		<img style="position:relative;cursor:pointer;margin-top:-30px;" onclick="showData('unsub');" class="donotprint" src="<?php echo ACYMAILING_IMAGES.'smallexport.png'; ?>" alt="<?php echo JText::_('VIEW_DETAILS', true) ?>" title="<?php echo JText::_('VIEW_DETAILS', true) ?>" width="30px"/>
 		<textarea cols="35" rows="9" id="exporteddata_unsub" style="display:none;position:absolute;margin-top:-160px;z-index:2;width:300px;" class="donotprint"><?php echo $detailUnsub; ?></textarea>
 	</div>
 </div>

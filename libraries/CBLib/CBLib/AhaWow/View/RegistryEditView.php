@@ -2650,14 +2650,6 @@ class RegistryEditView {
 			}
 
 			foreach ( explode( ',', $fromAllFiles ) as $fromFile) {
-				if ( $fromFile !== '' ) {
-					//			$fromFile		=	str_replace( '.', '/', $fromFile );
-					if ( $data ) {
-						$data->substituteName( $fromFile, true );
-					}
-					$fromFile		=	static::pathFromXML( $fromFile . '.xml', $mainElement, $pluginObject );
-				}
-
 				/* not needed anymore since we again have a single XML tree:
 				if ( $toNode[0] === '/' ) {
 					// if we extend from root, we want to extend the main XML tree:
@@ -2672,7 +2664,26 @@ class RegistryEditView {
 				/** @var SimpleXMLElement[] $toXml */
 
 				if ( $toXml && ( count( $toXml ) == 1 ) ) {
-					$fromFiles				=	static::pathsFromXML( $fromFile );
+					if ( $fromFile !== '' ) {
+						if ( $data ) {
+							$data->substituteName( $fromFile, true );
+						}
+
+						if ( ( $fromFile[0] != '/' ) && ( $param->attributes( 'type' ) == 'plugin' ) ) {
+							$_PLUGINS->loadPluginGroup( null, null, ( $_CB_framework->getUi() == 2 ? 0 : 1 ) );
+
+							$fromFiles		=	array();
+
+							foreach ( $_PLUGINS->getLoadedPluginGroup( null ) as $plgObject ) {
+								$fromFiles	=	array_merge( $fromFiles, static::pathsFromXML( static::pathFromXML( $fromFile . '.xml', $mainElement, $plgObject ) ) );
+							}
+						} else {
+							$fromFile		=	static::pathFromXML( $fromFile . '.xml', $mainElement, $pluginObject );
+							$fromFiles		=	static::pathsFromXML( $fromFile );
+						}
+					} else {
+						$fromFiles			=	static::pathsFromXML( $fromFile );
+					}
 
 					foreach ( $fromFiles as $fromFilePath ) {
 						if ( ( $fromFilePath === '' ) || is_readable( $fromFilePath ) ) {
@@ -4447,7 +4458,9 @@ class RegistryEditView {
 
 		if ( $value !== null ) {
 			foreach ( $options as $k => $v ) {
-				if ( $translate != 'no' ) {
+				$optTranslate				=	( isset( $options[$k]->translate ) ? $options[$k]->translate : $translate );
+
+				if ( $optTranslate != 'no' ) {
 					$options[$k]->text		=	CBTxt::T( $options[$k]->text );
 				}
 			}
@@ -4525,7 +4538,9 @@ class RegistryEditView {
 					$text				=	$v;
 				}
 
-				$dataOptions[]			=	$this->_list_make_option( $translate, (string) $value, $text );
+				$optTranslate			=	( isset( $v->translate ) ? $v->translate : $translate );
+
+				$dataOptions[]			=	$this->_list_make_option( $optTranslate, (string) $value, $text );
 			}
 
 			if ( $start !== null ) {
@@ -4584,6 +4599,8 @@ class RegistryEditView {
 		$translate												=	$node->attributes( 'translate' );
 
 		if ( $children ) foreach ( $children as $option ) {
+			$optTranslate										=	( $option->attributes( 'translate' ) !== null ? $option->attributes( 'translate' ) : $translate );
+
 			if ( $option->getName() == 'option' ) {
 				if ( ( $option->attributes( 'index' ) !== '' ) && ( $option->attributes( 'index' ) !== null ) ) {
 					$val										=	$option->attributes( 'index' );
@@ -4593,7 +4610,7 @@ class RegistryEditView {
 
 				if ( ( $option->attributes( 'selectable' ) != 'false' ) || ( (string) $val === (string) $value ) ) {
 					$label										=	$option->data();
-					$opt										=	$this->_list_make_option( $translate, $val, ( $label !== '' ? $label : $val ), 'value', 'text', null, ( $ignoreClass ? null : RegistryEditView::buildClasses( $option ) ) );
+					$opt										=	$this->_list_make_option( $optTranslate, $val, ( $label !== '' ? $label : $val ), 'value', 'text', null, ( $ignoreClass ? null : RegistryEditView::buildClasses( $option ) ) );
 					$opt->id									=	$this->control_id( $control_name, $name ) . '__cbf' . $index;
 
 					$options[]									=	$opt;
@@ -4601,7 +4618,7 @@ class RegistryEditView {
 					$index++;
 				}
 			} elseif ( $otgroups && ( $option->getName() == 'optgroup' ) ) {
-				if ( $translate == 'no' ) {
+				if ( $optTranslate == 'no' ) {
 					$label										=	$option->attributes( 'label' );
 				} else {
 					$label										=	CBTxt::T( $option->attributes( 'label' ) );
@@ -4679,7 +4696,9 @@ class RegistryEditView {
 
 					if ( $fieldValuesInDb ) {
 						foreach ( array_keys( $fieldValuesInDb ) as $k ) {
-							$options[]							=	$this->_list_make_option( $translate, $fieldValuesInDb[$k]->value, ( $fieldValuesInDb[$k]->text !== '' ? $fieldValuesInDb[$k]->text : $fieldValuesInDb[$k]->value ) );
+							$dbOptTranslate						=	( isset( $fieldValuesInDb[$k]->translate ) ? $fieldValuesInDb[$k]->translate : $optTranslate );
+
+							$options[]							=	$this->_list_make_option( $dbOptTranslate, $fieldValuesInDb[$k]->value, ( $fieldValuesInDb[$k]->text !== '' ? $fieldValuesInDb[$k]->text : $fieldValuesInDb[$k]->value ) );
 						}
 					}
 				}
@@ -5558,7 +5577,7 @@ class RegistryEditView {
 		$title						=	$node->attributes( 'title' );
 
 		if ( ! $title ) {
-			$title					=	'title';
+			$title					=	'name';
 		}
 
 		$where						=	array();
@@ -5627,6 +5646,7 @@ class RegistryEditView {
 		} else {
 			$query					=	"SELECT f." . $_CB_database->NameQuote( $key ) . " AS value"
 									.	", f." . $_CB_database->NameQuote( $title ) . " AS text"
+									.	( $title == 'name' ? ", " . $_CB_database->Quote( 'no' ) . " AS translate" : null )
 									.	"\n FROM " . $_CB_database->NameQuote( '#__comprofiler_fields' ) . " AS f"
 									.	"\n LEFT JOIN " . $_CB_database->NameQuote( '#__comprofiler_tabs' ) . " AS t"
 									.	" ON t." . $_CB_database->NameQuote( 'tabid' ) . " = f." . $_CB_database->NameQuote( 'tabid' )
@@ -6155,6 +6175,8 @@ class RegistryEditView {
 					$filter				=	'.';
 				}
 			}
+
+			$this->substituteName( $directory, false );
 
 			$path						=	( $directory && ( $directory[0] == '/' ) ? $_CB_framework->getCfg( 'absolute_path' ) . $directory : $directory );
 			$files						=	cbReadDirectory( $path, $filter, $recurse );

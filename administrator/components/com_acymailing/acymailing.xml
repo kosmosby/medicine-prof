@@ -1,28 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE install SYSTEM "http://dev.joomla.org/xml/1.5/component-install.dtd">
-<install type="component" version="1.5" method="upgrade">
+<extension type="component" version="3.0" method="upgrade">
 	<name>AcyMailing</name>
-	<creationDate>novembre 2014</creationDate>
-	<version>4.8.1</version>
+	<creationDate>octobre 2015</creationDate>
+	<version>5.0.0</version>
+	<level>starter</level>
 	<author>Acyba</author>
 	<authorEmail>dev@acyba.com</authorEmail>
 	<authorUrl>http://www.acyba.com</authorUrl>
-	<copyright>Copyright (C) 2009-2014 ACYBA SARL - All rights reserved.</copyright>
+	<copyright>Copyright (C) 2009-2015 ACYBA SAS - All rights reserved.</copyright>
 	<description>Manage your Mailing lists, Newsletters, e-mail marketing campaigns</description>
-	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
+	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
 	<languages folder="language">
-		<language tag="de-DE">de-DE.com_acymailing.ini</language>
 		<language tag="en-GB">en-GB.com_acymailing.ini</language>
-		<language tag="es-ES">es-ES.com_acymailing.ini</language>
-		<language tag="fr-FR">fr-FR.com_acymailing.ini</language>
-		<language tag="hu-HU">hu-HU.com_acymailing.ini</language>
-		<language tag="it-IT">it-IT.com_acymailing.ini</language>
-		<language tag="nl-NL">nl-NL.com_acymailing.ini</language>
-		<language tag="pl-PL">pl-PL.com_acymailing.ini</language>
-		<language tag="pt-BR">pt-BR.com_acymailing.ini</language>
-		<language tag="pt-PT">pt-PT.com_acymailing.ini</language>
-		<language tag="ru-RU">ru-RU.com_acymailing.ini</language>
-		<language tag="sv-SE">sv-SE.com_acymailing.ini</language>
 	</languages>
 	<install>
 		<sql>
@@ -32,8 +21,7 @@
 			<file driver="mysqli" charset="utf8">tables.sql</file>
 		</sql>
 	</install>
-	<installfile>install.acymailing.php</installfile>
-	<uninstallfile>install.acymailing.php</uninstallfile>
+	<scriptfile>install.acymailing.php</scriptfile>
 	<files folder="front">
 		<folder>controllers</folder>
 		<folder>inc</folder>
@@ -53,7 +41,6 @@
 	</media>
 	<administration>
 		<files folder="back">
-			<folder>buttons</folder>
 			<folder>classes</folder>
 			<folder>controllers</folder>
 			<folder>compat</folder>
@@ -79,4 +66,4 @@
 			<menu link="option=com_acymailing&amp;ctrl=update" img="../media/com_acymailing/images/icons/icon-16-update.png">Update_About</menu>
 		</submenu>
 	</administration>
-</install>
+</extension>

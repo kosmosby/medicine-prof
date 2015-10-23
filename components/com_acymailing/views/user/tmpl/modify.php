@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.4
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -24,19 +24,19 @@ defined('_JEXEC') or die('Restricted access');
 				if($oneExtraField->type == 'category'){
 					if(empty($oneExtraField->fieldcat) && !empty($tmpCatId)){
 						while(!empty($tmpCatId)){
-							echo '</'.end($tmpCatTag).'>';
+							echo '</'.str_replace('fldset', 'fieldset', end($tmpCatTag)).'>';
 							array_pop($tmpCatId);
 							array_pop($tmpCatTag);
 						}
 					}
 					$tmpCatId[] = $oneExtraField->fieldid;
 					$tmpCatTag[] = $oneExtraField->options['fieldcattag'];
-					echo '<'.end($tmpCatTag).' class="fieldCategory '.$oneExtraField->options['fieldcatclass'].'" id="tr'.$oneExtraField->namekey.'">';
-					if(end($tmpCatTag) == 'fieldset') echo '<legend>'.$oneExtraField->fieldname.'</legend>';
+					echo '<'.str_replace('fldset', 'fieldset', end($tmpCatTag)).' class="fieldCategory '.$oneExtraField->options['fieldcatclass'].'" id="tr'.$oneExtraField->namekey.'">';
+					if(in_array(end($tmpCatTag), array('fieldset', 'fldset'))) echo '<legend>'.$oneExtraField->fieldname.'</legend>';
 				}else{
 					if(in_array($oneExtraField->fieldcat, $tmpCatId) || empty($oneExtraField->fieldcat)){
 						while(!empty($tmpCatId) && $oneExtraField->fieldcat != end($tmpCatId)){
-							echo '</'.end($tmpCatTag).'>';
+							echo '</'.str_replace('fldset', 'fieldset', end($tmpCatTag)).'>';
 							array_pop($tmpCatId);
 							array_pop($tmpCatTag);
 						}
@@ -50,7 +50,7 @@ defined('_JEXEC') or die('Restricted access');
 			}
 			$lastVal = end($tmpCatId);
 			while(!empty($lastVal)){
-				echo '</'.end($tmpCatTag).'>';
+				echo '</'.str_replace('fldset', 'fieldset', end($tmpCatTag)).'>';
 				array_pop($tmpCatId);
 				array_pop($tmpCatTag);
 				$lastVal = end($tmpCatId);

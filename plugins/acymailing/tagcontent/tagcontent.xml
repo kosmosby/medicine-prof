@@ -7,15 +7,16 @@
 	<author>Acyba</author>
 	<authorEmail>dev@acyba.com</authorEmail>
 	<authorUrl>http://www.acyba.com</authorUrl>
-	<copyright>Copyright (C) 2009-2015 ACYBA SARL - All rights reserved..</copyright>
+	<copyright>Copyright (C) 2009-2015 ACYBA SAS - All rights reserved..</copyright>
 	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
 	<description>This AcyMailing plugin enables you to include Joomla Articles in any e-mail sent by AcyMailing</description>
 	<files>
 		<filename plugin="tagcontent">tagcontent.php</filename>
-		<filename>tagcontenttags.xml</filename>
+		<filename>tagcontent.xml</filename>
 	</files>
 	<params addpath="/components/com_acymailing/params">
 		<param name="help" type="help" label="Help" description="Click on the help button to get some help" default="plugin-tagcontent"/>
+		<param name="customtemplate" type="customtemplate" label="Custom template" description="Click on the Custom template button to create a custom layout that will override the default view" default="tagcontent"/>
 		<param name="displayart" type="radio" default="all" label="Display articles" description="Select if you want to display all articles in the popup for article selection or only published articles">
 			<option value="all">All articles</option>
 			<option value="onlypub">Only published articles</option>
@@ -69,6 +70,7 @@
 		<fields name="params" addfieldpath="/components/com_acymailing/params">
 			<fieldset name="basic">
 				<field name="help" type="help" label="Help" description="Click on the help button to get some help" default="plugin-tagcontent"/>
+				<field name="customtemplate" type="customtemplate" label="Custom template" description="Click on the Custom template button to create a custom layout that will override the default view" default="tagcontent"/>
 				<field name="displayart" type="radio" default="all" label="Display articles" description="Select if you want to display all articles in the popup for article selection or only published articles">
 					<option value="all">All articles</option>
 					<option value="onlypub">Only published articles</option>

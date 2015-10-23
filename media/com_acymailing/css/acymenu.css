@@ -1,280 +1,515 @@
 /**
  * @package    AcyMailing for Joomla!
- * @version    4.9.4
+ * @version    5.0.0
  * @author     acyba.com
  * @copyright  (C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-.acyicon-16-acylist {background-image:url(../images/icons/icon-16-acylist.png); background-position:11px;}
-.acyicon-16-new {background-image:url(../images/icons/icon-16-acynew.png); background-position:11px;}
-.acyicon-16-autonewsletter {background-image:url(../images/icons/icon-16-autonewsletter.png); background-position:11px;}
-.acyicon-16-stats {background-image:url(../images/icons/icon-16-stats.png); background-position:11px;}
-.acyicon-16-newsletter {background-image:url(../images/icons/icon-16-newsletter.png); background-position:11px;}
-.acyicon-16-queue {background-image:url(../images/icons/icon-16-process.png); background-position:11px;}
-.acyicon-16-template {background-image:url(../images/icons/icon-16-acytemplate.png); background-position:11px;}
-.acyicon-16-campaign {background-image:url(../images/icons/icon-16-campaign.png); background-position:11px;}
-.acyicon-16-config {background-image:url(../images/icons/icon-16-acyconfig.png);background-position:11px;}
-.acyicon-16-export {background-image:url(../images/icons/icon-16-acyexport.png); background-position:11px;}
-.acyicon-16-import {background-image:url(../images/icons/icon-16-import.png); background-position:11px;}
-.acyicon-16-update {background-image:url(../images/icons/icon-16-update.png); background-position:11px;}
-.acyicon-16-fields {background-image:url(../images/icons/icon-16-fields.png); background-position:11px;}
-.acyicon-16-filter {background-image:url(../images/icons/icon-16-filter.png); background-position:11px;}
-.acyicon-16-users {background-image:url(../images/icons/icon-16-users.png); background-position:11px;}
-.acyicon-16-bounces {background-image:url(../images/icons/icon-16-bounces.png); background-position:11px;}
-.acyicon-16-joomlanotification {background-image:url(../images/icons/icon-16-joomlanotification.png); background-position:11px;}
 
-#acymenutop{
-	font-size:11px;
-	line-height:20px;
-	font-weight:normal;
-	height:20px;
+
+#acymenu_leftside{
+	z-index: 50;
+	overflow:hidden;
 }
 
-#acymenutop ul{
-	list-style:none;
-	margin:0;
-	padding:0;
+.iconsonly #acymenu_leftside{
+	overflow:visible;
 }
 
-#acymenutop > ul > li {
-	float:left;
-	margin:0px 1px;
+#acymenu_leftside ul{
+	padding: 0px;
+	margin: 0px
 }
 
-#acymenutop li a {
-	display:block;
-	line-height:20px;
-	padding:0 3px 0 32px;
-	text-decoration:none;
-	background-repeat:no-repeat;
-}
-#acymenutop li:hover ul a {
-	color:#069;
+#acymenu_leftside li{
+	list-style-type: none;
+	line-height: 8px;
 }
 
-#acymenutop li ul {
-	border:1px solid #ccc;
-	background:#f4f4f4;
-	display:none;
-	height:auto;
-	position:absolute;
-	z-index:200;
-	padding:3px;
-	padding-top:4px;
+#acymenu_leftside li:hover a{
+	text-decoration: none
 }
 
-#acymenutop li:hover ul {
-	display:block;
-}
-#acymenutop li li {
-	display:block;
-	float:none;
-}
-
-#acymenutop li .acysubmenu{
-	*background-color:#fff;
+#acymenu_leftside a{
+	color: #fff;
+	padding: 10px 0px;
+	text-shadow: 1px 1px 2px #5c759f;
+	font-size: 12px;
 }
 
-#acymenutop li ul a {
-	display:block;
-	font-style:normal;
-	font-weight:normal;
-	text-align:left;
-	background-position:5px 50%;
-	border-bottom:1px dotted #ccc;
-	padding-left:25px;
-	padding-right:15px;
-	min-width:75px;
-	margin-right:2px;
-	margin-left:2px;
-	background-color:#fff;
+#acymenu_leftside .acymenu_mainmenus{
+	background-color: #728fbd
 }
 
-#acymenutop li ul a:hover {
-	background-color:#8da3b0;
-	color:#ffffff;
-	-webkit-border-radius:5px;
-		 -moz-border-radius:5px;
-			border-radius:5px;
+#acymenu_leftside .mainelement{
+	text-transform: uppercase;
+	cursor: pointer;
+	font-weight: bold;
+	background-color: #728fbd;
+	transition: background 0.3s ease;
 }
 
-#acymenutop li:hover a{
-	color:#fff;
+#acymenu_leftside .mainelement:hover, #acymenu_leftside .mainelement.opened{
+	background-color: #91acd7
 }
 
-#acymenutop ul li.acymainmenu ul{
--webkit-border-top-right-radius:5px;
-	 -moz-border-top-right-radius:5px;
-				border-top-right-radius:5px;
--webkit-border-top-left-radius:0px;
-	 -moz-border-top-left-radius:0px;
-				border-top-left-radius:0px;
--webkit-border-bottom-right-radius:5px;
-	 -moz-border-bottom-right-radius:5px;
-				border-bottom-right-radius:5px;
--webkit-border-bottom-left-radius:5px;
-	 -moz-border-bottom-left-radius:5px;
-				border-bottom-left-radius:5px;}
-
-
-
-#acymenutop .parentmenu {
-	padding-right:15px;
-	background:url(../images/arrow_acymenu.png) no-repeat;
-	background-position:right 8px;
-}
-#acymenutop .parentmenu:hover{
-background-color:#8da3b0;
--webkit-border-top-left-radius:5px;
-	 -moz-border-top-left-radius:5px;
-				border-top-left-radius:5px;
--webkit-border-top-right-radius:5px;
-	 -moz-border-top-right-radius:5px;
-				border-top-right-radius:5px;
-background-position:right -5px;
+.iconsonly #acymenu_leftside .mainelement.opened{
+	background-color: #728fbd
 }
 
-
-
-#acymenutop #acyselectedmenu{
-		background-color:#8da3b0;
-	background-position:right -5px;
-		-webkit-border-radius:5px;
-	 -moz-border-radius:5px;
-				border-radius:5px;
+#acymenu_leftside .mainelement .acysubmenu{
+	display: none
 }
 
-#acymenutop #acyselectedmenu:hover{
-	background-color:#8da3b0;
-	background-position:right -5px;
-	*background-position:right -4px;
-	-webkit-border-radius:5px;
-	-moz-border-radius:5px;
-	border-radius:5px;
-	-webkit-border-bottom-right-radius:0px;
-	-moz-border-bottom-right-radius:0px;
-	border-bottom-right-radius:0px;
-	-webkit-border-bottom-left-radius:0px;
-	-moz-border-bottom-left-radius:0px;
-	border-bottom-left-radius:0px;
+#acymenu_leftside .mainelement.opened .acysubmenu{
+	display: block
 }
 
-#acyselectedmenu a{
-	color:#fff;
+#acymenu_leftside .mainelement a{
+	display: inline-block;
+	width: 220px;
+	min-height: 20px;
+}
+
+#acymenu_leftside .mainelement a span{
+	display: inline-block;
+	float: left;
+	line-height: 15px;
+	margin-top: 3px;
+	max-width: 160px;
+}
+
+#acymenu_leftside .mainelement .acysubmenulink span{
+	width:150px;
+}
+
+.iconsonly #acymenu_leftside .mainelement a span{
+	max-width: 200px
+}
+
+.iconsonly #acymenu_leftside .mainelement a{
+	width: 100%;
+}
+
+#acymenu_leftside .mainelement.sel{
+	background-color: #a3bbe2
+}
+
+.iconsonly #acymenu_leftside .sel a{
+	width: 26px
+}
+
+#acymenu_leftside .sel a i{
+	padding: 0 10px 0 2px
+}
+
+#acymenu_leftside .sel .acysubmenulink i{
+	padding: 0px 14px
+}
+
+.iconsonly #acymenu_leftside .sel .acysubmenu a{
+	width: 100%;
+	max-width: 190px;
+}
+
+#acymenu_leftside .sel a{
+	border-left: 4px solid #fff;
+	background-color: #b1c7ea;
+	height: 20px;
+	padding: 10px;
+	width: 206px;
+}
+
+#acymenu_leftside .sel .acysubmenu a{
+	background-color: #5d7bab
+}
+
+#acyallcontent.iconsonly .sel ul{
+	display: none
+}
+
+#acymenu_leftside .acysubmenu{
+	text-transform: none;
+	height: 32px
+}
+
+#acymenu_leftside .acysubmenu:hover a{
+	color: #fff
+}
+
+#acymenu_leftside .acysubmenu a{
+	color: #a5c6e8;
+	font-size: 15px;
+	font-weight: normal;
+	display: block;
+	clear: both;
+	padding: 10px;
+	max-width: 200px;
+}
+
+#acymenu_leftside .sel .acysubmenu a{
+	border: none
+}
+
+#acymenu_leftside .acymenu_slide span{
+	background-color: #3c5174;
+	cursor: pointer;
+	display: block;
+	padding: 12px 0px;
+	color: #fff;
+	text-align: right;
+	height: 16px
+}
+
+#acyallcontent.iconsonly #acymenu_leftside{
+	width: 50px;
+}
+
+#acymenu_leftside{
+	transition: width 0.4s ease;
+}
+
+#acymenu_leftside .opened ul{
+	border-bottom: 2px dotted #466597;
+	z-index: 1000;
+	padding: 6px 0px;
+	background-color: #5d7bab;
+	-moz-box-shadow: 0 5px 6px #516890 inset;
+	-webkit-box-shadow: 0 5px 6px #516890 inset;
+	box-shadow: 0 5px 6px #516890 inset
+}
+
+.iconsonly #acymenu_leftside .mainelement ul{
+	-moz-box-shadow: 0 5px 6px #516890 inset;
+	-webkit-box-shadow: 0 5px 6px #516890 inset;
+	box-shadow: 0 5px 6px #516890 inset
+}
+
+.iconsonly #acymenu_leftside .opened ul{
+	display: none
+}
+
+#acyallcontent.iconsonly .mainelement:hover li{
+	padding-left: 0px;
+}
+
+#acyallcontent.iconsonly .mainelement:hover li i{
+	padding: 0px 10px;
+	font-size:15px;
+}
+
+#acyallcontent.iconsonly .subtitle, #acyallcontent.iconsonly i.acyicon-down{
+	display: none
+}
+
+#acyallcontent.iconsonly li.mainelement{
+	height: 40px;
+	position: relative;
+}
+
+#acyallcontent.iconsonly .mainelement:hover .acysubmenu{
+	display: block
+}
+
+#acymenu_leftside .acymenu_slide i{
+	padding-right: 18px;
+	font-size: 16px
+}
+
+#acymenu_leftside .mainelement i{
+	padding-right: 14px;
+	padding-left: 14px;
+	line-height: 8px;
+	font-size: 18px;
+	float: left;
+	margin-top: 5px;
+}
+
+#acymenu_leftside .acysubmenulink{
+	text-shadow: 1px 1px 2px #3c5174
+}
+
+#acymenu_leftside .mainelement i.acyicon-down{
+	float: right;
+	padding-right: 0px
+}
+
+#acymenu_leftside .mainelement.opened i.acyicon-down::before{
+	float: right;
+	padding-right: 0px;
+	content: "\e603" !important;
+}
+
+@keyframes deploy{
+	from{
+		max-height: 0px;
+	}
+	to{
+		max-height: 800px;
+	}
+}
+
+@-webkit-keyframes deploy{
+	from{
+		max-height: 0px;
+	}
+	to{
+		max-height: 800px;
+	}
+}
+
+@-ms-keyframes deploy{
+	from{
+		max-height: 0px;
+	}
+	to{
+		max-height: 800px;
+	}
+}
+
+@-o-keyframes deploy{
+	from{
+		max-height: 0px;
+	}
+	to{
+		max-height: 800px;
+	}
+}
+
+@-moz-keyframes deploy{
+	from{
+		max-height: 0px;
+	}
+	to{
+		max-height: 800px;
+	}
+}
+
+#acymenu_leftside .opened ul{
+	-moz-animation-duration: 2s;
+	-moz-animation-name: deploy;
+	-webkit-animation-duration: 2s;
+	-webkit-animation-name: deploy;
+	-ms-animation-duration: 2s;
+	-ms-animation-name: deploy;
+	-o-animation-duration: 2s;
+	-o-animation-name: deploy;
+	animation-duration: 2s;
+	animation-name: deploy;
+	overflow: hidden;
+}
+
+@keyframes deploy_horizontal{
+	from{
+		max-width: 0px;
+	}
+	to{
+		max-width: 800px;
+	}
+}
+
+@-moz-keyframes deploy_horizontal{
+	from{
+		max-width: 0px;
+	}
+	to{
+		max-width: 800px;
+	}
+}
+
+@-o-keyframes deploy_horizontal{
+	from{
+		max-width: 0px;
+	}
+	to{
+		max-width: 800px;
+	}
+}
+
+@-webkit-keyframes deploy_horizontal{
+	from{
+		max-width: 0px;
+	}
+	to{
+		max-width: 800px;
+	}
+}
+
+@-ms-keyframes deploy_horizontal{
+	from{
+		max-width: 0px;
+	}
+	to{
+		max-width: 800px;
+	}
+}
+
+#acyallcontent.iconsonly .mainelement:hover ul{
+	animation-duration: 0.4s;
+	animation-name: deploy_horizontal;
+
+	-moz-animation-duration: 0.4s;
+	-moz-animation-name: deploy_horizontal;
+
+	-webkit-animation-duration: 0.4s;
+	-webkit-animation-name: deploy_horizontal;
+
+	-o-animation-duration: 0.4s;
+	-o-animation-name: deploy_horizontal;
+
+	-ms-animation-duration: 0.4s;
+	-ms-animation-name: deploy_horizontal;
+
+	overflow: hidden;
+	background-color: #5d7bab;
+	border-bottom: none;
+	display: inline-block;
+	left: 50px;
+	padding: 10px 0;
+	position: relative;
+	width: 210px;
+	top: -50px;
 }
 
 
 
-#acymenutop .singlemenu a{
-	padding-right:10px;
+#myacymailingarea{
+	color: #c2d5f3;
+	font-size: 13px;
+	padding: 15px;
+	text-transform: none;
+	font-weight: normal
 }
 
-#acymenutop .singlemenu:hover{
-	background-color:#8da3b0;
-	-webkit-border-radius:5px;
-	-moz-border-radius:5px;
-	border-radius:5px;
+.iconsonly #mainelementmyacymailing{
+	display: none
 }
 
-#acymenutop #acyselectedmenu.singlemenu:hover{
-	background-color:#8da3b0;
-	-webkit-border-radius:5px;
-	-moz-border-radius:5px;
-	border-radius:5px;
+#acymenu_leftside .mainelement#mainelementmyacymailing:hover{
+	background-color: #728fbd
 }
 
-#acymenutop_j3 i {
-	width:16px;
-	height:16px;
-	display:inline-block;
-	line-height:16px;
-	background-position:0px 0px;
-	background-repeat:none;
-}
-#acymenutop_j3 > li.sel {
-	background-color:#BFE3F5;
-}
-#acymenutop_j3 .dropdown-menu li.sel {
-	background-color:#6FB7DB;
-	color:#ffffff;
-}
-body.com_acymailing .navbar {
-	padding-bottom: 15px;
+#mainelementmyacymailing{
+	margin-top: 5px;
+	padding-top: 5px;
+	border-top: 2px dotted #466597
 }
 
-
-
-#acymenutop_j3 > li > a{
-		padding:3px 5px;
-		margin:3px 5px;
-		-webkit-border-radius: 4px;
-		-moz-border-radius: 4px;
-		border-radius: 4px;}
-
-#acymenutop_j3 > li.sel{
-		background-color:transparent;}
-
-
-
-#acymenutop_j3 .dropdown-menu a{
-		-webkit-border-radius: 4px;
-		-moz-border-radius: 4px;
-		border-radius: 4px;
-		clear: both;
-		color: #333333;
-		display: block;
-		font-weight: normal;
-		line-height: 18px;
-		margin-left: 5px;
-		margin-right: 5px;
-		padding: 3px 14px;
-		white-space: nowrap;}
-
-
-
-#acymenutop_j3 li.dropdown.open > .dropdown-toggle,
-#acymenutop_j3 li.dropdown.active > .dropdown-toggle,
-#acymenutop_j3 li.dropdown.open.active > .dropdown-toggle {
-		background-color:transparent;
-		background-image: -moz-linear-gradient(top,#f5f5f5,#dddddd);
-		background-image: -webkit-gradient(linear,0 0,0 100%,from(#f5f5f5),to(#dddddd));
-		background-image: -webkit-linear-gradient(top,#f5f5f5,#dddddd);
-		background-image: -o-linear-gradient(top,#f5f5f5,#dddddd);
-		background-image: linear-gradient(to bottom,#f5f5f5,#dddddd);
-		background-repeat: repeat-x;
-		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', endColorstr='#ffdddddd', GradientType=0);
-		color: #555;
+#acymenu_leftside .mainelement#mainelementmyacymailing{
+	cursor: auto;
 }
 
+#myacymailingarea button{
+	background-color: #5d7aa8;
+	background-image: none;
+	border: medium none;
+	border-radius: 4px;
+	box-shadow: 0 2px 3px #3c5174;
+	color: #ffffff;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 5px 10px;
+	text-shadow: none;
+	transition: background 0.3s ease 0s;
+}
 
+#myacymailingarea button:hover{
+	background-color: #91acd7;
+	color: #fff;
+	text-decoration: none;
+	transition: background 0.3s ease;
+}
 
-#acymenutop_j3 > li.dropdown .sel, #acymenutop_j3 li.dropdown.open > .dropdown-toggle.sel {
-		background-color: #184a7d;
-		background-image: -moz-linear-gradient(top,#2165a4,#194176);
-		background-image: -webkit-gradient(linear,0 0,0 100%,from(#2165a4),to(#194176));
-		background-image: -webkit-linear-gradient(top,#2165a4,#194176);
-		background-image: -o-linear-gradient(top,#2165a4,#194176);
-		background-image: linear-gradient(to bottom,#2165a4,#194176);
-		background-repeat: repeat-x;
-		color:#fff;
-		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff2165a4', endColorstr='#ff194176', GradientType=0);}
+#myacymailing_version a.acy_updateversion:hover{
+	background-color: #f1ce72;
+}
 
-#acymenutop_j3 > li.sel a{
-		color:#fff;
-		text-shadow: 0 1px 0 #112543;}
+#acyallcontent.iconsonly .mainelement:hover .subtitle{
+	display: block;
+	position: relative;
+	left: 50px;
+	top: -26px;
+	height: 18px;
+	background-color: #91acd7;
+	line-height: 18px;
+	padding: 11px;
+	width: 188px;
+}
 
-#acymenutop_j3 > li.sel a.acysubmenulink{
-		color:#666;
-		text-shadow:none;}
-#acymenutop_j3 > li.sel a.acysubmenulink:hover{
-		color:#fff;}
+#acyallcontent.iconsonly .sel:hover .subtitle{
+	display: block;
+	width: 192px;
+	position: relative;
+	left: 32px;
+	background-color: #b1c7ea;
+	line-height: 18px;
+}
 
-#acymenutop_j3 .dropdown-menu a:hover{ color:#fff}
+#acyallcontent.iconsonly .mainelement:hover ul{
+	top: 40px;
+	position: absolute;
+}
 
+#acyallcontent.iconsonly .sel.mainelement:hover ul{
+	position: absolute;
+	width: 210px;
+	top: 40px;
+}
 
+#acymenu_leftside .acyversion_needtoupdate a, #acymenu_leftside .acylicence_expired a, #acymenu_leftside .acyversion_uptodate{
+	color: #fff;
+	padding: 10px 10px 0;
+	border-radius: 4px;
+	width: auto;
+	font-weight: bold;
+	box-shadow: 0 2px 3px #3c5174;
+	min-height: 16px;
+	font-size: 12px;
+}
 
-#acymenutop_j3 li.dropdown > .sel .caret{
-		border-bottom-color: #D9D9D9;
-		border-top-color: #f2f2f2;
-		margin-left:5px;}
+.acyversion_needtoupdate .acy_updateversion{
+	background-color: #deb957;
+}
+
+.acylicence_expired .acy_subscriptionexpired, .acylicence_expired .acy_attachlicence{
+	background-color: #e66a6a;
+}
+
+.acylicence_expired .acy_subscriptionexpired:hover, .acylicence_expired .acy_attachlicence:hover{
+	background-color: #ff9090;
+}
+
+#acymenu_leftside .acyversion_uptodate{
+	background-color: #a7ac51;
+	display: inline-block;
+	padding: 10px 10px 2px;
+}
+
+#acymenu_leftside #myacymailingarea i{
+	font-size: 14px;
+	padding-right: 10px;
+	padding-left: 0px;
+}
+
+#acymenu_leftside #myacymailingarea .acyicon-import{
+	margin-bottom: 10px;
+	margin-top: 0px;
+}
+
+#acymenu_leftside #myacymailingarea .acyicon-renew{
+	margin: 0px;
+	font-size: 15px;
+}
+
+#acymenu_leftside .myacymailingbuttons{
+	margin-top: 10px;
+}
+
+#myacymailing_expiration{
+	margin-top: 15px;
+}
+
+#acymenu_leftside .acy_attachlicence .acyicon-attach{
+	margin-top: 0px;
+}

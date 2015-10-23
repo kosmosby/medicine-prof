@@ -1389,17 +1389,6 @@
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-transform: translate(0, 0);
-      -ms-transform: translate(0, 0);
-          transform: translate(0, 0);
-}
-.cbStarRatingOn.pull-left,
-.cbStarRatingOff.pull-left {
-  margin-right: .3em;
-}
-.cbStarRatingOn.pull-right,
-.cbStarRatingOff.pull-right {
-  margin-left: .3em;
 }
 .cbStarRatingOn:before {
   content: "\f005";
@@ -1510,7 +1499,7 @@
 .cb_template .cbButtonMenu .cbButtonMenuItem .cbButtonMenuItemLink {
   text-decoration: none;
 }
-.cb_template .cbButtonMenu .cbButtonMenuItem .cbButtonMenuItemLink :hover {
+.cb_template .cbButtonMenu .cbButtonMenuItem .cbButtonMenuItemLink:hover {
   text-decoration: none;
 }
 .cb_template .cbButtonMenu .cbButtonMenuItem .cbButtonMenuItemInner {
@@ -1604,19 +1593,22 @@
   color: #a94442;
   font-weight: bold;
 }
-a.cbDisabled:hover {
+a.cbDisabled:hover,
+a.cbDisabled:focus {
   color: #843534;
 }
 .cbEnabled {
   color: #3c763d;
 }
-a.cbEnabled:hover {
+a.cbEnabled:hover,
+a.cbEnabled:focus {
   color: #2b542c;
 }
 .cbSpecial {
   color: #8a6d3b;
 }
-a.cbSpecial:hover {
+a.cbSpecial:hover,
+a.cbSpecial:focus {
   color: #66512c;
 }
 .cbSpecialWarning {
@@ -1684,7 +1676,6 @@ a.cbadminLinksAsButtons[disabled],
 fieldset[disabled] a.cbadminLinksAsButtons,
 fieldset[disabled] .cbadminLinksAsButtons a {
   cursor: not-allowed;
-  pointer-events: none;
   opacity: 0.65;
   filter: alpha(opacity=65);
   box-shadow: none;
@@ -1695,12 +1686,20 @@ a.cbadminLinksAsButtons.active,
 .cbadminLinksAsButtons a.active {
   background-image: none;
 }
-a.cbadminLinksAsButtons:hover,
-.cbadminLinksAsButtons a:hover,
 a.cbadminLinksAsButtons:focus,
 .cbadminLinksAsButtons a:focus,
 a.cbadminLinksAsButtons.focus,
-.cbadminLinksAsButtons a.focus,
+.cbadminLinksAsButtons a.focus {
+  color: #333333;
+  background-color: #e6e6e6;
+  border-color: #8c8c8c;
+}
+a.cbadminLinksAsButtons:hover,
+.cbadminLinksAsButtons a:hover {
+  color: #333333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}
 a.cbadminLinksAsButtons:active,
 .cbadminLinksAsButtons a:active,
 a.cbadminLinksAsButtons.active,
@@ -1730,6 +1729,14 @@ a.cbadminLinksAsButtons.active,
 .cbadminLinksAsButtons a.active {
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
+a.cbadminLinksAsButtons.disabled,
+.cbadminLinksAsButtons a.disabled,
+a.cbadminLinksAsButtons[disabled],
+.cbadminLinksAsButtons a[disabled],
+fieldset[disabled] a.cbadminLinksAsButtons,
+fieldset[disabled] .cbadminLinksAsButtons a {
+  box-shadow: none;
+}
 a.cbadminLinksAsButtons .badge,
 .cbadminLinksAsButtons a .badge {
   text-shadow: none;
@@ -1747,15 +1754,6 @@ a.cbadminLinksAsButtons.active,
 .cbadminLinksAsButtons a.active {
   background-color: #e0e0e0;
   border-color: #dbdbdb;
-}
-a.cbadminLinksAsButtons.disabled,
-.cbadminLinksAsButtons a.disabled,
-a.cbadminLinksAsButtons:disabled,
-.cbadminLinksAsButtons a:disabled,
-a.cbadminLinksAsButtons[disabled],
-.cbadminLinksAsButtons a[disabled] {
-  background-color: #e0e0e0;
-  background-image: none;
 }
 .cbadminHorizontal {
   display: inline-block;

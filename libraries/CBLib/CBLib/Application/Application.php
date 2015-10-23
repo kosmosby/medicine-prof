@@ -41,6 +41,7 @@ defined('CBLIB') or die();
  * @method static \CBLib\Session\Session                   Session()         get CBLib Session
  * @method static \CBLib\Entity\User\User                  User( $idOrConditions = null )  get CBLib User
  * @method static \CBLib\Entity\User\User                  MyUser()          get CBLib User of current user
+ * @method static \CBLib\Date\Date                         Date( $date = null, $tz = null, $from = null )  get CBLib Date
  * @method \CBFramework                             getCBFramework()     get CB Framework
  * @method \CBLib\Database\DatabaseDriverInterface  getDatabase()        get CBLib DatabaseDriverInterface
  * @method \CBLib\Application\Application           getApplication()     get CBLib Application

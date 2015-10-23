@@ -78,6 +78,8 @@ tr.acyeditor_delete td.acyeditor_text:hover, tr.acyeditor_delete td.acyeditor_pi
     float: left;
     font-size: 11px;
     color: black;
+	line-height: normal;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 #colorSelector{
     margin: 3px;
@@ -179,3 +181,78 @@ tr.ui-sortable-helper{
 .cke_source{
     white-space: pre-wrap !important;
 }
+
+/* Popup: delete area confirmation */
+.confirmCancel {
+	color:#6190b9;
+	padding:10px 15px 10px 25px;
+	font-weight:bold;
+	font-size:13px;
+	text-transform:uppercase;
+	border:1px solid #93b7d6;
+	border-bottom:2px solid #93b7d6;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	margin:15px 5px 0px 50px;
+	cursor:pointer;
+	background: #fff url(../images/popup_cancel.png) no-repeat 10% 50%;
+	width: 100px;
+	float: left;
+}
+.confirmCancel:hover {
+	border:1px solid #8baac7;
+	border-bottom:2px solid #678fb6;
+	background: #adc7e0 url(../images/popup_cancel_hover.png) no-repeat 10% 50%;
+	color:#fff;
+	text-shadow: 1px 1px 2px #5a89b7;
+	-moz-text-shadow: 1px 1px 2px #5a89b7;
+	-webkit-text-shadow: 1px 1px 2px #5a89b7;
+}
+.confirmOk {
+	color:#dc5d55;
+	padding:10px 25px 10px 15px;
+	font-weight:bold;
+	font-size:13px;
+	text-transform:uppercase;
+	border:1px solid #eeb6b3;
+	border-bottom:2px solid #eeb6b3;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	margin:15px 50px 0px 5px;
+	cursor:pointer;
+	background: #fff url(../images/popup_delete.png) no-repeat 90% 45%;
+	width: 100px;
+	float: right;
+}
+.confirmOk:hover {
+	border:1px solid #d4615b;
+	border-bottom:2px solid #b13e38;
+	background: #eb837d url(../images/popup_delete_hover.png) no-repeat 90% 45%;
+	color:#fff;
+	text-shadow: 1px 1px 2px #c54e48;
+	-moz-text-shadow: 1px 1px 2px #c54e48;
+	-webkit-text-shadow: 1px 1px 2px #c54e48;
+}
+#confirmBox{
+	width:370px;
+	height: 100px;
+	background:rgba(255, 255, 255, 0.8);
+	border:1px solid #d6d6d6;
+	padding:5px;
+	border-radius:5px;
+	box-shadow:1px 1px 5px #dddddd;
+	-moz-box-shadow:1px 1px 5px #dddddd;
+	-webkit-box-shadow:1px 1px 5px #dddddd;
+	position: absolute;
+	z-index: 999;
+}
+#acy_popup_content {
+	background-color: #fff;
+	padding: 20px;
+	text-align: center;
+	color: #706f6f;
+	height: 60px;
+}
+

@@ -132,7 +132,7 @@ if ( $showPrivateMessages && $_CB_PMS ) {
 	}
 
 	if ( isset( $privateMessageURL[0]['url'] ) ) {
-		$privateMessageURL			=	$privateMessageURL[0]['url'];
+		$privateMessageURL			=	cbSef( $privateMessageURL[0]['url'] );
 	} else {
 		$privateMessageURL			=	$_CB_framework->userProfileUrl();
 	}

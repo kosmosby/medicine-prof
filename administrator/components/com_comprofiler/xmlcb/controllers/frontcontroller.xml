@@ -2,13 +2,13 @@
 <cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../validation/ahawow.xsd">
 	<types />
 	<actions ui="admin" permission="core.manage" permissionasset="com_comprofiler">
-		<extend toxpathnode="/cbxml/actions" fromxpathnode="/*/actions/action" file="/components/com_comprofiler/plugin/user/*/xml/controllers/frontcontroller" mandatory="false" mode="extend" keyattribute="name" />
+		<extend type="plugin" toxpathnode="/cbxml/actions" fromxpathnode="/*/actions/action" file="xml/controllers/frontcontroller" mandatory="false" mode="extend" keyattribute="name" />
 		<actionspecific>
 			<extend toxpathnode="/cbxml/types" fromxpathnode="/*/types/type" file="models/model.{xpath:@name/string()}" mandatory="false" />
 			<extend toxpathnode="/cbxml/views" fromxpathnode="/*/views/view" file="views/view.com_comprofiler.{xpath:showview/@mode/string()}{xpath:@name/string()}" mandatory="false" />
 
-			<extend toxpathnode="/cbxml/types" fromxpathnode="/*/types/type" file="/components/com_comprofiler/plugin/user/*/xml/models/models,/components/com_comprofiler/plugin/user/*/xml/models/model.{xpath:@name/string()}" mandatory="false" mode="extend" keyattribute="name" />
-			<extend toxpathnode="/cbxml/views" fromxpathnode="/*/views/view" file="/components/com_comprofiler/plugin/user/*/xml/views/view.com_comprofiler.{xpath:showview/@mode/string()}{xpath:@name/string()}" mandatory="false" mode="extend" keyattribute="name" />
+			<extend type="plugin" toxpathnode="/cbxml/types" fromxpathnode="/*/types/type" file="xml/models/models,xml/models/model.{xpath:@name/string()}" mandatory="false" mode="extend" keyattribute="name" />
+			<extend type="plugin" toxpathnode="/cbxml/views" fromxpathnode="/*/views/view" file="xml/views/view.com_comprofiler.{xpath:showview/@mode/string()}{xpath:@name/string()}" mandatory="false" mode="extend" keyattribute="name" />
 		</actionspecific>
 
 		<action name="tabs" request="view" action="showTab" permission="core.manage" permissionasset="com_comprofiler.tabs">

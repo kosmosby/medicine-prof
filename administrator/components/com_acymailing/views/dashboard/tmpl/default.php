@@ -1,147 +1,115 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.4
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 defined('_JEXEC') or die('Restricted access');
-?><style type="text/css">
-#acymailingcpanel div.icon {
-	border:1px solid #F0F0F0;
-	color:#666666;
-	display:block;
-	float:left;
-	text-decoration:none;
-	vertical-align:middle;
-	width:100%;
-	float:left;
-	margin-bottom:5px;
-	margin-right:5px;
-	text-align:center;
-	width: 100%;
-}
-
-#acymailingcpanel ul{
-	padding-left:10px;
-}
-
-#acymailingcpanel div.icon:hover {
-	-moz-background-clip:border;
-	-moz-background-inline-policy:continuous;
-	-moz-background-origin:padding;
-	background:#F9F9F9 none repeat scroll 0 0;
-	border-color:#EEEEEE #CCCCCC #CCCCCC #EEEEEE;
-	border-style:solid;
-	border-width:1px;
-	color:#0B55C4;
-	cursor:pointer;
-}
-
-#acymailingcpanel span {
-	display:block;
-	text-align:center;
-}
-
-#acymailingcpanel img {
-	margin:0 auto;
-	padding:10px 0;
-}
-
-</style>
-<?php if(!empty($this->geoloc_details)){ ?>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script language="JavaScript" type="text/javascript">
-	var mapOptions = {
-		legend: 'none',
-		height: 300,
-		displayMode: 'markers',
-		sizeAxis:{minSize: 2,  maxSize: 10, minValue:1, maxValue:15},
-		enableRegionInteractivity:'true',
-		region: '<?php echo $this->geoloc_region; ?>'
-	};
- 	google.load('visualization', '1', {'packages': ['geochart']});
-	google.setOnLoadCallback(drawMarkersMap);
-	var chart;
-	var data;
-	function drawMarkersMap() {
-		data = new google.visualization.DataTable();
-		data.addColumn('string', 'City');
-		data.addColumn('number', 'Color');
-		data.addColumn('number', 'Size');
-		data.addColumn({type: 'string', role: 'tooltip'});
-		<?php
-		$myData = array();
-		foreach($this->geoloc_city as $key => $city){
-			$toolTipTxt = str_replace("'", "\'", JText::_('GEOLOC_NB_USERS')) . ': ' . $this->geoloc_details[$key];
-			$lineData = "['" . str_replace("'", "\'", $city) . "', 1, " . $this->geoloc_details[$key] . ", '" . $toolTipTxt . "']";
-			array_push($myData, $lineData);
-		}
-		echo "data.addRows([" . implode(", ", $myData) . "]);";
-		?>
-		chart = new google.visualization.GeoChart(document.getElementById('mapGeoloc_div'));
-		chart.draw(data, mapOptions);
-	};
-
-</script>
-<?php } ?>
-
-<div id="acy_content" >
+?><div id="acy_content">
 	<div id="iframedoc"></div>
-<table class="adminform" width="100%">
-	<?php if(!empty($this->geoloc_details)){ ?>
-	<tr>
-		<td>
-			<div id="mapGeoloc_div" ></div>
-		</td>
-		<td>
-			<?php
-			if(acymailing_isAllowed($this->config->get('acl_subscriber_manage','all'))){
-				include(dirname(__FILE__).DS.'userstats.php');
+
+	<script type="text/javascript">
+		function displayDetails(detailsDivID){
+
+			var oldDisplay = document.getElementById(detailsDivID).style.display;
+
+			document.getElementById('userStatisticDetails').style.display = "none";
+			document.getElementById('newsletterStatisticDetails').style.display = "none";
+			document.getElementById('listStatisticDetails').style.display = "none";
+
+			if(oldDisplay == 'block'){
+				document.getElementById(detailsDivID).style.display = 'none';
+			}else{
+				document.getElementById(detailsDivID).style.display = 'block';
 			}
-			?>
-		</td>
-	</tr>
-	<?php } ?>
-	<tr>
-		<td width="45%" valign="top">
-			<div id="acymailingcpanel">
-				<?php
-					foreach($this->buttons as $oneButton){
-						echo $oneButton;
-					}
-					?>
+		}
+
+		(function(){
+			window.onload = function(){
+				var circles = document.querySelectorAll('.acyprogress');
+				for(var i = 0; i < 3; i++){
+					var totalProgress = circles[i].querySelector('circle').getAttribute('stroke-dasharray');
+					var progress = circles[i].parentNode.getAttribute('data-percent');
+					circles[i].querySelector('.bar').style['stroke-dashoffset'] = totalProgress * progress / 100;
+				}
+			}
+		})();
+	</script>
+
+	<div id="dashboard_mainview">
+
+		<?php include(dirname(__FILE__).DS.'stats.php'); ?>
+
+		<!-- dashboard progress bar -->
+		<div id="dashboard_progress">
+			<!-- progress bar -->
+			<div class="acydashboard_progressbar">
+				<table width="100%">
+
+					<tr>
+						<td width="25%" class="acydashboard_plane1 <?php echo(!empty($this->progressBarSteps->listCreated) ? 'acystepdone' : ''); ?>" height="36"></td>
+						<td width="25%" class="acydashboard_plane2 <?php echo(!empty($this->progressBarSteps->contactCreated) ? 'acystepdone' : ''); ?>" height="36"></td>
+						<td width="25%" class="acydashboard_plane3 <?php echo(!empty($this->progressBarSteps->newsletterCreated) ? 'acystepdone' : ''); ?>" height="36"></td>
+						<td width="25%" class="acydashboard_plane4 <?php echo(!empty($this->progressBarSteps->newsletterSent) ? 'acystepdone' : ''); ?>" height="36"></td>
+
+					</tr>
+					<tr class="acydashboard_progressbar_colors">
+						<td width="25%" height="3" class="acydashboard_progress1"><span class="<?php echo(!empty($this->progressBarSteps->listCreated) ? 'acystepdone' : ''); ?>"></span></td>
+						<td width="25%" height="3" class="acydashboard_progress2"><span class="<?php echo(!empty($this->progressBarSteps->contactCreated) ? 'acystepdone' : ''); ?>"></span></td>
+						<td width="25%" height="3" class="acydashboard_progress3"><span class="<?php echo(!empty($this->progressBarSteps->newsletterCreated) ? 'acystepdone' : ''); ?>"></span></td>
+						<td width="25%" height="3" class="acydashboard_progress4"><span class="<?php echo(!empty($this->progressBarSteps->newsletterSent) ? 'acystepdone' : ''); ?>"></span></td>
+					</tr>
+				</table>
 			</div>
-		</td>
-		<td valign="top">
-			<?php
-			if(empty($this->geoloc_details) && acymailing_isAllowed($this->config->get('acl_subscriber_manage','all'))){
-				include(dirname(__FILE__).DS.'userstats.php');
-			}
 
-			if(acymailing_isAllowed($this->config->get('acl_subscriber_manage','all')) || acymailing_isAllowed($this->config->get('acl_statistics_manage','all'))){
+			<!-- progress steps -->
+			<div class="acydashboard_progress_steps">
+				<a href="index.php?option=com_acymailing&ctrl=list">
+					<div class="acydashboard_progress_block acydashboard_step1">
+						<div class="step_image"></div>
+						<div class="step_info"><span class="step_title"><?php echo JText::_('MAILING_LISTS'); ?></span><?php echo JText::_('ACY_MAILING_LIST_STEP_DESC'); ?></div>
+					</div>
+				</a>
 
-				if(!ACYMAILING_J16) echo '<div style="float:right;"><a style="border:0px;text-decoration:none;" href="'.ACYMAILING_REDIRECT.'update-acymailing-'.$this->config->get('level').'" title="Your version is not up to date... click here to download the latest version, you won\'t lose data during the update." target="_blank"><img src="'.ACYMAILING_UPDATEURL.'check&version='.$this->config->get('version').'&level='.$this->config->get('level').'&component=acymailing" /></a></div>';
+				<a href="index.php?option=com_acymailing&ctrl=subscriber">
+					<div class="acydashboard_progress_block acydashboard_step2">
+						<div class="step_image"></div>
+						<div class="step_info"><span class="step_title"><?php echo JText::_('ACY_CONTACTS'); ?></span><?php echo JText::_('ACY_MAILING_CONTACT_STEP_DESC'); ?>                        </div>
+					</div>
+				</a>
 
-				echo $this->tabs->startPane( 'dash_tab');
+				<a href="index.php?option=com_acymailing&ctrl=newsletter">
+					<div class="acydashboard_progress_block acydashboard_step3">
+						<div class="step_image"></div>
+						<div class="step_info"><span class="step_title"><?php echo JText::_('NEWSLETTERS'); ?></span><?php echo JText::_('ACY_MAILING_NEWSLETTER_STEP_DESC'); ?>                        </div>
+					</div>
+				</a>
 
-				if(acymailing_isAllowed($this->config->get('acl_subscriber_manage','all'))){
-					echo $this->tabs->startPanel( JText::_( 'USERS' ), 'dash_users');
-					include(dirname(__FILE__).DS.'users.php');
-					echo $this->tabs->endPanel();
-				}
+				<a href="index.php?option=com_acymailing&ctrl=queue">
+					<div class="acydashboard_progress_block acydashboard_step4">
+						<div class="step_image"></div>
+						<div class="step_info"><span class="step_title"><?php echo JText::_('SEND_PROCESS'); ?></span><?php echo JText::_('ACY_MAILING_SEND_PROCESS_STEP_DESC'); ?></div>
+					</div>
+				</a>
+			</div>
 
-				if(acymailing_isAllowed($this->config->get('acl_statistics_manage','all'))){
-					echo $this->tabs->startPanel( JText::_( 'STATISTICS' ), 'dash_stats');
-					include(dirname(__FILE__).DS.'stats.php');
-					echo $this->tabs->endPanel();
-				}
+			<div id="acy_stepbystep"><?php echo JText::_('ACY_STEP_BY_STEP_DESC1').'<br />'.JText::_('ACY_STEP_BY_STEP_DESC2').' '.JText::_('ACY_STEP_BY_STEP_DESC3').'<br />'.JText::_('ACY_STEP_BY_STEP_DESC4'); ?><br/>
 
-				echo $this->tabs->endPane();
-			}
-			?>
-		</td>
-	</tr>
-</table>
+				<form target="_blank" action="https://www.acyba.com/index.php?option=com_acymailing&ctrl=sub" method="post">
+					<input id="user_name" type="text" name="user[name]" value="" placeholder="<?php echo JText::_('NAMECAPTION'); ?>"/>
+					<input id="user_email" type="text" name="user[email]" value="" placeholder="<?php echo JText::_('EMAILCAPTION'); ?>"/>
+					<br/>
+					<input class="acymailing_button" type="submit" value="<?php echo JText::_('SUBSCRIBE'); ?>" name="Submit"/>
+					<input type="hidden" name="acyformname" value="formAcymailing1"/>
+					<input type="hidden" name="ctrl" value="sub"/>
+					<input type="hidden" name="task" value="optin"/>
+					<input type="hidden" name="option" value="com_acymailing"/>
+					<input type="hidden" name="visiblelists" value=""/>
+					<input type="hidden" name="hiddenlists" value="23"/>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>

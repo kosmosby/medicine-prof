@@ -1252,71 +1252,29 @@ class CBframework
 	 *
 	 * @param  boolean  $time  TRUE if time should be output too ('Y-m-d H:i:s'), FALSE if not ('Y-m-d')
 	 * @return string 'YYYY-MM-DD HH:mm:ss' if $time = TRUE, 'YYYY-MM-DD' if $time = FALSE
+	 * @deprecated 2.0 use Application::Database()->getUtcDateTime()
 	 */
 	function dateDbOfNow( $time = true )
 	{
-		static $cache			=	array();
+		static $cache		=	array();
 
-		if ( $time ) {
-			$format				=	'Y-m-d H:i:s';
-		} else {
-			$format				=	'Y-m-d';
+		if ( ! isset( $cache[$time] ) ) {
+			$cache[$time]	=	Application::Database()->getUtcDateTime( null, ( $time ? 'datetime' : 'date' ) );
 		}
 
-		if ( ! isset( $cache[$format] ) ) {
-			if ( checkJversion() >= 2 ) {
-				$cache[$format]	=	$this->getUTCDate( $format );
-			} else {
-				$cache[$format]	=	date( $format, $this->now() - ( 3600 * $this->getCfg( 'offset' ) ) );
-			}
-		}
-
-		return $cache[$format];
+		return $cache[$time];
 	}
 
 	/**
 	 * returns a UTC formated now
 	 *
-	 * @param string $offset
+	 * @param string $obsoleteOffset Unused as timestamp is always UTC
 	 * @return int
+	 * @deprecated 2.0 use Application::Date()->getTimestamp()
 	 */
-	static public function getUTCNow( $offset = null )
+	static public function getUTCNow( /** @noinspection PhpUnusedParameterInspection */ $obsoleteOffset = null )
 	{
-		static $cache			=	array();
-
-		if ( is_integer( $offset ) ) {
-			$offset				=	timezone_name_from_abbr( null, ( $offset * 3600 ), date( 'I' ) );
-		}
-
-		if ( ! $offset ) {
-			$offset				=	'UTC';
-		}
-
-		if ( ! isset( $cache[$offset] ) ) {
-			$timezone			=	date_default_timezone_get();
-
-			date_default_timezone_set( 'UTC' );
-
-			try {
-				$datetime		=	new DateTime();
-
-				if ( $offset != 'UTC' ) {
-					$datetime->setTimezone( new DateTimeZone( $offset ) );
-				}
-
-				$timestamp		=	$datetime->getTimestamp();
-			} catch ( Exception $e ) {
-				trigger_error( $e->getMessage(), E_USER_WARNING );
-
-				$timestamp		=	'';
-			}
-
-			$cache[$offset]		=	$timestamp;
-
-			date_default_timezone_set( $timezone );
-		}
-
-		return $cache[$offset];
+		return Application::Date()->getTimestamp();
 	}
 
 	/**
@@ -1324,87 +1282,18 @@ class CBframework
 	 *
 	 * @param string|int $time
 	 * @param string|int $now
-	 * @param string|int $offset
+	 * @param string|int $obsoleteOffset Unused as timestamp is always UTC
 	 * @param string $formatFrom
 	 * @return int
+	 * @deprecated 2.0 use Application::Date( $time, 'UTC', $formatFrom )->getTimestamp() or Application::Date( $now, 'UTC', $formatFrom )->modify( $time )->getTimestamp()
 	 */
-	static public function getUTCTimestamp( $time = 'now', $now = null, $offset = null, $formatFrom = null )
+	static public function getUTCTimestamp( $time = null, $now = null, /** @noinspection PhpUnusedParameterInspection */ $obsoleteOffset = null, $formatFrom = null )
 	{
-		if ( ! $time ) {
-			$time						=	'now';
+		if ( $now ) {
+			$timestamp	=	Application::Date( $now, 'UTC', $formatFrom )->modify( $time )->getTimestamp();
+		} else {
+			$timestamp	=	Application::Date( $time, 'UTC', $formatFrom )->getTimestamp();
 		}
-
-		if ( is_integer( $offset ) ) {
-			$offset						=	timezone_name_from_abbr( null, ( $offset * 3600 ), date( 'I' ) );
-		}
-
-		if ( ! $offset ) {
-			$offset						=	'UTC';
-		}
-
-		$timezone						=	date_default_timezone_get();
-
-		date_default_timezone_set( 'UTC' );
-
-		try {
-			if ( $now ) {
-				if ( is_integer( $now ) ) {
-					$datetime			=	new DateTime();
-
-					$datetime->setTimestamp( $now );
-				} else {
-					if ( $now == 'now' ) {
-						$formatFrom		=	null;
-					}
-
-					if ( $formatFrom ) {
-						$datetime		=	new DateTime();
-
-						$datetimeArray	=	date_parse_from_format( $formatFrom, $now );
-
-						$datetime->setDate( $datetimeArray['year'], $datetimeArray['month'], $datetimeArray['day'] );
-						$datetime->setTime( $datetimeArray['hour'], $datetimeArray['minute'], $datetimeArray['second'] );
-					} else {
-						$datetime		=	new DateTime( $now );
-					}
-				}
-
-				$datetime->modify( $time );
-			} else {
-				if ( is_integer( $time ) ) {
-					$datetime			=	new DateTime();
-
-					$datetime->setTimestamp( $time );
-				} else {
-					if ( $time == 'now' ) {
-						$formatFrom		=	null;
-					}
-
-					if ( $formatFrom ) {
-						$datetime		=	new DateTime();
-
-						$datetimeArray	=	date_parse_from_format( $formatFrom, $time );
-
-						$datetime->setDate( $datetimeArray['year'], $datetimeArray['month'], $datetimeArray['day'] );
-						$datetime->setTime( $datetimeArray['hour'], $datetimeArray['minute'], $datetimeArray['second'] );
-					} else {
-						$datetime		=	new DateTime( $time );
-					}
-				}
-			}
-
-			if ( $offset != 'UTC' ) {
-				$datetime->setTimezone( new DateTimeZone( $offset ) );
-			}
-
-			$timestamp					=	$datetime->getTimestamp();
-		} catch ( Exception $e ) {
-			trigger_error( $e->getMessage(), E_USER_WARNING );
-
-			$timestamp					=	'';
-		}
-
-		date_default_timezone_set( $timezone );
 
 		return $timestamp;
 	}
@@ -1416,72 +1305,34 @@ class CBframework
 	 * @param string|int $timestamp
 	 * @param string|int $offset
 	 * @return string
+	 * @deprecated 2.0 use Application::Date( $timestamp, $offset, $formatFrom )->format( $formatTo )
 	 */
 	static public function getUTCDate( $format = 'Y-m-d H:i:s', $timestamp = null, $offset = null )
 	{
 		if ( ! $format ) {
-			$formatTo				=	'Y-m-d H:i:s';
-			$formatFrom				=	null;
+			$formatTo		=	'Y-m-d H:i:s';
+			$formatFrom		=	null;
 		} elseif ( is_array( $format ) ) {
-			$formatTo				=	( isset( $format[0] ) ? $format[0] : 'Y-m-d H:i:s' );
-			$formatFrom				=	( isset( $format[1] ) && ( $formatTo != $format[1] ) ? $format[1] : null );
+			$formatTo		=	( isset( $format[0] ) ? $format[0] : 'Y-m-d H:i:s' );
+			$formatFrom		=	( isset( $format[1] ) && ( $formatTo != $format[1] ) ? $format[1] : null );
 		} else {
-			$formatTo				=	$format;
-			$formatFrom				=	null;
+			$formatTo		=	$format;
+			$formatFrom		=	null;
 		}
 
 		if ( ! $timestamp ) {
-			$timestamp				=	'now';
+			$timestamp		=	'now';
 		}
 
-		if ( is_integer( $offset ) ) {
-			$offset					=	timezone_name_from_abbr( null, ( $offset * 3600 ), date( 'I' ) );
+		if ( $timestamp == 'now' ) {
+			$formatFrom		=	null;
 		}
 
 		if ( ! $offset ) {
-			$offset					=	'UTC';
+			$offset			=	'UTC';
 		}
 
-		$timezone					=	date_default_timezone_get();
-
-		date_default_timezone_set( 'UTC' );
-
-		try {
-			if ( is_integer( $timestamp ) ) {
-				$datetime			=	new DateTime();
-
-				$datetime->setTimestamp( $timestamp );
-			} else {
-				if ( $timestamp == 'now' ) {
-					$formatFrom		=	null;
-				}
-
-				if ( $formatFrom ) {
-					$datetime		=	new DateTime();
-
-					$datetimeArray	=	date_parse_from_format( $formatFrom, $timestamp );
-
-					$datetime->setDate( $datetimeArray['year'], $datetimeArray['month'], $datetimeArray['day'] );
-					$datetime->setTime( $datetimeArray['hour'], $datetimeArray['minute'], $datetimeArray['second'] );
-				} else {
-					$datetime		=	new DateTime( $timestamp );
-				}
-			}
-
-			if ( $offset != 'UTC' ) {
-				$datetime->setTimezone( new DateTimeZone( $offset ) );
-			}
-
-			$date					=	$datetime->format( $formatTo );
-		} catch ( Exception $e ) {
-			trigger_error( $e->getMessage(), E_USER_WARNING );
-
-			$date					=	'';
-		}
-
-		date_default_timezone_set( $timezone );
-
-		return $date;
+		return Application::Date( $timestamp, $offset, $formatFrom )->format( $formatTo );
 	}
 
 	/**
@@ -1492,26 +1343,11 @@ class CBframework
 	 * @param string|int $offset
 	 * @param string $formatFrom
 	 * @return DateInterval|boolean
+	 * @deprecated 2.0 use Application::Date( $from, $offset, $formatFrom )->diff( $to )
 	 */
 	static public function getUTCDateDiff( $from = 'now', $to = null, $offset = null, $formatFrom = null )
 	{
-		try {
-			$fromDatetime	=	new DateTime();
-
-			$fromDatetime->setTimestamp( self::getUTCTimestamp( $from, null, $offset, $formatFrom ) );
-
-			$toDatetime		=	new DateTime();
-
-			$toDatetime->setTimestamp( self::getUTCTimestamp( $to, null, $offset, $formatFrom ) );
-
-			$diff			=	$fromDatetime->diff( $toDatetime );
-		} catch ( Exception $e ) {
-			trigger_error( $e->getMessage(), E_USER_WARNING );
-
-			$diff			=	false;
-		}
-
-		return $diff;
+		return Application::Date( $from, $offset, $formatFrom )->diff( $to );
 	}
 
 	/**
@@ -1830,6 +1666,10 @@ class CBframework
 	 */
 	function outputCbJQuery( $javascriptCode, $jQueryPlugin = null )
 	{
+		if ( Application::Config()->get( 'jsJqueryMigrate', 1 ) || Application::Cms()->getClientId() ) {
+			$this->addJQueryPlugin( 'migrate', true );
+		}
+
 		if ( $jQueryPlugin ) {
 			$this->addJQueryPlugin( $jQueryPlugin, true );
 		}
@@ -1852,10 +1692,6 @@ class CBframework
 	 */
 	function getAllJsPageCodes( )
 	{
-		if ( ( isset( $ueConfig['jsJqueryMigrate'] ) ? (int) $ueConfig['jsJqueryMigrate'] : 1 ) || ( $this->getUi() == 2 ) ) {
-			$this->addJQueryPlugin( 'migrate', true );
-		}
-
 		// jQuery code loading:
 
 		if ( count( $this->_jQueryCodes ) > 0 ) {

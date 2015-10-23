@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.4
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,8 +10,7 @@ defined('_JEXEC') or die('Restricted access');
 ?><?php
 include(ACYMAILING_BACK.'views'.DS.'newsletter'.DS.'view.html.php');
 
-class NotificationViewNotification extends NewsletterViewNewsletter
-{
+class NotificationViewNotification extends NewsletterViewNewsletter{
 	var $type = 'joomlanotification';
 	var $ctrl = 'notification';
 	var $nameListing = 'JOOMLA_NOTIFICATIONS';
@@ -25,7 +24,7 @@ class NotificationViewNotification extends NewsletterViewNewsletter
 		$config = acymailing_config();
 
 		if(!class_exists('plgSystemAcymailingClassMail')){
-			$app->enqueueMessage('AcyMailing can customize some Joomla messages. If you want to do this, please first <a href="index.php?option=com_acymailing&ctrl=cpanel">enable the plugin acymailingclassmail (Override Joomla mailing system plugin)</a>', 'notice');
+			acymailing_enqueueMessage('AcyMailing can customize some Joomla messages. If you want to do this, please first <a href="index.php?option=com_acymailing&ctrl=cpanel">enable the plugin acymailingclassmail (Override Joomla mailing system plugin)</a>', 'notice');
 		}
 
 		$pageInfo = new stdClass();
@@ -33,8 +32,8 @@ class NotificationViewNotification extends NewsletterViewNewsletter
 		$pageInfo->filter->order = new stdClass();
 
 		$paramBase = ACYMAILING_COMPONENT.'.'.$this->getName();
-		$pageInfo->filter->order->value = $app->getUserStateFromRequest( $paramBase.".filter_order", 'filter_order',	'mailid','cmd' );
-		$pageInfo->filter->order->dir	= $app->getUserStateFromRequest( $paramBase.".filter_order_Dir", 'filter_order_Dir',	'desc',	'word' );
+		$pageInfo->filter->order->value = $app->getUserStateFromRequest($paramBase.".filter_order", 'filter_order', 'mailid', 'cmd');
+		$pageInfo->filter->order->dir = $app->getUserStateFromRequest($paramBase.".filter_order_Dir", 'filter_order_Dir', 'desc', 'word');
 		if(strtolower($pageInfo->filter->order->dir) !== 'desc') $pageInfo->filter->order->dir = 'asc';
 
 		$db = JFactory::getDBO();
@@ -47,30 +46,31 @@ class NotificationViewNotification extends NewsletterViewNewsletter
 		$db->setQuery($query);
 		$rows = $db->loadObjectList();
 
-			acymailing_setTitle(JText::_($this->nameListing),$this->icon,$this->ctrl);
-		$bar = JToolBar::getInstance('toolbar');
-		JToolBarHelper::custom('preview', 'acypreview', '', JText::_('ACY_PREVIEW'), true);
-		JToolBarHelper::editList();
-		JToolBarHelper::deleteList(JText::_('ACY_VALIDDELETEITEMS'));
 
-		JToolBarHelper::divider();
-		$bar->appendButton( 'Pophelp',$this->doc);
-		$bar->appendButton( 'Link', 'acymailing', JText::_('ACY_CPANEL'), acymailing_completeLink('dashboard') );
+		$acyToolbar = acymailing::get('helper.toolbar');
+		$acyToolbar->custom('preview', JText::_('ACY_PREVIEW'), 'search', true);
+		$acyToolbar->edit();
+		$acyToolbar->delete();
+
+		$acyToolbar->divider();
+		$acyToolbar->help($this->doc);
+		$acyToolbar->setTitle(JText::_($this->nameListing), $this->ctrl);
+		$acyToolbar->display();
 
 		$toggleClass = acymailing_get('helper.toggle');
-		$this->assignRef('toggleClass',$toggleClass);
-		$this->assignRef('pageInfo',$pageInfo);
+		$this->assignRef('toggleClass', $toggleClass);
+		$this->assignRef('pageInfo', $pageInfo);
 		$this->assign('config', $config);
 		$this->assign('rows', $rows);
 	}
 
 	function form(){
-		JHTML::_('behavior.modal','a.modal');
+		JHTML::_('behavior.modal', 'a.modal');
 		return parent::form();
 	}
 
 	function preview(){
-		JHTML::_('behavior.modal','a.modal');
+		JHTML::_('behavior.modal', 'a.modal');
 		return parent::preview();
 	}
 

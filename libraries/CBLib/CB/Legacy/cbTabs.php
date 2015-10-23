@@ -82,31 +82,43 @@ class cbTabs extends cbTabHandler
 	 */
 	public function __construct( $useCookies, $ui, $mode = null, $outputTabpaneScript = true )
 	{
-		global $_CB_framework;
-
-		static $scriptOut		=	false;
-
 		parent::__construct();
 
 		$this->ui				=	$ui;
 
-		if ( $outputTabpaneScript && ( ! $scriptOut ) ) {
-			$tab				=	null;
+		if ( $outputTabpaneScript ) {
+			$this->outputTabJS( $useCookies );
+		}
+	}
+
+	/**
+	 * Outputs the tab javascript once
+	 *
+	 * @param  int $useCookies If set to 1 cookie will hold last used tab between page refreshes
+	 */
+	public function outputTabJS( $useCookies = 0 )
+	{
+		global $_CB_framework;
+
+		static $cache	=	false;
+
+		if ( ! $cache ) {
+			$tab		=	null;
 
 			if ( isset( $_GET['tab'] ) ) {
-				$tab			=	urldecode( stripslashes( cbGetParam( $_GET, 'tab', null ) ) );
+				$tab	=	urldecode( stripslashes( cbGetParam( $_GET, 'tab', null ) ) );
 			} elseif ( isset( $_POST['tab'] ) ) {
-				$tab			=	stripslashes( cbGetParam( $_POST, 'tab', null ) );
+				$tab	=	stripslashes( cbGetParam( $_POST, 'tab', null ) );
 			}
 
-			$js					=	"$( '.cbTabs' ).cbtabs({"
-								.		"useCookies: " . (int) $useCookies . ","
-								.		"tabSelected: '" . addslashes( $tab ) . "'"
-								.	"});";
+			$js			=	"$( '.cbTabs' ).cbtabs({"
+						.		"useCookies: " . (int) $useCookies . ","
+						.		"tabSelected: '" . addslashes( $tab ) . "'"
+						.	"});";
 
 			$_CB_framework->outputCbJQuery( $js, 'cbtabs' );
 
-			$scriptOut			=	true;
+			$cache		=	true;
 		}
 	}
 
@@ -1460,7 +1472,7 @@ class cbTabs extends cbTabHandler
 			$pluginsList				=	$_CB_database->loadObjectList( null, '\CB\Database\Table\PluginTable', array( &$_CB_database ) );
 			if ( count( $pluginsList ) == 1 ) {
 				$plugin					=	$pluginsList[0];
-				if ( $_PLUGINS->loadPluginGroup( 'user', array( (int) $plugin->id ) ) ) {
+				if ( $_PLUGINS->loadPluginGroup( $plugin->type, array( (int) $plugin->id ) ) ) {
 					$pluginComponentFile	=	$_CB_framework->getCfg( 'absolute_path' ) . '/' . $_PLUGINS->getPluginRelPath( $plugin ) . '/component.' . $plugin->element . '.php';
 					if ( file_exists( $pluginComponentFile ) ) {
 						/** @noinspection PhpIncludeInspection */

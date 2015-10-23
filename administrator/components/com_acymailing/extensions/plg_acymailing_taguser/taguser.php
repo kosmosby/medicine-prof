@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.4
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -37,10 +37,10 @@ class plgAcymailingTaguser extends JPlugin{
 		?>
 
 		<script language="javascript" type="text/javascript">
-			function applyTag(tagname) {
+			function applyTag(tagname){
 				var string = '{usertag:' + tagname;
-				for (var i = 0; i < document.adminForm.typeinfo.length; i++) {
-					if (document.adminForm.typeinfo[i].checked) {
+				for(var i = 0; i < document.adminForm.typeinfo.length; i++){
+					if(document.adminForm.typeinfo[i].checked){
 						string += '|info:' + document.adminForm.typeinfo[i].value;
 					}
 				}
@@ -57,7 +57,7 @@ class plgAcymailingTaguser extends JPlugin{
 
 
 		$notallowed = array('password', 'params', 'sendemail', 'gid', 'block', 'email', 'name', 'id');
-		$text = '<table class="adminlist table table-striped table-hover" cellpadding="1">';
+		$text = '<div class="onelineblockoptions"><table class="acymailing_table" cellpadding="1">';
 		$db = JFactory::getDBO();
 		$fields = acymailing_getColumns('#__users');
 		if(ACYMAILING_J30) $fields = array_merge($fields, array('usertype' => 'usertype'));
@@ -88,16 +88,14 @@ class plgAcymailingTaguser extends JPlugin{
 		}
 		if(ACYMAILING_J30){
 			$link = 'index.php/component/users/?task=registration.activate&token={usertag:activation|info:receiver}';
-		}
-		elseif(ACYMAILING_J16){
+		}elseif(ACYMAILING_J16){
 			$link = 'index.php?option=com_users&task=registration.activate&token={usertag:activation|info:receiver}';
-		}
-		else{
+		}else{
 			$link = 'index.php?option=com_user&task=activate&activation={usertag:activation|info:receiver}';
 		}
 		$text .= '<tr style="cursor:pointer" class="row'.$k.'" onclick="setTag(\''.htmlentities('<a target="_blank" href="'.$link.'">'.JText::_('JOOMLA_CONFIRM_ACCOUNT').'</a>').'\'); insertTag();" ><td class="acytdcheckbox"></td><td>confirmJoomla</td><td>'.JText::_('JOOMLA_CONFIRM_LINK').'</td></tr>';
 
-		$text .= '</table>';
+		$text .= '</table></div>';
 
 		echo $text;
 	}
@@ -144,8 +142,9 @@ class plgAcymailingTaguser extends JPlugin{
 			}
 
 
-			if(!empty($this->sendervalues[$idused])) $values = $this->sendervalues[$idused];
-			elseif(!empty($receivervalues[$idused])) $values = $receivervalues[$idused];
+			if(!empty($this->sendervalues[$idused])){
+				$values = $this->sendervalues[$idused];
+			}elseif(!empty($receivervalues[$idused])) $values = $receivervalues[$idused];
 
 			if($mytag->id == 'usertype' && ACYMAILING_J16){
 				if(empty($this->acyuserHelper)) $this->acyuserHelper = acymailing_get('helper.acyuser');
@@ -157,8 +156,7 @@ class plgAcymailingTaguser extends JPlugin{
 
 			if(empty($mytag->type) || $mytag->type != 'extra'){
 				$replaceme = isset($values->{$mytag->id}) ? $values->{$mytag->id} : $mytag->default;
-			}
-			else{
+			}else{
 				$replaceme = isset($values->extraFields[$mytag->id]) ? trim(json_decode($values->extraFields[$mytag->id]->profile_value), '"') : $mytag->default;
 			}
 
@@ -207,8 +205,7 @@ class plgAcymailingTaguser extends JPlugin{
 		if(!ACYMAILING_J16){
 			$acl = JFactory::getACL();
 			$groups = $acl->get_group_children_tree(null, 'USERS', false);
-		}
-		else{
+		}else{
 			$db = JFactory::getDBO();
 			$db->setQuery('SELECT a.*, a.title as text, a.id as value FROM #__usergroups AS a ORDER BY a.lft ASC');
 			$groups = $db->loadObjectList('id');
@@ -223,10 +220,7 @@ class plgAcymailingTaguser extends JPlugin{
 		$inoperator = acymailing_get('type.operatorsin');
 		$inoperator->js = 'onchange="countresults(__num__)"';
 
-		$return .= '<div id="filter__num__joomlagroup">'.$inoperator->display("filter[__num__][joomlagroup][type]").' '.
-			JHTML::_('select.genericlist', $groups, "filter[__num__][joomlagroup][group]", 'class="inputbox" size="1" onchange="countresults(__num__)"', 'value', 'text').
-			'<input type="checkbox" value="1" id="filter__num__joomlagroupsubgroups" name="filter[__num__][joomlagroup][subgroups]" onchange="countresults(__num__)"/>'.
-			'<label for="filter__num__joomlagroupsubgroups">'.JText::_('ACY_SUB_GROUPS').'</label></div>';
+		$return .= '<div id="filter__num__joomlagroup">'.$inoperator->display("filter[__num__][joomlagroup][type]").' '.JHTML::_('select.genericlist', $groups, "filter[__num__][joomlagroup][group]", 'class="inputbox" size="1" onchange="countresults(__num__)"', 'value', 'text').'<label for="filter__num__joomlagroupsubgroups"><input type="checkbox" value="1" id="filter__num__joomlagroupsubgroups" name="filter[__num__][joomlagroup][subgroups]" onchange="countresults(__num__)"/>'.JText::_('ACY_SUB_GROUPS').'</label></div>';
 
 		return $return;
 	}
@@ -277,8 +271,7 @@ class plgAcymailingTaguser extends JPlugin{
 			}
 
 			$query->where[] = $query->convertQuery('joomlauserprofiles'.$num, 'profile_value', $filter['operator'], $val, $type);
-		}
-		else{
+		}else{
 			$query->leftjoin['joomlauser'] = '#__users AS joomlauser ON joomlauser.id = sub.userid';
 			if(in_array($filter['map'], array('registerDate', 'lastvisitDate'))){
 				$filter['value'] = acymailing_replaceDate($filter['value']);
@@ -308,16 +301,14 @@ class plgAcymailingTaguser extends JPlugin{
 			$allGroups = acymailing_loadResultArray($db);
 			array_unshift($allGroups, $filter['group']);
 			$value = ' IN ('.implode(', ', $allGroups).')';
-		}
-		else{
+		}else{
 			$value = ' = '.$filter['group'];
 		}
 
 		if(!ACYMAILING_J16){
 			$query->leftjoin['joomlauser'.$num] = "#__users AS joomlauser$num ON joomlauser$num.id = sub.userid AND joomlauser$num.gid".$value;
 			$query->where[] = "joomlauser$num.id ".$operator;
-		}
-		else{
+		}else{
 			$query->leftjoin['joomlauser'.$num] = "#__user_usergroup_map AS joomlauser$num ON joomlauser$num.user_id = sub.userid AND joomlauser$num.group_id".$value;
 			$query->where[] = "joomlauser$num.user_id ".$operator;
 		}

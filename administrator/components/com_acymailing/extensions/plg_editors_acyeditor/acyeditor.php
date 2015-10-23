@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.4
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -160,6 +160,8 @@ class plgEditorAcyEditor extends JPlugin
 		confirmInitAreas='".str_replace("'", "\'", JText::_('ACYEDITOR_REINIT_ZONE_CONFIRMATION'))."';
 		tooltipTemplateSortable='".str_replace("'", "\'", JText::_('ACYEDITOR_SORTABLE_AREA_TOOLTIP'))."';
 		var bgroundColorTxt='".str_replace("'", "\'", JText::_('BACKGROUND_COLOUR'))."';
+		var confirmDeleteBtnTxt='".str_replace("'", "\'", JText::_('ACY_DELETE'))."';
+		var confirmCancelBtnTxt='".str_replace("'", "\'", JText::_('ACY_CANCEL'))."';
 		inlineSource='".$inlineSource."';
 		";
 

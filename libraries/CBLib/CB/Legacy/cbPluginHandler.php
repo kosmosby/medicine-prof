@@ -381,7 +381,7 @@ class cbPluginHandler
 			$lang					=	$_CB_framework->getCfg( 'lang_tag' );
 
 			if ( $_CB_framework->getUi() == 2 ) {
-				$langLoaded			=	CBTxt::import( $langPath, $lang, '/cbplugin/' . $plugin->element . '-admin_language.php', false );
+				$langLoaded			=	CBTxt::import( $langPath, $lang, 'cbplugin/' . $plugin->element . '-admin_language.php', false );
 
 				if ( ! $langLoaded ) {
 					CBTxt::import( $plgLangPath, $lang, 'admin_language.php' );

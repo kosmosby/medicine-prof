@@ -853,7 +853,7 @@ class XmlQuery {
 		for ( $i = 0, $n = count( $filterValuesArray['valuefield'] ); $i < $n; $i++ ) {
 			$saveAs							=	$this->_currentTableAs;
 
-			$this->_currentTableAs			=	$this->findTableAs( $filterValuesArray['table'], $filterValuesArray['table_key'], 'id', 'sql:field', 'sql:field' );
+			$this->_currentTableAs			=	$this->findTableAs( $filterValuesArray['table'][$i], $filterValuesArray['table_key'][$i], 'id', 'sql:field', 'sql:field' );
 
 			if ( $this->_currentTableAs !== false ) {
 				$this->addWhere( $filterValuesArray['valuefield'][$i], $filterValuesArray['operator'][$i], $filterValuesArray['internalvalue'][$i], 'const:string' );
@@ -909,7 +909,7 @@ class XmlQuery {
 		if ( $colValueType == 'sql:formula' ) {
 			if ( $this->_reverse && isset( $filterValuesArray['name']) && ( $filterValuesArray['name'] == $colVal ) ) {
 				$addInBrackets	=	( ! is_array( $filterValuesArray['internalvalue'] ) );
-				$colVal			=	$this->sqlCleanQuote( $filterValuesArray['internalvalue'], $colType );
+				$colVal			=	$this->sqlCleanQuote( $filterValuesArray['internalvalue'], isset( $filterValuesArray['specialvaluetype'] ) ? $filterValuesArray['specialvaluetype'] : $colType );
 			} else {
 				if ( count( $column->children() ) != 0 ) {
 					$colVal		=	null;
@@ -947,7 +947,16 @@ class XmlQuery {
 				$expression		=	substr( $expression, $joinEqualInExpr + 1 );
 			}
 
-			$operator			=	$column->attributes( 'operator' );
+			$operator			=	isset( $filterValuesArray['operator'] ) ? $filterValuesArray['operator'] : $column->attributes( 'operator' );
+
+			if ( ! $addInBrackets ) {
+				if ( $operator == '=') {
+					$operator	=	'IN';
+				} elseif ( $operator == '!=') {
+					$operator	=	'NOT IN';
+				}
+			}
+
 			$expression			=	$expression
 								.	' ' . $operator . ' ';
 			if ( in_array( strtolower( $operator ), array( 'in', 'not in' ) ) && $addInBrackets ) {
@@ -1480,17 +1489,16 @@ class XmlQuery {
 	 * @param  array               $subFormula
 	 * @return null|string
 	 */
-	protected function process_reverse_sql_field( $data, $subFormula ) {
+	protected function process_reverse_sql_field( $data, $subFormula )
+	{
 		$formula			=	null;
 
 		$cnt_name			=	$data->attributes( 'name' );
-		$cnt_as				=	$data->attributes( 'as' );
 		$cnt_table			=	$data->attributes( 'table' );
 		$cnt_key			=	$data->attributes( 'key' );
 		$cnt_val			=	$data->attributes( 'value' );
 		$cnt_valtype		=	$data->attributes( 'valuetype' );
 		$cnt_tablefield		=	$data->attributes( 'tablefield' );
-		$cnt_joinkeys		=	$data->getElementByPath( 'joinkeys' );
 
 		if ( $cnt_table && $this->_table ) {
 			if  ( $cnt_table == $this->_table ) {
@@ -1502,18 +1510,16 @@ class XmlQuery {
 						.	$this->_currentTableAs . '.`' . $cnt_key . '`';
 				}
 			} else {
-				$tableAs		=	$this->_addGetJoinAs( $data, $subFormula );
+				$this->_addGetJoinAs( $data, $subFormula );
 
-				$formula		=	( $tableAs ? $tableAs . '.' : '' ) . '`' . $cnt_val . '`'
+				$formula		=	'`' . $cnt_val . '`'
 								.	' = '
 								.	$this->tableAs . '.`' . $cnt_name . '`';
 			}
 		} else {
 			$tableAs			=	$this->_addGetJoinAs( $data );
 			if ( $tableAs ) {
-				$formula		=	$tableAs . '.`' . $cnt_name . '`'
-					//	.	( $cnt_as ? ' AS `' . $cnt_as . '`' : '' )
-				;
+				$formula		=	$tableAs . '.`' . $cnt_name . '`';
 			} else {
 				if ( $cnt_tablefield != 'false' ) {
 					$formula	=	$this->tableAs . '.`' . $cnt_name . '`';
