@@ -34,7 +34,7 @@ class OpenFireService
     public function verifyCode($phoneNumber, $code){
         $verificationResult = $this->phoneVerifier->verifyCode($phoneNumber, $code);
         if( $verificationResult){
-            return createOrUpdateUser($phoneNumber, $code, $verificationResult['name']);
+            return $this->createOrUpdateUser($phoneNumber, $code, $verificationResult['name']);
         }else{
             return array('status'=>'BAD_CODE');
         }
@@ -43,6 +43,7 @@ class OpenFireService
     public function createOrUpdateUser($login, $password, $name){
         $link = mysql_connect('localhost', 'root', 'staSPE8e');
         mysql_select_db('openfire', $link);
+        mysql_query("set names utf8", $link);
         $query = "SELECT 1 FROM ofUser WHERE username='".mysql_real_escape_string($login)."'";
         $res = mysql_query($query, $link);
         $userExists = mysql_result($res, 0);
