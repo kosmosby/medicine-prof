@@ -87,9 +87,12 @@ class LocationTable extends OrderedTable
 		global $_PLUGINS;
 
 		$new	=	( $this->get( 'id' ) ? false : true );
+		$old	=	new self();
 
 		if ( ! $new ) {
-			$_PLUGINS->trigger( 'activity_onBeforeUpdateLocation', array( &$this ) );
+			$old->load( (int) $this->get( 'id' ) );
+
+			$_PLUGINS->trigger( 'activity_onBeforeUpdateLocation', array( &$this, $old ) );
 		} else {
 			$_PLUGINS->trigger( 'activity_onBeforeCreateLocation', array( &$this ) );
 		}
@@ -99,7 +102,7 @@ class LocationTable extends OrderedTable
 		}
 
 		if ( ! $new ) {
-			$_PLUGINS->trigger( 'activity_onAfterUpdateLocation', array( $this ) );
+			$_PLUGINS->trigger( 'activity_onAfterUpdateLocation', array( $this, $old ) );
 		} else {
 			$_PLUGINS->trigger( 'activity_onAfterCreateLocation', array( $this ) );
 		}

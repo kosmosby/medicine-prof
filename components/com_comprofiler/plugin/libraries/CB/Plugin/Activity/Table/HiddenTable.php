@@ -76,11 +76,14 @@ class HiddenTable extends Table
 		global $_PLUGINS;
 
 		$new	=	( $this->get( 'id' ) ? false : true );
+		$old	=	new self();
 
 		$this->set( 'type', preg_replace( '/[^-a-zA-Z0-9_.]/', '', $this->get( 'type' ) ) );
 
 		if ( ! $new ) {
-			$_PLUGINS->trigger( 'activity_onBeforeUpdateHidden', array( &$this ) );
+			$old->load( (int) $this->get( 'id' ) );
+
+			$_PLUGINS->trigger( 'activity_onBeforeUpdateHidden', array( &$this, $old ) );
 		} else {
 			$_PLUGINS->trigger( 'activity_onBeforeCreateHidden', array( &$this ) );
 		}
@@ -90,7 +93,7 @@ class HiddenTable extends Table
 		}
 
 		if ( ! $new ) {
-			$_PLUGINS->trigger( 'activity_onAfterUpdateHidden', array( $this ) );
+			$_PLUGINS->trigger( 'activity_onAfterUpdateHidden', array( $this, $old ) );
 		} else {
 			$_PLUGINS->trigger( 'activity_onAfterCreateHidden', array( $this ) );
 		}

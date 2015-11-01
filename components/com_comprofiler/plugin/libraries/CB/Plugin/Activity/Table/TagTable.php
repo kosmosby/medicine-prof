@@ -84,13 +84,16 @@ class TagTable extends Table
 		global $_CB_framework, $_PLUGINS;
 
 		$new	=	( $this->get( 'id' ) ? false : true );
+		$old	=	new self();
 
 		$this->set( 'type', preg_replace( '/[^-a-zA-Z0-9_.]/', '', $this->get( 'type' ) ) );
 		$this->set( 'subtype', preg_replace( '/[^-a-zA-Z0-9_.]/', '', $this->get( 'subtype' ) ) );
 		$this->set( 'date', $this->get( 'date', $_CB_framework->getUTCDate() ) );
 
 		if ( ! $new ) {
-			$_PLUGINS->trigger( 'activity_onBeforeUpdateTag', array( &$this ) );
+			$old->load( (int) $this->get( 'id' ) );
+
+			$_PLUGINS->trigger( 'activity_onBeforeUpdateTag', array( &$this, $old ) );
 		} else {
 			$_PLUGINS->trigger( 'activity_onBeforeCreateTag', array( &$this ) );
 		}
@@ -100,7 +103,7 @@ class TagTable extends Table
 		}
 
 		if ( ! $new ) {
-			$_PLUGINS->trigger( 'activity_onAfterUpdateTag', array( $this ) );
+			$_PLUGINS->trigger( 'activity_onAfterUpdateTag', array( $this, $old ) );
 		} else {
 			$_PLUGINS->trigger( 'activity_onAfterCreateTag', array( $this ) );
 		}

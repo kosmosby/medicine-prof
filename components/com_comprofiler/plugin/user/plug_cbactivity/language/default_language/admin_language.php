@@ -17,9 +17,10 @@ defined('CBLIB') or die();
 return	array(
 // 1 language strings from file plug_cbactivity/cbactivity.xml
 'CLEANUP_8c6384'	=>	'Cleanup',
-// 2 language strings from file plug_cbactivity/xml/models/model.activity.xml
+// 3 language strings from file plug_cbactivity/xml/models/model.activity.xml
 'ENABLE_2faec1'	=>	'Enable',
 'DISABLE_bcfacc'	=>	'Disable',
+'OBJECT_497031'	=>	'Object',
 // 10 language strings from file plug_cbactivity/xml/views/view.com_comprofiler.editactivityactionrow.xml
 'ACTION_004bf6'	=>	'Action',
 'SELECT_PUBLISH_STATUS_OF_THIS_ACTION_UNPUBLISHED_A_cd8370'	=>	'Select publish status of this action. Unpublished action will not display.',
@@ -31,7 +32,7 @@ return	array(
 'ICON_817434'	=>	'Icon',
 'OPTIONALLY_INPUT_THE_CSS_CLASS_TO_RENDER_AN_ICON_D_4875fd'	=>	'Optionally input the CSS class to render an icon display.',
 'SELECT_THE_ORDERING_OF_THIS_ACTION_ORDERING_DETERM_6e7262'	=>	'Select the ordering of this action. Ordering determines what order the action displays in the dropdown.',
-// 10 language strings from file plug_cbactivity/xml/views/view.com_comprofiler.editactivitycommentrow.xml
+// 11 language strings from file plug_cbactivity/xml/views/view.com_comprofiler.editactivitycommentrow.xml
 'COMMENT_0be840'	=>	'Comment',
 'INPUT_THE_COMMENT_MESSAGE_4b34b1'	=>	'Input the comment message.',
 'INPUT_THE_TYPE_OF_COMMENT_35a388'	=>	'Input the type of comment.',
@@ -42,6 +43,7 @@ return	array(
 'OPTIONALLY_INPUT_THE_COMMENT_PARENT_ID_c20362'	=>	'Optionally input the comment parent id.',
 'PARENT_302690'	=>	'Parent',
 'INPUT_OWNER_AS_SINGLE_INTEGER_USERID_169965'	=>	'Input owner as single integer user_id.',
+'ENABLE_OR_DISABLE_DISPLAY_OF_REPLIES_FOR_THIS_COMM_f07fcd'	=>	'Enable or disable display of replies for this comment entry. Note a stream that has replies disabled will not display replies regardless of this setting.',
 // 6 language strings from file plug_cbactivity/xml/views/view.com_comprofiler.editactivityemoterow.xml
 'EMOTE_4b72cd'	=>	'Emote',
 'SELECT_PUBLISH_STATUS_OF_THIS_EMOTE_UNPUBLISHED_EM_f5fb0f'	=>	'Select publish status of this emote. Unpublished emote will not display.',
@@ -54,13 +56,18 @@ return	array(
 'INPUT_THE_LOCATION_LOCATION_WILL_DETERMINE_THE_USE_f17257'	=>	'Input the location. Location will determine the users location relationship (e.g. At, In, Going To, etc...).',
 'OPTIONALLY_INPUT_THE_LOCATION_TITLE_THE_TITLE_IS_D_7ac280'	=>	'Optionally input the location title. The title is displayed as a prefix to the location (e.g. at, in, going to, arriving at, etc...).',
 'SELECT_THE_ORDERING_OF_THIS_LOCATION_ORDERING_DETE_fcb76c'	=>	'Select the ordering of this location. Ordering determines what order the location displays in the dropdown.',
-// 32 language strings from file plug_cbactivity/xml/views/view.com_comprofiler.editactivityrow.xml
+// 37 language strings from file plug_cbactivity/xml/views/view.com_comprofiler.editactivityrow.xml
 'OPTIONALLY_INPUT_THE_SUBSTITUTION_SUPPORTED_TITLE__f856ce'	=>	'Optionally input the substitution supported title. Title is displayed to the right of the users name.',
 'OPTIONALLY_INPUT_THE_SUBSTITUTION_SUPPORTED_MESSAG_384409'	=>	'Optionally input the substitution supported message. Message is displayed below the activity header.',
 'INPUT_THE_TYPE_OF_ACTIVITY_f171fb'	=>	'Input the type of activity.',
 'OPTIONALLY_INPUT_THE_ACTIVITY_SUBTYPE_b7b145'	=>	'Optionally input the activity subtype.',
 'OPTIONALLY_INPUT_THE_ACTIVITY_ITEM_ID_8eaf3f'	=>	'Optionally input the activity item id.',
 'OPTIONALLY_INPUT_THE_ACTIVITY_PARENT_ID_a482bf'	=>	'Optionally input the activity parent id.',
+'ENABLE_OR_DISABLE_DISPLAY_OF_COMMENTS_FOR_THIS_ACT_ca870b'	=>	'Enable or disable display of comments for this activity entry. Note a stream that has comments disabled will not display comments regardless of this setting.',
+'SELECT_THE_COMMENTS_SOURCE_SOURCE_DETERMINES_WHAT__a0a85b'	=>	'Select the comments source. Source determines what the comments will be linked to. This allows comments to carry over from activity to activity or outside of activity it self. Object source can only be used if an Item is specified.',
+'SOURCE_f31bbd'	=>	'Source',
+'ENABLE_OR_DISABLE_DISPLAY_OF_TAGS_FOR_THIS_ACTIVIT_472acf'	=>	'Enable or disable display of tags for this activity entry. Note a stream that has tags disabled will not display tags regardless of this setting.',
+'SELECT_THE_TAGS_SOURCE_SOURCE_DETERMINES_WHAT_THE__f7b4ee'	=>	'Select the tags source. Source determines what the tags will be linked to. This allows tags to carry over from activity to activity or outside of activity it self. Object source can only be used if an Item is specified.',
 'SELECT_THE_TYPE_OF_THIS_LINK_TYPE_DETERMINES_HOW_T_c9989a'	=>	'Select the type of this link. Type determines how the link will display.',
 'INPUT_THE_LINK_URL_FOR_THIS_LINK_5ccf15'	=>	'Input the link URL for this link.',
 'ENABLE_OR_DISABLE_INTERNAL_LINK_INTERNAL_LINKS_WIL_8fced1'	=>	'Enable or disable internal link. Internal links will suppress the display of the URL.',

@@ -87,13 +87,16 @@ class CommentTable extends Table
 		global $_CB_framework, $_PLUGINS;
 
 		$new	=	( $this->get( 'id' ) ? false : true );
+		$old	=	new self();
 
 		$this->set( 'type', preg_replace( '/[^-a-zA-Z0-9_.]/', '', $this->get( 'type' ) ) );
 		$this->set( 'subtype', preg_replace( '/[^-a-zA-Z0-9_.]/', '', $this->get( 'subtype' ) ) );
 		$this->set( 'date', $this->get( 'date', $_CB_framework->getUTCDate() ) );
 
 		if ( ! $new ) {
-			$_PLUGINS->trigger( 'activity_onBeforeUpdateComment', array( &$this ) );
+			$old->load( (int) $this->get( 'id' ) );
+
+			$_PLUGINS->trigger( 'activity_onBeforeUpdateComment', array( &$this, $old ) );
 		} else {
 			$_PLUGINS->trigger( 'activity_onBeforeCreateComment', array( &$this ) );
 		}
@@ -103,7 +106,7 @@ class CommentTable extends Table
 		}
 
 		if ( ! $new ) {
-			$_PLUGINS->trigger( 'activity_onAfterUpdateComment', array( $this ) );
+			$_PLUGINS->trigger( 'activity_onAfterUpdateComment', array( $this, $old ) );
 		} else {
 			$_PLUGINS->trigger( 'activity_onAfterCreateComment', array( $this ) );
 		}
@@ -173,10 +176,16 @@ class CommentTable extends Table
 	 * @param string         $source
 	 * @param null|UserTable $user
 	 * @param int            $direction
-	 * @return Comments
+	 * @return Comments|null
 	 */
 	public function replies( $source = 'stream', $user = null, $direction = 1 )
 	{
+		$params				=	$this->params()->subTree( 'replies' );
+
+		if ( ! $params->get( 'display', 1 ) ) {
+			return null;
+		}
+
 		/** @var Comments[] $cache */
 		static $cache		=	array();
 

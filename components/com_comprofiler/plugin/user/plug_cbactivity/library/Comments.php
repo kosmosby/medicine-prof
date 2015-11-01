@@ -242,7 +242,7 @@ class Comments extends StreamDirection implements CommentsInterface
 			$query						.=	"\n AND a." . $_CB_database->NameQuote( 'message' ) . " LIKE " . $_CB_database->Quote( '%' . $_CB_database->getEscaped( $this->get( 'filter', null, GetterInterface::STRING ), true ) . '%', false );
 		}
 
-		$query							.=	( $where ? "\n AND " . explode( "\n AND ", $where ) : null )
+		$query							.=	( $where ? "\n AND " . implode( "\n AND ", $where ) : null )
 										.	( ! $count ? "\n ORDER BY a." . $_CB_database->NameQuote( 'date' ) . " DESC" : null );
 
 		$cacheId						=	md5( $query . ( $count ? 'count' : (int) $this->get( 'limitstart', null, GetterInterface::INT ) . (int) $this->get( 'limit', null, GetterInterface::INT ) ) );

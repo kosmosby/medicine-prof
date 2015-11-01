@@ -5,9 +5,24 @@
 		<title>Joomlapolis News</title>
 		<description>Joomla social networking and Subscription Management software. Community Builder is the top rated, best supported, most complete and reliable community system there is for Joomla!</description>
 		<link>http://www.joomlapolis.com:80/news</link>
-		<lastBuildDate>Thu, 22 Oct 2015 12:46:28 +0000</lastBuildDate>
+		<lastBuildDate>Sun, 01 Nov 2015 11:08:48 +0000</lastBuildDate>
 		<generator>Joomla! 1.5 - Open Source Content Management</generator>
 		<language>en-gb</language>
+		<item>
+			<title>Critical Security Joomla 3.4.5 released</title>
+			<link>http://www.joomlapolis.com:80/news/18517-critical-security-joomla-345-released</link>
+			<guid>http://www.joomlapolis.com:80/news/18517-critical-security-joomla-345-released</guid>
+			<description><![CDATA[<p><a href="http://www.joomla.org/announcements/release-news/5634-joomla-3-4-5-released.html" target="_blank"><img style="display: block; margin-left: auto; margin-right: auto;" src="http://www.joomlapolis.com:80/images/jpnewsletter/jpn201510/j345now.gif" alt="j345now" width="580" height="159" /></a></p>
+<p>&nbsp;</p>
+<p>Our newsletter recipients have already been notified that Joomla 3.4.5 has fixed a critical security vulnerability and that all Joomla 3.2.0 and above webistes need to <strong>upgrade to Joomla 3.4.5 immediately</strong>.</p>
+<p>Community Builder 1.9.1 and 2.0.11 are fully compatible with this new Joomla 3.4.5 release.</p>
+<p>CB Team member Beat is on the JSST (Joomla Security Strike Team) and he has been contributing to make this Joomla security release happen. He strongly recommends that every Joomla 3.x website must be upgraded to Joomla 3.4.5 now.</p>
+<p><strong>Beat says:</strong> "If you have Joomla 3.2.0 or above, stop reading and start upgrading to Joomla 3.4.5, <strong>now</strong>!"</p>
+<p>Please <a href="http://www.joomla.org/announcements/release-news/5634-joomla-3-4-5-released.html" target="_blank">read the official Joomla release announcement</a> and start upgrading.</p>]]></description>
+			<author>nant@joomlapolis.com (Nick A.)</author>
+			<category>News</category>
+			<pubDate>Thu, 22 Oct 2015 13:13:19 +0000</pubDate>
+		</item>
 		<item>
 			<title>GroupJive 3.0 beta 1 ready for testing</title>
 			<link>http://www.joomlapolis.com:80/news/18516-groupjive-30-beta-1-ready-for-testing</link>
@@ -212,24 +227,6 @@
 			<author>nant@joomlapolis.com (Nick A.)</author>
 			<category>News</category>
 			<pubDate>Tue, 14 Jul 2015 10:34:07 +0000</pubDate>
-		</item>
-		<item>
-			<title>Joomla 3.4.3 and CB 2.0.10 are great together</title>
-			<link>http://www.joomlapolis.com:80/news/18507-joomla-343-and-cb-2010-are-great-together</link>
-			<guid>http://www.joomlapolis.com:80/news/18507-joomla-343-and-cb-2010-are-great-together</guid>
-			<description><![CDATA[<p style="text-align: center;">&nbsp;<img src="http://www.joomlapolis.com:80/images/jpnewsletter/jpn201507/j343-cb2010.jpg" alt="j343-cb2010" width="500" height="259" /></p>
-<p><strong>Joomla 3.4.3</strong> was released last week and we have been testing it with our internal build of the just released <strong>Community Builder 2.0.10</strong> and ... <strong>they are great together</strong>!</p>
-<p>Simply put, we recommend upgrading to these new releases.</p>
-<p>The <a href="http://www.joomla.org/announcements/release-news/5590-joomla-3-4-3-released.html" target="_blank">Joomla 3.4.3 announcement</a> came only a few days after the project's 3.4.2 release quickly addressing some buggers that slipped through. Joomla community gets an A for addressing these issues.</p>
-<p>During this process we have been fixing CB 2.0.9 issues and also verifying that everything still works great with the latest Joomla versions.</p>
-<p>Community Builder 2.0.10 is <a href="http://www.joomlapolis.com:80/index.php?option=com_docman&amp;task=doc_details&amp;gid=774">available</a> and it has 3 new features and it also fixes 16 bugs (see forum discussion for full changelog).</p>
-<p>All CB 2.0+ websites should upgrade to latest CB 2.0.10. Such an upgrade is a <strong>simple install over</strong> (precautionary backup always recommended) as all previous settings are kept.</p>
-<p>CB 1.9.1 websites should also upgrade to CB 2.0.10 following the process described in video #30 of our <a href="https://www.youtube.com/playlist?list=PLp0puRITgC7PuyzPsMUECDI46VE7IFSAX" target="_blank">CB 2.0 video tutorial series</a>.</p>
-<p>The <a href="http://www.joomlapolis.com:80/index.php?option=com_docman&amp;task=doc_details&amp;gid=753">CB Primer Book</a> has also been updated as well as the <a href="http://www.joomlapolis.com:80/index.php?option=com_content&amp;view=article&amp;id=18463&amp;Itemid=198">CB 2.0 Add-on compatibility</a> chart.</p>
-<p><a href="http://www.joomlapolis.com:80/forum/6-news-and-publicity/230438-joomla-343-and-cb-2010-are-great-together">Discuss this on our forums</a> !</p>]]></description>
-			<author>nant@joomlapolis.com (Nick A.)</author>
-			<category>News</category>
-			<pubDate>Thu, 09 Jul 2015 08:45:23 +0000</pubDate>
 		</item>
 	</channel>
 </rss>

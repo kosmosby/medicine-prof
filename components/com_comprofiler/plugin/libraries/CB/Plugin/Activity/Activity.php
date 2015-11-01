@@ -214,6 +214,8 @@ class Activity extends StreamDirection implements ActivityInterface
 
 		$_PLUGINS->trigger( 'activity_onQueryActivity', array( $count, &$select, &$where, &$join, &$this ) );
 
+		// TODO: Try replacing prefetch usages with subqueries directly in the SELECT instead:
+
 		$query							=	'SELECT ' . $select
 										.	"\n FROM " . $_CB_database->NameQuote( '#__comprofiler_plugin_activity' ) . " AS a"
 										.	"\n LEFT JOIN " . $_CB_database->NameQuote( '#__comprofiler_plugin_activity_hidden' ) . " AS b"
@@ -253,11 +255,18 @@ class Activity extends StreamDirection implements ActivityInterface
 										.		')';
 
 			if ( $this->source == 'profile' ) {
+				// TODO: Implement OR case for activity that the user has been tagged in (keep system action?):
+				// TODO: Implement OR case for activity that the user has commented on (keep system action?):
+				$query					.=	"\n AND ("
+										.		'f.' . $_CB_database->NameQuote( 'user_id' ) . ' = ' . (int) $this->user->get( 'id' )
+										.		' OR ( f.' . $_CB_database->NameQuote( 'type' ) . ' IN ' . $_CB_database->safeArrayOfStrings( array( 'status', 'field' ) ) . ' AND f.' . $_CB_database->NameQuote( 'parent' ) . ' = ' . (int) $this->user->get( 'id' ) . ' )'
+										.		' OR ( f.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'profile' ) . ' AND f.' . $_CB_database->NameQuote( 'subtype' ) . ' = ' . $_CB_database->Quote( 'connection' ) . ' AND f.' . $_CB_database->NameQuote( 'item' ) . ' = ' . (int) $this->user->get( 'id' ) . ' )';
+
 				if ( $isSelf ) {
-					$query				.=	' AND ( f.' . $_CB_database->NameQuote( 'user_id' ) . ' = ' . (int) $this->user->get( 'id' ) . ' OR e.' . $_CB_database->NameQuote( 'memberid' ) . ' IS NOT NULL )';
-				} else {
-					$query				.=	' AND ( f.' . $_CB_database->NameQuote( 'user_id' ) . ' = ' . (int) $this->user->get( 'id' ) . ' OR a.' . $_CB_database->NameQuote( 'parent' ) . ' = ' . (int) $this->user->get( 'id' ) . ' )';
+					$query				.=		' OR ( e.' . $_CB_database->NameQuote( 'memberid' ) . ' IS NOT NULL )';
 				}
+
+				$query					.=	')';
 			}
 
 			if ( $this->get( 'subtype' ) ) {
@@ -294,11 +303,18 @@ class Activity extends StreamDirection implements ActivityInterface
 										.	"\n AND d." . $_CB_database->NameQuote( 'block' ) . " = 0";
 
 		if ( $this->source == 'profile' ) {
+			// TODO: Implement OR case for activity that the user has been tagged in (keep system action?):
+			// TODO: Implement OR case for activity that the user has commented on (keep system action?):
+			$query						.=	"\n AND ("
+										.		'a.' . $_CB_database->NameQuote( 'user_id' ) . ' = ' . (int) $this->user->get( 'id' )
+										.		' OR ( a.' . $_CB_database->NameQuote( 'type' ) . ' IN ' . $_CB_database->safeArrayOfStrings( array( 'status', 'field' ) ) . ' AND a.' . $_CB_database->NameQuote( 'parent' ) . ' = ' . (int) $this->user->get( 'id' ) . ' )'
+										.		' OR ( a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'profile' ) . ' AND a.' . $_CB_database->NameQuote( 'subtype' ) . ' = ' . $_CB_database->Quote( 'connection' ) . ' AND a.' . $_CB_database->NameQuote( 'item' ) . ' = ' . (int) $this->user->get( 'id' ) . ' )';
+
 			if ( $isSelf ) {
-				$query					.=	"\n AND ( a." . $_CB_database->NameQuote( 'user_id' ) . " = " . (int) $this->user->get( 'id' ) . " OR e." . $_CB_database->NameQuote( 'memberid' ) . " IS NOT NULL )";
-			} else {
-				$query					.=	"\n AND ( a." . $_CB_database->NameQuote( 'user_id' ) . " = " . (int) $this->user->get( 'id' ) . " OR a." . $_CB_database->NameQuote( 'parent' ) . " = " . (int) $this->user->get( 'id' ) . " )";
+				$query					.=		' OR ( e.' . $_CB_database->NameQuote( 'memberid' ) . ' IS NOT NULL )';
 			}
+
+			$query						.=	')';
 		}
 
 		if ( $this->get( 'id' ) ) {
@@ -326,7 +342,7 @@ class Activity extends StreamDirection implements ActivityInterface
 										.	" OR a." . $_CB_database->NameQuote( 'message' ) . " LIKE " . $_CB_database->Quote( '%' . $_CB_database->getEscaped( $this->get( 'filter', null, GetterInterface::STRING ), true ) . '%', false ) . " )";
 		}
 
-		$query							.=	( $where ? "\n AND " . explode( "\n AND ", $where ) : null )
+		$query							.=	( $where ? "\n AND " . implode( "\n AND ", $where ) : null )
 										.	( ! $count ? "\n ORDER BY a." . $_CB_database->NameQuote( 'date' ) . " DESC" : null );
 
 		$cacheId						=	md5( $query . ( $count ? 'count' : (int) $this->get( 'limitstart', null, GetterInterface::INT ) . (int) $this->get( 'limit', null, GetterInterface::INT ) ) );

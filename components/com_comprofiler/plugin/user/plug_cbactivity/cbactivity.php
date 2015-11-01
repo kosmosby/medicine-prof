@@ -127,7 +127,7 @@ class cbactivityField extends cbFieldHandler
 
 			CBActivity::loadStreamDefaults( $comments, $field->params, 'field_comments_' );
 
-			$return		=	$comments->stream( true );
+			$return		=	$comments->stream( false );
 		} else {
 			$activity	=	new Activity( 'field', $user, (int) $field->params->get( 'field_activity_direction', 0 ) );
 
@@ -138,22 +138,13 @@ class cbactivityField extends cbFieldHandler
 
 			CBActivity::loadStreamDefaults( $activity, $field->params, 'field_activity_' );
 
-			$return		=	$activity->stream( true );
+			$return		=	$activity->stream( false );
 		}
 
-		switch ( $output ) {
-			case 'html':
-			case 'rss':
-			case 'htmledit':
-				if ( $reason == 'search' ) {
-					return	null;
-				} else {
-					return $this->formatFieldValueLayout( $this->_formatFieldOutput( $field->get( 'name' ), $return, $output, false ), $reason, $field, $user );
-				}
-				break;
-			default:
-				return $this->_formatFieldOutput( $field->get( 'name' ), $return, $output, false );
-				break;
+		if ( ! ( ( $output == 'html' ) && ( $reason == 'profile' ) ) ) {
+			return null;
 		}
+
+		return $this->formatFieldValueLayout( $this->_formatFieldOutput( $field->get( 'name' ), $return, $output, false ), $reason, $field, $user );
 	}
 }

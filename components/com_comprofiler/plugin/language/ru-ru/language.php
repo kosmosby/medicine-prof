@@ -1621,5 +1621,23 @@ return	array(
 'What\'s on your mind?' => 'Что у тебя нового?',
 'Post' => 'Опубликовать',
 'Write a comment...' => 'Прокомментировать...',
+'Write on the wall' => 'Оставить отзыв',
+'User Rating' => 'Дать оценку',
+'Poor' => 'Плохо',
+'Best' => 'Отлично',
+'Wall entry' => 'Написать отзыв',
+'Submit Entry' => 'Опубликовать отзыв',
+'This user currently doesn\'t have any posts.' => 'У данного пользователя пока нет отзывов',
+'Created On:' => 'создан',
+'Entry'=> 'Отзывы',
+'Your Feedback' => 'Ваш ответ',
+'Give Feedback' => 'Ответить',
+'Un-Publish' => 'Снять с публикации',
+'Feedback from ' => 'Ответ от',
+'You have received a new entry in your' => 'Вы получили новый отзыв в разделе',
+
+
+
+
 
 );
