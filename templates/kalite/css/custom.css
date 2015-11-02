@@ -307,4 +307,9 @@ table.acymailing_form {
     margin: 0px;
 }
 
+.moduletable .bannergroup .banneritem {
+    float: left;
+    margin-left:10px;
+}
+
 
