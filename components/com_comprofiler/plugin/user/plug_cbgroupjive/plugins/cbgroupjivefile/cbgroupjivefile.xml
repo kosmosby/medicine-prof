@@ -1,169 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cbinstall version="1.0" type="plugin" group="user/plug_cbgroupjive/plugins">
+<cbinstall version="1.0" type="plugin" group="user/plug_cbgroupjive/plugins" method="install">
 	<name>CB GroupJive File</name>
-	<creationDate>2013-02-11</creationDate>
-	<author>Kyle (aka Krileon)</author>
+	<author>Krileon</author>
+	<creationDate>2015-10-09</creationDate>
+	<copyright>(C) 2004-2015 www.joomlapolis.com / Lightning MultiCom SA - and its licensors, all rights reserved</copyright>
+	<license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2</license>
 	<authorEmail>krileon@joomlapolis.com</authorEmail>
-	<copyright>(C) 2008-2013 Joomlapolis</copyright>
-	<license>http://www.gnu.org/licenses/gpl.html GNU/GPL</license>
-	<authorUrl>http://www.joomlapolis.com</authorUrl>
-	<version>1.9</version>
-	<description>Provides groups with a File Gallery to easily and quickly share files between one another. Configured from within GroupJive Configuration when published.</description>
-	<release>2.7.0</release>
+	<description>Provides groups with a File Gallery to easily and quickly share files between one another.</description>
+	<version>2.0.11</version>
+	<release>3.0.0-beta.1</release>
 	<files>
 		<filename plugin="cbgroupjivefile">cbgroupjivefile.php</filename>
 		<filename>index.html</filename>
-		<filename>images/aac.png</filename>
-		<filename>images/ac3.png</filename>
-		<filename>images/ace.png</filename>
-		<filename>images/ade.png</filename>
-		<filename>images/adp.png</filename>
-		<filename>images/ai.png</filename>
-		<filename>images/aiff.png</filename>
-		<filename>images/aspx.png</filename>
-		<filename>images/au.png</filename>
-		<filename>images/avi.png</filename>
-		<filename>images/bak.png</filename>
-		<filename>images/bat.png</filename>
-		<filename>images/bin.png</filename>
-		<filename>images/blue-ray.png</filename>
-		<filename>images/bmp.png</filename>
-		<filename>images/bup.png</filename>
-		<filename>images/cab.png</filename>
-		<filename>images/cat.png</filename>
-		<filename>images/chm.png</filename>
-		<filename>images/cmd.png</filename>
-		<filename>images/css.png</filename>
-		<filename>images/csv.png</filename>
-		<filename>images/cue.png</filename>
-		<filename>images/dat.png</filename>
-		<filename>images/default.png</filename>
-		<filename>images/der.png</filename>
-		<filename>images/dic.png</filename>
-		<filename>images/divx.png</filename>
-		<filename>images/diz.png</filename>
-		<filename>images/dll.png</filename>
-		<filename>images/doc.png</filename>
-		<filename>images/docx.png</filename>
-		<filename>images/dos.png</filename>
-		<filename>images/download.png</filename>
-		<filename>images/dvd.png</filename>
-		<filename>images/dwg.png</filename>
-		<filename>images/dwt.png</filename>
-		<filename>images/emf.png</filename>
-		<filename>images/exc.png</filename>
-		<filename>images/fav.png</filename>
-		<filename>images/fla.png</filename>
-		<filename>images/font.png</filename>
-		<filename>images/gif.png</filename>
-		<filename>images/hlp.png</filename>
-		<filename>images/html.png</filename>
-		<filename>images/ie7.png</filename>
-		<filename>images/ifo.png</filename>
-		<filename>images/inf.png</filename>
-		<filename>images/ini.png</filename>
-		<filename>images/iso.png</filename>
-		<filename>images/isp.png</filename>
-		<filename>images/java.png</filename>
-		<filename>images/jfif.png</filename>
-		<filename>images/jpeg.png</filename>
-		<filename>images/jpg.png</filename>
-		<filename>images/js.png</filename>
-		<filename>images/log.png</filename>
-		<filename>images/m4a.png</filename>
-		<filename>images/m4p.png</filename>
-		<filename>images/mmf.png</filename>
-		<filename>images/mmm.png</filename>
-		<filename>images/mov.png</filename>
-		<filename>images/movie.png</filename>
-		<filename>images/mp2.png</filename>
-		<filename>images/mp2v.png</filename>
-		<filename>images/mp3.png</filename>
-		<filename>images/mp4.png</filename>
-		<filename>images/mpe.png</filename>
-		<filename>images/mpeg.png</filename>
-		<filename>images/mpg.png</filename>
-		<filename>images/mpv2.png</filename>
-		<filename>images/msi.png</filename>
-		<filename>images/music.png</filename>
-		<filename>images/nfo.png</filename>
-		<filename>images/one.png</filename>
-		<filename>images/pdd.png</filename>
-		<filename>images/pdf.png</filename>
-		<filename>images/php.png</filename>
-		<filename>images/png.png</filename>
-		<filename>images/pps.png</filename>
-		<filename>images/ppt.png</filename>
-		<filename>images/pptx.png</filename>
-		<filename>images/print.png</filename>
-		<filename>images/psd.png</filename>
-		<filename>images/rar.png</filename>
-		<filename>images/rb.png</filename>
-		<filename>images/reg.png</filename>
-		<filename>images/rtf.png</filename>
-		<filename>images/safari.png</filename>
-		<filename>images/scp.png</filename>
-		<filename>images/search.png</filename>
-		<filename>images/sql.png</filename>
-		<filename>images/swf.png</filename>
-		<filename>images/sys.png</filename>
-		<filename>images/theme.png</filename>
-		<filename>images/tif.png</filename>
-		<filename>images/tiff.png</filename>
-		<filename>images/tmp.png</filename>
-		<filename>images/ttf.png</filename>
-		<filename>images/txt.png</filename>
-		<filename>images/uis.png</filename>
-		<filename>images/upload.png</filename>
-		<filename>images/url.png</filename>
-		<filename>images/vcr.png</filename>
-		<filename>images/video.png</filename>
-		<filename>images/vob.png</filename>
-		<filename>images/wba.png</filename>
-		<filename>images/wma.png</filename>
-		<filename>images/wmv.png</filename>
-		<filename>images/wpl.png</filename>
-		<filename>images/wri.png</filename>
-		<filename>images/wtx.png</filename>
-		<filename>images/wzv.png</filename>
-		<filename>images/xls.png</filename>
-		<filename>images/xlsx.png</filename>
-		<filename>images/xml.png</filename>
-		<filename>images/xsl.png</filename>
-		<filename>images/zap.png</filename>
-		<filename>images/zip.png</filename>
-		<filename>images/index.html</filename>
+		<filename>component.cbgroupjivefile.php</filename>
+		<foldername>language</foldername>
+		<foldername>library</foldername>
+		<foldername>templates</foldername>
+		<foldername>xml</foldername>
 	</files>
+	<delete>
+		<foldername>images</foldername>
+	</delete>
+	<libraries>
+		<library name="CB/Plugin/GroupJiveFile">
+			<files folder="library">
+				<filename>index.html</filename>
+				<foldername>Table</foldername>
+			</files>
+		</library>
+	</libraries>
 	<params>
+		<tabpane name="gjgroupsfile">
+			<tabpanetab label="General">
+				<param name="groups_file_create_limit" type="text" default="" size="5" label="Create Limit" description="Input number of files each individual user is limited to creating per group. If blank allow unlimited files. Moderators and group owners are exempt from this configuration." />
+				<param name="groups_file_captcha" type="yesno" default="0" label="Captcha" description="Enable or disable usage of captcha on group files. Requires latest CB AntiSpam to be installed and published. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
+			</tabpanetab>
+			<tabpanetab label="Files">
+				<param name="groups_file_min_size" type="int" default="0" size="5" label="Minimum File Size" description="Input the minimum file size in KBs." />
+				<param name="groups_file_max_size" type="int" default="1024" size="5" label="Maximum File Size" description="Input the maximum file size in KBs. Set to 0 for no limit." />
+				<param name="groups_file_extensions" type="text" default="zip,rar,doc,pdf,txt,xls" translate-default="no" size="40" label="File Types" description="Input the allowed file extensions as a comma separated list." />
+			</tabpanetab>
+			<tabpanetab label="Notifications">
+				<param name="notifications_default_file_new" type="yesno" default="0" label="Upload of new file" description="" yes="Notify" no="Don't Notify" />
+				<param name="notifications_default_file_approve" type="yesno" default="0" label="New file requires approval" description="" yes="Notify" no="Don't Notify" />
+			</tabpanetab>
+			<tabpanetab label="Paging">
+				<param name="groups_file_paging" type="yesno" default="1" label="Paging" description="Enable or disable usage of paging." yes="Enable" no="Disable" />
+				<param name="groups_file_limit" type="text" default="15" size="5" label="Page Limit" description="Input page limit. Page limit determines how many rows are displayed per page. If paging is disabled this can still be used to limit the number of rows displayed." />
+				<param name="groups_file_search" type="yesno" default="1" label="Search" description="Enable or disable usage of search on rows." yes="Enable" no="Disable" />
+				<param name="groups_file_orderby" type="list" default="2" label="Order By" description="Select the row ordering.">
+					<option value="1">Date ASC</option>
+					<option value="2">Date DESC</option>
+					<option value="3">Filename ASC</option>
+					<option value="4">Filename DESC</option>
+				</param>
+			</tabpanetab>
+		</tabpane>
 	</params>
 	<database version="1">
-		<table name="#__groupjive_plugin_file" class="" strict="true" drop="never">
+		<table name="#__groupjive_plugin_file" class="\CB\Plugin\GroupJiveFile\Table\FileTable" strict="true" drop="never">
 			<columns strict="true" drop="never">
 				<column name="id" type="sql:int(11)" unsigned="true" auto_increment="1" />
-				<column name="published" type="sql:int(11)" default="1" />
 				<column name="user_id" type="sql:int(11)" />
 				<column name="group" type="sql:int(11)" />
 				<column name="title" type="sql:varchar(255)" null="true" />
 				<column name="file" type="sql:varchar(255)" />
+				<column name="filename" type="sql:varchar(255)" null="true" />
 				<column name="description" type="sql:text" null="true" />
 				<column name="date" type="sql:datetime" default="0000-00-00 00:00:00" />
+				<column name="published" type="sql:int(11)" default="1" />
+				<column name="params" type="sql:text" null="true" />
 			</columns>
 			<indexes strict="true" drop="never">
 				<index name="PRIMARY" type="primary">
 					<column name="id" />
 				</index>
-				<index name="published">
+				<index name="group_user_id_published">
+					<column name="group" />
+					<column name="user_id" />
 					<column name="published" />
-				</index>
-				<index name="user_id">
-					<column name="user_id" />
-				</index>
-				<index name="group">
-					<column name="group" />
-				</index>
-				<index name="group_user_id">
-					<column name="group" />
-					<column name="user_id" />
 				</index>
 			</indexes>
 		</table>

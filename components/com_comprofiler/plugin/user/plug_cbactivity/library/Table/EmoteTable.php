@@ -96,12 +96,15 @@ class EmoteTable extends OrderedTable
 	{
 		global $_PLUGINS;
 
+		$new	=	( $this->get( 'id' ) ? false : true );
+		$old	=	new self();
+
 		$this->set( 'value', cbutf8_strtolower( preg_replace( '/[^-a-zA-Z0-9_.]/', '', $this->get( 'value' ) ) ) );
 
-		$new	=	( $this->get( 'id' ) ? false : true );
-
 		if ( ! $new ) {
-			$_PLUGINS->trigger( 'activity_onBeforeUpdateEmote', array( &$this ) );
+			$old->load( (int) $this->get( 'id' ) );
+
+			$_PLUGINS->trigger( 'activity_onBeforeUpdateEmote', array( &$this, $old ) );
 		} else {
 			$_PLUGINS->trigger( 'activity_onBeforeCreateEmote', array( &$this ) );
 		}
@@ -111,7 +114,7 @@ class EmoteTable extends OrderedTable
 		}
 
 		if ( ! $new ) {
-			$_PLUGINS->trigger( 'activity_onAfterUpdateEmote', array( $this ) );
+			$_PLUGINS->trigger( 'activity_onAfterUpdateEmote', array( $this, $old ) );
 		} else {
 			$_PLUGINS->trigger( 'activity_onAfterCreateEmote', array( $this ) );
 		}

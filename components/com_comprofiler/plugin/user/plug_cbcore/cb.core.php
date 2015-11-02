@@ -3633,7 +3633,7 @@ class CBfield_image extends cbFieldHandler {
 
 		$images									=	array_values( $images );
 
-		@ksort( $images );
+		@sort( $images );
 		@reset( $images );
 
 		return $images;

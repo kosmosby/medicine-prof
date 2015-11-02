@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -91,19 +91,19 @@ defined('_JEXEC') or die('Restricted access');
 							if($extraFields[$oneField]->type == 'category'){
 								if(empty($extraFields[$oneField]->fieldcat) && !empty($tmpCatId)){
 									while(!empty($tmpCatId)){
-										echo '</'.end($tmpCatTag).'>';
+										echo '</'.str_replace('fldset', 'fieldset', end($tmpCatTag)).'>';
 										array_pop($tmpCatId);
 										array_pop($tmpCatTag);
 									}
 								}
 								$tmpCatId[] = $extraFields[$oneField]->fieldid;
 								$tmpCatTag[] = $extraFields[$oneField]->options['fieldcattag'];
-								echo '<'.end($tmpCatTag).' class="fieldCategory fieldacy'.$extraFields[$oneField]->namekey.' '.$extraFields[$oneField]->options['fieldcatclass'].'">';
-								if(end($tmpCatTag) == 'fieldset') echo '<legend>'.$extraFields[$oneField]->fieldname.'</legend>';
+								echo '<'.str_replace('fldset', 'fieldset', end($tmpCatTag)).' class="fieldCategory fieldacy'.$extraFields[$oneField]->namekey.' '.$extraFields[$oneField]->options['fieldcatclass'].'">';
+								if(in_array(end($tmpCatTag), array('fieldset', 'fldset'))) echo '<legend>'.$extraFields[$oneField]->fieldname.'</legend>';
 							}else{
 								if(in_array($extraFields[$oneField]->fieldcat, $tmpCatId) || empty($extraFields[$oneField]->fieldcat)){
 									while(!empty($tmpCatId) && $extraFields[$oneField]->fieldcat != end($tmpCatId)){
-										echo '</'.end($tmpCatTag).'>';
+										echo '</'.str_replace('fldset', 'fieldset', end($tmpCatTag)).'>';
 										array_pop($tmpCatId);
 										array_pop($tmpCatTag);
 									}
@@ -137,7 +137,7 @@ defined('_JEXEC') or die('Restricted access');
 					if(!empty($extraFields)){
 						$lastVal = end($tmpCatId);
 						while(!empty($lastVal)){
-							echo '</'.end($tmpCatTag).'>';
+							echo '</'.str_replace('fldset', 'fieldset', end($tmpCatTag)).'>';
 							array_pop($tmpCatId);
 							array_pop($tmpCatTag);
 							$lastVal = end($tmpCatId);

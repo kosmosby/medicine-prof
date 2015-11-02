@@ -182,7 +182,7 @@ class Tags extends Stream implements TagsInterface
 			$useWhere					=	false;
 		}
 
-		$query							.=	( $where ? ( $useWhere ? "\n WHERE " : "\n AND " ) . explode( "\n AND ", $where ) : null )
+		$query							.=	( $where ? ( $useWhere ? "\n WHERE " : "\n AND " ) . implode( "\n AND ", $where ) : null )
 										.	( ! $count ? "\n ORDER BY a." . $_CB_database->NameQuote( 'date' ) . " ASC" : null );
 
 		$cacheId						=	md5( $query . ( $count ? 'count' : null ) );

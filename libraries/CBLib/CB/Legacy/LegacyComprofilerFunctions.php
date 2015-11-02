@@ -809,69 +809,54 @@ namespace
 	function cbFormatDate( $date, $serverTimeOffset = true, $showTime = true, $dateFormatOverride = null, $timeFormatOverride = null, $offsetOverride = null ) {
 		global $_CB_framework, $ueConfig;
 
-		if ( $date == 'now' ) {
-			$date						=	$_CB_framework->getUTCNow();
+		if ( ( $date == '' ) || ( $date == '0000-00-00 00:00:00' ) || ( $date == '0000-00-00' ) ) {
+			return null;
 		}
 
-		if ( is_int( $date ) ) {
-			$date						=	$_CB_framework->getUTCDate( ( $showTime ? 'Y-m-d H:i:s' : 'Y-m-d' ), $date );
-		}
+		$dateTime				=	Application::Date( $date, ( $serverTimeOffset ? ( $offsetOverride ? $offsetOverride : null ) : 'UTC' ) );
 
-		if ( ( $date != '' ) && ( $date != null ) && ( $date != '0000-00-00 00:00:00' ) && ( $date != '0000-00-00' ) ) {
-			$dateISO					=	$_CB_framework->getUTCDate( 'c', $date );
+		if ( ( $showTime === 'timeago' ) || ( $showTime === 'exacttimeago' ) ) {
+			static $JS_loaded	=	0;
 
-			if ( strlen( $date ) > 10 ) {
-				if ( $serverTimeOffset ) {
-					$dateISO			=	$_CB_framework->getUTCDate( 'c', $date, ( $offsetOverride !== null ? $offsetOverride : $_CB_framework->getCfg( 'offset' ) ) );
-					$date				=	$_CB_framework->getUTCDate( ( $showTime ? 'Y-m-d H:i:s' : 'Y-m-d' ), $date, ( $offsetOverride !== null ? $offsetOverride : $_CB_framework->getCfg( 'offset' ) ) );
-				} else {
-					$date				=	( $showTime ? $date : substr( $date, 0, 10 ) );
-				}
+			if ( ! $JS_loaded++ ) {
+				$js				=	"$.fn.cbtimeago.defaults.strings.future = '" . addslashes( CBTxt::T( 'TIMEAGO_FUTURE', 'in %s' ) ) . "';"
+								.	"$.fn.cbtimeago.defaults.strings.past = '" . addslashes( CBTxt::T( 'TIMEAGO_PAST', '%s ago' ) ) . "';"
+								.	"$.fn.cbtimeago.defaults.strings.seconds = '" . addslashes( CBTxt::T( 'TIMEAGO_LESS_THAN_A_MINUTE', 'less than a minute' ) ) . "';"
+								.	"$.fn.cbtimeago.defaults.strings.minute = '" . addslashes( CBTxt::T( 'TIMEAGO_ABOUT_A_MINUTE', 'about a minute' ) ) . "';"
+								.	"$.fn.cbtimeago.defaults.strings.minutes = '" . addslashes( CBTxt::T( 'TIMEAGO_N_MINUTES', '%d minutes' ) ) . "';"
+								.	"$.fn.cbtimeago.defaults.strings.hour = '" . addslashes( CBTxt::T( 'TIMEAGO_ABOUTE_ONE_HOUR', 'about an hour' ) ) . "';"
+								.	"$.fn.cbtimeago.defaults.strings.hours = '" . addslashes( CBTxt::T( 'TIMEAGO_ABOUT_N_HOURS', 'about %d hours' ) ) . "';"
+								.	"$.fn.cbtimeago.defaults.strings.day = '" . addslashes( CBTxt::T( 'TIMEAGO_A_DAY', 'a day' ) ) . "';"
+								.	"$.fn.cbtimeago.defaults.strings.days = '" . addslashes( CBTxt::T( 'TIMEAGO_N_DAYS', '%d days' ) ) . "';"
+								.	"$.fn.cbtimeago.defaults.strings.month = '" . addslashes( CBTxt::T( 'TIMEAGO_ABOUT_A_MONTH', 'about a month' ) ) . "';"
+								.	"$.fn.cbtimeago.defaults.strings.months = '" . addslashes( CBTxt::T( 'TIMEAGO_N_MONTHS', '%d months' ) ) . "';"
+								.	"$.fn.cbtimeago.defaults.strings.year = '" . addslashes( CBTxt::T( 'TIMEAGO_ABOUT A_YEAR', 'about a year' ) ) . "';"
+								.	"$.fn.cbtimeago.defaults.strings.years = '" . addslashes( CBTxt::T( 'TIMEAGO_N_YEARS', '%d years' ) ) . "';"
+								.	"$( '.cbDateTimeago' ).cbtimeago();";
+
+				$_CB_framework->outputCbJQuery( $js, 'cbtimeago' );
 			}
 
-			if ( ( $showTime === 'timeago' ) || ( $showTime === 'exacttimeago' ) ) {
-				static $JS_loaded		=	0;
+			$attributes			=	null;
 
-				if ( ! $JS_loaded++ ) {
-					$js					=	"$.fn.cbtimeago.defaults.strings.future = '" . addslashes( CBTxt::T( 'TIMEAGO_FUTURE', 'in %s' ) ) . "';"
-										.	"$.fn.cbtimeago.defaults.strings.past = '" . addslashes( CBTxt::T( 'TIMEAGO_PAST', '%s ago' ) ) . "';"
-										.	"$.fn.cbtimeago.defaults.strings.seconds = '" . addslashes( CBTxt::T( 'TIMEAGO_LESS_THAN_A_MINUTE', 'less than a minute' ) ) . "';"
-										.	"$.fn.cbtimeago.defaults.strings.minute = '" . addslashes( CBTxt::T( 'TIMEAGO_ABOUT_A_MINUTE', 'about a minute' ) ) . "';"
-										.	"$.fn.cbtimeago.defaults.strings.minutes = '" . addslashes( CBTxt::T( 'TIMEAGO_N_MINUTES', '%d minutes' ) ) . "';"
-										.	"$.fn.cbtimeago.defaults.strings.hour = '" . addslashes( CBTxt::T( 'TIMEAGO_ABOUTE_ONE_HOUR', 'about an hour' ) ) . "';"
-										.	"$.fn.cbtimeago.defaults.strings.hours = '" . addslashes( CBTxt::T( 'TIMEAGO_ABOUT_N_HOURS', 'about %d hours' ) ) . "';"
-										.	"$.fn.cbtimeago.defaults.strings.day = '" . addslashes( CBTxt::T( 'TIMEAGO_A_DAY', 'a day' ) ) . "';"
-										.	"$.fn.cbtimeago.defaults.strings.days = '" . addslashes( CBTxt::T( 'TIMEAGO_N_DAYS', '%d days' ) ) . "';"
-										.	"$.fn.cbtimeago.defaults.strings.month = '" . addslashes( CBTxt::T( 'TIMEAGO_ABOUT_A_MONTH', 'about a month' ) ) . "';"
-										.	"$.fn.cbtimeago.defaults.strings.months = '" . addslashes( CBTxt::T( 'TIMEAGO_N_MONTHS', '%d months' ) ) . "';"
-										.	"$.fn.cbtimeago.defaults.strings.year = '" . addslashes( CBTxt::T( 'TIMEAGO_ABOUT A_YEAR', 'about a year' ) ) . "';"
-										.	"$.fn.cbtimeago.defaults.strings.years = '" . addslashes( CBTxt::T( 'TIMEAGO_N_YEARS', '%d years' ) ) . "';"
-										.	"$( '.cbDateTimeago' ).cbtimeago();";
-
-					$_CB_framework->outputCbJQuery( $js, 'cbtimeago' );
-				}
-
-				$attributes				=	null;
-
-				if ( $showTime === 'exacttimeago' ) {
-					$attributes			.=	' data-cbtimeago-hideago="true"';
-				}
-
-				$ret					=	'<span class="cbDateTimeago"' . $attributes . ' title="' . htmlspecialchars( $dateISO ) . '"></span>';
-			} else {
-				$dateFormat				=	( $dateFormatOverride !== null ? $dateFormatOverride : ( CBTxt::T( 'UE_DATE_FORMAT', '' ) != '' ? CBTxt::T( 'UE_DATE_FORMAT', '' ) : $ueConfig['date_format'] ) );
-
-				if ( $showTime && ( strlen( $date ) > 10 ) ) {
-					$dateFormat			.=	( $timeFormatOverride !== null ? $timeFormatOverride : ( CBTxt::T( 'UE_TIME_FORMAT', '' ) != '' ? CBTxt::T( 'UE_TIME_FORMAT', '' ) : ' ' . ( isset( $ueConfig['time_format'] ) ? $ueConfig['time_format'] : 'H:i:s' ) ) );
-				}
-
-				$ret					=	$_CB_framework->getUTCDate( $dateFormat, $date );
+			if ( $showTime === 'exacttimeago' ) {
+				$attributes		.=	' data-cbtimeago-hideago="true"';
 			}
+
+			return '<span class="cbDateTimeago"' . $attributes . ' title="' . htmlspecialchars( $dateTime->format( 'c' ) ) . '"></span>';
 		} else {
-			$ret						=	null;
-		}
+			if ( $dateFormatOverride || $timeFormatOverride || ( ! $showTime ) ) {
+				$format			=	( $dateFormatOverride !== null ? $dateFormatOverride : ( CBTxt::T( 'UE_DATE_FORMAT', '' ) != '' ? CBTxt::T( 'UE_DATE_FORMAT', '' ) : $ueConfig['date_format'] ) );
 
-		return $ret;
+				if ( $showTime ) {
+					$format		.=	( $timeFormatOverride !== null ? $timeFormatOverride : ( CBTxt::T( 'UE_TIME_FORMAT', '' ) != '' ? CBTxt::T( 'UE_TIME_FORMAT', '' ) : ' ' . ( isset( $ueConfig['time_format'] ) ? $ueConfig['time_format'] : 'H:i:s' ) ) );
+				}
+			} else {
+				$format			=	null;
+			}
+
+			return $dateTime->format( $format );
+		}
 	}
 
 	/**

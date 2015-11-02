@@ -1,313 +1,131 @@
 <?php
+/**
+* Community Builder (TM)
+* @version $Id: $
+* @package CommunityBuilder
+* @copyright (C) 2004-2014 www.joomlapolis.com / Lightning MultiCom SA - and its licensors, all rights reserved
+* @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2
+*/
+
+use CBLib\Language\CBTxt;
+use CB\Database\Table\UserTable;
+use CB\Plugin\GroupJive\Table\GroupTable;
+use CB\Plugin\GroupJive\Table\NotificationTable;
+use CB\Plugin\GroupJive\CBGroupJive;
+
 if ( ! ( defined( '_VALID_CB' ) || defined( '_JEXEC' ) || defined( '_VALID_MOS' ) ) ) { die( 'Direct Access to this location is not allowed.' ); }
 
-class HTML_groupjiveNotifications {
+class HTML_groupjiveNotifications
+{
 
 	/**
 	 * render frontend notifications
 	 *
-	 * @param array $input
-	 * @param cbgjNotification $generalNotifications
-	 * @param cbgjNotification $categoryNotifications
-	 * @param cbgjNotification $groupNotifications
-	 * @param cbgjCategory $category
-	 * @param cbgjGroup $group
-	 * @param moscomprofilerUser $user
-	 * @param object $plugin
+	 * @param NotificationTable  $row
+	 * @param array              $input
+	 * @param GroupTable         $group
+	 * @param UserTable          $user
+	 * @param CBplug_cbgroupjive $plugin
+	 * @return string
 	 */
-	static function showNotifications( $input, $generalNotifications, $categoryNotifications, $groupNotifications, $category, $group, $user, $plugin ) {
-		global $_CB_framework;
+	static function showNotifications( $row, $input, $group, $user, $plugin )
+	{
+		global $_CB_framework, $_PLUGINS;
 
-		$generalTitle							=	$plugin->params->get( 'general_title', $plugin->name );
-		$notificationsDesc						=	CBTxt::Th( $plugin->params->get( 'notifications_desc', null ) );
-		$notificationsDescGen					=	CBTxt::Th( $plugin->params->get( 'notifications_desc_gen', null ) );
-		$notificationsDescCat					=	CBTxt::Th( $plugin->params->get( 'notifications_desc_cat', null ) );
-		$notificationsDescGrp					=	CBTxt::Th( $plugin->params->get( 'notifications_desc_grp', null ) );
-		$categoryApprove						=	$plugin->params->get( 'category_approve', 0 );
-		$groupApprove							=	$plugin->params->get( 'group_approve', 0 );
-		$pageTitle								=	CBTxt::T( 'Notifications' );
-		$pageUrl								=	cbgjClass::getPluginURL( array( 'notifications', 'show', (int) $category->get( 'id' ), (int) $group->get( 'id' ) ) );
+		$js							=	"$( '.gjToggleNotifications' ).on( 'change', function() {"
+									.		"if ( $( this ).val() == 0 ) {"
+									.			"$( '.gjNotificationsForm' ).find( 'select:not(.gjToggleNotifications)' ).val( 0 ).change();"
+									.		"} else if ( $( this ).val() == 1 ) {"
+									.			"$( '.gjNotificationsForm' ).find( 'select:not(.gjToggleNotifications)' ).val( 1 ).change();"
+									.		"}"
+									.		"$( this ).val( -1 );"
+									.	"});";
 
-		if ( $group->get( 'id' ) ) {
-			$group->setPathway( $pageTitle, $pageUrl );
-		} elseif ( $category->get( 'id' ) ) {
-			$category->setPathway( $pageTitle, $pageUrl );
-		} else {
-			$_CB_framework->setPageTitle( htmlspecialchars( $pageTitle ) );
+		$_CB_framework->outputCbJQuery( $js );
 
-			if ( $generalTitle != '' ) {
-				$_CB_framework->appendPathWay( htmlspecialchars( CBTxt::T( $generalTitle ) ), cbgjClass::getPluginURL() );
-			}
+		$pageTitle					=	CBTxt::T( 'Notifications' );
 
-			$_CB_framework->appendPathWay( htmlspecialchars( $pageTitle ), $pageUrl );
+		$_CB_framework->setPageTitle( $pageTitle );
+
+		cbValidator::loadValidation();
+		initToolTip();
+
+		$isModerator				=	CBGroupJive::isModerator( $user->get( 'id' ) );
+		$isOwner					=	( $user->get( 'id' ) == $group->get( 'user_id' ) );
+		$status						=	CBGroupJive::getGroupStatus( $user, $group );
+		$return						=	null;
+
+		$integrations				=	$_PLUGINS->trigger( 'gj_onBeforeDisplayNotifications', array( &$return, &$row, &$input, $group, $user ) );
+
+		$return						.=	'<div class="gjNotifications">'
+									.		'<form action="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'notifications', 'func' => 'save', 'id' => (int) $group->get( 'id' ) ) ) . '" method="post" enctype="multipart/form-data" name="gjNotificationsForm" id="gjNotificationsForm" class="cb_form gjNotificationsForm form-auto cbValidation">'
+									.			( $pageTitle ? '<div class="gjNotificationsTitle page-header"><h3>' . $pageTitle . '</h3></div>' : null )
+									.			'<div class="cbft_select cbtt_select form-group cb_form_line clearfix">'
+									.				'<div class="cb_field col-sm-12 text-right">'
+									.					$input['toggle']
+									.				'</div>'
+									.			'</div>'
+									.			'<div class="cbft_select cbtt_select form-group cb_form_line clearfix">'
+									.				'<label for="params__user_join" class="col-sm-9 control-label">' . CBTxt::T( 'Join of new user' ) . '</label>'
+									.				'<div class="cb_field col-sm-3 text-right">'
+									.					$input['user_join']
+									.				'</div>'
+									.			'</div>'
+									.			'<div class="cbft_select cbtt_select form-group cb_form_line clearfix">'
+									.				'<label for="params__user_leave" class="col-sm-9 control-label">' . CBTxt::T( 'Leave of existing user' ) . '</label>'
+									.				'<div class="cb_field col-sm-3 text-right">'
+									.					$input['user_leave']
+									.				'</div>'
+									.			'</div>';
+
+		if ( ( $isModerator || $isOwner || ( $status >= 2 ) ) && ( $group->get( 'type' ) == 2 ) ) {
+			$return					.=			'<div class="cbft_select cbtt_select form-group cb_form_line clearfix">'
+									.				'<label for="params__user_approve" class="col-sm-9 control-label">' . CBTxt::T( 'New user requires approval' ) . '</label>'
+									.				'<div class="cb_field col-sm-3 text-right">'
+									.					$input['user_approve']
+									.				'</div>'
+									.			'</div>'
+									.			'<div class="cbft_select cbtt_select form-group cb_form_line clearfix">'
+									.				'<label for="params__user_cancel" class="col-sm-9 control-label">' . CBTxt::T( 'New user join request cancelled' ) . '</label>'
+									.				'<div class="cb_field col-sm-3 text-right">'
+									.					$input['user_cancel']
+									.				'</div>'
+									.			'</div>';
 		}
 
-		$authorized								=	cbgjClass::getAuthorization( $category, $group, $user );
-
-		$tabs									=	new cbTabs( 0, 1 );
-
-		$inputs									=	null;
-
-		if ( cbgjClass::hasAccess( 'gen_usr_notifications', $authorized ) ) {
-			$inputs								.=					$tabs->startTab( null, htmlspecialchars( CBTxt::T( 'General' ) ), 'gjNotificationsGeneral' );
-
-			if ( $notificationsDescGen ) {
-				if ( $plugin->params->get( 'notifications_desc_gen_content', 0 ) ) {
-					$notificationsDescGen		=	cbgjClass::prepareContentPlugins( $notificationsDescGen );
-				}
-
-				$inputs							.=						'<div class="gjTop">' . $notificationsDescGen . '</div>';
-			}
-
-			$inputs								.=						$tabs->startPane( 'gjNotificationsGeneralTabs' );
-
-			if ( cbgjClass::hasAccess( 'usr_mod', $authorized ) ) {
-				$inputs							.=							$tabs->startTab( null, cbgjClass::getOverride( 'category', true ), 'gjNotificationsGeneralCategories' )
-												.								'<div class="gjEditContentInput control-group">'
-												.									'<label class="gjEditContentInputTitle control-label">' . CBTxt::Ph( 'Create of new [category]', array( '[category]' => cbgjClass::getOverride( 'category' ) ) ) . '</label>'
-												.									'<div class="gjEditContentInputField controls">'
-												.										$input['general_categorynew']
-												.									'</div>'
-												.								'</div>';
-
-				if ( $categoryApprove ) {
-					$inputs						.=								'<div class="gjEditContentInput control-group">'
-												.									'<label class="gjEditContentInputTitle control-label">' . CBTxt::Ph( 'New [category] requires approval', array( '[category]' => cbgjClass::getOverride( 'category' ) ) ) . '</label>'
-												.									'<div class="gjEditContentInputField controls">'
-												.										$input['general_categoryapprove']
-												.									'</div>'
-												.								'</div>';
-				}
-
-				$inputs							.=								'<div class="gjEditContentInput control-group">'
-												.									'<label class="gjEditContentInputTitle control-label">' . CBTxt::Ph( 'Update of existing [category]', array( '[category]' => cbgjClass::getOverride( 'category' ) ) ) . '</label>'
-												.									'<div class="gjEditContentInputField controls">'
-												.										$input['general_categoryupdate']
-												.									'</div>'
-												.								'</div>'
-												.								'<div class="gjEditContentInput control-group">'
-												.									'<label class="gjEditContentInputTitle control-label">' . CBTxt::Ph( 'Delete of existing [category]', array( '[category]' => cbgjClass::getOverride( 'category' ) ) ) . '</label>'
-												.									'<div class="gjEditContentInputField controls">'
-												.										$input['general_categorydelete']
-												.									'</div>'
-												.								'</div>'
-												.							$tabs->endTab();
-			}
-
-			$inputs								.=							cbgjClass::getIntegrations( 'gj_onGeneralNotifications', array( $tabs, $generalNotifications, $user, $plugin ), null, null )
-												.						$tabs->endPane()
-												.					$tabs->endTab();
+		if ( ( $plugin->params->get( 'groups_invites_display', 1 ) || ( $group->get( 'type' ) == 3 ) ) && ( $group->params()->get( 'invites', 1 ) || ( $isModerator || $isOwner || ( $status >= 3 ) ) ) ) {
+			$return					.=			'<div class="cbft_select cbtt_select form-group cb_form_line clearfix">'
+									.				'<label for="params__invite_accept" class="col-sm-9 control-label">' . CBTxt::T( 'My group invite requests accepted' ) . '</label>'
+									.				'<div class="cb_field col-sm-3 text-right">'
+									.					$input['invite_accept']
+									.				'</div>'
+									.			'</div>'
+									.			'<div class="cbft_select cbtt_select form-group cb_form_line clearfix">'
+									.				'<label for="params__invite_reject" class="col-sm-9 control-label">' . CBTxt::T( 'My group invite requests rejected' ) . '</label>'
+									.				'<div class="cb_field col-sm-3 text-right">'
+									.					$input['invite_reject']
+									.				'</div>'
+									.			'</div>';
 		}
 
-		if ( cbgjClass::hasAccess( 'cat_usr_notifications', $authorized ) ) {
-			$inputs								.=					$tabs->startTab( null, cbgjClass::getOverride( 'category' ), 'gjNotificationsCategory' );
-
-			if ( $notificationsDescCat ) {
-				if ( $plugin->params->get( 'notifications_desc_cat_content', 0 ) ) {
-					$notificationsDescCat		=	cbgjClass::prepareContentPlugins( $notificationsDescCat );
-				}
-
-				$inputs							.=						'<div class="gjTop">' . $notificationsDescCat . '</div>';
-			}
-
-			$inputs								.=						$tabs->startPane( 'gjNotificationsCategoryTabs' );
-
-			if ( cbgjClass::hasAccess( 'mod_lvl1', $authorized ) ) {
-				if ( cbgjClass::hasAccess( 'cat_nested', $authorized ) ) {
-					$inputs						.=							$tabs->startTab( null, htmlspecialchars( CBTxt::P( 'Nested [categories]', array( '[categories]' => cbgjClass::getOverride( 'category', true ) ) ) ), 'gjNotificationsCategoryNestedCategories' )
-												.								'<div class="gjEditContentInput control-group">'
-												.									'<label class="gjEditContentInputTitle control-label">' . CBTxt::Ph( 'Create of new nested [category]', array( '[category]' => cbgjClass::getOverride( 'category' ) ) ) . '</label>'
-												.									'<div class="gjEditContentInputField controls">'
-												.										$input['category_nestednew']
-												.									'</div>'
-												.								'</div>';
-
-					if ( $categoryApprove ) {
-						$inputs					.=								'<div class="gjEditContentInput control-group">'
-												.									'<label class="gjEditContentInputTitle control-label">' . CBTxt::Ph( 'New nested [category] requires approval', array( '[category]' => cbgjClass::getOverride( 'category' ) ) ) . '</label>'
-												.									'<div class="gjEditContentInputField controls">'
-												.										$input['category_nestedapprove']
-												.									'</div>'
-												.								'</div>';
-					}
-
-					$inputs						.=								'<div class="gjEditContentInput control-group">'
-												.									'<label class="gjEditContentInputTitle control-label">' . CBTxt::Ph( 'Update of existing nested [category]', array( '[category]' => cbgjClass::getOverride( 'category' ) ) ) . '</label>'
-												.									'<div class="gjEditContentInputField controls">'
-												.										$input['category_nestedupdate']
-												.									'</div>'
-												.								'</div>'
-												.								'<div class="gjEditContentInput control-group">'
-												.									'<label class="gjEditContentInputTitle control-label">' . CBTxt::Ph( 'Delete of existing nested [category]', array( '[category]' => cbgjClass::getOverride( 'category' ) ) ) . '</label>'
-												.									'<div class="gjEditContentInputField controls">'
-												.										$input['category_nesteddelete']
-												.									'</div>'
-												.								'</div>'
-												.							$tabs->endTab();
-				}
-
-				if ( cbgjClass::hasAccess( 'grp_create', $authorized ) ) {
-					$inputs						.=							$tabs->startTab( null, cbgjClass::getOverride( 'group', true ), 'gjNotificationsCategoryGroups' )
-												.								'<div class="gjEditContentInput control-group">'
-												.									'<label class="gjEditContentInputTitle control-label">' . CBTxt::Ph( 'Create of new [group]', array( '[group]' => cbgjClass::getOverride( 'group' ) ) ) . '</label>'
-												.									'<div class="gjEditContentInputField controls">'
-												.										$input['category_groupnew']
-												.									'</div>'
-												.								'</div>';
-
-					if ( $groupApprove ) {
-						$inputs					.=								'<div class="gjEditContentInput control-group">'
-												.									'<label class="gjEditContentInputTitle control-label">' . CBTxt::Ph( 'New [group] requires approval', array( '[group]' => cbgjClass::getOverride( 'group' ) ) ) . '</label>'
-												.									'<div class="gjEditContentInputField controls">'
-												.										$input['category_groupapprove']
-												.									'</div>'
-												.								'</div>';
-					}
-
-					$inputs						.=								'<div class="gjEditContentInput control-group">'
-												.									'<label class="gjEditContentInputTitle control-label">' . CBTxt::Ph( 'Update of existing [group]', array( '[group]' => cbgjClass::getOverride( 'group' ) ) ) . '</label>'
-												.									'<div class="gjEditContentInputField controls">'
-												.										$input['category_groupupdate']
-												.									'</div>'
-												.								'</div>'
-												.								'<div class="gjEditContentInput control-group">'
-												.									'<label class="gjEditContentInputTitle control-label">' . CBTxt::Ph( 'Delete of existing [group]', array( '[group]' => cbgjClass::getOverride( 'group' ) ) ) . '</label>'
-												.									'<div class="gjEditContentInputField controls">'
-												.										$input['category_groupdelete']
-												.									'</div>'
-												.								'</div>'
-												.							$tabs->endTab();
-				}
-			}
-
-			$inputs								.=							cbgjClass::getIntegrations( 'gj_onCategoryNotifications', array( $tabs, $categoryNotifications, $category, $user, $plugin ), null, null )
-												.						$tabs->endPane()
-												.					$tabs->endTab();
+		if ( is_array( $integrations ) && $integrations ) {
+			$return					.=			implode( '', $integrations );
 		}
 
-		if ( cbgjClass::hasAccess( 'grp_usr_notifications', $authorized ) ) {
-			$inputs								.=					$tabs->startTab( null, cbgjClass::getOverride( 'group' ), 'gjNotificationsGroup' );
+		$return						.=			'<div class="form-group cb_form_line clearfix">'
+									.				'<div class="col-sm-12 text-right">'
+									.					'<input type="button" value="' . htmlspecialchars( CBTxt::T( 'Cancel' ) ) . '" class="gjButton gjButtonCancel btn btn-default" onclick="cbjQuery.cbconfirm( \'' . addslashes( CBTxt::T( 'Are you sure you want to cancel? All unsaved data will be lost!' ) ) . '\' ).done( function() { window.location.href = \'' . $_CB_framework->pluginClassUrl( $plugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $group->get( 'id' ) ) ) . '\'; })" />'
+									.					' <input type="submit" value="' . htmlspecialchars( CBTxt::T( 'Update Notifications' ) ) . '" class="gjButton gjButtonSubmit btn btn-primary" ' . cbValidator::getSubmitBtnHtmlAttributes() . ' />'
+									.				'</div>'
+									.			'</div>'
+									.			cbGetSpoofInputTag( 'plugin' )
+									.		'</form>'
+									.	'</div>';
 
-			if ( $notificationsDescGrp ) {
-				if ( $plugin->params->get( 'notifications_desc_grp_content', 0 ) ) {
-					$notificationsDescGrp		=	cbgjClass::prepareContentPlugins( $notificationsDescGrp );
-				}
+		$_PLUGINS->trigger( 'gj_onAfterDisplayNotifications', array( &$return, $row, $input, $group, $user ) );
 
-				$inputs							.=						'<div class="gjTop">' . $notificationsDescGrp . '</div>';
-			}
-
-			$inputs								.=						$tabs->startPane( 'gjNotificationsGroupTabs' );
-
-			if ( cbgjClass::hasAccess( 'mod_lvl2', $authorized ) && cbgjClass::hasAccess( 'grp_nested', $authorized ) ) {
-				$inputs							.=							$tabs->startTab( null, htmlspecialchars( CBTxt::P( 'Nested [groups]', array( '[groups]' => cbgjClass::getOverride( 'group', true ) ) ) ), 'gjNotificationsGroupNestedGroups' )
-												.								'<div class="gjEditContentInput control-group">'
-												.									'<label class="gjEditContentInputTitle control-label">' . CBTxt::Ph( 'Create of new nested [group]', array( '[group]' => cbgjClass::getOverride( 'group' ) ) ) . '</label>'
-												.									'<div class="gjEditContentInputField controls">'
-												.										$input['group_nestednew']
-												.									'</div>'
-												.								'</div>';
-
-				if ( $groupApprove ) {
-					$inputs						.=								'<div class="gjEditContentInput control-group">'
-												.									'<label class="gjEditContentInputTitle control-label">' . CBTxt::Ph( 'New nested [group] requires approval', array( '[group]' => cbgjClass::getOverride( 'group' ) ) ) . '</label>'
-												.									'<div class="gjEditContentInputField controls">'
-												.										$input['group_nestedapprove']
-												.									'</div>'
-												.								'</div>';
-				}
-
-				$inputs							.=								'<div class="gjEditContentInput control-group">'
-												.									'<label class="gjEditContentInputTitle control-label">' . CBTxt::Ph( 'Update of existing nested [group]', array( '[group]' => cbgjClass::getOverride( 'group' ) ) ) . '</label>'
-												.									'<div class="gjEditContentInputField controls">'
-												.										$input['group_nestedupdate']
-												.									'</div>'
-												.								'</div>'
-												.								'<div class="gjEditContentInput control-group">'
-												.									'<label class="gjEditContentInputTitle control-label">' . CBTxt::Ph( 'Delete of existing nested [group]', array( '[group]' => cbgjClass::getOverride( 'group' ) ) ) . '</label>'
-												.									'<div class="gjEditContentInputField controls">'
-												.										$input['group_nesteddelete']
-												.									'</div>'
-												.								'</div>'
-												.							$tabs->endTab();
-			}
-
-			if ( cbgjClass::hasAccess( 'mod_lvl4', $authorized ) ) {
-				$inputs							.=							$tabs->startTab( null, cbgjClass::getOverride( 'user', true ), 'gjNotificationsGroupUsers' )
-												.								'<div class="gjEditContentInput control-group">'
-												.									'<label class="gjEditContentInputTitle control-label">' . CBTxt::Ph( 'Join of new [user]', array( '[user]' => cbgjClass::getOverride( 'user' ) ) ) . '</label>'
-												.									'<div class="gjEditContentInputField controls">'
-												.										$input['group_userjoin']
-												.									'</div>'
-												.								'</div>'
-												.								'<div class="gjEditContentInput control-group">'
-												.									'<label class="gjEditContentInputTitle control-label">' . CBTxt::Ph( 'Leave of existing [user]', array( '[user]' => cbgjClass::getOverride( 'user' ) ) ) . '</label>'
-												.									'<div class="gjEditContentInputField controls">'
-												.										$input['group_userleave']
-												.									'</div>'
-												.								'</div>';
-
-				if ( cbgjClass::hasAccess( 'mod_lvl2', $authorized ) ) {
-					$inputs						.=								'<div class="gjEditContentInput control-group">'
-												.									'<label class="gjEditContentInputTitle control-label">' . CBTxt::Ph( 'Invite of new [user]', array( '[user]' => cbgjClass::getOverride( 'user' ) ) ) . '</label>'
-												.									'<div class="gjEditContentInputField controls">'
-												.										$input['group_userinvite']
-												.									'</div>'
-												.								'</div>';
-				}
-
-				$inputs							.=								'<div class="gjEditContentInput control-group">'
-												.									'<label class="gjEditContentInputTitle control-label">' . CBTxt::Ph( 'New [user] requires approval', array( '[user]' => cbgjClass::getOverride( 'user' ) ) ) . '</label>'
-												.									'<div class="gjEditContentInputField controls">'
-												.										$input['group_userapprove']
-												.									'</div>'
-												.								'</div>'
-												.							$tabs->endTab();
-			}
-
-			if ( cbgjClass::hasAccess( 'grp_invite', $authorized ) ) {
-				$inputs							.=							$tabs->startTab( null, htmlspecialchars( CBTxt::T( 'Invites' ) ), 'gjNotificationsGroupInvites' )
-												.								'<div class="gjEditContentInput control-group">'
-												.									'<label class="gjEditContentInputTitle control-label">' . CBTxt::Ph( 'My [group] invite requests accepted', array( '[group]' => cbgjClass::getOverride( 'group' ) ) ) . '</label>'
-												.									'<div class="gjEditContentInputField controls">'
-												.										$input['group_inviteaccept']
-												.									'</div>'
-												.								'</div>'
-												.							$tabs->endTab();
-			}
-
-			$inputs								.=							cbgjClass::getIntegrations( 'gj_onGroupNotifications', array( $tabs, $groupNotifications, $group, $category, $user, $plugin ), null, null )
-												.						$tabs->endPane()
-												.				$tabs->endTab();
-		}
-
-		$return									=	'<div class="gjNotifications">'
-												.		'<form action="' . cbgjClass::getPluginURL( array( 'notifications', 'save', (int) $category->get( 'id' ), (int) $group->get( 'id' ) ), null, true, false, null, 'current' ) . '" method="post" enctype="multipart/form-data" name="gjForm" id="gjForm" class="gjForm form-horizontal">';
-
-		if ( ! $inputs ) {
-			$return								.=			'<div class="gjEditContent">' . CBTxt::T( 'There are no notifications to configure.' ) . '</div>';
-		} else {
-			if ( $notificationsDesc ) {
-				if ( $plugin->params->get( 'notifications_desc_content', 0 ) ) {
-					$notificationsDesc			=	cbgjClass::prepareContentPlugins( $notificationsDesc );
-				}
-
-				$return							.=			'<div class="gjTop">' . $notificationsDesc . '</div>';
-			}
-
-			$return								.=			$tabs->startPane( 'gjNotificationsTabs' )
-												.				$inputs
-												.			$tabs->endPane();
-		}
-
-		$return									.=			'<div class="gjButtonWrapper form-actions">'
-												.				( $inputs ? '<input type="submit" value="' . htmlspecialchars( CBTxt::T( 'Update Notifications' ) ) . '" class="gjButton gjButtonSubmit btn btn-primary" />&nbsp;' : null )
-												.				'<input type="button" value="' . htmlspecialchars( CBTxt::T( 'Back' ) ) . '" class="gjButton gjButtonCancel btn' . ( $inputs ? ' btn-mini' : null ) . '" onclick="' . cbgjClass::getPluginURL( ( $group->get( 'id' ) ? array( 'groups', 'show', (int) $category->get( 'id' ), (int) $group->get( 'id' ) ) : ( $category->get( 'id' ) ? array( 'categories', 'show', (int) $category->get( 'id' ) ) : array( 'overview' ) ) ), true, true, false, null, false, false, true ) . '" />'
-												.			'</div>'
-												.			cbGetSpoofInputTag( 'plugin' )
-												.		'</form>'
-												.	'</div>';
+		$_CB_framework->setMenuMeta();
 
 		echo $return;
 	}
 }
-?>

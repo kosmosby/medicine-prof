@@ -145,7 +145,7 @@ class Parser
 	{
 		foreach ( $this->words as $word ) {
 			if ( preg_match( $this->regexp['link'], $word, $match ) ) {
-				$this->parsed	=	str_replace( $word, '<a href="' . htmlspecialchars( $match[0] ) . '" rel="nofollow" target="_blank">' . htmlspecialchars( $match[0] ) . '</a>', $this->parsed );
+				$this->parsed	=	str_replace( $word, '<a href="' . htmlspecialchars( $match[0] ) . '" rel="nofollow"' . ( ! \JUri::isInternal( $match[0] ) ? ' target="_blank"' : null ) . '>' . htmlspecialchars( $match[0] ) . '</a>', $this->parsed );
 			} elseif ( preg_match( $this->regexp['email'], $word, $match ) ) {
 				$this->parsed	=	str_replace( $word, '<a href="mailto:' . htmlspecialchars( $match[0] ) . '" rel="nofollow" target="_blank">' . htmlspecialchars( $match[0] ) . '</a>', $this->parsed );
 			}
@@ -250,25 +250,40 @@ class Parser
 						$paths									=	array(	'title'			=>	array(	'//meta[@name="og:title"]/@content',
 																										'//meta[@name="twitter:title"]/@content',
 																										'//meta[@name="title"]/@content',
+																										'//meta[@property="og:title"]/@content',
+																										'//meta[@property="twitter:title"]/@content',
+																										'//meta[@property="title"]/@content',
 																										'//title'
 																									),
 																			'description'	=>	array(	'//meta[@name="og:description"]/@content',
 																										'//meta[@name="twitter:description"]/@content',
-																										'//meta[@name="description"]/@content'
+																										'//meta[@name="description"]/@content',
+																										'//meta[@property="og:description"]/@content',
+																										'//meta[@property="twitter:description"]/@content',
+																										'//meta[@property="description"]/@content'
 																									),
 																			'media'			=>	array(	'video'	=>	array(	'//meta[@name="og:video"]/@content',
 																															'//meta[@name="og:video:url"]/@content',
 																															'//meta[@name="twitter:player"]/@content',
+																															'//meta[@property="og:video"]/@content',
+																															'//meta[@property="og:video:url"]/@content',
+																															'//meta[@property="twitter:player"]/@content',
 																															'//video/@src'
 																														),
 																										'audio'	=>	array(	'//meta[@name="og:audio"]/@content',
 																															'//meta[@name="og:audio:url"]/@content',
+																															'//meta[@property="og:audio"]/@content',
+																															'//meta[@property="og:audio:url"]/@content',
 																															'//audio/@src'
 																														),
 																										'image'	=>	array(	'//meta[@name="og:image"]/@content',
 																															'//meta[@name="og:image:url"]/@content',
 																															'//meta[@name="twitter:image"]/@content',
 																															'//meta[@name="image"]/@content',
+																															'//meta[@property="og:image"]/@content',
+																															'//meta[@property="og:image:url"]/@content',
+																															'//meta[@property="twitter:image"]/@content',
+																															'//meta[@property="image"]/@content',
 																															'//img/@src'
 																														)
 																									)
@@ -297,6 +312,10 @@ class Parser
 															$itemMimeType			=	'audio/mp4';
 														} else {
 															$itemMimeType			=	cbGetMimeFromExt( $itemExt );
+
+															if ( $itemMimeType == 'application/octet-stream' ) {
+																continue;
+															}
 														}
 													}
 
@@ -310,7 +329,21 @@ class Parser
 
 									if ( ( $nodes !== false ) && $nodes->length ) {
 										foreach ( $nodes as $node ) {
-											$attachment[$item][]					=	utf8_decode( $node->nodeValue );
+											$value									=	false;
+
+											if ( function_exists( 'mb_detect_encoding' ) && function_exists( 'iconv' ) ) {
+												$encoding							=	mb_detect_encoding( $node->nodeValue, mb_detect_order(), true );
+
+												if ( $encoding !== false ) {
+													$value							=	iconv( $encoding, 'UTF-8', $node->nodeValue );
+												}
+											}
+
+											if ( $value === false ) {
+												$value								=	utf8_decode( utf8_encode( $node->nodeValue ) );
+											}
+
+											$attachment[$item][]					=	$value;
 										}
 									}
 								}
@@ -405,12 +438,12 @@ class Parser
 			$this->links();
 		}
 
-		if ( ! in_array( 'linebreaks', $ignore ) ) {
-			$this->linebreaks();
-		}
-
 		if ( ! in_array( 'clean', $ignore ) ) {
 			$this->clean();
+		}
+
+		if ( ! in_array( 'linebreaks', $ignore ) ) {
+			$this->linebreaks();
 		}
 
 		$_PLUGINS->trigger( 'activity_onParse', array( &$this, $ignore ) );

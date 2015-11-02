@@ -77,15 +77,15 @@ class HTML_cbactivityActivity
 			$title						=	( $row->get( 'title' ) ? ( $isStatus ? htmlspecialchars( CBTxt::T( $row->get( 'title' ) ) ) : CBTxt::T( $row->get( 'title' ) ) ) : null );
 			$message					=	( $row->get( 'message' ) ? ( $isStatus ? htmlspecialchars( CBTxt::T( $row->get( 'message' ) ) ) : CBTxt::T( $row->get( 'message' ) ) ) : null );
 			$date						=	null;
+			$insert						=	null;
 			$footer						=	null;
 			$menu						=	array();
 			$extras						=	array();
 
-			$_PLUGINS->trigger( 'activity_onDisplayActivity', array( &$row, &$title, &$message, &$date, &$footer, &$menu, &$extras, $stream, $output ) );
+			$_PLUGINS->trigger( 'activity_onDisplayActivity', array( &$row, &$title, &$date, &$message, &$insert, &$footer, &$menu, &$extras, $stream, $output ) );
 
 			$title						=	$stream->parser( $title )->parse( array( 'linebreaks' ) );
 			$message					=	$stream->parser( $message )->parse();
-			$insert						=	null;
 
 			if ( $isStatus ) {
 				if ( ( in_array( $row->get( 'type' ), array( 'status', 'field' ) ) ) && $row->get( 'parent' ) && ( $row->get( 'parent' ) != $_CB_framework->displayedUser() ) && ( $row->get( 'parent' ) != $row->get( 'user_id' ) ) ) {
@@ -103,7 +103,7 @@ class HTML_cbactivityActivity
 				if ( $showTags && $row->get( '_tags' ) ) {
 					$tagsStream			=	$row->tags( $stream->source() );
 
-					if ( $tagsStream->data( true ) ) {
+					if ( $tagsStream && $tagsStream->data( true ) ) {
 						$tags			=	trim( CBTxt::T( 'ACTIVITY_STATUS_TAGS', 'with [tags]', array( '[tags]' => $tagsStream->stream( true ) ) ) );
 					}
 				}
@@ -163,18 +163,20 @@ class HTML_cbactivityActivity
 			if ( ( $stream->source() != 'hidden' ) && $stream->get( 'comments' ) && ( $row->get( '_comments' ) !== false ) ) {
 				$comments				=	$row->comments( 'activity', $cbUser->getUserData() );
 
-				CBActivity::loadStreamDefaults( $comments, $stream, 'comments_' );
+				if ( $comments ) {
+					CBActivity::loadStreamDefaults( $comments, $stream, 'comments_' );
 
-				$footer					.=	$comments->stream( true, ( $row->get( '_comments' ) ? true : false ) );
+					$footer				.=	$comments->stream( true, ( $row->get( '_comments' ) ? true : false ) );
+				}
 			}
 
-			$return						.=		'<div id="' . $rowId . '" class="streamItem activityContainer' . ( $typeClass ? ' activityContainer' . $typeClass : null ) . ( $subTypeClass ? ' activityContainer' . $typeClass . $subTypeClass : null ) . ' panel panel-default" data-cbactivity-id="' . (int) $row->get( 'id' ) . '">'
+			$return						.=		'<div id="' . $rowId . '" class="streamItem streamPanel activityContainer' . ( $typeClass ? ' activityContainer' . $typeClass : null ) . ( $subTypeClass ? ' activityContainer' . $typeClass . $subTypeClass : null ) . ' panel panel-default" data-cbactivity-id="' . (int) $row->get( 'id' ) . '">'
 										.			'<div class="streamItemInner">'
-										.				'<div class="activityContainerHeader media panel-heading clearfix">'
-										.					'<div class="activityContainerLogo media-left">'
+										.				'<div class="streamMedia streamPanelHeading activityContainerHeader media panel-heading clearfix">'
+										.					'<div class="streamMediaLeft activityContainerLogo media-left">'
 										.						$cbUser->getField( 'avatar', null, 'html', 'none', 'list', 0, true )
 										.					'</div>'
-										.					'<div class="activityContainerTitle media-body">'
+										.					'<div class="streamMediaBody activityContainerTitle media-body">'
 										.						'<div class="activityContainerTitleTop text-muted">'
 										.							'<strong>' . $cbUser->getField( 'formatname', null, 'html', 'none', 'list', 0, true ) . '</strong>'
 										.							( $title ? ' ' . $title : null )
@@ -188,7 +190,7 @@ class HTML_cbactivityActivity
 										.				'</div>';
 
 			if ( $message ) {
-				$return					.=				'<div class="streamItemDisplay activityContainerContent panel-body">'
+				$return					.=				'<div class="streamPanelBody streamItemDisplay activityContainerContent panel-body">'
 										.					'<div class="activityContainerContentInner cbMoreLess">'
 										.						'<div class="streamItemContent cbMoreLessContent">'
 										.							$message
@@ -203,14 +205,14 @@ class HTML_cbactivityActivity
 			$return						.=				( $insert ? '<div class="streamItemDisplay streamItemDivider activityContainerInsert border-default">' . $insert . '</div>' : null );
 
 			if ( $links ) {
-				$return					.=				'<div class="streamItemDisplay streamItemDivider activityContainerAttachments panel-body border-default">'
+				$return					.=				'<div class="streamPanelBody streamItemDisplay streamItemDivider activityContainerAttachments panel-body border-default">'
 										.					'<div class="activityContainerAttachmentsInner">'
 										.						self::showAttachments( $row, $stream, $output, $user, $viewer, $plugin )
 										.					'</div>'
 										.				'</div>';
 			}
 
-			$return						.=				( $footer ? '<div class="streamItemDisplay activityContainerFooter panel-footer">' . $footer . '</div>' : null );
+			$return						.=				( $footer ? '<div class="streamPanelFooter streamItemDisplay activityContainerFooter panel-footer">' . $footer . '</div>' : null );
 
 			if ( $isStatus && ( $cbModerator || $rowOwner ) && $canCreate ) {
 				$return					.=				self::showEdit( $row, $stream, $output, $user, $viewer, $plugin );
@@ -236,7 +238,7 @@ class HTML_cbactivityActivity
 				}
 
 				if ( $menu ) {
-					$menuItems			.=		'<li class="streamItemMenuItem activityMenuItem">' . explode( '</li><li class="streamItemMenuItem activityMenuItem">', $menu ) . '</li>';
+					$menuItems			.=		'<li class="streamItemMenuItem activityMenuItem">' . implode( '</li><li class="streamItemMenuItem activityMenuItem">', $menu ) . '</li>';
 				}
 
 				$menuItems				.=	'</ul>';
@@ -314,7 +316,7 @@ class HTML_cbactivityActivity
 
 		$_PLUGINS->trigger( 'activity_onDisplayActivityCreate', array( &$newBody, &$newFooter, $stream, $output ) );
 
-		$return				=	'<div id="' . $rowId . '" class="streamItem activityContainer activityContainerNew panel panel-default">'
+		$return				=	'<div id="' . $rowId . '" class="streamItem streamPanel activityContainer activityContainerNew panel panel-default">'
 							.		'<div class="streamItemInner">'
 							.			'<form action="' . $stream->endpoint( 'new' ) . '" method="post" enctype="multipart/form-data" name="' . $rowId . 'Form" id="' . $rowId . 'Form" class="cb_form streamItemForm form">'
 							.				'<div class="streamItemNew">'
@@ -373,7 +375,7 @@ class HTML_cbactivityActivity
 
 		$return				.=					$newBody
 							.				'</div>'
-							.				'<div class="streamItemDisplay activityContainerFooter panel-footer hidden">'
+							.				'<div class="streamPanelFooter streamItemDisplay activityContainerFooter panel-footer hidden">'
 							.					'<div class="activityContainerFooterRow clearfix">'
 							.						'<div class="activityContainerFooterRowLeft pull-left">'
 							.							( $actionOptions ? str_replace( 'actions__id', $stream->id() . '_actions_id_new', moscomprofilerHTML::selectList( $actionOptions, 'actions[id]', 'class="streamInputSelect streamInputSelectToggle streamInputAction btn btn-xs btn-default" data-cbactivity-toggle-target=".streamInputActionContainer" data-cbactivity-toggle-active-classes="btn-primary" data-cbactivity-toggle-inactive-classes="btn-default" data-cbactivity-toggle-icon="fa fa-smile-o" data-cbselect-dropdown-css-class="streamSelectOptions"' . $actionTooltip, 'value', 'text', null, 0, false, false, false ) ) : null )
@@ -444,7 +446,7 @@ class HTML_cbactivityActivity
 			$links					=	$row->attachments();
 
 			if ( $links ) {
-				$return				.=			'<div class="streamItemInputGroup streamInputAttachmentsContainer panel-body border-default clearfix">'
+				$return				.=			'<div class="streamPanelBody streamItemInputGroup streamInputAttachmentsContainer panel-body border-default clearfix">'
 									.				self::showAttachments( $row, $stream, $output, $user, $viewer, $plugin )
 									.			'</div>';
 			}
@@ -514,9 +516,13 @@ class HTML_cbactivityActivity
 
 		if ( $showTags ) {
 			if ( $row->get( '_tags' ) ) {
-				foreach ( $row->tags( $stream->source() )->data() as $tag ) {
-					/** @var TagTable $tag */
-					$tags[]			=	(string) $tag->get( 'user' );
+				$tagsStream			=	$row->tags( $stream->source() );
+
+				if ( $tagsStream ) {
+					foreach ( $tagsStream->data() as $tag ) {
+						/** @var TagTable $tag */
+						$tags[]		=	(string) $tag->get( 'user' );
+					}
 				}
 			}
 
@@ -528,7 +534,7 @@ class HTML_cbactivityActivity
 		}
 
 		$return						.=			$editBody
-									.			'<div class="activityContainerFooter panel-footer">'
+									.			'<div class="streamPanelFooter activityContainerFooter panel-footer">'
 									.				'<div class="activityContainerFooterRow clearfix">'
 									.					'<div class="activityContainerFooterRowLeft pull-left">'
 									.						( $actionOptions ? str_replace( 'actions__id', $stream->id() . '_actions_id_edit_' . (int) $row->get( 'id' ), moscomprofilerHTML::selectList( $actionOptions, 'actions[id]', 'class="streamInputSelect streamInputSelectToggle streamInputAction btn btn-xs ' . ( $actionId ? 'btn-primary' : 'btn-default' ) . '" data-cbactivity-toggle-target=".streamInputActionContainer" data-cbactivity-toggle-active-classes="btn-primary" data-cbactivity-toggle-inactive-classes="btn-default" data-cbactivity-toggle-icon="fa fa-smile-o" data-cbselect-dropdown-css-class="streamSelectOptions"' . $actionTooltip, 'value', 'text', $actionId, 0, false, false, false ) ) : null )
@@ -595,10 +601,10 @@ class HTML_cbactivityActivity
 		foreach ( $links as $i => $link ) {
 			$hasMedia			=	( ( $link['type'] == 'custom' ) || ( ( $link['type'] != 'url' ) && $link['media']['url'] ) || ( ( $link['type'] == 'url' ) && $link['media']['url'] && $link['thumbnail'] ) );
 
-			$return				.=		'<div class="activityContainerAttachment streamItemScrollContent ' . ( $link['type'] == 'url' ? 'media' : 'panel' ) . ( $i != 0 ? ' hidden' : null ) . '">';
+			$return				.=		'<div class="activityContainerAttachment streamItemScrollContent ' . ( $link['type'] == 'url' ? 'streamMedia media' : 'streamPanel panel' ) . ( $i != 0 ? ' hidden' : null ) . '">';
 
 			if ( $hasMedia ) {
-				$return			.=			'<div class="activityContainerAttachmentMedia ' . ( $link['type'] == 'url' ? 'media-left' : 'panel-body' ) . ' text-center">';
+				$return			.=			'<div class="activityContainerAttachmentMedia ' . ( $link['type'] == 'url' ? 'streamMediaLeft media-left' : 'streamPanelBody panel-body' ) . ' text-center">';
 
 				switch ( $link['type'] ) {
 					case 'custom':
@@ -629,7 +635,7 @@ class HTML_cbactivityActivity
 			if ( $link['title'] || $link['description'] || ( ( ! $link['internal'] ) && ( ( ! $link['title'] ) || $link['text'] ) ) || ( $count > 1 ) ) {
 				$hypertext		=	( $link['text'] ? CBTxt::T( $link['text'] ) : $link['url'] );
 
-				$return			.=			'<div class="streamItemDisplay activityContainerAttachmentInfo panel-footer' . ( $link['type'] == 'url' ? ' media-body' : null ) . '">'
+				$return			.=			'<div class="streamPanelFooter streamItemDisplay activityContainerAttachmentInfo panel-footer' . ( $link['type'] == 'url' ? ' streamMediaBody media-body' : null ) . '">'
 								.				'<div class="cbMoreLess">'
 								.					'<div class="cbMoreLessContent">'
 								.						( $link['title'] ? '<div><strong><a href="' . htmlspecialchars( $link['url'] ) . '" rel="nofollow" target="_blank">' . ( $isStatus ? htmlspecialchars( CBTxt::T( $link['title'] ) ) : CBTxt::T( $link['title'] ) ) . '</a></strong></div>' : null )
@@ -647,7 +653,7 @@ class HTML_cbactivityActivity
 			}
 
 			if ( $isStatus && ( $cbModerator || $rowOwner ) ) {
-				$return			.=			'<div class="streamItemEdit activityContainerAttachmentInfo panel-footer' . ( $link['type'] == 'url' ? ' media-body' : null ) . ' hidden">'
+				$return			.=			'<div class="streamPanelFooter streamItemEdit activityContainerAttachmentInfo panel-footer' . ( $link['type'] == 'url' ? ' streamMediaBody media-body' : null ) . ' hidden">'
 								.				'<input type="text" id="' . $stream->id() . '_links_title_edit_' . (int) $row->get( 'id' ) . '_' . ( $i + 1 ) . '" name="links[' . $i . '][title]" value="' . htmlspecialchars( $link['title'] ) . '" class="streamInput streamInputLinkTitle form-control" placeholder="' . htmlspecialchars( CBTxt::T( 'Title' ) ) . '" />'
 								.				'<textarea id="' . $stream->id() . '_links_description_edit_' . (int) $row->get( 'id' ) . '_' . ( $i + 1 ) . '" name="links[' . $i . '][description]" rows="1" class="streamInput streamInputAutosize streamInputLinkDescription form-control" placeholder="' . htmlspecialchars( CBTxt::T( 'Description' ) ) . '">' . htmlspecialchars( $link['description'] ) . '</textarea>';
 

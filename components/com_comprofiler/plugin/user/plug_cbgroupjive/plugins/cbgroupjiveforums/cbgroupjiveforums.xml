@@ -1,25 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cbinstall version="1.0" type="plugin" group="user/plug_cbgroupjive/plugins">
+<cbinstall version="1.0" type="plugin" group="user/plug_cbgroupjive/plugins" method="install">
 	<name>CB GroupJive Forums</name>
-	<creationDate>2013-02-11</creationDate>
-	<author>Kyle (aka Krileon)</author>
+	<author>Krileon</author>
+	<creationDate>2015-10-09</creationDate>
+	<copyright>(C) 2004-2015 www.joomlapolis.com / Lightning MultiCom SA - and its licensors, all rights reserved</copyright>
+	<license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2</license>
 	<authorEmail>krileon@joomlapolis.com</authorEmail>
-	<copyright>(C) 2008-2013 Joomlapolis</copyright>
-	<license>http://www.gnu.org/licenses/gpl.html GNU/GPL</license>
-	<authorUrl>http://www.joomlapolis.com</authorUrl>
-	<version>1.9</version>
 	<description>CB GroupJive Forums integration adding Category and Group forum support. Configured from within GroupJive Configuration when published.</description>
-	<release>2.7.0</release>
+	<version>2.0.11</version>
+	<release>3.0.0-beta.1</release>
 	<files>
 		<filename plugin="cbgroupjiveforums">cbgroupjiveforums.php</filename>
 		<filename>index.html</filename>
-		<filename>models/kunena20.php</filename>
-		<filename>models/kunena17.php</filename>
-		<filename>models/kunena15.php</filename>
-		<filename>models/index.html</filename>
+		<foldername>language</foldername>
+		<foldername>library</foldername>
+		<foldername>templates</foldername>
+		<foldername>xml</foldername>
 	</files>
+	<delete>
+		<foldername>models</foldername>
+	</delete>
+	<libraries>
+		<library name="CB/Plugin/GroupJiveForums">
+			<files folder="library">
+				<filename>CBGroupJiveForums.php</filename>
+				<filename>index.html</filename>
+				<foldername>Model</foldername>
+				<foldername>Table</foldername>
+			</files>
+		</library>
+	</libraries>
 	<params>
+		<tabpane name="gjgroupsforums">
+			<tabpanetab label="General">
+				<param name="groups_forums_model" type="list" default="kunena" label="Model" description="Select the forum model to use.">
+					<option value="kunena">Kunena</option>
+				</param>
+				<param name="groups_forums_category" type="list" default="" blanktext="- Select Category -" label="Category" description="Select the forum category for all group forums.">
+					<data name="" type="private" class="\CB\Plugin\GroupJiveForums\CBGroupJiveForums" method="getCategoryOptions" />
+				</param>
+			</tabpanetab>
+			<tabpanetab label="Paging">
+				<param name="groups_forums_paging" type="yesno" default="1" label="Paging" description="Enable or disable usage of paging." yes="Enable" no="Disable" />
+				<param name="groups_forums_limit" type="text" default="15" size="5" label="Page Limit" description="Input page limit. Page limit determines how many rows are displayed per page. If paging is disabled this can still be used to limit the number of rows displayed." />
+				<param name="groups_forums_search" type="yesno" default="1" label="Search" description="Enable or disable usage of search on rows." yes="Enable" no="Disable" />
+				<param name="groups_forums_orderby" type="list" default="2" label="Order By" description="Select the row ordering.">
+					<option value="1">Date ASC</option>
+					<option value="2">Date DESC</option>
+				</param>
+			</tabpanetab>
+		</tabpane>
 	</params>
-	<database>
-	</database>
 </cbinstall>

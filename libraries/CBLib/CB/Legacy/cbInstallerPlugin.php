@@ -86,7 +86,7 @@ class cbInstallerPlugin extends cbInstaller
 		// check version
 		$v						=	$cbInstallXML->getElementByPath( 'version' );
 		$version				=	$v->data();
-		$THISCBVERSION			=	'2.0.10';
+		$THISCBVERSION			=	'2.0.11';
 		if ( ( $version == $ueConfig['version'] ) || ( $version == $THISCBVERSION ) || ( version_compare( $version, $ueConfig['version'], '<=' ) && version_compare( $version, '1.0', '>=' ) ) ) {
 			;
 		} else {

@@ -95,9 +95,12 @@ class ActionTable extends OrderedTable
 		global $_PLUGINS;
 
 		$new	=	( $this->get( 'id' ) ? false : true );
+		$old	=	new self();
 
 		if ( ! $new ) {
-			$_PLUGINS->trigger( 'activity_onBeforeUpdateAction', array( &$this ) );
+			$old->load( (int) $this->get( 'id' ) );
+
+			$_PLUGINS->trigger( 'activity_onBeforeUpdateAction', array( &$this, $old ) );
 		} else {
 			$_PLUGINS->trigger( 'activity_onBeforeCreateAction', array( &$this ) );
 		}
@@ -107,7 +110,7 @@ class ActionTable extends OrderedTable
 		}
 
 		if ( ! $new ) {
-			$_PLUGINS->trigger( 'activity_onAfterUpdateAction', array( $this ) );
+			$_PLUGINS->trigger( 'activity_onAfterUpdateAction', array( $this, $old ) );
 		} else {
 			$_PLUGINS->trigger( 'activity_onAfterCreateAction', array( $this ) );
 		}

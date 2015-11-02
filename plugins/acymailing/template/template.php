@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.3
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -150,7 +150,28 @@ class plgAcymailingTemplate extends JPlugin
 		$email->body = preg_replace('#< *(tr|td|table)([^>]*)(style="[^"]*)background-image *: *url\(\'?([^)\']*)\'?\);?#Ui','<$1 background="$4" $2 $3',$email->body);
 		$email->body = acymailing_absoluteURL($email->body);
 
-		$email->body = preg_replace('#< *img([^>]*)(style="[^"]*)(float *: *)(right|left|top|bottom|middle)#Ui','<img$1 align="$4" hspace="5" $2$3$4',$email->body);
+		if(preg_match_all('#< *img([^>]*)>#Ui',$email->body,$allPictures)){
+
+			foreach($allPictures[0] as $i => $onePict){
+				if(strpos($onePict,'align=') !== false) continue;
+				if(!preg_match('#(style="[^"]*)(float *: *)(right|left|top|bottom|middle)#Ui',$onePict,$pictParams)) continue;
+
+				$newPict = str_replace('<img','<img align="'.$pictParams[3].'" ',$onePict);
+
+				$email->body = str_replace($onePict,$newPict,$email->body);
+
+				if(strpos($onePict,'hspace=') !== false) continue;
+
+				$hspace = 5;
+				if(preg_match('#margin(-right|-left)? *:([^";]*)#i',$onePict,$margins)){
+					if(strpos($margins[2],'px') !== false) $hspace = preg_replace('#[^0-9]#i','',$margins[2]);
+				}
+
+				$lastPict = str_replace('<img','<img hspace="'.$hspace.'" ',$newPict);
+
+				$email->body = str_replace($newPict,$lastPict,$email->body);
+			}
+		}
 
 		if(!preg_match('#(<thead|<tfoot|< *tbody *[^> ]+ *>)#Ui',$email->body)){
 			$email->body = preg_replace('#< *\/? *tbody *>#Ui','',$email->body);

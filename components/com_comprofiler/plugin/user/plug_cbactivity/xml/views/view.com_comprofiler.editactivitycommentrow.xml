@@ -29,6 +29,13 @@
 				</tabpanetab>
 				<tabpanetab name="params" label="Parameters" description="">
 					<tabpane name="editcommentparams">
+						<tabpanetab name="commentreplies" label="Replies" description="">
+							<params name="params" type="params">
+								<params name="replies" type="params">
+									<param name="display" type="yesno" default="1" label="Display" description="Enable or disable display of replies for this comment entry. Note a stream that has replies disabled will not display replies regardless of this setting." yes="Enable" no="Disable" />
+								</params>
+							</params>
+						</tabpanetab>
 						<showview name="params" view="commentparams{raw:type}" mandatory="false" formatting="tab">
 							<data name="params" type="sql:string" default="" />
 						</showview>

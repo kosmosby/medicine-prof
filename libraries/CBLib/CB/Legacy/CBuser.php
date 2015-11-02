@@ -297,8 +297,14 @@ class CBuser
 			global $_CB_framework;
 
 			cbimport('cb.tabs');
+
 			$this->_cbtabs	=	new cbTabs( 0, $_CB_framework->getUi(), null, $outputTabpaneScript );
 		}
+
+		if ( $outputTabpaneScript ) {
+			$this->_cbtabs->outputTabJS();
+		}
+
 		return $this->_cbtabs;
 	}
 
@@ -320,7 +326,7 @@ class CBuser
 	{
 		global $_CB_framework, $_PLUGINS;
 
-		$tabs			=&	$this->_getCbTabs();
+		$tabs			=&	$this->_getCbTabs( false );
 		$fields			=	$tabs->_getTabFieldsDb( null, $this->getMyUserDataInstance( $_CB_framework->myId() ), $reason, $fieldName, true, $fullAccess );
 		if ( isset( $fields[0] ) ) {
 			$field		=	$fields[0];
@@ -864,6 +870,12 @@ class CBuser
 						$var = Application::User( (int) $user->getUserData()->get( 'id' ) )->getAuthorisedViewLevels();
 					} elseif ( $field === 'usergroup' ) {
 						$var						=	Application::User( (int) $user->getUserData()->get( 'id' ) )->getAuthorisedGroups();
+					} elseif ( $field === 'application_context' ) {
+						$var						=	( Application::Cms()->getClientId() ? 'administrator' : 'frontend' );
+					} elseif ( $field === 'language_code' ) {
+						list( $var )				=	explode( '-', Application::Cms()->getLanguageTag() );
+					} elseif ( $field === 'language_tag' ) {
+						$var						=	Application::Cms()->getLanguageTag();
 					} elseif ( $field ) {
 						if ( isset( $extraStrings[$field] ) ) {
 							$var					=	$extraStrings[$field];

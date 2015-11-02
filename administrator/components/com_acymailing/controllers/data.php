@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.4
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -31,19 +31,18 @@ class DataController extends acymailingController{
 	}
 
 	function loadZohoFields(){
-		$app = JFactory::getApplication();
 		$zohoHelper = acymailing_get('helper.zoho');
 		$zohoHelper->authtoken = JRequest::getVar('zoho_apikey');
 		$list = JRequest::getVar('zoho_list');
 		JRequest::setVar('layout', 'import');
 		$zohoFields = $zohoHelper->getFieldsRaw($list);
 		if(!empty($zohoHelper->error)){
-			$app->enqueueMessage($zohoHelper->error,'error');
+			acymailing_enqueueMessage($zohoHelper->error,'error');
 			return parent::display();
 		}
 		$zohoFieldsParsed = $zohoHelper->parseXMLFields($zohoFields);
 		if(!empty($zohoHelper->error)){
-			$app->enqueueMessage($zohoHelper->error,'error');
+			acymailing_enqueueMessage($zohoHelper->error,'error');
 			return parent::display();
 		}
 		$config = acymailing_config();
@@ -52,7 +51,7 @@ class DataController extends acymailingController{
 		$newconfig->zoho_list = $list;
 		$newconfig->zoho_apikey = $zohoHelper->authtoken;
 		$config->save($newconfig);
-		$app->enqueueMessage(JText::_('ACY_FIELDSLOADED'));
+		acymailing_enqueueMessage(JText::_('ACY_FIELDSLOADED'));
 		return parent::display();
 	}
 
@@ -71,7 +70,7 @@ class DataController extends acymailingController{
 		if($function == 'textarea' || $function == 'file'){
 			if(file_exists(ACYMAILING_MEDIA.'import'.DS.JRequest::getCmd('filename'))) $importContent = file_get_contents(ACYMAILING_MEDIA.'import'.DS.JRequest::getCmd('filename'));
 			if(empty($importContent)){
-				$app->enqueueMessage(JText::_('ACY_IMPORT_NO_CONTENT'), 'error');
+				acymailing_enqueueMessage(JText::_('ACY_IMPORT_NO_CONTENT'), 'error');
 				$this->setRedirect(acymailing_completeLink(($app->isSite() ? 'front' : '').'data&task=import',false,true));
 			}else{
 				JRequest::setVar('hidemainmenu',1);
@@ -209,6 +208,12 @@ class DataController extends acymailingController{
 			$where[] = 's.subid IN ('.implode(',',$_SESSION['acymailing']['exportusers']).')';
 		}
 
+		if(JRequest::getInt('fieldfilters')){
+			foreach($_SESSION['acymailing']['fieldfilter'] as $field => $value){
+				$where[] = 's.'.acymailing_secureField($field).' LIKE "%'.acymailing_getEscaped($value, true).'%"';
+			}
+		}
+
 		$query = $querySelect;
 		if(!empty($where)) $query .= ' WHERE ('.implode(') AND (',$where).')';
 		if(JRequest::getInt('sessionquery')){
@@ -302,7 +307,8 @@ class DataController extends acymailingController{
 			}
 
 			if(!empty($exportFieldsGeoloc) && !empty($allData)){
-				$orderGeoloc = JRequest::getString('exportgeolocorder');
+				$orderGeoloc = JRequest::getCmd('exportgeolocorder');
+				if(strtolower($orderGeoloc) !== 'desc') $orderGeoloc = 'asc';
 				$db->setQuery('SELECT geolocation_subid,'.implode(', ',$exportFieldsGeoloc).' FROM (SELECT * FROM #__acymailing_geolocation WHERE geolocation_subid IN ('.implode(',',array_keys($allData)).') ORDER BY geolocation_id '.$orderGeoloc.') as geoloc GROUP BY geolocation_subid');
 				$resGeol = $db->loadObjectList();
 				foreach($resGeol as $geolData){

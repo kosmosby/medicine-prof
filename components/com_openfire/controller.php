@@ -39,6 +39,12 @@ class OpenfireController extends JControllerLegacy
       if($phone[0]!="+"){
           $phone = '+'.$phone;
       }
+
+      $name = trim(JRequest::getVar('name'),'');
+      if(empty($name)){
+          echo json_encode(array('status'=>'BAD_NAME'));
+          exit;
+      }
       //Verify that phone is correct.
       $phoneUtil = \libphonenumber\PhoneNumberUtil::getInstance();
       try {
@@ -57,7 +63,7 @@ class OpenfireController extends JControllerLegacy
       if($phone[0]=="+"){
           $phone = substr($phone, 1);
       }
-      $result = $ofService->registerPhone($phone, $ip);
+      $result = $ofService->registerPhone($phone, $ip, $name);
       echo json_encode(array('status'=>$result));
       exit;
   }
@@ -74,11 +80,8 @@ class OpenfireController extends JControllerLegacy
         if($phone[0]=="+"){
             $phone = substr($phone, 1);
         }
-      if( $ofService->verifyCode($phone, $code) ){
-          $result = $ofService->createOrUpdateUser($phone, $code);
-      }else{
-          $result=array("status"=>"CODE_INCORRECT");
-      }
+
+      $result = $ofService->verifyCode($phone, $code);
       echo json_encode($result);
       exit;
 	}

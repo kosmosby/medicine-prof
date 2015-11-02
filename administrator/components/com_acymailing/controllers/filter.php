@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.4
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -64,9 +64,8 @@ class FilterController extends acymailingController{
 				$doc->addScriptDeclaration( $js );
 				return;
 			}else{
-				$app = JFactory::getApplication();
 				foreach($filterClass->report as $oneReport){
-					$app->enqueueMessage($oneReport);
+					acymailing_enqueueMessage($oneReport);
 				}
 			}
 		}
@@ -83,17 +82,15 @@ class FilterController extends acymailingController{
 		if(!$this->isAllowed('lists','filter')) return;
 		JRequest::checkToken() or die( 'Invalid Token' );
 
-		$app = JFactory::getApplication();
-
 		$class = acymailing_get('class.filter');
 		$status = $class->saveForm();
 		if($status){
-			$app->enqueueMessage(JText::_( 'JOOMEXT_SUCC_SAVED' ), 'message');
+			acymailing_enqueueMessage(JText::_( 'JOOMEXT_SUCC_SAVED' ), 'message');
 		}else{
-			$app->enqueueMessage(JText::_( 'ERROR_SAVING' ), 'error');
+			acymailing_enqueueMessage(JText::_( 'ERROR_SAVING' ), 'error');
 			if(!empty($class->errors)){
 				foreach($class->errors as $oneError){
-					$app->enqueueMessage($oneError, 'error');
+					acymailing_enqueueMessage($oneError, 'error');
 				}
 			}
 		}

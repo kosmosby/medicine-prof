@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.4
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -37,7 +37,6 @@ class CpanelController extends acymailingController{
 
 	function store(){
 		if(!$this->isAllowed('configuration','manage')) return;
-		$app = JFactory::getApplication();
 
 		JRequest::checkToken() or die( 'Invalid Token' );
 
@@ -49,7 +48,7 @@ class CpanelController extends acymailingController{
 		 if(!empty($aclcats)){
 
 		 	if(JRequest::getString('acl_configuration','all') != 'all' && !acymailing_isAllowed($formData['acl_configuration_manage'])){
-		 		$app->enqueueMessage(JText::_( 'ACL_WRONG_CONFIG' ), 'notice');
+				acymailing_enqueueMessage(JText::_( 'ACL_WRONG_CONFIG' ), 'notice');
 		 		unset($formData['acl_configuration_manage']);
 		 	}
 
@@ -88,9 +87,9 @@ class CpanelController extends acymailingController{
 	 	}
 
 		if($status){
-			$app->enqueueMessage(JText::_( 'JOOMEXT_SUCC_SAVED' ), 'message');
+			acymailing_enqueueMessage(JText::_( 'JOOMEXT_SUCC_SAVED' ), 'message');
 		}else{
-			$app->enqueueMessage(JText::_( 'ERROR_SAVING' ), 'error');
+			acymailing_enqueueMessage(JText::_( 'ERROR_SAVING' ), 'error');
 		}
 
 		$config->load();
@@ -98,7 +97,6 @@ class CpanelController extends acymailingController{
 
 	function test(){
 		if(!$this->isAllowed('configuration','manage')) return;
-		$app = JFactory::getApplication();
 		$this->store();
 
 		acymailing_displayErrors();
@@ -118,15 +116,15 @@ class CpanelController extends acymailingController{
 		if(!$result){
 			$bounce = $config->get('bounce_email');
 			if($config->get('mailer_method') == 'smtp' && $config->get('smtp_secured') == 'ssl' && !function_exists('openssl_sign')){
-				$app->enqueueMessage('The PHP Extension openssl is not enabled on your server, this extension is required to use an SSL connection, please enable it','notice');
+				acymailing_enqueueMessage('The PHP Extension openssl is not enabled on your server, this extension is required to use an SSL connection, please enable it','notice');
 			}elseif(!empty($bounce) AND !in_array($config->get('mailer_method'),array('smtp','elasticemail'))){
-				$app->enqueueMessage(JText::sprintf('ADVICE_BOUNCE','<b><i>'.$bounce.'</i></b>'),'notice');
+				acymailing_enqueueMessage(JText::sprintf('ADVICE_BOUNCE','<b><i>'.$bounce.'</i></b>'),'notice');
 			}elseif($config->get('mailer_method') == 'smtp' AND !$config->get('smtp_auth') AND strlen($config->get('smtp_password')) > 1){
-				$app->enqueueMessage(JText::_('ADVICE_SMTP_AUTH'),'notice');
+				acymailing_enqueueMessage(JText::_('ADVICE_SMTP_AUTH'),'notice');
 			}elseif((strpos(ACYMAILING_LIVE,'localhost') OR strpos(ACYMAILING_LIVE,'127.0.0.1')) AND in_array($config->get('mailer_method'),array('sendmail','qmail','mail'))){
-				$app->enqueueMessage(JText::_('ADVICE_LOCALHOST'),'notice');
+				acymailing_enqueueMessage(JText::_('ADVICE_LOCALHOST'),'notice');
 			}elseif($config->get('mailer_method') == 'smtp' AND $config->get('smtp_port') AND !in_array($config->get('smtp_port'),array(25,2525,465,587))){
-				$app->enqueueMessage(JText::sprintf('ADVICE_PORT',$config->get('smtp_port')),'notice');
+				acymailing_enqueueMessage(JText::sprintf('ADVICE_PORT',$config->get('smtp_port')),'notice');
 			}
 		}
 
@@ -172,24 +170,47 @@ class CpanelController extends acymailingController{
 	}
 
 	function seereport(){
-		if(!$this->isAllowed('configuration','manage')) return;
+		if(!$this->isAllowed('configuration', 'manage')) return;
 		$config = acymailing_config();
 
 		$path = trim(html_entity_decode($config->get('cron_savepath')));
-		if(!preg_match('#^[a-z0-9/_\-]*\.log$#i',$path)){
-			acymailing_display('The log file must only contain alphanumeric characters and end with .log','error');
+		if(!preg_match('#^[a-z0-9/_\-]*\.log$#i', $path)){
+			acymailing_display('The log file must only contain alphanumeric characters and end with .log', 'error');
 			return;
 		}
 
 		$reportPath = JPath::clean(ACYMAILING_ROOT.$path);
 
-		$logFile = @file_get_contents($reportPath);
+		if(file_exists($reportPath)){
+			try{
+				$lines = 10000;
+				$f = fopen($reportPath, "rb");
+				fseek($f, -1, SEEK_END);
+				if(fread($f, 1) != "\n") $lines -= 1;
+
+				$logFile = '';
+				while(ftell($f) > 0 && $lines >= 0){
+					$seek = min(ftell($f), 4096); // Figure out how far back we should jump
+					fseek($f, -$seek, SEEK_CUR);
+					$logFile = ($chunk = fread($f, $seek)).$logFile; // Get the line
+					fseek($f, -mb_strlen($chunk, '8bit'), SEEK_CUR);
+					$lines -= substr_count($chunk, "\n"); // Move to previous line
+				}
+
+				while($lines++ < 0){
+					$logFile = substr($logFile, strpos($logFile, "\n") + 1);
+				}
+				fclose($f);
+			}catch(Exception $e){
+				$logFile = '';
+			}
+		}
+
 		if(empty($logFile)){
 			acymailing_display(JText::_('EMPTY_LOG'),'info');
 		}else{
 			echo nl2br($logFile);
 		}
-
 	}
 
 	function cleanreport(){
@@ -242,7 +263,6 @@ class CpanelController extends acymailingController{
 		$tableName = array_keys($structure);
 		$structureDB = array();
 		foreach($tableName as $oneTableName){
-
 			try{
 				$db->setQuery("SHOW COLUMNS FROM ".$oneTableName);
 				$fields2 = $db->loadObjectList();
@@ -256,7 +276,7 @@ class CpanelController extends acymailingController{
 				if(strpos($errorMessage,'marked as crashed')){
 					$repairQuery = 'REPAIR TABLE '.$oneTableName;
 
-					$db->setQuery($createTable[$oneTableName]);
+					$db->setQuery($repairQuery);
 					try{
 						$isError = $db->query();
 					}catch(Exception $e){
@@ -327,6 +347,21 @@ class CpanelController extends acymailingController{
 		$nbdeleted = $db->getAffectedRows();
 		if(!empty($nbdeleted)){
 			echo "<span style=\"color:blue\">".$nbdeleted." lost list entries fixed</span><br />";
+		}
+
+		$db->setQuery('SELECT namekey FROM #__acymailing_fields WHERE type NOT IN (\'category\',\'customtext\')');
+		$customFields = array_keys($db->loadObjectList('namekey'));
+		$db->setQuery("SHOW COLUMNS FROM #__acymailing_subscriber");
+		$subFields = $db->loadObjectList();
+		$subFieldsName = array();
+		foreach($subFields as $oneField){
+			$subFieldsName[] = $oneField->Field;
+		}
+		$fieldsDiff = array_diff($customFields, $subFieldsName);
+		if(!empty($fieldsDiff)){
+			echo '<span style="color:red;">At least one field is missing in the subscriber table or has not the same case between fields and subscriber table (they should all be lower case): <span style="font-weight: bold">'.implode(', ',$fieldsDiff).'</span>. You should only create fields using the custom fields interface.</span>';
+		} else{
+			echo '<span style="color:green;">Custom fields OK</span>';
 		}
 	}
 }

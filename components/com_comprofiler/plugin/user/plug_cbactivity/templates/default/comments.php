@@ -69,11 +69,12 @@ class HTML_cbactivityComments
 			$cbUser						=	CBuser::getInstance( (int) $row->get( 'user_id' ), false );
 			$message					=	( $row->get( 'message' ) ? htmlspecialchars( CBTxt::T( $row->get( 'message' ) ) ) : null );
 			$date						=	null;
+			$insert						=	null;
 			$footer						=	null;
 			$menu						=	array();
 			$extras						=	array();
 
-			$_PLUGINS->trigger( 'activity_onDisplayComment', array( &$row, &$message, &$date, &$footer, &$menu, &$extras, $stream, $output ) );
+			$_PLUGINS->trigger( 'activity_onDisplayComment', array( &$row, &$message, &$insert, &$date, &$footer, &$menu, &$extras, $stream, $output ) );
 
 			$message					=	$stream->parser( $message )->parse( array( 'linebreaks' ) );
 
@@ -84,19 +85,21 @@ class HTML_cbactivityComments
 
 				$replies				=	$row->replies( $stream->source(), $stream->user() );
 
-				CBActivity::loadStreamDefaults( $replies, $stream );
+				if ( $replies ) {
+					CBActivity::loadStreamDefaults( $replies, $stream );
 
-				$replies->set( 'replies', 0 );
+					$replies->set( 'replies', 0 );
 
-				$footer					.=	$replies->stream( true, ( $row->get( '_comments' ) ? true : false ) );
+					$footer				.=	$replies->stream( true, ( $row->get( '_comments' ) ? true : false ) );
+				}
 			}
 
 			$return						.=		'<div id="' . $rowId . '" class="streamItem streamItemInline commentContainer' . ( $typeClass ? ' commentContainer' . $typeClass : null ) . ( $subTypeClass ? ' commentContainer' . $typeClass . $subTypeClass : null ) . '" data-cbactivity-id="' . (int) $row->get( 'id' ) . '">'
-										.			'<div class="streamItemInner media clearfix">'
-										.				'<div class="commentContainerLogo media-left">'
+										.			'<div class="streamItemInner streamMedia media clearfix">'
+										.				'<div class="streamMediaLeft commentContainerLogo media-left">'
 										.					$cbUser->getField( 'avatar', null, 'html', 'none', 'list', 0, true )
 										.				'</div>'
-										.				'<div class="streamItemDisplay commentContainerContent media-body">'
+										.				'<div class="streamMediaBody streamItemDisplay commentContainerContent media-body">'
 										.					'<div class="commentContainerContentInner cbMoreLess text-small" data-cbmoreless-height="50">'
 										.						'<div class="streamItemContent cbMoreLessContent">'
 										.							'<strong>' . $cbUser->getField( 'formatname', null, 'html', 'none', 'list', 0, true ) . '</strong>'
@@ -106,6 +109,7 @@ class HTML_cbactivityComments
 										.							'<a href="javascript: void(0);" class="cbMoreLessButton">' . CBTxt::T( 'See More' ) . '</a>'
 										.						'</div>'
 										.					'</div>'
+										.					( $insert ? '<div class="commentContainerContentInsert">' . $insert . '</div>' : null )
 										.					'<div class="commentContainerContentDate text-muted text-small">'
 										.						cbFormatDate( $row->get( 'date' ), true, 'timeago' )
 										.						( $row->params()->get( 'modified' ) ? ' <span class="streamIconEdited fa fa-edit" title="' . htmlspecialchars( CBTxt::T( 'Edited' ) ) . '"></span>' : null )
@@ -138,7 +142,7 @@ class HTML_cbactivityComments
 				}
 
 				if ( $menu ) {
-					$menuItems			.=		'<li class="streamItemMenuItem commentMenuItem">' . explode( '</li><li class="streamItemMenuItem commentMenuItem">', $menu ) . '</li>';
+					$menuItems			.=		'<li class="streamItemMenuItem commentMenuItem">' . implode( '</li><li class="streamItemMenuItem commentMenuItem">', $menu ) . '</li>';
 				}
 
 				$menuItems				.=	'</ul>';
@@ -202,12 +206,12 @@ class HTML_cbactivityComments
 		$_PLUGINS->trigger( 'activity_onDisplayCommentCreate', array( &$newBody, &$newFooter, $stream, $output ) );
 
 		$return			=	'<div id="' . $rowId . '" class="streamItem streamItemInline commentContainer commentContainerNew' . ( $stream->get( 'type' ) == 'comment' ? ' hidden' : null ) . '">'
-						.		'<div class="streamItemInner media clearfix">'
+						.		'<div class="streamItemInner streamMedia media clearfix">'
 						.			'<form action="' . $stream->endpoint( 'new' ) . '" method="post" enctype="multipart/form-data" name="' . $rowId . 'Form" id="' . $rowId . 'Form" class="cb_form streamItemForm form">'
-						.				'<div class="commentContainerLogo media-left">'
+						.				'<div class="streamMediaLeft commentContainerLogo media-left">'
 						.					CBuser::getInstance( (int) $viewer->get( 'user_id' ), false )->getField( 'avatar', null, 'html', 'none', 'list', 0, true )
 						.				'</div>'
-						.				'<div class="streamItemNew commentContainerContent media-body text-small">'
+						.				'<div class="streamMediaBody streamItemNew commentContainerContent media-body text-small">'
 						.					'<textarea id="' . $stream->id() . '_message_new" name="message" rows="1" class="streamInput streamInputAutosize streamInputMessage form-control" placeholder="' . htmlspecialchars( ( $stream->get( 'type' ) == 'comment' ? CBTxt::T( 'Write a reply...' ) : CBTxt::T( 'Write a comment...' ) ) ) . '"' . ( $messageLimit ? ' data-cbactivity-input-limit="' . (int) $messageLimit . '" maxlength="' . (int) $messageLimit . '"' : null ) . '></textarea>'
 						.					$newBody
 						.					'<div class="streamItemDisplay commentContainerFooter hidden">'
@@ -252,7 +256,7 @@ class HTML_cbactivityComments
 
 		$_PLUGINS->trigger( 'activity_onDisplayCommentEdit', array( &$row, &$editBody, &$editFooter, $stream, $output ) );
 
-		$return			=	'<div class="streamItemEdit commentContainerContentEdit media-body text-small hidden">'
+		$return			=	'<div class="streamMediaBody streamItemEdit commentContainerContentEdit media-body text-small hidden">'
 						.		'<form action="' . $stream->endpoint( 'save', array( 'id' => (int) $row->get( 'id' ) ) ) . '" method="post" enctype="multipart/form-data" name="' . $rowId . 'Form" id="' . $rowId . 'Form" class="cb_form streamItemForm form">'
 						.			'<textarea id="' . $stream->id() . '_message_edit_' . (int) $row->get( 'id' ) . '" name="message" rows="1" class="streamInput streamInputAutosize streamInputMessage form-control" placeholder="' . htmlspecialchars( ( $stream->get( 'type' ) == 'comment' ? CBTxt::T( 'Write a reply...' ) : CBTxt::T( 'Write a comment...' ) ) ) . '"' . ( $messageLimit ? ' data-cbactivity-input-limit="' . (int) $messageLimit . '" maxlength="' . (int) $messageLimit . '"' : null ) . '>' . htmlspecialchars( $row->get( 'message' ) ) . '</textarea>'
 						.			$editBody

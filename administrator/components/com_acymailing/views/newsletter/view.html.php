@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.4
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,8 +10,7 @@ defined('_JEXEC') or die('Restricted access');
 ?><?php
 
 
-class NewsletterViewNewsletter extends acymailingView
-{
+class NewsletterViewNewsletter extends acymailingView{
 	var $type = 'news';
 	var $ctrl = 'newsletter';
 	var $nameListing = 'NEWSLETTERS';
@@ -22,14 +21,14 @@ class NewsletterViewNewsletter extends acymailingView
 
 	function display($tpl = null){
 		$function = $this->getLayout();
-		if(method_exists($this,$function)) $this->$function();
+		if(method_exists($this, $function)) $this->$function();
 
 		parent::display($tpl);
 	}
 
 	function listing(){
 
-		JHTML::_('behavior.modal','a.modal');
+		JHTML::_('behavior.modal', 'a.modal');
 
 		$app = JFactory::getApplication();
 		$pageInfo = new stdClass();
@@ -41,26 +40,26 @@ class NewsletterViewNewsletter extends acymailingView
 		$config = acymailing_config();
 
 		$paramBase = ACYMAILING_COMPONENT.'.'.$this->getName();
-		$pageInfo->filter->order->value = $app->getUserStateFromRequest( $paramBase.".filter_order", 'filter_order','a.mailid','cmd' );
-		$pageInfo->filter->order->dir	= $app->getUserStateFromRequest( $paramBase.".filter_order_Dir", 'filter_order_Dir','desc','word' );
+		$pageInfo->filter->order->value = $app->getUserStateFromRequest($paramBase.".filter_order", 'filter_order', 'a.mailid', 'cmd');
+		$pageInfo->filter->order->dir = $app->getUserStateFromRequest($paramBase.".filter_order_Dir", 'filter_order_Dir', 'desc', 'word');
 		if(strtolower($pageInfo->filter->order->dir) !== 'desc') $pageInfo->filter->order->dir = 'asc';
 
-		$pageInfo->search = $app->getUserStateFromRequest( $paramBase.".search", 'search', '', 'string' );
+		$pageInfo->search = $app->getUserStateFromRequest($paramBase.".search", 'search', '', 'string');
 		$pageInfo->search = JString::strtolower(trim($pageInfo->search));
-		$selectedList = $app->getUserStateFromRequest( $paramBase."filter_list",'filter_list',0,'int');
-		$selectedCreator = $app->getUserStateFromRequest( $paramBase."filter_creator",'filter_creator',0,'int');
+		$selectedList = $app->getUserStateFromRequest($paramBase."filter_list", 'filter_list', 0, 'int');
+		$selectedCreator = $app->getUserStateFromRequest($paramBase."filter_creator", 'filter_creator', 0, 'int');
 
-		$pageInfo->limit->value = $app->getUserStateFromRequest( $paramBase.'.list_limit', 'limit', $app->getCfg('list_limit'), 'int' );
-		$pageInfo->limit->start = $app->getUserStateFromRequest( $paramBase.'.limitstart', 'limitstart', 0, 'int' );
+		$pageInfo->limit->value = $app->getUserStateFromRequest($paramBase.'.list_limit', 'limit', $app->getCfg('list_limit'), 'int');
+		$pageInfo->limit->start = $app->getUserStateFromRequest($paramBase.'.limitstart', 'limitstart', 0, 'int');
 
-		$database	= JFactory::getDBO();
+		$database = JFactory::getDBO();
 
 
-		$searchMap = array('a.mailid','a.alias','a.subject','a.fromname','a.fromemail','a.replyname','a.replyemail','a.userid','b.name','b.username','b.email');
+		$searchMap = array('a.mailid', 'a.alias', 'a.subject', 'a.fromname', 'a.fromemail', 'a.replyname', 'a.replyemail', 'a.userid', 'b.name', 'b.username', 'b.email');
 		$filters = array();
 		if(!empty($pageInfo->search)){
-			$searchVal = '\'%'.acymailing_getEscaped($pageInfo->search,true).'%\'';
-			$filters[] = implode(" LIKE $searchVal OR ",$searchMap)." LIKE $searchVal";
+			$searchVal = '\'%'.acymailing_getEscaped($pageInfo->search, true).'%\'';
+			$filters[] = implode(" LIKE $searchVal OR ", $searchMap)." LIKE $searchVal";
 		}
 
 		$filters[] = 'a.type = \''.$this->type.'\'';
@@ -70,36 +69,37 @@ class NewsletterViewNewsletter extends acymailingView
 		if($this->type == 'news'){
 			$selectedDate = $app->getUserStateFromRequest($paramBase."filter_date", 'filter_date', 0, 'string');
 			if(!empty($selectedDate)){
-				if(strlen($selectedDate) > 4) $filters[] = 'DATE_FORMAT(FROM_UNIXTIME(senddate),"%Y-%m") = '.$database->Quote($selectedDate);
-				else $filters[] = 'DATE_FORMAT(FROM_UNIXTIME(senddate),"%Y") = '.$database->Quote($selectedDate);
+				if(strlen($selectedDate) > 4){
+					$filters[] = 'DATE_FORMAT(FROM_UNIXTIME(senddate),"%Y-%m") = '.$database->Quote($selectedDate);
+				}else $filters[] = 'DATE_FORMAT(FROM_UNIXTIME(senddate),"%Y") = '.$database->Quote($selectedDate);
 			}
 		}
 
-		$selection = array_merge($searchMap,array('a.created','a.frequency','a.senddate','a.published','a.type','a.visible','a.abtesting'));
+		$selection = array_merge($searchMap, array('a.created', 'a.frequency', 'a.senddate', 'a.published', 'a.type', 'a.visible', 'a.abtesting'));
 
 		if(empty($selectedList)){
 			if($app->isAdmin()){
-				$query = 'SELECT '.implode(',',$selection).' FROM '.acymailing_table('mail').' as a';
+				$query = 'SELECT '.implode(',', $selection).' FROM '.acymailing_table('mail').' as a';
 				$queryCount = 'SELECT COUNT(a.mailid) FROM '.acymailing_table('mail').' as a';
-			} else{
-				$query = 'SELECT '.implode(',',$selection).' FROM '.acymailing_table('listmail').' as c';
+			}else{
+				$query = 'SELECT '.implode(',', $selection).' FROM '.acymailing_table('listmail').' as c';
 				$query .= ' JOIN '.acymailing_table('mail').' as a on a.mailid = c.mailid ';
 				$queryCount = 'SELECT COUNT(DISTINCT c.mailid) FROM '.acymailing_table('listmail').' as c';
 				$queryCount .= ' JOIN '.acymailing_table('mail').' as a on a.mailid = c.mailid ';
 			}
 		}else{
-			$query = 'SELECT '.implode(',',$selection).' FROM '.acymailing_table('listmail').' as c';
+			$query = 'SELECT '.implode(',', $selection).' FROM '.acymailing_table('listmail').' as c';
 			$query .= ' JOIN '.acymailing_table('mail').' as a on a.mailid = c.mailid ';
 			$queryCount = 'SELECT COUNT(c.mailid) FROM '.acymailing_table('listmail').' as c';
 			$queryCount .= ' JOIN '.acymailing_table('mail').' as a on a.mailid = c.mailid ';
 		}
 
-		$query .= ' LEFT JOIN '.acymailing_table('users',false).' as b on a.userid = b.id ';
-		$query .= ' WHERE ('.implode(') AND (',$filters).')';
+		$query .= ' LEFT JOIN '.acymailing_table('users', false).' as b on a.userid = b.id ';
+		$query .= ' WHERE ('.implode(') AND (', $filters).')';
 
-		if(count($filters)>1) $queryCount.= ' LEFT JOIN '.acymailing_table('users',false).' as b on a.userid = b.id ';
+		if(count($filters) > 1) $queryCount .= ' LEFT JOIN '.acymailing_table('users', false).' as b on a.userid = b.id ';
 
-		$queryCount .= ' WHERE ('.implode(') AND (',$filters).')';
+		$queryCount .= ' WHERE ('.implode(') AND (', $filters).')';
 
 		if(!$app->isAdmin()){
 			$listClass = acymailing_get('class.list');
@@ -110,8 +110,8 @@ class NewsletterViewNewsletter extends acymailingView
 					foreach($lists as $oneList){
 						$frontListsIds[] = $oneList->listid;
 					}
-					$query .= ' AND c.listid IN ('.implode(',',$frontListsIds).')';
-					$queryCount .= ' AND c.listid IN ('.implode(',',$frontListsIds).')';
+					$query .= ' AND c.listid IN ('.implode(',', $frontListsIds).')';
+					$queryCount .= ' AND c.listid IN ('.implode(',', $frontListsIds).')';
 				}
 			}
 			$query .= ' GROUP BY a.mailid ';
@@ -121,7 +121,7 @@ class NewsletterViewNewsletter extends acymailingView
 			$query .= ' ORDER BY '.$pageInfo->filter->order->value.' '.$pageInfo->filter->order->dir;
 		}
 
-		$database->setQuery($query,$pageInfo->limit->start,$pageInfo->limit->value);
+		$database->setQuery($query, $pageInfo->limit->start, $pageInfo->limit->value);
 		$rows = $database->loadObjectList('mailid');
 
 		if(!empty($rows)){
@@ -135,42 +135,43 @@ class NewsletterViewNewsletter extends acymailingView
 		}
 
 
-
 		$database->setQuery($queryCount);
 		$pageInfo->elements->total = $database->loadResult();
 
 		$pageInfo->elements->page = count($rows);
 
 		jimport('joomla.html.pagination');
-		$pagination = new JPagination( $pageInfo->elements->total, $pageInfo->limit->start, $pageInfo->limit->value );
+		$pagination = new JPagination($pageInfo->elements->total, $pageInfo->limit->start, $pageInfo->limit->value);
 
+		$isAdmin = false;
 		if($app->isAdmin()){
-			acymailing_setTitle(JText::_($this->nameListing),$this->icon,$this->ctrl);
+			$isAdmin = true;
 
-			$bar = JToolBar::getInstance('toolbar');
 			$buttonPreview = JText::_('ACY_PREVIEW');
+			$acyToolbar = acymailing::get('helper.toolbar');
 			if($this->type == 'autonews'){
-				JToolBarHelper::custom('generate', 'process', '',JText::_('GENERATE'),false);
+				$acyToolbar->custom('generate', JText::_('GENERATE'), 'process', false, '');
 			}elseif($this->type == 'news'){
-				$buttonPreview.=' / '.JText::_('SEND');
+				$buttonPreview .= ' / '.JText::_('SEND');
 			}
 
-			JToolBarHelper::custom('preview', 'acypreview', '',$buttonPreview, true);
+			$acyToolbar->custom('preview', $buttonPreview, 'search', true);
 
-			JToolBarHelper::divider();
-			JToolBarHelper::addNew();
-			JToolBarHelper::editList();
-			if(acymailing_isAllowed($config->get('acl_'.$this->aclCat.'_delete','all'))) JToolBarHelper::deleteList(JText::_('ACY_VALIDDELETEITEMS'));
-			JToolBarHelper::spacer();
-			if(acymailing_level(3) && acymailing_isAllowed($config->get('acl_'.$this->aclCat.'_abtesting','all')) && $this->type == 'news') $bar->appendButton('Acypopup', 'acyabtesting', JText::_('ABTESTING'), '', 800, 600);
-			if(acymailing_isAllowed($config->get('acl_'.$this->aclCat.'_copy','all'))) JToolBarHelper::custom( 'copy', 'copy.png', 'copy.png', JText::_('ACY_COPY') );
+			if(acymailing_level(3) && acymailing_isAllowed($config->get('acl_'.$this->aclCat.'_abtesting', 'all')) && $this->type == 'news') $acyToolbar->popup('ABtesting', JText::_('ABTESTING'), '', 800, 600);
+
 			if(acymailing_level(3)){
-				$bar->appendButton( 'Acypopup', 'upload', JText::_('IMPORT'), "index.php?option=com_acymailing&ctrl=newsletter&task=upload&tmpl=component");
+				$acyToolbar->popup('import', JText::_('IMPORT'), "index.php?option=com_acymailing&ctrl=newsletter&task=upload&tmpl=component");
 			}
-			JToolBarHelper::divider();
+			if(acymailing_level(3) || acymailing_isAllowed($config->get('acl_'.$this->aclCat.'_copy', 'all'))) $acyToolbar->divider();
 
-			$bar->appendButton( 'Pophelp',$this->doc);
-			if(acymailing_isAllowed($config->get('acl_cpanel_manage','all'))) $bar->appendButton( 'Link', 'acymailing', JText::_('ACY_CPANEL'), acymailing_completeLink('dashboard') );
+			$acyToolbar->add();
+			$acyToolbar->edit();
+			if(acymailing_isAllowed($config->get('acl_'.$this->aclCat.'_copy', 'all'))) $acyToolbar->copy();
+			if(acymailing_isAllowed($config->get('acl_'.$this->aclCat.'_delete', 'all'))) $acyToolbar->delete();
+			$acyToolbar->divider();
+			$acyToolbar->help($this->doc);
+			$acyToolbar->setTitle(JText::_($this->nameListing), $this->ctrl);
+			$acyToolbar->display();
 		}
 
 		$filters = new stdClass();
@@ -178,19 +179,19 @@ class NewsletterViewNewsletter extends acymailingView
 		if($app->isAdmin()){
 			$listmailType = acymailing_get('type.listsmail');
 			$listmailType->type = $this->type;
-			$filters->list = $listmailType->display('filter_list',$selectedList);
-		} else{
+			$filters->list = $listmailType->display('filter_list', $selectedList);
+		}else{
 			$accessibleLists = array();
-			$accessibleLists[] = JHTML::_('select.option', '0', JText::_('ALL_LISTS') );
+			$accessibleLists[] = JHTML::_('select.option', '0', JText::_('ALL_LISTS'));
 			foreach($lists as $oneList){
-				$accessibleLists[] = JHTML::_('select.option', $oneList->listid, $oneList->name );
+				$accessibleLists[] = JHTML::_('select.option', $oneList->listid, $oneList->name);
 			}
-			$filters->list = JHTML::_('select.genericlist', $accessibleLists, 'filter_list', 'class="inputbox" size="1" onchange="document.adminForm.submit( );"', 'value', 'text', (int) $selectedList );
+			$filters->list = JHTML::_('select.genericlist', $accessibleLists, 'filter_list', 'class="inputbox" size="1" onchange="document.adminForm.submit( );"', 'value', 'text', (int)$selectedList);
 		}
 		$mailcreatorType = acymailing_get('type.mailcreator');
 		$mailcreatorType->type = $this->type;
 
-		$filters->creator = $mailcreatorType->display('filter_creator',$selectedCreator);
+		$filters->creator = $mailcreatorType->display('filter_creator', $selectedCreator);
 
 		if($this->type == 'news'){
 			$database->setQuery('SELECT DATE_FORMAT(FROM_UNIXTIME(senddate),"%Y-%m") AS date FROM #__acymailing_mail WHERE senddate IS NOT NULL AND senddate != 0 AND type = "news" GROUP BY date ORDER BY date DESC');
@@ -211,16 +212,17 @@ class NewsletterViewNewsletter extends acymailingView
 			$filters->date = JHTML::_('select.genericlist', $sendFilter, 'filter_date', 'class="inputbox" size="1" onchange="document.adminForm.submit();"', 'value', 'text', $selectedDate);
 		}
 
-		$this->assignRef('filters',$filters);
+		$this->assignRef('filters', $filters);
 		$toggleClass = acymailing_get('helper.toggle');
-		$this->assignRef('toggleClass',$toggleClass);
-		$this->assignRef('rows',$rows);
-		$this->assignRef('pageInfo',$pageInfo);
-		$this->assignRef('pagination',$pagination);
+		$this->assignRef('toggleClass', $toggleClass);
+		$this->assignRef('rows', $rows);
+		$this->assignRef('pageInfo', $pageInfo);
+		$this->assignRef('pagination', $pagination);
 		$delay = acymailing_get('type.delaydisp');
-		$this->assignRef('delay',$delay);
-		$this->assignRef('config',$config);
+		$this->assignRef('delay', $delay);
+		$this->assignRef('config', $config);
 		$this->assign('app', $app);
+		$this->assign('isAdmin', $isAdmin);
 
 		if($this->type == 'autonews'){
 			$frequency = acymailing_get('type.frequency');
@@ -245,7 +247,7 @@ class NewsletterViewNewsletter extends acymailingView
 			}
 
 			if(empty($mail->mailid)){
-				acymailing_display('Newsletter '.$mailid.' not found','error');
+				acymailing_display('Newsletter '.$mailid.' not found', 'error');
 				$mailid = 0;
 			}
 		}
@@ -291,7 +293,7 @@ class NewsletterViewNewsletter extends acymailingView
 			}
 
 			if(!$app->isAdmin()){
-				if($config->get('frontend_sender',0)){
+				if($config->get('frontend_sender', 0)){
 					$mail->fromname = $my->name;
 					$mail->fromemail = $my->email;
 				}else{
@@ -299,7 +301,7 @@ class NewsletterViewNewsletter extends acymailingView
 					if(empty($mail->fromemail)) $mail->fromemail = $config->get('from_email');
 				}
 
-				if($config->get('frontend_reply',0)){
+				if($config->get('frontend_reply', 0)){
 					$mail->replyname = $my->name;
 					$mail->replyemail = $my->email;
 				}else{
@@ -315,9 +317,9 @@ class NewsletterViewNewsletter extends acymailingView
 			$db->setQuery('SELECT `name` FROM `#__users` WHERE `id`= '.intval($mail->sentby).' LIMIT 1');
 			$sentbyname = $db->loadResult();
 		}
-		$this->assignRef('sentbyname',$sentbyname);
+		$this->assignRef('sentbyname', $sentbyname);
 
-		if(JRequest::getVar('task','') == 'replacetags'){
+		if(JRequest::getVar('task', '') == 'replacetags'){
 			$mailerHelper = acymailing_get('helper.mailer');
 			$templateClass = acymailing_get('class.template');
 			$mail->template = $templateClass->get($mail->tempid);
@@ -325,48 +327,49 @@ class NewsletterViewNewsletter extends acymailingView
 			JPluginHelper::importPlugin('acymailing');
 			$mailerHelper->triggerTagsWithRightLanguage($mail, false);
 
-			if(!empty($mail->altbody)) $mail->altbody = $mailerHelper->textVersion($mail->altbody,false);
+			if(!empty($mail->altbody)) $mail->altbody = $mailerHelper->textVersion($mail->altbody, false);
 		}
 
 		$extraInfos = '';
 		$values = new stdClass();
 		if($this->type == 'followup'){
-			$campaignid = JRequest::getInt('campaign',0);
+			$campaignid = JRequest::getInt('campaign', 0);
 			$extraInfos .= '&campaign='.$campaignid;
 
 			$values->delay = acymailing_get('type.delay');
-			$this->assignRef('campaignid',$campaignid);
-
+			$this->assignRef('campaignid', $campaignid);
 		}else{
 			$listmailClass = acymailing_get('class.listmail');
 			$lists = $listmailClass->getLists($mailid);
 		}
 
 		if($app->isAdmin()){
-			acymailing_setTitle(JText::_($this->nameForm),$this->icon,$this->ctrl.'&task=edit&mailid='.$mailid.$extraInfos);
 
-			$bar = JToolBar::getInstance('toolbar');
-			if(acymailing_isAllowed($config->get('acl_templates_view','all'))){
-				$bar->appendButton( 'Acypopup', 'acytemplate', JText::_('ACY_TEMPLATE'), "index.php?option=com_acymailing&ctrl=template&task=theme&tmpl=component",750,550);
+
+			$acyToolbar = acymailing::get('helper.toolbar');
+			if(acymailing_isAllowed($config->get('acl_templates_view', 'all'))){
+				$acyToolbar->popup('template', JText::_('ACY_TEMPLATE'), "index.php?option=com_acymailing&ctrl=template&task=theme&tmpl=component", 750, 550);
 			}
 
-			if(acymailing_isAllowed($config->get('acl_tags_view','all'))) $bar->appendButton('Acypopup', 'acytags', JText::_('TAGS'), JURI::base()."index.php?option=com_acymailing&ctrl=tag&task=tag&tmpl=component&type=".$this->type, 780, 550);
+			if(acymailing_isAllowed($config->get('acl_tags_view', 'all'))) $acyToolbar->popup('tag', JText::_('TAGS'), JURI::base()."index.php?option=com_acymailing&ctrl=tag&task=tag&tmpl=component&type=".$this->type, 780, 550);
 
-			if(in_array($this->type,array('news','followup')) && acymailing_isAllowed($config->get('acl_tags_view','all'))){
-				JToolBarHelper::custom('replacetags', 'replacetag', '',JText::_('REPLACE_TAGS'), false);
+			if(in_array($this->type, array('news', 'followup')) && acymailing_isAllowed($config->get('acl_tags_view', 'all'))){
+				$acyToolbar->custom('replacetags', JText::_('REPLACE_TAGS'), 'replacetag', false);
 			}
 
 			$buttonPreview = JText::_('ACY_PREVIEW');
-			if($this->type=='news'){
+			if($this->type == 'news'){
 				$buttonPreview .= ' / '.JText::_('SEND');
 			}
-			JToolBarHelper::divider();
-			JToolBarHelper::custom('savepreview', 'acypreview', '',$buttonPreview, false);
-			JToolBarHelper::save();
-			JToolBarHelper::apply();
-			JToolBarHelper::cancel();
-			JToolBarHelper::divider();
-			$bar->appendButton( 'Pophelp',$this->doc);
+			$acyToolbar->custom('savepreview', $buttonPreview, 'search', false, '');
+			$acyToolbar->divider();
+			$acyToolbar->addButtonOption('apply', JText::_('ACY_APPLY'), 'apply', false);
+			$acyToolbar->save();
+			$acyToolbar->cancel();
+			$acyToolbar->divider();
+			$acyToolbar->help($this->doc);
+			$acyToolbar->setTitle(JText::_($this->nameForm), $this->ctrl.'&task=edit&mailid='.$mailid.$extraInfos);
+			$acyToolbar->display();
 		}
 
 		$values->maxupload = (acymailing_bytes(ini_get('upload_max_filesize')) > acymailing_bytes(ini_get('post_max_size'))) ? ini_get('post_max_size') : ini_get('upload_max_filesize');
@@ -393,10 +396,9 @@ class NewsletterViewNewsletter extends acymailingView
 
 			if(empty($lists)){
 				$app = JFactory::getApplication();
-				$app->enqueueMessage('You don\'t have the rights to add or edit an e-mail','error');
-				$app->redirect(acymailing_completeLink('frontnewsletter',false,true));
+				acymailing_enqueueMessage('You don\'t have the rights to add or edit an e-mail', 'error');
+				$app->redirect(acymailing_completeLink('frontnewsletter', false, true));
 			}
-
 		}
 
 
@@ -409,17 +411,14 @@ class NewsletterViewNewsletter extends acymailingView
 		$js = "function updateAcyEditor(htmlvalue){";
 		$js .= 'if(htmlvalue == \'0\'){window.document.getElementById("htmlfieldset").style.display = \'none\'}else{window.document.getElementById("htmlfieldset").style.display = \'block\'}';
 		$js .= '}';
-		$js .='window.addEvent(\'load\', function(){ updateAcyEditor('.$mail->html.'); });';
 
-		$script = 'function addFileLoader(){
-		var divfile=window.document.getElementById("loadfile");
-		var input = document.createElement(\'input\');
-		input.type = \'file\';
-		input.style.width = \'auto\';
-		input.name = \'attachments[]\';
-		divfile.appendChild(document.createElement(\'br\'));
-		divfile.appendChild(input);}
-		';
+		$script = '
+		var attachmentNb = 1;
+		function addFileLoader(){
+			if(attachmentNb > 9) return;
+			window.document.getElementById("attachmentsdiv"+attachmentNb).style.display = "";
+			attachmentNb++;
+		}';
 
 		if(!ACYMAILING_J16){
 			$script .= 'function submitbutton(pressbutton){
@@ -447,7 +446,7 @@ class NewsletterViewNewsletter extends acymailingView
 						}
 					}';
 
-		$script .= 'if(window.document.getElementById("subject").value.length < 2){alert(\''.JText::_('ENTER_SUBJECT',true).'\'); return false;}';
+		$script .= 'if(window.document.getElementById("subject").value.length < 2){alert(\''.JText::_('ENTER_SUBJECT', true).'\'); return false;}';
 		$script .= $editor->jsCode();
 		if(!ACYMAILING_J16){
 			$script .= 'submitform( pressbutton );} ';
@@ -499,7 +498,7 @@ class NewsletterViewNewsletter extends acymailingView
 				}
 			}
 			";
-			$script .= "function simpleInsert(myField, myValue) {
+		$script .= "function simpleInsert(myField, myValue) {
 				if (document.selection) {
 					myField.focus();
 					sel = document.selection.createRange();
@@ -516,24 +515,25 @@ class NewsletterViewNewsletter extends acymailingView
 			}";
 
 		$doc = JFactory::getDocument();
-		$doc->addScriptDeclaration( $js.$script );
+		$doc->addScriptDeclaration($js.$script);
 
 		if($this->type == 'autonews'){
-			JHTML::_('behavior.modal','a.modal');
-			$this->assign('frequencyType',acymailing_get('type.frequency'));
-			$this->assign('generatingMode',acymailing_get('type.generatemode'));
+			JHTML::_('behavior.modal', 'a.modal');
+			$this->assign('frequencyType', acymailing_get('type.frequency'));
+			$this->assign('generatingMode', acymailing_get('type.generatemode'));
 		}
 
-		$this->assignRef('toggleClass',$toggleClass);
-		$this->assignRef('lists',$lists);
-		$this->assignRef('editor',$editor);
-		$this->assignRef('mail',$mail);
+		$this->assignRef('app', $app);
+		$this->assignRef('toggleClass', $toggleClass);
+		$this->assignRef('lists', $lists);
+		$this->assignRef('editor', $editor);
+		$this->assignRef('mail', $mail);
 		$tabs = acymailing_get('helper.acytabs');
 		$tabs->setOptions(array('useCookie' => true));
 
-		$this->assignRef('tabs',$tabs);
-		$this->assignRef('values',$values);
-		$this->assignRef('config',$config);
+		$this->assignRef('tabs', $tabs);
+		$this->assignRef('values', $values);
+		$this->assignRef('config', $config);
 	}
 
 	function preview(){
@@ -541,7 +541,7 @@ class NewsletterViewNewsletter extends acymailingView
 		$mailid = acymailing_getCID('mailid');
 		$config = acymailing_config();
 
-		JHTML::_('behavior.modal','a.modal');
+		JHTML::_('behavior.modal', 'a.modal');
 
 		$mailerHelper = acymailing_get('helper.mailer');
 		$mailerHelper->loadedToSend = false;
@@ -551,65 +551,78 @@ class NewsletterViewNewsletter extends acymailingView
 		$userClass = acymailing_get('class.subscriber');
 		$receiver = $userClass->get($user->email);
 		$mail->sendHTML = true;
-		$mailerHelper->dispatcher->trigger('acymailing_replaceusertags',array(&$mail,&$receiver,false));
-		if(!empty($mail->altbody)) $mail->altbody = $mailerHelper->textVersion($mail->altbody,false);
+		$mailerHelper->dispatcher->trigger('acymailing_replaceusertags', array(&$mail, &$receiver, false));
+		if(!empty($mail->altbody)) $mail->altbody = $mailerHelper->textVersion($mail->altbody, false);
 
 		$listmailClass = acymailing_get('class.listmail');
-		$lists = $listmailClass->getReceivers($mail->mailid,true,false);
+		$lists = $listmailClass->getReceivers($mail->mailid, true, false);
 
 		$testreceiverType = acymailing_get('type.testreceiver');
 
 		$paramBase = ACYMAILING_COMPONENT.'.'.$this->getName();
 		$infos = new stdClass();
-		$infos->test_selection = $app->getUserStateFromRequest( $paramBase.".test_selection", 'test_selection', '','string' );
-		$infos->test_group = $app->getUserStateFromRequest( $paramBase.".test_group", 'test_group', '','string' );
-		$infos->test_emails = $app->getUserStateFromRequest( $paramBase.".test_emails", 'test_emails', '','string' );
-		$infos->test_html = $app->getUserStateFromRequest( $paramBase.".test_html", 'test_html', 1,'int' );
+		$infos->test_selection = $app->getUserStateFromRequest($paramBase.".test_selection", 'test_selection', '', 'string');
+		$infos->test_group = $app->getUserStateFromRequest($paramBase.".test_group", 'test_group', '', 'string');
+		$infos->test_emails = $app->getUserStateFromRequest($paramBase.".test_emails", 'test_emails', '', 'string');
+		$infos->test_html = $app->getUserStateFromRequest($paramBase.".test_html", 'test_html', 1, 'int');
 
 		if($app->isAdmin()){
-			acymailing_setTitle(JText::_('ACY_PREVIEW').' : '.$mail->subject,$this->icon,$this->ctrl.'&task=preview&mailid='.$mailid);
 
-			$bar = JToolBar::getInstance('toolbar');
+
+			$acyToolbar = acymailing::get('helper.toolbar');
 			if($this->type == 'news'){
-				if(acymailing_level(1) && acymailing_isAllowed($config->get('acl_newsletters_schedule','all'))){
+				if(acymailing_level(1) && acymailing_isAllowed($config->get('acl_newsletters_schedule', 'all'))){
 					if($mail->published == 2){
-						JToolBarHelper::custom('unschedule', 'unschedule', '',JText::_('UNSCHEDULE'), false);
+						$acyToolbar->custom('unschedule', JText::_('UNSCHEDULE'), 'schedule', false);
 					}else{
-						$bar->appendButton( 'Acypopup', 'schedule', JText::_('SCHEDULE'), "index.php?option=com_acymailing&ctrl=send&task=scheduleready&tmpl=component&mailid=".$mailid);
+						$acyToolbar->popup('schedule', JText::_('SCHEDULE'), "index.php?option=com_acymailing&ctrl=send&task=scheduleready&tmpl=component&mailid=".$mailid);
 					}
 				}
-				if(acymailing_isAllowed($config->get('acl_newsletters_send','all'))){
-					$bar->appendButton( 'Acypopup', 'acysend', JText::_('SEND'), "index.php?option=com_acymailing&ctrl=send&task=sendready&tmpl=component&mailid=".$mailid);
+				if(acymailing_isAllowed($config->get('acl_newsletters_send', 'all'))){
+					$acyToolbar->popup('send', JText::_('SEND'), "index.php?option=com_acymailing&ctrl=send&task=sendready&tmpl=component&mailid=".$mailid);
 				}
-				JToolBarHelper::divider();
+				$acyToolbar->divider();
 			}
 
-			if(acymailing_isAllowed($config->get('acl_'.$this->aclCat.'_spam_test','all'))){
-				if(acymailing_level(1)){ $height = 638; $width = 1000; }
-				else{ $height = 50; $width = 600; }
-				$bar->appendButton('Acypopup', 'spamtest', JText::_('SPAM_TEST'), "index.php?option=com_acymailing&ctrl=send&task=spamtest&tmpl=component&mailid=".$mailid,$width,$height);
+			if(acymailing_isAllowed($config->get('acl_'.$this->aclCat.'_spam_test', 'all'))){
+				if(acymailing_level(1)){
+					$height = 638;
+					$width = 1000;
+				}else{
+					$height = 50;
+					$width = 600;
+				}
+				$acyToolbar->popup('spamtest', JText::_('SPAM_TEST'), "index.php?option=com_acymailing&ctrl=send&task=spamtest&tmpl=component&mailid=".$mailid, $width, $height);
 			}
 
-			JToolBarHelper::custom('edit', 'edit', '',JText::_('ACY_EDIT'), false);
-			JToolBarHelper::cancel('cancel',JText::_('ACY_CLOSE'));
-			JToolBarHelper::divider();
-			$bar->appendButton( 'Pophelp',$this->doc);
-			if(acymailing_isAllowed($config->get('acl_cpanel_manage','all'))) $bar->appendButton( 'Link', 'acymailing', JText::_('ACY_CPANEL'), acymailing_completeLink('dashboard') );
+			$acyToolbar->divider();
+			$acyToolbar->custom('edit', JText::_('ACY_EDIT'), 'edit', false);
+			$acyToolbar->cancel();
+			$acyToolbar->divider();
+			$acyToolbar->help($this->doc);
+			$acyToolbar->setTitle(JText::_('ACY_PREVIEW').' : '.$mail->subject, $this->ctrl.'&task=preview&mailid='.$mailid);
+			$acyToolbar->display();
 		}
 
-		$this->assignRef('lists',$lists);
-		$this->assignRef('infos',$infos);
-		$this->assignRef('testreceiverType',$testreceiverType);
-		$this->assignRef('mail',$mail);
+		$this->assignRef('app', $app);
+		$this->assignRef('lists', $lists);
+		$this->assignRef('infos', $infos);
+		$this->assignRef('testreceiverType', $testreceiverType);
+		$this->assignRef('mail', $mail);
 
 		if($mail->html){
 			$templateClass = acymailing_get('class.template');
 			if(!empty($mail->tempid)) $templateClass->createTemplateFile($mail->tempid);
-			$templateClass->displayPreview('newsletter_preview_area',$mail->tempid,$mail->subject);
+			$templateClass->displayPreview('newsletter_preview_area', $mail->tempid, $mail->subject);
 		}
 	}
 
 	function upload(){
+		$acyToolbar = acymailing::get('helper.toolbar');
+		$acyToolbar->custom('douploadnewsletter', JText::_('IMPORT'), 'import', false, 'location.href=\''.acymailing_completeLink('stats&task=mailinglist&export=1&mailid='.JRequest::getInt('mailid'), true).'\';');
+		$acyToolbar->setTitle(JText::_('IMPORT'));
+		$acyToolbar->topfixed = false;
+		$acyToolbar->display();
 	}
 
 	function abtesting(){
@@ -618,7 +631,7 @@ class NewsletterViewNewsletter extends acymailingView
 		$validationStatus = JRequest::getString('validationStatus');
 		$noMsg = false;
 		$noBtn = false;
-		if((!empty($mailids) && strpos($mailids,',')!== false)){
+		if((!empty($mailids) && strpos($mailids, ',') !== false)){
 			$db = JFactory::getDBO();
 
 			$warningMsg = array();
@@ -626,16 +639,16 @@ class NewsletterViewNewsletter extends acymailingView
 			$mailsArray = explode(',', $mailids);
 			JArrayHelper::toInteger($mailsArray);
 
-			$mailids = implode(',',$mailsArray);
+			$mailids = implode(',', $mailsArray);
 			$this->assign('mailid', $mailids);
-			$query = 'SELECT abtesting FROM #__acymailing_mail WHERE mailid IN ('.implode(',',$mailsArray).') AND abtesting IS NOT NULL';
+			$query = 'SELECT abtesting FROM #__acymailing_mail WHERE mailid IN ('.implode(',', $mailsArray).') AND abtesting IS NOT NULL';
 			$db->setQuery($query);
 			$resDetail = acymailing_loadResultArray($db);
 			if(!empty($resDetail) && count($resDetail) != count($mailsArray)){
 				$titlePage = JText::_('ABTESTING');
-				acymailing_display(JText::_('ABTESTING_MISSINGEMAIL'),'warning');
-				$this->assign('missingMail',true);
-			} else{
+				acymailing_display(JText::_('ABTESTING_MISSINGEMAIL'), 'warning');
+				$this->assign('missingMail', true);
+			}else{
 				$abTestDetail = array();
 				if(empty($resDetail)){
 					$abTestDetail['mailids'] = $mailids;
@@ -647,10 +660,10 @@ class NewsletterViewNewsletter extends acymailingView
 					$savedIds = explode(',', $abTestDetail['mailids']);
 					sort($savedIds);
 					sort($mailsArray);
-					if(!empty($abTestDetail['status']) && in_array($abTestDetail['status'], array('inProgress','testSendOver','abTestFinalSend')) && $savedIds!=$mailsArray){
+					if(!empty($abTestDetail['status']) && in_array($abTestDetail['status'], array('inProgress', 'testSendOver', 'abTestFinalSend')) && $savedIds != $mailsArray){
 						$warningMsg[] = JText::_('ABTESTING_TESTEXIST');
 						$mailsArray = $savedIds;
-						$mailids = implode(',',$mailsArray);
+						$mailids = implode(',', $mailsArray);
 					}
 					$this->assign('savedValues', true);
 					if($abTestDetail['status'] == 'inProgress') $warningMsg[] = JText::_('ABTESTING_INPROGRESS');
@@ -660,10 +673,10 @@ class NewsletterViewNewsletter extends acymailingView
 
 				if(!empty($abTestDetail['status']) && $abTestDetail['status'] == 'abTestFinalSend' && !empty($abTestDetail['newMail'])){
 					$mailInQueueErrorMsg = JText::_('ABTESTING_FINALMAILINQUEUE');
-					$mailTocheck = '=' .$abTestDetail['newMail'];
+					$mailTocheck = '='.$abTestDetail['newMail'];
 				}else{
 					$mailInQueueErrorMsg = JText::_('ABTESTING_TESTMAILINQUEUE');
-					$mailTocheck = ' IN (' .implode(',',$mailsArray).')';
+					$mailTocheck = ' IN ('.implode(',', $mailsArray).')';
 				}
 				$query = "SELECT COUNT(*) FROM #__acymailing_queue WHERE mailid".$mailTocheck;
 				$db->setQuery($query);
@@ -674,21 +687,22 @@ class NewsletterViewNewsletter extends acymailingView
 				}
 
 				if(!empty($resDetail) && empty($queueCheck) && in_array($abTestDetail['status'], array('inProgress', 'abTestFinalSend'))){
-					if($abTestDetail['status'] == 'inProgress') $abTestDetail['status'] = 'testSendOver';
-					else $abTestDetail['status'] = 'completed';
-					$query = "UPDATE #__acymailing_mail SET abtesting=". $db->quote(serialize($abTestDetail))." WHERE mailid IN (".implode(',',$mailsArray).")";
+					if($abTestDetail['status'] == 'inProgress'){
+						$abTestDetail['status'] = 'testSendOver';
+					}else $abTestDetail['status'] = 'completed';
+					$query = "UPDATE #__acymailing_mail SET abtesting=".$db->quote(serialize($abTestDetail))." WHERE mailid IN (".implode(',', $mailsArray).")";
 					$db->setQuery($query);
 					$db->query();
 				}
 
-				if(!empty($abTestDetail['status']) && $abTestDetail['status'] == 'testSendOver') acymailing_display(JText::_('ABTESTING_READYTOSEND'),'info');
-				if(!empty($abTestDetail['status']) && $abTestDetail['status'] == 'completed') acymailing_display(JText::_('ABTESTING_COMPLETE'),'info');
+				if(!empty($abTestDetail['status']) && $abTestDetail['status'] == 'testSendOver') acymailing_display(JText::_('ABTESTING_READYTOSEND'), 'info');
+				if(!empty($abTestDetail['status']) && $abTestDetail['status'] == 'completed') acymailing_display(JText::_('ABTESTING_COMPLETE'), 'info');
 
 				$this->assign('abTestDetail', $abTestDetail);
 
 				$nbMails = count($mailsArray);
 				$titleStr = "A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P/Q/R/S/T/U/V/W/X/Y/Z";
-				$titlePage = JText::sprintf('ABTESTING_TITLE', substr($titleStr, 0, min($nbMails,26)*2-1));
+				$titlePage = JText::sprintf('ABTESTING_TITLE', substr($titleStr, 0, min($nbMails, 26) * 2 - 1));
 				$mailClass = acymailing_get('class.mail');
 				$mailsDetails = array();
 				foreach($mailsArray as $mailid){
@@ -700,8 +714,8 @@ class NewsletterViewNewsletter extends acymailingView
 				$mailerHelper->loadedToSend = false;
 				$mailReceiver = $mailerHelper->load($mailsArray[0]);
 				$listmailClass = acymailing_get('class.listmail');
-				$lists = $listmailClass->getReceivers($mailReceiver->mailid,true,false);
-				$this->assign('lists',$lists);
+				$lists = $listmailClass->getReceivers($mailReceiver->mailid, true, false);
+				$this->assign('lists', $lists);
 				$this->assign('mailReceiver', $mailReceiver);
 				$filterClass = acymailing_get('class.filter');
 				$this->assign('filterClass', $filterClass);
@@ -709,15 +723,15 @@ class NewsletterViewNewsletter extends acymailingView
 				foreach($lists as $oneList){
 					$listids[] = $oneList->listid;
 				}
-				$nbTotalReceivers = $filterClass->countReceivers($listids,$this->mailReceiver->filter,$this->mailReceiver->mailid);
-				if($nbTotalReceivers <50){
+				$nbTotalReceivers = $filterClass->countReceivers($listids, $this->mailReceiver->filter, $this->mailReceiver->mailid);
+				if($nbTotalReceivers < 50){
 					$warningMsg[] = JText::sprintf('ABTESTING_NOTENOUGHUSER', $nbTotalReceivers);
 					$noBtn = true;
 				}
 				$this->assign('nbTotalReceivers', $nbTotalReceivers);
-				$this->assign('nbTestReceivers', floor($nbTotalReceivers*$abTestDetail['prct']/100));
+				$this->assign('nbTestReceivers', floor($nbTotalReceivers * $abTestDetail['prct'] / 100));
 
-				if($noMsg || $noBtn) $this->assign('noButton', true);
+				if($noMsg || $noBtn) $noButton = true;
 
 				$queryStat = 'SELECT mailid, openunique, clickunique, senthtml, senttext, bounceunique FROM #__acymailing_stats WHERE mailid IN ('.$mailids.')';
 				$db->setQuery($queryStat);
@@ -726,20 +740,26 @@ class NewsletterViewNewsletter extends acymailingView
 					$this->assign('statMail', $resStat);
 					$warningMsg[] = JText::_('ABTESTING_STAT_WARNING');
 				}
-				if(!empty($warningMsg) && $noMsg == false) acymailing_display(implode('<br />',$warningMsg),'warning');
+				if(!empty($warningMsg) && $noMsg == false) acymailing_enqueueMessage(implode('<br />', $warningMsg), 'warning');
 			}
 		}else{
 			$titlePage = JText::_('ABTESTING');
 		}
+
+		$acyToolbar = acymailing::get('helper.toolbar');
+		if(empty($noButton)){
+			$acyToolbar->custom('test', JText::_('ABTESTING_TEST'), 'test', false, "javascript:if(confirm('".JText::_('PROCESS_CONFIRMATION', true)."')){submitbutton('abtest');} return false;");
+		}
+		$acyToolbar->setTitle(JText::_('ABTESTING'), $this->ctrl);
+		$acyToolbar->display();
+
+
 		$this->assign('validationStatus', $validationStatus);
 		$this->assign('titlePage', $titlePage);
 		$this->assign('app', $app);
 
 		if($app->isAdmin()){
-			acymailing_setTitle(JText::_('ABTESTING'),$this->icon,$this->ctrl.'&task=abtesting');
-
-			$bar = JToolBar::getInstance('toolbar');
-
+			acymailing_setPageTitle(JText::_('ABTESTING'));
 		}
 	}
 }

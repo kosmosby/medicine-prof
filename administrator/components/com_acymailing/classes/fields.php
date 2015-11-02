@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.4
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,13 +27,13 @@ class fieldsClass extends acymailingClass{
 
 	var $origin;
 
-	function  __construct( $config = array() ){
+	function  __construct($config = array()){
 		JPluginHelper::importPlugin('acymailing');
 		$this->dispatcher = JDispatcher::getInstance();
 		return parent::__construct($config);
 	}
 
-	function getFields($area,&$user){
+	function getFields($area, &$user){
 
 		if(empty($user)) $user = new stdClass();
 
@@ -64,7 +64,7 @@ class fieldsClass extends acymailingClass{
 		}elseif($area == 'module'){
 		}elseif($area != 'all'){
 			$area = $this->database->Quote($area);
-			$namesField = str_replace(",", $area[0].",".$area[0],$area);
+			$namesField = str_replace(",", $area[0].",".$area[0], $area);
 			$where[] = "a.`namekey` IN (".$namesField.")";
 		}
 
@@ -76,18 +76,18 @@ class fieldsClass extends acymailingClass{
 				$condGroup = ' OR a.access LIKE (\'%,'.$groups.',%\')';
 			}else{
 				jimport('joomla.access.access');
-				$groups = JAccess::getGroupsByUser($my->id,false);
+				$groups = JAccess::getGroupsByUser($my->id, false);
 				$condGroup = '';
 				foreach($groups as $group){
 					$condGroup .= ' OR a.access LIKE (\'%,'.$group.',%\')';
 				}
 			}
-			$filterAccess = 'AND (a.access = \'all\'' . $condGroup .')';
-		} else{
+			$filterAccess = 'AND (a.access = \'all\''.$condGroup.')';
+		}else{
 			$filterAccess = '';
 		}
 
-		$this->database->setQuery('SELECT * FROM `#__acymailing_fields` as a WHERE '.implode(' AND ',$where).' '. $filterAccess .' ORDER BY a.`ordering` ASC');
+		$this->database->setQuery('SELECT * FROM `#__acymailing_fields` as a WHERE '.implode(' AND ', $where).' '.$filterAccess.' ORDER BY a.`ordering` ASC');
 		$fields = $this->database->loadObjectList('namekey');
 		foreach($fields as $namekey => $field){
 			if(!empty($fields[$namekey]->options)){
@@ -106,11 +106,15 @@ class fieldsClass extends acymailingClass{
 			$baseElem = array();
 			$elemInCat = array();
 			foreach($fields as $namekey => $field){
-				if($field->fieldcat == 0) $baseElem[] = $field; // root element
+				if($field->fieldcat == 0){
+					$baseElem[] = $field;
+				} // root element
 				else{
 					$parentId = $this->getParentCat($field, $fields, $allFields);
 					$field->fieldcat = $parentId;
-					if($parentId == 0) $baseElem[] = $field; // No parent
+					if($parentId == 0){
+						$baseElem[] = $field;
+					} // No parent
 					else{
 						if(empty($elemInCat[$field->fieldcat])) $elemInCat[$field->fieldcat] = array();
 						$elemInCat[$field->fieldcat][] = $field;
@@ -132,11 +136,12 @@ class fieldsClass extends acymailingClass{
 
 	private function getParentCat($elem, $fields, $allFields){
 		$parent = $allFields[$elem->fieldcat];
-		if(array_key_exists($parent->namekey,$fields)){
+		if(array_key_exists($parent->namekey, $fields)){
 			return $parent->fieldid;
-		} else{
-			if($parent->fieldcat == 0) return 0;
-			else return $this->getParentCat($parent, $fields, $allFields);
+		}else{
+			if($parent->fieldcat == 0){
+				return 0;
+			}else return $this->getParentCat($parent, $fields, $allFields);
 		}
 	}
 
@@ -154,42 +159,43 @@ class fieldsClass extends acymailingClass{
 	}
 
 	function getFieldName($field){
-		$addLabels = array('textarea','text','dropdown','multipledropdown','file');
-		return '<label '.(empty($this->labelClass) ? '' : ' class="'.$this->labelClass.'" ').(in_array($field->type,$addLabels) ? ' for="'.$this->prefix.$field->namekey.$this->suffix.'" ' : '' ).'>'.$this->trans($field->fieldname).'</label>';
+		$addLabels = array('textarea', 'text', 'dropdown', 'multipledropdown', 'file');
+		return '<label '.(empty($this->labelClass) ? '' : ' class="'.$this->labelClass.'" ').(in_array($field->type, $addLabels) ? ' for="'.$this->prefix.$field->namekey.$this->suffix.'" ' : '').'>'.$this->trans($field->fieldname).'</label>';
 	}
 
 	function trans($name){
-		if(preg_match('#^[A-Z_]*$#',$name)){
+		if(preg_match('#^[A-Z_]*$#', $name)){
 			return JText::_($name);
 		}
 		return $name;
 	}
 
-	function listing($field,$value,$search = ''){
+	function listing($field, $value, $search = ''){
 		$functionType = '_listing'.ucfirst($field->type);
 
-		if(method_exists($this,$functionType)) return $this->$functionType($field,$value);
+		if(method_exists($this, $functionType)) return $this->$functionType($field, $value);
 
 		ob_start();
-		$resultTrigger = $this->dispatcher->trigger('onAcyListingField_' . $field->type, array($field,$value));
+		$resultTrigger = $this->dispatcher->trigger('onAcyListingField_'.$field->type, array($field, $value));
 		$pluginField = ob_get_clean();
 
-		if(!empty($pluginField)) return $pluginField;
-		else return acymailing_dispSearch(nl2br($this->trans($value)),$search);
+		if(!empty($pluginField)){
+			return $pluginField;
+		}else return acymailing_dispSearch(nl2br($this->trans($value)), $search);
 	}
 
 	function explodeValues($values){
-		$allValues = explode("\n",$values);
+		$allValues = explode("\n", $values);
 		$returnedValues = array();
 		foreach($allValues as $id => $oneVal){
-			$line = explode('::',trim($oneVal));
+			$line = explode('::', trim($oneVal));
 			$var = @$line[0];
 			$val = @$line[1];
-			if(strlen($val)<1) continue;
+			if(strlen($val) < 1) continue;
 
 			$obj = new stdClass();
 			$obj->value = $val;
-			for($i=2;$i<count($line);$i++){
+			for($i = 2; $i < count($line); $i++){
 				$obj->{$line[$i]} = 1;
 			}
 			$returnedValues[$var] = $obj;

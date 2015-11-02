@@ -513,6 +513,8 @@ EOT
 					$xmlsql->process_groupby( ( $groupby ? $groupby : 'value' ) );								// <data><groupby><field> fields
 					$fieldValuesInDb	=	$xmlsql->queryLoadObjectsList( $data );		// get the records
 				}
+
+				$this->complementWithOptions( $fieldValuesInDb, $o );
 				break;
 
 			case 'field_show_only_if_selected':
@@ -529,16 +531,7 @@ EOT
 				foreach ( $o->children() as $option ) {
 					/** @var $option SimpleXMLElement */
 					if ( $option->getName() == 'option' ) {
-						$hasIndex					=	( $option->attributes( 'index' ) !== '') && ( $option->attributes( 'index' ) !== null );
-
-						$selObj						=	new \stdClass();
-						$selObj->value				=	$hasIndex ? $option->attributes( 'index' ) : $option->attributes( 'value' );
-						if ( $hasIndex ) {
-							$selObj->internalvalue	=	$option->attributes( 'value' );
-						}
-						$selObj->operator			=	$option->attributes( 'operator' );
-						$selObj->text				=	$option->data();
-						$fieldValuesInDb[]			=	$selObj;
+						$fieldValuesInDb[]			=	$this->optionToSelObject( $option );
 					}
 				}
 				break;
@@ -548,6 +541,7 @@ EOT
 				$where						=	array();
 				$where[]					=	"f." . $_CB_database->NameQuote( 'published' ) . " = 1";
 				$where[]					=	"f." . $_CB_database->NameQuote( 'name' ) . " != " . $_CB_database->Quote( 'NA' );
+				$where[]					=	"f." . $_CB_database->NameQuote( 'tablecolumns' ) . " != " . $_CB_database->Quote( '' );
 				$query	=	"SELECT f." . $_CB_database->NameQuote( 'fieldid' ) . " AS value"
 					.	", f." . $_CB_database->NameQuote( 'name' )  . ' AS ' . $_CB_database->NameQuote( 'index' )
 					.	", f." . $_CB_database->NameQuote( 'title' ) . ' AS ' . $_CB_database->NameQuote( 'text' )
@@ -621,10 +615,62 @@ EOT
 					*/
 				}
 
+				$this->complementWithOptions( $fieldValuesInDb, $o );
 				break;
 		}
 		return $fieldValuesInDb;
 	}
+
+	/**
+	 * Complements an array with <option>'s
+	 *
+	 * @param  array             $fieldValuesInDb
+	 * @param  SimpleXMLElement  $field
+	 * @return void
+	 */
+	protected function complementWithOptions( &$fieldValuesInDb, SimpleXMLElement $field )
+	{
+		$otherThanOptionSeen			=	false;
+
+		foreach ( $field->children() as $option ) {
+			/** @var $option SimpleXMLElement */
+			if ( $option->getName() != 'option' ) {
+				$otherThanOptionSeen	=	true;
+				continue;
+			}
+
+			if ( $otherThanOptionSeen ) {
+				$fieldValuesInDb[] = $this->optionToSelObject( $option );
+				continue;
+			}
+
+			array_unshift( $fieldValuesInDb, $this->optionToSelObject( $option ) );
+		}
+	}
+
+	/**
+	 * Converts an <option> to a stdClass db result
+	 * @param  SimpleXMLElement  $option
+	 * @return \stdClass
+	 */
+	protected function optionToSelObject( SimpleXMLElement $option )
+	{
+		$hasIndex					=	( $option->attributes( 'index' ) !== '') && ( $option->attributes( 'index' ) !== null );
+
+		$selObj						=	new \stdClass();
+		$selObj->value				=	$hasIndex ? $option->attributes( 'index' ) : $option->attributes( 'value' );
+
+		if ( $hasIndex ) {
+			$selObj->internalvalue	=	$option->attributes( 'value' );
+		}
+
+		$selObj->valuetype			=	$option->attributes( 'valuetype' );
+		$selObj->operator			=	$option->attributes( 'operator' );
+		$selObj->text				=	$option->data();
+
+		return $selObj;
+	}
+
 	/**
 	 * Prepares the XML-SQL Query
 	 *
@@ -886,8 +932,8 @@ EOT
 								foreach ( $rows[$name]['selectValues'] as $selObj ) {
 									if  ( $column === $selObj->value ) {
 										$rows[$name]['valuefield'][]	=	isset( $selObj->index ) ? $selObj->index : $selObj->value;
-										$rows[$name]['table']			=	$selObj->table;
-										$rows[$name]['table_key']		=	$selObj->table_key;
+										$rows[$name]['table'][]			=	$selObj->table;
+										$rows[$name]['table_key'][]		=	$selObj->table_key;
 
 										$rows[$name]['operator'][]		=	$operator;
 
@@ -902,6 +948,8 @@ EOT
 							// Pase multiselect usage:
 							$values										=	array();
 							$internalValues								=	array();
+							$specialValueType							=	null;
+							$specialOperator							=	null;
 
 							// Make sure the values selected are actaully available to the input:
 							foreach ( $subInputs as $inputVal ) {
@@ -914,9 +962,20 @@ EOT
 										} else {
 											$internalValues[]			=	$selObj->value;
 										}
+
+										$specialValueType				=	isset( $selObj->valuetype ) ? $selObj->valuetype : null;
+										$specialOperator				=	isset( $selObj->operator ) ? $selObj->operator : null;
 										break;
 									}
 								}
+							}
+
+							if ( $specialValueType && $specialOperator && ( count( $internalValues ) == 1 ) ) {
+								$rows[$name]['specialvaluetype']		=	$specialValueType;
+								$rows[$name]['operator']				=	$specialOperator;
+								$rows[$name]['value']					=	$values[0];
+								$rows[$name]['internalvalue']			=	$internalValues[0];
+								continue;
 							}
 
 							$rows[$name]['value']						=	$values;
@@ -929,6 +988,7 @@ EOT
 					foreach ( $rows[$name]['selectValues'] as $selObj ) {
 						if  ( $postedValue === $selObj->value ) {
 							$rows[$name]['value']				=	$selObj->value;
+							$rows[$name]['specialvaluetype']	=	isset( $selObj->valuetype ) ? $selObj->valuetype : null;
 
 							if ( isset( $selObj->internalvalue ) && ( $selObj->internalvalue !== null ) ) {
 								$rows[$name]['internalvalue']	=	$selObj->internalvalue;

@@ -24,8 +24,8 @@
 				</quicksearchfields>
 				<filters>
 					<filter name="session_id" value="session_id" type="list" valuetype="const:string" base="string" label="" blanktext="- Select Online -">
-						<option operator="&lt;&gt;" value="" index="1">Online</option>
-						<option operator="=||ISNULL" value="" index="0">Offline</option>
+						<option operator="&lt;&gt;" value="1">Online</option>
+						<option operator="=||ISNULL" value="0">Offline</option>
 					</filter>
 					<filter name="group_id" value="group_id" type="usergroup" label="" blanktext="- Select Group -" managegroups="false">
 						<data name="group_id" type="sql:multiplerows" table="#__user_usergroup_map">
@@ -47,7 +47,7 @@
 					<view name="advanced" type="params" viewformatting="none">
 						<params name="filter_advanced" type="params" repeat="true" repeatordering="false" label="" display="2lines">
 							<param name="" type="group" label="" display="2lines" formatting="span">
-								<param name="column" valuetype="sql:string" type="field" label="" blanktext="- Select Field -" />
+								<param name="column" valuetype="sql:string" type="field" label="" blanktext="- Select Field -" storable="true" />
 								<param name="operator" valuetype="sql:string" type="xml:user_operator" label="" blanktext="- Select Operator -" />
 								<param name="value" valuetype="sql:string" type="string" label="" />
 							</param>

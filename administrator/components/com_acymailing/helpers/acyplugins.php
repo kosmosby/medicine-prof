@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.4
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -12,9 +12,10 @@ defined('_JEXEC') or die('Restricted access');
 class acypluginsHelper{
 
 	public $wraped = false;
+	public $name = 'content';
 
-	function getFormattedResult($elements,$parameter){
-		if(count($elements)<2) return implode('',$elements);
+	function getFormattedResult($elements, $parameter){
+		if(count($elements) < 2) return implode('', $elements);
 
 		$beforeAll = array();
 		$beforeAll['table'] = '<table cellspacing="0" cellpadding="0" border="0" width="100%" class="elementstable">'."\n";
@@ -36,7 +37,7 @@ class acypluginsHelper{
 		$afterOne['ul'] = '</li>'."\n";
 		$afterOne['br'] = '<br />'."\n";
 
-		$afterBlock =  array();
+		$afterBlock = array();
 		$afterBlock['table'] = '</tr>'."\n";
 		$afterBlock['ul'] = '';
 		$afterBlock['br'] = '';
@@ -50,7 +51,7 @@ class acypluginsHelper{
 		$type = 'table';
 		$cols = 1;
 		if(!empty($parameter->displaytype)) $type = $parameter->displaytype;
-		if($type == 'none') return implode('',$elements);
+		if($type == 'none') return implode('', $elements);
 		if(!empty($parameter->cols)) $cols = $parameter->cols;
 
 		$string = $beforeAll[$type];
@@ -62,48 +63,51 @@ class acypluginsHelper{
 				$a = 0;
 			}
 			if($a == 0){
-				$string .= str_replace('{rownum}',$numrow,$beforeBlock[$type]);
+				$string .= str_replace('{rownum}', $numrow, $beforeBlock[$type]);
 				$numrow++;
 			}
-			$string .= str_replace('{numcol}',$a+1,$beforeOne[$type]).$oneElement.$afterOne[$type];
+			$string .= str_replace('{numcol}', $a + 1, $beforeOne[$type]).$oneElement.$afterOne[$type];
 			$a++;
 		}
 		while($cols > $a){
-			$string .= str_replace('{numcol}',$a+1,$beforeOne[$type]).$afterOne[$type];
+			$string .= str_replace('{numcol}', $a + 1, $beforeOne[$type]).$afterOne[$type];
 			$a++;
 		}
 
 		$string .= $afterBlock[$type];
 		$string .= $afterAll[$type];
 
-		$equalwidth = intval(100/$cols).'%';
+		$equalwidth = intval(100 / $cols).'%';
 
-		$string = str_replace(array('{equalwidth}'),array($equalwidth),$string);
+		$string = str_replace(array('{equalwidth}'), array($equalwidth), $string);
 
 		return $string;
 	}
 
-	function formatString(&$replaceme,$mytag){
+	function formatString(&$replaceme, $mytag){
 		if(!empty($mytag->part)){
-			$parts = explode(' ',$replaceme);
+			$parts = explode(' ', $replaceme);
 			if($mytag->part == 'last'){
-				$replaceme = count($parts)>1 ? end($parts) : '';
+				$replaceme = count($parts) > 1 ? end($parts) : '';
 			}else{
-				$replaceme = reset($parts);
+				if(is_numeric($mytag->part) && count($parts) >= $mytag->part){
+					$replaceme = $parts[$mytag->part - 1];
+				}else{
+					$replaceme = reset($parts);
+				}
 			}
-
 		}
 
 		if(!empty($mytag->type)){
 			if(empty($mytag->format)) $mytag->format = JText::_('DATE_FORMAT_LC3');
 			if($mytag->type == 'date'){
-				$replaceme = acymailing_getDate(acymailing_getTime($replaceme),$mytag->format);
+				$replaceme = acymailing_getDate(acymailing_getTime($replaceme), $mytag->format);
 			}elseif($mytag->type == 'time'){
-				$replaceme = acymailing_getDate($replaceme,$mytag->format);
+				$replaceme = acymailing_getDate($replaceme, $mytag->format);
 			}elseif($mytag->type == 'diff'){
 				try{
 					$date = $replaceme;
-					if(is_numeric($date)) $date = acymailing_getDate($replaceme,'%Y-%m-%d %H:%M:%S');
+					if(is_numeric($date)) $date = acymailing_getDate($replaceme, '%Y-%m-%d %H:%M:%S');
 					$dateObj = new DateTime($date);
 					$nowObj = new DateTime();
 					$diff = $dateObj->diff($nowObj);
@@ -114,18 +118,18 @@ class acypluginsHelper{
 			}
 		}
 
-		if(!empty($mytag->lower) || !empty($mytag->lowercase)) $replaceme = function_exists('mb_strtolower') ? mb_strtolower($replaceme,'UTF-8') : strtolower($replaceme);
-		if(!empty($mytag->upper) || !empty($mytag->uppercase)) $replaceme = function_exists('mb_strtoupper') ? mb_strtoupper($replaceme,'UTF-8') : strtoupper($replaceme);
+		if(!empty($mytag->lower) || !empty($mytag->lowercase)) $replaceme = function_exists('mb_strtolower') ? mb_strtolower($replaceme, 'UTF-8') : strtolower($replaceme);
+		if(!empty($mytag->upper) || !empty($mytag->uppercase)) $replaceme = function_exists('mb_strtoupper') ? mb_strtoupper($replaceme, 'UTF-8') : strtoupper($replaceme);
 		if(!empty($mytag->ucwords)) $replaceme = ucwords($replaceme);
 		if(!empty($mytag->ucfirst)) $replaceme = ucfirst($replaceme);
-		if(isset($mytag->rtrim)) $replaceme = empty($mytag->rtrim) ? rtrim($replaceme) : rtrim($replaceme,$mytag->rtrim);
+		if(isset($mytag->rtrim)) $replaceme = empty($mytag->rtrim) ? rtrim($replaceme) : rtrim($replaceme, $mytag->rtrim);
 		if(!empty($mytag->urlencode)) $replaceme = urlencode($replaceme);
 		if(!empty($mytag->substr)){
-			$args = explode(',',$mytag->substr);
+			$args = explode(',', $mytag->substr);
 			if(isset($args[1])){
-				$replaceme = substr($replaceme,intval($args[0]),intval($args[1]));
+				$replaceme = substr($replaceme, intval($args[0]), intval($args[1]));
 			}else{
-				$replaceme = substr($replaceme,intval($args[0]));
+				$replaceme = substr($replaceme, intval($args[0]));
 			}
 		}
 
@@ -138,8 +142,7 @@ class acypluginsHelper{
 		}
 	}
 
-	function replaceVideos($text)
-	{
+	function replaceVideos($text){
 		$text = preg_replace('#\[embed=videolink][^}]*youtube[^=]*=([^"/}]*)[^}]*}\[/embed]#i', '<a href="http://www.youtube.com/watch?v=$1"><img src="http://img.youtube.com/vi/$1/0.jpg"/></a>', $text);
 		$text = preg_replace('#<video[^>]*youtube\.com/embed/([^"/]*)[^>]*>[^>]*</video>#i', '<a href="http://www.youtube.com/watch?v=$1"><img src="http://img.youtube.com/vi/$1/0.jpg"/></a>', $text);
 		$text = preg_replace('#{JoooidContent[^}]*youtube[^}]*id"[^"]*"([^}"]*)"[^}]*}#i', '<a href="http://www.youtube.com/watch?v=$1"><img src="http://img.youtube.com/vi/$1/0.jpg"/></a>', $text);
@@ -150,25 +153,25 @@ class acypluginsHelper{
 	}
 
 	function removeJS($text){
-		$text = preg_replace("#(onmouseout|onmouseover|onclick|onfocus|onload|onblur) *= *\"(?:(?!\").)*\"#iU",'',$text);
-		$text = preg_replace("#< *script(?:(?!< */ *script *>).)*< */ *script *>#isU",'',$text);
+		$text = preg_replace("#(onmouseout|onmouseover|onclick|onfocus|onload|onblur) *= *\"(?:(?!\").)*\"#iU", '', $text);
+		$text = preg_replace("#< *script(?:(?!< */ *script *>).)*< */ *script *>#isU", '', $text);
 		return $text;
 	}
 
 	private function _convertbase64pictures(&$html){
-		if(!preg_match_all('#<img[^>]*src=("data:image/([^;]{1,5});base64[^"]*")([^>]*)>#Uis',$html,$resultspictures)) return;
+		if(!preg_match_all('#<img[^>]*src=("data:image/([^;]{1,5});base64[^"]*")([^>]*)>#Uis', $html, $resultspictures)) return;
 
 		jimport('joomla.filesystem.file');
 
 		$dest = ACYMAILING_MEDIA.'resized'.DS;
 		acymailing_createDir($dest);
 		foreach($resultspictures[2] as $i => $extension){
-			$pictname =  md5($resultspictures[1][$i]).'.'.$extension;
+			$pictname = md5($resultspictures[1][$i]).'.'.$extension;
 			$picturl = ACYMAILING_LIVE.'media/'.ACYMAILING_COMPONENT.'/resized/'.$pictname;
 			$pictPath = $dest.$pictname;
-			$pictCode = trim($resultspictures[1][$i],'"');
+			$pictCode = trim($resultspictures[1][$i], '"');
 			if(file_exists($pictPath)){
-				$html = str_replace($pictCode,$picturl,$html);
+				$html = str_replace($pictCode, $picturl, $html);
 				continue;
 			}
 
@@ -190,9 +193,9 @@ class acypluginsHelper{
 
 			$img = $getfunction($pictCode);
 
-			if(in_array($extension,array('gif','png'))){
+			if(in_array($extension, array('gif', 'png'))){
 				imagealphablending($img, false);
-				imagesavealpha($img,true);
+				imagesavealpha($img, true);
 			}
 
 			ob_start();
@@ -202,17 +205,17 @@ class acypluginsHelper{
 					break;
 				case 'jpg':
 				case 'jpeg':
-					$status = imagejpeg($img,null,100);
+					$status = imagejpeg($img, null, 100);
 					break;
 				case 'png':
-					$status = imagepng($img,null,0);
+					$status = imagepng($img, null, 0);
 					break;
 			}
 			$imageContent = ob_get_clean();
-			$status = $status && JFile::write($pictPath,$imageContent);
+			$status = $status && JFile::write($pictPath, $imageContent);
 
 			if(!$status) continue;
-			$html = str_replace($pictCode,$picturl,$html);
+			$html = str_replace($pictCode, $picturl, $html);
 		}
 	}
 
@@ -222,7 +225,7 @@ class acypluginsHelper{
 		$pregreplace['#<td(((?!style|>).)*>[ \n\s]*(<a[^>]*>)?[ \n\s]*<img[^>]*>[ \n\s]*(</a[^>]*>)?[ \n\s]*</ *td)#Uis'] = '<td style="line-height: 0px;" $1';
 
 		$pregreplace['#<xml>.*</xml>#Uis'] = '';
-		$newbody = preg_replace(array_keys($pregreplace),$pregreplace,$html);
+		$newbody = preg_replace(array_keys($pregreplace), $pregreplace, $html);
 		if(!empty($newbody)) $html = $newbody;
 	}
 
@@ -231,7 +234,7 @@ class acypluginsHelper{
 		$pregreplace['#{tab[ =][^}]*}#is'] = '';
 		$pregreplace['#{/tabs}#is'] = '';
 		$pregreplace['#{jcomments\s+(on|off|lock)}#is'] = '';
-		$newbody = preg_replace(array_keys($pregreplace),$pregreplace,$html);
+		$newbody = preg_replace(array_keys($pregreplace), $pregreplace, $html);
 		if(!empty($newbody)) $html = $newbody;
 	}
 
@@ -244,27 +247,27 @@ class acypluginsHelper{
 	}
 
 	public function fixPictureDim(&$html){
-		if(!preg_match_all('#(<img)([^>]*>)#i',$html,$results)) return;
+		if(!preg_match_all('#(<img)([^>]*>)#i', $html, $results)) return;
 
 		static $replace = array();
 		foreach($results[0] as $num => $oneResult){
 			if(isset($replace[$oneResult])) continue;
 
-			if(strpos($oneResult,'width=') || strpos($oneResult,'height=')) continue;
-			if(preg_match('#[^a-z_\-]width *:([0-9 ]{1,8})#i',$oneResult,$res) || preg_match('#[^a-z_\-]height *:([0-9 ]{1,8})#i',$oneResult,$res)) continue;
+			if(strpos($oneResult, 'width=') || strpos($oneResult, 'height=')) continue;
+			if(preg_match('#[^a-z_\-]width *:([0-9 ]{1,8})#i', $oneResult, $res) || preg_match('#[^a-z_\-]height *:([0-9 ]{1,8})#i', $oneResult, $res)) continue;
 
-			if(!preg_match('#src="([^"]*)"#i',$oneResult,$url)) continue;
+			if(!preg_match('#src="([^"]*)"#i', $oneResult, $url)) continue;
 
 			$imageUrl = $url[1];
 
 			$replace[$oneResult] = $oneResult;
 
-			$base = str_replace(array('http://www.','https://www.','http://','https://'),'',ACYMAILING_LIVE);
-			$replacements = array('https://www.'.$base,'http://www.'.$base,'https://'.$base,'http://'.$base);
+			$base = str_replace(array('http://www.', 'https://www.', 'http://', 'https://'), '', ACYMAILING_LIVE);
+			$replacements = array('https://www.'.$base, 'http://www.'.$base, 'https://'.$base, 'http://'.$base);
 			$localpict = false;
 			foreach($replacements as $oneReplacement){
-				if(strpos($imageUrl,$oneReplacement) === false) continue;
-				$imageUrl = str_replace(array($oneReplacement,'/'),array(ACYMAILING_ROOT,DS),urldecode($imageUrl));
+				if(strpos($imageUrl, $oneReplacement) === false) continue;
+				$imageUrl = str_replace(array($oneReplacement, '/'), array(ACYMAILING_ROOT, DS), urldecode($imageUrl));
 				$localpict = true;
 				break;
 			}
@@ -275,20 +278,18 @@ class acypluginsHelper{
 			if(!$dim) continue;
 			if(empty($dim[0]) || empty($dim[1])) continue;
 
-			$replace[$oneResult] = str_replace('<img','<img width="'.$dim[0].'" height="'.$dim[1].'"',$oneResult);
-
+			$replace[$oneResult] = str_replace('<img', '<img width="'.$dim[0].'" height="'.$dim[1].'"', $oneResult);
 		}
 
 		if(empty($replace)) return;
 
-		$html = str_replace(array_keys($replace),$replace,$html);
+		$html = str_replace(array_keys($replace), $replace, $html);
 	}
 
 	private function cleanEditorCode(&$html){
-		if(!strpos($html,'cke_edition_en_cours')) return;
+		if(!strpos($html, 'cke_edition_en_cours')) return;
 
-		$html = preg_replace('#<div[^>]*cke_edition_en_cours.*$#Uis','',$html);
-
+		$html = preg_replace('#<div[^>]*cke_edition_en_cours.*$#Uis', '', $html);
 	}
 
 	function replaceTags(&$email, &$tags, $html = false){
@@ -296,9 +297,9 @@ class acypluginsHelper{
 
 		$htmlVars = array('body');
 		$textVars = array('altbody');
-		$lineVars = array('subject','From','FromName','ReplyTo','ReplyName','bcc','cc','fromname','fromemail','replyname','replyemail','params');
+		$lineVars = array('subject', 'From', 'FromName', 'ReplyTo', 'ReplyName', 'bcc', 'cc', 'fromname', 'fromemail', 'replyname', 'replyemail', 'params');
 
-		$variables = array_merge($htmlVars,$textVars,$lineVars);
+		$variables = array_merge($htmlVars, $textVars, $lineVars);
 
 		if($html){
 			if(empty($this->mailerHelper)) $this->mailerHelper = acymailing_get('helper.mailer');
@@ -307,8 +308,8 @@ class acypluginsHelper{
 			$linereplace = array();
 			foreach($tags as $i => &$params){
 				if(isset($textreplace[$i])) continue;
-				$textreplace[$i] = $this->mailerHelper->textVersion($params,true);
-				$linereplace[$i] = strip_tags(preg_replace('#</tr>[^<]*<tr[^>]*>#Uis',' | ',$params));
+				$textreplace[$i] = $this->mailerHelper->textVersion($params, true);
+				$linereplace[$i] = strip_tags(preg_replace('#</tr>[^<]*<tr[^>]*>#Uis', ' | ', $params));
 			}
 
 			$htmlKeys = array_keys($tags);
@@ -331,29 +332,41 @@ class acypluginsHelper{
 
 					if(is_array($arrayField)){
 						foreach($arrayField as $a => &$oneval){
-							if(in_array($var, $htmlVars)) $oneval = str_replace($htmlKeys,$tags,$oneval);
-							elseif(in_array($var, $lineVars)) $oneval = str_replace($lineKeys,$linereplace,$oneval);
-							else $oneval = str_replace($textKeys,$textreplace,$oneval);
+							if(in_array($var, $htmlVars)){
+								$oneval = str_replace($htmlKeys, $tags, $oneval);
+							}elseif(in_array($var, $lineVars)){
+								$oneval = str_replace($lineKeys, $linereplace, $oneval);
+							}else{
+								$oneval = str_replace($textKeys, $textreplace, $oneval);
+							}
 						}
 					}else{
-						if(in_array($var, $htmlVars)) $arrayField = str_replace($htmlKeys,$tags,$arrayField);
-						elseif(in_array($var, $lineVars)) $arrayField = str_replace($lineKeys,$linereplace,$arrayField);
-						else $arrayField = str_replace($textKeys,$textreplace,$arrayField);
+						if(in_array($var, $htmlVars)){
+							$arrayField = str_replace($htmlKeys, $tags, $arrayField);
+						}elseif(in_array($var, $lineVars)){
+							$arrayField = str_replace($lineKeys, $linereplace, $arrayField);
+						}else{
+							$arrayField = str_replace($textKeys, $textreplace, $arrayField);
+						}
 					}
 				}
 			}else{
-				if(in_array($var, $htmlVars)) $email->$var = str_replace($htmlKeys,$tags,$email->$var);
-				elseif(in_array($var, $lineVars)) $email->$var = str_replace($lineKeys,$linereplace,$email->$var);
-				else $email->$var = str_replace($textKeys,$textreplace,$email->$var);
+				if(in_array($var, $htmlVars)){
+					$email->$var = str_replace($htmlKeys, $tags, $email->$var);
+				}elseif(in_array($var, $lineVars)){
+					$email->$var = str_replace($lineKeys, $linereplace, $email->$var);
+				}else{
+					$email->$var = str_replace($textKeys, $textreplace, $email->$var);
+				}
 			}
 		}
 	}
 
-	function extractTags(&$email,$tagfamily){
+	function extractTags(&$email, $tagfamily){
 		$results = array();
 
 		$match = '#(?:{|%7B)'.$tagfamily.':(.*)(?:}|%7D)#Ui';
-		$variables = array('subject','body','altbody','From','FromName','ReplyTo','ReplyName','bcc','cc','fromname','fromemail','replyname','replyemail','params');
+		$variables = array('subject', 'body', 'altbody', 'From', 'FromName', 'ReplyTo', 'ReplyName', 'bcc', 'cc', 'fromname', 'fromemail', 'replyname', 'replyemail', 'params');
 		$found = false;
 		foreach($variables as &$var){
 			if(empty($email->$var)) continue;
@@ -362,16 +375,16 @@ class acypluginsHelper{
 					if(empty($arrayField)) continue;
 					if(is_array($arrayField)){
 						foreach($arrayField as $a => &$oneval){
-							$found = preg_match_all($match,$oneval,$results[$var.$i.'-'.$a]) || $found;
+							$found = preg_match_all($match, $oneval, $results[$var.$i.'-'.$a]) || $found;
 							if(empty($results[$var.$i.'-'.$a][0])) unset($results[$var.$i.'-'.$a]);
 						}
 					}else{
-						$found = preg_match_all($match,$arrayField,$results[$var.$i]) || $found;
+						$found = preg_match_all($match, $arrayField, $results[$var.$i]) || $found;
 						if(empty($results[$var.$i][0])) unset($results[$var.$i]);
 					}
 				}
 			}else{
-				$found = preg_match_all($match,$email->$var,$results[$var]) || $found;
+				$found = preg_match_all($match, $email->$var, $results[$var]) || $found;
 				if(empty($results[$var][0])) unset($results[$var]);
 			}
 		}
@@ -390,12 +403,12 @@ class acypluginsHelper{
 	}
 
 	function extractTag($oneTag){
-		$arguments = explode('|',strip_tags($oneTag));
+		$arguments = explode('|', strip_tags($oneTag));
 		$tag = new stdClass();
 		$tag->id = $arguments[0];
 		$tag->default = '';
-		for($i=1,$a=count($arguments);$i<$a;$i++){
-			$args = explode(':',$arguments[$i]);
+		for($i = 1, $a = count($arguments); $i < $a; $i++){
+			$args = explode(':', $arguments[$i]);
 			$arg0 = trim($args[0]);
 			if(empty($arg0)) continue;
 			if(isset($args[1])){
@@ -428,7 +441,7 @@ class acypluginsHelper{
 
 		$newText = preg_replace('/<p[^>]*>/i', '<br />', $text);
 		$newText = preg_replace('/<div[^>]*>/i', '<br />', $newText);
-		$newText = strip_tags($newText,'<'.implode('><', array_merge($allowedTags, $aloneAllowedTags)).'>');
+		$newText = strip_tags($newText, '<'.implode('><', array_merge($allowedTags, $aloneAllowedTags)).'>');
 
 		$newText = preg_replace('/^(\s|\n|(<br[^>]*>))+/i', '', trim($newText));
 		$newText = preg_replace('/(\s|\n|(<br[^>]*>))+$/i', '', trim($newText));
@@ -449,21 +462,21 @@ class acypluginsHelper{
 
 		$countStripChar = 0;
 
-		for($i=0 ; $i<$numChar ; $i++){
+		for($i = 0; $i < $numChar; $i++){
 			if($newText[$i] == '<'){
 				foreach($allowedTags as $oneAllowedTag){
-					if($numChar >= ($i+strlen($oneAllowedTag)+1) && substr($newText, $i, strlen($oneAllowedTag)+1) == '<'.$oneAllowedTag && (in_array($newText[$i+strlen($oneAllowedTag)+1], array(' ', '>')))){
+					if($numChar >= ($i + strlen($oneAllowedTag) + 1) && substr($newText, $i, strlen($oneAllowedTag) + 1) == '<'.$oneAllowedTag && (in_array($newText[$i + strlen($oneAllowedTag) + 1], array(' ', '>')))){
 						$write = false;
 						$open[] = '</'.$oneAllowedTag.'>';
 					}
 
-					if($numChar >= ($i+strlen($oneAllowedTag)+2) && substr($newText, $i, strlen($oneAllowedTag)+2) == '</'.$oneAllowedTag){
+					if($numChar >= ($i + strlen($oneAllowedTag) + 2) && substr($newText, $i, strlen($oneAllowedTag) + 2) == '</'.$oneAllowedTag){
 						if(end($open) == '</'.$oneAllowedTag.'>') array_pop($open);
 					}
 				}
 
 				foreach($aloneAllowedTags as $oneAllowedTag){
-					if($numChar >= ($i+strlen($oneAllowedTag)+1) && substr($newText, $i, strlen($oneAllowedTag)+1) == '<'.$oneAllowedTag && (in_array($newText[$i+strlen($oneAllowedTag)+1], array(' ', '/', '>')))){
+					if($numChar >= ($i + strlen($oneAllowedTag) + 1) && substr($newText, $i, strlen($oneAllowedTag) + 1) == '<'.$oneAllowedTag && (in_array($newText[$i + strlen($oneAllowedTag) + 1], array(' ', '/', '>')))){
 						$write = false;
 					}
 				}
@@ -474,7 +487,7 @@ class acypluginsHelper{
 			if($newText[$i] == ">") $write = true;
 
 			if($newText[$i] == " " && $countStripChar >= $tag->wrap && $write){
-				$newText = substr($newText,0,$i).'...';
+				$newText = substr($newText, 0, $i).'...';
 
 				$open = array_reverse($open);
 				$newText = $newText.implode('', $open);
@@ -499,8 +512,11 @@ class acypluginsHelper{
 		$image = '';
 		if(!empty($format->imagePath)){
 			$style = '';
-			if(in_array($format->tag->format, array('TOP_LEFT','TITLE_IMG'))) $style = ' style="float:left;"';
-			elseif(in_array($format->tag->format, array('TOP_RIGHT','TITLE_IMG_RIGHT'))) $style = ' style="float:right;"';
+			if(in_array($format->tag->format, array('TOP_LEFT', 'TITLE_IMG'))){
+				$style = ' style="float:left;"';
+			}elseif(in_array($format->tag->format, array('TOP_RIGHT', 'TITLE_IMG_RIGHT'))){
+				$style = ' style="float:right;"';
+			}
 			$image = '<img alt="" src="'.$format->imagePath.'"'.$style.' />';
 		}
 
@@ -511,8 +527,11 @@ class acypluginsHelper{
 		}
 
 		if($format->tag->format == 'TOP_IMG' && !empty($image)){
-			if(!empty($format->link)) $result = '<a href="'.$format->link.'">'.$image.'</a>';
-			else $result = $image;
+			if(!empty($format->link)){
+				$result = '<a href="'.$format->link.'">'.$image.'</a>';
+			}else{
+				$result = $image;
+			}
 			$image = '';
 		}
 
@@ -526,7 +545,7 @@ class acypluginsHelper{
 		}
 
 		if(!empty($format->title)){
-			if(!empty($format->link)) $format->title = '<a href="'.$format->link.'">'.$format->title.'</a>';
+			if(!empty($format->link)) $format->title = '<a'.(!empty($format->tag->type) && $format->tag->type == 'title' ? ' class="acymailing_title"' : '').' href="'.$format->link.'" name="'.$this->name.'-'.$format->tag->id.'">'.$format->title.'</a>';
 			if(empty($format->tag->type) || $format->tag->type != 'title') $format->title = '<h2 class="acymailing_title">'.$format->title.'</h2>';
 			$result .= $format->title;
 		}
@@ -535,12 +554,12 @@ class acypluginsHelper{
 		if(!empty($format->description)) $format->description = $this->wrapText($format->description, $format->tag);
 
 
-		$rowText = '<span style="text-align:justify;" class="acydescription">';
-		$endRow = '</span><br />';
+		$rowText = '<div class="acydescription">';
+		$endRow = '</div><br />';
 		if(in_array($format->tag->format, array('TOP_LEFT', 'TOP_RIGHT', 'TITLE_IMG', 'TITLE_IMG_RIGHT', 'TOP_IMG'))){
 			if(!empty($image) || !empty($format->description)) $result .= $rowText.$image.$format->description.$endRow;
 		}elseif($format->tag->format == 'CENTER_IMG'){
-			if(!empty($image)) $result .= '<span class="acymainimage">'.$image.$endRow;
+			if(!empty($image)) $result .= '<div class="acymainimage">'.$image.$endRow;
 			if(!empty($format->description)) $result .= $rowText.$format->description.$endRow;
 		}elseif(in_array($format->tag->format, array('COL_LEFT', 'COL_RIGHT'))){
 			if(!empty($format->description)) $result .= $rowText.$format->description.$endRow;
@@ -549,20 +568,23 @@ class acypluginsHelper{
 		}
 
 		if(!empty($format->customFields)){
-			$result .= '<table style="width:100%;"><tr>';
+			$result .= '<table style="width:100%;" class="customfieldsarea"><tr>';
 
 			if(empty($format->cols)) $format->cols = 1;
 			$i = 0;
 			foreach($format->customFields as $oneField){
-				if($i != 0 && $i%$format->cols == 0) $result .= '</tr><tr>';
+				if($i != 0 && $i % $format->cols == 0) $result .= '</tr><tr>';
 				$result .= '<td nowrap="nowrap" class="';
-				if(empty($oneField[0])) $result .= 'cfvalue" colspan="2">';
-				else $result .= 'cflabel">'.$oneField[0].'</td><td class="cfvalue">';
+				if(empty($oneField[0])){
+					$result .= 'cfvalue" colspan="2">';
+				}else{
+					$result .= 'cflabel">'.$oneField[0].'</td><td class="cfvalue">';
+				}
 				$result .= $oneField[1].'</td>';
 				$i++;
 			}
 
-			while($i%$format->cols != 0){
+			while($i % $format->cols != 0){
 				$result .= '<td colspan="2"></td>';
 				$i++;
 			}
@@ -586,7 +608,7 @@ class acypluginsHelper{
 			if($pictureHelper->available()){
 				$result = $pictureHelper->resizePictures($result);
 			}elseif($app->isAdmin()){
-				$app->enqueueMessage($pictureHelper->error,'notice');
+				acymailing_enqueueMessage($pictureHelper->error, 'notice');
 			}
 		}elseif($tag->pict == '0'){
 			$result = $pictureHelper->removePictures($result);
@@ -600,18 +622,18 @@ class acypluginsHelper{
 		foreach($values as $value => $title){
 			$orderingValues[] = JHTML::_('select.option', $value, JText::_($title));
 		}
-		$orderingValues[] = JHTML::_('select.option', "rand",JText::_('ACY_RANDOM'));
+		$orderingValues[] = JHTML::_('select.option', "rand", JText::_('ACY_RANDOM'));
 
 		$orderingDirections = array();
 		$orderingDirections[] = JHTML::_('select.option', "DESC", 'DESC');
 		$orderingDirections[] = JHTML::_('select.option', "ASC", 'ASC');
 
-		return JHTML::_('select.genericlist', $orderingValues, 'contentorder' , 'size="1" onchange="'.$function.'();" style="width:100px;"', 'value', 'text', $ordering).' '.JHTML::_('select.genericlist', $orderingDirections, 'contentorderdir' , 'size="1" onchange="'.$function.'();" style="width:80px;"', 'value', 'text', $direction);
+		return JHTML::_('select.genericlist', $orderingValues, 'contentorder', 'size="1" onchange="'.$function.'();" style="width:100px;"', 'value', 'text', $ordering).' '.JHTML::_('select.genericlist', $orderingDirections, 'contentorderdir', 'size="1" onchange="'.$function.'();" style="width:80px;"', 'value', 'text', $direction);
 	}
 
 	function translateItem(&$item, &$tag, $referenceTable, $referenceId = 0){
 		if(empty($tag->lang) || (!file_exists(JPATH_SITE.DS.'components'.DS.'com_falang') && !file_exists(JPATH_SITE.DS.'components'.DS.'com_joomfish'))) return;
-		$langid = (int) substr($tag->lang,strpos($tag->lang,',')+1);
+		$langid = (int)substr($tag->lang, strpos($tag->lang, ',') + 1);
 
 		if(empty($langid)) return;
 
@@ -626,13 +648,13 @@ class acypluginsHelper{
 
 		foreach($translations as $oneTranslation){
 			if(empty($oneTranslation->value)) continue;
-			$translatedfield =  $oneTranslation->reference_field;
+			$translatedfield = $oneTranslation->reference_field;
 			$item->$translatedfield = $oneTranslation->value;
 		}
 	}
 
 	function getFormatOption($plugin, $default = 'TOP_LEFT', $singleElement = true, $function = 'updateTag'){
-		$contentformat = array('TOP_LEFT' => '-208','TOP_RIGHT' => '-260','TITLE_IMG' => '0','TITLE_IMG_RIGHT' => '-52','CENTER_IMG' => '-104','TOP_IMG' => '-156','COL_LEFT' => '-312','COL_RIGHT' => '-364');
+		$contentformat = array('TOP_LEFT' => '-208', 'TOP_RIGHT' => '-260', 'TITLE_IMG' => '0', 'TITLE_IMG_RIGHT' => '-52', 'CENTER_IMG' => '-104', 'TOP_IMG' => '-156', 'COL_LEFT' => '-312', 'COL_RIGHT' => '-364');
 
 		$name = $singleElement ? 'contentformat' : 'contentformatauto';
 
@@ -648,7 +670,7 @@ class acypluginsHelper{
 			$files = JFolder::files(ACYMAILING_MEDIA.'plugins', '^'.$plugin);
 			foreach($files as $oneFile){
 				$reset .= "document.getElementById('".$name.$oneFile."').style.backgroundPosition = '-480px -5px';document.getElementById('".$name.$oneFile."').style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05)';";
-				$result .= '<span id="'.$name.$oneFile.'" class="btn acybuttonformat" style="background-position: -480px -5px;height:34px;" onclick="selectFormat'.$name.'(\''.$oneFile.'\',\''.$oneFile.'\',true);"></span>'.substr($oneFile,0,strlen($oneFile)-4).'<br/>';
+				$result .= '<span id="'.$name.$oneFile.'" class="btn acybuttonformat" style="background-position: -480px -5px;height:34px;" onclick="selectFormat'.$name.'(\''.$oneFile.'\',\''.$oneFile.'\',true);"></span>'.substr($oneFile, 0, strlen($oneFile) - 4).'<br/>';
 			}
 			$result .= '<br />';
 		}
@@ -668,16 +690,19 @@ class acypluginsHelper{
 		$result .= '<span class="btn acyokbutton acybuttonformat" onclick="togglediv'.$name.'();">'.JText::_('ACY_CLOSE').'</span>';
 		$result .= '</div>';
 		ob_start();
-?>
+		?>
 		<script type="text/javascript">
-		<!--
+			<!--
 			function togglediv<?php echo $name; ?>(){
 				var divelement = document.getElementById('<?php echo $name; ?>div');
-				if(divelement.style.display == 'none') divelement.style.display = '';
-				else divelement.style.display = 'none';
+				if(divelement.style.display == 'none'){
+					divelement.style.display = '';
+				}else{
+					divelement.style.display = 'none';
+				}
 			}
-<?php if(!$singleElement){ ?>
-			function toggleInvert<?php echo $name; ?>() {
+			<?php if(!$singleElement){ ?>
+			function toggleInvert<?php echo $name; ?>(){
 				var invertElement = document.getElementById('<?php echo $name; ?>invert');
 				var posy = '8';
 				var shadow = 'inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05)';
@@ -685,12 +710,12 @@ class acypluginsHelper{
 					posy = '60';
 					shadow = 'inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05)';
 				}
-				invertElement.value = 1-invertElement.value;
-				document.getElementById('<?php echo $name; ?>invertbutton').style.backgroundPosition = '-415px -'+posy+'px';
+				invertElement.value = 1 - invertElement.value;
+				document.getElementById('<?php echo $name; ?>invertbutton').style.backgroundPosition = '-415px -' + posy + 'px';
 				document.getElementById('<?php echo $name; ?>invertbutton').style.boxShadow = shadow;
 				<?php echo $function; ?>();
 			}
-<?php } ?>
+			<?php } ?>
 
 			function selectFormat<?php echo $name; ?>(format, position, custom){
 				<?php echo $reset; ?>
@@ -699,17 +724,17 @@ class acypluginsHelper{
 				if(custom){
 					position = '-480';
 					prosy = '58';
-					newVal = '<?php echo $default; ?>| template:'+format;
+					newVal = '<?php echo $default; ?>| template:' + format;
 				}
 				document.getElementById('<?php echo $name; ?>').value = newVal;
-				document.getElementById('<?php echo $name; ?>button').style.backgroundPosition = position+'px -5px';
-				document.getElementById('<?php echo $name; ?>'+format).style.backgroundPosition = position+'px -'+prosy+'px';
-				document.getElementById('<?php echo $name; ?>'+format).style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05)';
+				document.getElementById('<?php echo $name; ?>button').style.backgroundPosition = position + 'px -5px';
+				document.getElementById('<?php echo $name; ?>' + format).style.backgroundPosition = position + 'px -' + prosy + 'px';
+				document.getElementById('<?php echo $name; ?>' + format).style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05)';
 				<?php echo $function; ?>();
 			}
-		-->
+			-->
 		</script>
-<?php
+		<?php
 		$result .= ob_get_clean();
 		return $result;
 	}

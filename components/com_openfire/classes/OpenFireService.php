@@ -27,31 +27,39 @@ class OpenFireService
         $this->phoneVerifier->smsSender = $smsSender;
         $this->phoneVerifier->codeGenerator = $verificationCodeGenerator;
     }
-    public function registerPhone($phoneNumber, $ipAddr){
-        return $this->phoneVerifier->sendVerificationCode($phoneNumber, $ipAddr);
+    public function registerPhone($phoneNumber, $ipAddr, $name){
+        return $this->phoneVerifier->sendVerificationCode($phoneNumber, $ipAddr, $name);
     }
 
     public function verifyCode($phoneNumber, $code){
-        return $this->phoneVerifier->verifyCode($phoneNumber, $code);
+        $verificationResult = $this->phoneVerifier->verifyCode($phoneNumber, $code);
+        if( $verificationResult){
+            return $this->createOrUpdateUser($phoneNumber, $code, $verificationResult['name']);
+        }else{
+            return array('status'=>'BAD_CODE');
+        }
     }
 
-    public function createOrUpdateUser($login, $password){
+    public function createOrUpdateUser($login, $password, $name){
         $link = mysql_connect('localhost', 'root', 'staSPE8e');
         mysql_select_db('openfire', $link);
+        mysql_query("set names utf8", $link);
         $query = "SELECT 1 FROM ofUser WHERE username='".mysql_real_escape_string($login)."'";
         $res = mysql_query($query, $link);
         $userExists = mysql_result($res, 0);
         if($userExists=='1'){
             mysql_query("UPDATE ofUser
-                         SET plainPassword='".mysql_real_escape_string($password)."',
+                        SET plainPassword='".mysql_real_escape_string($password)."',
+                         name='".mysql_real_escape_string($name)."',
                          encryptedPassword=NULL
                          WHERE username='".mysql_real_escape_string($login)."'", $link);
         }else{
             $insertDate = round(microtime(true) * 1000);
             mysql_query("INSERT INTO ofUser
-                         (username, plainPassword, encryptedPassword, creationDate, modificationDate)
+                         (username, name, plainPassword, encryptedPassword, creationDate, modificationDate)
                          VALUES(
                          '".mysql_real_escape_string($login)."',
+                         '".mysql_real_escape_string($name)."',
                          '".mysql_real_escape_string($password)."',
                          NULL,
                          '$insertDate',

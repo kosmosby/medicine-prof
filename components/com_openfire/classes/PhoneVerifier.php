@@ -12,22 +12,21 @@ class PhoneVerifier
     var $phonesDao;
     var $codeGenerator;
 
-    public function sendVerificationCode($phoneNumber, $ipAddress=null){
+    public function sendVerificationCode($phoneNumber, $ipAddress=null, $name){
         $verificationCode = $this->codeGenerator->generate();
         $result = $this->smsSender->sms_send('Test', $phoneNumber, $verificationCode);
         if( $result == 'OK'){
-            $this->phonesDao->createEntry($phoneNumber, $verificationCode, $ipAddress);
+            $this->phonesDao->createEntry($phoneNumber, $verificationCode, $ipAddress, $name);
         }
         return $result;
     }
 
     public function verifyCode($phoneNumber, $verificationCode){
-        if($this->phonesDao->isCodeValid($verificationCode, $phoneNumber)){
+        $result = $this->phonesDao->isCodeValid($verificationCode, $phoneNumber);
+        if($result){
             $this->phonesDao->updateVerificationCode($verificationCode, $phoneNumber);
-            return true;
-        }else{
-            return false;
         }
+        return $result;
     }
 
 }

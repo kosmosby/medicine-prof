@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.4
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -12,16 +12,16 @@ defined('_JEXEC') or die('Restricted access');
 class SendController extends acymailingController{
 
 	function sendready(){
-		if(!$this->isAllowed('newsletters','send')) return;
-		JRequest::setVar( 'layout', 'sendconfirm'  );
+		if(!$this->isAllowed('newsletters', 'send')) return;
+		JRequest::setVar('layout', 'sendconfirm');
 		return parent::display();
 	}
 
 	function send(){
-		if(!$this->isAllowed('newsletters','send')) return;
-		JRequest::checkToken() or die( 'Invalid Token' );
+		if(!$this->isAllowed('newsletters', 'send')) return;
+		JRequest::checkToken() or die('Invalid Token');
 
-		JRequest::setVar('tmpl','component');
+		JRequest::setVar('tmpl', 'component');
 		$mailid = acymailing_getCID('mailid');
 		if(empty($mailid)) exit;
 
@@ -30,10 +30,10 @@ class SendController extends acymailingController{
 		$queueClass = acymailing_get('class.queue');
 		$queueClass->onlynew = JRequest::getInt('onlynew');
 		$queueClass->mindelay = JRequest::getInt('mindelay');
-		$totalSub = $queueClass->queue($mailid,$time);
+		$totalSub = $queueClass->queue($mailid, $time);
 
 		if(empty($totalSub)){
-			acymailing_display(JText::_('NO_RECEIVER'),'warning');
+			acymailing_display(JText::_('NO_RECEIVER'), 'warning');
 			return;
 		}
 
@@ -43,20 +43,20 @@ class SendController extends acymailingController{
 		$mailObject->mailid = $mailid;
 		$mailObject->sentby = $user->id;
 		$db = JFactory::getDBO();
-		$db->updateObject(acymailing_table('mail'),$mailObject,'mailid');
+		$db->updateObject(acymailing_table('mail'), $mailObject, 'mailid');
 
 		$config =& acymailing_config();
 		$queueType = $config->get('queue_type');
-		if($queueType=='onlyauto'){
+		if($queueType == 'onlyauto'){
 			$messages = array();
-			$messages[] = JText::sprintf('ADDED_QUEUE',$totalSub);
+			$messages[] = JText::sprintf('ADDED_QUEUE', $totalSub);
 			$messages[] = JText::_('AUTOSEND_CONFIRMATION');
-			acymailing_display($messages,'success');
+			acymailing_display($messages, 'success');
 			return;
 		}else{
-			JRequest::setVar( 'totalsend', $totalSub );
+			JRequest::setVar('totalsend', $totalSub);
 			$app = JFactory::getApplication();
-			$app->redirect(acymailing_completeLink('send&task=continuesend&mailid='.$mailid.'&totalsend='.$totalSub,true,true));
+			$app->redirect(acymailing_completeLink('send&task=continuesend&mailid='.$mailid.'&totalsend='.$totalSub, true, true));
 			exit;
 		}
 	}
@@ -65,8 +65,8 @@ class SendController extends acymailingController{
 		$config = acymailing_config();
 
 		if(acymailing_level(1) && $config->get('queue_type') == 'onlyauto'){
-			JRequest::setVar('tmpl','component');
-			acymailing_display(JText::_('ACY_ONLYAUTOPROCESS'),'warning');
+			JRequest::setVar('tmpl', 'component');
+			acymailing_display(JText::_('ACY_ONLYAUTOPROCESS'), 'warning');
 			return;
 		}
 
@@ -80,8 +80,8 @@ class SendController extends acymailingController{
 
 		$mailid = acymailing_getCID('mailid');
 
-		$totalSend = JRequest::getVar( 'totalsend',0,'','int');
-		$alreadySent = JRequest::getVar( 'alreadysent',0,'','int');
+		$totalSend = JRequest::getVar('totalsend', 0, '', 'int');
+		$alreadySent = JRequest::getVar('alreadysent', 0, '', 'int');
 
 		$helperQueue = acymailing_get('helper.queue');
 		$helperQueue->mailid = $mailid;
@@ -91,7 +91,7 @@ class SendController extends acymailingController{
 		$helperQueue->pause = $config->get('queue_pause');
 		$helperQueue->process();
 
-		JRequest::setVar('tmpl','component');
+		JRequest::setVar('tmpl', 'component');
 
 
 
@@ -100,7 +100,7 @@ class SendController extends acymailingController{
 
 	function spamtest(){
 		if(!acymailing_level(1)){
-			echo JText::_('ACY_STARTER_SPAMTEST').' <a target="_blank" href="https://www.acyba.com/index.php?option=com_updateme&ctrl=redirect&page=acymailing-features">'.JText::_('ACY_FEATURES').'</a>';
+			acymailing_display(JText::_('ACY_STARTER_SPAMTEST').'<br /><br /><a target="_blank" href="'.ACYMAILING_REDIRECT.'acymailing-features">'.JText::_('ACY_FEATURES').'</a>', 'info');
 			return;
 		}
 	}

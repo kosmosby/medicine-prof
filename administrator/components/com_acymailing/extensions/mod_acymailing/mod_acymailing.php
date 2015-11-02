@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.4
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -194,7 +194,7 @@ if(is_numeric($fieldsize)) $fieldsize .= 'px';
 
 if(!in_array('email',$fieldsToDisplay) && empty($connectedUser->id)) $fieldsToDisplay[] = 'email';
 
-if($params->get('effect') == 'mootools-slide' || $params->get('redirectmode',0) == '3'){
+if($params->get('loadmootools', '1') == 1 && ($params->get('effect') == 'mootools-slide' || $params->get('redirectmode',0) == '3')){
 	acymailing_loadMootools($params->get('effect') == 'mootools-slide');
 }
 

@@ -1,0 +1,18 @@
+.cb_template .gjGroupVideoRow {
+	width: 325px;
+}
+
+.cb_template .gjGroupVideoRow .gjContainerBoxHeader {
+	height: auto;
+}
+
+@media (max-width: 767px) {
+	.cb_template .gjGroupVideoRow {
+		width: 100%;
+	}
+
+	.cb_template .gjGroupVideoRow .gjContainerBoxHeader {
+		max-height: none;
+		height: auto;
+	}
+}

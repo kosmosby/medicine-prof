@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.4
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -36,6 +36,16 @@ class UserController extends acymailingController{
 		if(empty($user)) return false;
 
 		$redirectUrl = $config->get('confirm_redirect');
+		$listRedirection = '';
+		$subscription = $userClass->getSubscriptionStatus($user->subid);
+		foreach($subscription as $i => $onelist){
+			if(!in_array($onelist->status, array(1,2)) || JText::_('REDIRECTION_CONFIRMATION_'.$i) == 'REDIRECTION_CONFIRMATION_'.$i) continue;
+			$listRedirection = JText::_('REDIRECTION_CONFIRMATION_'.$i);
+			break;
+		}
+
+		if(!empty($listRedirection)) $redirectUrl = $listRedirection;
+
 		if(!empty($redirectUrl)){
 			$replace = array();
 			foreach($user as $key => $val){
@@ -281,8 +291,7 @@ class UserController extends acymailingController{
 
 		if($incrementUnsub){
 			$db= JFactory::getDBO();
-
-			$db->setQuery('SELECT subid FROM #__acymailing_history WHERE `action` = "unsubscribed" AND `subid` = '.intval($subscriber->subid).' AND `mailid` = '.intval($mailid).' LIMIT 1');
+			$db->setQuery('SELECT subid FROM #__acymailing_history WHERE `action` = "unsubscribed" AND `subid` = '.intval($subscriber->subid).' AND `mailid` = '.intval($mailid).' LIMIT 1,1');
 			$alreadythere = $db->loadResult();
 
 			if(empty($alreadythere)){
@@ -317,8 +326,13 @@ class UserController extends acymailingController{
 
 
 		$redirectUnsub = $config->get('unsub_redirect');
-
 		if(!empty($redirectUnsub)){
+			$replace = array();
+			foreach($oldUser as $key => $val){
+				$replace['{'.$key.'}'] = $val;
+				$replace['{user:'.$key.'}'] = $val;
+			}
+			$redirectUnsub = str_replace(array_keys($replace),$replace,$redirectUnsub);
 			$this->setRedirect($redirectUnsub);
 			return;
 		}

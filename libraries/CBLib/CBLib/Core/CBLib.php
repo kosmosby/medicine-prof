@@ -17,8 +17,9 @@ use CBLib\Entity\User\User;
 use CBLib\Input\InputInterface;
 use CBLib\Language\TranslationsLogger;
 use CBLib\Output\Output;
+use CBLib\Date\Date;
 
-define( 'CBLIB', '2.0.10' );	// IMPORTANT: when changing version here also change in the 8 XML installation files and in libraries/CBLib/CB/Legacy/cbInstallerPlugin.php and build.xml
+define( 'CBLIB', '2.0.11' );	// IMPORTANT: when changing version here also change in the 8 XML installation files and in libraries/CBLib/CB/Legacy/cbInstallerPlugin.php and build.xml
 
 include_once __DIR__ . '/AutoLoader.php';
 
@@ -131,6 +132,15 @@ class CBLib
 					return User::getInstanceForContainerOnly( null, $di->getCms(), $di->getConfig() );
 				}
 			);
+
+			// Define $app Container 'Date':
+			$application->set(
+				'CBLib\Date\Date',
+				function ( ApplicationContainerInterface $di, array $parameters ) {
+					return new Date( ( isset( $parameters[0] ) ? $parameters[0] : 'now' ), ( isset( $parameters[1] ) ? $parameters[1] : null ), ( isset( $parameters[2] ) ? $parameters[2] : null ), $di->getConfig() );
+				}
+			)
+				->alias( 'CBLib\Date\Date', 'Date' );
 
 			// Define Language and translations, as well as the translations logger interface:
 			$application->set( 'Language', 'CBLib\Language\CBTxt', true );

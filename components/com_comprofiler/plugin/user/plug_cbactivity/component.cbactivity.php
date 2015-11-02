@@ -951,30 +951,33 @@ class CBplug_cbactivity extends cbPluginHandler
 		}
 
 		if ( $showTags ) {
-			$tags						=	$this->input( 'tags', array(), GetterInterface::RAW );
 			$tagsStream					=	$row->tags( $stream->source() );
 
-			foreach ( $tagsStream->data() as $tag ) {
-				/** @var TagTable $tag */
-				if ( ! in_array( $tag->get( 'user' ), $tags ) ) {
-					$tagsStream->remove( (int) $tag->get( 'id' ) );
-				} else {
-					$key				=	array_search( $tag->get( 'user' ), $tags );
+			if ( $tagsStream ) {
+				$tags					=	$this->input( 'tags', array(), GetterInterface::RAW );
 
-					if ( $key !== false ) {
-						unset( $tags[$key] );
+				foreach ( $tagsStream->data() as $tag ) {
+					/** @var TagTable $tag */
+					if ( ! in_array( $tag->get( 'user' ), $tags ) ) {
+						$tagsStream->remove( (int) $tag->get( 'id' ) );
+					} else {
+						$key			=	array_search( $tag->get( 'user' ), $tags );
+
+						if ( $key !== false ) {
+							unset( $tags[$key] );
+						}
 					}
 				}
-			}
 
-			foreach ( $tags as $tagUser ) {
-				if ( is_numeric( $tagUser ) ) {
-					$tagUser			=	(int) $tagUser;
-				} else {
-					$tagUser			=	Get::clean( $tagUser, GetterInterface::STRING );
+				foreach ( $tags as $tagUser ) {
+					if ( is_numeric( $tagUser ) ) {
+						$tagUser		=	(int) $tagUser;
+					} else {
+						$tagUser		=	Get::clean( $tagUser, GetterInterface::STRING );
+					}
+
+					$tagsStream->push( array( 'user' => $tagUser ) );
 				}
-
-				$tagsStream->push( array( 'user' => $tagUser ) );
 			}
 		}
 

@@ -14,23 +14,26 @@ class PhonesDao
         $this->db = $db;
     }
 
-    public function createEntry($phoneNumber, $verificationCode, $ipAddress){
+    public function createEntry($phoneNumber, $verificationCode, $ipAddress, $name){
         $this->db->setQuery(
             "INSERT INTO #__openfire_phones
-            (phone, code, verified, ip_addr)
+            (phone, code, verified, ip_addr, name)
             VALUES
-            ({$this->db->quote($phoneNumber)},{$this->db->quote($verificationCode)}, 0, {$this->db->quote($ipAddress)})");
+            ({$this->db->quote($phoneNumber)},
+            {$this->db->quote($verificationCode)},
+            0,
+            {$this->db->quote($ipAddress)},
+            {$this->db->quote($name)})");
         $this->db->query();
     }
 
     public function isCodeValid($verificationCode, $phoneNumber){
         $this->db->setQuery(
-            "SELECT 1 FROM  #__openfire_phones
+            "SELECT * FROM  #__openfire_phones
              WHERE phone={$this->db->quote($phoneNumber)}
                 AND code={$this->db->quote($verificationCode)}
                 AND verified=0");
-        $result = $this->db->loadResult();
-        return $result==1;
+        return $this->db->loadAssoc();
     }
 
     public function updateVerificationCode($verificationCode, $phoneNumber){

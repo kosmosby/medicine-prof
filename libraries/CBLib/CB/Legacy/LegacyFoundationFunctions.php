@@ -516,7 +516,7 @@ namespace
 				$version[$info]				=	$VO->PRODUCT;
 				break;
 			case 'release':
-				$version[$info]				=	$VO->RELEASE;
+				$version[$info]				=	$VO->RELEASE . '.' . $VO->DEV_LEVEL;
 				break;
 			case 'version':
 				$version[$info]				=	substr( $VO->RELEASE, 0, 3 );
@@ -525,7 +525,7 @@ namespace
 				$version[$info]				=	$VO->DEV_LEVEL;
 				break;
 			default:
-				$versionCompare				=	strcasecmp( substr( $VO->RELEASE, 0, 3 ), preg_replace( '/[^.\d]/i', '', $info ) );
+				$versionCompare				=	strcasecmp( $VO->RELEASE . '.' . $VO->DEV_LEVEL, preg_replace( '/[^.\d]/i', '', $info ) );
 
 				if ( $VO->PRODUCT == 'Joomla!' ) {
 					if ( strpos( $info, '-' ) !== false ) {
@@ -633,7 +633,7 @@ namespace
 	function cbRedirect( $url, $message = '', $messageType = 'message' ) {
 		global $_CB_framework, $_CB_database;
 
-		if ( ( $_CB_framework->getUi() == 1 ) && checkJversion( '3.0+' ) ) {
+		if ( ( $_CB_framework->getUi() == 1 ) && checkJversion( '3.4.3-' ) ) {
 			switch( $messageType ) {
 				case 'message':
 					$messageType	=	'success';

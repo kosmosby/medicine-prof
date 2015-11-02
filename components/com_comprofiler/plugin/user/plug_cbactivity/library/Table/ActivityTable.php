@@ -95,13 +95,16 @@ class ActivityTable extends Table
 		global $_CB_framework, $_PLUGINS;
 
 		$new	=	( $this->get( 'id' ) ? false : true );
+		$old	=	new self();
 
 		$this->set( 'type', preg_replace( '/[^-a-zA-Z0-9_.]/', '', $this->get( 'type' ) ) );
 		$this->set( 'subtype', preg_replace( '/[^-a-zA-Z0-9_.]/', '', $this->get( 'subtype' ) ) );
 		$this->set( 'date', $this->get( 'date', $_CB_framework->getUTCDate() ) );
 
 		if ( ! $new ) {
-			$_PLUGINS->trigger( 'activity_onBeforeUpdateActivity', array( &$this ) );
+			$old->load( (int) $this->get( 'id' ) );
+
+			$_PLUGINS->trigger( 'activity_onBeforeUpdateActivity', array( &$this, $old ) );
 		} else {
 			$_PLUGINS->trigger( 'activity_onBeforeCreateActivity', array( &$this ) );
 		}
@@ -111,7 +114,7 @@ class ActivityTable extends Table
 		}
 
 		if ( ! $new ) {
-			$_PLUGINS->trigger( 'activity_onAfterUpdateActivity', array( $this ) );
+			$_PLUGINS->trigger( 'activity_onAfterUpdateActivity', array( $this, $old ) );
 		} else {
 			$_PLUGINS->trigger( 'activity_onAfterCreateActivity', array( $this ) );
 		}
@@ -361,14 +364,20 @@ class ActivityTable extends Table
 	 * @param string         $source
 	 * @param null|UserTable $user
 	 * @param int            $direction
-	 * @return Comments
+	 * @return Comments|null
 	 */
 	public function comments( $source = 'stream', $user = null, $direction = 1 )
 	{
+		$params				=	$this->params()->subTree( 'comments' );
+
+		if ( ! $params->get( 'display', 1 ) ) {
+			return null;
+		}
+
 		/** @var Comments[] $cache */
 		static $cache		=	array();
 
-		if ( $this->get( 'item' ) ) {
+		if ( $this->get( 'item' ) && $params->get( 'source', 1 ) ) {
 			$id				=	$this->get( 'type' ) . $this->get( 'subtype' ) . $this->get( 'item' ) . $this->get( 'parent' );
 		} else {
 			$id				=	$this->get( 'id' );
@@ -379,7 +388,7 @@ class ActivityTable extends Table
 		if ( ! isset( $cache[$id] ) ) {
 			$stream			=	new Comments( $source, $user, $direction );
 
-			if ( $this->get( 'item' ) ) {
+			if ( $this->get( 'item' ) && $params->get( 'source', 1 ) ) {
 				$stream->set( 'type', $this->get( 'type' ) );
 				$stream->set( 'subtype', $this->get( 'subtype' ) );
 				$stream->set( 'item', $this->get( 'item' ) );
@@ -409,14 +418,20 @@ class ActivityTable extends Table
 	/**
 	 * @param string         $source
 	 * @param null|UserTable $user
-	 * @return Tags
+	 * @return Tags|null
 	 */
 	public function tags( $source = 'stream', $user = null )
 	{
+		$params				=	$this->params()->subTree( 'tags' );
+
+		if ( ! $params->get( 'display', 1 ) ) {
+			return null;
+		}
+
 		/** @var Tags[] $cache */
 		static $cache		=	array();
 
-		if ( $this->get( 'item' ) ) {
+		if ( $this->get( 'item' ) && $params->get( 'source', 1 ) ) {
 			$id				=	$this->get( 'type' ) . $this->get( 'subtype' ) . $this->get( 'item' ) . $this->get( 'parent' );
 		} else {
 			$id				=	$this->get( 'id' );
@@ -427,7 +442,7 @@ class ActivityTable extends Table
 		if ( ! isset( $cache[$id] ) ) {
 			$stream			=	new Tags( $source, $user );
 
-			if ( $this->get( 'item' ) ) {
+			if ( $this->get( 'item' ) && $params->get( 'source', 1 ) ) {
 				$stream->set( 'type', $this->get( 'type' ) );
 				$stream->set( 'subtype', $this->get( 'subtype' ) );
 				$stream->set( 'item', $this->get( 'item' ) );

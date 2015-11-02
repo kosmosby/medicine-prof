@@ -1,14 +1,15 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.4
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 defined('_JEXEC') or die('Restricted access');
 ?><?php
-class acytabsHelper {
+
+class acytabsHelper{
 	var $ctrl = 'tabs';
 	var $tabs = null;
 	var $openPanel = false;
@@ -17,62 +18,79 @@ class acytabsHelper {
 	var $options = null;
 	var $name = '';
 
-	function __construct() {
-		if(!ACYMAILING_J16) {
+	function __construct(){
+		if(!ACYMAILING_J16){
 			$this->mode = 'pane';
-		} elseif(!ACYMAILING_J30) {
+		}elseif(!ACYMAILING_J30){
 			$this->mode = 'pane';
-		} else {
+		}else{
 			$this->mode = 'bootstrap';
 		}
 	}
 
-	function startPane($name) { return $this->start($name); }
-	function startPanel($text, $id) { return $this->panel($text, $id); }
-	function endPanel() { return ''; }
-	function endPane() { return $this->end(); }
-
-	function setOptions($options = array()) {
-		if($this->options == null)
-			$this->options = $options;
-		else
-			$this->options = array_merge($this->options, $options);
+	function startPane($name){
+		return $this->start($name);
 	}
 
-	function start($name, $options = array()) {
+	function startPanel($text, $id){
+		return $this->panel($text, $id);
+	}
+
+	function endPanel(){
+		return '';
+	}
+
+	function endPane(){
+		return $this->end();
+	}
+
+	function setOptions($options = array()){
+		if($this->options == null){
+			$this->options = $options;
+		}else{
+			$this->options = array_merge($this->options, $options);
+		}
+	}
+
+	function start($name, $options = array()){
 		$ret = '';
-		if($this->mode == 'pane') {
+		if($this->mode == 'pane'){
 			jimport('joomla.html.pane');
-			if(!empty($this->options))
+			if(!empty($this->options)){
 				$options = array_merge($options, $this->options);
+			}
 			$this->tabs = JPane::getInstance('tabs', $options);
 			$ret .= $this->tabs->startPane($name);
-		} elseif($this->mode == 'tabs') {
-			if(!empty($this->options))
+		}elseif($this->mode == 'tabs'){
+			if(!empty($this->options)){
 				$options = array_merge($options, $this->options);
+			}
 			$ret .= JHtml::_('tabs.start', $name, $options);
-		} else {
+		}else{
 			$this->name = $name;
-			if($this->options == null)
+			if($this->options == null){
 				$this->options = $options;
-			else
+			}else{
 				$this->options = array_merge($this->options, $options);
+			}
 		}
 		return $ret;
 	}
 
-	function panel($text, $id) {
+	function panel($text, $id){
 		$ret = '';
-		if($this->mode == 'pane') {
-			if($this->openPanel)
+		if($this->mode == 'pane'){
+			if($this->openPanel){
 				$ret .= $this->tabs->endPanel();
+			}
 			$ret .= $this->tabs->startPanel($text, $id);
 			$this->openPanel = true;
-		} elseif($this->mode == 'tabs') {
+		}elseif($this->mode == 'tabs'){
 			$ret .= JHtml::_('tabs.panel', JText::_($text), $id);
-		} else {
-			if($this->openPanel)
+		}else{
+			if($this->openPanel){
 				$this->_closePanel();
+			}
 
 			$obj = new stdClass();
 			$obj->text = $text;
@@ -85,52 +103,57 @@ class acytabsHelper {
 		return $ret;
 	}
 
-	function _closePanel() {
-		if(!$this->openPanel)
+	function _closePanel(){
+		if(!$this->openPanel){
 			return;
+		}
 		$panel = end($this->data);
 		$panel->data .= ob_get_clean();
 		$this->openPanel = false;
 	}
 
-	function end() {
+	function end(){
 		$ret = '';
-		if($this->mode == 'pane') {
-			if($this->openPanel)
+		if($this->mode == 'pane'){
+			if($this->openPanel){
 				$ret .= $this->tabs->endPanel();
+			}
 			$ret .= $this->tabs->endPane();
-		} elseif($this->mode == 'tabs') {
+		}elseif($this->mode == 'tabs'){
 			$ret .= JHtml::_('tabs.end');
-		} else {
+		}else{
 			static $jsInit = false;
 
-			if($this->openPanel)
+			if($this->openPanel){
 				$this->_closePanel();
+			}
 
 			$classes = '';
-			if(isset($this->options['useCookie']) && $this->options['useCookie']) {
+			if(isset($this->options['useCookie']) && $this->options['useCookie']){
 				$classes .= ' nav-remember';
 			}
 
-			$ret .= '<div class="acytabsystem" style="margin-left:10px;"><ul class="nav nav-tabs'.$classes.'" id="'.$this->name.'" style="width:100%;">'."\r\n";
-			foreach($this->data as $k => $data) {
+			$ret .= '<div style="margin-left:10px;"><ul class="nav nav-tabs'.$classes.'" id="'.$this->name.'" style="width:100%;">'."\r\n";
+			foreach($this->data as $k => $data){
 				$active = '';
-				if((isset($this->options['startOffset']) && $this->options['startOffset'] == $k) || $k == 0)
+				if((isset($this->options['startOffset']) && $this->options['startOffset'] == $k) || $k == 0){
 					$active = ' class="active"';
-				$ret .= '	<li' . $active.'><a href="#' . $data->id . '" id="'.$data->id.'_tablink" data-toggle="tab">' . JText::_($data->text) . '</a></li>'."\r\n";
+				}
+				$ret .= '	<li'.$active.'><a href="#'.$data->id.'" id="'.$data->id.'_tablink" data-toggle="tab">'.JText::_($data->text).'</a></li>'."\r\n";
 			}
 			$ret .= '</ul>'."\r\n".'<div class="tab-content">'."\r\n";
-			foreach($this->data as $k => $data) {
+			foreach($this->data as $k => $data){
 				$active = '';
-				if((isset($this->options['startOffset']) && $this->options['startOffset'] == $k) || $k == 0)
+				if((isset($this->options['startOffset']) && $this->options['startOffset'] == $k) || $k == 0){
 					$active = ' active';
-				$ret .= '	<div class="tab-pane' . $active.'" id="' . $data->id . '">'."\r\n".$data->data."\r\n".'	</div>'."\r\n";
+				}
+				$ret .= '	<div class="tab-pane'.$active.'" id="'.$data->id.'">'."\r\n".$data->data."\r\n".'	</div>'."\r\n";
 				unset($data->data);
 			}
 			$ret .= '</div></div>';
 			unset($this->data);
 
-			if(!$jsInit) {
+			if(!$jsInit){
 				$jsInit = true;
 				$js = 'jQuery(document).ready(function (){
 	jQuery("ul.nav-remember").each(function(nav){

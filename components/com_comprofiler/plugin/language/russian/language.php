@@ -1688,4 +1688,5 @@ return	array(
 'COLUMN_1_465cbf'	=>	'Колонка 1',
 // 1 language strings from file components/com_comprofiler/plugin/user/plug_cbcore/xml/views/view.com_comprofiler.editfield.xml
 'NOT_A_VALID_INPUT_00200b'	=>	'Введенные Вами данные недействительны',
+
 );

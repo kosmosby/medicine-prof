@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	4.9.4
+ * @version	5.0.0
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -42,11 +42,13 @@ class chooselistViewchooselist extends acymailingView
 
 		$fieldName = JRequest::getString('task');
 		$controlName = JRequest::getString('control','params');
+		$popup = JRequest::getString('popup','1');
 
 		$this->assignRef('rows',$rows);
 		$this->assignRef('selectedLists',$selectedLists);
 		$this->assignRef('fieldName',$fieldName);
 		$this->assignRef('controlName',$controlName);
+		$this->assignRef('popup',$popup);
 	}
 
 
