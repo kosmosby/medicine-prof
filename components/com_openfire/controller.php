@@ -136,7 +136,7 @@ class OpenfireController extends JControllerLegacy
 
         foreach ($contacts as $key => $contact) {
             if(in_array($contact["phoneCanonical"], $result) ){
-                $contacts[$key]['jabberUsername'] = $contact["phoneCanonical"]."@medicine-prof.com";
+                $contacts[$key]['jabberUsername'] = $contact["phoneCanonical"]."@medicine-prof.net";
                 $contacts[$key]['contactAdded'] = false;
                 $contacts[$key]['contactExists'] = true;
             }else{
