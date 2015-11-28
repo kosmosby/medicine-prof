@@ -9,10 +9,12 @@
 
 use CBLib\Database\Table\TableInterface;
 use CB\Database\Table\UserTable;
+use CBLib\Registry\Registry;
 use CBLib\Registry\ParamsInterface;
 use CBLib\Registry\GetterInterface;
 use CBLib\Language\CBTxt;
 
+use CB\Plugin\Activity\CBActivity;
 use CB\Plugin\Activity\Activity;
 use CB\Plugin\Activity\Comments;
 use CB\Plugin\Activity\Table\ActivityTable;
@@ -32,7 +34,7 @@ class cbautoactionsActionActivity extends cbPluginHandler
 	 */
 	public function execute( $trigger, $user )
 	{
-		global $_CB_database;
+		global $_CB_framework, $_CB_database;
 
 		if ( ! $this->installed() ) {
 			if ( $trigger->getParams()->get( 'debug', false, GetterInterface::BOOLEAN ) ) {
@@ -73,20 +75,34 @@ class cbautoactionsActionActivity extends cbPluginHandler
 
 				if ( $row->get( 'stream', 'activity', GetterInterface::STRING ) == 'comments' ) {
 					$object						=	new Comments( $source, $streamUser, $direction );
+
+					CBActivity::loadStreamDefaults( $object, $row->subTree( 'comments_stream' ), 'comments_' );
 				} else {
 					$object						=	new Activity( $source, $streamUser, $direction );
 
-					$object->set( 'comments', (int) $row->get( 'comments', 0, GetterInterface::INT ) );
+					CBActivity::loadStreamDefaults( $object, $row->subTree( 'activity_stream' ), 'activity_' );
 				}
 
-				$object->set( 'replies', (int) $row->get( 'replies', 0, GetterInterface::INT ) );
-				$object->set( 'paging', (int) $row->get( 'paging', 1, GetterInterface::INT ) );
-				$object->set( 'limit', (int) $trigger->getSubstituteString( $row->get( 'limit', 30, GetterInterface::STRING ) ) );
+				if ( $type ) {
+					$object->set( 'type', $type );
+				}
+
+				if ( $subtype ) {
+					$object->set( 'subtype', $subtype );
+				}
+
+				if ( $item ) {
+					$object->set( 'item', $item );
+				}
+
+				if ( $parent ) {
+					$object->set( 'parent', $parent );
+				}
 
 				if ( $row->get( 'output', 'echo', GetterInterface::STRING ) == 'echo' ) {
-					echo $object->stream( true );
+					echo $object->stream( false );
 				} else {
-					$return						.=	$object->stream( true );
+					$return						.=	$object->stream( false );
 				}
 			} elseif ( $method == 'delete' ) {
 				$where							=	array();
@@ -219,6 +235,12 @@ class cbautoactionsActionActivity extends cbPluginHandler
 						$object->set( 'title', $title );
 					}
 
+					$date						=	$trigger->getSubstituteString( $row->get( 'date', null, GetterInterface::STRING ) );
+
+					if ( $date ) {
+						$object->set( 'date', $_CB_framework->getUTCDate( 'Y-m-d H:i:s', $date ) );
+					}
+
 					$action						=	$row->subTree( 'action' );
 					$actionId					=	$action->get( 'id', null, GetterInterface::INT );
 
@@ -226,12 +248,28 @@ class cbautoactionsActionActivity extends cbPluginHandler
 						$actionMessage			=	$trigger->getSubstituteString( $action->get( 'message', null, GetterInterface::STRING ) );
 
 						if ( $actionMessage ) {
-							$newAction			=	array(	'id' => $actionId,
-															'message' => $actionMessage,
-															'emote' => $action->get( 'emote', '', GetterInterface::STRING )
+							$newAction			=	array(	'id'		=>	$actionId,
+															'message'	=>	$actionMessage,
+															'emote'		=>	$action->get( 'emote', '', GetterInterface::STRING )
 														);
 
 							$object->params()->set( 'action', $newAction );
+						}
+					}
+
+					$location					=	$row->subTree( 'location' );
+					$locationId					=	$location->get( 'id', null, GetterInterface::INT );
+
+					if ( $locationId ) {
+						$locationPlace			=	$trigger->getSubstituteString( $location->get( 'place', null, GetterInterface::STRING ) );
+
+						if ( $locationPlace ) {
+							$newLocation		=	array(	'id'		=>	$locationId,
+															'place'		=>	$locationPlace,
+															'address'	=>	$trigger->getSubstituteString( $location->get( 'address', null, GetterInterface::STRING ) )
+														);
+
+							$object->params()->set( 'location', $newLocation );
 						}
 					}
 
@@ -266,6 +304,24 @@ class cbautoactionsActionActivity extends cbPluginHandler
 					if ( $newLinks ) {
 						$object->params()->set( 'links', $newLinks );
 					}
+
+					$comments					=	$row->subTree( 'comments' );
+
+					$object->params()->set( 'comments', array(	'display'	=>	(int) $comments->get( 'display', 1, GetterInterface::INT ),
+																'source'	=>	(int) $comments->get( 'source', 1, GetterInterface::INT )
+															));
+
+					$tags						=	$row->subTree( 'tags' );
+
+					$object->params()->set( 'tags', array(	'display'	=>	(int) $tags->get( 'display', 1, GetterInterface::INT ),
+															'source'	=>	(int) $tags->get( 'source', 1, GetterInterface::INT )
+														));
+
+					$object->set( 'params', $object->params()->asJson() );
+				} elseif ( $mode == 'comment' ) {
+					$tags						=	$row->subTree( 'replies' );
+
+					$object->params()->set( 'replies', array( 'display' => (int) $tags->get( 'display', 1, GetterInterface::INT ) ));
 
 					$object->set( 'params', $object->params()->asJson() );
 				}

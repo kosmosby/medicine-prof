@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -67,7 +67,8 @@ class QueueViewQueue extends acymailingView{
 		if(strtolower($pageInfo->filter->order->dir) !== 'desc') $pageInfo->filter->order->dir = 'asc';
 		$pageInfo->search = $app->getUserStateFromRequest($paramBase.".search", 'search', '', 'string');
 		$pageInfo->search = JString::strtolower(trim($pageInfo->search));
-		$selectedMail = $app->getUserStateFromRequest($paramBase."filter_mail", 'filter_mail', 0, 'int');
+
+		$pageInfo->selectedMail = $app->getUserStateFromRequest($paramBase."filter_mail", 'filter_mail', 0, 'int');
 
 		$pageInfo->limit->value = $app->getUserStateFromRequest($paramBase.'.list_limit', 'limit', $app->getCfg('list_limit'), 'int');
 		$pageInfo->limit->start = $app->getUserStateFromRequest($paramBase.'.limitstart', 'limitstart', 0, 'int');
@@ -80,7 +81,7 @@ class QueueViewQueue extends acymailingView{
 			$filters[] = implode(" LIKE $searchVal OR ", $this->searchFields)." LIKE $searchVal";
 		}
 
-		if(!empty($selectedMail)) $filters[] = 'a.mailid = '.intval($selectedMail);
+		if(!empty($pageInfo->selectedMail)) $filters[] = 'a.mailid = '.intval($pageInfo->selectedMail);
 
 		$query = 'SELECT '.implode(' , ', $this->selectFields);
 		$query .= ' FROM '.acymailing_table('queue').' as a';
@@ -116,12 +117,12 @@ class QueueViewQueue extends acymailingView{
 
 		$mailqueuetype = acymailing_get('type.queuemail');
 		$filtersType = new stdClass();
-		$filtersType->mail = $mailqueuetype->display('filter_mail', $selectedMail);
+		$filtersType->mail = $mailqueuetype->display('filter_mail', $pageInfo->selectedMail);
 
 
 		$acyToolbar = acymailing::get('helper.toolbar');
 		if(acymailing_isAllowed($config->get('acl_queue_process', 'all'))){
-			$acyToolbar->popup('process', JText::_('PROCESS'), "index.php?option=com_acymailing&ctrl=queue&task=process&tmpl=component&mailid=".$selectedMail);
+			$acyToolbar->popup('process', JText::_('PROCESS'), "index.php?option=com_acymailing&ctrl=queue&task=process&tmpl=component&mailid=".$pageInfo->selectedMail);
 		}
 		if(!empty($pageInfo->elements->total) AND acymailing_isAllowed($config->get('acl_queue_delete', 'all'))){
 			$onClick = "if (confirm('".str_replace("'", "\'", JText::sprintf('CONFIRM_DELETE_QUEUE', $pageInfo->elements->total))."')){Joomla.submitbutton('remove');}";

@@ -14,10 +14,13 @@ use CB\Database\Table\PluginTable;
 use CB\Database\Table\UserTable;
 use CB\Database\Table\TabTable;
 use CB\Plugin\GroupJive\CBGroupJive;
-use CB\Plugin\GroupJive\Table\GroupTable;
-use CB\Plugin\GroupJiveVideo\Table\VideoTable;
+use CB\Plugin\GroupJiveVideo\CBGroupJiveVideo;
 
 if ( ! ( defined( '_VALID_CB' ) || defined( '_JEXEC' ) || defined( '_VALID_MOS' ) ) ) { die( 'Direct Access to this location is not allowed.' ); }
+
+global $_PLUGINS;
+
+$_PLUGINS->loadPluginGroup( 'user' );
 
 class CBplug_cbgroupjivevideo extends cbPluginHandler
 {
@@ -116,19 +119,14 @@ class CBplug_cbgroupjivevideo extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row							=	new VideoTable();
-
-		$row->load( (int) $id );
-
+		$row							=	CBGroupJiveVideo::getVideo( (int) $id );
 		$isModerator					=	CBGroupJive::isModerator( $user->get( 'id' ) );
 		$groupId						=	$this->input( 'group', null, GetterInterface::INT );
 
 		if ( $groupId === null ) {
 			$group						=	$row->group();
 		} else {
-			$group						=	new GroupTable();
-
-			$group->load( (int) $groupId );
+			$group						=	CBGroupJive::getGroup( $groupId );
 		}
 
 		$returnUrl						=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $group->get( 'id' ) ) );
@@ -182,19 +180,14 @@ class CBplug_cbgroupjivevideo extends cbPluginHandler
 	{
 		global $_CB_framework, $_PLUGINS;
 
-		$row					=	new VideoTable();
-
-		$row->load( (int) $id );
-
+		$row					=	CBGroupJiveVideo::getVideo( (int) $id );
 		$isModerator			=	CBGroupJive::isModerator( $user->get( 'id' ) );
 		$groupId				=	$this->input( 'group', null, GetterInterface::INT );
 
 		if ( $groupId === null ) {
 			$group				=	$row->group();
 		} else {
-			$group				=	new GroupTable();
-
-			$group->load( (int) $groupId );
+			$group				=	CBGroupJive::getGroup( $groupId );
 		}
 
 		$returnUrl				=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $group->get( 'id' ) ) );
@@ -215,7 +208,9 @@ class CBplug_cbgroupjivevideo extends cbPluginHandler
 			$row->set( 'user_id', (int) $row->get( 'user_id', $user->get( 'id' ) ) );
 		}
 
-		$row->set( 'published', ( $isModerator || ( $row->get( 'published' ) != -1 ) || ( $group->params()->get( 'video', 1 ) != 2 ) ? (int) $this->input( 'post/published', $row->get( 'published', 1 ), GetterInterface::INT ) : -1 ) );
+		$canModerate			=	( CBGroupJive::getGroupStatus( $user, $group ) >= 2 );
+
+		$row->set( 'published', ( $isModerator || $canModerate || ( $row->get( 'id' ) && ( $row->get( 'published' ) != -1 ) ) || ( $group->params()->get( 'video', 1 ) != 2 ) ? (int) $this->input( 'post/published', $row->get( 'published', 1 ), GetterInterface::INT ) : -1 ) );
 		$row->set( 'group', (int) $group->get( 'id' ) );
 		$row->set( 'title', $this->input( 'post/title', $row->get( 'title' ), GetterInterface::STRING ) );
 		$row->set( 'url', $this->input( 'post/url', $row->get( 'url' ), GetterInterface::STRING ) );
@@ -248,9 +243,10 @@ class CBplug_cbgroupjivevideo extends cbPluginHandler
 		}
 
 		if ( $new ) {
-			$extras				=	array( 'video' => htmlspecialchars( ( $row->get( 'title' ) ? $row->get( 'title' ) : $row->name() ) ) );
+			$extras				=	array(	'video_title'	=>	htmlspecialchars( ( $row->get( 'title' ) ? $row->get( 'title' ) : $row->name() ) ),
+											'video'			=>	'<a href="' . $_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'group' ), 'tab' => 'grouptabvideo' ) ) . '">' . htmlspecialchars( ( $row->get( 'title' ) ? $row->get( 'title' ) : $row->name() ) ) . '</a>' );
 
-			if ( $row->get( 'published' ) ) {
+			if ( $row->get( 'published' ) == 1 ) {
 				CBGroupJive::sendNotifications( 'video_new', CBTxt::T( 'New group video' ), CBTxt::T( '[user] has published the video [video] in the group [group]!' ), $row->group(), (int) $row->get( 'user_id' ), null, array( $user->get( 'id' ) ), 1, $extras );
 			} elseif ( ( $row->get( 'published' ) == -1 ) && ( $row->group()->params()->get( 'video', 1 ) == 2 ) ) {
 				CBGroupJive::sendNotifications( 'video_approve', CBTxt::T( 'New group video awaiting approval' ), CBTxt::T( '[user] has published the video [video] in the group [group] and is awaiting approval!' ), $row->group(), (int) $row->get( 'user_id' ), null, array( $user->get( 'id' ) ), 1, $extras );
@@ -273,10 +269,7 @@ class CBplug_cbgroupjivevideo extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row				=	new VideoTable();
-
-		$row->load( (int) $id );
-
+		$row				=	CBGroupJiveVideo::getVideo( (int) $id );
 		$returnUrl			=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'group' ) ) );
 
 		if ( $row->get( 'id' ) ) {
@@ -304,7 +297,8 @@ class CBplug_cbgroupjivevideo extends cbPluginHandler
 		}
 
 		if ( $state && ( $currentState == -1 ) ) {
-			$extras			=	array( 'video' => htmlspecialchars( ( $row->get( 'title' ) ? $row->get( 'title' ) : $row->name() ) ) );
+			$extras			=	array(	'video_title'	=>	htmlspecialchars( ( $row->get( 'title' ) ? $row->get( 'title' ) : $row->name() ) ),
+										'video'			=>	'<a href="' . $_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'group' ), 'tab' => 'grouptabvideo' ) ) . '">' . htmlspecialchars( ( $row->get( 'title' ) ? $row->get( 'title' ) : $row->name() ) ) . '</a>' );
 
 			if ( $row->get( 'user_id' ) != $user->get( 'id' ) ) {
 				CBGroupJive::sendNotification( 4, $user, (int) $row->get( 'user_id' ), CBTxt::T( 'Video publish request accepted' ), CBTxt::T( 'Your video [video] publish request in the group [group] has been accepted!' ), $row->group(), $extras );
@@ -326,10 +320,7 @@ class CBplug_cbgroupjivevideo extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row			=	new VideoTable();
-
-		$row->load( (int) $id );
-
+		$row			=	CBGroupJiveVideo::getVideo( (int) $id );
 		$returnUrl		=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'group' ) ) );
 
 		if ( $row->get( 'id' ) ) {

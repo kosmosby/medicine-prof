@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -54,7 +54,7 @@ if(empty($action)){
 $menuDisplayed = false;
 if(!($taskGroup == 'send' && $action == 'send') && $taskGroup !== 'toggle' && JRequest::getString('tmpl') !== 'component' && !in_array($action, array('doexport', 'continuesend', 'load')) && !in_array($taskGroup, array('editor'))){
 	$menuHelper = acymailing_get('helper.acymenu');
-	echo '<div id="acyallcontent" class="acyallcontent'.($taskGroup == 'dashboard' ? '' : ' iconsonly').'">';
+	echo '<div id="acyallcontent" class="acyallcontent">';
 	echo $menuHelper->display($taskGroup);
 	echo '<div id="acymainarea">';
 	$menuDisplayed = true;
@@ -62,10 +62,12 @@ if(!($taskGroup == 'send' && $action == 'send') && $taskGroup !== 'toggle' && JR
 
 $currentuser = JFactory::getUser();
 if($taskGroup != 'update' && ACYMAILING_J16 && !$currentuser->authorise('core.manage', 'com_acymailing')){
-	return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+	acymailing_display(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+	return;
 }
 if(($taskGroup == 'cpanel' || ($taskGroup == 'update' && $action == 'listing')) && ACYMAILING_J16 && !$currentuser->authorise('core.admin', 'com_acymailing')){
-	return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+	acymailing_display(JText::_('JERROR_ALERTNOAUTHOR'), 'error');
+	return;
 }
 
 

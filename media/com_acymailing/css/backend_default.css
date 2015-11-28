@@ -1,6 +1,6 @@
 /**
  * @package    AcyMailing for Joomla!
- * @version    5.0.0
+ * @version    5.0.1
  * @author     acyba.com
  * @copyright  (C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -8,7 +8,7 @@
 
 
 @font-face{
-	font-family: 'icomoon';
+	font-family: 'acyicon';
 	src: url('fonts/icomoon.eot?p7bld6');
 	src: url('fonts/icomoon.eot?#iefixp7bld6') format('embedded-opentype'),
 	url('fonts/icomoon.ttf?p7bld6') format('truetype'),
@@ -19,7 +19,7 @@
 }
 
 [class^="acyicon-"], [class*=" acyicon-"]{
-	font-family: 'icomoon';
+	font-family: 'acyicon';
 	speak: none;
 	font-style: normal;
 	font-weight: normal;
@@ -30,6 +30,10 @@
 
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+.acyicon-location:before{
+	content: "\e800";
 }
 
 .acyicon-test:before{
@@ -268,6 +272,7 @@
 	color: #555555;
 	display: block;
 	position: relative;
+	margin-bottom: 25px;
 }
 
 #acymenu_leftside{
@@ -285,7 +290,6 @@
 	margin-top: 0;
 	min-height: 100%;
 	padding: 0;
-	transition: margin 0.8s linear;
 }
 
 .iconsonly #acymainarea{
@@ -314,11 +318,6 @@
 	padding: 0px 20px;
 	text-align: right;
 	height: 40px;
-}
-
-.acytoolbarmenu_menu{
-	position: fixed;
-	right: 30px;
 }
 
 .acytoolbarmenu button{
@@ -505,6 +504,24 @@
 	text-align: left;
 }
 
+.inputVal #field_avatar{
+	margin: 10px 0px
+}
+
+.inputVal .fileuploaded{
+	display: block;
+}
+
+.inputVal .fileuploaded a{
+	margin-left: 10px;
+}
+
+#travatar .inputVal img{
+	float: left;
+	margin-right: 20px;
+	border-radius: 100px;
+}
+
 
 #importlists .rounddisp, #exportlists .rounddisp{
 	margin-right: 10px;
@@ -538,16 +555,8 @@
 
 
 #fieldListing.acymailing_table thead th{
-	padding: 10px;
+	padding: 10px 5px;
 	vertical-align: bottom;
-}
-
-#fieldListing .frontendfields{
-	border-top-left-radius: 4px;
-}
-
-#fieldListing .backendfields{
-	border-top-right-radius: 4px;
 }
 
 #fieldListing .frontendfields, #fieldListing .backendfields{
@@ -622,7 +631,6 @@
 
 .acymailing_table th.titletoggle{
 	text-align: center;
-	white-space: nowrap;
 	width: 65px;
 }
 
@@ -637,9 +645,9 @@
 }
 
 .acymailing_table td{
-	padding: 10px;
+	padding: 10px 5px;
 	border-bottom: 1px solid #eee;
-	color: #777;
+	color: #666;
 	font-size: 13px;
 }
 
@@ -660,14 +668,14 @@
 }
 
 .acymailing_table thead th{
-	padding: 5px 10px;
+	padding: 5px 5px;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 12px;
 }
 
 .acymailing_table tbody a, .acymailing_table tbody a:link, .acymailing_table tbody a:visited{
-	color: #728fbd;
+	color: #4c6da2;
 	border: none;
 	font-weight: bold;
 }
@@ -824,10 +832,6 @@
 	font-size: 16px;
 }
 
-.acymailing_table th.titleid{
-	padding: 0px;
-}
-
 .acymailing_table td.acykey{
 	width: 25%;
 }
@@ -848,6 +852,7 @@
 
 #acy_content .acymailing_table_options .chzn-search input[type="text"]{
 	margin: 10px 0px;
+	height: 25px;
 }
 
 #acy_content .acymailing_table a.acyicon-apply{
@@ -937,7 +942,7 @@
 	font-weight: bold;
 	display: block;
 	margin-bottom: 20px;
-	color: #728fbd;
+	color: #4c6da2;
 	font-size: 12px;
 }
 
@@ -967,7 +972,7 @@
 	border-top-right-radius: 4px;
 	border: none;
 	background-color: #fff;
-	color: #728fbd;
+	color: #4c6da2;
 	margin-left: 6px;
 	font-size: 14px;
 }
@@ -983,10 +988,14 @@
 
 
 
+#page-acl .acymailing_smalltable td input[type="checkbox"]{
+	width: 100%;
+}
+
 .acymailing_smalltable{
 	width: 100%;
 	border-collapse: collapse;
-	margin: 10px 0px 20px 0px;
+	margin: 10px 0px;
 }
 
 .acymailing_smalltable tr:hover{
@@ -994,9 +1003,9 @@
 }
 
 .acymailing_smalltable td{
-	padding: 10px;
+	padding: 5px;
 	border-bottom: 1px solid #eee;
-	color: #777;
+	color: #666;
 	font-size: 13px;
 }
 
@@ -1014,7 +1023,7 @@
 }
 
 .acymailing_smalltable thead th{
-	padding: 4px 8px;
+	padding: 4px;
 }
 
 
@@ -1075,7 +1084,7 @@
 
 .acymailing_table .chzn-container-single .chzn-single{
 	border: 1px solid #eee;
-	color: #777;
+	color: #666;
 	background-color: #fff;
 	margin-top: 5px;
 	background-image: none;
@@ -1088,9 +1097,6 @@
 }
 
 
-.acytabsystem a{
-	color: #728fbd;
-}
 
 .acytabsystem ul{
 	padding: 0px;
@@ -1125,10 +1131,6 @@
 	border-radius: 4px 4px 0 0;
 }
 
-.acytabsystem a.downloadmore{
-	color: #fff;
-}
-
 .acytabsystem .nav > li > a:hover, .acytabsystem .nav > li > a:focus, #template_css.nav > li > a:hover, #template_css.nav > li > a:focus{
 	background-color: #b1c7ea;
 	color: #fff;
@@ -1139,7 +1141,7 @@
 .acytabsystem .nav-tabs > .active > a, .acytabsystem .nav-tabs > .active > a:hover, .acytabsystem .nav-tabs > .active > a:focus, #template_css.nav-tabs > .active > a, #template_css.nav-tabs > .active > a:hover, #template_css.nav-tabs > .active > a:focus{
 	border: 1px solid #728fbd;
 	color: #fff;
-	background-color: #728fbd;
+	background-color: #4c6da2;
 }
 
 .acytabsystem .nav-tabs > li > a{
@@ -1526,7 +1528,7 @@
 	margin: auto;
 	margin-top: 10px;
 	background-image: none;
-	background-color: #728fbd;
+	background-color: #4c6da2;
 	color: white;
 }
 
@@ -1602,7 +1604,7 @@
 }
 
 .circle_more_stat:hover, .circle_more_stat:active, .circle_more_stat:focus{
-	background-color: #728fbd;
+	background-color: #4c6da2;
 	color: #fff;
 	text-decoration: none;
 	transition: background 0.3s ease;
@@ -1723,7 +1725,7 @@
 	}
 }
 
-.acygraph #userStatisticDetails, .acygraph #listStatisticDetails, .acygraph #newsletterStatisticDetails{
+.acygraph #userStatisticDetails, .acygraph #listStatisticDetails, .acygraph #newsletterStatisticDetails, .acymailing_deploy{
 	-moz-animation-duration: 2s;
 	-moz-animation-name: deploy;
 	-ms-animation-name: deploy;
@@ -1826,7 +1828,7 @@ h1.acy_graphtitle:after{
 
 
 .acymailing_button{
-	background-color: #728fbd;
+	background-color: #4c6da2;
 	color: #fff;
 	text-shadow: none;
 	padding: 8px 15px;
@@ -1872,7 +1874,7 @@ a.acyupload.acymailing_button_grey{
 	display: inline-block;
 	font-size: 13px;
 	line-height: 18px;
-	margin: 2px 0px;
+	margin: 3px 0px;
 	padding: 4px 12px;
 	text-align: center;
 	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
@@ -2070,15 +2072,6 @@ ul.buttonOptions{
 	color: #6680aa;
 }
 
-.titletoggle a{
-	margin: 0px 4px;
-	font-size: 14px;
-}
-
-.titletoggle a:hover{
-	text-decoration: none;
-}
-
 .acymailing_campaigns_listing .acyblockoptions{
 	float: none;
 	display: block;
@@ -2140,7 +2133,7 @@ ul.buttonOptions{
 	-o-transition: border linear .2s, box-shadow linear .2s;
 	transition: border linear .2s, box-shadow linear .2s;
 	display: inline-block;
-	height: 18px;
+	min-height: 18px;
 	padding: 4px 6px;
 	font-size: 13px;
 	line-height: 18px;
@@ -2214,7 +2207,7 @@ ul.buttonOptions{
 
 .acytoolbartitle{
 	float: left;
-	font-size: 15px !important;
+	font-size: 14px !important;
 	color: #fff;
 	text-align: left;
 	font-weight: bold;
@@ -2229,7 +2222,7 @@ ul.buttonOptions{
 	content: "\e602";
 	font-size: 16px;
 	color: #fff;
-	font-family: "icomoon";
+	font-family: "acyicon";
 	font-style: normal;
 	font-variant: normal;
 	font-weight: bold;
@@ -2242,7 +2235,7 @@ ul.buttonOptions{
 	content: "\e620";
 	font-size: 14px;
 	color: #fff;
-	font-family: "icomoon";
+	font-family: "acyicon";
 	font-style: normal;
 	font-variant: normal;
 	font-weight: normal;
@@ -2251,8 +2244,9 @@ ul.buttonOptions{
 	margin: 0px 10px;
 }
 
-.m .titleid img{
-	display: none
+.m th.title img{
+	margin-left: 5px;
+	max-width: 10px;
 }
 
 .m .statsubjectsenddate img{
@@ -2263,7 +2257,7 @@ ul.buttonOptions{
 	content: "\e602";
 	font-size: 16px;
 	color: #fff;
-	font-family: "icomoon";
+	font-family: "acyicon";
 	font-style: normal;
 	font-variant: normal;
 	font-weight: bold;
@@ -2450,23 +2444,29 @@ div#wysija{
 	height: 12px;
 }
 
-@media screen and (max-width: 480px){
-	.acytoolbarmenu button, .acytoolbarmenu span{
-		width: 100%;
+@media screen and (max-width: 900px){
+	.acyaffix .acytoolbarmenu_menu button, .acyaffix-top .acytoolbarmenu_menu button{
+		padding: 0 5px;
 	}
 
-	#acyallcontent .acytoolbarmenu.acyaffix, .acyallcontent .acytoolbarmenu{
-		height: auto;
-		width: auto;
-		position: static;
-	}
-
-	.acytoolbar_divider{
+	.acyaffix .acytoolbarmenu_menu .acytoolbar_hover, .acyaffix-top .acytoolbarmenu_menu .acytoolbar_hover{
 		display: none;
 	}
 
-	#acyallcontent .acyaffix span.acytoolbartitle{
-		padding: 12px 0 0 0;
+	.acyaffix .acytoolbarmenu_menu button span, .acyaffix-top .acytoolbarmenu_menu button span{
+		display: none;
+	}
+
+	.acyaffix .acytoolbarmenu_menu button i, .acyaffix-top .acytoolbarmenu_menu button i{
+		margin: 0;
+	}
+
+	.acyaffix .acytoolbartitle, .acyaffix-top .acytoolbartitle{
+		display: none;
+	}
+
+	.acyaffix .acymenu_slide, .acyaffix-top .acymenu_slide{
+		display: none;
 	}
 }
 
@@ -2516,7 +2516,7 @@ div#wysija{
 	font-weight: bold;
 	display: block;
 	margin-bottom: 20px;
-	color: #728fbd;
+	color: #4c6da2;
 	font-size: 12px;
 }
 
@@ -2622,4 +2622,45 @@ div.onload{
 
 #modal-action iframe.iframe{
 	width: 100%;
+}
+
+#acy_content .clr{
+	display: block;
+	clear: both;
+}
+
+.customfields_pane{
+	float: right;
+	cursor: pointer;
+	box-sizing: border-box;
+	text-align: center;
+	font-size: 13px;
+	text-transform: uppercase;
+	display: inline-block;
+	width: 50%;
+	height: 100%;
+	color: white;
+	line-height: 40px;
+	-webkit-transition: background-color 0.2s;
+	-moz-transition: background-color 0.2s;
+	-ms-transition: background-color 0.2s;
+	-o-transition: background-color 0.2s;
+	transition: background-color 0.2s;
+	background-color: #B7CEF2 !important;
+	font-weight: 600;
+	border: 0 !important;
+}
+
+.customfields_pane:first-of-type{
+	border-radius: 0;
+	border-top-right-radius: 10px;
+}
+
+.customfields_pane:last-of-type{
+	border-radius: 0;
+	border-top-left-radius: 10px;
+}
+
+.customfields_pane.active, .customfields_pane:hover{
+	background-color: #7F99C3 !important;
 }

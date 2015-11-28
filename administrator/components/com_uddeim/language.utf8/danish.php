@@ -14,55 +14,87 @@
 // *******************************************************************
 DEFINE ('_UDDEADM_TRANSLATORS_CREDITS', 'Translated by Michael Jerndorff & Henrik Gregersen & Ronny Buelund & Ole Geismar & Michael Hansen Buur & Kenneth Fribert');	// Enter your credits line here, e.g. 'Translation by <a href="http://domain.com" target="_new">John Doe</a>'
 
+// New: 3.7
+DEFINE ('_UDDEADM_SHOWMENULINK_HEAD', 'Show menu entry');
+DEFINE ('_UDDEADM_SHOWMENULINK_EXP', 'Show additional menu entry.');
+DEFINE ('_UDDEADM_CFGFILE_CONVERTING_16', '...set default for additonal menu link');
+
+// New: 3.6
+DEFINE ('_UDDEIM_KUNENA_LINK', 'Forum');
+DEFINE ('_UDDEIM_PM_USER', 'Send private message');
+DEFINE ('_UDDEIM_PM_USER_DESC', 'Send a private message to this user');
+DEFINE ('_UDDEIM_PM_INBOX', 'Show private Inbox');
+DEFINE ('_UDDEIM_PM_INBOX_DESC', 'Show received private messages');
+DEFINE ('_UDDEIM_PM_OUTBOX', 'Show private Outbox');
+DEFINE ('_UDDEIM_PM_OUTBOX_DESC', 'Show sent private messages');
+DEFINE ('_UDDEIM_PM_TRASHBOX', 'Show trash');
+DEFINE ('_UDDEIM_PM_TRASHBOX_DESC', 'Show trashed private messages');
+DEFINE ('_UDDEIM_PM_OPTIONS', 'Show PMS options');
+DEFINE ('_UDDEIM_PM_OPTIONS_DESC', 'Show PMS options');
+DEFINE ('_UDDEIM_PM_ARCHIVE', 'Show private Archive');
+DEFINE ('_UDDEIM_PM_ARCHIVE_DESC', 'Show archived private messages');
+DEFINE ('_UDDEIM_PM_SENDMESSAGE', 'Message sent');
+DEFINE ('_UDDEIM_PM_PMSTAB', 'Send message');
+DEFINE ('_UDDEIM_PM_PROFILEMSG', 'Quick message');
+DEFINE ('_UDDEIM_PM_SENTSUCCESS', 'Successfully sent.');
+DEFINE ('_UDDEIM_PM_SESSIONTIMEOUT', 'Session timeout.');
+DEFINE ('_UDDEIM_PM_NOTSENT', 'Message not sent.');
+DEFINE ('_UDDEIM_PM_TRYAGAIN', 'Try again.');
+DEFINE ('_UDDEIM_PM_EMPTYMESSAGE', 'Empty message.');
+DEFINE ('_UDDEIM_PM_EMAILFORMSUBJECT', 'Subject');
+DEFINE ('_UDDEIM_PM_EMAILFORMMESSAGE', 'Message');
+DEFINE ('_UDDEIM_PM_TABINBOX', 'Inbox');
+DEFINE ('_UDDEIM_PM_PMSLINK', 'Private Messaging');
+
 // New: 3.5
-DEFINE ('_UDDEADM_GROUPSADMIN_HEAD', 'Additional Admin groups');
-DEFINE ('_UDDEADM_GROUPSADMIN_EXP', 'Enter group IDs which should be treated as admin groups (e.g. 10, 11, 17). IDs 7, 8 (Joomla >=1.6) and IDs 24, 25 (Joomla <=1.5) are always admins.');
-DEFINE ('_UDDEADM_GROUPSSPECIAL_HEAD', 'Additional Special groups');
-DEFINE ('_UDDEADM_GROUPSSPECIAL_EXP', 'Enter group IDs which should be treated as special groups (e.g. 10, 11, 17). IDs 3-8 (Joomla >=1.6) and IDs 19-25 (Joomla <=1.5) are always special users.');
-DEFINE ('_UDDEADM_CFGFILE_CONVERTING_15', '...set default for additonal groups');
+DEFINE ('_UDDEADM_GROUPSADMIN_HEAD', 'Yderligere admin grupper');
+DEFINE ('_UDDEADM_GROUPSADMIN_EXP', 'Angiv de gruppe IDer der skal behandles som admin grupper (f.eks. 10, 11, 17). IDer 7, 8 (Joomla >=1.6) og IDer 24, 25 (Joomla <=1.5) er altid admin.');
+DEFINE ('_UDDEADM_GROUPSSPECIAL_HEAD', 'Yderligere Special grupper');
+DEFINE ('_UDDEADM_GROUPSSPECIAL_EXP', 'Angiv de gruppe IDer der skal behandles som special grupper (f.eks. 10, 11, 17). IDer 3-8 (Joomla >=1.6) og IDer 19-25 (Joomla <=1.5) er altid special brugere.');
+DEFINE ('_UDDEADM_CFGFILE_CONVERTING_15', '...sæt som standard for yderligere grupper');
 
 // New: 3.3
 DEFINE ('_UDDEADM_KUNENA30', 'Kunena 3.0+');
 
 // New: 3.1
-DEFINE ('_UDDEIM_BADWORD', 'Bad word detected');
-DEFINE ('_UDDEADM_BADWORDS_HEAD', 'Badwords filter');
-DEFINE ('_UDDEADM_BADWORDS_EXP', 'New messages will be filtered for badwords. All badwords have to be seperated by a semicolon (;).');
-DEFINE ('_UDDEADM_CFGFILE_CONVERTING_14', '...set default for badwords filter');
-DEFINE ('_UDDEADM_OOD_PB', 'Postbox Plugin out of date!');
+DEFINE ('_UDDEIM_BADWORD', 'Grimt ord opdaget');
+DEFINE ('_UDDEADM_BADWORDS_HEAD', 'Filter for Grimme Ord');
+DEFINE ('_UDDEADM_BADWORDS_EXP', 'Nye beskeder bliver filtreret for grimme ord. Alle grimme ord skal separeres af et semikolon (;).');
+DEFINE ('_UDDEADM_CFGFILE_CONVERTING_14', '...sæt standard for Grimme Ord filteret');
+DEFINE ('_UDDEADM_OOD_PB', 'Postboks programtilføjelse er forældet!');
 
 // New: 3.0
 DEFINE ('_UDDEADM_UDDEIM', 'uddeIM');
-DEFINE ('_UDDEADM_REPLYTEXT_HEAD', 'Auto reply');
-DEFINE ('_UDDEADM_REPLYTEXT_EXP', 'The original message will be included automatically when you reply to a message.');
-DEFINE ('_UDDEADM_CFGFILE_CONVERTING_13', '...set default for replys (options)');
+DEFINE ('_UDDEADM_REPLYTEXT_HEAD', 'Auto svar');
+DEFINE ('_UDDEADM_REPLYTEXT_EXP', 'Den roprindelige besked bliver automatisk inkluderet når du svarer på en besked.');
+DEFINE ('_UDDEADM_CFGFILE_CONVERTING_13', '...sæt som standard for svar (indstillinger)');
 
 // New: 2.9
 DEFINE ('_UDDEADM_KUNENA20', 'Kunena 2.0+');
-DEFINE ('_UDDEADM_POSTBOXFULL_HEAD', 'Full message text');
-DEFINE ('_UDDEADM_POSTBOXFULL_EXP', 'Show full message text of none, first or all messages.');
-DEFINE ('_UDDEADM_POSTBOXFULL_0', 'None');
-DEFINE ('_UDDEADM_POSTBOXFULL_1', 'First');
-DEFINE ('_UDDEADM_POSTBOXFULL_2', 'All');
-DEFINE ('_UDDEADM_POSTBOXAVATARS_HEAD', 'Display Avatars');
-DEFINE ('_UDDEADM_POSTBOXAVATARS_EXP', 'Display Avatars in message view.');
-DEFINE ('_UDDEADM_CFGFILE_CONVERTING_12', '...set default for postbox (options)');
+DEFINE ('_UDDEADM_POSTBOXFULL_HEAD', 'Fuld besked tekst');
+DEFINE ('_UDDEADM_POSTBOXFULL_EXP', 'Vis fuld besked tekst som inten, første eller alle beskeder.');
+DEFINE ('_UDDEADM_POSTBOXFULL_0', 'Ingen');
+DEFINE ('_UDDEADM_POSTBOXFULL_1', 'Første');
+DEFINE ('_UDDEADM_POSTBOXFULL_2', 'Alle');
+DEFINE ('_UDDEADM_POSTBOXAVATARS_HEAD', 'Vis Avatarer');
+DEFINE ('_UDDEADM_POSTBOXAVATARS_EXP', 'Vis Avataerer i besked visning.');
+DEFINE ('_UDDEADM_CFGFILE_CONVERTING_12', '...sæt som standard for postboks (indstillinger)');
 
 // New: 2.8
-DEFINE ('_UDDEADM_CFGFILE_CONVERTING_11', '...set default for postbox');
-DEFINE ('_UDDEADM_POSTBOX_HEAD', 'Enable Postbox');
-DEFINE ('_UDDEADM_POSTBOX_EXP', 'Enables the Postbox.');
-DEFINE ('_UDDEIM_FILTER_TITLE_POSTBOX', 'Show from/to this user only');
-DEFINE ('_UDDEIM_MESSAGES', 'Messages');
-DEFINE ('_UDDEIM_POSTBOX', 'Postbox');
-DEFINE ('_UDDEIM_FILTEREDUSER', 'user filtered');
-DEFINE ('_UDDEIM_FILTEREDUSERS', 'users filtered');
-DEFINE ('_UDDEIM_NOMESSAGES_FILTERED_POSTBOX', ' postbox');
-DEFINE ('_UDDEIM_NOMESSAGES_POSTBOX', 'You have no messages in your postbox.');
-DEFINE ('_UDDEIM_DISPLAY', 'Display');
-DEFINE ('_UDDEIM_HELP_POSTBOX', 'The <b>Postbox</b> holds all your incoming and outgoing messages.');
-DEFINE ('_UDDEIM_HELP_PREAD', 'The message has been read (inbox=you can toggle the status).');
-DEFINE ('_UDDEIM_HELP_PUNREAD', 'The message is still unread (inbox=you can toggle the status).');
+DEFINE ('_UDDEADM_CFGFILE_CONVERTING_11', '...sæt som standard for postboks');
+DEFINE ('_UDDEADM_POSTBOX_HEAD', 'Aktivér Postboks');
+DEFINE ('_UDDEADM_POSTBOX_EXP', 'Aktiverer postboksen.');
+DEFINE ('_UDDEIM_FILTER_TITLE_POSTBOX', 'Vis kun til/fra denne bruger');
+DEFINE ('_UDDEIM_MESSAGES', 'Beskeder');
+DEFINE ('_UDDEIM_POSTBOX', 'Postboks');
+DEFINE ('_UDDEIM_FILTEREDUSER', 'filtreret efter bruger');
+DEFINE ('_UDDEIM_FILTEREDUSERS', 'filtreret efter brugere');
+DEFINE ('_UDDEIM_NOMESSAGES_FILTERED_POSTBOX', ' postboks');
+DEFINE ('_UDDEIM_NOMESSAGES_POSTBOX', 'Du har ingen beskeder i din postboks.');
+DEFINE ('_UDDEIM_DISPLAY', 'Vis');
+DEFINE ('_UDDEIM_HELP_POSTBOX', '<b>Postboksen</b> indeholder alle dine indgående og udgående beskeder.');
+DEFINE ('_UDDEIM_HELP_PREAD', 'Beskeden er læst (inboks=du kan skifte denne status).');
+DEFINE ('_UDDEIM_HELP_PUNREAD', 'Beskeden er fortsat ulæst (inboks=du kan skifte denne status).');
 
 // New: 2.7
 DEFINE ('_UDDEADM_MOOTOOLS_NONEMEIO', 'skal ikke starte (brug MEIO)');
@@ -172,7 +204,7 @@ DEFINE ('_UDDEADM_PUBEMAIL_EXP', 'Når aktiveret skal en offentlig bruger indtas
 DEFINE ('_UDDEADM_WAITDAYS_HEAD', 'Dage at vente');
 DEFINE ('_UDDEADM_WAITDAYS_EXP', 'Angiv hvor mange dage en bruger skal vente før der kan sendes beskeder (for 3 timer skriv 0.125).');
 DEFINE ('_UDDEIM_WAITDAYS1', 'Du skal vente ');
-DEFINE ('_UDDEIM_WAITDAYS2', ' dage før du kan sende beskeder.');
+DEFINE ('_UDDEIM_WAITDAYS2', ' dage, før du kan sende beskeder.');
 DEFINE ('_UDDEIM_WAITDAYS2H', ' timer før du kan sende beskeder.');
 
 // New: 2.0
@@ -265,7 +297,7 @@ DEFINE ('_UDDEIM_YOUAREBANNED', 'Du er blevet blokeret. Kontakt venligst adminis
 DEFINE ('_UDDEIM_USERBANNED', 'Bruger er blokeret');
 DEFINE ('_UDDEADM_JOOBB', 'Joo!BB');
 DEFINE ('_UDDEPLUGIN_SEARCHSECTION', 'Privat beskedsystem');
-DEFINE ('_UDDEPLUGIN_MESSAGES', 'Private Messages');
+DEFINE ('_UDDEPLUGIN_MESSAGES', 'Private Beskeder');
 DEFINE ('_UDDEADM_MAINTENANCEDEL_HEAD', 'Fjern slettede beskeder');
 // note "This  is the same as _UDDEADM_MAINTENANCE_PRUNE on the system tab."
 DEFINE ('_UDDEADM_MAINTENANCEDEL_EXP', 'Fjerner slettede beskeder fra databasen. Dette er det samme som \'Fjern beskeder nu\' på fanebladet system.');
@@ -373,7 +405,7 @@ DEFINE ('_UDDEIM_HELP_COMPOSE', '<b>Skriv</b> tillader dig at oprette en ny priv
 DEFINE ('_UDDEIM_HELP_IREAD', 'Beskeden er blevet låst (du kan ændre status).');
 DEFINE ('_UDDEIM_HELP_IUNREAD', 'Beskeden er stadig ulåst (du kan ændre status).');
 DEFINE ('_UDDEIM_HELP_OREAD', 'Beskeden er låst.');
-DEFINE ('_UDDEIM_HELP_OUNREAD', 'Beskeden er stadig ulåst. Ulåste beskeder kan tilbagetrækkes.');
+DEFINE ('_UDDEIM_HELP_OUNREAD', 'Beskeden er stadig ulåst. Ulæste beskeder kan tilbagetrækkes.');
 DEFINE ('_UDDEIM_HELP_TREAD', 'Beskeden er blevet låst.');
 DEFINE ('_UDDEIM_HELP_TUNREAD', 'Denne besked er stadig ulåst.');
 DEFINE ('_UDDEIM_HELP_FLAGGED', 'Beskeden er blevet markeret, f.eks. når det er en vigtig besked (du kan ændre status).');
@@ -688,12 +720,12 @@ DEFINE ('_UDDEADM_LANGUAGECHARSET_HEAD', 'Sprogfil karakter sæt');
 DEFINE ('_UDDEADM_LANGUAGECHARSET_EXP', 'Normalt er <strong>default</strong> (ISO-8859-1) den korrekte indstilling for 1.0 og <strong>UTF-8</strong> for Joomla 1.5.');
 DEFINE ('_UDDEADM_LANGUAGECHARSET_UTF8', 'UTF-8');
 DEFINE ('_UDDEADM_LANGUAGECHARSET_DEFAULT', 'standard');
-DEFINE ('_UDDEIM_READ_INFO_1', 'Læste beskeder bliver i indbakken i ');
-DEFINE ('_UDDEIM_READ_INFO_2', ' maks. antal dage får de slettes automatisk.');
-DEFINE ('_UDDEIM_UNREAD_INFO_1', 'Ulåste beskeder bliver i indbakken i ');
-DEFINE ('_UDDEIM_UNREAD_INFO_2', ' maks. antal dage inden de slettes automatisk.');
-DEFINE ('_UDDEIM_SENT_INFO_1', 'Sendte beskeder bliver i indbakken i ');
-DEFINE ('_UDDEIM_SENT_INFO_2', ' maks. antal dage inden de slettes automatisk.');
+DEFINE ('_UDDEIM_READ_INFO_1', 'Læste beskeder bliver i indbakken i højest ');
+DEFINE ('_UDDEIM_READ_INFO_2', ' dage, inden de slettes automatisk.');
+DEFINE ('_UDDEIM_UNREAD_INFO_1', 'Ulæste beskeder bliver i indbakken i højest ');
+DEFINE ('_UDDEIM_UNREAD_INFO_2', ' dage, inden de slettes automatisk.');
+DEFINE ('_UDDEIM_SENT_INFO_1', 'Sendte beskeder bliver i indbakken i højest ');
+DEFINE ('_UDDEIM_SENT_INFO_2', ' dage, inden de slettes automatisk.');
 DEFINE ('_UDDEADM_DELETEREADAFTERNOTE_HEAD', 'Vis indbakke note for læste beskeder');
 DEFINE ('_UDDEADM_DELETEREADAFTERNOTE_EXP', 'Vis indbakke noten "Læste beskeder vil blive slettet efter n dage"');
 DEFINE ('_UDDEADM_DELETEUNREADAFTERNOTE_HEAD', 'Vis indbakke note for ulæste beskeder');
@@ -703,7 +735,7 @@ DEFINE ('_UDDEADM_DELETESENTAFTERNOTE_EXP', 'Vis udbakke noten "Sendte beskeder 
 DEFINE ('_UDDEADM_DELETETRASHAFTERNOTE_HEAD', 'Vis skraldespands note for slettede beskeder');
 DEFINE ('_UDDEADM_DELETETRASHAFTERNOTE_EXP', 'Vis skraldespands noten "Slettede beskeder vil blive renset efter n dage"');
 DEFINE ('_UDDEADM_DELETESENTAFTER_HEAD', 'Sendte beskeder beholdes i (dage)');
-DEFINE ('_UDDEADM_DELETESENTAFTER_EXP', 'Angiv antallet af dage får <b>sendte</b> beskeder automatisk slettes fra udbakkeen.');
+DEFINE ('_UDDEADM_DELETESENTAFTER_EXP', 'Angiv antallet af dage før <b>sendte</b> beskeder automatisk slettes fra udbakkeen.');
 DEFINE ('_UDDEIM_SEND_TOALLSPECIAL', 'sendt til alle specielle brugere');
 DEFINE ('_UDDEIM_SYSGM_WILLSENDTOALLSPECIAL', 'Besked til <strong>alle specielle brugere</strong>');
 DEFINE ('_UDDEADM_USERSET_SELUSERNAME', '- vælg brugernavn -');
@@ -871,7 +903,7 @@ DEFINE ('_UDDEADM_LISTBOX', 'Listeboks');
 DEFINE ('_UDDEADM_TABLE', 'Tabel');
 
 DEFINE ('_UDDEIM_TRASHCAN_INFO_1', 'Beskeder bliver i papirkurven i ');
-DEFINE ('_UDDEIM_TRASHCAN_INFO_2', ' timer før de slettes. Du kan kun se de første ord af beskeden. For at læse hele beskeden skal den først genskabes.');
+DEFINE ('_UDDEIM_TRASHCAN_INFO_2', ' timer inden de slettes. Du kan kun se de første ord af beskeden. For at læse hele beskeden skal den først genskabes.');
 DEFINE ('_UDDEIM_RECALLEDMESSAGE_INFO', 'Denne besked er blevet tilbagekaldt. Den kan nu redigeres og gensendes.');
 DEFINE ('_UDDEIM_COULDNOTRECALL', 'Beskeden kunne ikke tilbagekaldes (beskeden er muligvis allerede læst eller slettet af modtager.)');
 DEFINE ('_UDDEIM_CANTRESTORE', 'Genskabelse af besked fejlede. (Beskeden er muligvis automatisk blevet fjernet fra papirkurven.)');
@@ -1121,7 +1153,7 @@ DEFINE ('_UDDEADM_NOCB', '<span style="color: red;">Mambo Community Builder er i
 DEFINE ('_UDDEADM_CONTINUE', 'fortsæt');
 DEFINE ('_UDDEADM_PMSFOUND_1', 'Der er ');
 DEFINE ('_UDDEADM_PMSFOUND_2', ' beskeder i din PMS-installation. Skal disse importeres til uddeIM?');
-DEFINE ('_UDDEADM_IMPORT_EXP', 'Dette ændrer ikke på PMS-beskederne eller på din installation. Beskederne forbliver i PMS. Du kan importere beskederne til uddeIM, selv om du fortsat vil anvende PMS. (Gem indstillingerne får du importerer beskederne!) Eksisterende beskeder i uddeIM forbliver intakte.');
+DEFINE ('_UDDEADM_IMPORT_EXP', 'Dette ændrer ikke på PMS-beskederne eller på din installation. Beskederne forbliver i PMS. Du kan importere beskederne til uddeIM, selv om du fortsat vil anvende PMS. (Gem indstillingerne før du importerer beskederne!) Eksisterende beskeder i uddeIM forbliver intakte.');
 DEFINE ('_UDDEADM_IMPORT_YES', 'Importer PMS-beskeder til uddeIM nu');
 DEFINE ('_UDDEADM_IMPORT_NO', 'Nej, importer intet');
 DEFINE ('_UDDEADM_IMPORTING', 'Vent venligst imens beskederne importeres.');

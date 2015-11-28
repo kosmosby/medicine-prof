@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -95,7 +95,7 @@ $(document).ready(function() {
 			}
 		}
 
-		$id_text = str_replace(array('[', ']'), array('_', ''), $idtag ? $idtag : $name);
+		$id_text = preg_replace('#[^a-zA-Z0-9]+#mi', '_', str_replace(array('[', ']'), array('_', ''), $idtag ? $idtag : $name));
 		$htmlBootstrap2 = '';
 		$htmlBootstrap3 = '';
 		if($backend){
@@ -111,6 +111,7 @@ $(document).ready(function() {
 				$html .= $obj;
 				continue;
 			}
+
 			$k = $obj->$optKey;
 			$t = $translate ? JText::_($obj->$optText) : $obj->$optText;
 			$id = (isset($obj->id) ? $obj->id : null);

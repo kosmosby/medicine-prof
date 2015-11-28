@@ -17,6 +17,7 @@ use CB\Plugin\GroupJive\CBGroupJive;
 use CB\Plugin\GroupJive\Table\GroupTable;
 use CB\Plugin\GroupJive\Table\CategoryTable;
 use CB\Plugin\GroupJive\Table\NotificationTable;
+use CB\Plugin\GroupJiveEvents\CBGroupJiveEvents;
 use CB\Plugin\GroupJiveEvents\Table\EventTable;
 
 if ( ! ( defined( '_VALID_CB' ) || defined( '_JEXEC' ) || defined( '_VALID_MOS' ) ) ) { die( 'Direct Access to this location is not allowed.' ); }
@@ -25,6 +26,9 @@ global $_PLUGINS;
 
 $_PLUGINS->loadPluginGroup( 'user' );
 
+$_PLUGINS->registerFunction( 'activity_onQueryActivity', 'activityQuery', 'cbgjEventsPlugin' );
+$_PLUGINS->registerFunction( 'activity_onBeforeDisplayActivity', 'activityPrefetch', 'cbgjEventsPlugin' );
+$_PLUGINS->registerFunction( 'activity_onDisplayActivity', 'activityDisplay', 'cbgjEventsPlugin' );
 $_PLUGINS->registerFunction( 'gj_onAdminMenu', 'adminMenu', 'cbgjEventsPlugin' );
 $_PLUGINS->registerFunction( 'gj_onAfterDeleteGroup', 'deleteGroup', 'cbgjEventsPlugin' );
 $_PLUGINS->registerFunction( 'gj_onAfterCreateUser', 'storeNotifications', 'cbgjEventsPlugin' );
@@ -51,6 +55,134 @@ class cbgjEventsPlugin extends cbPluginHandler
 			$this->_gjPlugin	=	$_PLUGINS->getLoadedPlugin( 'user', 'cbgroupjive' );
 			$this->_gjParams	=	$_PLUGINS->getPluginParams( $this->_gjPlugin );
 		}
+	}
+
+	/**
+	 * @param bool                        $count
+	 * @param array                       $select
+	 * @param array                       $where
+	 * @param array                       $join
+	 * @param CB\Plugin\Activity\Activity $stream
+	 */
+	public function activityQuery( $count, &$select, &$where, &$join, &$stream )
+	{
+		global $_CB_database;
+
+		$join[]				=	'LEFT JOIN ' . $_CB_database->NameQuote( '#__groupjive_plugin_events' ) . ' AS gj_e'
+							.	' ON a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND a.' . $_CB_database->NameQuote( 'subtype' ) . ' = ' . $_CB_database->Quote( 'group.event' )
+							.	' AND a.' . $_CB_database->NameQuote( 'item' ) . ' = gj_e.' . $_CB_database->NameQuote( 'id' );
+
+		if ( ! CBGroupJive::isModerator() ) {
+			$user			=	CBuser::getMyUserDataInstance();
+
+			$where[]		=	'( ( a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND a.' . $_CB_database->NameQuote( 'subtype' ) . ' = ' . $_CB_database->Quote( 'group.event' )
+							.	' AND gj_e.' . $_CB_database->NameQuote( 'id' ) . ' IS NOT NULL'
+							.	' AND ( gj_e.' . $_CB_database->NameQuote( 'user_id' ) . ' = ' . (int) $user->get( 'id' )
+							.		' OR ( gj_e.' . $_CB_database->NameQuote( 'published' ) . ' = 1'
+							.		' AND ( gj_g.' . $_CB_database->NameQuote( 'type' ) . ' IN ( 1, 2 )'
+							.		' OR gj_u.' . $_CB_database->NameQuote( 'status' ) . ' > 0 ) ) ) )'
+							.	' OR ( a.' . $_CB_database->NameQuote( 'type' ) . ' != ' . $_CB_database->Quote( 'groupjive' )
+							.	' OR ( a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND a.' . $_CB_database->NameQuote( 'subtype' ) . ' != ' . $_CB_database->Quote( 'group.event' ) . ' ) ) )';
+		} else {
+			$where[]		=	'( ( a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND a.' . $_CB_database->NameQuote( 'subtype' ) . ' = ' . $_CB_database->Quote( 'group.event' )
+							.	' AND gj_e.' . $_CB_database->NameQuote( 'id' ) . ' IS NOT NULL )'
+							.	' OR ( a.' . $_CB_database->NameQuote( 'type' ) . ' != ' . $_CB_database->Quote( 'groupjive' )
+							.	' OR ( a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND a.' . $_CB_database->NameQuote( 'subtype' ) . ' != ' . $_CB_database->Quote( 'group.event' ) . ' ) ) )';
+		}
+	}
+
+	/**
+	 * @param string                                   $return
+	 * @param CB\Plugin\Activity\Table\ActivityTable[] $rows
+	 * @param CB\Plugin\Activity\Activity              $stream
+	 * @param int                                      $output 0: Normal, 1: Raw, 2: Inline, 3: Load, 4: Save
+	 */
+	public function activityPrefetch( &$return, &$rows, $stream, $output )
+	{
+		global $_CB_database;
+
+		$eventIds				=	array();
+
+		foreach ( $rows as $row ) {
+			if ( ! ( ( $row->get( 'type' ) == 'groupjive' ) && ( $row->get( 'subtype' ) == 'group.event' ) ) ) {
+				continue;
+			}
+
+			$eventId			=	(int) $row->get( 'item' );
+
+			if ( $eventId && ( ! in_array( $eventId, $eventIds ) ) ) {
+				$eventIds[]		=	$eventId;
+			}
+		}
+
+		if ( ! $eventIds ) {
+			return;
+		}
+
+		$user					=	CBuser::getMyUserDataInstance();
+
+		$guests					=	'SELECT COUNT(*)'
+								.	"\n FROM " . $_CB_database->NameQuote( '#__groupjive_plugin_events_attendance' ) . " AS ea"
+								.	"\n LEFT JOIN " . $_CB_database->NameQuote( '#__comprofiler' ) . " AS eacb"
+								.	' ON eacb.' . $_CB_database->NameQuote( 'id' ) . ' = ea.' . $_CB_database->NameQuote( 'user_id' )
+								.	"\n LEFT JOIN " . $_CB_database->NameQuote( '#__users' ) . " AS eaj"
+								.	' ON eaj.' . $_CB_database->NameQuote( 'id' ) . ' = eacb.' . $_CB_database->NameQuote( 'id' )
+								.	"\n WHERE ea." . $_CB_database->NameQuote( 'event' ) . " = e." . $_CB_database->NameQuote( 'id' )
+								.	"\n AND eacb." . $_CB_database->NameQuote( 'approved' ) . " = 1"
+								.	"\n AND eacb." . $_CB_database->NameQuote( 'confirmed' ) . " = 1"
+								.	"\n AND eaj." . $_CB_database->NameQuote( 'block' ) . " = 0";
+
+		$query					=	'SELECT e.*'
+								.	', a.' . $_CB_database->NameQuote( 'id' ) . ' AS _attending'
+								.	', ( ' . $guests . ' ) AS _guests'
+								.	"\n FROM " . $_CB_database->NameQuote( '#__groupjive_plugin_events' ) . " AS e"
+								.	"\n LEFT JOIN " . $_CB_database->NameQuote( '#__groupjive_plugin_events_attendance' ) . " AS a"
+								.	' ON a.' . $_CB_database->NameQuote( 'user_id' ) . ' = ' . (int) $user->get( 'id' )
+								.	' AND a.' . $_CB_database->NameQuote( 'event' ) . ' = e.' . $_CB_database->NameQuote( 'id' )
+								.	"\n WHERE e." . $_CB_database->NameQuote( 'id' ) . " IN " . $_CB_database->safeArrayOfIntegers( $eventIds );
+		$_CB_database->setQuery( $query );
+		$events					=	$_CB_database->loadObjectList( null, '\CB\Plugin\GroupJiveEvents\Table\EventTable', array( $_CB_database ) );
+
+		if ( ! $events ) {
+			return;
+		}
+
+		CBGroupJiveEvents::getEvent( $events );
+		CBGroupJive::preFetchUsers( $events );
+	}
+
+	/**
+	 * @param CB\Plugin\Activity\Table\ActivityTable $row
+	 * @param null|string                            $title
+	 * @param null|string                            $date
+	 * @param null|string                            $message
+	 * @param null|string                            $insert
+	 * @param null|string                            $footer
+	 * @param array                                  $menu
+	 * @param array                                  $extras
+	 * @param CB\Plugin\Activity\Activity            $stream
+	 * @param int                                    $output 0: Normal, 1: Raw, 2: Inline, 3: Load, 4: Save
+	 */
+	public function activityDisplay( &$row, &$title, &$date, &$message, &$insert, &$footer, &$menu, &$extras, $stream, $output )
+	{
+		if ( ! ( ( $row->get( 'type' ) == 'groupjive' ) && ( $row->get( 'subtype' ) == 'group.event' ) ) ) {
+			return;
+		}
+
+		$event			=	CBGroupJiveEvents::getEvent( (int) $row->get( 'item' ) );
+
+		if ( ! $event->get( 'id' ) ) {
+			return;
+		}
+
+		CBGroupJive::getTemplate( 'activity', true, true, $this->element );
+
+		$insert			=	HTML_groupjiveEventActivity::showEventActivity( $row, $title, $message, $stream, $event, $this );
 	}
 
 	/**
@@ -99,6 +231,7 @@ class cbgjEventsPlugin extends cbPluginHandler
 	public function storeNotifications( $row, &$notifications )
 	{
 		$notifications->set( 'event_new', $this->params->get( 'notifications_default_event_new', 0 ) );
+		$notifications->set( 'event_edit', $this->params->get( 'notifications_default_event_edit', 0 ) );
 		$notifications->set( 'event_approve', $this->params->get( 'notifications_default_event_approve', 0 ) );
 		$notifications->set( 'event_attend', $this->params->get( 'notifications_default_event_attend', 0 ) );
 		$notifications->set( 'event_unattend', $this->params->get( 'notifications_default_event_unattend', 0 ) );
@@ -185,6 +318,7 @@ class cbgjEventsPlugin extends cbPluginHandler
 		$listToggle[]				=	moscomprofilerHTML::makeOption( '1', CBTxt::T( 'Notify' ) );
 
 		$input['event_new']			=	moscomprofilerHTML::yesnoSelectList( 'params[event_new]', 'class="form-control"', (int) $this->input( 'post/params.event_new', $row->params()->get( 'event_new', $this->params->get( 'notifications_default_event_new', 0 ) ), GetterInterface::INT ), CBTxt::T( 'Notify' ), CBTxt::T( "Don't Notify" ), false );
+		$input['event_edit']		=	moscomprofilerHTML::yesnoSelectList( 'params[event_edit]', 'class="form-control"', (int) $this->input( 'post/params.event_edit', $row->params()->get( 'event_edit', $this->params->get( 'notifications_default_event_edit', 0 ) ), GetterInterface::INT ), CBTxt::T( 'Notify' ), CBTxt::T( "Don't Notify" ), false );
 		$input['event_approve']		=	moscomprofilerHTML::yesnoSelectList( 'params[event_approve]', 'class="form-control"', (int) $this->input( 'post/params.event_approve', $row->params()->get( 'event_approve', $this->params->get( 'notifications_default_event_approve', 0 ) ), GetterInterface::INT ), CBTxt::T( 'Notify' ), CBTxt::T( "Don't Notify" ), false );
 		$input['event_attend']		=	moscomprofilerHTML::yesnoSelectList( 'params[event_attend]', 'class="form-control"', (int) $this->input( 'post/params.event_attend', $row->params()->get( 'event_attend', $this->params->get( 'notifications_default_event_attend', 0 ) ), GetterInterface::INT ), CBTxt::T( 'Notify' ), CBTxt::T( "Don't Notify" ), false );
 		$input['event_unattend']	=	moscomprofilerHTML::yesnoSelectList( 'params[event_unattend]', 'class="form-control"', (int) $this->input( 'post/params.event_unattend', $row->params()->get( 'event_unattend', $this->params->get( 'notifications_default_event_unattend', 0 ) ), GetterInterface::INT ), CBTxt::T( 'Notify' ), CBTxt::T( "Don't Notify" ), false );
@@ -304,6 +438,7 @@ class cbgjEventsPlugin extends cbPluginHandler
 
 		$input['search']		=	'<input type="text" name="gj_group_events_search" value="' . htmlspecialchars( $search ) . '" onchange="document.gjGroupEventsForm.submit();" placeholder="' . htmlspecialchars( CBTxt::T( 'Search Events...' ) ) . '" class="form-control" />';
 
+		CBGroupJiveEvents::getEvent( $rows );
 		CBGroupJive::preFetchUsers( $rows );
 
 		$group->set( '_events', $pageNav->total );

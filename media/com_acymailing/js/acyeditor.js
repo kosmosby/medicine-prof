@@ -1,6 +1,6 @@
 /**
  * @package    AcyMailing for Joomla!
- * @version    5.0.0
+ * @version    5.0.1
  * @author     acyba.com
  * @copyright  (C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -34,7 +34,7 @@ var templateShown = false;
 var urlAcyeditor;
 var boutonTags = "toolbar-tag";
 var boutonMediaBrowser = "toolbar-popup-Acymediabrowser";
-var acyVersion = "5.0.0";
+var acyVersion = "5.0.1";
 var pasteType = "plain";
 var acyEnterMode = "br";
 var urlSite = "";

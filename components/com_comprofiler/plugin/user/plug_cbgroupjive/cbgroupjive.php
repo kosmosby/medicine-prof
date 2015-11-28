@@ -22,6 +22,7 @@ if ( ! ( defined( '_VALID_CB' ) || defined( '_JEXEC' ) || defined( '_VALID_MOS' 
 
 global $_PLUGINS;
 
+$_PLUGINS->loadPluginGroup( 'user' );
 $_PLUGINS->loadPluginGroup( 'user/plug_cbgroupjive/plugins' );
 
 $_PLUGINS->registerUserFieldParams();
@@ -29,6 +30,9 @@ $_PLUGINS->registerUserFieldTypes( array(	'groupautojoin'			=>	'cbgjField',
 											'groupmultiautojoin'	=>	'cbgjField'
 										));
 
+$_PLUGINS->registerFunction( 'activity_onQueryActivity', 'activityQuery', 'cbgjPlugin' );
+$_PLUGINS->registerFunction( 'activity_onBeforeDisplayActivity', 'activityPrefetch', 'cbgjPlugin' );
+$_PLUGINS->registerFunction( 'activity_onDisplayActivity', 'activityDisplay', 'cbgjPlugin' );
 $_PLUGINS->registerFunction( 'onAfterDeleteUser', 'deleteUser', 'cbgjPlugin' );
 $_PLUGINS->registerFunction( 'onAfterUserRegistration', 'acceptInvites', 'cbgjPlugin' );
 $_PLUGINS->registerFunction( 'onAfterNewUser', 'acceptInvites', 'cbgjPlugin' );
@@ -36,6 +40,182 @@ $_PLUGINS->registerFunction( 'mod_onCBAdminMenu', 'adminMenu', 'cbgjPlugin' );
 
 class cbgjPlugin extends cbPluginHandler
 {
+
+	/**
+	 * @param bool                        $count
+	 * @param array                       $select
+	 * @param array                       $where
+	 * @param array                       $join
+	 * @param CB\Plugin\Activity\Activity $stream
+	 */
+	public function activityQuery( $count, &$select, &$where, &$join, &$stream )
+	{
+		global $_CB_database;
+
+		$join[]				=	'LEFT JOIN ' . $_CB_database->NameQuote( '#__groupjive_groups' ) . ' AS gj_g'
+							.	' ON a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND ( ( a.' . $_CB_database->NameQuote( 'subtype' ) . ' = ' . $_CB_database->Quote( 'group' )
+							.	' AND a.' . $_CB_database->NameQuote( 'item' ) . ' = gj_g.' . $_CB_database->NameQuote( 'id' ) . ' )'
+							.	' OR ( a.' . $_CB_database->NameQuote( 'subtype' ) . ' != ' . $_CB_database->Quote( 'group' )
+							.	' AND a.' . $_CB_database->NameQuote( 'parent' ) . ' = gj_g.' . $_CB_database->NameQuote( 'id' ) . ' ) )';
+
+		if ( ! CBGroupJive::isModerator() ) {
+			$user			=	CBuser::getMyUserDataInstance();
+
+			$join[]			=	'LEFT JOIN ' . $_CB_database->NameQuote( '#__groupjive_categories' ) . ' AS gj_c'
+							.	' ON gj_c.' . $_CB_database->NameQuote( 'id' ) . ' = gj_g.' . $_CB_database->NameQuote( 'category' );
+
+			$join[]			=	'LEFT JOIN ' . $_CB_database->NameQuote( '#__groupjive_users' ) . ' AS gj_u'
+							.	' ON gj_u.' . $_CB_database->NameQuote( 'user_id' ) . ' = ' . (int) $user->get( 'id' )
+							.	' AND gj_u.' . $_CB_database->NameQuote( 'group' ) . ' = gj_g.' . $_CB_database->NameQuote( 'id' );
+
+			$join[]			=	'LEFT JOIN ' . $_CB_database->NameQuote( '#__groupjive_invites' ) . ' AS gj_i'
+							.	' ON gj_i.' . $_CB_database->NameQuote( 'group' ) . ' = gj_g.' . $_CB_database->NameQuote( 'id' )
+							.	' AND gj_i.' . $_CB_database->NameQuote( 'accepted' ) . ' = ' . $_CB_database->Quote( '0000-00-00 00:00:00' )
+							.	' AND ( ( gj_i.' . $_CB_database->NameQuote( 'email' ) . ' = ' . $_CB_database->Quote( $user->get( 'email' ) )
+							.	' AND gj_i.' . $_CB_database->NameQuote( 'email' ) . ' != "" )'
+							.	' OR ( gj_i.' . $_CB_database->NameQuote( 'user' ) . ' = ' . (int) $user->get( 'id' )
+							.	' AND gj_i.' . $_CB_database->NameQuote( 'user' ) . ' > 0 ) )';
+
+			$where[]		=	'( ( a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND gj_g.' . $_CB_database->NameQuote( 'id' ) . ' IS NOT NULL'
+							.	' AND ( gj_g.' . $_CB_database->NameQuote( 'user_id' ) . ' = ' . (int) $user->get( 'id' )
+							.		' OR ( gj_g.' . $_CB_database->NameQuote( 'published' ) . ' = 1'
+							.		' AND ( gj_g.' . $_CB_database->NameQuote( 'type' ) . ' IN ( 1, 2 )'
+							.		' OR gj_u.' . $_CB_database->NameQuote( 'status' ) . ' IN ( 0, 1, 2, 3 )'
+							.		' OR gj_i.' . $_CB_database->NameQuote( 'id' ) . ' IS NOT NULL ) ) )'
+							.	' AND ( ( gj_c.' . $_CB_database->NameQuote( 'published' ) . ' = 1'
+							.		' AND gj_c.' . $_CB_database->NameQuote( 'access' ) . ' IN ' . $_CB_database->safeArrayOfIntegers( CBGroupJive::getAccess( (int) $user->get( 'id' ) ) ) . ' )'
+							.		( $this->params->get( 'groups_uncategorized', 1 ) ? ' OR gj_g.' . $_CB_database->NameQuote( 'category' ) . ' = 0 ) )' : ' ) )' )
+							.	' OR ( a.' . $_CB_database->NameQuote( 'type' ) . ' != ' . $_CB_database->Quote( 'groupjive' ) . ' ) )';
+		} else {
+			$where[]		=	'( ( a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND gj_g.' . $_CB_database->NameQuote( 'id' ) . ' IS NOT NULL )'
+							.	' OR ( a.' . $_CB_database->NameQuote( 'type' ) . ' != ' . $_CB_database->Quote( 'groupjive' ) . ' ) )';
+		}
+	}
+
+	/**
+	 * @param string                                   $return
+	 * @param CB\Plugin\Activity\Table\ActivityTable[] $rows
+	 * @param CB\Plugin\Activity\Activity              $stream
+	 * @param int                                      $output 0: Normal, 1: Raw, 2: Inline, 3: Load, 4: Save
+	 */
+	public function activityPrefetch( &$return, &$rows, $stream, $output )
+	{
+		global $_CB_database;
+
+		$groupIds				=	array();
+
+		foreach ( $rows as $row ) {
+			if ( $row->get( 'type' ) != 'groupjive' ) {
+				continue;
+			} elseif ( $row->get( 'subtype' ) == 'category' ) {
+				continue;
+			}
+
+			if ( $row->get( 'subtype' ) == 'group' ) {
+				$groupId		=	(int) $row->get( 'item' );
+			} else {
+				$groupId		=	(int) $row->get( 'parent' );
+			}
+
+			if ( $groupId && ( ! in_array( $groupId, $groupIds ) ) ) {
+				$groupIds[]		=	$groupId;
+			}
+		}
+
+		if ( ! $groupIds ) {
+			return;
+		}
+
+		$user					=	CBuser::getMyUserDataInstance();
+
+		$users					=	'SELECT COUNT(*)'
+								.	"\n FROM " . $_CB_database->NameQuote( '#__groupjive_users' ) . " AS uc"
+								.	"\n LEFT JOIN " . $_CB_database->NameQuote( '#__comprofiler' ) . " AS uccb"
+								.	' ON uccb.' . $_CB_database->NameQuote( 'id' ) . ' = uc.' . $_CB_database->NameQuote( 'user_id' )
+								.	"\n LEFT JOIN " . $_CB_database->NameQuote( '#__users' ) . " AS ucj"
+								.	' ON ucj.' . $_CB_database->NameQuote( 'id' ) . ' = uccb.' . $_CB_database->NameQuote( 'id' )
+								.	"\n WHERE uc." . $_CB_database->NameQuote( 'group' ) . " = g." . $_CB_database->NameQuote( 'id' )
+								.	"\n AND uccb." . $_CB_database->NameQuote( 'approved' ) . " = 1"
+								.	"\n AND uccb." . $_CB_database->NameQuote( 'confirmed' ) . " = 1"
+								.	"\n AND ucj." . $_CB_database->NameQuote( 'block' ) . " = 0";
+
+		if ( ! $this->params->get( 'groups_users_owner', 1 ) ) {
+			$users				.=	"\n AND uc." . $_CB_database->NameQuote( 'status' ) . " != 4";
+		}
+
+		$query					=	'SELECT g.*'
+								.	', c.' . $_CB_database->NameQuote( 'name' ) . ' AS _category_name'
+								.	', u.' . $_CB_database->NameQuote( 'status' ) . ' AS _user_status'
+								.	', i.' . $_CB_database->NameQuote( 'id' ) . ' AS _invite_id'
+								.	', ( ' . $users . ' ) AS _users'
+								.	"\n FROM " . $_CB_database->NameQuote( '#__groupjive_groups' ) . " AS g"
+								.	"\n LEFT JOIN " . $_CB_database->NameQuote( '#__groupjive_categories' ) . " AS c"
+								.	' ON c.' . $_CB_database->NameQuote( 'id' ) . ' = g.' . $_CB_database->NameQuote( 'category' )
+								.	"\n LEFT JOIN " . $_CB_database->NameQuote( '#__groupjive_users' ) . " AS u"
+								.	' ON u.' . $_CB_database->NameQuote( 'user_id' ) . ' = ' . (int) $user->get( 'id' )
+								.	' AND u.' . $_CB_database->NameQuote( 'group' ) . ' = g.' . $_CB_database->NameQuote( 'id' )
+								.	"\n LEFT JOIN " . $_CB_database->NameQuote( '#__groupjive_invites' ) . " AS i"
+								.	' ON i.' . $_CB_database->NameQuote( 'group' ) . ' = g.' . $_CB_database->NameQuote( 'id' )
+								.	' AND i.' . $_CB_database->NameQuote( 'accepted' ) . ' = ' . $_CB_database->Quote( '0000-00-00 00:00:00' )
+								.	' AND ( ( i.' . $_CB_database->NameQuote( 'email' ) . ' = ' . $_CB_database->Quote( $user->get( 'email' ) )
+								.	' AND i.' . $_CB_database->NameQuote( 'email' ) . ' != "" )'
+								.	' OR ( i.' . $_CB_database->NameQuote( 'user' ) . ' = ' . (int) $user->get( 'id' )
+								.	' AND i.' . $_CB_database->NameQuote( 'user' ) . ' > 0 ) )'
+								.	"\n WHERE g." . $_CB_database->NameQuote( 'id' ) . " IN " . $_CB_database->safeArrayOfIntegers( $groupIds );
+		$_CB_database->setQuery( $query );
+		$groups					=	$_CB_database->loadObjectList( null, '\CB\Plugin\GroupJive\Table\GroupTable', array( $_CB_database ) );
+
+		if ( ! $groups ) {
+			return;
+		}
+
+		CBGroupJive::getGroup( $groups );
+		CBGroupJive::preFetchUsers( $groups );
+	}
+
+	/**
+	 * @param CB\Plugin\Activity\Table\ActivityTable $row
+	 * @param null|string                            $title
+	 * @param null|string                            $date
+	 * @param null|string                            $message
+	 * @param null|string                            $insert
+	 * @param null|string                            $footer
+	 * @param array                                  $menu
+	 * @param array                                  $extras
+	 * @param CB\Plugin\Activity\Activity            $stream
+	 * @param int                                    $output 0: Normal, 1: Raw, 2: Inline, 3: Load, 4: Save
+	 */
+	public function activityDisplay( &$row, &$title, &$date, &$message, &$insert, &$footer, &$menu, &$extras, $stream, $output )
+	{
+		if ( $row->get( 'type' ) != 'groupjive' ) {
+			return;
+		}
+
+		$row->set( '_links', false );
+
+		if ( ! in_array( $row->get( 'subtype' ), array( 'group', 'group.join', 'group.leave' ) ) ) {
+			return;
+		}
+
+		if ( $row->get( 'subtype' ) == 'group' ) {
+			$groupId	=	(int) $row->get( 'item' );
+		} else {
+			$groupId	=	(int) $row->get( 'parent' );
+		}
+
+		$group			=	CBGroupJive::getGroup( $groupId );
+
+		if ( ! $group->get( 'id' ) ) {
+			return;
+		}
+
+		CBGroupJive::getTemplate( 'activity' );
+
+		$insert			=	HTML_groupjiveActivity::showActivity( $row, $title, $message, $stream, $group, $this );
+	}
 
 	/**
 	 * Deletes data when a user is deleted
@@ -113,7 +293,7 @@ class cbgjPlugin extends cbPluginHandler
 											array(	'title' => CBTxt::T( 'Groups' ), 'link' => $_CB_framework->backendViewUrl( 'editPlugin', true, array( 'action' => 'showgjgroups', 'cid' => $this->getPluginId() ) ), 'icon' => 'cbgj-groups',
 													'submenu' => array( array( 'title' => CBTxt::Th( 'Add New Group' ), 'link' => $_CB_framework->backendViewUrl( 'editPlugin', true, array( 'cid' => $this->getPluginId(), 'table' => 'gjgroupsbrowser', 'action' => 'editrow' ) ), 'icon' => 'cb-new' ) )
 											),
-											array(	'title' => CBTxt::T( 'Users' ), 'link' => $_CB_framework->backendViewUrl( 'editPlugin', true, array( 'action' => 'showgjusers', 'cid' => $this->getPluginId() ) ), 'icon' => 'cbgj-users',
+											array(	'title' => CBTxt::T( 'GROUP_USERS', 'Users' ), 'link' => $_CB_framework->backendViewUrl( 'editPlugin', true, array( 'action' => 'showgjusers', 'cid' => $this->getPluginId() ) ), 'icon' => 'cbgj-users',
 													'submenu' => array( array( 'title' => CBTxt::Th( 'Add New User to Group' ), 'link' => $_CB_framework->backendViewUrl( 'editPlugin', true, array( 'cid' => $this->getPluginId(), 'table' => 'gjusersbrowser', 'action' => 'editrow' ) ), 'icon' => 'cb-new' ) )
 											),
 											array(	'title' => CBTxt::T( 'Invites' ), 'link' => $_CB_framework->backendViewUrl( 'editPlugin', true, array( 'action' => 'showgjinvites', 'cid' => $this->getPluginId() ) ), 'icon' => 'cbgj-invites',
@@ -124,6 +304,7 @@ class cbgjPlugin extends cbPluginHandler
 		$_PLUGINS->trigger( 'gj_onAdminMenu', array( &$gjMenu['menu'] ) );
 
 		$gjMenu['menu'][]		=	array(	'title' => CBTxt::T( 'Notifications' ), 'link' => $_CB_framework->backendViewUrl( 'editPlugin', true, array( 'action' => 'showgjnotifications', 'cid' => $this->getPluginId() ) ), 'icon' => 'cbgj-invites' );
+		$gjMenu['menu'][]		=	array(	'title' => CBTxt::T( 'Configuration' ), 'link' => $_CB_framework->backendViewUrl( 'editrow', true, array( 'table' => 'pluginsbrowser', 'action' => 'editrow', 'cid' => $this->getPluginId() ) ), 'icon' => 'cbgj-config' );
 
 		$menu['gj']				=	$gjMenu;
 	}
@@ -371,6 +552,7 @@ class cbgjTab extends cbTabHandler
 
 		$input['search']		=	'<input type="text" name="gj_tab_search" value="' . htmlspecialchars( $search ) . '" onchange="document.gjTabForm.submit();" placeholder="' . htmlspecialchars( CBTxt::T( 'Search Groups...' ) ) . '" class="form-control" />';
 
+		CBGroupJive::getGroup( $rows );
 		CBGroupJive::preFetchUsers( $rows );
 
 		$class					=	$this->params->get( 'general_class', null );

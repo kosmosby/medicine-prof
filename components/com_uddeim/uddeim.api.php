@@ -15,30 +15,10 @@ if (!(defined('_JEXEC') || defined('_VALID_MOS'))) { die( 'Direct Access to this
 
 $uddeim_isadmin = 0;
 if ( defined( 'JPATH_ADMINISTRATOR' ) ) {
-	jimport( 'joomla.version' );
-	$ver = new JVersion();
-	if (!strncasecmp($ver->RELEASE, "3.3", 3)) {
-		require_once(JPATH_SITE.'/components/com_uddeim/uddeimlib33.php');
-	} elseif (!strncasecmp($ver->RELEASE, "3.2", 3)) {
-		require_once(JPATH_SITE.'/components/com_uddeim/uddeimlib32.php');
-	} elseif (!strncasecmp($ver->RELEASE, "3.1", 3)) {
-		require_once(JPATH_SITE.'/components/com_uddeim/uddeimlib31.php');
-	} elseif (!strncasecmp($ver->RELEASE, "3.0", 3)) {
-		require_once(JPATH_SITE.'/components/com_uddeim/uddeimlib30.php');
-	} elseif (!strncasecmp($ver->RELEASE, "2.5", 3)) {
-		require_once(JPATH_SITE.'/components/com_uddeim/uddeimlib25.php');
-	} elseif (!strncasecmp($ver->RELEASE, "1.5", 3)) {
-		require_once(JPATH_SITE.'/components/com_uddeim/uddeimlib15.php');
-	} elseif (!strncasecmp($ver->RELEASE, "1.6", 3)) {
-		require_once(JPATH_SITE.'/components/com_uddeim/uddeimlib16.php');
-	} elseif (!strncasecmp($ver->RELEASE, "1.7", 3)) {
-		require_once(JPATH_SITE.'/components/com_uddeim/uddeimlib17.php');
-	} else {
-		require_once(JPATH_SITE.'/components/com_uddeim/uddeimlib33.php');
-	}
+	require_once(JPATH_SITE.'/components/com_uddeim/uddeimlib.php');
 } else {
 	global $mainframe;
-	require_once($mainframe->getCfg('absolute_path').'/components/com_uddeim/uddeimlib10.php');
+	require_once($mainframe->getCfg('absolute_path').'/components/com_uddeim/uddeimlib.php');
 }
 require_once( uddeIMgetPath('admin')."/config.class.php" );
 require_once( uddeIMgetPath('admin')."/admin.shared.php" );

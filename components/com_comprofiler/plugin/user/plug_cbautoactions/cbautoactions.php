@@ -189,9 +189,13 @@ class cbautoactionsClass
 						}
 					}
 
+					$method									=	$options->get( 'method' );
+
+					$options->unsetEntry( 'method' );
+
 					switch ( $function ) {
 						case 'clean':
-							switch( $options->get( 'method' ) ) {
+							switch( $method ) {
 								case 'cmd':
 									$input					=	str_replace( $matches[0], Get::clean( $value, GetterInterface::COMMAND ), $input );
 									break;
@@ -228,7 +232,7 @@ class cbautoactionsClass
 							}
 							break;
 						case 'convert':
-							switch( $options->get( 'method' ) ) {
+							switch( $method ) {
 								case 'uppercase':
 									$input					=	str_replace( $matches[0], strtoupper( $value ), $input );
 									break;
@@ -296,7 +300,7 @@ class cbautoactionsClass
 							}
 							break;
 						case 'encode':
-							switch( $options->get( 'method' ) ) {
+							switch( $method ) {
 								case 'cslashes':
 									$input					=	str_replace( $matches[0], addcslashes( $value, $options->get( 'characters', null, GetterInterface::STRING ) ), $input );
 									break;
@@ -329,7 +333,7 @@ class cbautoactionsClass
 							}
 							break;
 						case 'decode':
-							switch( $options->get( 'method' ) ) {
+							switch( $method ) {
 								case 'cslashes':
 									$input					=	str_replace( $matches[0], stripcslashes( $value ), $input );
 									break;
@@ -415,6 +419,10 @@ class cbautoactionsClass
 								if ( function_exists( $function ) ) {
 									$result					=	call_user_func_array( $function, $options->asArray() );
 								}
+							}
+
+							if ( $method && is_object( $result ) && method_exists( $result, $method ) ) {
+								$result						=	call_user_func_array( array( $result, $method ), $options->asArray() );
 							}
 
 							if ( ( ! is_array( $result ) ) && ( ! is_object( $result ) ) ) {
@@ -1021,7 +1029,11 @@ class cbautoactionsPlugin extends cbPluginHandler
 			if ( is_object( $var ) || is_array( $var ) ) {
 				/** @var array|object $var */
 				if ( is_object( $var ) ) {
-					$paramsArray		=	get_object_vars( $var );
+					if ( $var instanceof ParamsInterface ) {
+						$paramsArray	=	$var->asArray();
+					} else {
+						$paramsArray	=	get_object_vars( $var );
+					}
 				} else {
 					$paramsArray		=	$var;
 				}
@@ -1105,6 +1117,7 @@ class cbautoactionsPlugin extends cbPluginHandler
 				$extras[$prefix . $k]	=	$v;
 			} elseif ( $v ) {
 				if ( is_object( $v ) ) {
+					/** @var object $v */
 					$subItems			=	get_object_vars( $v );
 				} else {
 					$subItems			=	$v;
@@ -1154,6 +1167,12 @@ class cbautoactionsPlugin extends cbPluginHandler
 			$gids			=	$user->get( 'gids', array() );
 
 			array_unshift( $gids, -2 );
+		}
+
+		if ( $user->get( 'id' ) == Application::MyUser()->getUserId() ) {
+			array_unshift( $gids, -7 );
+		} else {
+			array_unshift( $gids, -6 );
 		}
 
 		array_unshift( $gids, -1 );

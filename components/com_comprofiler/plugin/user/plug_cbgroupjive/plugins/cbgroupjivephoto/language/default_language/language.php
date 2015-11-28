@@ -24,11 +24,12 @@ return	array(
 'DATE_DESC_bcfc6d'	=>	'Date DESC',
 'FILENAME_ASC_44f721'	=>	'Filename ASC',
 'FILENAME_DESC_13d728'	=>	'Filename DESC',
-// 4 language strings from file cbgroupjivephoto/cbgroupjivephoto.php
+// 5 language strings from file cbgroupjivephoto/cbgroupjivephoto.php
+'PHOTOS_5daaf2'	=>	'Photos',
+'ADD_NEW_PHOTO_TO_GROUP_2df00d'	=>	'Add New Photo to Group',
 'ENABLE_WITH_APPROVAL_575b45'	=>	'Enable, with Approval',
 'OPTIONALLY_ENABLE_OR_DISABLE_USAGE_OF_PHOTOS_GROUP_44b054'	=>	'Optionally enable or disable usage of photos. Group owner and group administrators are exempt from this configuration and can always upload photos. Note existing photos will still be accessible.',
 'SEARCH_PHOTOS_e11345'	=>	'Search Photos...',
-'PHOTOS_5daaf2'	=>	'Photos',
 // 28 language strings from file cbgroupjivephoto/component.cbgroupjivephoto.php
 'YOU_DO_NOT_HAVE_SUFFICIENT_PERMISSIONS_TO_UPLOAD_A_c06972'	=>	'You do not have sufficient permissions to upload a photo in this group.',
 'YOU_DO_NOT_HAVE_SUFFICIENT_PERMISSIONS_TO_EDIT_THI_6eccd3'	=>	'You do not have sufficient permissions to edit this photo.',
@@ -66,15 +67,18 @@ return	array(
 'GROUP_PHOTO_UPLOAD_TOO_SMALL'	=>	'The photo is too small, the minimum is [size]!',
 'GROUP_PHOTO_UPLOAD_TOO_LARGE'	=>	'The photo size exceeds the maximum of [size]!',
 'PHOTO_NOT_SPECIFIED_dd1bfc'	=>	'Photo not specified!',
+// 3 language strings from file cbgroupjivephoto/templates/default/activity.php
+'GROUP_PHOTO_ACTIVITY_TITLE'	=>	'uploaded a photo in [group]',
+'ORIGINAL_0a52da'	=>	'Original',
+'SEE_MORE_1f7e18'	=>	'See More',
 // 5 language strings from file cbgroupjivephoto/templates/default/photo_edit.php
 'EDIT_PHOTO_68ffc9'	=>	'Edit Photo',
 'NEW_PHOTO_50a153'	=>	'New Photo',
 'PHOTO_c03d53'	=>	'Photo',
 'UPDATE_PHOTO_89bc50'	=>	'Update Photo',
 'UPLOAD_PHOTO_05e477'	=>	'Upload Photo',
-// 7 language strings from file cbgroupjivephoto/templates/default/photos.php
+// 6 language strings from file cbgroupjivephoto/templates/default/photos.php
 'GROUP_PHOTOS_COUNT'	=>	'%%COUNT%% Photo|%%COUNT%% Photos',
-'ORIGINAL_0a52da'	=>	'Original',
 'GROUP_PHOTO_DATE_FORMAT'	=>	'M j, Y',
 'ARE_YOU_SURE_YOU_WANT_TO_UNPUBLISH_THIS_PHOTO_31f072'	=>	'Are you sure you want to unpublish this Photo?',
 'ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_PHOTO_4d3e2d'	=>	'Are you sure you want to delete this Photo?',

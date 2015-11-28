@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -153,14 +153,6 @@ defined('_JEXEC') or die('Restricted access');
 					<?php echo $this->elements->acymailing_menu; ?>
 				</td>
 			</tr>
-			<tr>
-				<td class="acykey">
-					<?php echo JText::_('MENU_POSITION'); ?>
-				</td>
-				<td>
-					<?php echo $this->elements->menu_position; ?>
-				</td>
-			</tr>
 		</table>
 	</div>
 	<div class="onelineblockoptions">
@@ -303,8 +295,10 @@ defined('_JEXEC') or die('Restricted access');
 				</td>
 				<td>
 					<?php echo JHTML::_('acyselect.booleanlist', "config[open_popup]", '', $this->config->get('open_popup', 1)); ?>
-					<?php echo JText::_('CAPTCHA_WIDTH'); ?> <input type="text" name="config[popup_width]" style="float:none;width:30px" value="<?php echo intval($this->config->get('popup_width', 750)); ?>"/> x <?php echo JText::_('CAPTCHA_HEIGHT'); ?> <input type="text" name="config[popup_height]" style="float:none;width:30px"
-																																																																	value="<?php echo intval($this->config->get('popup_height', 550)); ?>"/>
+					<div style="margin-top:10px;">
+						<?php echo JText::_('CAPTCHA_WIDTH'); ?> <input type="text" name="config[popup_width]" style="float:none;width:30px" value="<?php echo intval($this->config->get('popup_width', 750)); ?>"/> x <?php echo JText::_('CAPTCHA_HEIGHT'); ?> <input type="text" name="config[popup_height]" style="float:none;width:30px"
+																																																																		value="<?php echo intval($this->config->get('popup_height', 550)); ?>"/>
+					</div>
 				</td>
 			</tr>
 			<tr id="indexfollow">
@@ -344,7 +338,7 @@ defined('_JEXEC') or die('Restricted access');
 					<?php echo JHTML::_('acyselect.booleanlist', "config[unsub_survey]", 'onclick="displaySurvey(this.value)"', $this->config->get('unsub_survey', 1));
 					$reasons = unserialize($this->config->get('unsub_reasons'));
 					?>
-					<div id="unsub_reasons_area" <?php if(!$this->config->get('unsub_survey', 1)) echo 'style="display:none"'; ?> >
+					<div id="unsub_reasons_area" class="acymailing_deploy" <?php if(!$this->config->get('unsub_survey', 1)) echo 'style="display:none"'; ?> >
 						<div id="unsub_reasons">
 							<?php
 							foreach($reasons as $i => $oneReason){
@@ -353,10 +347,14 @@ defined('_JEXEC') or die('Restricted access');
 								}else{
 									$trans = $oneReason;
 								}
-								echo '<span style="font-size:8px">'.$trans.'</span><br /><input type="text" style="width:300px" value="'.$this->escape($oneReason).'" name="unsub_reasons[]" /><br />';
+								echo '<span style="font-size:8px">'.$trans.'</span><br /><input type="text" style="width:300px;margin-bottom: 3px;" value="'.$this->escape($oneReason).'" name="unsub_reasons[]" /><br />';
 							} ?>
 						</div>
-						<a class="btn" onclick="addUnsubReason();return false;" href='#' title="<?php echo $this->escape(JText::_('FIELD_ADDVALUE')); ?>"><?php echo JText::_('FIELD_ADDVALUE'); ?></a>
+						<a onclick="addUnsubReason();return false;" href='#' title="<?php echo $this->escape(JText::_('FIELD_ADDVALUE')); ?>">
+							<button class="acymailing_button_grey" onclick="return false">
+								<?php echo JText::_('FIELD_ADDVALUE'); ?>
+							</button>
+						</a>
 					</div>
 				</td>
 			</tr>

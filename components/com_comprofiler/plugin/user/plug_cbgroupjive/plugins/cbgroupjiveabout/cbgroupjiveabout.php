@@ -61,7 +61,7 @@ class cbgjAboutPlugin extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		if ( CBGroupJive::isModerator( $user->get( 'id' ) ) || ( CBGroupJive::getGroupStatus( $user, $group ) >= 3 ) ) {
+		if ( CBGroupJive::isModerator( $user->get( 'id' ) ) || ( ( $group->get( 'published' ) == 1 ) && ( CBGroupJive::getGroupStatus( $user, $group ) >= 3 ) ) ) {
 			$menu[]		=	'<a href="' . $_CB_framework->pluginClassUrl( $this->element, true, array( 'action' => 'about', 'func' => 'edit', 'id' => (int) $group->get( 'id' ) ) ) . '"><span class="fa fa-edit"></span> ' . CBTxt::T( 'About' ) . '</a>';
 		}
 

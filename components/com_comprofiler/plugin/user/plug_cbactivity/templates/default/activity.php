@@ -74,8 +74,8 @@ class HTML_cbactivityActivity
 			$isStatus					=	( ( $row->get( 'type' ) == 'status' ) || ( $row->get( 'subtype' ) == 'status' ) );
 
 			$cbUser						=	CBuser::getInstance( (int) $row->get( 'user_id' ), false );
-			$title						=	( $row->get( 'title' ) ? ( $isStatus ? htmlspecialchars( CBTxt::T( $row->get( 'title' ) ) ) : CBTxt::T( $row->get( 'title' ) ) ) : null );
-			$message					=	( $row->get( 'message' ) ? ( $isStatus ? htmlspecialchars( CBTxt::T( $row->get( 'message' ) ) ) : CBTxt::T( $row->get( 'message' ) ) ) : null );
+			$title						=	( $row->get( 'title' ) ? ( $isStatus ? htmlspecialchars( $row->get( 'title' ) ) : CBTxt::T( $row->get( 'title' ) ) ) : null );
+			$message					=	( $row->get( 'message' ) ? ( $isStatus ? htmlspecialchars( $row->get( 'message' ) ) : CBTxt::T( $row->get( 'message' ) ) ) : null );
 			$date						=	null;
 			$insert						=	null;
 			$footer						=	null;
@@ -611,10 +611,10 @@ class HTML_cbactivityActivity
 						$return	.=				$link['media']['custom'];
 						break;
 					case 'video':
-						$return	.=				'<video width="640" height="360" style="width: 100%; height: 100%;" src="' . htmlspecialchars( $link['media']['url'] ) . '" type="' . htmlspecialchars( $link['media']['mimetype'] ) . '" class="streamItemVideo"></video>';
+						$return	.=				'<video width="640" height="360" style="width: 100%; height: 100%;" src="' . htmlspecialchars( $link['media']['url'] ) . '" type="' . htmlspecialchars( $link['media']['mimetype'] ) . '" class="streamItemVideo" preload="none" controls></video>';
 						break;
 					case 'audio':
-						$return	.=				'<audio width="640" style="width: 100%;" src="' . htmlspecialchars( $link['media']['url'] ) . '" type="' . htmlspecialchars( $link['media']['mimetype'] ) . '" class="streamItemAudio"></audio>';
+						$return	.=				'<audio width="640" style="width: 100%;" src="' . htmlspecialchars( $link['media']['url'] ) . '" type="' . htmlspecialchars( $link['media']['mimetype'] ) . '" class="streamItemAudio" preload="none" controls></audio>';
 						break;
 					case 'image':
 						$return	.=				'<a href="' . htmlspecialchars( $link['url'] ) . '" rel="nofollow" target="_blank">'

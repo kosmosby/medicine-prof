@@ -22,11 +22,12 @@ return	array(
 'NEW_VIDEO_REQUIRES_APPROVAL_a484cb'	=>	'New video requires approval',
 'DATE_ASC_a5871f'	=>	'Date ASC',
 'DATE_DESC_bcfc6d'	=>	'Date DESC',
-// 4 language strings from file cbgroupjivevideo/cbgroupjivevideo.php
+// 5 language strings from file cbgroupjivevideo/cbgroupjivevideo.php
+'VIDEOS_554cfa'	=>	'Videos',
+'ADD_NEW_VIDEO_TO_GROUP_4d5188'	=>	'Add New Video to Group',
 'ENABLE_WITH_APPROVAL_575b45'	=>	'Enable, with Approval',
 'OPTIONALLY_ENABLE_OR_DISABLE_USAGE_OF_VIDEOS_GROUP_0ca36a'	=>	'Optionally enable or disable usage of videos. Group owner and group administrators are exempt from this configuration and can always share videos. Note existing videos will still be accessible.',
 'SEARCH_VIDEOS_e5b832'	=>	'Search Videos...',
-'VIDEOS_554cfa'	=>	'Videos',
 // 25 language strings from file cbgroupjivevideo/component.cbgroupjivevideo.php
 'YOU_DO_NOT_HAVE_SUFFICIENT_PERMISSIONS_TO_PUBLISH__0b0480'	=>	'You do not have sufficient permissions to publish a video in this group.',
 'YOU_DO_NOT_HAVE_SUFFICIENT_PERMISSIONS_TO_EDIT_THI_08c995'	=>	'You do not have sufficient permissions to edit this video.',
@@ -60,6 +61,9 @@ return	array(
 'GROUP_DOES_NOT_EXIST_adf2fd'	=>	'Group does not exist!',
 'GROUP_VIDEO_INVALID_URL'	=>	'Invalid URL. Please ensure the URL exists!',
 'GROUP_VIDEO_INVALID_EXT'	=>	'Invalid url extension [ext]. Please link only [exts]!',
+// 2 language strings from file cbgroupjivevideo/templates/default/activity.php
+'GROUP_VIDEO_ACTIVITY_TITLE'	=>	'published a video in [group]',
+'SEE_MORE_1f7e18'	=>	'See More',
 // 6 language strings from file cbgroupjivevideo/templates/default/video_edit.php
 'EDIT_VIDEO_5b2cbf'	=>	'Edit Video',
 'NEW_VIDEO_458670'	=>	'New Video',

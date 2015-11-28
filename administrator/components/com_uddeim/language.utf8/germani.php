@@ -14,6 +14,38 @@
 // *******************************************************************
 DEFINE ('_UDDEADM_TRANSLATORS_CREDITS', 'Deutsches Sprachfile erstellt von <a href="http://slabihoud.de/software/" target="_new">uddeIM HQ (Stephan Slabihoud)</a>');	// Enter your credits line here, e.g. 'Translation by <a href="http://domain.com" target="_new">John Doe</a>'
 
+// New: 3.7
+DEFINE ('_UDDEADM_SHOWMENULINK_HEAD', 'Zeige Menüeintrag');
+DEFINE ('_UDDEADM_SHOWMENULINK_EXP', 'Zeige zusätzlichen Menüeintrag.');
+DEFINE ('_UDDEADM_CFGFILE_CONVERTING_16', '...setze Standardeinstellungen für zusätzlichen Menüeintrag');
+
+// New: 3.6
+DEFINE ('_UDDEIM_KUNENA_LINK', 'Forum');
+DEFINE ('_UDDEIM_PM_USER', 'Sende private Nachricht');
+DEFINE ('_UDDEIM_PM_USER_DESC', 'Sende eine private Nachricht an den Benutzer');
+DEFINE ('_UDDEIM_PM_INBOX', 'Zeige Posteingang');
+DEFINE ('_UDDEIM_PM_INBOX_DESC', 'Zeige empfangene Nachrichten');
+DEFINE ('_UDDEIM_PM_OUTBOX', 'Zeige Postausgang');
+DEFINE ('_UDDEIM_PM_OUTBOX_DESC', 'Zeige gesendete Nachrichten');
+DEFINE ('_UDDEIM_PM_TRASHBOX', 'Zeige Papierkorb');
+DEFINE ('_UDDEIM_PM_TRASHBOX_DESC', 'Zeige gelöschte Nachrichten');
+DEFINE ('_UDDEIM_PM_OPTIONS', 'Zeige Optionen');
+DEFINE ('_UDDEIM_PM_OPTIONS_DESC', 'Zeige Optionen');
+DEFINE ('_UDDEIM_PM_ARCHIVE', 'Zeige Archiv');
+DEFINE ('_UDDEIM_PM_ARCHIVE_DESC', 'Zeige archivierte Nachrichten');
+DEFINE ('_UDDEIM_PM_SENDMESSAGE', 'Nachricht gesendet.');
+DEFINE ('_UDDEIM_PM_PMSTAB', 'Sende Nachricht');
+DEFINE ('_UDDEIM_PM_PROFILEMSG', 'Nachricht');
+DEFINE ('_UDDEIM_PM_SENTSUCCESS', 'Erfolgreich gesendet.');
+DEFINE ('_UDDEIM_PM_SESSIONTIMEOUT', 'Session timeout.');
+DEFINE ('_UDDEIM_PM_NOTSENT', 'Nachricht nicht gesendet.');
+DEFINE ('_UDDEIM_PM_TRYAGAIN', 'Erneut versuchen.');
+DEFINE ('_UDDEIM_PM_EMPTYMESSAGE', 'Leere Nachricht.');
+DEFINE ('_UDDEIM_PM_EMAILFORMSUBJECT', 'Betreff');
+DEFINE ('_UDDEIM_PM_EMAILFORMMESSAGE', 'Nachricht');
+DEFINE ('_UDDEIM_PM_TABINBOX', 'Posteingang');
+DEFINE ('_UDDEIM_PM_PMSLINK', 'Private Nachrichten');
+
 // New: 3.5
 DEFINE ('_UDDEADM_GROUPSADMIN_HEAD', 'Zusätzliche Admin-Gruppen');
 DEFINE ('_UDDEADM_GROUPSADMIN_EXP', 'Gruppen IDs, die von uddeIM zusätzlich als Admin-Gruppen betrachtet werden sollen (z.B. 10, 11, 17). Die IDs 7, 8 (Joomla >=1.6) und IDs 24, 25 (Joomla <=1.5) werden immer als Admin-Gruppen behandelt.');

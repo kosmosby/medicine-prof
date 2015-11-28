@@ -67,7 +67,7 @@ class HTML_cbactivityComments
 			$subTypeClass				=	( $row->get( 'subtype' ) ? ucfirst( strtolower( preg_replace( '/[^-a-zA-Z0-9_]/', '', $row->get( 'subtype' ) ) ) ) : null );
 
 			$cbUser						=	CBuser::getInstance( (int) $row->get( 'user_id' ), false );
-			$message					=	( $row->get( 'message' ) ? htmlspecialchars( CBTxt::T( $row->get( 'message' ) ) ) : null );
+			$message					=	( $row->get( 'message' ) ? htmlspecialchars( $row->get( 'message' ) ) : null );
 			$date						=	null;
 			$insert						=	null;
 			$footer						=	null;

@@ -14,6 +14,38 @@
 // *******************************************************************
 DEFINE ('_UDDEADM_TRANSLATORS_CREDITS', 'Lietuvių kalbos failą padarė <a href="http://www.vilkuklubas.lt" target="_new">Audrius Demenius</a>');	// Enter your credits line here, e.g. 'Translation by <a href="http://domain.com" target="_new">John Doe</a>'
 
+// New: 3.7
+DEFINE ('_UDDEADM_SHOWMENULINK_HEAD', 'Show menu entry');
+DEFINE ('_UDDEADM_SHOWMENULINK_EXP', 'Show additional menu entry.');
+DEFINE ('_UDDEADM_CFGFILE_CONVERTING_16', '...set default for additonal menu link');
+
+// New: 3.6
+DEFINE ('_UDDEIM_KUNENA_LINK', 'Forum');
+DEFINE ('_UDDEIM_PM_USER', 'Send private message');
+DEFINE ('_UDDEIM_PM_USER_DESC', 'Send a private message to this user');
+DEFINE ('_UDDEIM_PM_INBOX', 'Show private Inbox');
+DEFINE ('_UDDEIM_PM_INBOX_DESC', 'Show received private messages');
+DEFINE ('_UDDEIM_PM_OUTBOX', 'Show private Outbox');
+DEFINE ('_UDDEIM_PM_OUTBOX_DESC', 'Show sent private messages');
+DEFINE ('_UDDEIM_PM_TRASHBOX', 'Show trash');
+DEFINE ('_UDDEIM_PM_TRASHBOX_DESC', 'Show trashed private messages');
+DEFINE ('_UDDEIM_PM_OPTIONS', 'Show PMS options');
+DEFINE ('_UDDEIM_PM_OPTIONS_DESC', 'Show PMS options');
+DEFINE ('_UDDEIM_PM_ARCHIVE', 'Show private Archive');
+DEFINE ('_UDDEIM_PM_ARCHIVE_DESC', 'Show archived private messages');
+DEFINE ('_UDDEIM_PM_SENDMESSAGE', 'Message sent');
+DEFINE ('_UDDEIM_PM_PMSTAB', 'Send message');
+DEFINE ('_UDDEIM_PM_PROFILEMSG', 'Quick message');
+DEFINE ('_UDDEIM_PM_SENTSUCCESS', 'Successfully sent.');
+DEFINE ('_UDDEIM_PM_SESSIONTIMEOUT', 'Session timeout.');
+DEFINE ('_UDDEIM_PM_NOTSENT', 'Message not sent.');
+DEFINE ('_UDDEIM_PM_TRYAGAIN', 'Try again.');
+DEFINE ('_UDDEIM_PM_EMPTYMESSAGE', 'Empty message.');
+DEFINE ('_UDDEIM_PM_EMAILFORMSUBJECT', 'Subject');
+DEFINE ('_UDDEIM_PM_EMAILFORMMESSAGE', 'Message');
+DEFINE ('_UDDEIM_PM_TABINBOX', 'Inbox');
+DEFINE ('_UDDEIM_PM_PMSLINK', 'Private Messaging');
+
 // New: 3.5
 DEFINE ('_UDDEADM_GROUPSADMIN_HEAD', 'Additional Admin groups');
 DEFINE ('_UDDEADM_GROUPSADMIN_EXP', 'Enter group IDs which should be treated as admin groups (e.g. 10, 11, 17). IDs 7, 8 (Joomla >=1.6) and IDs 24, 25 (Joomla <=1.5) are always admins.');

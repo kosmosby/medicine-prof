@@ -92,7 +92,7 @@ class HTML_groupjiveCategories
 										.							( $counters ? '<div class="gjContainerBoxCounter col-sm-6">' . implode( '</div><div class="gjContainerBoxCounter col-sm-6">', $counters ) . '</div>' : null )
 										.						'</div>'
 										.						( $content ? '<div class="gjContainerBoxContent">' . $content . '</div>' : null )
-										.						( $row->get( 'description' ) ? '<div class="gjContainerBoxDescription">' . cbTooltip( 1, $row->get( 'description' ), $row->get( 'name' ), 400, null, '<span class="fa fa-info-circle text-muted"></span>' ) . '</div>' : null )
+										.						( $row->get( 'description' ) ? '<div class="gjContainerBoxDescription">' . cbTooltip( 1, CBTxt::T( $row->get( 'description' ) ), CBTxt::T( $row->get( 'name' ) ), 400, null, '<span class="fa fa-info-circle text-muted"></span>' ) . '</div>' : null )
 										.					'</div>'
 										.				'</div>';
 		} else {

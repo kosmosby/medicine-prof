@@ -152,7 +152,10 @@ function uddeIMshowTrashCan($myself, $item_id, $limit, $limitstart, $cryptpass, 
 		$teasermessage=uddeIMteaser(stripslashes($teasermessage), $config->firstwordsinbox, $config->quotedivider, $config->languagecharset);
 		$teasermessage=htmlspecialchars($teasermessage, ENT_QUOTES, $config->charset);
 		$teasermessage=str_replace("&amp;#", "&#", $teasermessage);
+		$teasermessage=str_replace("&amp;&lt;/br&gt;", " ", $teasermessage);
+
 		$safemessage=htmlspecialchars(stripslashes($cm), ENT_QUOTES, $config->charset);
+		$safemessage=str_replace("&amp;&lt;/br&gt;", "</br>", $safemessage);
 
 		$messagecell=$teasermessage;
 

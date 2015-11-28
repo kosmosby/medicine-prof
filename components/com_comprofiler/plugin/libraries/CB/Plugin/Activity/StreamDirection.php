@@ -27,29 +27,13 @@ abstract class StreamDirection extends Stream implements StreamDirectionInterfac
 	 */
 	public function __construct( $source = null, $user = null, $direction = null )
 	{
-		global $_PLUGINS;
-
-		$_PLUGINS->loadPluginGroup( 'user' );
-
-		if ( $source === null ) {
-			$source			=	'stream';
-		}
-
-		if ( $user === null ) {
-			$user			=	\CBuser::getMyUserDataInstance();
-		}
+		parent::__construct( $source, $user );
 
 		if ( $direction === null ) {
 			$direction		=	0;
 		}
 
-		$this->source		=	$source;
-		$this->user			=	$user;
 		$this->direction	=	$direction;
-
-		if ( ! $this->id ) {
-			$this->id		=	uniqid();
-		}
 	}
 
 	/**

@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cbinstall version="1.0" type="plugin" group="user/plug_cbgroupjive/plugins" method="install">
+<cbinstall version="1.0" type="plugin" group="user/plug_cbgroupjive/plugins">
 	<name>CB GroupJive Video</name>
 	<author>Krileon</author>
-	<creationDate>2015-10-09</creationDate>
+	<creationDate>2015-11-20</creationDate>
 	<copyright>(C) 2004-2015 www.joomlapolis.com / Lightning MultiCom SA - and its licensors, all rights reserved</copyright>
 	<license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2</license>
 	<authorEmail>krileon@joomlapolis.com</authorEmail>
 	<description>Provides groups with a Video Gallery to easily and quickly share videos between one another.</description>
-	<version>2.0.11</version>
-	<release>3.0.0-beta.1</release>
+	<version>2.0.12</version>
+	<release>3.0.0</release>
+	<installfile>install.cbgroupjivevideo.php</installfile>
 	<files>
 		<filename plugin="cbgroupjivevideo">cbgroupjivevideo.php</filename>
 		<filename>index.html</filename>
 		<filename>component.cbgroupjivevideo.php</filename>
+		<filename>install.cbgroupjivevideo.php</filename>
 		<foldername>language</foldername>
 		<foldername>library</foldername>
 		<foldername>templates</foldername>
@@ -21,6 +23,7 @@
 	<libraries>
 		<library name="CB/Plugin/GroupJiveVideo">
 			<files folder="library">
+				<filename>CBGroupJiveVideo.php</filename>
 				<filename>index.html</filename>
 				<foldername>Table</foldername>
 			</files>

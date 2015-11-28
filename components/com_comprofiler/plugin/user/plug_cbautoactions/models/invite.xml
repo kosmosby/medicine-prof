@@ -6,16 +6,16 @@
 		</type>
 		<type name="autoaction_triggers" base="xml:autoaction_triggers">
 			<optgroup label="CB Invites">
-				<option value="invites_onBeforeUpdateInvite">Before Update Invite</option>
-				<option value="invites_onBeforeCreateInvite">Before Create Invite</option>
-				<option value="invites_onBeforeDeleteInvite">Before Delete Invite</option>
-				<option value="invites_onAfterDeleteInvite">After Delete Invite</option>
-				<option value="invites_onBeforeSendInvite">Before Send Invite</option>
-				<option value="invites_onAfterSendInvite">After Send Invite</option>
-				<option value="invites_onBeforeAcceptInvite">Before Accept Invite</option>
-				<option value="invites_onAfterAcceptInvite">After Accept Invite</option>
-				<option value="invites_onBeforeInvite">Before Invite</option>
-				<option value="invites_onAfterInvite">After Invite</option>
+				<option value="invites_onBeforeUpdateInvite" translate="no">invites_onBeforeUpdateInvite</option>
+				<option value="invites_onBeforeCreateInvite" translate="no">invites_onBeforeCreateInvite</option>
+				<option value="invites_onBeforeDeleteInvite" translate="no">invites_onBeforeDeleteInvite</option>
+				<option value="invites_onAfterDeleteInvite" translate="no">invites_onAfterDeleteInvite</option>
+				<option value="invites_onBeforeSendInvite" translate="no">invites_onBeforeSendInvite</option>
+				<option value="invites_onAfterSendInvite" translate="no">invites_onAfterSendInvite</option>
+				<option value="invites_onBeforeAcceptInvite" translate="no">invites_onBeforeAcceptInvite</option>
+				<option value="invites_onAfterAcceptInvite" translate="no">invites_onAfterAcceptInvite</option>
+				<option value="invites_onBeforeInvite" translate="no">invites_onBeforeInvite</option>
+				<option value="invites_onAfterInvite" translate="no">invites_onAfterInvite</option>
 			</optgroup>
 		</type>
 	</types>

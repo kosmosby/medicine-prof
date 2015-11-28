@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -347,14 +347,6 @@ class CpanelViewCpanel extends acymailingView{
 
 		$elements->acymailing_menu = JHTML::_('select.genericlist', $menuvalues, 'config[itemid]', 'size="1"', 'value', 'text', $config->get('itemid'));
 
-		$menupositions = array();
-		$menupositions[] = JHTML::_('select.option', 'under', JText::_('UNDER_TITLE'));
-		$menupositions[] = JHTML::_('select.option', 'above', JText::_('ABOVE_MAIN_AREA'));
-		$elements->menu_position = JHTML::_('acyselect.radiolist', $menupositions, 'config[menu_position]', 'size="1"', 'value', 'text', $config->get('menu_position', 'under'));
-
-		if(ACYMAILING_J30){
-			$elements->menu_position = '<input type="hidden" name="config[menu_position]" value="above" />'.JText::_('ABOVE_MAIN_AREA');
-		}
 
 		$acyrss_format = array();
 		$acyrss_format[] = JHTML::_('select.option', '', JText::_('ACY_NONE'));
@@ -399,6 +391,7 @@ class CpanelViewCpanel extends acymailingView{
 			var input = document.createElement('input');
 			input.name = 'unsub_reasons[]';
 			input.style.width = '300px';
+			input.style.margin = '3px 0px';
 			input.type = 'text';
 			document.getElementById('unsub_reasons').appendChild(input);
 			var br = document.createElement('br');

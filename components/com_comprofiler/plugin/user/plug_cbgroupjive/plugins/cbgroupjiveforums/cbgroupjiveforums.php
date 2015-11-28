@@ -287,7 +287,7 @@ class cbgjForumsPlugin extends cbPluginHandler
 		} elseif ( $event == 'getAllowedForumsRead' ) {
 			static $cache							=	array();
 
-			$mydId									=	Application::Cms()->getClientId();
+			$mydId									=	Application::MyUser()->getUserId();
 
 			if ( ! $mydId ) {
 				return;
@@ -366,9 +366,7 @@ class cbgjForumsPlugin extends cbPluginHandler
 			if ( ! isset( $allowed[$groupId] ) ) {
 				$allowed[$groupId]					=	array();
 
-				$group								=	new GroupTable();
-
-				$group->load( (int) $groupId );
+				$group								=	CBGroupJive::getGroup( $groupId );
 
 				if ( $group->get( 'id' ) ) {
 					$query							=	'SELECT u.' . $_CB_database->NameQuote( 'user_id' )
@@ -400,6 +398,40 @@ class cbgjForumsPlugin extends cbPluginHandler
 			}
 
 			$params['allow']						=	$allowed[$groupId];
+		} elseif ( $this->params->get( 'groups_forums_back', 1 ) && ( $event == 'onStart' ) && ( $this->input( 'view', null, GetterInterface::STRING ) == 'category' ) ) {
+			$categoryId								=	(int) $this->input( 'catid', 0, GetterInterface::INT );
+
+			if ( ! $categoryId ) {
+				return;
+			}
+
+			$model									=	CBGroupJiveForums::getModel();
+
+			if ( ! $model ) {
+				return;
+			}
+
+			$category								=	$model->getCategory( $categoryId );
+
+			if ( ! $category->get( 'id' ) ) {
+				return;
+			}
+
+			$category								=	$category->category();
+
+			if ( ( $category->get( 'accesstype' ) != 'communitybuilder' ) || ( ! $category->get( 'access' ) ) ) {
+				return;
+			}
+
+			$group									=	CBGroupJive::getGroup( (int) $category->get( 'access' ) );
+
+			if ( ! $group->get( 'id' ) ) {
+				return;
+			}
+
+			CBGroupJive::getTemplate( 'backlink', true, true, $this->element );
+
+			echo HTML_groupjiveForumsBacklink::showBacklink( $group, $category, $this );
 		}
 	}
 }

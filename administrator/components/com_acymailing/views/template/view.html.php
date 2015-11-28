@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -108,7 +108,7 @@ class TemplateViewTemplate extends acymailingView{
 			if(acymailing_isAllowed($config->get('acl_templates_delete', 'all'))) $acyToolbar->delete();
 
 			$acyToolbar->divider();
-			$acyToolbar->help('template-listing');
+			$acyToolbar->help('template', 'listing');
 			$acyToolbar->setTitle(JText::_('ACY_TEMPLATES'), 'template');
 			$acyToolbar->display();
 		}
@@ -361,7 +361,7 @@ class TemplateViewTemplate extends acymailingView{
 		$acyToolbar->save();
 		$acyToolbar->cancel();
 		$acyToolbar->divider();
-		$acyToolbar->help('template-form');
+		$acyToolbar->help('template', 'templatecreation');
 		$acyToolbar->setTitle(JText::_('ACY_TEMPLATE'), 'template&task=edit&tempid='.$tempid);
 		$acyToolbar->display();
 

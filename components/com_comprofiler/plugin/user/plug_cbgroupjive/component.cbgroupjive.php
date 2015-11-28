@@ -14,12 +14,16 @@ use CBLib\Registry\GetterInterface;
 use CB\Database\Table\UserTable;
 use CB\Database\Table\TabTable;
 use CB\Plugin\GroupJive\CBGroupJive;
-use CB\Plugin\GroupJive\Table\CategoryTable;
 use CB\Plugin\GroupJive\Table\GroupTable;
 use CB\Plugin\GroupJive\Table\InviteTable;
 use CB\Plugin\GroupJive\Table\NotificationTable;
 
 if ( ! ( defined( '_VALID_CB' ) || defined( '_JEXEC' ) || defined( '_VALID_MOS' ) ) ) { die( 'Direct Access to this location is not allowed.' ); }
+
+global $_PLUGINS;
+
+$_PLUGINS->loadPluginGroup( 'user' );
+$_PLUGINS->loadPluginGroup( 'user/plug_cbgroupjive/plugins' );
 
 class CBplug_cbgroupjive extends cbPluginHandler
 {
@@ -49,7 +53,12 @@ class CBplug_cbgroupjive extends cbPluginHandler
 			ob_start();
 		}
 
+		// TODO: For B/C: remove
+		$cat				=	(int) $this->input( 'cat', null, GetterInterface::INT );
+		$grp				=	(int) $this->input( 'grp', null, GetterInterface::INT );
+
 		switch ( $action ) {
+			case 'overview': // TODO: For B/C: remove
 			case 'allcategories':
 				$action		=	'categories';
 				$function	=	'all';
@@ -58,6 +67,7 @@ class CBplug_cbgroupjive extends cbPluginHandler
 				$action		=	'groups';
 				$function	=	'all';
 				break;
+			case 'panel': // TODO: For B/C: remove
 			case 'mygroups':
 				$action		=	'groups';
 				$function	=	'my';
@@ -93,6 +103,29 @@ class CBplug_cbgroupjive extends cbPluginHandler
 			case 'groupnotifications':
 				$action		=	'groups';
 				$function	=	'notifications';
+				break;
+			case 'categories': // TODO: For B/C: remove
+				if ( $cat ) {
+					$id		=	$cat;
+				}
+				break;
+			case 'groups': // TODO: For B/C: remove
+				if ( $cat ) {
+					$this->getInput()->set( 'category', $cat );
+				}
+
+				if ( $grp ) {
+					$id		=	$grp;
+				}
+				break;
+			default: // TODO: For B/C: remove
+				if ( $cat ) {
+					$this->getInput()->set( 'category', $cat );
+				}
+
+				if ( $grp ) {
+					$this->getInput()->set( 'group', $grp );
+				}
 				break;
 		}
 
@@ -143,6 +176,7 @@ class CBplug_cbgroupjive extends cbPluginHandler
 					case 'all':
 						$this->showGroups( 0, $user );
 						break;
+					case 'allmy': // TODO: For B/C: remove
 					case 'my':
 						$this->showGroups( 1, $user );
 						break;
@@ -356,6 +390,7 @@ class CBplug_cbgroupjive extends cbPluginHandler
 
 		$input['search']		=	'<input type="text" name="gj_categories_search" value="' . htmlspecialchars( $search ) . '" onchange="document.gjCategoriesForm.submit();" placeholder="' . htmlspecialchars( CBTxt::T( 'Search Categories...' ) ) . '" class="form-control" />';
 
+		CBGroupJive::getCategory( $rows );
 		CBGroupJive::preFetchUsers( $rows );
 
 		HTML_groupjiveCategories::showCategories( $rows, $pageNav, $searching, $input, $user, $this );
@@ -371,10 +406,7 @@ class CBplug_cbgroupjive extends cbPluginHandler
 	{
 		global $_CB_framework, $_CB_database;
 
-		$row					=	new CategoryTable();
-
-		$row->load( (int) $id );
-
+		$row					=	CBGroupJive::getCategory( $id );
 		$isModerator			=	CBGroupJive::isModerator( $user->get( 'id' ) );
 		$returnUrl				=	$_CB_framework->pluginClassUrl( $this->element, false, array( 'action' => 'categories', 'func' => 'all' ) );
 
@@ -535,6 +567,9 @@ class CBplug_cbgroupjive extends cbPluginHandler
 		$rows					=	$_CB_database->loadObjectList( null, '\CB\Plugin\GroupJive\Table\GroupTable', array( $_CB_database ) );
 
 		$input['search']		=	'<input type="text" name="gj_category_search" value="' . htmlspecialchars( $search ) . '" onchange="document.gjCategoryForm.submit();" placeholder="' . htmlspecialchars( CBTxt::T( 'Search Groups...' ) ) . '" class="form-control" />';
+
+		CBGroupJive::getGroup( $rows );
+		CBGroupJive::preFetchUsers( $rows );
 
 		HTML_groupjiveCategory::showCategory( $row, $rows, $pageNav, $searching, $input, $user, $this );
 	}
@@ -824,6 +859,7 @@ class CBplug_cbgroupjive extends cbPluginHandler
 
 		$input['search']		=	'<input type="text" name="gj_groups_search" value="' . htmlspecialchars( $search ) . '" onchange="document.gjGroupsForm.submit();" placeholder="' . htmlspecialchars( CBTxt::T( 'Search Groups...' ) ) . '" class="form-control" />';
 
+		CBGroupJive::getGroup( $rows );
 		CBGroupJive::preFetchUsers( $rows );
 
 		HTML_groupjiveGroups::showGroups( $mode, $rows, $pageNav, $searching, $input, $user, $this );
@@ -839,10 +875,7 @@ class CBplug_cbgroupjive extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row				=	new GroupTable();
-
-		$row->load( (int) $id );
-
+		$row				=	CBGroupJive::getGroup( $id );
 		$returnUrl			=	$_CB_framework->pluginClassUrl( $this->element, false, array( 'action' => 'categories', 'func' => 'show', 'id' => (int) $row->get( 'category' ) ) );
 
 		if ( ! CBGroupJive::canAccessGroup( $row, $user ) ) {
@@ -875,17 +908,14 @@ class CBplug_cbgroupjive extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row					=	new GroupTable();
-
-		$row->load( (int) $id );
-
+		$row					=	CBGroupJive::getGroup( $id );
 		$returnUrl				=	$_CB_framework->pluginClassUrl( $this->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'id' ) ) );
 
 		if ( CBGroupJive::canAccessGroup( $row, $user ) ) {
 			if ( ! CBGroupJive::isModerator( $user->get( 'id' ) ) ) {
 				if ( ! $this->params->get( 'groups_message', 0 ) ) {
 					cbRedirect( $returnUrl, CBTxt::T( 'You do not have access to messaging in this group.' ), 'error' );
-				} elseif ( CBGroupJive::getGroupStatus( $user, $row ) < 3 ) {
+				} elseif ( ( $row->get( 'published' ) == -1 ) || ( CBGroupJive::getGroupStatus( $user, $row ) < 3 ) ) {
 					cbRedirect( $returnUrl, CBTxt::T( 'You do not have sufficient permissions to messaging in this group.' ), 'error' );
 				} elseif ( $row->params()->get( 'messaged' ) ) {
 					$seconds	=	(int) $this->params->get( 'groups_message_delay', 60 );
@@ -1124,9 +1154,7 @@ class CBplug_cbgroupjive extends cbPluginHandler
 
 		$isModerator					=	CBGroupJive::isModerator( $user->get( 'id' ) );
 
-		$group							=	new GroupTable();
-
-		$group->load( (int) $id );
+		$group							=	CBGroupJive::getGroup( $id );
 
 		$row->load( array( 'user_id' => (int) $user->get( 'id' ), 'group' => (int) $group->get( 'id' ) ) );
 
@@ -1177,9 +1205,7 @@ class CBplug_cbgroupjive extends cbPluginHandler
 	{
 		global $_CB_framework, $_CB_database;
 
-		$group				=	new GroupTable();
-
-		$group->load( (int) $id );
+		$group				=	CBGroupJive::getGroup( $id );
 
 		if ( ! $user->get( 'id' ) ) {
 			$returnUrl		=	$_CB_framework->pluginClassUrl( $this->element, false, array( 'action' => 'groups', 'func' => 'reject', 'id' => (int) $group->get( 'id' ) ) );
@@ -1234,9 +1260,7 @@ class CBplug_cbgroupjive extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$group				=	new GroupTable();
-
-		$group->load( (int) $id );
+		$group				=	CBGroupJive::getGroup( $id );
 
 		if ( ! $user->get( 'id' ) ) {
 			$returnUrl		=	$_CB_framework->pluginClassUrl( $this->element, false, array( 'action' => 'groups', 'func' => 'cancel', 'id' => (int) $group->get( 'id' ) ) );
@@ -1281,10 +1305,7 @@ class CBplug_cbgroupjive extends cbPluginHandler
 	{
 		global $_CB_framework, $_CB_database, $_PLUGINS;
 
-		$group					=	new GroupTable();
-
-		$group->load( (int) $id );
-
+		$group					=	CBGroupJive::getGroup( $id );
 		$isModerator			=	CBGroupJive::isModerator( $user->get( 'id' ) );
 
 		if ( ! $user->get( 'id' ) ) {
@@ -1384,9 +1405,7 @@ class CBplug_cbgroupjive extends cbPluginHandler
 	{
 		global $_CB_framework, $_PLUGINS;
 
-		$group						=	new GroupTable();
-
-		$group->load( (int) $id );
+		$group						=	CBGroupJive::getGroup( $id );
 
 		if ( ! $user->get( 'id' ) ) {
 			$returnUrl				=	$_CB_framework->pluginClassUrl( $this->element, false, array( 'action' => 'groups', 'func' => 'leave', 'id' => (int) $group->get( 'id' ) ) );
@@ -1438,10 +1457,7 @@ class CBplug_cbgroupjive extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row				=	new GroupTable();
-
-		$row->load( (int) $id );
-
+		$row				=	CBGroupJive::getGroup( $id );
 		$returnUrl			=	$_CB_framework->pluginClassUrl( $this->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'id' ) ) );
 
 		if ( CBGroupJive::canAccessGroup( $row, $user ) ) {
@@ -1481,10 +1497,7 @@ class CBplug_cbgroupjive extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row			=	new GroupTable();
-
-		$row->load( (int) $id );
-
+		$row			=	CBGroupJive::getGroup( $id );
 		$returnUrl		=	$_CB_framework->pluginClassUrl( $this->element, false, array( 'action' => 'categories', 'func' => 'show', 'id' => (int) $row->get( 'category' ) ) );
 
 		if ( CBGroupJive::canAccessGroup( $row, $user ) ) {
@@ -1518,19 +1531,14 @@ class CBplug_cbgroupjive extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row								=	new GroupTable();
-
-		$row->load( (int) $id );
-
+		$row								=	CBGroupJive::getGroup( $id );
 		$isModerator						=	CBGroupJive::isModerator( $user->get( 'id' ) );
 		$categoryId							=	$this->input( 'category', null, GetterInterface::INT );
 
 		if ( $categoryId === null ) {
 			$category						=	$row->category();
 		} else {
-			$category						=	new CategoryTable();
-
-			$category->load( (int) $categoryId );
+			$category						=	CBGroupJive::getCategory( $categoryId );
 		}
 
 		if ( $row->get( 'id' ) ) {
@@ -1540,15 +1548,15 @@ class CBplug_cbgroupjive extends cbPluginHandler
 		}
 
 		if ( ! $isModerator ) {
-			if ( ( ! $category->get( 'id' ) ) && ( ! $this->params->get( 'groups_uncategorized', 1 ) ) ) {
+			if ( ( $categoryId !== null ) && ( ! $category->get( 'id' ) ) && ( ! $this->params->get( 'groups_uncategorized', 1 ) ) ) {
 				CBGroupJive::returnRedirect( $returnUrl, CBTxt::T( 'Category does not exist.' ), 'error' );
-			} elseif ( ( ! $category->get( 'published' ) ) || ( ! CBGroupJive::canAccess( (int) $category->get( 'access' ), (int) $user->get( 'id' ) ) ) ) {
+			} elseif ( $category->get( 'id' ) && ( ( ! $category->get( 'published' ) ) || ( ! CBGroupJive::canAccess( (int) $category->get( 'access' ), (int) $user->get( 'id' ) ) ) ) ) {
 				CBGroupJive::returnRedirect( $returnUrl, CBTxt::T( 'You do not have access to this category.' ), 'error' );
 			} elseif ( $row->get( 'id' ) ) {
 				if ( $user->get( 'id' ) != $row->get( 'user_id' ) ) {
 					CBGroupJive::returnRedirect( $returnUrl, CBTxt::T( 'You do not have sufficient permissions to edit this group.' ), 'error' );
 				}
-			} elseif ( ! CBGroupJive::canCreateGroup( $user, $category ) ) {
+			} elseif ( ! CBGroupJive::canCreateGroup( $user, ( $categoryId === null ? null : $category ) ) ) {
 				if ( $category->get( 'id' ) ) {
 					CBGroupJive::returnRedirect( $returnUrl, CBTxt::T( 'You do not have sufficient permissions to create a group in this category.' ), 'error' );
 				} else {
@@ -1702,19 +1710,14 @@ class CBplug_cbgroupjive extends cbPluginHandler
 	{
 		global $_CB_framework, $_PLUGINS;
 
-		$row				=	new GroupTable();
-
-		$row->load( (int) $id );
-
+		$row				=	CBGroupJive::getGroup( $id );
 		$isModerator		=	CBGroupJive::isModerator( $user->get( 'id' ) );
 		$categoryId			=	$this->input( 'category', null, GetterInterface::INT );
 
 		if ( $categoryId === null ) {
 			$category		=	$row->category();
 		} else {
-			$category		=	new CategoryTable();
-
-			$category->load( (int) $categoryId );
+			$category		=	CBGroupJive::getCategory( $categoryId );
 		}
 
 		if ( $row->get( 'id' ) ) {
@@ -1726,7 +1729,7 @@ class CBplug_cbgroupjive extends cbPluginHandler
 		if ( ! $isModerator ) {
 			if ( ( ! $category->get( 'id' ) ) && ( ! $this->params->get( 'groups_uncategorized', 1 ) ) ) {
 				CBGroupJive::returnRedirect( $returnUrl, CBTxt::T( 'Category does not exist.' ), 'error' );
-			} elseif ( ( ! $category->get( 'published' ) ) || ( ! CBGroupJive::canAccess( (int) $category->get( 'access' ), (int) $user->get( 'id' ) ) ) ) {
+			} elseif ( $category->get( 'id' ) && ( ( ! $category->get( 'published' ) ) || ( ! CBGroupJive::canAccess( (int) $category->get( 'access' ), (int) $user->get( 'id' ) ) ) ) ) {
 				CBGroupJive::returnRedirect( $returnUrl, CBTxt::T( 'You do not have access to this category.' ), 'error' );
 			} elseif ( $row->get( 'id' ) ) {
 				if ( $user->get( 'id' ) != $row->get( 'user_id' ) ) {
@@ -1747,7 +1750,7 @@ class CBplug_cbgroupjive extends cbPluginHandler
 			$row->set( 'user_id', (int) $row->get( 'user_id', $user->get( 'id' ) ) );
 		}
 
-		$row->set( 'published', ( $isModerator || ( $row->get( 'published' ) != -1 ) || ( ! $this->params->get( 'groups_create_approval', 0 ) ) ? (int) $this->input( 'post/published', $row->get( 'published', 1 ), GetterInterface::INT ) : -1 ) );
+		$row->set( 'published', ( $isModerator || ( $row->get( 'id' ) && ( $row->get( 'published' ) != -1 ) ) || ( ! $this->params->get( 'groups_create_approval', 0 ) ) ? (int) $this->input( 'post/published', $row->get( 'published', 1 ), GetterInterface::INT ) : -1 ) );
 		$row->set( 'category', (int) $category->get( 'id' ) );
 		$row->set( 'type', (int) $this->input( 'post/type', $row->get( 'type', 1 ), GetterInterface::INT ) );
 		$row->set( 'name', $this->input( 'post/name', $row->get( 'name' ), GetterInterface::STRING ) );
@@ -1802,7 +1805,7 @@ class CBplug_cbgroupjive extends cbPluginHandler
 
 		if ( $row->get( 'published' ) == -1 ) {
 			if ( $new ) {
-				if ( $this->params->get( 'groups_approval_notify', 1 ) ) {
+				if ( $this->params->get( 'groups_create_approval_notify', 1 ) ) {
 					CBGroupJive::sendNotification( 3, (int) $row->get( 'user_id' ), null, CBTxt::T( 'Group create request awaiting approval' ), CBTxt::T( '[user] has created the group [group] and is awaiting approval!' ), $row );
 				}
 
@@ -1829,17 +1832,14 @@ class CBplug_cbgroupjive extends cbPluginHandler
 	{
 		global $_CB_framework, $_CB_database;
 
-		$row					=	new GroupTable();
-
-		$row->load( (int) $id );
-
+		$row					=	CBGroupJive::getGroup( $id );
 		$returnUrl				=	$_CB_framework->pluginClassUrl( $this->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'id' ) ) );
 
 		if ( CBGroupJive::canAccessGroup( $row, $user ) ) {
 			if ( ! CBGroupJive::isModerator( $user->get( 'id' ) ) ) {
 				if ( ! $this->params->get( 'groups_message', 0 ) ) {
 					cbRedirect( $returnUrl, CBTxt::T( 'You do not have access to messaging in this group.' ), 'error' );
-				} elseif ( CBGroupJive::getGroupStatus( $user, $row ) < 3 ) {
+				} elseif ( ( $row->get( 'published' ) == -1 ) || ( CBGroupJive::getGroupStatus( $user, $row ) < 3 ) ) {
 					cbRedirect( $returnUrl, CBTxt::T( 'You do not have sufficient permissions to messaging in this group.' ), 'error' );
 				} elseif ( $row->params()->get( 'messaged' ) ) {
 					$seconds	=	(int) $this->params->get( 'groups_message_delay', 60 );
@@ -1877,9 +1877,7 @@ class CBplug_cbgroupjive extends cbPluginHandler
 								.	"\n AND cb." . $_CB_database->NameQuote( 'approved' ) . " = 1"
 								.	"\n AND cb." . $_CB_database->NameQuote( 'confirmed' ) . " = 1"
 								.	"\n AND j." . $_CB_database->NameQuote( 'block' ) . " = 0"
-								.	"\n AND u." . $_CB_database->NameQuote( 'status' ) . " IN ( 1, 2, 3 )";
-
-		$query					.=	"\n ORDER BY IF( u." . $_CB_database->NameQuote( 'status' ) . " = 0, 999, u." . $_CB_database->NameQuote( 'status' ) . " ) DESC, u." . $_CB_database->NameQuote( 'date' ) . " DESC";
+								.	"\n AND u." . $_CB_database->NameQuote( 'status' ) . " > 0";
 		$_CB_database->setQuery( $query );
 		$users					=	$_CB_database->loadObjectList( null, '\CB\Database\Table\UserTable', array( $_CB_database ) );
 
@@ -2032,9 +2030,7 @@ class CBplug_cbgroupjive extends cbPluginHandler
 		if ( $groupId === null ) {
 			$group						=	$row->group();
 		} else {
-			$group						=	new GroupTable();
-
-			$group->load( (int) $groupId );
+			$group						=	CBGroupJive::getGroup( $groupId );
 		}
 
 		$returnUrl						=	$_CB_framework->pluginClassUrl( $this->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $group->get( 'id' ) ) );
@@ -2044,7 +2040,7 @@ class CBplug_cbgroupjive extends cbPluginHandler
 		} elseif ( $row->get( 'id' ) && ( $user->get( 'id' ) != $row->get( 'user_id' ) ) ) {
 			cbRedirect( $returnUrl, CBTxt::T( 'You do not have sufficient permissions to edit this invite.' ), 'error' );
 		} elseif ( ! $isModerator ) {
-			if ( ( ! $this->params->get( 'groups_invites_display', 1 ) ) && ( $group->get( 'type' ) != 3 ) ) {
+			if ( ( $row->get( 'published' ) == -1 ) || ( ( ! $this->params->get( 'groups_invites_display', 1 ) ) && ( $group->get( 'type' ) != 3 ) ) ) {
 				cbRedirect( $returnUrl, CBTxt::T( 'You do not have access to invites in this group.' ), 'error' );
 			} elseif ( ( ! $row->get( 'id' ) ) && ( ! CBGroupJive::canCreateGroupContent( $user, $group, 'invites' ) ) ) {
 				cbRedirect( $returnUrl, CBTxt::T( 'You do not have sufficient permissions to create an invite in this group.' ), 'error' );
@@ -2131,9 +2127,7 @@ class CBplug_cbgroupjive extends cbPluginHandler
 		if ( $groupId === null ) {
 			$group						=	$row->group();
 		} else {
-			$group						=	new GroupTable();
-
-			$group->load( (int) $groupId );
+			$group						=	CBGroupJive::getGroup( $groupId );
 		}
 
 		$returnUrl						=	$_CB_framework->pluginClassUrl( $this->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $group->get( 'id' ) ) );
@@ -2143,7 +2137,7 @@ class CBplug_cbgroupjive extends cbPluginHandler
 		} elseif ( $row->get( 'id' ) && ( $user->get( 'id' ) != $row->get( 'user_id' ) ) ) {
 			cbRedirect( $returnUrl, CBTxt::T( 'You do not have sufficient permissions to edit this invite.' ), 'error' );
 		} elseif ( ! $isModerator ) {
-			if ( ( ! $this->params->get( 'groups_invites_display', 1 ) ) && ( $group->get( 'type' ) != 3 ) ) {
+			if ( ( $group->get( 'published' ) == -1 ) || ( ( ! $this->params->get( 'groups_invites_display', 1 ) ) && ( $group->get( 'type' ) != 3 ) ) ) {
 				cbRedirect( $returnUrl, CBTxt::T( 'You do not have access to invites in this group.' ), 'error' );
 			} elseif ( ( ! $row->get( 'id' ) ) && ( ! CBGroupJive::canCreateGroupContent( $user, $group, 'invites' ) ) ) {
 				cbRedirect( $returnUrl, CBTxt::T( 'You do not have sufficient permissions to create an invite in this group.' ), 'error' );
@@ -2332,9 +2326,9 @@ class CBplug_cbgroupjive extends cbPluginHandler
 			if ( ! CBGroupJive::canAccessGroup( $row->group(), $user ) ) {
 				cbRedirect( $returnUrl, CBTxt::T( 'Group does not exist.' ), 'error' );
 			} elseif ( $user->get( 'id' ) != $row->get( 'user_id' ) ) {
-				cbRedirect( $returnUrl, CBTxt::T( 'You do not have sufficient permissions to delete this invite.' ), 'error' );
+				cbRedirect( $returnUrl, CBTxt::T( 'You do not have sufficient permissions to send this invite.' ), 'error' );
 			} elseif ( ! CBGroupJive::isModerator( $user->get( 'id' ) ) ) {
-				if ( ( ! $this->params->get( 'groups_invites_display', 1 ) ) && ( $row->group()->get( 'type' ) != 3 ) ) {
+				if ( ( $row->group()->get( 'published' ) == -1 ) || ( ( ! $this->params->get( 'groups_invites_display', 1 ) ) && ( $row->group()->get( 'type' ) != 3 ) ) ) {
 					cbRedirect( $returnUrl, CBTxt::T( 'You do not have access to invites in this group.' ), 'error' );
 				}
 			}
@@ -2363,9 +2357,7 @@ class CBplug_cbgroupjive extends cbPluginHandler
 
 		$isModerator		=	CBGroupJive::isModerator( $user->get( 'id' ) );
 
-		$group				=	new GroupTable();
-
-		$group->load( (int) $id );
+		$group				=	CBGroupJive::getGroup( $id );
 
 		$row->load( array( 'user_id' => (int) $user->get( 'id' ), 'group' => (int) $group->get( 'id' ) ) );
 

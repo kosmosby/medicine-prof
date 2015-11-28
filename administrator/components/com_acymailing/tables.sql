@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS `#__acymailing_fields` (
 	`required` tinyint unsigned NOT NULL DEFAULT '0',
 	`backend` tinyint unsigned NOT NULL DEFAULT '1',
 	`frontcomp` tinyint unsigned NOT NULL DEFAULT '0',
+	`frontform` tinyint unsigned NOT NULL DEFAULT '1',
 	`default` varchar(250) DEFAULT NULL,
 	`listing` tinyint unsigned DEFAULT NULL,
 	`frontlisting` tinyint unsigned NOT NULL DEFAULT '0',

@@ -1635,6 +1635,12 @@ return	array(
 'Un-Publish' => 'Снять с публикации',
 'Feedback from ' => 'Ответ от',
 'You have received a new entry in your' => 'Вы получили новый отзыв в разделе',
+'New Photo' => 'Добавить фото',
+'Description' => 'Описание',
+'Edit Photo' => 'Редактировать фото',
+'Update Photo' => 'Обновить фото',
+
+
 
 
 

@@ -66,13 +66,21 @@ class Model implements ModelInterface
 	 */
 	public function getCategory( $id )
 	{
-		$row	=	new CategoryTable();
-
-		if ( $id ) {
-			$row->load( (int) $id );
+		if ( ! $id ) {
+			return new CategoryTable();
 		}
 
-		return $row;
+		static $cache		=	array();
+
+		if ( ! isset( $cache[$id] ) ) {
+			$row			=	new CategoryTable();
+
+			$row->load( (int) $id );
+
+			$cache[$id]		=	$row;
+		}
+
+		return $cache[$id];
 	}
 
 	/**

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -11,9 +11,9 @@ defined('_JEXEC') or die('Restricted access');
 	<form action="<?php echo JRoute::_('index.php?option=com_acymailing&tmpl=component'); ?>" method="post" name="adminForm" id="adminForm" autocomplete="off">
 		<?php
 		$toolbar = acymailing_get('helper.toolbar');
-		$toolbar->help($this->help);
+		$toolbar->help('plugin-'.$this->help);
 		$toolbar->divider();
-		$toolbar->custom('apply', JText::_('ACY_SAVE', true), 'acyicon-save');
+		$toolbar->custom('apply', JText::_('ACY_SAVE', true), 'save');
 		$toolbar->topfixed = false;
 		$toolbar->setTitle(JText::_('ACY_CUSTOMTEMPLATE'));
 		$toolbar->display();

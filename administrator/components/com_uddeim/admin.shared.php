@@ -15,10 +15,10 @@ if (!(defined('_JEXEC') || defined('_VALID_MOS'))) { die( 'Direct Access to this
 
 // some global variables
 global $versionstring, $checkversion, $checkhotfix, $configversion;
-$versionstring	= "uddeIM 3.5";						// version string for about boxes
-$checkversion	= "3.5";							// version as above for check for update - this is the version we have
+$versionstring	= "uddeIM 3.7";						// version string for about boxes
+$checkversion	= "3.7";							// version as above for check for update - this is the version we have
 $checkhotfix	= "0";								// version as above for check for update - this is the version we have
-$configversion	= "2.5";							// this is the version number of the configuration file we expect to load
+$configversion	= "2.6";							// this is the version number of the configuration file we expect to load
 
 function uddeIMgetVersionArray() {
 	global $versionstring, $checkversion, $checkhotfix;

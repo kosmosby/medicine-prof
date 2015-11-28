@@ -171,9 +171,9 @@ class HTML_groupjivePhoto
 										.						'<div class="gjContainerBoxCounters text-muted small row">'
 										.							'<div class="gjGroupPhotoPublisher gjContainerBoxCounter col-sm-6">' . CBuser::getInstance( (int) $row->get( 'user_id' ), false )->getField( 'formatname', null, 'html', 'none', 'list', 0, true ) . '</div>'
 										.							'<div class="gjContainerBoxCounter col-sm-6 text-right">'
-											.							'<span title="' . htmlspecialchars( $row->get( 'date' ) ) . '">'
-											.								cbFormatDate( $row->get( 'date' ), true, false, CBTxt::T( 'GROUP_PHOTO_DATE_FORMAT', 'M j, Y' ) )
-											.							'</span>'
+										.								'<span title="' . htmlspecialchars( $row->get( 'date' ) ) . '">'
+										.									cbFormatDate( $row->get( 'date' ), true, false, CBTxt::T( 'GROUP_PHOTO_DATE_FORMAT', 'M j, Y' ) )
+										.								'</span>'
 										.							'</div>'
 										.							( $rowCounters ? '<div class="gjContainerBoxCounter col-sm-6">' . implode( '</div><div class="gjContainerBoxCounter col-sm-6">', $rowCounters ) . '</div>' : null )
 										.						'</div>'
@@ -198,7 +198,7 @@ class HTML_groupjivePhoto
 						if ( $isModerator || $isOwner || ( $userStatus >= 2 ) ) {
 							$menuItems	.=		'<li class="gjPhotoMenuItem"><a href="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'photo', 'func' => 'publish', 'id' => (int) $row->get( 'id' ) ) ) . '"><span class="fa fa-check"></span> ' . CBTxt::T( 'Approve' ) . '</a></li>';
 						}
-					} elseif ( $row->get( 'published' ) > 0 ) {
+					} elseif ( $row->get( 'published' ) == 1 ) {
 						$menuItems		.=		'<li class="gjPhotoMenuItem"><a href="javascript: void(0);" onclick="cbjQuery.cbconfirm( \'' . addslashes( CBTxt::T( 'Are you sure you want to unpublish this Photo?' ) ) . '\' ).done( function() { window.location.href = \'' . $_CB_framework->pluginClassUrl( $plugin->element, false, array( 'action' => 'photo', 'func' => 'unpublish', 'id' => (int) $row->get( 'id' ) ) ) . '\'; })"><span class="fa fa-times-circle"></span> ' . CBTxt::T( 'Unpublish' ) . '</a></li>';
 					} else {
 						$menuItems		.=		'<li class="gjPhotoMenuItem"><a href="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'photo', 'func' => 'publish', 'id' => (int) $row->get( 'id' ) ) ) . '"><span class="fa fa-check"></span> ' . CBTxt::T( 'Publish' ) . '</a></li>';

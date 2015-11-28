@@ -15,11 +15,14 @@ use CB\Database\Table\PluginTable;
 use CB\Database\Table\UserTable;
 use CB\Database\Table\TabTable;
 use CB\Plugin\GroupJive\CBGroupJive;
-use CB\Plugin\GroupJive\Table\GroupTable;
-use CB\Plugin\GroupJiveEvents\Table\EventTable;
+use CB\Plugin\GroupJiveEvents\CBGroupJiveEvents;
 use CB\Plugin\GroupJiveEvents\Table\AttendanceTable;
 
 if ( ! ( defined( '_VALID_CB' ) || defined( '_JEXEC' ) || defined( '_VALID_MOS' ) ) ) { die( 'Direct Access to this location is not allowed.' ); }
+
+global $_PLUGINS;
+
+$_PLUGINS->loadPluginGroup( 'user' );
 
 class CBplug_cbgroupjiveevents extends cbPluginHandler
 {
@@ -127,17 +130,14 @@ class CBplug_cbgroupjiveevents extends cbPluginHandler
 	{
 		global $_CB_framework, $_CB_database;
 
-		$event			=	new EventTable();
-
-		$event->load( (int) $id );
-
+		$event			=	CBGroupJiveEvents::getEvent( (int) $id );
 		$returnUrl		=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $event->get( 'group' ) ) );
 
 		if ( $event->get( 'id' ) ) {
 			if ( ! CBGroupJive::canAccessGroup( $event->group(), $user ) ) {
 				cbRedirect( $returnUrl, CBTxt::T( 'Group does not exist.' ), 'error' );
 			} elseif ( ! CBGroupJive::isModerator( $user->get( 'id' ) ) ) {
-				if ( ( ! $event->get( 'published' ) ) && ( CBGroupJive::getGroupStatus( $user, $event->group() ) < 2 ) ) {
+				if ( ( $event->get( 'published' ) != 1 ) && ( CBGroupJive::getGroupStatus( $user, $event->group() ) < 2 ) ) {
 					cbRedirect( $returnUrl, CBTxt::T( 'You do not have access to this event.' ), 'error' );
 				}
 			}
@@ -232,19 +232,14 @@ class CBplug_cbgroupjiveevents extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row					=	new EventTable();
-
-		$row->load( (int) $id );
-
+		$row					=	CBGroupJiveEvents::getEvent( (int) $id );
 		$isModerator			=	CBGroupJive::isModerator( $user->get( 'id' ) );
 		$groupId				=	$this->input( 'group', null, GetterInterface::INT );
 
 		if ( $groupId === null ) {
 			$group				=	$row->group();
 		} else {
-			$group				=	new GroupTable();
-
-			$group->load( (int) $groupId );
+			$group				=	CBGroupJive::getGroup( $groupId );
 		}
 
 		$returnUrl				=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $group->get( 'id' ) ) );
@@ -315,19 +310,14 @@ class CBplug_cbgroupjiveevents extends cbPluginHandler
 	{
 		global $_CB_framework, $_PLUGINS;
 
-		$row					=	new EventTable();
-
-		$row->load( (int) $id );
-
+		$row					=	CBGroupJiveEvents::getEvent( (int) $id );
 		$isModerator			=	CBGroupJive::isModerator( $user->get( 'id' ) );
 		$groupId				=	$this->input( 'group', null, GetterInterface::INT );
 
 		if ( $groupId === null ) {
 			$group				=	$row->group();
 		} else {
-			$group				=	new GroupTable();
-
-			$group->load( (int) $groupId );
+			$group				=	CBGroupJive::getGroup( $groupId );
 		}
 
 		$returnUrl				=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $group->get( 'id' ) ) );
@@ -348,14 +338,26 @@ class CBplug_cbgroupjiveevents extends cbPluginHandler
 			$row->set( 'user_id', (int) $row->get( 'user_id', $user->get( 'id' ) ) );
 		}
 
-		$row->set( 'published', ( $isModerator || ( $row->get( 'published' ) != -1 ) || ( $group->params()->get( 'events', 1 ) != 2 ) ? (int) $this->input( 'post/published', $row->get( 'published', 1 ), GetterInterface::INT ) : -1 ) );
+		$canModerate			=	( CBGroupJive::getGroupStatus( $user, $group ) >= 2 );
+
+		$currentTitle			=	$row->get( 'title' );
+		$currentEvent			=	$row->get( 'event' );
+		$currentLocation		=	$row->get( 'location' );
+		$currentAddress			=	$row->get( 'address' );
+		$currentStart			=	$row->get( 'start', '0000-00-00 00:00:00' );
+		$currentEnd				=	$row->get( 'end', '0000-00-00 00:00:00' );
+
+		$newStart				=	$this->input( 'post/start', $currentStart, GetterInterface::STRING );
+		$newEnd					=	$this->input( 'post/end', $currentEnd, GetterInterface::STRING );
+
+		$row->set( 'published', ( $isModerator || $canModerate || ( $row->get( 'id' ) && ( $row->get( 'published' ) != -1 ) ) || ( $group->params()->get( 'events', 1 ) != 2 ) ? (int) $this->input( 'post/published', $row->get( 'published', 1 ), GetterInterface::INT ) : -1 ) );
 		$row->set( 'group', (int) $group->get( 'id' ) );
-		$row->set( 'title', $this->input( 'post/title', $row->get( 'title' ), GetterInterface::STRING ) );
-		$row->set( 'event', $this->input( 'post/event', $row->get( 'event' ), GetterInterface::HTML ) );
-		$row->set( 'location', $this->input( 'post/location', $row->get( 'location' ), GetterInterface::STRING ) );
-		$row->set( 'address', $this->input( 'post/address', $row->get( 'address' ), GetterInterface::STRING ) );
-		$row->set( 'start', $this->input( 'post/start', $row->get( 'start' ), GetterInterface::STRING ) );
-		$row->set( 'end', $this->input( 'post/end', $row->get( 'end' ), GetterInterface::STRING ) );
+		$row->set( 'title', $this->input( 'post/title', $currentTitle, GetterInterface::STRING ) );
+		$row->set( 'event', $this->input( 'post/event', $currentEvent, GetterInterface::HTML ) );
+		$row->set( 'location', $this->input( 'post/location', $currentLocation, GetterInterface::STRING ) );
+		$row->set( 'address', $this->input( 'post/address', $currentAddress, GetterInterface::STRING ) );
+		$row->set( 'start', ( $newStart ? $newStart : '0000-00-00 00:00:00' ) );
+		$row->set( 'end', ( $newEnd ? $newEnd : '0000-00-00 00:00:00' ) );
 		$row->set( 'limit', (int) $this->input( 'post/limit', $row->get( 'limit' ), GetterInterface::INT ) );
 
 		if ( ( ! $isModerator ) && $this->params->get( 'groups_events_captcha', 0 ) ) {
@@ -384,10 +386,11 @@ class CBplug_cbgroupjiveevents extends cbPluginHandler
 			return;
 		}
 
-		if ( $new ) {
-			$extras				=	array( 'event' => htmlspecialchars( $row->get( 'title' ) ) );
+		$extras					=	array(	'event_title'	=>	htmlspecialchars( $row->get( 'title' ) ),
+											'event'			=>	'<a href="' . $_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'group' ), 'tab' => 'grouptabevents' ) ) . '">' . htmlspecialchars( CBTxt::T( $row->get( 'title' ) ) ) . '</a>' );
 
-			if ( $row->get( 'published' ) ) {
+		if ( $new ) {
+			if ( $row->get( 'published' ) == 1 ) {
 				CBGroupJive::sendNotifications( 'event_new', CBTxt::T( 'New group event' ), CBTxt::T( '[user] has scheduled the event [event] in the group [group]!' ), $row->group(), (int) $row->get( 'user_id' ), null, array( $user->get( 'id' ) ), 1, $extras );
 			} elseif ( ( $row->get( 'published' ) == -1 ) && ( $row->group()->params()->get( 'events', 1 ) == 2 ) ) {
 				CBGroupJive::sendNotifications( 'event_approve', CBTxt::T( 'New group event awaiting approval' ), CBTxt::T( '[user] has scheduled the event [event] in the group [group] and is awaiting approval!' ), $row->group(), (int) $row->get( 'user_id' ), null, array( $user->get( 'id' ) ), 1, $extras );
@@ -395,6 +398,10 @@ class CBplug_cbgroupjiveevents extends cbPluginHandler
 
 			cbRedirect( $returnUrl, CBTxt::T( 'Event scheduled successfully!' ) );
 		} else {
+			if ( ( $row->get( 'published' ) == 1 ) && ( ( $row->get( 'title' ) != $currentTitle ) || ( $row->get( 'event' ) != $currentEvent ) || ( $row->get( 'location' ) != $currentLocation ) || ( $row->get( 'address' ) != $currentAddress ) || ( $row->get( 'start' ) != $currentStart ) || ( $row->get( 'end' ) != $currentEnd ) ) ) {
+				CBGroupJive::sendNotifications( 'event_edit', CBTxt::T( 'Group event changed' ), CBTxt::T( '[user] has changed the scheduled event [event] in the group [group]!' ), $row->group(), (int) $row->get( 'user_id' ), null, array( $user->get( 'id' ) ), 1, $extras );
+			}
+
 			cbRedirect( $returnUrl, CBTxt::T( 'Event saved successfully!' ) );
 		}
 	}
@@ -410,10 +417,7 @@ class CBplug_cbgroupjiveevents extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row				=	new EventTable();
-
-		$row->load( (int) $id );
-
+		$row				=	CBGroupJiveEvents::getEvent( (int) $id );
 		$returnUrl			=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'group' ) ) );
 
 		if ( $row->get( 'id' ) ) {
@@ -441,7 +445,8 @@ class CBplug_cbgroupjiveevents extends cbPluginHandler
 		}
 
 		if ( $state && ( $currentState == -1 ) ) {
-			$extras			=	array( 'event' => htmlspecialchars( $row->get( 'title' ) ) );
+			$extras			=	array(	'event_title'	=>	htmlspecialchars( $row->get( 'title' ) ),
+										'event'			=>	'<a href="' . $_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'group' ), 'tab' => 'grouptabevents' ) ) . '">' . htmlspecialchars( CBTxt::T( $row->get( 'title' ) ) ) . '</a>' );
 
 			if ( $row->get( 'user_id' ) != $user->get( 'id' ) ) {
 				CBGroupJive::sendNotification( 4, $user, (int) $row->get( 'user_id' ), CBTxt::T( 'Event schedule request accepted' ), CBTxt::T( 'Your event [event] schedule request in the group [group] has been accepted!' ), $row->group(), $extras );
@@ -463,10 +468,7 @@ class CBplug_cbgroupjiveevents extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row			=	new EventTable();
-
-		$row->load( (int) $id );
-
+		$row			=	CBGroupJiveEvents::getEvent( (int) $id );
 		$returnUrl		=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'group' ) ) );
 
 		if ( $row->get( 'id' ) ) {
@@ -502,17 +504,14 @@ class CBplug_cbgroupjiveevents extends cbPluginHandler
 	{
 		global $_CB_framework, $_CB_database;
 
-		$event						=	new EventTable();
-
-		$event->load( (int) $id );
-
+		$event						=	CBGroupJiveEvents::getEvent( (int) $id );
 		$returnUrl					=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $event->get( 'group' ) ) );
 
 		if ( $event->get( 'id' ) ) {
 			if ( ! CBGroupJive::canAccessGroup( $event->group(), $user ) ) {
 				cbRedirect( $returnUrl, CBTxt::T( 'Group does not exist.' ), 'error' );
 			} elseif ( ! CBGroupJive::isModerator( $user->get( 'id' ) ) ) {
-				if ( ( ! $event->get( 'published' ) ) && ( CBGroupJive::getGroupStatus( $user, $event->group() ) < 2 ) ) {
+				if ( ( $event->get( 'published' ) != 1 ) && ( CBGroupJive::getGroupStatus( $user, $event->group() ) < 2 ) ) {
 					cbRedirect( $returnUrl, CBTxt::T( 'You do not have access to this event.' ), 'error' );
 				} elseif ( CBGroupJive::getGroupStatus( $user, $event->group() ) < 1 ) {
 					cbRedirect( $returnUrl, CBTxt::T( 'You do not have sufficient permissions to attend this event.' ), 'error' );
@@ -560,7 +559,10 @@ class CBplug_cbgroupjiveevents extends cbPluginHandler
 			cbRedirect( $returnUrl, CBTxt::T( 'GROUP_EVENT_ATTEND_FAILED', 'Event attend failed. Error: [error]', array( '[error]' => $row->getError() ) ), 'error' );
 		}
 
-		CBGroupJive::sendNotifications( 'event_attend', CBTxt::T( 'User attending your group event' ), CBTxt::T( '[user] will be attending your event [event] in the group [group]!' ), $event->group(), $user, (int) $event->get( 'user_id' ), array(), 1, array( 'event' => htmlspecialchars( $event->get( 'title' ) ) ) );
+		$extras						=	array(	'event_title'	=>	htmlspecialchars( $event->get( 'title' ) ),
+												'event'			=>	'<a href="' . $_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $event->get( 'group' ), 'tab' => 'grouptabevents' ) ) . '">' . htmlspecialchars( CBTxt::T( $event->get( 'title' ) ) ) . '</a>' );
+
+		CBGroupJive::sendNotifications( 'event_attend', CBTxt::T( 'User attending your group event' ), CBTxt::T( '[user] will be attending your event [event] in the group [group]!' ), $event->group(), $user, (int) $event->get( 'user_id' ), array(), 1, $extras );
 
 		cbRedirect( $returnUrl, CBTxt::T( 'Event attended successfully!' ) );
 	}
@@ -575,17 +577,14 @@ class CBplug_cbgroupjiveevents extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$event				=	new EventTable();
-
-		$event->load( (int) $id );
-
+		$event				=	CBGroupJiveEvents::getEvent( (int) $id );
 		$returnUrl			=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $event->get( 'group' ) ) );
 
 		if ( $event->get( 'id' ) ) {
 			if ( ! CBGroupJive::canAccessGroup( $event->group(), $user ) ) {
 				cbRedirect( $returnUrl, CBTxt::T( 'Group does not exist.' ), 'error' );
 			} elseif ( ! CBGroupJive::isModerator( $user->get( 'id' ) ) ) {
-				if ( ( ! $event->get( 'published' ) ) && ( CBGroupJive::getGroupStatus( $user, $event->group() ) < 2 ) ) {
+				if ( ( $event->get( 'published' ) != 1 ) && ( CBGroupJive::getGroupStatus( $user, $event->group() ) < 2 ) ) {
 					cbRedirect( $returnUrl, CBTxt::T( 'You do not have access to this event.' ), 'error' );
 				} elseif ( CBGroupJive::getGroupStatus( $user, $event->group() ) < 1 ) {
 					cbRedirect( $returnUrl, CBTxt::T( 'You do not have sufficient permissions to unattend this event.' ), 'error' );
@@ -613,7 +612,10 @@ class CBplug_cbgroupjiveevents extends cbPluginHandler
 			cbRedirect( $returnUrl, CBTxt::T( 'GROUP_EVENT_FAILED_TO_UNATTEND', 'Event failed to unattend. Error: [error]', array( '[error]' => $row->getError() ) ), 'error' );
 		}
 
-		CBGroupJive::sendNotifications( 'event_unattend', CBTxt::T( 'User unattended your group event' ), CBTxt::T( '[user] will no longer be attending your event [event] in the group [group]!' ), $event->group(), $user, (int) $event->get( 'user_id' ), array(), 1, array( 'event' => htmlspecialchars( $event->get( 'title' ) ) ) );
+		$extras				=	array(	'event_title'	=>	htmlspecialchars( $event->get( 'title' ) ),
+										'event'			=>	'<a href="' . $_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $event->get( 'group' ), 'tab' => 'grouptabevents' ) ) . '">' . htmlspecialchars( CBTxt::T( $event->get( 'title' ) ) ) . '</a>' );
+
+		CBGroupJive::sendNotifications( 'event_unattend', CBTxt::T( 'User unattended your group event' ), CBTxt::T( '[user] will no longer be attending your event [event] in the group [group]!' ), $event->group(), $user, (int) $event->get( 'user_id' ), array(), 1, $extras );
 
 		cbRedirect( $returnUrl, CBTxt::T( 'Event unattended successfully!' ) );
 	}

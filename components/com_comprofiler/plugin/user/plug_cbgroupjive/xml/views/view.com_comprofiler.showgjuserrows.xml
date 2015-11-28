@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../../../validation/ahawow.xsd">
 	<views>
-		<view name="showgjusers" type="params" ui="admin" label="Users" icon="list" viewformatting="none">
+		<view name="showgjusers" type="params" ui="admin" label="GROUP_USERS" translated-label="Users" icon="list" viewformatting="none">
 			<tablebrowser name="gjusersbrowser" table="#__groupjive_users" class="\CB\Plugin\GroupJive\Table\UserTable">
 				<toolbarmenu>
 					<menu name="new" action="linkAction" task="new" link="cbo:newrow" label="New" />

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -45,6 +45,6 @@ defined('_JEXEC') or die('Restricted access');
 		;
 
 	</script>
-	<h1 class="acy_graphtitle"> <?php echo JText::_('ACY_SUBSCRIBERS_LOCATIONS') ?> </h1>
+	<h1 class="acy_graphtitle"> <?php echo JText::sprintf('ACY_SUBSCRIBERS_LOCATIONS', $this->nbUsersToGet) ?> </h1>
 	<div id="mapGeoloc_div"></div>
 <?php } ?>

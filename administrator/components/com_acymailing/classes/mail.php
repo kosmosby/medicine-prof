@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -79,7 +79,7 @@ class mailClass extends acymailingClass{
 			foreach($attachments as $id => $filepath){
 				if(empty($filepath)) continue;
 				$attachment = new stdClass();
-				$attachment->filename = strtolower($filepath);
+				$attachment->filename = $filepath;
 				$attachment->size = filesize(JPATH_SITE.'/'.$filepath);
 				$extension = substr($attachment->filename, strrpos($attachment->filename, '.'));
 
@@ -122,7 +122,9 @@ class mailClass extends acymailingClass{
 
 		if(empty($mail->thumb)){
 			unset($mail->thumb);
-		}elseif($mail->thumb == 'delete') $mail->thumb = '';
+		}elseif($mail->thumb == 'delete'){
+			$mail->thumb = '';
+		}
 
 		$mailid = $this->save($mail);
 		if(!$mailid) return false;

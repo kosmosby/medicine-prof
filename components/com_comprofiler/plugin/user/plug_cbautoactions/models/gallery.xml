@@ -6,30 +6,30 @@
 		</type>
 		<type name="autoaction_triggers" base="xml:autoaction_triggers">
 			<optgroup label="CB Gallery">
-				<option value="gallery_onAfterCreateFolder">After Create Folder</option>
-				<option value="gallery_onAfterCreateItem">After Create Item</option>
-				<option value="gallery_onAfterDeleteFolder">After Delete Folder</option>
-				<option value="gallery_onAfterDeleteItem">After Delete Item</option>
-				<option value="gallery_onAfterUpdateFolder">After Update Folder</option>
-				<option value="gallery_onAfterUpdateItem">After Update Item</option>
-				<option value="gallery_onBeforeCreateFolder">Before Create Folder</option>
-				<option value="gallery_onBeforeCreateItem">Before Create Item</option>
-				<option value="gallery_onBeforeDeleteFolder">Before Delete Folder</option>
-				<option value="gallery_onBeforeDeleteItem">Before Delete Item</option>
-				<option value="gallery_onBeforeDisplayFiles">Before Display Files</option>
-				<option value="gallery_onBeforeDisplayFolder">Before Display Folder</option>
-				<option value="gallery_onBeforeDisplayFolders">Before Display Folders</option>
-				<option value="gallery_onBeforeDisplayItems">Before Display Items</option>
-				<option value="gallery_onBeforeDisplayMusic">Before Display Music</option>
-				<option value="gallery_onBeforeDisplayPhotos">Before Display Photos</option>
-				<option value="gallery_onBeforeDisplayTab">Before Display Tab</option>
-				<option value="gallery_onBeforeDisplayVideos">Before Display Videos</option>
-				<option value="gallery_onBeforeFolderEdit">Before Folder Edit</option>
-				<option value="gallery_onBeforeItemEdit">Before Item Edit</option>
-				<option value="gallery_onBeforeUpdateFolder">Before Update Folder</option>
-				<option value="gallery_onBeforeUpdateItem">Before Update Item</option>
-				<option value="gallery_onLoadFolders">Load Folders</option>
-				<option value="gallery_onLoadItems">Load Items</option>
+				<option value="gallery_onAfterCreateFolder" translate="no">gallery_onAfterCreateFolder</option>
+				<option value="gallery_onAfterCreateItem" translate="no">gallery_onAfterCreateItem</option>
+				<option value="gallery_onAfterDeleteFolder" translate="no">gallery_onAfterDeleteFolder</option>
+				<option value="gallery_onAfterDeleteItem" translate="no">gallery_onAfterDeleteItem</option>
+				<option value="gallery_onAfterUpdateFolder" translate="no">gallery_onAfterUpdateFolder</option>
+				<option value="gallery_onAfterUpdateItem" translate="no">gallery_onAfterUpdateItem</option>
+				<option value="gallery_onBeforeCreateFolder" translate="no">gallery_onBeforeCreateFolder</option>
+				<option value="gallery_onBeforeCreateItem" translate="no">gallery_onBeforeCreateItem</option>
+				<option value="gallery_onBeforeDeleteFolder" translate="no">gallery_onBeforeDeleteFolder</option>
+				<option value="gallery_onBeforeDeleteItem" translate="no">gallery_onBeforeDeleteItem</option>
+				<option value="gallery_onBeforeDisplayFiles" translate="no">gallery_onBeforeDisplayFiles</option>
+				<option value="gallery_onBeforeDisplayFolder" translate="no">gallery_onBeforeDisplayFolder</option>
+				<option value="gallery_onBeforeDisplayFolders" translate="no">gallery_onBeforeDisplayFolders</option>
+				<option value="gallery_onBeforeDisplayItems" translate="no">gallery_onBeforeDisplayItems</option>
+				<option value="gallery_onBeforeDisplayMusic" translate="no">gallery_onBeforeDisplayMusic</option>
+				<option value="gallery_onBeforeDisplayPhotos" translate="no">gallery_onBeforeDisplayPhotos</option>
+				<option value="gallery_onBeforeDisplayTab" translate="no">gallery_onBeforeDisplayTab</option>
+				<option value="gallery_onBeforeDisplayVideos" translate="no">gallery_onBeforeDisplayVideos</option>
+				<option value="gallery_onBeforeFolderEdit" translate="no">gallery_onBeforeFolderEdit</option>
+				<option value="gallery_onBeforeItemEdit" translate="no">gallery_onBeforeItemEdit</option>
+				<option value="gallery_onBeforeUpdateFolder" translate="no">gallery_onBeforeUpdateFolder</option>
+				<option value="gallery_onBeforeUpdateItem" translate="no">gallery_onBeforeUpdateItem</option>
+				<option value="gallery_onLoadFolders" translate="no">gallery_onLoadFolders</option>
+				<option value="gallery_onLoadItems" translate="no">gallery_onLoadItems</option>
 			</optgroup>
 		</type>
 	</types>

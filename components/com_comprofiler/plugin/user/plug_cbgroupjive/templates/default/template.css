@@ -284,3 +284,11 @@
 .cb_template .gjInviteListUser .gjContainerBoxHeader {
 	height: 100px;
 }
+
+.cb_template .gjActivity {
+	padding: 10px;
+}
+
+.cb_template .gjActivity .gjPageHeader .gjPageHeaderCanvas {
+	height: 125px;
+}

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -277,8 +277,8 @@ class acyimportHelper{
 			$ordering++;
 			$db->setQuery('ALTER TABLE `#__acymailing_subscriber` ADD `'.acymailing_secureField(strtolower($oneColumn)).'` VARCHAR ( 250 ) NOT NULL DEFAULT ""');
 			$db->query();
-			$query = "INSERT INTO `#__acymailing_fields` (`fieldname`, `namekey`, `type`, `value`, `published`, `ordering`, `options`, `core`, `required`, `backend`, `frontcomp`, `default`, `listing`, `frontlisting`) VALUES
-			(".$db->quote($oneColumn).", ".$db->quote(strtolower($oneColumn)).", 'text', '', 1, ".intval($ordering).", '', 0, 0, 1, 0, '',0,0);";
+			$query = "INSERT INTO `#__acymailing_fields` (`fieldname`, `namekey`, `type`, `value`, `published`, `ordering`, `options`, `core`, `required`, `backend`, `frontcomp`, `default`, `listing`, `frontlisting`, `frontform`) VALUES
+			(".$db->quote($oneColumn).", ".$db->quote(strtolower($oneColumn)).", 'text', '', 1, ".intval($ordering).", '', 0, 0, 1, 0, '',0,0,1);";
 			$db->setQuery($query);
 			$db->query();
 		}

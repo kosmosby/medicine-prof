@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.0" method="upgrade">
 	<name>AcyMailing</name>
-	<creationDate>octobre 2015</creationDate>
-	<version>5.0.0</version>
+	<creationDate>novembre 2015</creationDate>
+	<version>5.0.1</version>
 	<level>starter</level>
 	<author>Acyba</author>
 	<authorEmail>dev@acyba.com</authorEmail>
@@ -63,7 +63,6 @@
 			<menu link="option=com_acymailing&amp;ctrl=queue" img="../media/com_acymailing/images/icons/icon-16-process.png">Queue</menu>
 			<menu link="option=com_acymailing&amp;ctrl=stats" img="../media/com_acymailing/images/icons/icon-16-stats.png">Statistics</menu>
 			<menu link="option=com_acymailing&amp;ctrl=cpanel" img="../media/com_acymailing/images/icons/icon-16-acyconfig.png">Configuration</menu>
-			<menu link="option=com_acymailing&amp;ctrl=update" img="../media/com_acymailing/images/icons/icon-16-update.png">Update_About</menu>
 		</submenu>
 	</administration>
 </extension>

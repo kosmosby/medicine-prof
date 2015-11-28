@@ -162,7 +162,7 @@ class CBGroupJive
 	{
 		global $_CB_framework, $_PLUGINS;
 
-		if ( ( ! $subject ) || ( ! $body ) || ( ! $group->get( 'id' ) ) || ( ! $group->get( 'published', 1 ) ) || ( ! $group->category()->get( 'published', 1 ) ) || ( ! $to ) ) {
+		if ( ( ! $subject ) || ( ! $body ) || ( ! $group->get( 'id' ) ) || ( $group->get( 'published', 1 ) != 1 ) || ( ! $group->category()->get( 'published', 1 ) ) || ( ! $to ) ) {
 			return false;
 		}
 
@@ -202,11 +202,11 @@ class CBGroupJive
 
 		$extras					=	array(	'category_id'		=>	(int) $group->category()->get( 'id' ),
 											'category_name'		=>	( $group->category()->get( 'id' ) ? CBTxt::T( $group->category()->get( 'name' ) ) : CBTxt::T( 'Uncategorized' ) ),
-											'category'			=>	'<a href="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'categories', 'func' => 'show', 'id' => (int) $group->get( 'category' ) ) ) . '">' . ( $group->category()->get( 'id' ) ? CBTxt::T( $group->category()->get( 'name' ) ) : CBTxt::T( 'Uncategorized' ) ) . '</a>',
+											'category'			=>	'<a href="' . $_CB_framework->pluginClassUrl( $plugin->element, false, array( 'action' => 'categories', 'func' => 'show', 'id' => (int) $group->get( 'category' ) ) ) . '">' . ( $group->category()->get( 'id' ) ? CBTxt::T( $group->category()->get( 'name' ) ) : CBTxt::T( 'Uncategorized' ) ) . '</a>',
 											'group_id'			=>	(int) $group->get( 'id' ),
 											'group_name'		=>	htmlspecialchars( CBTxt::T( $group->get( 'name' ) ) ),
-											'group'				=>	'<a href="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $group->get( 'id' ) ) ) . '">' . htmlspecialchars( CBTxt::T( $group->get( 'name' ) ) ) . '</a>',
-											'user'				=>	'<a href="' . $_CB_framework->viewUrl( 'userprofile', true, array( 'user' => (int) $user->get( 'id' ) ) ) . '">' . getNameFormat( $user->get( 'name' ), $user->get( 'username' ), Application::Config()->get( 'name_format', 3 ) ) . '</a>'
+											'group'				=>	'<a href="' . $_CB_framework->pluginClassUrl( $plugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $group->get( 'id' ) ) ) . '">' . htmlspecialchars( CBTxt::T( $group->get( 'name' ) ) ) . '</a>',
+											'user'				=>	'<a href="' . $_CB_framework->viewUrl( 'userprofile', false, array( 'user' => (int) $user->get( 'id' ) ) ) . '">' . getNameFormat( $user->get( 'name' ), $user->get( 'username' ), Application::Config()->get( 'name_format', 3 ) ) . '</a>'
 										);
 
 		if ( ! $toUser ) {
@@ -285,7 +285,15 @@ class CBGroupJive
 
 		$myId						=	Application::MyUser()->getUserId();
 
-		if ( ( ! $notification ) || ( ! $subject ) || ( ! $body ) || ( ! $group->get( 'id' ) ) || ( ! $group->get( 'published', 1 ) ) || ( ! $group->category()->get( 'published', 1 ) ) || ( $to && ( $to->get( 'id' ) == $myId ) ) || ( $from && $to && ( $from->get( 'id' ) == $to->get( 'id' ) ) ) ) {
+		if ( ( ! $notification ) || ( ! $subject ) || ( ! $body ) ) {
+			return false;
+		} elseif ( $to && ( $to->get( 'id' ) == $myId ) ) {
+			return false;
+		} elseif ( $from && $to && ( $from->get( 'id' ) == $to->get( 'id' ) ) ) {
+			return false;
+		} elseif ( ( ! $group->get( 'id' ) ) || ( $group->get( 'published' ) != 1 ) ) {
+			return false;
+		} elseif ( $group->category()->get( 'id' ) && ( ! $group->category()->get( 'published' ) ) ) {
 			return false;
 		}
 
@@ -296,7 +304,9 @@ class CBGroupJive
 			$params					=	$_PLUGINS->getPluginParams( $plugin );
 		}
 
-		if ( ! $params->get( 'notifications', 1 ) ) {
+		if ( ( ! $group->category()->get( 'id' ) ) && ( ! $params->get( 'groups_uncategorized', 1 ) ) ) {
+			return false;
+		} elseif ( ! $params->get( 'notifications', 1 ) ) {
 			return false;
 		}
 
@@ -312,7 +322,10 @@ class CBGroupJive
 			$skip[]					=	$from->get( 'id' );
 		}
 
+		$moderators					=	Application::CmsPermissions()->getGroupsOfViewAccessLevel( Application::Config()->get( 'moderator_viewaccesslevel', 3, GetterInterface::INT ), true );
+
 		$query						=	'SELECT DISTINCT n.*'
+									.	', u.' . $_CB_database->NameQuote( 'status' )
 									.	"\n FROM " . $_CB_database->NameQuote( '#__groupjive_notifications' ) . " AS n"
 									.	"\n LEFT JOIN " . $_CB_database->NameQuote( '#__groupjive_users' ) . " AS u"
 									.	' ON u.' . $_CB_database->NameQuote( 'user_id' ) . ' = n.' . $_CB_database->NameQuote( 'user_id' )
@@ -321,6 +334,8 @@ class CBGroupJive
 									.	' ON cb.' . $_CB_database->NameQuote( 'id' ) . ' = u.' . $_CB_database->NameQuote( 'user_id' )
 									.	"\n LEFT JOIN " . $_CB_database->NameQuote( '#__users' ) . " AS j"
 									.	' ON j.' . $_CB_database->NameQuote( 'id' ) . ' = cb.' . $_CB_database->NameQuote( 'id' )
+									.	"\n LEFT JOIN " . $_CB_database->NameQuote( '#__user_usergroup_map' ) . " AS g"
+									.	' ON g.' . $_CB_database->NameQuote( 'user_id' ) . ' = j.' . $_CB_database->NameQuote( 'id' )
 									.	"\n WHERE n." . $_CB_database->NameQuote( 'group' ) . " = " . (int) $group->get( 'id' );
 
 		if ( $to ) {
@@ -336,7 +351,9 @@ class CBGroupJive
 		$query						.=	"\n AND cb." . $_CB_database->NameQuote( 'approved' ) . " = 1"
 									.	"\n AND cb." . $_CB_database->NameQuote( 'confirmed' ) . " = 1"
 									.	"\n AND j." . $_CB_database->NameQuote( 'block' ) . " = 0"
-									.	"\n AND u." . $_CB_database->NameQuote( 'status' ) . " >= 1";
+									.	"\n AND ( n." . $_CB_database->NameQuote( 'user_id' ) . " = " . (int) $group->get( 'user_id' )
+									.		' OR u.' . $_CB_database->NameQuote( 'status' ) . " >= " . (int) $status
+									.		' OR g.' . $_CB_database->NameQuote( 'group_id' ) . " IN " . $_CB_database->safeArrayOfIntegers( $moderators ) . ' )';
 		$_CB_database->setQuery( $query );
 		$rows						=	$_CB_database->loadObjectList( null, '\CB\Plugin\GroupJive\Table\NotificationTable', array( $_CB_database ) );
 
@@ -344,19 +361,23 @@ class CBGroupJive
 
 		/** @var NotificationTable[] $rows */
 		foreach ( $rows as $row ) {
-			if ( ( ! self::isModerator( $row->get( 'user_id' ) ) ) && ( $row->get( 'user_id' ) != $group->get( 'user_id' ) ) && ( $row->get( 'status' ) < $status ) ) {
+			if ( ! $row->params()->get( $notification, 0 ) ) {
 				continue;
 			}
 
-			if ( $row->params()->get( $notification, 0 ) ) {
-				if ( $to ) {
-					$notifyUser		=	$to;
-				} else {
-					$notifyUser		=	\CBuser::getUserDataInstance( (int) $row->get( 'user_id' ) );
-				}
-
-				self::sendNotification( 4, $from, $notifyUser, $subject, $body, $group, $extra );
+			if ( $to ) {
+				$notifyUser			=	$to;
+			} else {
+				$notifyUser			=	\CBuser::getUserDataInstance( (int) $row->get( 'user_id' ) );
 			}
+
+			$group->set( '_user_status', $row->get( 'status' ) );
+
+			if ( ! self::canAccessGroup( $group, $notifyUser ) ) {
+				continue;
+			}
+
+			self::sendNotification( 4, $from, $notifyUser, $subject, $body, $group, $extra );
 		}
 
 		return true;
@@ -462,7 +483,7 @@ class CBGroupJive
 			}
 		}
 
-		if ( $category ) {
+		if ( $category !== null ) {
 			$categoryPath			=	$basePath . '/' . (int) $category;
 
 			if ( ! is_dir( $categoryPath ) ) {
@@ -481,7 +502,7 @@ class CBGroupJive
 				}
 			}
 
-			if ( $group ) {
+			if ( $group !== null ) {
 				$groupPath			=	$categoryPath . '/' . (int) $group;
 
 				if ( ! is_dir( $groupPath ) ) {
@@ -733,7 +754,7 @@ class CBGroupJive
 		if ( ! isset( $cache[$id] ) ) {
 			$cache[$id]							=	false;
 
-			if ( $category ) {
+			if ( $category !== null ) {
 				if ( ! $category->get( 'id' ) ) {
 					if ( ! $params->get( 'groups_uncategorized', 1 ) ) {
 						$cache[$id]				=	false;
@@ -794,6 +815,78 @@ class CBGroupJive
 
 				return $access;
 			}
+		}
+
+		return $cache[$id];
+	}
+
+	/**
+	 * returns a cached category object or adds existing categories to the cache
+	 *
+	 * @param int|CategoryTable[] $id
+	 * @return CategoryTable|null
+	 */
+	static public function getCategory( $id )
+	{
+		static $cache				=	array();
+
+		if ( is_array( $id ) ) {
+			foreach ( $id as $row ) {
+				/** @var CategoryTable $row */
+				$rowId				=	(int) $row->get( 'id' );
+
+				if ( ! $rowId ) {
+					continue;
+				}
+
+				$cache[$rowId]		=	$row;
+			}
+
+			return null;
+		} elseif ( ! $id ) {
+			return new CategoryTable();
+		} elseif ( ! isset( $cache[$id] ) ) {
+			$row					=	new CategoryTable();
+
+			$row->load( (int) $id );
+
+			$cache[$id]				=	$row;
+		}
+
+		return $cache[$id];
+	}
+
+	/**
+	 * returns a cached group object or adds existing groups to the cache
+	 *
+	 * @param int|GroupTable[] $id
+	 * @return GroupTable|null
+	 */
+	static public function getGroup( $id )
+	{
+		static $cache			=	array();
+
+		if ( is_array( $id ) ) {
+			foreach ( $id as $row ) {
+				/** @var GroupTable $row */
+				$rowId			=	(int) $row->get( 'id' );
+
+				if ( ! $rowId ) {
+					continue;
+				}
+
+				$cache[$rowId]	=	$row;
+			}
+
+			return null;
+		} elseif ( ! $id ) {
+			return new GroupTable();
+		} elseif ( ! isset( $cache[$id] ) ) {
+			$row				=	new GroupTable();
+
+			$row->load( (int) $id );
+
+			$cache[$id]			=	$row;
 		}
 
 		return $cache[$id];
@@ -909,7 +1002,7 @@ class CBGroupJive
 				return false;
 			}
 
-			if ( ( $group->get( 'published' ) == -1 ) && $params->get( 'groups_approval', 0 ) ) {
+			if ( ( $group->get( 'published' ) == -1 ) && $params->get( 'groups_create_approval', 0 ) ) {
 				$cache[$id]						=	false;
 
 				return false;
@@ -997,11 +1090,11 @@ class CBGroupJive
 
 			if ( ( ! $group->category()->get( 'id' ) ) && ( ! $params->get( 'groups_uncategorized', 1 ) ) ) {
 				$access					=	false;
-			} elseif ( ( ! $group->category()->get( 'published' ) ) || ( ! CBGroupJive::canAccess( (int) $group->category()->get( 'access' ), (int) $user->get( 'id' ) ) ) ) {
+			} elseif ( $group->category()->get( 'id' ) && ( ( ! $group->category()->get( 'published' ) ) || ( ! CBGroupJive::canAccess( (int) $group->category()->get( 'access' ), (int) $user->get( 'id' ) ) ) ) ) {
 				$access					=	false;
-			} elseif ( ( ! $group->get( 'published' ) ) && ( $user->get( 'id' ) != $group->get( 'user_id' ) ) ) {
+			} elseif ( ( $group->get( 'published' ) != 1 ) && ( $user->get( 'id' ) != $group->get( 'user_id' ) ) ) {
 				$access					=	false;
-			} else {
+			} elseif ( $user->get( 'id' ) != $group->get( 'user_id' ) ) {
 				$userStatus				=	CBGroupJive::getGroupStatus( $user, $group );
 
 				if ( $userStatus == -1 ) {

@@ -144,7 +144,7 @@ class HTML_groupjiveWall
 						if ( $isModerator || $isOwner || ( $userStatus >= 2 ) ) {
 							$menuItems		.=		'<li class="gjWallMenuItem"><a href="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'wall', 'func' => 'publish', 'id' => (int) $row->get( 'id' ) ) ) . '"><span class="fa fa-check"></span> ' . CBTxt::T( 'Approve' ) . '</a></li>';
 						}
-					} elseif ( $row->get( 'published' ) > 0 ) {
+					} elseif ( $row->get( 'published' ) == 1 ) {
 						$menuItems			.=		'<li class="gjWallMenuItem"><a href="javascript: void(0);" onclick="cbjQuery.cbconfirm( \'' . addslashes( CBTxt::T( 'Are you sure you want to unpublish this Post?' ) ) . '\' ).done( function() { window.location.href = \'' . $_CB_framework->pluginClassUrl( $plugin->element, false, array( 'action' => 'wall', 'func' => 'unpublish', 'id' => (int) $row->get( 'id' ) ) ) . '\'; })"><span class="fa fa-times-circle"></span> ' . CBTxt::T( 'Unpublish' ) . '</a></li>';
 					} else {
 						$menuItems			.=		'<li class="gjWallMenuItem"><a href="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'wall', 'func' => 'publish', 'id' => (int) $row->get( 'id' ) ) ) . '"><span class="fa fa-check"></span> ' . CBTxt::T( 'Publish' ) . '</a></li>';

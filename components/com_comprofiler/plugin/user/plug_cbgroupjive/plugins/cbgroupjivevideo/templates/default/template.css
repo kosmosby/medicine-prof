@@ -16,3 +16,13 @@
 		height: auto;
 	}
 }
+
+.cb_template .gjVideoActivity {
+	padding: 10px;
+}
+
+.cb_template .gjVideoActivity .gjContainerBox {
+	width: 100%;
+	margin: 0;
+	border-radius: 0;
+}

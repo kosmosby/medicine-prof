@@ -9,6 +9,7 @@
 
 namespace CB\Plugin\GroupJiveEvents\Table;
 
+use CB\Plugin\GroupJiveEvents\CBGroupJiveEvents;
 use CBLib\Application\Application;
 use CBLib\Database\Table\Table;
 use CBLib\Language\CBTxt;
@@ -138,20 +139,6 @@ class AttendanceTable extends Table
 	 */
 	public function event()
 	{
-		static $cache		=	array();
-
-		$id					=	$this->get( 'event' );
-
-		if ( ! isset( $cache[$id] ) ) {
-			$event			=	new EventTable();
-
-			if ( $id ) {
-				$event->load( (int) $id );
-			}
-
-			$cache[$id]		=	$event;
-		}
-
-		return $cache[$id];
+		return CBGroupJiveEvents::getEvent( (int) $this->get( 'event' ) );
 	}
 }

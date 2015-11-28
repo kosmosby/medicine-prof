@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cbinstall version="1.0" type="plugin" group="user/plug_cbgroupjive/plugins" method="install">
+<cbinstall version="1.0" type="plugin" group="user/plug_cbgroupjive/plugins">
 	<name>CB GroupJive Forums</name>
 	<author>Krileon</author>
-	<creationDate>2015-10-09</creationDate>
+	<creationDate>2015-11-13</creationDate>
 	<copyright>(C) 2004-2015 www.joomlapolis.com / Lightning MultiCom SA - and its licensors, all rights reserved</copyright>
 	<license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2</license>
 	<authorEmail>krileon@joomlapolis.com</authorEmail>
 	<description>CB GroupJive Forums integration adding Category and Group forum support. Configured from within GroupJive Configuration when published.</description>
-	<version>2.0.11</version>
-	<release>3.0.0-beta.1</release>
+	<version>2.0.12</version>
+	<release>3.0.0-rc.2</release>
+	<installfile>install.cbgroupjiveforums.php</installfile>
 	<files>
 		<filename plugin="cbgroupjiveforums">cbgroupjiveforums.php</filename>
 		<filename>index.html</filename>
+		<filename>install.cbgroupjiveforums.php</filename>
 		<foldername>language</foldername>
 		<foldername>library</foldername>
 		<foldername>templates</foldername>
@@ -39,6 +41,7 @@
 				<param name="groups_forums_category" type="list" default="" blanktext="- Select Category -" label="Category" description="Select the forum category for all group forums.">
 					<data name="" type="private" class="\CB\Plugin\GroupJiveForums\CBGroupJiveForums" method="getCategoryOptions" />
 				</param>
+				<param name="groups_forums_back" type="yesno" default="1" label="Backlink" description="Enable or disable display of backlink to return to a forum categories group." yes="Enable" no="Disable" />
 			</tabpanetab>
 			<tabpanetab label="Paging">
 				<param name="groups_forums_paging" type="yesno" default="1" label="Paging" description="Enable or disable usage of paging." yes="Enable" no="Disable" />

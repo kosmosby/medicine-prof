@@ -6,30 +6,30 @@
 		</type>
 		<type name="autoaction_triggers" base="xml:autoaction_triggers">
 			<optgroup label="CB AntiSpam">
-				<option value="antispam_onBeforeUpdateBlock">Before Update Block</option>
-				<option value="antispam_onBeforeCreateBlock">Before Create Block</option>
-				<option value="antispam_onAfterUpdateBlock">After Update Block</option>
-				<option value="antispam_onAfterCreateBlock">After Create Block</option>
-				<option value="antispam_onBeforeDeleteBlock">Before Delete Block</option>
-				<option value="antispam_onAfterDeleteBlock">After Delete Block</option>
-				<option value="antispam_onBeforeUpdateWhitelist">Before Update Whitelist</option>
-				<option value="antispam_onBeforeCreateWhitelist">Before Create Whitelist</option>
-				<option value="antispam_onAfterUpdateWhitelist">After Update Whitelist</option>
-				<option value="antispam_onAfterCreateWhitelist">After Create Whitelist</option>
-				<option value="antispam_onBeforeDeleteWhitelist">Before Delete Whitelist</option>
-				<option value="antispam_onAfterDeleteWhitelist">After Delete Whitelist</option>
-				<option value="antispam_onBeforeUpdateLog">Before Update Log</option>
-				<option value="antispam_onBeforeCreateLog">Before Create Log</option>
-				<option value="antispam_onAfterUpdateLog">After Update Log</option>
-				<option value="antispam_onAfterCreateLog">After Create Log</option>
-				<option value="antispam_onBeforeDeleteLog">Before Delete Log</option>
-				<option value="antispam_onAfterDeleteLog">After Delete Log</option>
-				<option value="antispam_onBeforeUpdateAttempts">Before Update Attempts</option>
-				<option value="antispam_onBeforeCreateAttempts">Before Create Attempts</option>
-				<option value="antispam_onAfterUpdateAttempts">After Update Attempts</option>
-				<option value="antispam_onAfterCreateAttempts">After Create Attempts</option>
-				<option value="antispam_onBeforeDeleteAttempts">Before Delete Attempts</option>
-				<option value="antispam_onAfterDeleteAttempts">After Delete Attempts</option>
+				<option value="antispam_onBeforeUpdateBlock" translate="no">antispam_onBeforeUpdateBlock</option>
+				<option value="antispam_onBeforeCreateBlock" translate="no">antispam_onBeforeCreateBlock</option>
+				<option value="antispam_onAfterUpdateBlock" translate="no">antispam_onAfterUpdateBlock</option>
+				<option value="antispam_onAfterCreateBlock" translate="no">antispam_onAfterCreateBlock</option>
+				<option value="antispam_onBeforeDeleteBlock" translate="no">antispam_onBeforeDeleteBlock</option>
+				<option value="antispam_onAfterDeleteBlock" translate="no">antispam_onAfterDeleteBlock</option>
+				<option value="antispam_onBeforeUpdateWhitelist" translate="no">antispam_onBeforeUpdateWhitelist</option>
+				<option value="antispam_onBeforeCreateWhitelist" translate="no">antispam_onBeforeCreateWhitelist</option>
+				<option value="antispam_onAfterUpdateWhitelist" translate="no">antispam_onAfterUpdateWhitelist</option>
+				<option value="antispam_onAfterCreateWhitelist" translate="no">antispam_onAfterCreateWhitelist</option>
+				<option value="antispam_onBeforeDeleteWhitelist" translate="no">antispam_onBeforeDeleteWhitelist</option>
+				<option value="antispam_onAfterDeleteWhitelist" translate="no">antispam_onAfterDeleteWhitelist</option>
+				<option value="antispam_onBeforeUpdateLog" translate="no">antispam_onBeforeUpdateLog</option>
+				<option value="antispam_onBeforeCreateLog" translate="no">antispam_onBeforeCreateLog</option>
+				<option value="antispam_onAfterUpdateLog" translate="no">antispam_onAfterUpdateLog</option>
+				<option value="antispam_onAfterCreateLog" translate="no">antispam_onAfterCreateLog</option>
+				<option value="antispam_onBeforeDeleteLog" translate="no">antispam_onBeforeDeleteLog</option>
+				<option value="antispam_onAfterDeleteLog" translate="no">antispam_onAfterDeleteLog</option>
+				<option value="antispam_onBeforeUpdateAttempts" translate="no">antispam_onBeforeUpdateAttempts</option>
+				<option value="antispam_onBeforeCreateAttempts" translate="no">antispam_onBeforeCreateAttempts</option>
+				<option value="antispam_onAfterUpdateAttempts" translate="no">antispam_onAfterUpdateAttempts</option>
+				<option value="antispam_onAfterCreateAttempts" translate="no">antispam_onAfterCreateAttempts</option>
+				<option value="antispam_onBeforeDeleteAttempts" translate="no">antispam_onBeforeDeleteAttempts</option>
+				<option value="antispam_onAfterDeleteAttempts" translate="no">antispam_onAfterDeleteAttempts</option>
 			</optgroup>
 		</type>
 	</types>

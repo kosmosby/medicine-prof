@@ -14,10 +14,13 @@ use CB\Database\Table\PluginTable;
 use CB\Database\Table\UserTable;
 use CB\Database\Table\TabTable;
 use CB\Plugin\GroupJive\CBGroupJive;
-use CB\Plugin\GroupJive\Table\GroupTable;
-use CB\Plugin\GroupJiveFile\Table\FileTable;
+use CB\Plugin\GroupJiveFile\CBGroupJiveFile;
 
 if ( ! ( defined( '_VALID_CB' ) || defined( '_JEXEC' ) || defined( '_VALID_MOS' ) ) ) { die( 'Direct Access to this location is not allowed.' ); }
+
+global $_PLUGINS;
+
+$_PLUGINS->loadPluginGroup( 'user' );
 
 class CBplug_cbgroupjivefile extends cbPluginHandler
 {
@@ -124,19 +127,14 @@ class CBplug_cbgroupjivefile extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row							=	new FileTable();
-
-		$row->load( (int) $id );
-
+		$row							=	CBGroupJiveFile::getFile( (int) $id );
 		$isModerator					=	CBGroupJive::isModerator( $user->get( 'id' ) );
 		$groupId						=	$this->input( 'group', null, GetterInterface::INT );
 
 		if ( $groupId === null ) {
 			$group						=	$row->group();
 		} else {
-			$group						=	new GroupTable();
-
-			$group->load( (int) $groupId );
+			$group						=	CBGroupJive::getGroup( $groupId );
 		}
 
 		$returnUrl						=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $group->get( 'id' ) ) );
@@ -216,19 +214,14 @@ class CBplug_cbgroupjivefile extends cbPluginHandler
 	{
 		global $_CB_framework, $_PLUGINS;
 
-		$row					=	new FileTable();
-
-		$row->load( (int) $id );
-
+		$row					=	CBGroupJiveFile::getFile( (int) $id );
 		$isModerator			=	CBGroupJive::isModerator( $user->get( 'id' ) );
 		$groupId				=	$this->input( 'group', null, GetterInterface::INT );
 
 		if ( $groupId === null ) {
 			$group				=	$row->group();
 		} else {
-			$group				=	new GroupTable();
-
-			$group->load( (int) $groupId );
+			$group				=	CBGroupJive::getGroup( $groupId );
 		}
 
 		$returnUrl				=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $group->get( 'id' ) ) );
@@ -249,7 +242,9 @@ class CBplug_cbgroupjivefile extends cbPluginHandler
 			$row->set( 'user_id', (int) $row->get( 'user_id', $user->get( 'id' ) ) );
 		}
 
-		$row->set( 'published', ( $isModerator || ( $row->get( 'published' ) != -1 ) || ( $group->params()->get( 'file', 1 ) != 2 ) ? (int) $this->input( 'post/published', $row->get( 'published', 1 ), GetterInterface::INT ) : -1 ) );
+		$canModerate			=	( CBGroupJive::getGroupStatus( $user, $group ) >= 2 );
+
+		$row->set( 'published', ( $isModerator || $canModerate || ( $row->get( 'id' ) && ( $row->get( 'published' ) != -1 ) ) || ( $group->params()->get( 'file', 1 ) != 2 ) ? (int) $this->input( 'post/published', $row->get( 'published', 1 ), GetterInterface::INT ) : -1 ) );
 		$row->set( 'group', (int) $group->get( 'id' ) );
 		$row->set( 'title', $this->input( 'post/title', $row->get( 'title' ), GetterInterface::STRING ) );
 		$row->set( 'description', $this->input( 'post/description', $row->get( 'description' ), GetterInterface::STRING ) );
@@ -281,9 +276,10 @@ class CBplug_cbgroupjivefile extends cbPluginHandler
 		}
 
 		if ( $new ) {
-			$extras				=	array( 'file' => htmlspecialchars( ( $row->get( 'title' ) ? $row->get( 'title' ) : $row->name() ) ) );
+			$extras				=	array(	'file_title'	=>	htmlspecialchars( ( $row->get( 'title' ) ? $row->get( 'title' ) : $row->name() ) ),
+											'file'			=>	'<a href="' . $_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'group' ), 'tab' => 'grouptabfile' ) ) . '">' . htmlspecialchars( ( $row->get( 'title' ) ? $row->get( 'title' ) : $row->name() ) ) . '</a>' );
 
-			if ( $row->get( 'published' ) ) {
+			if ( $row->get( 'published' ) == 1 ) {
 				CBGroupJive::sendNotifications( 'file_new', CBTxt::T( 'New group file' ), CBTxt::T( '[user] has uploaded the file [file] in the group [group]!' ), $row->group(), (int) $row->get( 'user_id' ), null, array( $user->get( 'id' ) ), 1, $extras );
 			} elseif ( ( $row->get( 'published' ) == -1 ) && ( $row->group()->params()->get( 'file', 1 ) == 2 ) ) {
 				CBGroupJive::sendNotifications( 'file_approve', CBTxt::T( 'New group file awaiting approval' ), CBTxt::T( '[user] has uploaded the file [file] in the group [group] and is awaiting approval!' ), $row->group(), (int) $row->get( 'user_id' ), null, array( $user->get( 'id' ) ), 1, $extras );
@@ -306,10 +302,7 @@ class CBplug_cbgroupjivefile extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row				=	new FileTable();
-
-		$row->load( (int) $id );
-
+		$row				=	CBGroupJiveFile::getFile( (int) $id );
 		$returnUrl			=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'group' ) ) );
 
 		if ( $row->get( 'id' ) ) {
@@ -337,7 +330,8 @@ class CBplug_cbgroupjivefile extends cbPluginHandler
 		}
 
 		if ( $state && ( $currentState == -1 ) ) {
-			$extras			=	array( 'file' => htmlspecialchars( ( $row->get( 'title' ) ? $row->get( 'title' ) : $row->name() ) ) );
+			$extras			=	array(	'file_title'	=>	htmlspecialchars( ( $row->get( 'title' ) ? $row->get( 'title' ) : $row->name() ) ),
+										'file'			=>	'<a href="' . $_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'group' ), 'tab' => 'grouptabfile' ) ) . '">' . htmlspecialchars( ( $row->get( 'title' ) ? $row->get( 'title' ) : $row->name() ) ) . '</a>' );
 
 			if ( $row->get( 'user_id' ) != $user->get( 'id' ) ) {
 				CBGroupJive::sendNotification( 4, $user, (int) $row->get( 'user_id' ), CBTxt::T( 'File upload request accepted' ), CBTxt::T( 'Your file [file] upload request in the group [group] has been accepted!' ), $row->group(), $extras );
@@ -359,10 +353,7 @@ class CBplug_cbgroupjivefile extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row			=	new FileTable();
-
-		$row->load( (int) $id );
-
+		$row			=	CBGroupJiveFile::getFile( (int) $id );
 		$returnUrl		=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'group' ) ) );
 
 		if ( $row->get( 'id' ) ) {
@@ -399,17 +390,14 @@ class CBplug_cbgroupjivefile extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row			=	new FileTable();
-
-		$row->load( (int) $id );
-
+		$row			=	CBGroupJiveFile::getFile( (int) $id );
 		$returnUrl		=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'group' ) ) );
 
 		if ( $row->get( 'id' ) ) {
 			if ( ! CBGroupJive::canAccessGroup( $row->group(), $user ) ) {
 				cbRedirect( $returnUrl, CBTxt::T( 'Group does not exist.' ), 'error' );
 			} elseif ( ! CBGroupJive::isModerator( $user->get( 'id' ) ) ) {
-				if ( ( ! $row->get( 'published' ) ) && ( CBGroupJive::getGroupStatus( $user, $row->group() ) < 2 ) ) {
+				if ( ( $row->get( 'published' ) != 1 ) && ( CBGroupJive::getGroupStatus( $user, $row->group() ) < 2 ) ) {
 					cbRedirect( $returnUrl, CBTxt::T( 'You do not have access to this file.' ), 'error' );
 				}
 			}

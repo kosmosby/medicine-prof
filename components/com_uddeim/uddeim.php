@@ -2006,6 +2006,10 @@ function uddeIMsaveSysgm($myself, $to_name, $to_id, $pmessage, $tobedeleted, $to
 
 // *****************************************************************************************
 
+// BUGBUG: When public frontend is called with parameter e.g. http://joomla33/index.php/uddeim?task=new&recip=227
+// the public frontend username/realname setting might be different from the global one. In that case the
+// name will not be found.
+
 function uddeIMnewMessage($myself, $item_id, $to_id, $recip, $runame, $pmessage, $replyid, $isreply, $config) {
 	$my_gid = $config->usergid;
 
@@ -2814,14 +2818,20 @@ function uddeIMcompleteUserName($myself, $config){
 function uddeIMajaxGetNewMessages($myself, $config){
 	$db = uddeIMgetDatabase();
 
-	$input = trim( class_exists('JRequest') ? JRequest::getVar('value') : uddeIMmosGetParam($_REQUEST, 'value', '') );
+
+	if (uddeIMcheckJversion()>=4) {
+		$jinput = JFactory::getApplication()->input;
+		$input = $jinput->get('value', '', 'USERNAME');
+	} else {
+		$input = trim( class_exists('JRequest') ? JRequest::getVar('value') : uddeIMmosGetParam($_REQUEST, 'value', '') );
+		if (class_exists('JFilterInput'))
+			$input = JFilterInput::clean($input, 'username');
+		else
+			$input = (string) preg_replace( '/[\x00-\x1F\x7F<>"\'%&]/', '', $input );
+	}
+
 	if (function_exists('iconv'))
 		$input = iconv('UTF-8',$config->charset,$input);
-
-	if (class_exists('JFilterInput'))
-		$input = JFilterInput::clean($input, 'username');
-	else
-		$input = (string) preg_replace( '/[\x00-\x1F\x7F<>"\'%&]/', '', $input );
 
 	$sql="SELECT count(a.id) FROM #__uddeim AS a WHERE a.totrash=0 AND a.toread=0 AND a.toid=".(int)$myself;
 	$db->setQuery($sql);
@@ -2858,6 +2868,8 @@ function uddeIMreportSpam($myself, $item_id, $messageid, $recip, $ret, $limit, $
 				$cm = uddeIMgetMessage($displaymessage->message, "", $displaymessage->cryptmode, $displaymessage->crypthash, $config->cryptkey);
 			$dm = nl2br(htmlspecialchars(stripslashes($cm), ENT_QUOTES, $config->charset));
 			$dm = str_replace("&amp;#", "&#", $dm);
+			$dm = str_replace("&amp;&lt;/br&gt;", "</br>", $dm);
+
 			$dm = uddeIMencrypt($dm,"",CRYPT_MODE_STOREBASE64);
 
 			$sql  = "INSERT INTO #__uddeim_spam (mid, datum, reported, fromid, toid, message) VALUES (".

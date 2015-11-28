@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -173,25 +173,6 @@ defined('_JEXEC') or die('Restricted access');
 	</div>
 	<div class="onelineblockoptions">
 		<span class="acyblocktitle"><?php echo JText::_('GEOLOCATION'); ?></span>
-		<table class="acymailing_table" cellspacing="1">
-			<tr>
-				<td class="acykey">
-					<?php echo acymailing_tooltip(JText::_('GEOLOCATION_TYPE_DESC'), JText::_('GEOLOCATION_TYPE'), '', JText::_('GEOLOCATION_TYPE')); ?>
-				</td>
-				<td>
-					<?php echo $this->elements->geolocation; ?>
-				</td>
-			</tr>
-			<?php if($this->elements->geoloc_api_key){ ?>
-			<tr>
-				<td class="acykey">
-					<a href="http://ipinfodb.com/register.php" target="_blank"><?php echo acymailing_tooltip(JText::_('GEOLOCATION_API_KEY_DESC'), 'IPInfoDB API key', '', 'IPInfoDB API key'); ?></a>
-				</td>
-				<td>
-					<?php echo $this->elements->geoloc_api_key; ?>
-				</td>
-			</tr>
-		</table>
 		<script language="JavaScript" type="text/javascript">
 			function testAPI(id, newvalue){
 				window.document.getElementById(id).className = 'onload';
@@ -203,17 +184,42 @@ defined('_JEXEC') or die('Restricted access');
 					}).request();
 				}catch(err){
 					new Request({
-						url: 'index.php?option=com_acymailing&tmpl=component&ctrl=toggle&task=' + id + '&value=' + newvalue, method: 'get', onComplete: function(response){
+									url: 'index.php?option=com_acymailing&tmpl=component&ctrl=toggle&task=' + id + '&value=' + newvalue, method: 'get', onComplete: function(response){
 							$(id).innerHTML = response;
 							window.document.getElementById(id).className = 'loading';
 						}
-					}).send();
+								}).send();
 				}
 			}
 		</script>
-		<span id="testApiKey"><a href="javascript:void(0);" onclick="testAPI('testApiKey',window.document.getElementById('geoloc_api_key').value)"><?php echo JText::_('GEOLOC_TEST_API_KEY'); ?></a></span>
-		<?php }else{
-			echo '</table>';
-		} ?>
+		<table class="acymailing_table" cellspacing="1">
+			<tr>
+				<td class="acykey">
+					<?php echo acymailing_tooltip(JText::_('GEOLOCATION_TYPE_DESC'), JText::_('GEOLOCATION_TYPE'), '', JText::_('GEOLOCATION_TYPE')); ?>
+				</td>
+				<td>
+					<?php echo $this->elements->geolocation; ?>
+				</td>
+			</tr>
+			<?php if($this->elements->geoloc_api_key){ ?>
+				<tr>
+					<td class="acykey">
+						<a href="http://ipinfodb.com/register.php" target="_blank"><?php echo acymailing_tooltip(JText::_('GEOLOCATION_API_KEY_DESC'), 'IPInfoDB API key', '', 'IPInfoDB API key'); ?></a>
+					</td>
+					<td>
+						<?php echo $this->elements->geoloc_api_key; ?>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+
+						<span id="testApiKey" class="acymailing_button_grey">
+							<i class="acyicon-location"></i>
+							<a style="color:#666;text-decoration:none;" href="javascript:void(0);" onclick="testAPI('testApiKey',window.document.getElementById('geoloc_api_key').value)"><?php echo JText::_('GEOLOC_TEST_API_KEY'); ?></a>
+						</span>
+					</td>
+				</tr>
+			<?php } ?>
+		</table>
 	</div>
 </div>

@@ -81,7 +81,7 @@
 		<view name="pluginmenu" type="params" ui="admin" label="" viewformatting="none">
 			<param name="categories" type="button" default="Categories" buttonclass="default" buttonsize="xsmall" link="cb_action:gjcategoryrows" parameters="cid" paramvalues="id" label="" />
 			<param name="groups" type="button" default="Groups" buttonclass="default" buttonsize="xsmall" link="cb_action:gjgrouprows" parameters="cid" paramvalues="id" label="" />
-			<param name="users" type="button" default="Users" buttonclass="default" buttonsize="xsmall" link="cb_action:gjuserrows" parameters="cid" paramvalues="id" label="" />
+			<param name="users" type="button" default="GROUP_USERS" translated-default="Users" buttonclass="default" buttonsize="xsmall" link="cb_action:gjuserrows" parameters="cid" paramvalues="id" label="" />
 			<param name="invites" type="button" default="Invites" buttonclass="default" buttonsize="xsmall" link="cb_action:gjinviterows" parameters="cid" paramvalues="id" label="" />
 			<param name="notifications" type="button" default="Notifications" buttonclass="default" buttonsize="xsmall" link="cb_action:gjnotificationrows" parameters="cid" paramvalues="id" label="" />
 		</view>

@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cbinstall version="1.0" type="plugin" group="user" method="install">
+<cbinstall version="1.0" type="plugin" group="user">
 	<name>CB GroupJive</name>
 	<author>Krileon</author>
-	<creationDate>2015-10-09</creationDate>
+	<creationDate>2015-11-20</creationDate>
 	<copyright>(C) 2004-2015 www.joomlapolis.com / Lightning MultiCom SA - and its licensors, all rights reserved</copyright>
 	<license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2</license>
 	<authorEmail>krileon@joomlapolis.com</authorEmail>
 	<description>CB GroupJive; a powerful and featureful group integration to Community Builder.</description>
-	<version>2.0.11</version>
-	<release>3.0.0-beta.1</release>
+	<version>2.0.12</version>
+	<release>3.0.0</release>
+	<installfile>install.cbgroupjive.php</installfile>
 	<files>
 		<filename plugin="cbgroupjive">cbgroupjive.php</filename>
 		<filename>index.html</filename>
 		<filename>component.cbgroupjive.php</filename>
+		<filename>install.cbgroupjive.php</filename>
 		<foldername>language</foldername>
 		<foldername>library</foldername>
 		<foldername>plugins</foldername>
@@ -171,10 +173,10 @@
 						<param name="logo_max_size" type="int" default="1024" size="5" label="Maximum File Size" description="Input the maximum image file size in KBs. Set to 0 for no limit." />
 					</tabpanetab>
 					<tabpanetab label="Defaults">
-						<param name="categories_canvas" type="imagelist" default="" blanktext="Default" hide_default="true" hide_none="true" label="Category Canvas" description="Choose the default category canvas image." directory="/components/com_comprofiler/plugin/user/plug_cbgroupjive/templates/{general_template}/images" />
-						<param name="categories_logo" type="imagelist" default="" blanktext="Default" hide_default="true" hide_none="true" label="Category Logo" description="Choose the default category logo image." directory="/components/com_comprofiler/plugin/user/plug_cbgroupjive/templates/{general_template}/images" />
-						<param name="groups_canvas" type="imagelist" default="" blanktext="Default" hide_default="true" hide_none="true" label="Group Canvas" description="Choose the default group canvas image." directory="/components/com_comprofiler/plugin/user/plug_cbgroupjive/templates/{general_template}/images" />
-						<param name="groups_logo" type="imagelist" default="" blanktext="Default" hide_default="true" hide_none="true" label="Group Logo" description="Choose the default group logo image." directory="/components/com_comprofiler/plugin/user/plug_cbgroupjive/templates/{general_template}/images" />
+						<param name="categories_canvas" type="imagelist" default="" blanktext="Default" hide_default="true" hide_none="true" label="Category Canvas" description="Choose the default category canvas image. Additional defaults can be uploaded to the images folder of your CB GroupJive template (e.g. /components/com_comprofiler/plugin/user/plug_cbgroupjive/templates/default/images)." directory="/components/com_comprofiler/plugin/user/plug_cbgroupjive/templates/{general_template}/images" />
+						<param name="categories_logo" type="imagelist" default="" blanktext="Default" hide_default="true" hide_none="true" label="Category Logo" description="Choose the default category logo image. Additional defaults can be uploaded to the images folder of your CB GroupJive template (e.g. /components/com_comprofiler/plugin/user/plug_cbgroupjive/templates/default/images)." directory="/components/com_comprofiler/plugin/user/plug_cbgroupjive/templates/{general_template}/images" />
+						<param name="groups_canvas" type="imagelist" default="" blanktext="Default" hide_default="true" hide_none="true" label="Group Canvas" description="Choose the default group canvas image. Additional defaults can be uploaded to the images folder of your CB GroupJive template (e.g. /components/com_comprofiler/plugin/user/plug_cbgroupjive/templates/default/images)." directory="/components/com_comprofiler/plugin/user/plug_cbgroupjive/templates/{general_template}/images" />
+						<param name="groups_logo" type="imagelist" default="" blanktext="Default" hide_default="true" hide_none="true" label="Group Logo" description="Choose the default group logo image. Additional defaults can be uploaded to the images folder of your CB GroupJive template (e.g. /components/com_comprofiler/plugin/user/plug_cbgroupjive/templates/default/images)." directory="/components/com_comprofiler/plugin/user/plug_cbgroupjive/templates/{general_template}/images" />
 					</tabpanetab>
 				</tabpane>
 			</tabpanetab>
@@ -224,7 +226,7 @@
 						<param name="groups_create_approval" type="yesno" default="0" label="Approval" description="Enable or disable approval of new groups. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
 						<param name="groups_create_captcha" type="yesno" default="0" label="Captcha" description="Enable or disable usage of captcha on groups. Requires latest CB AntiSpam to be installed and published. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
 						<if name="groups_create_approval" type="showhide" operator="=" value="1" valuetype="const:int">
-							<param name="groups_approval_notify" type="yesno" default="1" label="Notify" description="Enable or disable moderator notifications for groups needing approval." yes="Enable" no="Disable" />
+							<param name="groups_create_approval_notify" type="yesno" default="1" label="Notify" description="Enable or disable moderator notifications for groups needing approval." yes="Enable" no="Disable" />
 						</if>
 						<param name="groups_delete" type="yesno" default="1" label="Auto Delete" description="Enable or disable automatic deletion of group contents when a group user is deleted." yes="Enable" no="Disable" />
 					</tabpanetab>
@@ -237,7 +239,7 @@
 						<param name="groups_message_delay" type="text" default="60" size="5" label="Delay" description="Input the number of seconds between group messages. Leave empty for no delay. Moderators are exempt from this configuration." />
 						<param name="groups_message_captcha" type="yesno" default="0" label="Captcha" description="Enable or disable usage of captcha on group message. Requires latest CB AntiSpam to be installed and published. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
 					</tabpanetab>
-					<tabpanetab label="Users">
+					<tabpanetab label="GROUP_USERS" translated-label="Users">
 						<tabpane name="gjgroupsusers">
 							<tabpanetab label="General">
 								<param name="groups_users_owner" type="yesno" default="1" label="Display Owner" description="Enable or disable display of group owner. Note owner will not count towards total users if not displayed." yes="Enable" no="Disable" />
@@ -289,8 +291,8 @@
 		</tabpane>
 	</params>
 	<database version="1">
-		<table name="#__groupjive_categories" class="\CB\Plugin\GroupJive\Table\CategoryTable" strict="true" drop="never">
-			<columns strict="true" drop="never">
+		<table name="#__groupjive_categories" class="\CB\Plugin\GroupJive\Table\CategoryTable" strict="false" drop="never"> <!-- TODO: For B/C: change to strict -->
+			<columns strict="false" drop="never"> <!-- TODO: For B/C: change to strict -->
 				<column name="id" type="sql:int(11)" unsigned="true" auto_increment="1" />
 				<column name="name" type="sql:text" />
 				<column name="description" type="sql:text" null="true" />
@@ -313,8 +315,8 @@
 				</index>
 			</indexes>
 		</table>
-		<table name="#__groupjive_groups" class="\CB\Plugin\GroupJive\Table\GroupTable" strict="true" drop="never">
-			<columns strict="true" drop="never">
+		<table name="#__groupjive_groups" class="\CB\Plugin\GroupJive\Table\GroupTable" strict="false" drop="never"> <!-- TODO: For B/C: change to strict -->
+			<columns strict="false" drop="never"> <!-- TODO: For B/C: change to strict -->
 				<column name="id" type="sql:int(11)" unsigned="true" auto_increment="1" />
 				<column name="user_id" type="sql:int(11)" />
 				<column name="category" type="sql:int(11)" />
@@ -337,8 +339,8 @@
 				</index>
 			</indexes>
 		</table>
-		<table name="#__groupjive_users" class="\CB\Plugin\GroupJive\Table\UserTable" strict="true" drop="never">
-			<columns strict="true" drop="never">
+		<table name="#__groupjive_users" class="\CB\Plugin\GroupJive\Table\UserTable" strict="false" drop="never"> <!-- TODO: For B/C: change to strict -->
+			<columns strict="false" drop="never"> <!-- TODO: For B/C: change to strict -->
 				<column name="id" type="sql:int(11)" unsigned="true" auto_increment="1" />
 				<column name="user_id" type="sql:int(11)" />
 				<column name="group" type="sql:int(11)" />
@@ -350,15 +352,15 @@
 				<index name="PRIMARY" type="primary">
 					<column name="id" />
 				</index>
-				<index name="user_id_group_status">
+				<index name="user_id_group_status" type="unique">
 					<column name="user_id" />
 					<column name="group" />
 					<column name="status" />
 				</index>
 			</indexes>
 		</table>
-		<table name="#__groupjive_invites" class="\CB\Plugin\GroupJive\Table\InviteTable" strict="true" drop="never">
-			<columns strict="true" drop="never">
+		<table name="#__groupjive_invites" class="\CB\Plugin\GroupJive\Table\InviteTable" strict="false" drop="never"> <!-- TODO: For B/C: change to strict -->
+			<columns strict="false" drop="never"> <!-- TODO: For B/C: change to strict -->
 				<column name="id" type="sql:int(11)" unsigned="true" auto_increment="1" />
 				<column name="user_id" type="sql:int(11)" />
 				<column name="group" type="sql:int(11)" />
@@ -386,8 +388,8 @@
 				</index>
 			</indexes>
 		</table>
-		<table name="#__groupjive_notifications" class="\CB\Plugin\GroupJive\Table\NotificationTable" strict="true" drop="never">
-			<columns strict="true" drop="never">
+		<table name="#__groupjive_notifications" class="\CB\Plugin\GroupJive\Table\NotificationTable" strict="false" drop="never"> <!-- TODO: For B/C: change to strict -->
+			<columns strict="false" drop="never"> <!-- TODO: For B/C: change to strict -->
 				<column name="id" type="sql:int(11)" unsigned="true" auto_increment="1" />
 				<column name="user_id" type="sql:int(11)" />
 				<column name="group" type="sql:int(11)" />
@@ -397,7 +399,7 @@
 				<index name="PRIMARY" type="primary">
 					<column name="id" />
 				</index>
-				<index name="user_id_group">
+				<index name="user_id_group"> <!-- TODO: For B/C: change to unique -->
 					<column name="user_id" />
 					<column name="group" />
 				</index>

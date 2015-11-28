@@ -15,18 +15,50 @@
 // Translation: by Dmitriy Kindeev at www.freedom-ru.net, info@freedom-ru.net, 
 // v.1.2:     by Eugene Sivokon at www.joomlaclub.ru, general@cre-active.eu,
 // v.2.0/2.1:  by Alexander Smirnov, at www.joomlapolis.com. 23 February 2011.
-// v.2.2/2.3/2.4/2.9/3.1:  by Alex (aka Alexej) Khoroshevsky, at www.aleksius.com. 8 July 2013
+// v.2.2/2.3/2.4/2.9/3.1/3.5/3.6:  by Alex (aka Alexej) Khoroshevsky, at www.aleksius.com. 13 March 2015
 // v.2.6/2.7: by Alex (aka Alexander) Smirnov, at twitter.com/joomladka, 28 February 2012
 
 // *******************************************************************
 DEFINE ('_UDDEADM_TRANSLATORS_CREDITS', 'Перевели на русский язык: <ul><li>Дмитрий Киндеев, www.freedom-ru.net, info@freedom-ru.net</li><li>Евгений Сивоконь, www.joomlaclub.ru, general@cre-active.eu</li><li>Александр Смирнов, twitter.com/joomladka</li><li> Алексей Хорошевский,www.aleksius.com</li></ul> ');	// Empty for English and German language files, enter your credits line here, e.g. 'Translation by <a href="http://domain.com" target="_new">John Doe</a>'
 
+// New: 3.7
+DEFINE ('_UDDEADM_SHOWMENULINK_HEAD', 'Show menu entry');
+DEFINE ('_UDDEADM_SHOWMENULINK_EXP', 'Show additional menu entry.');
+DEFINE ('_UDDEADM_CFGFILE_CONVERTING_16', '...set default for additonal menu link');
+
+// New: 3.6
+DEFINE ('_UDDEIM_KUNENA_LINK', 'Forum');
+DEFINE ('_UDDEIM_PM_USER', 'Send private message');
+DEFINE ('_UDDEIM_PM_USER_DESC', 'Send a private message to this user');
+DEFINE ('_UDDEIM_PM_INBOX', 'Show private Inbox');
+DEFINE ('_UDDEIM_PM_INBOX_DESC', 'Show received private messages');
+DEFINE ('_UDDEIM_PM_OUTBOX', 'Show private Outbox');
+DEFINE ('_UDDEIM_PM_OUTBOX_DESC', 'Show sent private messages');
+DEFINE ('_UDDEIM_PM_TRASHBOX', 'Show trash');
+DEFINE ('_UDDEIM_PM_TRASHBOX_DESC', 'Show trashed private messages');
+DEFINE ('_UDDEIM_PM_OPTIONS', 'Show PMS options');
+DEFINE ('_UDDEIM_PM_OPTIONS_DESC', 'Show PMS options');
+DEFINE ('_UDDEIM_PM_ARCHIVE', 'Show private Archive');
+DEFINE ('_UDDEIM_PM_ARCHIVE_DESC', 'Show archived private messages');
+DEFINE ('_UDDEIM_PM_SENDMESSAGE', 'Message sent');
+DEFINE ('_UDDEIM_PM_PMSTAB', 'Send message');
+DEFINE ('_UDDEIM_PM_PROFILEMSG', 'Quick message');
+DEFINE ('_UDDEIM_PM_SENTSUCCESS', 'Successfully sent.');
+DEFINE ('_UDDEIM_PM_SESSIONTIMEOUT', 'Session timeout.');
+DEFINE ('_UDDEIM_PM_NOTSENT', 'Message not sent.');
+DEFINE ('_UDDEIM_PM_TRYAGAIN', 'Try again.');
+DEFINE ('_UDDEIM_PM_EMPTYMESSAGE', 'Empty message.');
+DEFINE ('_UDDEIM_PM_EMAILFORMSUBJECT', 'Subject');
+DEFINE ('_UDDEIM_PM_EMAILFORMMESSAGE', 'Message');
+DEFINE ('_UDDEIM_PM_TABINBOX', 'Inbox');
+DEFINE ('_UDDEIM_PM_PMSLINK', 'Private Messaging');
+
 // New: 3.5
-DEFINE ('_UDDEADM_GROUPSADMIN_HEAD', 'Additional Admin groups');
-DEFINE ('_UDDEADM_GROUPSADMIN_EXP', 'Enter group IDs which should be treated as admin groups (e.g. 10, 11, 17). IDs 7, 8 (Joomla >=1.6) and IDs 24, 25 (Joomla <=1.5) are always admins.');
-DEFINE ('_UDDEADM_GROUPSSPECIAL_HEAD', 'Additional Special groups');
-DEFINE ('_UDDEADM_GROUPSSPECIAL_EXP', 'Enter group IDs which should be treated as special groups (e.g. 10, 11, 17). IDs 3-8 (Joomla >=1.6) and IDs 19-25 (Joomla <=1.5) are always special users.');
-DEFINE ('_UDDEADM_CFGFILE_CONVERTING_15', '...set default for additonal groups');
+DEFINE ('_UDDEADM_GROUPSADMIN_HEAD', 'Дополнительные группы администраторов');
+DEFINE ('_UDDEADM_GROUPSADMIN_EXP', 'Введите ID групп, которые должны рассматриваться как группы администраторов (например, 10, 11, 17). ID 7, 8 (Joomla >=1.6) и ID 24, 25 (Joomla <=1.5) это всегда группы администраторов.');
+DEFINE ('_UDDEADM_GROUPSSPECIAL_HEAD', 'Дополнительные специальные группы');
+DEFINE ('_UDDEADM_GROUPSSPECIAL_EXP', 'Введите ID групп, которые должны рассматриваться как специальные группы (например, 10, 11, 17). ID 3-8 (Joomla >=1.6) и ID 19-25 (Joomla <=1.5) это всегда специальные пользователи.');
+DEFINE ('_UDDEADM_CFGFILE_CONVERTING_15', '...установка дополнительных групп по умолчанию');
 
 // New: 3.3
 DEFINE ('_UDDEADM_KUNENA30', 'Kunena 3.0+');
@@ -36,7 +68,7 @@ DEFINE ('_UDDEIM_BADWORD', 'Определение нецензурных сло
 DEFINE ('_UDDEADM_BADWORDS_HEAD', 'Фильтр нецензурных слов');
 DEFINE ('_UDDEADM_BADWORDS_EXP', 'Новые сообщения будут фильтроваться на предмет цензуры. Все нецензурные слова должны разделяться точкой с запятой (;).');
 DEFINE ('_UDDEADM_CFGFILE_CONVERTING_14', '…настройка по умолчанию фильтра нецензурных слов');
-DEFINE ('_UDDEADM_OOD_PB', 'Плагин почтового ящика неактуален!');
+DEFINE ('_UDDEADM_OOD_PB', 'Плагин почтового ящика не актуален!');
 
 // New: 3.0
 DEFINE ('_UDDEADM_UDDEIM', 'uddeIM');

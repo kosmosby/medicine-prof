@@ -47,6 +47,7 @@ class HTML_groupjiveEvents
 		$userStatus							=	CBGroupJive::getGroupStatus( $user, $group );
 		$canCreate							=	CBGroupJive::canCreateGroupContent( $user, $group, 'events' );
 		$canSearch							=	( $plugin->params->get( 'groups_events_search', 1 ) && ( $searching || $pageNav->total ) );
+		$showAddress						=	$plugin->params->get( 'groups_events_address', 1 );
 		$return								=	null;
 
 		$_PLUGINS->trigger( 'gj_onBeforeDisplayEvents', array( &$return, &$rows, $group, $user ) );
@@ -79,11 +80,18 @@ class HTML_groupjiveEvents
 
 		if ( $rows ) foreach ( $rows as $row ) {
 			$rowOwner						=	( $user->get( 'id' ) == $row->get( 'user_id' ) );
+			$address						=	htmlspecialchars( $row->get( 'location' ) );
 
-			if ( $row->get( 'address' ) ) {
-				$mapUrl						=	'https://www.google.com/maps/place/' . urlencode( $row->get( 'address' ) );
-			} else {
-				$mapUrl						=	'https://www.google.com/maps/search/' . urlencode( $row->get( 'location' ) );
+			if ( $showAddress ) {
+				if ( $row->get( 'address' ) ) {
+					$mapUrl					=	CBTxt::T( 'GROUP_EVENT_ADDRESS_MAP_URL', 'https://www.google.com/maps/place/[address]', array( '[location]' => urlencode( $row->get( 'location' ) ), '[address]' => urlencode( $row->get( 'address' ) ) ) );
+				} else {
+					$mapUrl					=	CBTxt::T( 'GROUP_EVENT_LOCATION_MAP_URL', 'https://www.google.com/maps/search/[location]', array( '[location]' => urlencode( $row->get( 'location' ) ), '[address]' => urlencode( $row->get( 'address' ) ) ) );
+				}
+
+				if ( $mapUrl ) {
+					$address				=	'<a href="' . htmlspecialchars( $mapUrl ) . '" target="_blank" rel="nofollow">' . $address . '</a>';
+				}
 			}
 
 			$menu							=	array();
@@ -174,7 +182,7 @@ class HTML_groupjiveEvents
 											.									'<span class="gjGroupEventIcon fa fa-clock-o text-center"></span> ' . $row->date()
 											.								'</div>'
 											.								'<div class="gjGroupEventLocation">'
-											.									'<span class="gjGroupEventIcon fa fa-map-marker text-center"></span> <a href="' . htmlspecialchars( $mapUrl ) . '" target="_blank" rel="nofollow">' . htmlspecialchars( $row->get( 'location' ) ) . '</a>'
+											.									'<span class="gjGroupEventIcon fa fa-map-marker text-center"></span> ' . $address
 											.								'</div>'
 											.								'<div class="gjGroupEventAttending row">'
 											.									'<div class="gjGroupEventGuests col-sm-6">'

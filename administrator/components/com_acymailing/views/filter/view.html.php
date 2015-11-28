@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -185,12 +185,12 @@ class FilterViewFilter extends acymailingView{
 		for($i = 0; $i < 24; $i++){
 			$listHours[] = JHTML::_('select.option', $i, ($i < 10 ? '0'.$i : $i));
 		}
-		$hours = JHTML::_('select.genericlist', $listHours, 'triggerhours', 'class="inputbox" size="1" style="width:50px;"', 'value', 'text', acymailing_getDate($nextDate, 'H'));
+		$hours = JHTML::_('select.genericlist', $listHours, 'triggerhours', 'class="inputbox" size="1" style="width:60px;"', 'value', 'text', acymailing_getDate($nextDate, 'H'));
 		for($i = 0; $i < 60; $i += 5){
 			$listMinutess[] = JHTML::_('select.option', $i, ($i < 10 ? '0'.$i : $i));
 		}
 		$defaultMin = floor(acymailing_getDate($nextDate, 'i') / 5) * 5;
-		$minutes = JHTML::_('select.genericlist', $listMinutess, 'triggerminutes', 'class="inputbox" size="1" style="width:50px;"', 'value', 'text', $defaultMin);
+		$minutes = JHTML::_('select.genericlist', $listMinutess, 'triggerminutes', 'class="inputbox" size="1" style="width:60px;"', 'value', 'text', $defaultMin);
 		$this->assign('hours', $hours);
 		$this->assign('minutes', $minutes);
 

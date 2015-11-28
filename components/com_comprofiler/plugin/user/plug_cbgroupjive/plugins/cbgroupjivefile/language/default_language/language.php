@@ -28,11 +28,12 @@ return	array(
 'DATE_DESC_bcfc6d'	=>	'Date DESC',
 'FILENAME_ASC_44f721'	=>	'Filename ASC',
 'FILENAME_DESC_13d728'	=>	'Filename DESC',
-// 4 language strings from file cbgroupjivefile/cbgroupjivefile.php
+// 5 language strings from file cbgroupjivefile/cbgroupjivefile.php
+'FILES_91f3a2'	=>	'Files',
+'ADD_NEW_FILE_TO_GROUP_518801'	=>	'Add New File to Group',
 'ENABLE_WITH_APPROVAL_575b45'	=>	'Enable, with Approval',
 'OPTIONALLY_ENABLE_OR_DISABLE_USAGE_OF_FILES_GROUP__3216b3'	=>	'Optionally enable or disable usage of files. Group owner and group administrators are exempt from this configuration and can always upload files. Note existing files will still be accessible.',
 'SEARCH_FILES_ec9e5b'	=>	'Search Files...',
-'FILES_91f3a2'	=>	'Files',
 // 28 language strings from file cbgroupjivefile/component.cbgroupjivefile.php
 'YOU_DO_NOT_HAVE_SUFFICIENT_PERMISSIONS_TO_UPLOAD_A_050e48'	=>	'You do not have sufficient permissions to upload a file in this group.',
 'YOU_DO_NOT_HAVE_SUFFICIENT_PERMISSIONS_TO_EDIT_THI_338361'	=>	'You do not have sufficient permissions to edit this file.',
@@ -71,17 +72,19 @@ return	array(
 'GROUP_FILE_UPLOAD_TOO_LARGE'	=>	'The file size exceeds the maximum of [size]!',
 'FILE_NOT_SPECIFIED_93ec32'	=>	'File not specified!',
 'GROUP_FILE_UPLOAD_FAILED'	=>	'The file [file] failed to upload!',
+// 4 language strings from file cbgroupjivefile/templates/default/activity.php
+'GROUP_FILE_ACTIVITY_TITLE'	=>	'uploaded a file in [group]',
+'SIZE_6f6cb7'	=>	'Size',
+'CLICK_TO_DOWNLOAD_26f519'	=>	'Click to Download',
+'UNKNOWN_88183b'	=>	'Unknown',
 // 5 language strings from file cbgroupjivefile/templates/default/file_edit.php
 'EDIT_FILE_29e095'	=>	'Edit File',
 'NEW_FILE_10716b'	=>	'New File',
 'FILE_0b2791'	=>	'File',
 'UPDATE_FILE_e9812b'	=>	'Update File',
 'UPLOAD_FILE_fbb7d7'	=>	'Upload File',
-// 9 language strings from file cbgroupjivefile/templates/default/files.php
+// 6 language strings from file cbgroupjivefile/templates/default/files.php
 'GROUP_FILES_COUNT'	=>	'%%COUNT%% File|%%COUNT%% Files',
-'SIZE_6f6cb7'	=>	'Size',
-'CLICK_TO_DOWNLOAD_26f519'	=>	'Click to Download',
-'UNKNOWN_88183b'	=>	'Unknown',
 'GROUP_FILE_DATE_FORMAT'	=>	'M j, Y',
 'ARE_YOU_SURE_YOU_WANT_TO_UNPUBLISH_THIS_FILE_babc72'	=>	'Are you sure you want to unpublish this File?',
 'ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_FILE_494de2'	=>	'Are you sure you want to delete this File?',

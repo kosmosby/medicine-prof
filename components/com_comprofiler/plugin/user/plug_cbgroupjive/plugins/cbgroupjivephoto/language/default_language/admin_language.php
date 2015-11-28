@@ -15,4 +15,9 @@
 defined('CBLIB') or die();
 
 return	array(
+// 1 language strings from file cbgroupjivephoto/xml/views/view.com_comprofiler.editgjphotorow.xml
+'SELECT_GROUP_THE_PHOTO_IS_FOR_3ebd9b'	=>	'Select group the photo is for.',
+// 2 language strings from file cbgroupjivephoto/xml/views/view.com_comprofiler.showgjphotorows.xml
+'CLICK_TO_DOWNLOAD_26f519'	=>	'Click to Download',
+'CLICK_TO_PREVIEW_056d16'	=>	'Click to Preview',
 );

@@ -9,6 +9,7 @@
 
 namespace CB\Plugin\GroupJive\Table;
 
+use CB\Plugin\GroupJive\CBGroupJive;
 use CBLib\Database\Table\Table;
 use CBLib\Language\CBTxt;
 use CBLib\Registry\Registry;
@@ -133,20 +134,6 @@ class NotificationTable extends Table
 	 */
 	public function group()
 	{
-		static $cache		=	array();
-
-		$id					=	$this->get( 'group' );
-
-		if ( ! isset( $cache[$id] ) ) {
-			$group			=	new GroupTable();
-
-			if ( $id ) {
-				$group->load( (int) $id );
-			}
-
-			$cache[$id]		=	$group;
-		}
-
-		return $cache[$id];
+		return CBGroupJive::getGroup( (int) $this->get( 'group' ) );
 	}
 }

@@ -14,10 +14,13 @@ use CB\Database\Table\PluginTable;
 use CB\Database\Table\UserTable;
 use CB\Database\Table\TabTable;
 use CB\Plugin\GroupJive\CBGroupJive;
-use CB\Plugin\GroupJive\Table\GroupTable;
-use CB\Plugin\GroupJivePhoto\Table\PhotoTable;
+use CB\Plugin\GroupJivePhoto\CBGroupJivePhoto;
 
 if ( ! ( defined( '_VALID_CB' ) || defined( '_JEXEC' ) || defined( '_VALID_MOS' ) ) ) { die( 'Direct Access to this location is not allowed.' ); }
+
+global $_PLUGINS;
+
+$_PLUGINS->loadPluginGroup( 'user' );
 
 class CBplug_cbgroupjivephoto extends cbPluginHandler
 {
@@ -68,7 +71,7 @@ class CBplug_cbgroupjivephoto extends cbPluginHandler
 			case 'photo':
 				switch ( $function ) {
 					case 'preview':
-						$this->outputPhoto( false, true, $id, $user );
+						$this->outputPhoto( true, true, $id, $user );
 						break;
 					case 'download':
 						$this->outputPhoto( false, false, $id, $user );
@@ -126,19 +129,14 @@ class CBplug_cbgroupjivephoto extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row							=	new PhotoTable();
-
-		$row->load( (int) $id );
-
+		$row							=	CBGroupJivePhoto::getPhoto( (int) $id );
 		$isModerator					=	CBGroupJive::isModerator( $user->get( 'id' ) );
 		$groupId						=	$this->input( 'group', null, GetterInterface::INT );
 
 		if ( $groupId === null ) {
 			$group						=	$row->group();
 		} else {
-			$group						=	new GroupTable();
-
-			$group->load( (int) $groupId );
+			$group						=	CBGroupJive::getGroup( $groupId );
 		}
 
 		$returnUrl						=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $group->get( 'id' ) ) );
@@ -218,19 +216,14 @@ class CBplug_cbgroupjivephoto extends cbPluginHandler
 	{
 		global $_CB_framework, $_PLUGINS;
 
-		$row					=	new PhotoTable();
-
-		$row->load( (int) $id );
-
+		$row					=	CBGroupJivePhoto::getPhoto( (int) $id );
 		$isModerator			=	CBGroupJive::isModerator( $user->get( 'id' ) );
 		$groupId				=	$this->input( 'group', null, GetterInterface::INT );
 
 		if ( $groupId === null ) {
 			$group				=	$row->group();
 		} else {
-			$group				=	new GroupTable();
-
-			$group->load( (int) $groupId );
+			$group				=	CBGroupJive::getGroup( $groupId );
 		}
 
 		$returnUrl				=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $group->get( 'id' ) ) );
@@ -251,10 +244,12 @@ class CBplug_cbgroupjivephoto extends cbPluginHandler
 			$row->set( 'user_id', (int) $row->get( 'user_id', $user->get( 'id' ) ) );
 		}
 
-		$row->set( 'published', ( $isModerator || ( $row->get( 'published' ) != -1 ) || ( $group->params()->get( 'photo', 1 ) != 2 ) ? (int) $this->input( 'post/published', $row->get( 'published', 1 ), GetterInterface::INT ) : -1 ) );
+		$canModerate			=	( CBGroupJive::getGroupStatus( $user, $group ) >= 2 );
+
+		$row->set( 'published', ( $isModerator || $canModerate || ( $row->get( 'id' ) && ( $row->get( 'published' ) != -1 ) ) || ( $group->params()->get( 'photo', 1 ) != 2 ) ? (int) $this->input( 'post/published', $row->get( 'published', 1 ), GetterInterface::INT ) : -1 ) );
 		$row->set( 'group', (int) $group->get( 'id' ) );
 		$row->set( 'title', $this->input( 'post/title', $row->get( 'title' ), GetterInterface::STRING ) );
-		$row->set( 'description', $this->input( 'post/caption', $row->get( 'description' ), GetterInterface::STRING ) );
+		$row->set( 'description', $this->input( 'post/description', $row->get( 'description' ), GetterInterface::STRING ) );
 
 		if ( ( ! $isModerator ) && $this->params->get( 'groups_photo_captcha', 0 ) ) {
 			$_PLUGINS->loadPluginGroup( 'user' );
@@ -283,9 +278,10 @@ class CBplug_cbgroupjivephoto extends cbPluginHandler
 		}
 
 		if ( $new ) {
-			$extras				=	array( 'photo' => htmlspecialchars( ( $row->get( 'title' ) ? $row->get( 'title' ) : $row->name() ) ) );
+			$extras				=	array(	'photo_title'	=>	htmlspecialchars( ( $row->get( 'title' ) ? $row->get( 'title' ) : $row->name() ) ),
+											'photo'			=>	'<a href="' . $_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'group' ), 'tab' => 'grouptabphoto' ) ) . '">' . htmlspecialchars( ( $row->get( 'title' ) ? $row->get( 'title' ) : $row->name() ) ) . '</a>' );
 
-			if ( $row->get( 'published' ) ) {
+			if ( $row->get( 'published' ) == 1 ) {
 				CBGroupJive::sendNotifications( 'photo_new', CBTxt::T( 'New group photo' ), CBTxt::T( '[user] has uploaded the photo [photo] in the group [group]!' ), $row->group(), (int) $row->get( 'user_id' ), null, array( $user->get( 'id' ) ), 1, $extras );
 			} elseif ( ( $row->get( 'published' ) == -1 ) && ( $row->group()->params()->get( 'photo', 1 ) == 2 ) ) {
 				CBGroupJive::sendNotifications( 'photo_approve', CBTxt::T( 'New group photo awaiting approval' ), CBTxt::T( '[user] has uploaded the photo [photo] in the group [group] and is awaiting approval!' ), $row->group(), (int) $row->get( 'user_id' ), null, array( $user->get( 'id' ) ), 1, $extras );
@@ -308,10 +304,7 @@ class CBplug_cbgroupjivephoto extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row				=	new PhotoTable();
-
-		$row->load( (int) $id );
-
+		$row				=	CBGroupJivePhoto::getPhoto( (int) $id );
 		$returnUrl			=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'group' ) ) );
 
 		if ( $row->get( 'id' ) ) {
@@ -339,7 +332,8 @@ class CBplug_cbgroupjivephoto extends cbPluginHandler
 		}
 
 		if ( $state && ( $currentState == -1 ) ) {
-			$extras			=	array( 'photo' => htmlspecialchars( ( $row->get( 'title' ) ? $row->get( 'title' ) : $row->name() ) ) );
+			$extras			=	array(	'photo_title'	=>	htmlspecialchars( ( $row->get( 'title' ) ? $row->get( 'title' ) : $row->name() ) ),
+										'photo'			=>	'<a href="' . $_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'group' ), 'tab' => 'grouptabphoto' ) ) . '">' . htmlspecialchars( ( $row->get( 'title' ) ? $row->get( 'title' ) : $row->name() ) ) . '</a>' );
 
 			if ( $row->get( 'user_id' ) != $user->get( 'id' ) ) {
 				CBGroupJive::sendNotification( 4, $user, (int) $row->get( 'user_id' ), CBTxt::T( 'Photo upload request accepted' ), CBTxt::T( 'Your photo [photo] upload request in the group [group] has been accepted!' ), $row->group(), $extras );
@@ -361,10 +355,7 @@ class CBplug_cbgroupjivephoto extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row			=	new PhotoTable();
-
-		$row->load( (int) $id );
-
+		$row			=	CBGroupJivePhoto::getPhoto( (int) $id );
 		$returnUrl		=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'group' ) ) );
 
 		if ( $row->get( 'id' ) ) {
@@ -402,17 +393,14 @@ class CBplug_cbgroupjivephoto extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row			=	new PhotoTable();
-
-		$row->load( (int) $id );
-
+		$row			=	CBGroupJivePhoto::getPhoto( (int) $id );
 		$returnUrl		=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'group' ) ) );
 
 		if ( $row->get( 'id' ) ) {
 			if ( ! CBGroupJive::canAccessGroup( $row->group(), $user ) ) {
 				cbRedirect( $returnUrl, CBTxt::T( 'Group does not exist.' ), 'error' );
 			} elseif ( ! CBGroupJive::isModerator( $user->get( 'id' ) ) ) {
-				if ( ( ! $row->get( 'published' ) ) && ( CBGroupJive::getGroupStatus( $user, $row->group() ) < 2 ) ) {
+				if ( ( $row->get( 'published' ) != 1 ) && ( CBGroupJive::getGroupStatus( $user, $row->group() ) < 2 ) ) {
 					cbRedirect( $returnUrl, CBTxt::T( 'You do not have access to this photo.' ), 'error' );
 				}
 			}

@@ -72,6 +72,7 @@
 								<param name="types" type="xml:groupjive_type" multiple="true" label="Types" default="1|*|2|*|3" blanktext="" validate="required" display="2lines" description="Select categories available group types. Types determine the way a groups is joined (e.g. Invite requires new users to be invited to join a group)." />
 								<param name="access" type="viewaccesslevel" label="Access" default="1" blanktext="" managelevels="false" display="2lines" description="Select category access. Access determines who can effectively see your category." />
 								<param name="create_access" type="xml:groupjive_create_access" label="Create Access" default="0" blanktext="Same as Global" managelevels="false" display="2lines" description="Select category group create access. Create Access determines who can create groups in this category." />
+								<param name="ordering" type="ordering" value="name" label="Ordering" display="2lines" description="Select the ordering of this category." />
 							</gridrow>
 						</gridcol>
 					</grid>

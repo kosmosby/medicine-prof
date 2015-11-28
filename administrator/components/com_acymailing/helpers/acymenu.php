@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,10 +27,18 @@ class acymenuHelper{
 					elements[i].className = elements[i].className.replace('opened','');
 				}
 				elem.className += ' '+myclass;
+				if(myclass == 'iconsonly') sessionStorage.setItem('acyclosedmenu', '1');
 			}else{
 				elem.className = elem.className.replace(' '+myclass,'');
+				if(myclass == 'iconsonly') sessionStorage.setItem('acyclosedmenu', '0');
 			}
 		}
+
+		window.addEvent('domready', function(){
+			var isClosed = sessionStorage.getItem('acyclosedmenu');
+			if(isClosed == 1) acyToggleClass('acyallcontent', 'iconsonly');
+		});
+
 		function acyAddClass(id,myclass){
 			elem = document.getElementById(id);
 			if(elem.className.search(myclass)>=0) return;
@@ -90,7 +98,7 @@ class acymenuHelper{
 			if(acymailing_level(3) && acymailing_isAllowed($config->get('acl_campaign_manage', 'all'))){
 				$submenu['newsletter'][] = array(JText::_('CAMPAIGN'), 'index.php?option=com_acymailing&ctrl=campaign', 'acyicon-campaign');
 			}
-			if(acymailing_level(1)){
+			if(acymailing_level(1) && acymailing_isAllowed($config->get('acl_configuration_manage', 'all')) && (!ACYMAILING_J16 || JFactory::getUser()->authorise('core.admin', 'com_acymailing'))){
 				$submenu['newsletter'][] = array(JText::_('JOOMLA_NOTIFICATIONS'), 'index.php?option=com_acymailing&ctrl=notification', 'acyicon-joomla');
 			}
 
@@ -109,9 +117,6 @@ class acymenuHelper{
 		}
 		if(acymailing_isAllowed($config->get('acl_configuration_manage', 'all')) && (!ACYMAILING_J16 || JFactory::getUser()->authorise('core.admin', 'com_acymailing'))){
 			$mainmenu['cpanel'] = array(JText::_('ACY_CONFIGURATION'), 'index.php?option=com_acymailing&ctrl=cpanel', 'acyicon-configuration');
-		}
-
-		if(acymailing_isAllowed($config->get('acl_configuration_manage', 'all')) && (!ACYMAILING_J16 || JFactory::getUser()->authorise('core.admin', 'com_acymailing'))){
 			$mainmenu['bounce'] = array(JText::_('BOUNCE_HANDLING'), 'index.php?option=com_acymailing&ctrl=bounces', 'acyicon-bounce');
 		}
 

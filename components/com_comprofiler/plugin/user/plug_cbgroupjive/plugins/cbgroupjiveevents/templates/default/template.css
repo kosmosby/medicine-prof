@@ -34,3 +34,11 @@
 .cb_template .gjEventAttendingUser .gjContainerBoxHeader {
 	height: 100px;
 }
+
+.cb_template .gjEventActivity {
+	padding: 10px;
+}
+
+.cb_template .gjEventActivity .panel {
+	margin: 0;
+}

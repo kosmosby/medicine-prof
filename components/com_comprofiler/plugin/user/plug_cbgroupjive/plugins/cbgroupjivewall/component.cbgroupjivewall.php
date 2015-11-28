@@ -14,10 +14,13 @@ use CB\Database\Table\PluginTable;
 use CB\Database\Table\UserTable;
 use CB\Database\Table\TabTable;
 use CB\Plugin\GroupJive\CBGroupJive;
-use CB\Plugin\GroupJive\Table\GroupTable;
-use CB\Plugin\GroupJiveWall\Table\WallTable;
+use CB\Plugin\GroupJiveWall\CBGroupJiveWall;
 
 if ( ! ( defined( '_VALID_CB' ) || defined( '_JEXEC' ) || defined( '_VALID_MOS' ) ) ) { die( 'Direct Access to this location is not allowed.' ); }
+
+global $_PLUGINS;
+
+$_PLUGINS->loadPluginGroup( 'user' );
 
 class CBplug_cbgroupjivewall extends cbPluginHandler
 {
@@ -116,19 +119,14 @@ class CBplug_cbgroupjivewall extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row					=	new WallTable();
-
-		$row->load( (int) $id );
-
+		$row					=	CBGroupJiveWall::getPost( (int) $id );
 		$isModerator			=	CBGroupJive::isModerator( $user->get( 'id' ) );
 		$groupId				=	$this->input( 'group', null, GetterInterface::INT );
 
 		if ( $groupId === null ) {
 			$group				=	$row->group();
 		} else {
-			$group				=	new GroupTable();
-
-			$group->load( (int) $groupId );
+			$group				=	CBGroupJive::getGroup( $groupId );
 		}
 
 		$returnUrl				=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $group->get( 'id' ) ) );
@@ -172,19 +170,14 @@ class CBplug_cbgroupjivewall extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row					=	new WallTable();
-
-		$row->load( (int) $id );
-
+		$row					=	CBGroupJiveWall::getPost( (int) $id );
 		$isModerator			=	CBGroupJive::isModerator( $user->get( 'id' ) );
 		$groupId				=	$this->input( 'group', null, GetterInterface::INT );
 
 		if ( $groupId === null ) {
 			$group				=	$row->group();
 		} else {
-			$group				=	new GroupTable();
-
-			$group->load( (int) $groupId );
+			$group				=	CBGroupJive::getGroup( $groupId );
 		}
 
 		$returnUrl				=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $group->get( 'id' ) ) );
@@ -202,9 +195,7 @@ class CBplug_cbgroupjivewall extends cbPluginHandler
 		$replyId				=	(int) $this->input( 'reply', null, GetterInterface::INT );
 
 		if ( $replyId ) {
-			$reply				=	new WallTable();
-
-			$reply->load( (int) $replyId );
+			$reply				=	CBGroupJiveWall::getPost( (int) $replyId );
 
 			if ( ! $reply->get( 'id' ) ) {
 				cbRedirect( $returnUrl, CBTxt::T( 'Reply does not exist.' ), 'error' );
@@ -213,13 +204,15 @@ class CBplug_cbgroupjivewall extends cbPluginHandler
 			$row->set( 'reply', (int) $reply->get( 'id' ) );
 		}
 
+		$canModerate			=	( CBGroupJive::getGroupStatus( $user, $group ) >= 2 );
+
 		if ( $isModerator ) {
 			$row->set( 'user_id', (int) $this->input( 'post/user_id', $row->get( 'user_id', $user->get( 'id' ) ), GetterInterface::INT ) );
 		} else {
 			$row->set( 'user_id', (int) $row->get( 'user_id', $user->get( 'id' ) ) );
 		}
 
-		$row->set( 'published', ( $isModerator || ( $row->get( 'published' ) != -1 ) || ( $group->params()->get( 'wall', 1 ) != 2 ) ? (int) $this->input( 'post/published', $row->get( 'published', 1 ), GetterInterface::INT ) : -1 ) );
+		$row->set( 'published', ( $isModerator || $canModerate || ( $row->get( 'id' ) && ( $row->get( 'published' ) != -1 ) ) || ( $group->params()->get( 'wall', 1 ) != 2 ) ? (int) $this->input( 'post/published', $row->get( 'published', 1 ), GetterInterface::INT ) : -1 ) );
 		$row->set( 'group', (int) $group->get( 'id' ) );
 
 		$postLimit				=	( $isModerator ? 0 : (int) $this->params->get( 'groups_wall_character_limit', 400 ) );
@@ -255,7 +248,7 @@ class CBplug_cbgroupjivewall extends cbPluginHandler
 		}
 
 		if ( $new ) {
-			if ( $row->get( 'published' ) ) {
+			if ( $row->get( 'published' ) == 1 ) {
 				if ( $row->reply()->get( 'id' ) ) {
 					CBGroupJive::sendNotifications( 'wall_reply', CBTxt::T( 'New group post reply' ), CBTxt::T( '[user] has posted a reply on the wall in the group [group]!' ), $row->group(), (int) $row->get( 'user_id' ), (int) $row->reply()->get( 'user_id' ), array( $user->get( 'id' ) ) );
 				} else {
@@ -282,10 +275,7 @@ class CBplug_cbgroupjivewall extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row				=	new WallTable();
-
-		$row->load( (int) $id );
-
+		$row				=	CBGroupJiveWall::getPost( (int) $id );
 		$returnUrl			=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'group' ) ) );
 
 		if ( $row->get( 'id' ) ) {
@@ -337,10 +327,7 @@ class CBplug_cbgroupjivewall extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row			=	new WallTable();
-
-		$row->load( (int) $id );
-
+		$row			=	CBGroupJiveWall::getPost( (int) $id );
 		$returnUrl		=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'group' ) ) );
 
 		if ( $row->get( 'id' ) ) {

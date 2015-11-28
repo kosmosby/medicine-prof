@@ -1135,19 +1135,13 @@ class acymailingPHPMailer
                 );
             }
 
-            // Sign with DKIM if enabled
-            if (!empty($this->DKIM_domain)
-                && !empty($this->DKIM_private)
-                && !empty($this->DKIM_selector)
-                && file_exists($this->DKIM_private)) {
-                $header_dkim = $this->ACY_DKIM_Add(
-                    $this->MIMEHeader . $this->mailHeader,
-                    $this->encodeHeader($this->secureHeader($this->Subject)),
-                    $this->MIMEBody
-                );
-                $this->MIMEHeader = rtrim($this->MIMEHeader, "\r\n ") . self::CRLF .
-                    str_replace("\r\n", "\n", $header_dkim) . self::CRLF;
-            }
+			if (!empty($this->DKIM_domain)
+				 && !empty($this->DKIM_private)
+				 && !empty($this->DKIM_selector)) {
+				$header_dkim = $this->ACY_DKIM_Add($this->MIMEBody);
+				$this->MIMEHeader = str_replace("\r\n", "\n", $header_dkim) . $this->MIMEHeader;
+			}
+
             return true;
         } catch (acymailingphpmailerException $exc) {
             $this->setError($exc->getMessage());

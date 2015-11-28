@@ -102,33 +102,69 @@ class Parser
 		/** @var UserTable[] $users */
 		static $users						=	array();
 
-		foreach ( $this->words as $word ) {
+		foreach ( $this->words as $k => $word ) {
 			if ( preg_match( $this->regexp['profile'], $word, $match ) ) {
 				$cleanWord					=	Get::clean( $match[1], GetterInterface::STRING );
 
 				if ( ! isset( $users[$cleanWord] ) ) {
-					$users[$cleanWord]		=	new UserTable();
+					$user					=	new UserTable();
 
 					if ( is_numeric( $match[1] ) ) {
-						$users[$cleanWord]	=	\CBuser::getUserDataInstance( (int) $match[1] );
-					} else {
+						$user->load( (int) $match[1] );
+					}
+
+					if ( ! $user->get( 'id' ) ) {
+						$wordNext2			=	( isset( $this->words[$k+1] ) && ( ! preg_match( $this->regexp['profile'], $this->words[$k+1] ) ) ? $cleanWord . ' ' . Get::clean( $this->words[$k+1], GetterInterface::STRING ) : null );
+						$wordNext3			=	( $wordNext2 && isset( $this->words[$k+2] ) && ( ! preg_match( $this->regexp['profile'], $this->words[$k+2] ) ) ? $wordNext2 . ' ' . Get::clean( $this->words[$k+2], GetterInterface::STRING ) : null );
+						$wordNext4			=	( $wordNext3 && isset( $this->words[$k+3] ) && ( ! preg_match( $this->regexp['profile'], $this->words[$k+3] ) ) ? $wordNext3 . ' ' . Get::clean( $this->words[$k+3], GetterInterface::STRING ) : null );
+						$wordNext5			=	( $wordNext4 && isset( $this->words[$k+4] ) && ( ! preg_match( $this->regexp['profile'], $this->words[$k+4] ) ) ? $wordNext4 . ' ' . Get::clean( $this->words[$k+4], GetterInterface::STRING ) : null );
+						$wordNext6			=	( $wordNext5 && isset( $this->words[$k+5] ) && ( ! preg_match( $this->regexp['profile'], $this->words[$k+5] ) ) ? $wordNext5 . ' ' . Get::clean( $this->words[$k+5], GetterInterface::STRING ) : null );
+
 						$query				=	'SELECT c.*, u.*'
 											.	"\n FROM " . $_CB_database->NameQuote( '#__users' ) . " AS u"
 											.	"\n LEFT JOIN " . $_CB_database->NameQuote( '#__comprofiler' ) . " AS c"
 											.	' ON c.' . $_CB_database->NameQuote( 'id' ) . ' = u.' . $_CB_database->NameQuote( 'id' )
-											.	"\n WHERE ( u." . $_CB_database->NameQuote( 'username' ) . ' = ' . $_CB_database->Quote( $cleanWord )													// Match username exactly
-											.	' OR u.' . $_CB_database->NameQuote( 'name' ) . ' = ' . $_CB_database->Quote( $cleanWord )																// Match name exactly
-											.	' OR u.' . $_CB_database->NameQuote( 'username' ) . ' LIKE ' . $_CB_database->Quote( $_CB_database->getEscaped( $cleanWord, true ) . '%', false )		// Match first half of username (encase of space)
-											.	' OR u.' . $_CB_database->NameQuote( 'name' ) . ' LIKE ' . $_CB_database->Quote( $_CB_database->getEscaped( $cleanWord, true ) . '%', false ) . ' )';	// Match first half of name (encase of space)
+											.	"\n WHERE ( u." . $_CB_database->NameQuote( 'username' ) . ' = ' . $_CB_database->Quote( $cleanWord )		// Match username exactly
+											.	' OR u.' . $_CB_database->NameQuote( 'name' ) . ' = ' . $_CB_database->Quote( $cleanWord );					// Match name exactly
+
+						if ( $wordNext2 ) { // 2 Words
+							$query			.=	' OR u.' . $_CB_database->NameQuote( 'username' ) . ' = ' . $_CB_database->Quote( $wordNext2 )				// Match username +1 word exactly
+											.	' OR u.' . $_CB_database->NameQuote( 'name' ) . ' = ' . $_CB_database->Quote( $wordNext2 );					// Match name +1 word exactly
+						}
+
+						if ( $wordNext3 ) { // 3 Words
+							$query			.=	' OR u.' . $_CB_database->NameQuote( 'username' ) . ' = ' . $_CB_database->Quote( $wordNext3 )				// Match username +2 words exactly
+											.	' OR u.' . $_CB_database->NameQuote( 'name' ) . ' = ' . $_CB_database->Quote( $wordNext3 );					// Match name +2 words exactly
+						}
+
+						if ( $wordNext4 ) { // 4 Words
+							$query			.=	' OR u.' . $_CB_database->NameQuote( 'username' ) . ' = ' . $_CB_database->Quote( $wordNext4 )				// Match username +3 words exactly
+											.	' OR u.' . $_CB_database->NameQuote( 'name' ) . ' = ' . $_CB_database->Quote( $wordNext4 );					// Match name +3 words exactly
+						}
+
+						if ( $wordNext5 ) { // 5 Words
+							$query			.=	' OR u.' . $_CB_database->NameQuote( 'username' ) . ' = ' . $_CB_database->Quote( $wordNext5 )				// Match username +4 words exactly
+											.	' OR u.' . $_CB_database->NameQuote( 'name' ) . ' = ' . $_CB_database->Quote( $wordNext5 );					// Match name +4 words exactly
+						}
+
+						if ( $wordNext6 ) { // 6 Words
+							$query			.=	' OR u.' . $_CB_database->NameQuote( 'username' ) . ' = ' . $_CB_database->Quote( $wordNext6 )				// Match username +5 words exactly
+											.	' OR u.' . $_CB_database->NameQuote( 'name' ) . ' = ' . $_CB_database->Quote( $wordNext6 );					// Match name +5 words exactly
+						}
+
+						$query				.=	' )'
+											.	"\n ORDER BY u." . $_CB_database->NameQuote( 'username' ) . ", u." . $_CB_database->NameQuote( 'name' );
 						$_CB_database->setQuery( $query );
-						$_CB_database->loadObject( $users[$cleanWord] );
+						$_CB_database->loadObject( $user );
 					}
+
+					$users[$cleanWord]		=	$user;
 				}
 
 				$user						=	$users[$cleanWord];
 
 				if ( $user->get( 'id' ) ) {
-					$this->parsed			=	str_replace( array( '@' . $user->get( 'id' ), '@' . $user->get( 'name' ), '@' . $user->get( 'username' ), $word ), '<a href="' . $_CB_framework->userProfileUrl( (int) $user->get( 'id' ) ) . '" rel="nofollow">@' . htmlspecialchars( getNameFormat( $user->get( 'name' ), $user->get( 'username' ), Application::Config()->get( 'name_format' ) ) ) . '</a>', $this->parsed );
+					$this->parsed			=	preg_replace( '/@' . (int) $user->get( 'id' ) . '\b|@' . preg_quote( $user->get( 'name' ), '/' ) . '\b|@' . preg_quote( $user->get( 'username' ), '/' ) . '\b|' . preg_quote( $word, '/' ) . '\b/i', '<a href="' . $_CB_framework->userProfileUrl( (int) $user->get( 'id' ) ) . '" rel="nofollow">@' . htmlspecialchars( getNameFormat( $user->get( 'name' ), $user->get( 'username' ), Application::Config()->get( 'name_format' ) ) ) . '</a>', $this->parsed );
 				}
 			}
 		}
@@ -145,9 +181,15 @@ class Parser
 	{
 		foreach ( $this->words as $word ) {
 			if ( preg_match( $this->regexp['link'], $word, $match ) ) {
-				$this->parsed	=	str_replace( $word, '<a href="' . htmlspecialchars( $match[0] ) . '" rel="nofollow"' . ( ! \JUri::isInternal( $match[0] ) ? ' target="_blank"' : null ) . '>' . htmlspecialchars( $match[0] ) . '</a>', $this->parsed );
+				$link				=	$match[0];
+
+				if ( substr( $link, 0, 3 ) == 'www' ) {
+					$link			=	'http://' . $link;
+				}
+
+				$this->parsed		=	str_replace( $word, '<a href="' . htmlspecialchars( $link ) . '" rel="nofollow"' . ( ! \JUri::isInternal( $link ) ? ' target="_blank"' : null ) . '>' . htmlspecialchars( $match[0] ) . '</a>', $this->parsed );
 			} elseif ( preg_match( $this->regexp['email'], $word, $match ) ) {
-				$this->parsed	=	str_replace( $word, '<a href="mailto:' . htmlspecialchars( $match[0] ) . '" rel="nofollow" target="_blank">' . htmlspecialchars( $match[0] ) . '</a>', $this->parsed );
+				$this->parsed		=	str_replace( $word, '<a href="mailto:' . htmlspecialchars( $match[0] ) . '" rel="nofollow" target="_blank">' . htmlspecialchars( $match[0] ) . '</a>', $this->parsed );
 			}
 		}
 
@@ -193,9 +235,7 @@ class Parser
 	public function attachments()
 	{
 		foreach ( $this->words as $word ) {
-			if ( preg_match( $this->regexp['link'], $word, $match ) ) {
-				$this->attachment( $match[0] );
-			}
+			$this->attachment( $word );
 		}
 
 		return $this->attachments;
@@ -213,7 +253,7 @@ class Parser
 
 		$attachment												=	null;
 
-		if ( $url ) {
+		if ( $url && preg_match( $this->regexp['link'], $url ) ) {
 			$cachePath											=	$_CB_framework->getCfg( 'absolute_path' ) . '/cache/activity_links';
 			$cache												=	$cachePath . '/' . md5( $url );
 
@@ -243,7 +283,15 @@ class Parser
 
 						$document								=	@new \DOMDocument();
 
-						@$document->loadHTML( (string) $result->getBody() );
+						$body									=	(string) $result->getBody();
+
+						if ( function_exists( 'mb_convert_encoding' ) ) {
+							$body								=	mb_convert_encoding( $body, 'HTML-ENTITIES', 'UTF-8' );
+						} else {
+							$body								=	'<?xml encoding="UTF-8">' . $body;
+						}
+
+						@$document->loadHTML( $body );
 
 						$xpath									=	@new \DOMXPath( $document );
 
@@ -290,14 +338,23 @@ class Parser
 																		);
 
 						foreach ( $paths as $item => $itemPaths ) {
+							$attachment[$item]										=	array();
+
 							foreach ( $itemPaths as $subItem => $itemPath ) {
 								if ( $item == 'media' ) {
+									$attachment[$item][$subItem]					=	array();
+									$existing										=	array();
+
 									foreach ( $itemPath as $subItemPath ) {
 										$nodes										=	@$xpath->query( $subItemPath );
 
 										if ( ( $nodes !== false ) && $nodes->length ) {
 											foreach ( $nodes as $node ) {
 												if ( preg_match( $this->regexp['link'], $node->nodeValue ) ) {
+													if ( in_array( $node->nodeValue, $existing ) ) {
+														continue;
+													}
+
 													$itemDomain						=	preg_replace( '/^(?:(?:\w+\.)*)?(\w+)\..+$/', '\1', parse_url( $node->nodeValue, PHP_URL_HOST ) );
 													$itemExt						=	strtolower( pathinfo( $node->nodeValue, PATHINFO_EXTENSION ) );
 
@@ -320,6 +377,7 @@ class Parser
 													}
 
 													$attachment[$item][$subItem][]	=	array( 'url' => $node->nodeValue, 'mimetype' => $itemMimeType, 'extension' => $itemExt );
+													$existing[]						=	$node->nodeValue;
 												}
 											}
 										}
@@ -329,21 +387,11 @@ class Parser
 
 									if ( ( $nodes !== false ) && $nodes->length ) {
 										foreach ( $nodes as $node ) {
-											$value									=	false;
-
-											if ( function_exists( 'mb_detect_encoding' ) && function_exists( 'iconv' ) ) {
-												$encoding							=	mb_detect_encoding( $node->nodeValue, mb_detect_order(), true );
-
-												if ( $encoding !== false ) {
-													$value							=	iconv( $encoding, 'UTF-8', $node->nodeValue );
-												}
+											if ( in_array( $node->nodeValue, $attachment[$item] ) ) {
+												continue;
 											}
 
-											if ( $value === false ) {
-												$value								=	utf8_decode( utf8_encode( $node->nodeValue ) );
-											}
-
-											$attachment[$item][]					=	$value;
+											$attachment[$item][]					=	$node->nodeValue;
 										}
 									}
 								}

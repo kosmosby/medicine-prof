@@ -49,7 +49,7 @@ class HTML_groupjivePhotoEdit
 									.		'<form action="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'photo', 'func' => 'save', 'id' => (int) $row->get( 'id' ) ) ) . '" method="post" enctype="multipart/form-data" name="gjPhotoEditForm" id="gjPhotoEditForm" class="cb_form gjPhotoEditForm form-auto cbValidation">'
 									.			( $pageTitle ? '<div class="gjPhotoEditTitle page-header"><h3>' . $pageTitle . '</h3></div>' : null );
 
-		if ( $isModerator || $canModerate || ( $row->get( 'published' ) != -1 ) || ( $group->params()->get( 'photo', 1 ) != 2 ) ) {
+		if ( $isModerator || $canModerate || ( $row->get( 'id' ) && ( $row->get( 'published' ) != -1 ) ) || ( $group->params()->get( 'photo', 1 ) != 2 ) ) {
 			$return					.=			'<div class="cbft_select cbtt_select form-group cb_form_line clearfix">'
 									.				'<label for="published" class="col-sm-3 control-label">' . CBTxt::T( 'Published' ) . '</label>'
 									.				'<div class="cb_field col-sm-9">'

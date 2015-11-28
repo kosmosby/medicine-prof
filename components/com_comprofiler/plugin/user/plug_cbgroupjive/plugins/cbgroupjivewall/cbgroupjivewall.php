@@ -7,7 +7,6 @@
 * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2
 */
 
-use CBLib\Application\Application;
 use CBLib\Registry\Registry;
 use CBLib\Language\CBTxt;
 use CBLib\Registry\GetterInterface;
@@ -18,6 +17,7 @@ use CB\Plugin\GroupJive\Table\GroupTable;
 use CB\Plugin\GroupJive\Table\CategoryTable;
 use CB\Plugin\GroupJive\Table\NotificationTable;
 use CB\Plugin\GroupJiveWall\Table\WallTable;
+use CB\Plugin\GroupJiveWall\CBGroupJiveWall;
 
 if ( ! ( defined( '_VALID_CB' ) || defined( '_JEXEC' ) || defined( '_VALID_MOS' ) ) ) { die( 'Direct Access to this location is not allowed.' ); }
 
@@ -25,6 +25,9 @@ global $_PLUGINS;
 
 $_PLUGINS->loadPluginGroup( 'user' );
 
+$_PLUGINS->registerFunction( 'activity_onQueryActivity', 'activityQuery', 'cbgjWallPlugin' );
+$_PLUGINS->registerFunction( 'activity_onBeforeDisplayActivity', 'activityPrefetch', 'cbgjWallPlugin' );
+$_PLUGINS->registerFunction( 'activity_onDisplayActivity', 'activityDisplay', 'cbgjWallPlugin' );
 $_PLUGINS->registerFunction( 'gj_onAdminMenu', 'adminMenu', 'cbgjWallPlugin' );
 $_PLUGINS->registerFunction( 'gj_onAfterDeleteGroup', 'deleteGroup', 'cbgjWallPlugin' );
 $_PLUGINS->registerFunction( 'gj_onAfterCreateUser', 'storeNotifications', 'cbgjWallPlugin' );
@@ -50,6 +53,128 @@ class cbgjWallPlugin extends cbPluginHandler
 			$this->_gjPlugin	=	$_PLUGINS->getLoadedPlugin( 'user', 'cbgroupjive' );
 			$this->_gjParams	=	$_PLUGINS->getPluginParams( $this->_gjPlugin );
 		}
+	}
+
+	/**
+	 * @param bool                        $count
+	 * @param array                       $select
+	 * @param array                       $where
+	 * @param array                       $join
+	 * @param CB\Plugin\Activity\Activity $stream
+	 */
+	public function activityQuery( $count, &$select, &$where, &$join, &$stream )
+	{
+		global $_CB_database;
+
+		$join[]				=	'LEFT JOIN ' . $_CB_database->NameQuote( '#__groupjive_plugin_wall' ) . ' AS gj_w'
+							.	' ON a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND a.' . $_CB_database->NameQuote( 'subtype' ) . ' = ' . $_CB_database->Quote( 'group.wall' )
+							.	' AND a.' . $_CB_database->NameQuote( 'item' ) . ' = gj_w.' . $_CB_database->NameQuote( 'id' );
+
+		if ( ! CBGroupJive::isModerator() ) {
+			$user			=	CBuser::getMyUserDataInstance();
+
+			$where[]		=	'( ( a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND a.' . $_CB_database->NameQuote( 'subtype' ) . ' = ' . $_CB_database->Quote( 'group.wall' )
+							.	' AND gj_w.' . $_CB_database->NameQuote( 'id' ) . ' IS NOT NULL'
+							.	' AND ( gj_w.' . $_CB_database->NameQuote( 'user_id' ) . ' = ' . (int) $user->get( 'id' )
+							.		' OR ( gj_w.' . $_CB_database->NameQuote( 'published' ) . ' = 1'
+							.		' AND ( gj_g.' . $_CB_database->NameQuote( 'type' ) . ' IN ( 1, 2 )'
+							.		' OR gj_u.' . $_CB_database->NameQuote( 'status' ) . ' > 0 ) ) ) )'
+							.	' OR ( a.' . $_CB_database->NameQuote( 'type' ) . ' != ' . $_CB_database->Quote( 'groupjive' )
+							.	' OR ( a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND a.' . $_CB_database->NameQuote( 'subtype' ) . ' != ' . $_CB_database->Quote( 'group.wall' ) . ' ) ) )';
+		} else {
+			$where[]		=	'( ( a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND a.' . $_CB_database->NameQuote( 'subtype' ) . ' = ' . $_CB_database->Quote( 'group.wall' )
+							.	' AND gj_w.' . $_CB_database->NameQuote( 'id' ) . ' IS NOT NULL )'
+							.	' OR ( a.' . $_CB_database->NameQuote( 'type' ) . ' != ' . $_CB_database->Quote( 'groupjive' )
+							.	' OR ( a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND a.' . $_CB_database->NameQuote( 'subtype' ) . ' != ' . $_CB_database->Quote( 'group.wall' ) . ' ) ) )';
+		}
+	}
+
+	/**
+	 * @param string                                   $return
+	 * @param CB\Plugin\Activity\Table\ActivityTable[] $rows
+	 * @param CB\Plugin\Activity\Activity              $stream
+	 * @param int                                      $output 0: Normal, 1: Raw, 2: Inline, 3: Load, 4: Save
+	 */
+	public function activityPrefetch( &$return, &$rows, $stream, $output )
+	{
+		global $_CB_database;
+
+		$postIds				=	array();
+
+		foreach ( $rows as $row ) {
+			if ( ! ( ( $row->get( 'type' ) == 'groupjive' ) && ( $row->get( 'subtype' ) == 'group.wall' ) ) ) {
+				continue;
+			}
+
+			$postId				=	(int) $row->get( 'item' );
+
+			if ( $postId && ( ! in_array( $postId, $postIds ) ) ) {
+				$postIds[]		=	$postId;
+			}
+		}
+
+		if ( ! $postIds ) {
+			return;
+		}
+
+		$replies				=	'SELECT COUNT(*)'
+								.	"\n FROM " . $_CB_database->NameQuote( '#__groupjive_plugin_wall' ) . " AS r"
+								.	"\n LEFT JOIN " . $_CB_database->NameQuote( '#__comprofiler' ) . " AS rcb"
+								.	' ON rcb.' . $_CB_database->NameQuote( 'id' ) . ' = r.' . $_CB_database->NameQuote( 'user_id' )
+								.	"\n LEFT JOIN " . $_CB_database->NameQuote( '#__users' ) . " AS rj"
+								.	' ON rj.' . $_CB_database->NameQuote( 'id' ) . ' = rcb.' . $_CB_database->NameQuote( 'id' )
+								.	"\n WHERE r." . $_CB_database->NameQuote( 'reply' ) . " = p." . $_CB_database->NameQuote( 'id' )
+								.	"\n AND rcb." . $_CB_database->NameQuote( 'approved' ) . " = 1"
+								.	"\n AND rcb." . $_CB_database->NameQuote( 'confirmed' ) . " = 1"
+								.	"\n AND rj." . $_CB_database->NameQuote( 'block' ) . " = 0";
+
+		$query					=	'SELECT p.*'
+								.	', ( ' . $replies . ' ) AS _replies'
+								.	"\n FROM " . $_CB_database->NameQuote( '#__groupjive_plugin_wall' ) . " AS p"
+								.	"\n WHERE p." . $_CB_database->NameQuote( 'id' ) . " IN " . $_CB_database->safeArrayOfIntegers( $postIds );
+		$_CB_database->setQuery( $query );
+		$posts					=	$_CB_database->loadObjectList( null, '\CB\Plugin\GroupJiveWall\Table\WallTable', array( $_CB_database ) );
+
+		if ( ! $posts ) {
+			return;
+		}
+
+		CBGroupJiveWall::getPost( $posts );
+		CBGroupJive::preFetchUsers( $posts );
+	}
+
+	/**
+	 * @param CB\Plugin\Activity\Table\ActivityTable $row
+	 * @param null|string                            $title
+	 * @param null|string                            $date
+	 * @param null|string                            $message
+	 * @param null|string                            $insert
+	 * @param null|string                            $footer
+	 * @param array                                  $menu
+	 * @param array                                  $extras
+	 * @param CB\Plugin\Activity\Activity            $stream
+	 * @param int                                    $output 0: Normal, 1: Raw, 2: Inline, 3: Load, 4: Save
+	 */
+	public function activityDisplay( &$row, &$title, &$date, &$message, &$insert, &$footer, &$menu, &$extras, $stream, $output )
+	{
+		if ( ! ( ( $row->get( 'type' ) == 'groupjive' ) && ( $row->get( 'subtype' ) == 'group.wall' ) ) ) {
+			return;
+		}
+
+		$post		=	CBGroupJiveWall::getPost( (int) $row->get( 'item' ) );
+
+		if ( ! $post->get( 'id' ) ) {
+			return;
+		}
+
+		CBGroupJive::getTemplate( 'activity', true, true, $this->element );
+
+		$insert		=	HTML_groupjiveWallActivity::showWallActivity( $row, $title, $message, $stream, $post, $this );
 	}
 
 	/**
@@ -256,6 +381,7 @@ class cbgjWallPlugin extends cbPluginHandler
 		}
 		$rows					=	$_CB_database->loadObjectList( null, '\CB\Plugin\GroupJiveWall\Table\WallTable', array( $_CB_database ) );
 
+		CBGroupJiveWall::getPost( $rows );
 		CBGroupJive::preFetchUsers( $rows );
 
 		$group->set( '_wall', $pageNav->total );
@@ -353,6 +479,7 @@ class cbgjWallPlugin extends cbPluginHandler
 			}
 			$rows				=	$_CB_database->loadObjectList( null, '\CB\Plugin\GroupJiveWall\Table\WallTable', array( $_CB_database ) );
 
+			CBGroupJiveWall::getPost( $rows );
 			CBGroupJive::preFetchUsers( $rows );
 		} else {
 			$rows				=	array();

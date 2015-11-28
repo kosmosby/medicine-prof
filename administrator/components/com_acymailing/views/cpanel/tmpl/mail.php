@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -92,7 +92,7 @@ defined('_JEXEC') or die('Restricted access');
 		</div>
 		<div style="clear: both;"></div>
 		<div id="mailer_method_config">
-			<div id="sendmail_config" style="display:none">
+			<div id="sendmail_config" style="display:none" class="acymailing_deploy">
 				<span class="acyblocktitle">SendMail</span>
 				<table class="acymailing_table" cellspacing="1">
 					<tr>
@@ -105,7 +105,7 @@ defined('_JEXEC') or die('Restricted access');
 					</tr>
 				</table>
 			</div>
-			<div id="smtp_config" style="display:none">
+			<div id="smtp_config" style="display:none" class="acymailing_deploy">
 				<span class="acyblocktitle"><?php echo JText::_('SMTP_CONFIG'); ?></span>
 				<table class="acymailing_table" cellspacing="1">
 					<tr>
@@ -167,7 +167,7 @@ defined('_JEXEC') or die('Restricted access');
 				</table>
 				<?php echo $this->toggleClass->toggleText('guessport', '', 'config', JText::_('ACY_GUESSPORT')); ?>
 			</div>
-			<div id="elasticemail_config" style="display:none">
+			<div id="elasticemail_config" style="display:none" class="acymailing_deploy">
 				<span class="acyblocktitle">Elastic Email</span>
 				<?php echo JText::sprintf('SMTP_DESC', 'Elastic Email'); ?>
 
@@ -297,7 +297,7 @@ defined('_JEXEC') or die('Restricted access');
 					<?php
 					if(acymailing_level(1)){
 						?>
-						<div class="" id="dkim_config" <?php echo ($this->config->get('dkim', 0) == 1) ? 'style="display:block"' : 'style="display:none"' ?> >
+						<div class="acyblockoptions acymailing_deploy" id="dkim_config" <?php echo ($this->config->get('dkim', 0) == 1) ? 'style="display:block"' : 'style="display:none"' ?> >
 							<span class="acyblocktitle"><?php echo JText::_('ACY_DKIM'); ?></span>
 							<?php
 							$domain = $this->config->get('dkim_domain', '');
@@ -379,7 +379,10 @@ defined('_JEXEC') or die('Restricted access');
 								}
 								echo '<br />';
 							} ?>
-							<a href="https://www.acyba.com/index.php?option=com_content&amp;view=article&amp;catid=34:documentation-acymailing&amp;Itemid=30&amp;id=156:acymailing-dkim" target="_blank"><?php echo JText::_('ACY_HELP'); ?></a>
+							<span class="acymailing_button_grey">
+								<i class="acyicon-help"></i>
+								<a style="color:#666;text-decoration: none;" href="https://www.acyba.com/index.php?option=com_content&amp;view=article&amp;catid=34:documentation-acymailing&amp;Itemid=30&amp;id=156:acymailing-dkim" target="_blank"><?php echo JText::_('ACY_HELP'); ?></a>
+							</span>
 						</div>
 						<?php
 					}

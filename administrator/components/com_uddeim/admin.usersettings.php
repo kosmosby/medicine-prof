@@ -229,7 +229,11 @@ function uddeIMshowUsersettings($option, $task, $act, $config) {
 
 	<table class="adminlist">
 	<tr>
-		<th class="title" width="4%"><input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $rows ); ?>);" /></th>
+<?php if (uddeIMcheckJversion()>=7) {		// Joomla 3.2 or higher ?>
+	<th class="title" width="4%"><input type="checkbox" name="toggle" value="" onclick="Joomla.checkAll(this);" /></th>
+<?php } else { ?>
+	<th class="title" width="4%"><input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo count( $rows ); ?>);" /></th>
+<?php } ?>
 		<th class="title" width="4%"><?php echo "UID"; ?></th>
 		<th class="title" width="4%"><?php echo "ID"; ?></th>
 		<th class="title" nowrap="nowrap"><?php echo _UDDEADM_USERSET_USERNAME; ?></th>
@@ -250,7 +254,11 @@ function uddeIMshowUsersettings($option, $task, $act, $config) {
 	{
 		$row = &$rows[$i];
 		echo "<tr class='row$k'>";
-		echo "<td width='5%'><input type='checkbox' id='cb$i' name='uddeid[]' value='$row->uid' onclick='isChecked(this.checked);' /></td>";
+		if (uddeIMcheckJversion()>=7) {		// Joomla 3.2 or higher
+			echo "<td width='5%'><input type='checkbox' id='cb$i' name='uddeid[]' value='$row->uid' onclick='Joomla.isChecked(this.checked);' /></td>";
+		} else {
+			echo "<td width='5%'><input type='checkbox' id='cb$i' name='uddeid[]' value='$row->uid' onclick='isChecked(this.checked);' /></td>";
+		}
 		echo "<td align='left'>$row->uid</td>";
 		echo "<td align='left'>". (is_null($row->id) ? "-" : "$row->id") ."</td>";
 		echo "<td align='left'>$row->username</td>";
@@ -358,7 +366,7 @@ function uddeIMshowUsersettings($option, $task, $act, $config) {
 	}
 ?>
 <tr>
-	<th align="center" colspan="14"><?php echo $pageNav->writePagesLinks(); ?></th>
+	<th align="center" colspan="14" ><div id='uddeim-pagenav'><?php echo $pageNav->writePagesLinks(); ?></div></th>
 </tr>
 <tr>
 	<td align="center" colspan="14"><?php echo $pageNav->writePagesCounter(); ?></td>

@@ -159,7 +159,7 @@ class GroupTable extends OrderedTable
 			return false;
 		}
 
-		// If the new owner doesn't match the previous then delete the previous:
+		// If the new owner doesn't match the previous then demote (frontend) or delete (backend) the previous:
 		if ( $old->get( 'id' ) ) {
 			if ( $old->get( 'user_id' ) != $this->get( 'user_id' ) ) {
 				$previousUser	=	new UserTable();
@@ -167,10 +167,20 @@ class GroupTable extends OrderedTable
 				$previousUser->load( array( 'user_id' => (int) $old->get( 'user_id' ), 'group' => (int) $this->get( 'id' ) ) );
 
 				if ( $previousUser->get( 'id' ) ) {
-					if ( ! $previousUser->delete() ) {
-						$this->setError( $previousUser->getError() );
+					if ( Application::Cms()->getClientId() ) {
+						if ( ! $previousUser->delete() ) {
+							$this->setError( $previousUser->getError() );
 
-						return false;
+							return false;
+						}
+					} else {
+						$previousUser->set( 'status', 1 );
+
+						if ( ! $previousUser->store() ) {
+							$this->setError( $previousUser->getError() );
+
+							return false;
+						}
 					}
 				}
 			}
@@ -320,21 +330,7 @@ class GroupTable extends OrderedTable
 	 */
 	public function category()
 	{
-		static $cache		=	array();
-
-		$id					=	$this->get( 'category' );
-
-		if ( ! isset( $cache[$id] ) ) {
-			$category		=	new CategoryTable();
-
-			if ( $id ) {
-				$category->load( (int) $id );
-			}
-
-			$cache[$id]		=	$category;
-		}
-
-		return $cache[$id];
+		return CBGroupJive::getCategory( (int) $this->get( 'category' ) );
 	}
 
 	/**

@@ -309,6 +309,8 @@ class ActivityTable extends Table
 			foreach ( $links as $i => &$link ) {
 				if ( ( ! isset( $link['url'] ) ) || ( ! $link['url'] ) ) {
 					unset( $links[$i] );
+				} elseif ( substr( $link['url'], 0, 3 ) == 'www' ) {
+					$link['url']					=	'http://' . $link['url'];
 				}
 
 				if ( ! isset( $link['text'] ) ) {

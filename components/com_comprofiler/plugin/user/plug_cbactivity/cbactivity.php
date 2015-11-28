@@ -21,6 +21,8 @@ if ( ! ( defined( '_VALID_CB' ) || defined( '_JEXEC' ) || defined( '_VALID_MOS' 
 
 global $_PLUGINS;
 
+$_PLUGINS->loadPluginGroup( 'user' );
+
 $_PLUGINS->registerFunction( 'onAfterDeleteUser', 'cleanUp', 'cbactivityPlugin' );
 
 $_PLUGINS->registerUserFieldParams();

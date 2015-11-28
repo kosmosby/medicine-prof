@@ -15,4 +15,8 @@
 defined('CBLIB') or die();
 
 return	array(
+// 1 language strings from file cbgroupjivefile/xml/views/view.com_comprofiler.editgjfilerow.xml
+'SELECT_GROUP_THE_FILE_IS_FOR_e8992d'	=>	'Select group the file is for.',
+// 1 language strings from file cbgroupjivefile/xml/views/view.com_comprofiler.showgjfilerows.xml
+'CLICK_TO_PREVIEW_056d16'	=>	'Click to Preview',
 );

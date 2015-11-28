@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cbinstall version="1.0" type="plugin" group="user/plug_cbgroupjive/plugins" method="install">
+<cbinstall version="1.0" type="plugin" group="user/plug_cbgroupjive/plugins">
 	<name>CB GroupJive Photo</name>
 	<author>Krileon</author>
-	<creationDate>2015-10-09</creationDate>
+	<creationDate>2015-11-20</creationDate>
 	<copyright>(C) 2004-2015 www.joomlapolis.com / Lightning MultiCom SA - and its licensors, all rights reserved</copyright>
 	<license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2</license>
 	<authorEmail>krileon@joomlapolis.com</authorEmail>
 	<description>Provides groups with a Photo Gallery to easily and quickly share photos between one another.</description>
-	<version>2.0.11</version>
-	<release>3.0.0-beta.1</release>
+	<version>2.0.12</version>
+	<release>3.0.0</release>
+	<installfile>install.cbgroupjivephoto.php</installfile>
 	<files>
 		<filename plugin="cbgroupjivephoto">cbgroupjivephoto.php</filename>
 		<filename>index.html</filename>
 		<filename>component.cbgroupjivephoto.php</filename>
+		<filename>install.cbgroupjivephoto.php</filename>
 		<foldername>language</foldername>
 		<foldername>library</foldername>
 		<foldername>templates</foldername>
@@ -21,6 +23,7 @@
 	<libraries>
 		<library name="CB/Plugin/GroupJivePhoto">
 			<files folder="library">
+				<filename>CBGroupJivePhoto.php</filename>
 				<filename>index.html</filename>
 				<foldername>Table</foldername>
 			</files>

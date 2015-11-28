@@ -17,6 +17,7 @@ use CB\Plugin\GroupJive\Table\GroupTable;
 use CB\Plugin\GroupJive\Table\CategoryTable;
 use CB\Plugin\GroupJive\Table\NotificationTable;
 use CB\Plugin\GroupJiveFile\Table\FileTable;
+use CB\Plugin\GroupJiveFile\CBGroupJiveFile;
 
 if ( ! ( defined( '_VALID_CB' ) || defined( '_JEXEC' ) || defined( '_VALID_MOS' ) ) ) { die( 'Direct Access to this location is not allowed.' ); }
 
@@ -24,6 +25,9 @@ global $_PLUGINS;
 
 $_PLUGINS->loadPluginGroup( 'user' );
 
+$_PLUGINS->registerFunction( 'activity_onQueryActivity', 'activityQuery', 'cbgjFilePlugin' );
+$_PLUGINS->registerFunction( 'activity_onBeforeDisplayActivity', 'activityPrefetch', 'cbgjFilePlugin' );
+$_PLUGINS->registerFunction( 'activity_onDisplayActivity', 'activityDisplay', 'cbgjFilePlugin' );
 $_PLUGINS->registerFunction( 'gj_onAdminMenu', 'adminMenu', 'cbgjFilePlugin' );
 $_PLUGINS->registerFunction( 'gj_onAfterDeleteCategory', 'deleteCategory', 'cbgjFilePlugin' );
 $_PLUGINS->registerFunction( 'gj_onAfterDeleteGroup', 'deleteGroup', 'cbgjFilePlugin' );
@@ -51,6 +55,116 @@ class cbgjFilePlugin extends cbPluginHandler
 			$this->_gjPlugin	=	$_PLUGINS->getLoadedPlugin( 'user', 'cbgroupjive' );
 			$this->_gjParams	=	$_PLUGINS->getPluginParams( $this->_gjPlugin );
 		}
+	}
+
+	/**
+	 * @param bool                        $count
+	 * @param array                       $select
+	 * @param array                       $where
+	 * @param array                       $join
+	 * @param CB\Plugin\Activity\Activity $stream
+	 */
+	public function activityQuery( $count, &$select, &$where, &$join, &$stream )
+	{
+		global $_CB_database;
+
+		$join[]				=	'LEFT JOIN ' . $_CB_database->NameQuote( '#__groupjive_plugin_file' ) . ' AS gj_f'
+							.	' ON a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND a.' . $_CB_database->NameQuote( 'subtype' ) . ' = ' . $_CB_database->Quote( 'group.file' )
+							.	' AND a.' . $_CB_database->NameQuote( 'item' ) . ' = gj_f.' . $_CB_database->NameQuote( 'id' );
+
+		if ( ! CBGroupJive::isModerator() ) {
+			$user			=	CBuser::getMyUserDataInstance();
+
+			$where[]		=	'( ( a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND a.' . $_CB_database->NameQuote( 'subtype' ) . ' = ' . $_CB_database->Quote( 'group.file' )
+							.	' AND gj_f.' . $_CB_database->NameQuote( 'id' ) . ' IS NOT NULL'
+							.	' AND ( gj_f.' . $_CB_database->NameQuote( 'user_id' ) . ' = ' . (int) $user->get( 'id' )
+							.		' OR ( gj_f.' . $_CB_database->NameQuote( 'published' ) . ' = 1'
+							.		' AND ( gj_g.' . $_CB_database->NameQuote( 'type' ) . ' IN ( 1, 2 )'
+							.		' OR gj_u.' . $_CB_database->NameQuote( 'status' ) . ' > 0 ) ) ) )'
+							.	' OR ( a.' . $_CB_database->NameQuote( 'type' ) . ' != ' . $_CB_database->Quote( 'groupjive' )
+							.	' OR ( a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND a.' . $_CB_database->NameQuote( 'subtype' ) . ' != ' . $_CB_database->Quote( 'group.file' ) . ' ) ) )';
+		} else {
+			$where[]		=	'( ( a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND a.' . $_CB_database->NameQuote( 'subtype' ) . ' = ' . $_CB_database->Quote( 'group.file' )
+							.	' AND gj_f.' . $_CB_database->NameQuote( 'id' ) . ' IS NOT NULL )'
+							.	' OR ( a.' . $_CB_database->NameQuote( 'type' ) . ' != ' . $_CB_database->Quote( 'groupjive' )
+							.	' OR ( a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND a.' . $_CB_database->NameQuote( 'subtype' ) . ' != ' . $_CB_database->Quote( 'group.file' ) . ' ) ) )';
+		}
+	}
+
+	/**
+	 * @param string                                   $return
+	 * @param CB\Plugin\Activity\Table\ActivityTable[] $rows
+	 * @param CB\Plugin\Activity\Activity              $stream
+	 * @param int                                      $output 0: Normal, 1: Raw, 2: Inline, 3: Load, 4: Save
+	 */
+	public function activityPrefetch( &$return, &$rows, $stream, $output )
+	{
+		global $_CB_database;
+
+		$fileIds				=	array();
+
+		foreach ( $rows as $row ) {
+			if ( ! ( ( $row->get( 'type' ) == 'groupjive' ) && ( $row->get( 'subtype' ) == 'group.file' ) ) ) {
+				continue;
+			}
+
+			$fileId				=	(int) $row->get( 'item' );
+
+			if ( $fileId && ( ! in_array( $fileId, $fileIds ) ) ) {
+				$fileIds[]		=	$fileId;
+			}
+		}
+
+		if ( ! $fileIds ) {
+			return;
+		}
+
+		$query					=	'SELECT f.*'
+								.	"\n FROM " . $_CB_database->NameQuote( '#__groupjive_plugin_file' ) . " AS f"
+								.	"\n WHERE f." . $_CB_database->NameQuote( 'id' ) . " IN " . $_CB_database->safeArrayOfIntegers( $fileIds );
+		$_CB_database->setQuery( $query );
+		$files					=	$_CB_database->loadObjectList( null, '\CB\Plugin\GroupJiveFile\Table\FileTable', array( $_CB_database ) );
+
+		if ( ! $files ) {
+			return;
+		}
+
+		CBGroupJiveFile::getFile( $files );
+		CBGroupJive::preFetchUsers( $files );
+	}
+
+	/**
+	 * @param CB\Plugin\Activity\Table\ActivityTable $row
+	 * @param null|string                            $title
+	 * @param null|string                            $date
+	 * @param null|string                            $message
+	 * @param null|string                            $insert
+	 * @param null|string                            $footer
+	 * @param array                                  $menu
+	 * @param array                                  $extras
+	 * @param CB\Plugin\Activity\Activity            $stream
+	 * @param int                                    $output 0: Normal, 1: Raw, 2: Inline, 3: Load, 4: Save
+	 */
+	public function activityDisplay( &$row, &$title, &$date, &$message, &$insert, &$footer, &$menu, &$extras, $stream, $output )
+	{
+		if ( ! ( ( $row->get( 'type' ) == 'groupjive' ) && ( $row->get( 'subtype' ) == 'group.file' ) ) ) {
+			return;
+		}
+
+		$file		=	CBGroupJiveFile::getFile( (int) $row->get( 'item' ) );
+
+		if ( ! $file->get( 'id' ) ) {
+			return;
+		}
+
+		CBGroupJive::getTemplate( 'activity', true, true, $this->element );
+
+		$insert		=	HTML_groupjiveFileActivity::showFileActivity( $row, $title, $message, $stream, $file, $this );
 	}
 
 	/**
@@ -307,6 +421,7 @@ class cbgjFilePlugin extends cbPluginHandler
 
 		$input['search']		=	'<input type="text" name="gj_group_file_search" value="' . htmlspecialchars( $search ) . '" onchange="document.gjGroupFileForm.submit();" placeholder="' . htmlspecialchars( CBTxt::T( 'Search Files...' ) ) . '" class="form-control" />';
 
+		CBGroupJiveFile::getFile( $rows );
 		CBGroupJive::preFetchUsers( $rows );
 
 		$group->set( '_files', $pageNav->total );

@@ -17,4 +17,10 @@ defined('CBLIB') or die();
 return	array(
 // 1 language strings from file cbgroupjivewall/cbgroupjivewall.xml
 'REPLIES_8cc46d'	=>	'Replies',
+// 3 language strings from file cbgroupjivewall/xml/views/view.com_comprofiler.editgjwallrow.xml
+'SELECT_GROUP_THE_POST_IS_FOR_e1c176'	=>	'Select group the post is for.',
+'SELECT_REPLY_THE_POST_IS_FOR_fa3f76'	=>	'Select reply the post is for.',
+'PARENT_302690'	=>	'Parent',
+// 1 language strings from file cbgroupjivewall/xml/views/view.com_comprofiler.showgjwallrows.xml
+'SELECT_PARENT_547cf6'	=>	'- Select Parent -',
 );

@@ -14,9 +14,12 @@ use CB\Database\Table\PluginTable;
 use CB\Database\Table\UserTable;
 use CB\Database\Table\TabTable;
 use CB\Plugin\GroupJive\CBGroupJive;
-use CB\Plugin\GroupJive\Table\GroupTable;
 
 if ( ! ( defined( '_VALID_CB' ) || defined( '_JEXEC' ) || defined( '_VALID_MOS' ) ) ) { die( 'Direct Access to this location is not allowed.' ); }
+
+global $_PLUGINS;
+
+$_PLUGINS->loadPluginGroup( 'user' );
 
 class CBplug_cbgroupjiveabout extends cbPluginHandler
 {
@@ -102,10 +105,7 @@ class CBplug_cbgroupjiveabout extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row					=	new GroupTable();
-
-		$row->load( (int) $id );
-
+		$row					=	CBGroupJive::getGroup( $id );
 		$returnUrl				=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'id' ) ) );
 
 		if ( CBGroupJive::canAccessGroup( $row, $user ) ) {
@@ -139,10 +139,7 @@ class CBplug_cbgroupjiveabout extends cbPluginHandler
 	{
 		global $_CB_framework;
 
-		$row			=	new GroupTable();
-
-		$row->load( (int) $id );
-
+		$row			=	CBGroupJive::getGroup( $id );
 		$returnUrl		=	$_CB_framework->pluginClassUrl( $this->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'id' ) ) );
 
 		if ( CBGroupJive::canAccessGroup( $row, $user ) ) {

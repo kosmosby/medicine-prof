@@ -6,28 +6,28 @@
 		</type>
 		<type name="autoaction_triggers" base="xml:autoaction_triggers">
 			<optgroup label="CB Privacy">
-				<option value="privacy_onBeforeValidatePrivacy">Before Validate Privacy</option>
-				<option value="privacy_onAfterValidatePrivacy">After Validate Privacy</option>
-				<option value="privacy_onBeforePrivacyOptions">Before Privacy Options</option>
-				<option value="privacy_onAfterPrivacyOptions">After Privacy Options</option>
-				<option value="privacy_onBeforeUpdatePrivacy">Before Update Privacy</option>
-				<option value="privacy_onBeforeCreatePrivacy">Before Create Privacy</option>
-				<option value="privacy_onAfterUpdatePrivacy">After Update Privacy</option>
-				<option value="privacy_onAfterCreatePrivacy">After Create Privacy</option>
-				<option value="privacy_onBeforeDeletePrivacy">Before Delete Privacy</option>
-				<option value="privacy_onAfterDeletePrivacy">After Delete Privacy</option>
-				<option value="privacy_onBeforeIsAuthorized">Before Is Authorized</option>
-				<option value="privacy_onAfterIsAuthorized">After Is Authorized</option>
-				<option value="privacy_onBeforeUpdateClosed">Before Update Closed</option>
-				<option value="privacy_onBeforeCreateClosed">Before Create Closed</option>
-				<option value="privacy_onAfterUpdateClosed">After Update Closed</option>
-				<option value="privacy_onAfterCreateClosed">After Create Closed</option>
-				<option value="privacy_onBeforeDeleteClosed">Before Delete Closed</option>
-				<option value="privacy_onAfterDeleteClosed">After Delete Closed</option>
-				<option value="privacy_onBeforeAccountDisable">Before Account Disable</option>
-				<option value="privacy_onAfterAccountDisable">After Account Disable</option>
-				<option value="privacy_onBeforeAccountDelete">Before Account Delete</option>
-				<option value="privacy_onAfterAccountDelete">After Account Delete</option>
+				<option value="privacy_onBeforeValidatePrivacy" translate="no">privacy_onBeforeValidatePrivacy</option>
+				<option value="privacy_onAfterValidatePrivacy" translate="no">privacy_onAfterValidatePrivacy</option>
+				<option value="privacy_onBeforePrivacyOptions" translate="no">privacy_onBeforePrivacyOptions</option>
+				<option value="privacy_onAfterPrivacyOptions" translate="no">privacy_onAfterPrivacyOptions</option>
+				<option value="privacy_onBeforeUpdatePrivacy" translate="no">privacy_onBeforeUpdatePrivacy</option>
+				<option value="privacy_onBeforeCreatePrivacy" translate="no">privacy_onBeforeCreatePrivacy</option>
+				<option value="privacy_onAfterUpdatePrivacy" translate="no">privacy_onAfterUpdatePrivacy</option>
+				<option value="privacy_onAfterCreatePrivacy" translate="no">privacy_onAfterCreatePrivacy</option>
+				<option value="privacy_onBeforeDeletePrivacy" translate="no">privacy_onBeforeDeletePrivacy</option>
+				<option value="privacy_onAfterDeletePrivacy" translate="no">privacy_onAfterDeletePrivacy</option>
+				<option value="privacy_onBeforeIsAuthorized" translate="no">privacy_onBeforeIsAuthorized</option>
+				<option value="privacy_onAfterIsAuthorized" translate="no">privacy_onAfterIsAuthorized</option>
+				<option value="privacy_onBeforeUpdateClosed" translate="no">privacy_onBeforeUpdateClosed</option>
+				<option value="privacy_onBeforeCreateClosed" translate="no">privacy_onBeforeCreateClosed</option>
+				<option value="privacy_onAfterUpdateClosed" translate="no">privacy_onAfterUpdateClosed</option>
+				<option value="privacy_onAfterCreateClosed" translate="no">privacy_onAfterCreateClosed</option>
+				<option value="privacy_onBeforeDeleteClosed" translate="no">privacy_onBeforeDeleteClosed</option>
+				<option value="privacy_onAfterDeleteClosed" translate="no">privacy_onAfterDeleteClosed</option>
+				<option value="privacy_onBeforeAccountDisable" translate="no">privacy_onBeforeAccountDisable</option>
+				<option value="privacy_onAfterAccountDisable" translate="no">privacy_onAfterAccountDisable</option>
+				<option value="privacy_onBeforeAccountDelete" translate="no">privacy_onBeforeAccountDelete</option>
+				<option value="privacy_onAfterAccountDelete" translate="no">privacy_onAfterAccountDelete</option>
 			</optgroup>
 		</type>
 	</types>

@@ -271,7 +271,7 @@
 	min-width: 20px;
 }
 
-.cb_template .streamItem .streamInputSelect .select2-selection {
+.cb_template .streamItem .streamInputSelect:not(.streamInputTags) .select2-selection {
 	display: block;
 	border: 0;
 	margin: 0;
@@ -287,8 +287,6 @@
 	cursor: pointer;
 }
 
-.cb_template .streamItem .streamInputTags .select2-selection,
-.cb_template .streamItem .streamInputTags .select2-selection__rendered,
 .cb_template .streamItem .streamInputEmote .select2-selection,
 .cb_template .streamItem .streamInputEmote .select2-selection__rendered {
 	padding: 0;

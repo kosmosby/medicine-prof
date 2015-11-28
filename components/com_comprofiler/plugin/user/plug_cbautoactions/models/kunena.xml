@@ -6,8 +6,8 @@
 		</type>
 		<type name="autoaction_triggers" base="xml:autoaction_triggers">
 			<optgroup label="Kunena">
-				<option value="forumSideProfile">Side Profile</option>
-				<option value="kunenaIntegration">Integration</option>
+				<option value="forumSideProfile" translate="no">forumSideProfile</option>
+				<option value="kunenaIntegration" translate="no">kunenaIntegration</option>
 			</optgroup>
 		</type>
 	</types>
