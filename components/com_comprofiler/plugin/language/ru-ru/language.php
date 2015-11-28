@@ -1639,6 +1639,9 @@ return	array(
 'Description' => 'Описание',
 'Edit Photo' => 'Редактировать фото',
 'Update Photo' => 'Обновить фото',
+'Wall' => 'Стена',
+'Events' => 'События',
+    
 
 
 
