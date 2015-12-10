@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="Vitualmed title">
+		<message>Virtualmed description</message>
+	</layout>
+	<fields
+			name="request"
+			addfieldpath="/administrator/components/com_vitrualmed/models/fields"
+			>
+		<fieldset name="request">
+			<field
+					name="id"
+					type="virtualmed"
+					label="virtualmed lable"
+					description="virtualmed description"
+					/>
+		</fieldset>
+	</fields>
+</metadata>
