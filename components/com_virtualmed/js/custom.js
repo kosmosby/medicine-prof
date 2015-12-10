@@ -6,7 +6,12 @@ jQuery( document ).ready(function() {
             multiSelect: jQuery('#chk-select-multi').is(':checked'),
             onNodeSelected: function(event, node) {
                 jQuery('#selectable-output').html('');
-                jQuery('#selectable-output').prepend('<div class="streamMediaLeft activityContainerLogo media-left"><img src="'+node.image+'" align="left" class="cbImgPict cbThumbPict img-thumbnail"></div><div class="streamMediaBody activityContainerTitle media-body">' +  node.text + '</div>'  );
+                if(node.image) {
+                    jQuery('#selectable-output').prepend('<div class="streamMediaLeft activityContainerLogo media-left"><img src="'+node.image+'" align="left" class="cbImgPict cbThumbPict img-thumbnail"></div><div class="streamMediaBody activityContainerTitle media-body">' +  node.text + '</div>'  );
+                }
+                else {
+                    jQuery('#selectable-output').prepend('<div class="streamMediaBody activityContainerTitle media-body">' +  node.text + '</div>'  );
+                }
             },
             onNodeUnselected: function (event, node) {
                 jQuery('#selectable-output').html('');

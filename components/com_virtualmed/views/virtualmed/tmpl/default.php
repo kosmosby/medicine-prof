@@ -93,7 +93,7 @@ $document->addScriptDeclaration("
 
 <div class="row virtualmed cb_template">
     <hr>
-    <h2>Виртуальная медицина</h2>
+    <h2>Вся медицина</h2>
      <div class="col-sm-4">
         <h3>Структура</h3>
         <div id="treeview-selectable" class=""></div>
