@@ -126,7 +126,7 @@ class VirtualmedModelVirtualmed extends JModelItem
         $db    = JFactory::getDbo();
         $query = $db->getQuery(true);
 
-        $query->select('b.user_id, a.username as name, b.avatar, b.cb_speciality')
+        $query->select('b.user_id, a.username as name , b.avatar, b.cb_speciality')
             //->from('#__user_usergroup_map as h')
             ->from('#__users as a')
             ->from('#__comprofiler as b')
