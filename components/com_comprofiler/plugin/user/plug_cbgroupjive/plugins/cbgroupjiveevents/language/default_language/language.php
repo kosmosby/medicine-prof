@@ -15,21 +15,26 @@
 defined('CBLIB') or die();
 
 return	array(
-// 8 language strings from file cbgroupjiveevents/cbgroupjiveevents.xml
+// 11 language strings from file cbgroupjiveevents/cbgroupjiveevents.xml
 'ENABLE_OR_DISABLE_USAGE_OF_CONTENT_PLUGINS_CONTENT_9c9e72'	=>	'Enable or disable usage of content plugins content.prepare on group events.',
 'CONTENT_PLUGINS_897da7'	=>	'Content Plugins',
 'INPUT_NUMBER_OF_EVENTS_EACH_INDIVIDUAL_USER_IS_LIM_dde6e0'	=>	'Input number of events each individual user is limited to creating per group. If blank allow unlimited events. Moderators and group owners are exempt from this configuration.',
+'ENABLE_OR_DISABLE_USAGE_OF_LOCATION_ADDRESS_THE_AD_3170ba'	=>	'Enable or disable usage of location address. The address will automatically map to Google Maps.',
+'ADDRESS_dd7bf2'	=>	'Address',
 'ENABLE_OR_DISABLE_USAGE_OF_CAPTCHA_ON_GROUP_EVENTS_4ca8d1'	=>	'Enable or disable usage of captcha on group events. Requires latest CB AntiSpam to be installed and published. Moderators are exempt from this configuration.',
 'SCHEDULE_OF_NEW_EVENT_6729bc'	=>	'Schedule of new event',
+'EDIT_OF_EXISTING_EVENT_6e5d82'	=>	'Edit of existing event',
 'NEW_EVENT_REQUIRES_APPROVAL_bed887'	=>	'New event requires approval',
 'USER_ATTENDS_MY_EXISTING_EVENTS_6325f2'	=>	'User attends my existing events',
 'USER_UNATTENDS_MY_EXISTING_EVENTS_c91a5c'	=>	'User unattends my existing events',
-// 4 language strings from file cbgroupjiveevents/cbgroupjiveevents.php
+// 6 language strings from file cbgroupjiveevents/cbgroupjiveevents.php
+'EVENTS_87f9f7'	=>	'Events',
+'ADD_NEW_EVENT_TO_GROUP_16a334'	=>	'Add New Event to Group',
+'EVENT_ATTENDANCE_5c872e'	=>	'Event Attendance',
 'ENABLE_WITH_APPROVAL_575b45'	=>	'Enable, with Approval',
 'OPTIONALLY_ENABLE_OR_DISABLE_USAGE_OF_EVENTS_GROUP_538b5f'	=>	'Optionally enable or disable usage of events. Group owner and group administrators are exempt from this configuration and can always schedule events. Note existing events will still be accessible.',
 'SEARCH_EVENTS_16de57'	=>	'Search Events...',
-'EVENTS_87f9f7'	=>	'Events',
-// 45 language strings from file cbgroupjiveevents/component.cbgroupjiveevents.php
+// 47 language strings from file cbgroupjiveevents/component.cbgroupjiveevents.php
 'YOU_DO_NOT_HAVE_ACCESS_TO_THIS_EVENT_b450eb'	=>	'You do not have access to this event.',
 'EVENT_DOES_NOT_EXIST_2499af'	=>	'Event does not exist.',
 'SEARCH_ATTENDING_a45168'	=>	'Search Attending...',
@@ -50,6 +55,8 @@ return	array(
 'NEW_GROUP_EVENT_AWAITING_APPROVAL_39e90d'	=>	'New group event awaiting approval',
 'USER_HAS_SCHEDULED_THE_EVENT_EVENT_IN_THE_GROUP_GR_217963'	=>	'[user] has scheduled the event [event] in the group [group] and is awaiting approval!',
 'EVENT_SCHEDULED_SUCCESSFULLY_0f6b9c'	=>	'Event scheduled successfully!',
+'GROUP_EVENT_CHANGED_7cd889'	=>	'Group event changed',
+'USER_HAS_CHANGED_THE_SCHEDULED_EVENT_EVENT_IN_THE__82e41c'	=>	'[user] has changed the scheduled event [event] in the group [group]!',
 'EVENT_SAVED_SUCCESSFULLY_e074e6'	=>	'Event saved successfully!',
 'YOUR_EVENT_IS_AWAITING_APPROVAL_0bbb1c'	=>	'Your event is awaiting approval.',
 'YOU_DO_NOT_HAVE_SUFFICIENT_PERMISSIONS_TO_PUBLISH__d26385'	=>	'You do not have sufficient permissions to publish or unpublish this event.',
@@ -86,27 +93,11 @@ return	array(
 'END_DATE_CAN_NOT_BE_BEFORE_THE_START_DATE_fab0bf'	=>	'End date can not be before the start date!',
 'GROUP_EVENT_DATE_FORMAT'	=>	'l, F j Y',
 'GROUP_EVENT_TIME_FORMAT'	=>	' g:i A',
-// 3 language strings from file cbgroupjiveevents/templates/default/attending.php
-'NO_EVENT_GUEST_SEARCH_RESULTS_FOUND_ca6af0'	=>	'No event guest search results found.',
-'THIS_EVENT_CURRENTLY_HAS_NO_GUESTS_207e61'	=>	'This event currently has no guests.',
-'BACK_0557fa'	=>	'Back',
-// 9 language strings from file cbgroupjiveevents/templates/default/event_edit.php
-'EDIT_EVENT_6a11c1'	=>	'Edit Event',
-'NEW_EVENT_842b2b'	=>	'New Event',
-'EVENT_a4ecfc'	=>	'Event',
-'ADDRESS_dd7bf2'	=>	'Address',
-'START_DATE_db3794'	=>	'Start Date',
-'END_DATE_3c1429'	=>	'End Date',
-'GUEST_LIMIT_b0a150'	=>	'Guest Limit',
-'UPDATE_EVENT_f126f4'	=>	'Update Event',
-'SCHEDULE_EVENT_98fbce'	=>	'Schedule Event',
-// 15 language strings from file cbgroupjiveevents/templates/default/events.php
-'GROUP_EVENTS_COUNT'	=>	'%%COUNT%% Event|%%COUNT%% Events',
+// 11 language strings from file cbgroupjiveevents/templates/default/activity.php
+'GROUP_EVENT_ACTIVITY_TITLE'	=>	'scheduled an event in [group]',
+'GROUP_EVENT_ADDRESS_MAP_URL'	=>	'https://www.google.com/maps/place/[address]',
+'GROUP_EVENT_LOCATION_MAP_URL'	=>	'https://www.google.com/maps/search/[location]',
 'ATTEND_9961c9'	=>	'Attend',
-'ARE_YOU_SURE_YOU_DO_NOT_WANT_TO_ATTEND_THIS_EVENT_c67ed0'	=>	'Are you sure you do not want to attend this Event?',
-'UNATTEND_3534eb'	=>	'Unattend',
-'ARE_YOU_SURE_YOU_WANT_TO_UNPUBLISH_THIS_EVENT_77b8b6'	=>	'Are you sure you want to unpublish this Event?',
-'ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_EVENT_86f16e'	=>	'Are you sure you want to delete this Event?',
 'THIS_EVENT_HAS_ENDED_48f27e'	=>	'This event has ended.',
 'GROUP_EVENT_ENDS_IN'	=>	'This event is currently in progress and ends in [timeago].',
 'THIS_EVENT_IS_CURRENTLY_IN_PROGRESS_558969'	=>	'This event is currently in progress.',
@@ -114,6 +105,27 @@ return	array(
 'GROUP_GUESTS_COUNT_LIMITED'	=>	'%%COUNT%% of [limit] Guest|%%COUNT%% of [limit] Guests',
 'GROUP_GUESTS_COUNT'	=>	'%%COUNT%% Guest|%%COUNT%% Guests',
 'SEE_MORE_1f7e18'	=>	'See More',
+// 3 language strings from file cbgroupjiveevents/templates/default/attending.php
+'NO_EVENT_GUEST_SEARCH_RESULTS_FOUND_ca6af0'	=>	'No event guest search results found.',
+'THIS_EVENT_CURRENTLY_HAS_NO_GUESTS_207e61'	=>	'This event currently has no guests.',
+'BACK_0557fa'	=>	'Back',
+// 8 language strings from file cbgroupjiveevents/templates/default/event_edit.php
+'EDIT_EVENT_6a11c1'	=>	'Edit Event',
+'NEW_EVENT_842b2b'	=>	'New Event',
+'EVENT_a4ecfc'	=>	'Event',
+'START_DATE_db3794'	=>	'Start Date',
+'END_DATE_3c1429'	=>	'End Date',
+'GUEST_LIMIT_b0a150'	=>	'Guest Limit',
+'UPDATE_EVENT_f126f4'	=>	'Update Event',
+'SCHEDULE_EVENT_98fbce'	=>	'Schedule Event',
+// 7 language strings from file cbgroupjiveevents/templates/default/events.php
+'GROUP_EVENTS_COUNT'	=>	'%%COUNT%% Event|%%COUNT%% Events',
+'ARE_YOU_SURE_YOU_DO_NOT_WANT_TO_ATTEND_THIS_EVENT_c67ed0'	=>	'Are you sure you do not want to attend this Event?',
+'UNATTEND_3534eb'	=>	'Unattend',
+'ARE_YOU_SURE_YOU_WANT_TO_UNPUBLISH_THIS_EVENT_77b8b6'	=>	'Are you sure you want to unpublish this Event?',
+'ARE_YOU_SURE_YOU_WANT_TO_DELETE_THIS_EVENT_86f16e'	=>	'Are you sure you want to delete this Event?',
 'NO_GROUP_EVENT_SEARCH_RESULTS_FOUND_aa3f23'	=>	'No group event search results found.',
 'THIS_GROUP_CURRENTLY_HAS_NO_EVENTS_4bf235'	=>	'This group currently has no events.',
+// 1 language strings from file cbgroupjiveevents/xml/controllers/frontcontroller.xml
+'ATTENDANCE_6d1460'	=>	'Attendance',
 );

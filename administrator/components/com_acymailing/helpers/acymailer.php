@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -88,8 +88,8 @@ class acymailerHelper extends acymailingPHPMailer{
 				break;
 			case 'sendmail' :
 				$this->isSendmail();
-				$this->SendMail = trim($this->config->get('sendmail_path'));
-				if(empty($this->SendMail)) $this->SendMail = '/usr/sbin/sendmail';
+				$this->Sendmail = trim($this->config->get('sendmail_path'));
+				if(empty($this->Sendmail)) $this->Sendmail = '/usr/sbin/sendmail';
 				break;
 			case 'qmail' :
 				$this->isQmail();
@@ -135,10 +135,11 @@ class acymailerHelper extends acymailingPHPMailer{
 		$this->WordWrap = intval($this->config->get('word_wrapping', 0));
 
 		@ini_set('pcre.backtrack_limit', 1000000);
+
+		$this->SMTPOptions = array("ssl" => array("verify_peer" => false, "verify_peer_name" => false, "allow_self_signed" => true));
 	}//endfct
 
 	public function send(){
-
 		if(empty($this->ReplyTo)){
 			$this->_addReplyTo($this->config->get('reply_email'), $this->config->get('reply_name'));
 		}
@@ -729,20 +730,6 @@ class acymailerHelper extends acymailingPHPMailer{
 
 		$dispatcher = JDispatcher::getInstance();
 		$dispatcher->trigger('acymailing_replacetags', array(&$mail, $loadedToSend));
-
-		if(!acymailing_level(1)){
-			if(((isset($mail->sendHTML) && !empty($mail->sendHTML)) || (isset($mail->html) && !empty($mail->html)))){
-				if(!empty($mail->type) && $mail->type == 'news'){
-					$pict = '<div style="text-align:center;margin:10px;"><a href="https://www.acyba.com"><img alt="Powered by AcyMailing" src="media/com_acymailing/images/poweredby.png" /></a></div>';
-
-					if(strpos($mail->body, '</body>')){
-						$mail->body = str_replace('</body>', $pict.'</body>', $mail->body);
-					}else{
-						$mail->body .= $pict;
-					}
-				}
-			}
-		}
 
 		if(empty($previousLanguage)) return;
 		$lang->setLanguage($previousLanguage);

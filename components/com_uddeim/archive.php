@@ -195,7 +195,10 @@ function uddeIMarchive($myself, $item_id, $limit, $limitstart, $cryptpass, $conf
 		$teasermessage=uddeIMteaser(stripslashes($teasermessage), $config->firstwordsinbox, $config->quotedivider, $config->languagecharset);			
 		$teasermessage=htmlspecialchars($teasermessage, ENT_QUOTES, $config->charset);
 		$teasermessage=str_replace("&amp;#", "&#", $teasermessage);
+		$teasermessage=str_replace("&amp;&lt;/br&gt;", " ", $teasermessage);
+		
 		$safemessage=htmlspecialchars(stripslashes($cm), ENT_QUOTES, $config->charset);
+		$safemessage=str_replace("&amp;&lt;/br&gt;", "</br>", $safemessage);
 
 		if ($themessage->cryptmode==2 || $themessage->cryptmode==4) {	// Message is encrypted, so go to enter password page
 			$messagecell="<a href='".uddeIMsefRelToAbs("index.php?option=com_uddeim&task=showpass&Itemid=".$item_id."&messageid=".$themessage->id)."'>".$teasermessage."</a>";

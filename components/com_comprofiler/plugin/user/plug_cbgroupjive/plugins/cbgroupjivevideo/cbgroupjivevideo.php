@@ -17,6 +17,7 @@ use CB\Plugin\GroupJive\Table\GroupTable;
 use CB\Plugin\GroupJive\Table\CategoryTable;
 use CB\Plugin\GroupJive\Table\NotificationTable;
 use CB\Plugin\GroupJiveVideo\Table\VideoTable;
+use CB\Plugin\GroupJiveVideo\CBGroupJiveVideo;
 
 if ( ! ( defined( '_VALID_CB' ) || defined( '_JEXEC' ) || defined( '_VALID_MOS' ) ) ) { die( 'Direct Access to this location is not allowed.' ); }
 
@@ -24,6 +25,9 @@ global $_PLUGINS;
 
 $_PLUGINS->loadPluginGroup( 'user' );
 
+$_PLUGINS->registerFunction( 'activity_onQueryActivity', 'activityQuery', 'cbgjVideoPlugin' );
+$_PLUGINS->registerFunction( 'activity_onBeforeDisplayActivity', 'activityPrefetch', 'cbgjVideoPlugin' );
+$_PLUGINS->registerFunction( 'activity_onDisplayActivity', 'activityDisplay', 'cbgjVideoPlugin' );
 $_PLUGINS->registerFunction( 'gj_onAdminMenu', 'adminMenu', 'cbgjVideoPlugin' );
 $_PLUGINS->registerFunction( 'gj_onAfterDeleteGroup', 'deleteGroup', 'cbgjVideoPlugin' );
 $_PLUGINS->registerFunction( 'gj_onAfterCreateUser', 'storeNotifications', 'cbgjVideoPlugin' );
@@ -50,6 +54,116 @@ class cbgjVideoPlugin extends cbPluginHandler
 			$this->_gjPlugin	=	$_PLUGINS->getLoadedPlugin( 'user', 'cbgroupjive' );
 			$this->_gjParams	=	$_PLUGINS->getPluginParams( $this->_gjPlugin );
 		}
+	}
+
+	/**
+	 * @param bool                        $count
+	 * @param array                       $select
+	 * @param array                       $where
+	 * @param array                       $join
+	 * @param CB\Plugin\Activity\Activity $stream
+	 */
+	public function activityQuery( $count, &$select, &$where, &$join, &$stream )
+	{
+		global $_CB_database;
+
+		$join[]				=	'LEFT JOIN ' . $_CB_database->NameQuote( '#__groupjive_plugin_video' ) . ' AS gj_v'
+							.	' ON a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND a.' . $_CB_database->NameQuote( 'subtype' ) . ' = ' . $_CB_database->Quote( 'group.video' )
+							.	' AND a.' . $_CB_database->NameQuote( 'item' ) . ' = gj_v.' . $_CB_database->NameQuote( 'id' );
+
+		if ( ! CBGroupJive::isModerator() ) {
+			$user			=	CBuser::getMyUserDataInstance();
+
+			$where[]		=	'( ( a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND a.' . $_CB_database->NameQuote( 'subtype' ) . ' = ' . $_CB_database->Quote( 'group.video' )
+							.	' AND gj_v.' . $_CB_database->NameQuote( 'id' ) . ' IS NOT NULL'
+							.	' AND ( gj_v.' . $_CB_database->NameQuote( 'user_id' ) . ' = ' . (int) $user->get( 'id' )
+							.		' OR ( gj_v.' . $_CB_database->NameQuote( 'published' ) . ' = 1'
+							.		' AND ( gj_g.' . $_CB_database->NameQuote( 'type' ) . ' IN ( 1, 2 )'
+							.		' OR gj_u.' . $_CB_database->NameQuote( 'status' ) . ' > 0 ) ) ) )'
+							.	' OR ( a.' . $_CB_database->NameQuote( 'type' ) . ' != ' . $_CB_database->Quote( 'groupjive' )
+							.	' OR ( a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND a.' . $_CB_database->NameQuote( 'subtype' ) . ' != ' . $_CB_database->Quote( 'group.video' ) . ' ) ) )';
+		} else {
+			$where[]		=	'( ( a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND a.' . $_CB_database->NameQuote( 'subtype' ) . ' = ' . $_CB_database->Quote( 'group.video' )
+							.	' AND gj_v.' . $_CB_database->NameQuote( 'id' ) . ' IS NOT NULL )'
+							.	' OR ( a.' . $_CB_database->NameQuote( 'type' ) . ' != ' . $_CB_database->Quote( 'groupjive' )
+							.	' OR ( a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'groupjive' )
+							.	' AND a.' . $_CB_database->NameQuote( 'subtype' ) . ' != ' . $_CB_database->Quote( 'group.video' ) . ' ) ) )';
+		}
+	}
+
+	/**
+	 * @param string                                   $return
+	 * @param CB\Plugin\Activity\Table\ActivityTable[] $rows
+	 * @param CB\Plugin\Activity\Activity              $stream
+	 * @param int                                      $output 0: Normal, 1: Raw, 2: Inline, 3: Load, 4: Save
+	 */
+	public function activityPrefetch( &$return, &$rows, $stream, $output )
+	{
+		global $_CB_database;
+
+		$videoIds				=	array();
+
+		foreach ( $rows as $row ) {
+			if ( ! ( ( $row->get( 'type' ) == 'groupjive' ) && ( $row->get( 'subtype' ) == 'group.video' ) ) ) {
+				continue;
+			}
+
+			$videoId			=	(int) $row->get( 'item' );
+
+			if ( $videoId && ( ! in_array( $videoId, $videoIds ) ) ) {
+				$videoIds[]		=	$videoId;
+			}
+		}
+
+		if ( ! $videoIds ) {
+			return;
+		}
+
+		$query					=	'SELECT v.*'
+								.	"\n FROM " . $_CB_database->NameQuote( '#__groupjive_plugin_video' ) . " AS v"
+								.	"\n WHERE v." . $_CB_database->NameQuote( 'id' ) . " IN " . $_CB_database->safeArrayOfIntegers( $videoIds );
+		$_CB_database->setQuery( $query );
+		$videos					=	$_CB_database->loadObjectList( null, '\CB\Plugin\GroupJiveVideo\Table\VideoTable', array( $_CB_database ) );
+
+		if ( ! $videos ) {
+			return;
+		}
+
+		CBGroupJiveVideo::getVideo( $videos );
+		CBGroupJive::preFetchUsers( $videos );
+	}
+
+	/**
+	 * @param CB\Plugin\Activity\Table\ActivityTable $row
+	 * @param null|string                            $title
+	 * @param null|string                            $date
+	 * @param null|string                            $message
+	 * @param null|string                            $insert
+	 * @param null|string                            $footer
+	 * @param array                                  $menu
+	 * @param array                                  $extras
+	 * @param CB\Plugin\Activity\Activity            $stream
+	 * @param int                                    $output 0: Normal, 1: Raw, 2: Inline, 3: Load, 4: Save
+	 */
+	public function activityDisplay( &$row, &$title, &$date, &$message, &$insert, &$footer, &$menu, &$extras, $stream, $output )
+	{
+		if ( ! ( ( $row->get( 'type' ) == 'groupjive' ) && ( $row->get( 'subtype' ) == 'group.video' ) ) ) {
+			return;
+		}
+
+		$video		=	CBGroupJiveVideo::getVideo( (int) $row->get( 'item' ) );
+
+		if ( ! $video->get( 'id' ) ) {
+			return;
+		}
+
+		CBGroupJive::getTemplate( 'activity', true, true, $this->element );
+
+		$insert		=	HTML_groupjiveVideoActivity::showVideoActivity( $row, $title, $message, $stream, $video, $this );
 	}
 
 	/**
@@ -286,6 +400,7 @@ class cbgjVideoPlugin extends cbPluginHandler
 
 		$input['search']		=	'<input type="text" name="gj_group_video_search" value="' . htmlspecialchars( $search ) . '" onchange="document.gjGroupVideoForm.submit();" placeholder="' . htmlspecialchars( CBTxt::T( 'Search Videos...' ) ) . '" class="form-control" />';
 
+		CBGroupJiveVideo::getVideo( $rows );
 		CBGroupJive::preFetchUsers( $rows );
 
 		$group->set( '_videos', $pageNav->total );

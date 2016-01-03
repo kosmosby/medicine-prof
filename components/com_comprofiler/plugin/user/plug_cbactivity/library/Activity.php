@@ -78,117 +78,6 @@ class Activity extends StreamDirection implements ActivityInterface
 	}
 
 	/**
-	 * Creates or modifies stream data
-	 *
-	 * @param array     $data
-	 * @param int|array $keys
-	 * @return bool
-	 */
-	public function push( $data = array(), $keys = null )
-	{
-		global $_PLUGINS;
-
-		$row					=	new ActivityTable();
-
-		if ( isset( $data['id'] ) ) {
-			if ( $keys === null ) {
-				$keys			=	(int) $data['id'];
-			}
-
-			unset( $data['id'] );
-		}
-
-		if ( ( $keys === null ) && $this->get( 'id' ) ) {
-			$keys				=	(int) $this->get( 'id', null, GetterInterface::INT );
-		}
-
-		if ( $keys ) {
-			$row->load( $keys );
-		}
-
-		if ( ( ! $row->get( 'user_id' ) ) && ( ! isset( $data['user_id'] ) ) ) {
-			$data['user_id']	=	(int) $this->user->get( 'id' );
-		}
-
-		if ( ( ! $row->get( 'type' ) ) && ( ! isset( $data['type'] ) ) && $this->get( 'type' ) ) {
-			$data['type']		=	$this->get( 'type', null, GetterInterface::STRING );
-		}
-
-		if ( ( ! $row->get( 'subtype' ) ) && ( ! isset( $data['subtype'] ) ) && $this->get( 'subtype' ) ) {
-			$data['subtype']	=	$this->get( 'subtype', null, GetterInterface::STRING );
-		}
-
-		if ( ( ! $row->get( 'item' ) ) && ( ! isset( $data['item'] ) ) && $this->get( 'item' ) ) {
-			$data['item']		=	$this->get( 'item', null, GetterInterface::STRING );
-		}
-
-		if ( ( ! $row->get( 'parent' ) ) && ( ! isset( $data['parent'] ) ) && $this->get( 'parent' ) ) {
-			$data['parent']		=	$this->get( 'parent', null, GetterInterface::STRING );
-		}
-
-		if ( isset( $data['params'] ) ) {
-			$params				=	$row->params();
-
-			$params->load( $data['params'] );
-
-			$data['params']		=	$params->asJson();
-		}
-
-		if ( ! $row->bind( $data ) ) {
-			return false;
-		}
-
-		if ( $row->getError() || ( ! $row->check() ) ) {
-			return false;
-		}
-
-		if ( $row->getError() || ( ! $row->store() ) ) {
-			return false;
-		}
-
-		$_PLUGINS->trigger( 'activity_onPushActivity', array( $this, $row ) );
-
-		$this->resetCount		=	true;
-		$this->resetSelect		=	true;
-
-		return true;
-	}
-
-	/**
-	 * Removes data from stream
-	 *
-	 * @param int|array $keys
-	 * @return bool
-	 */
-	public function remove( $keys = null )
-	{
-		global $_PLUGINS;
-
-		if ( ( $keys === null ) && $this->get( 'id' ) ) {
-			$keys			=	(int) $this->get( 'id', null, GetterInterface::INT );
-		}
-
-		$row				=	new ActivityTable();
-
-		$row->load( $keys );
-
-		if ( ! $row->get( 'id' ) ) {
-			return false;
-		}
-
-		if ( ! $row->delete() ) {
-			return false;
-		}
-
-		$_PLUGINS->trigger( 'activity_onRemoveActivity', array( $this, $row ) );
-
-		$this->resetCount	=	true;
-		$this->resetSelect	=	true;
-
-		return true;
-	}
-
-	/**
 	 * Retrieves activity stream data rows or row count
 	 *
 	 * @param bool  $count
@@ -213,6 +102,8 @@ class Activity extends StreamDirection implements ActivityInterface
 		}
 
 		$_PLUGINS->trigger( 'activity_onQueryActivity', array( $count, &$select, &$where, &$join, &$this ) );
+
+		// TODO: Try replacing prefetch usages with subqueries directly in the SELECT instead:
 
 		$query							=	'SELECT ' . $select
 										.	"\n FROM " . $_CB_database->NameQuote( '#__comprofiler_plugin_activity' ) . " AS a"
@@ -253,11 +144,18 @@ class Activity extends StreamDirection implements ActivityInterface
 										.		')';
 
 			if ( $this->source == 'profile' ) {
+				// TODO: Implement OR case for activity that the user has been tagged in (keep system action?):
+				// TODO: Implement OR case for activity that the user has commented on (keep system action?):
+				$query					.=	"\n AND ("
+										.		'f.' . $_CB_database->NameQuote( 'user_id' ) . ' = ' . (int) $this->user->get( 'id' )
+										.		' OR ( f.' . $_CB_database->NameQuote( 'type' ) . ' IN ' . $_CB_database->safeArrayOfStrings( array( 'status', 'field' ) ) . ' AND f.' . $_CB_database->NameQuote( 'parent' ) . ' = ' . (int) $this->user->get( 'id' ) . ' )'
+										.		' OR ( f.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'profile' ) . ' AND f.' . $_CB_database->NameQuote( 'subtype' ) . ' = ' . $_CB_database->Quote( 'connection' ) . ' AND f.' . $_CB_database->NameQuote( 'item' ) . ' = ' . (int) $this->user->get( 'id' ) . ' )';
+
 				if ( $isSelf ) {
-					$query				.=	' AND ( f.' . $_CB_database->NameQuote( 'user_id' ) . ' = ' . (int) $this->user->get( 'id' ) . ' OR e.' . $_CB_database->NameQuote( 'memberid' ) . ' IS NOT NULL )';
-				} else {
-					$query				.=	' AND ( f.' . $_CB_database->NameQuote( 'user_id' ) . ' = ' . (int) $this->user->get( 'id' ) . ' OR a.' . $_CB_database->NameQuote( 'parent' ) . ' = ' . (int) $this->user->get( 'id' ) . ' )';
+					$query				.=		' OR ( e.' . $_CB_database->NameQuote( 'memberid' ) . ' IS NOT NULL )';
 				}
+
+				$query					.=	')';
 			}
 
 			if ( $this->get( 'subtype' ) ) {
@@ -294,11 +192,18 @@ class Activity extends StreamDirection implements ActivityInterface
 										.	"\n AND d." . $_CB_database->NameQuote( 'block' ) . " = 0";
 
 		if ( $this->source == 'profile' ) {
+			// TODO: Implement OR case for activity that the user has been tagged in (keep system action?):
+			// TODO: Implement OR case for activity that the user has commented on (keep system action?):
+			$query						.=	"\n AND ("
+										.		'a.' . $_CB_database->NameQuote( 'user_id' ) . ' = ' . (int) $this->user->get( 'id' )
+										.		' OR ( a.' . $_CB_database->NameQuote( 'type' ) . ' IN ' . $_CB_database->safeArrayOfStrings( array( 'status', 'field' ) ) . ' AND a.' . $_CB_database->NameQuote( 'parent' ) . ' = ' . (int) $this->user->get( 'id' ) . ' )'
+										.		' OR ( a.' . $_CB_database->NameQuote( 'type' ) . ' = ' . $_CB_database->Quote( 'profile' ) . ' AND a.' . $_CB_database->NameQuote( 'subtype' ) . ' = ' . $_CB_database->Quote( 'connection' ) . ' AND a.' . $_CB_database->NameQuote( 'item' ) . ' = ' . (int) $this->user->get( 'id' ) . ' )';
+
 			if ( $isSelf ) {
-				$query					.=	"\n AND ( a." . $_CB_database->NameQuote( 'user_id' ) . " = " . (int) $this->user->get( 'id' ) . " OR e." . $_CB_database->NameQuote( 'memberid' ) . " IS NOT NULL )";
-			} else {
-				$query					.=	"\n AND ( a." . $_CB_database->NameQuote( 'user_id' ) . " = " . (int) $this->user->get( 'id' ) . " OR a." . $_CB_database->NameQuote( 'parent' ) . " = " . (int) $this->user->get( 'id' ) . " )";
+				$query					.=		' OR ( e.' . $_CB_database->NameQuote( 'memberid' ) . ' IS NOT NULL )';
 			}
+
+			$query						.=	')';
 		}
 
 		if ( $this->get( 'id' ) ) {
@@ -326,7 +231,7 @@ class Activity extends StreamDirection implements ActivityInterface
 										.	" OR a." . $_CB_database->NameQuote( 'message' ) . " LIKE " . $_CB_database->Quote( '%' . $_CB_database->getEscaped( $this->get( 'filter', null, GetterInterface::STRING ), true ) . '%', false ) . " )";
 		}
 
-		$query							.=	( $where ? "\n AND " . explode( "\n AND ", $where ) : null )
+		$query							.=	( $where ? "\n AND " . implode( "\n AND ", $where ) : null )
 										.	( ! $count ? "\n ORDER BY a." . $_CB_database->NameQuote( 'date' ) . " DESC" : null );
 
 		$cacheId						=	md5( $query . ( $count ? 'count' : (int) $this->get( 'limitstart', null, GetterInterface::INT ) . (int) $this->get( 'limit', null, GetterInterface::INT ) ) );

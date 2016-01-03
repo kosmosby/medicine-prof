@@ -49,7 +49,7 @@ class HTML_groupjiveWallEdit
 									.		'<form action="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'wall', 'func' => 'save', 'id' => (int) $row->get( 'id' ) ) ) . '" method="post" enctype="multipart/form-data" name="gjWallEditForm" id="gjWallEditForm" class="cb_form gjWallEditForm form-auto cbValidation">'
 									.			( $pageTitle ? '<div class="gjWallEditTitle page-header"><h3>' . $pageTitle . '</h3></div>' : null );
 
-		if ( $isModerator || $canModerate || ( $row->get( 'published' ) != -1 ) || ( $group->params()->get( 'wall', 1 ) != 2 ) ) {
+		if ( $isModerator || $canModerate || ( $row->get( 'id' ) && ( $row->get( 'published' ) != -1 ) ) || ( $group->params()->get( 'wall', 1 ) != 2 ) ) {
 			$return					.=			'<div class="cbft_select cbtt_select form-group cb_form_line clearfix">'
 									.				'<label for="published" class="col-sm-3 control-label">' . CBTxt::T( 'Published' ) . '</label>'
 									.				'<div class="cb_field col-sm-9">'

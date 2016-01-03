@@ -13,26 +13,58 @@
 // Translators:
 // JOKR Solutions <http://www.jokrsolutions.se>,
 // Carina Carlsson,
-// Sune Hultman, Celona AB http://www.svenskjoomla.se
+// Sune Hultman, Celona AB 
 // *******************************************************************
-DEFINE ('_UDDEADM_TRANSLATORS_CREDITS', 'Translated by Sune Hultman-SvenskJoomla, JOKR Solutions and Carina Carlsson');	// Enter your credits line here, e.g. 'Translation by <a href="http://domain.com" target="_new">John Doe</a>'
+DEFINE ('_UDDEADM_TRANSLATORS_CREDITS', 'Translated by Sune Hultman, JOKR Solutions and Carina Carlsson');	// Enter your credits line here, e.g. 'Translation by <a href="http://domain.com" target="_new">John Doe</a>'
+
+// New: 3.7
+DEFINE ('_UDDEADM_SHOWMENULINK_HEAD', 'Show menu entry');
+DEFINE ('_UDDEADM_SHOWMENULINK_EXP', 'Show additional menu entry.');
+DEFINE ('_UDDEADM_CFGFILE_CONVERTING_16', '...set default for additonal menu link');
+
+// New: 3.6
+DEFINE ('_UDDEIM_KUNENA_LINK', 'Forum');
+DEFINE ('_UDDEIM_PM_USER', 'Send private message');
+DEFINE ('_UDDEIM_PM_USER_DESC', 'Send a private message to this user');
+DEFINE ('_UDDEIM_PM_INBOX', 'Show private Inbox');
+DEFINE ('_UDDEIM_PM_INBOX_DESC', 'Show received private messages');
+DEFINE ('_UDDEIM_PM_OUTBOX', 'Show private Outbox');
+DEFINE ('_UDDEIM_PM_OUTBOX_DESC', 'Show sent private messages');
+DEFINE ('_UDDEIM_PM_TRASHBOX', 'Show trash');
+DEFINE ('_UDDEIM_PM_TRASHBOX_DESC', 'Show trashed private messages');
+DEFINE ('_UDDEIM_PM_OPTIONS', 'Show PMS options');
+DEFINE ('_UDDEIM_PM_OPTIONS_DESC', 'Show PMS options');
+DEFINE ('_UDDEIM_PM_ARCHIVE', 'Show private Archive');
+DEFINE ('_UDDEIM_PM_ARCHIVE_DESC', 'Show archived private messages');
+DEFINE ('_UDDEIM_PM_SENDMESSAGE', 'Message sent');
+DEFINE ('_UDDEIM_PM_PMSTAB', 'Send message');
+DEFINE ('_UDDEIM_PM_PROFILEMSG', 'Quick message');
+DEFINE ('_UDDEIM_PM_SENTSUCCESS', 'Successfully sent.');
+DEFINE ('_UDDEIM_PM_SESSIONTIMEOUT', 'Session timeout.');
+DEFINE ('_UDDEIM_PM_NOTSENT', 'Message not sent.');
+DEFINE ('_UDDEIM_PM_TRYAGAIN', 'Try again.');
+DEFINE ('_UDDEIM_PM_EMPTYMESSAGE', 'Empty message.');
+DEFINE ('_UDDEIM_PM_EMAILFORMSUBJECT', 'Subject');
+DEFINE ('_UDDEIM_PM_EMAILFORMMESSAGE', 'Message');
+DEFINE ('_UDDEIM_PM_TABINBOX', 'Inbox');
+DEFINE ('_UDDEIM_PM_PMSLINK', 'Private Messaging');
 
 // New: 3.5
-DEFINE ('_UDDEADM_GROUPSADMIN_HEAD', 'Additional Admin groups');
-DEFINE ('_UDDEADM_GROUPSADMIN_EXP', 'Enter group IDs which should be treated as admin groups (e.g. 10, 11, 17). IDs 7, 8 (Joomla >=1.6) and IDs 24, 25 (Joomla <=1.5) are always admins.');
-DEFINE ('_UDDEADM_GROUPSSPECIAL_HEAD', 'Additional Special groups');
-DEFINE ('_UDDEADM_GROUPSSPECIAL_EXP', 'Enter group IDs which should be treated as special groups (e.g. 10, 11, 17). IDs 3-8 (Joomla >=1.6) and IDs 19-25 (Joomla <=1.5) are always special users.');
-DEFINE ('_UDDEADM_CFGFILE_CONVERTING_15', '...set default for additonal groups');
+DEFINE ('_UDDEADM_GROUPSADMIN_HEAD', 'Ytterligare Admin-grupper');
+DEFINE ('_UDDEADM_GROUPSADMIN_EXP', 'Ange grupp-IDn som kan agera som admin-grupper (t.ex. 10, 11, 17). ID 7, 8 (Joomla >=1.6) och ID 24, 25 (Joomla <=1.5) är alltid admins.');
+DEFINE ('_UDDEADM_GROUPSSPECIAL_HEAD', 'Ytterligare Special-grupper');
+DEFINE ('_UDDEADM_GROUPSSPECIAL_EXP', 'Ange grupp-IDn som kan agera som special-grupper (t.ex. 10, 11, 17). ID 3-8 (Joomla >=1.6) och ID 19-25 (Joomla <=1.5) är alltid special-användare.');
+DEFINE ('_UDDEADM_CFGFILE_CONVERTING_15', '...sätt standard för ytterligare grupper');
 
 // New: 3.3
 DEFINE ('_UDDEADM_KUNENA30', 'Kunena 3.0+');
 
 // New: 3.1
-DEFINE ('_UDDEIM_BADWORD', 'Bad word detected');
-DEFINE ('_UDDEADM_BADWORDS_HEAD', 'Badwords filter');
-DEFINE ('_UDDEADM_BADWORDS_EXP', 'New messages will be filtered for badwords. All badwords have to be seperated by a semicolon (;).');
-DEFINE ('_UDDEADM_CFGFILE_CONVERTING_14', '...set default for badwords filter');
-DEFINE ('_UDDEADM_OOD_PB', 'Postbox Plugin out of date!');
+DEFINE ('_UDDEIM_BADWORD', 'Otillåtna ord hittade');
+DEFINE ('_UDDEADM_BADWORDS_HEAD', 'Otillåtna ord-filter');
+DEFINE ('_UDDEADM_BADWORDS_EXP', 'Nya meddemanden kommer att filtreras på otillåtna ord. Alla otillåtna ord måste separeras med semikolon (;).');
+DEFINE ('_UDDEADM_CFGFILE_CONVERTING_14', '...sätt standard för otillåtna ord-filter');
+DEFINE ('_UDDEADM_OOD_PB', 'Postbox Plugin för gammal!');
 
 // New: 3.0
 DEFINE ('_UDDEADM_UDDEIM', 'uddeIM');
@@ -176,7 +208,7 @@ DEFINE ('_UDDEADM_PUBEMAIL_HEAD', 'E-post krävs');
 DEFINE ('_UDDEADM_PUBEMAIL_EXP', 'Om aktiverat, måste publika användare ange en e-postadress.');
 DEFINE ('_UDDEADM_WAITDAYS_HEAD', 'Dagar att vänta');
 DEFINE ('_UDDEADM_WAITDAYS_EXP', 'Ange hur många dagar en användare måste vänta innan han/hon tillåts skicka meddelanden (för 3 timmar, ange 0.125).');
-DEFINE ('_UDDEIM_WAITDAYS1', 'Cu måste vänta ');
+DEFINE ('_UDDEIM_WAITDAYS1', 'Du måste vänta ');
 DEFINE ('_UDDEIM_WAITDAYS2', ' dagar innan du kan skicka meddelanden.');
 DEFINE ('_UDDEIM_WAITDAYS2H', ' timmar innan du kan skicka meddelanden.');
 
@@ -310,7 +342,7 @@ DEFINE ('_UDDEADM_VERSIONCHECK_HOTFIX', 'Viktiga uppdateringar');
 DEFINE ('_UDDEADM_VERSIONCHECK_NONE', 'Inga');
 DEFINE ('_UDDEADM_MAINTENANCEFIX_HEAD', "Kompabilitetsunderhåll");
 DEFINE ('_UDDEADM_MAINTENANCEFIX_EXP', "uddeIM använder två XML-filer för att möjliggöra installtion av uddeIM i Joomla 1.0 och 1.5. i Joomla 1.5 används en XML-fil för att undvika inkompabilitetsvarning. Denna raderar den andra filen, så att varningen inte visas.");
-DEFINE ('_UDDEADM_MAINTENANCE_FIX', "FIX");
+DEFINE ('_UDDEADM_MAINTENANCE_FIX', "ÅTGÄRDA");
 DEFINE ('_UDDEADM_MAINTENANCE_XML1', "Installationspaket för uddeIM i Joomla 1.0 och Joomla 1.5 existerar.<br />");
 DEFINE ('_UDDEADM_MAINTENANCE_XML2', "Detta är nödvändigt för att installera i Joomla 1.0 och Joomla 1.5.<br />");
 DEFINE ('_UDDEADM_MAINTENANCE_XML3', "Eftersom detta inte behövs efter att installationen har gjorts, kan installationspaketet för Joomla 1.0 tas bort i Joomla 1.5 system.<br />");
@@ -357,7 +389,7 @@ DEFINE ('_UDDEIM_CBPLUG_NOWUNBLOCKED', 'Denna användare är inte längre blocke
 DEFINE ('_UDDEADM_PARTIALIMPORTDONE', 'Delad import av gamla meddelanden har gjorts. Importera inte samma meddelanden igen då dessa kommer visas dubbelt.');
 DEFINE ('_UDDEADM_IMPORT_HELP', 'OBS: Meddelanden kan importeras helt eller delvis. Delad import kan vara nödvändig vid en stor mängd meddelanden.');
 DEFINE ('_UDDEADM_IMPORT_PARTIAL', 'Delad import:');
-DEFINE ('_UDDEADM_UPDATEYOURDB', 'Viktigt: Du har inte uppdaterat din databas! Se README för hur du uppdaterar uddeIM på rätt sätt!');
+DEFINE ('_UDDEADM_UPDATEYOURDB', 'Viktigt: Du har inte uppdaterat din databas! Läs i README hur du uppdaterar uddeIM på rätt sätt!');
 DEFINE ('_UDDEADM_RESTRALLUSERS_HEAD', 'Begränsa åtkomst för "Alla användare"');
 DEFINE ('_UDDEADM_RESTRALLUSERS_EXP', 'Du kan begränsa åtkomst för listan "Alla användare". Standard är att listan "Alla användare" är tillgänglig för alla (<b>inga restriktioner</b>).');
 DEFINE ('_UDDEADM_RESTRALLUSERS_0', 'Inga restriktioner');
@@ -384,7 +416,7 @@ DEFINE ('_UDDEIM_HELP_TUNREAD', 'Meddelandet har ännu inte lästs.');
 DEFINE ('_UDDEIM_HELP_FLAGGED', 'Meddelandet har flaggats, t.ex. att meddelandet är viktigt (du kan byta status).');
 DEFINE ('_UDDEIM_HELP_UNFLAGGED', '<b>Normalt meddelande</b> (du kan byta status).');
 DEFINE ('_UDDEIM_HELP_ONLINE', 'Användaren är inloggad.');
-DEFINE ('_UDDEIM_HELP_OFFLINE', 'Användaren är ej inloggad.');
+DEFINE ('_UDDEIM_HELP_OFFLINE', 'Användaren är inte inloggad.');
 DEFINE ('_UDDEIM_HELP_DELETE', 'Radera meddelande (flytta meddelande till papperskorgen).');
 DEFINE ('_UDDEIM_HELP_FORWARD', 'Vidarebefordra meddelande till annan mottagare.');
 DEFINE ('_UDDEIM_HELP_ARCHIVEMSG', 'Arkivera meddelande. Arkiverade meddelanden kommer inte att raderas automatiskt när webbplatsansvarig har valt en tidsbegränsning för meddelanden i inkorgen.');
@@ -483,7 +515,8 @@ DEFINE ('_UDDEADM_AUTORESPONDER_EXP', 'När autosvar tillåts kan användaren ti
 DEFINE ('_UDDEIM_EMN_AUTORESPONDER', 'Tillåt autosvar');
 DEFINE ('_UDDEIM_AUTORESPONDER', 'Autosvar');
 DEFINE ('_UDDEIM_AUTORESPONDER_EXP', 'När autosvar används besvaras varje meddelande automatiskt.');
-DEFINE ('_UDDEIM_AUTORESPONDER_DEFAULT', "För tillfället kan jag inte svara på meddelanden.\nJag går igenom min inkorg så snart jag kan.");
+DEFINE ('_UDDEIM_AUTORESPONDER_DEFAULT', "För tillfället kan jag inte svara på meddelanden.
+Jag går igenom min inkorg så snart jag kan.");
 DEFINE ('_UDDEADM_USERSET_AUTOR', 'AutoR');
 DEFINE ('_UDDEADM_USERSET_SELAUTOR', '- AutoR -');
 DEFINE ('_UDDEIM_USERBLOCKED', 'Användaren är blockerad.');
@@ -494,7 +527,7 @@ DEFINE ('_UDDEADM_USERSET_AUTOF', 'AutoF');
 DEFINE ('_UDDEADM_USERSET_SELAUTOF', '- AutoF -');
 DEFINE ('_UDDEIM_AUTOFORWARD', 'Vidarebefordra automatiskt');
 DEFINE ('_UDDEIM_AUTOFORWARD_EXP', 'Nya meddelanden kan vidarebefordras automatiskt.');
-DEFINE ('_UDDEIM_THISISAFORWARD', 'Automatisk vidarebefordran, ursprungligen skickad till ');
+DEFINE ('_UDDEIM_THISISAFORWARD', 'Automatisk vidarebefordran, ursprungligen skickat till ');
 DEFINE ('_UDDEADM_COLSROWS_HEAD', 'Meddelanderuta (kolumn/rader)');
 DEFINE ('_UDDEADM_COLSROWS_EXP', 'Detta anger antal kolumner och rader för meddelanderutan (standardvärde är 60/10).');
 DEFINE ('_UDDEADM_WIDTH_HEAD', 'Meddelanderuta (bredd)');
@@ -682,7 +715,7 @@ DEFINE ('_UDDEADM_DONATE', 'Om du vill stödja utvecklingen av uddeIM, donera h�
 // New: 1.0rc2
 DEFINE ('_UDDEADM_BACKUPRESTORE_DATE', 'Inställningar hittades i databasen: ');
 DEFINE ('_UDDEADM_BACKUPRESTORE_HEAD', 'Säkerhetskopiera och återställ inställningar');
-DEFINE ('_UDDEADM_BACKUPRESTORE_EXP', 'Du kan säkerhetskopiera inställningarna i din databas och återställa om nödvändigt. Detta kan vara användarbat vid uppdatering av uddeIM eler om du vill spara en särskild Inställning vid exempelvis testning.');
+DEFINE ('_UDDEADM_BACKUPRESTORE_EXP', 'Du kan säkerhetskopiera inställningarna i din databas och återställa om nödvändigt. Detta kan vara användarbat vid uppdatering av uddeIM eller om du vill spara en särskild Inställning vid exempelvis testning.');
 DEFINE ('_UDDEADM_BACKUPRESTORE_BACKUP', 'KOPIERA');
 DEFINE ('_UDDEADM_BACKUPRESTORE_RESTORE', 'ÅTERSTÄLL');
 DEFINE ('_UDDEADM_CANCEL', 'ÅNGRA');
@@ -730,7 +763,7 @@ DEFINE ('_UDDEADM_USERSET_ALWAYSEXCEPT', 'Alltid (utan svar)');
 DEFINE ('_UDDEADM_USERSET_WHENOFFLINE', 'När ej inloggad');
 DEFINE ('_UDDEADM_USERSET_ALWAYS', 'Alltid');
 DEFINE ('_UDDEADM_USERSET_NONOTIFICATION', 'Ingen avisering');
-DEFINE ('_UDDEADM_WELCOMEMSG', "Välkommen till uddeIM!\n\nDu har nu installerat uddeIM.\n\nProva att visa detta meddelande med olika mallar. Du ändrar mall i uddeIms kontrollpanel i adminsidan.\n\nuddeIM är ett projekt under utveckling. Rapportera gärna eventuella buggar och svagheter så kan vi göra uddeIM bättre tillsammans.\n\nLycka till och mycket nöje!");
+DEFINE ('_UDDEADM_WELCOMEMSG', "Välkommen till uddeIM!\n\nDu har nu installerat uddeIM.\nProva att visa detta meddelande med olika mallar. Du ändrar mall i uddeIms kontrollpanel i adminsidan.\nuddeIM är ett projekt under utveckling. Rapportera gärna eventuella buggar och brister så vi kan göra uddeIM bättre tillsammans.\n\nLycka till och mycket nöje!");
 DEFINE ('_UDDEADM_UDDEINSTCOMPLETE', 'Installationen av uddeIM lyckades.');
 DEFINE ('_UDDEADM_REVIEWSETTINGS', 'Fortsätt till uddeIMs adminsida för att göra nödvändiga inställningar.');
 DEFINE ('_UDDEADM_REVIEWLANG', 'Om du inte använder teckenkodning ISO 8859-1 behöver du ändra inställningarna därefter.');
@@ -783,7 +816,7 @@ DEFINE ('_UDDEADM_OBFUSCATING_HEAD', 'Krypteringsnyckel');
 DEFINE ('_UDDEADM_OBFUSCATING_EXP', 'Lägg in nyckel som används för att ett meddelande ska krypteras. Ändra inte nyckeln efter att meddelandeförvrängning har aktiverats.');
 DEFINE ('_UDDEADM_CFGFILE_NOTFOUND', 'Fel inställningsfil hittades!');
 DEFINE ('_UDDEADM_CFGFILE_FOUND', 'Version:');
-DEFINE ('_UDDEADM_CFGFILE_EXPECTED', 'Gilltig version:');
+DEFINE ('_UDDEADM_CFGFILE_EXPECTED', 'Gällande version:');
 DEFINE ('_UDDEADM_CFGFILE_CONVERTING', 'Konverterar inställningar...');
 DEFINE ('_UDDEADM_CFGFILE_DONE', 'Klart!');
 DEFINE ('_UDDEADM_CFGFILE_WRITEFAILED', 'Fel: Inställningsfilen är skrivskyddad:');
@@ -793,8 +826,8 @@ DEFINE ('_UDDEIM_ENCRYPTDOWN', 'Krypterat meddelande! - Nedladdning är inte mö
 DEFINE ('_UDDEIM_WRONGPASSDOWN', 'Fel lösenord! - Nedladdning är inte möjligt!');
 DEFINE ('_UDDEIM_WRONGPW', 'Fel lösenord! - Kontakta webmaster!');
 DEFINE ('_UDDEIM_WRONGPASS', 'Fel lösenord!');
-DEFINE ('_UDDEADM_MAINTENANCE_D1', 'Fel datum för kastade (Inkorg/Skickat): ');
-DEFINE ('_UDDEADM_MAINTENANCE_D2', 'Rättar datum för kastade');
+DEFINE ('_UDDEADM_MAINTENANCE_D1', 'Fel datum för borttagna (Inkorg/Skickat): ');
+DEFINE ('_UDDEADM_MAINTENANCE_D2', 'Rättar datum för borttagna');
 DEFINE ('_UDDEIM_TODP', 'Till: ');
 DEFINE ('_UDDEADM_MAINTENANCE_PRUNE', 'Rensa meddelanden nu');
 DEFINE ('_UDDEADM_SHOWACTIONICONS_HEAD', 'Visa länk-ikoner');
@@ -851,15 +884,15 @@ DEFINE ('_UDDEADM_MAINTENANCE_EXP', "När en användare rensas bort från databa
 DEFINE ('_UDDEADM_MAINTENANCE_MC1', "Kontrollerar...<br />");
 DEFINE ('_UDDEADM_MAINTENANCE_MC2', "<b>#nnn (Användare): [Inkorg|Inkorg kastade|Skickat|Skickat kastade]</b><br />");
 DEFINE ('_UDDEADM_MAINTENANCE_MC3', "<b>Inkorg: sparade meddelanden i användarens inkorg</b><br />");
-DEFINE ('_UDDEADM_MAINTENANCE_MC4', "<b>Inkorg kastade: kastade meddelanden från användarens inkorg, men som finns kvar i någons Skickat-mapp</b><br />");
+DEFINE ('_UDDEADM_MAINTENANCE_MC4', "<b>Inkorg borttagna: meddelanden borttagna från användarens inkorg, men som finns kvar i någons Skickat-mapp</b><br />");
 DEFINE ('_UDDEADM_MAINTENANCE_MC5', "<b>Skickat: meddelanden kvar i användarens Skickat-mapp</b><br />");
-DEFINE ('_UDDEADM_MAINTENANCE_MC6', "<b>Skickat kastade: meddelanden från användarens kastade Skickat-mapp, men som finns kvar i någons Inkorg</b><br />");
+DEFINE ('_UDDEADM_MAINTENANCE_MC6', "<b>Skickat borttagna: meddelanden borttagna från användarens Skickat-mapp, men som finns kvar i någons Inkorg</b><br />");
 DEFINE ('_UDDEADM_MAINTENANCE_MT1', "Rensar...<br />");
 DEFINE ('_UDDEADM_MAINTENANCE_NOTFOUND', "Inget hittades (från/till/inställningar/blockerar/blockerat):");
 DEFINE ('_UDDEADM_MAINTENANCE_MT2', "Rensa alla inställningar för användaren");
 DEFINE ('_UDDEADM_MAINTENANCE_MT3', "Radera blockering av användare");
-DEFINE ('_UDDEADM_MAINTENANCE_MT4', "Kasta alla meddelanden i raderad användare i avsändarens  Skickat-mapp och raderade användarens Inkorg");
-DEFINE ('_UDDEADM_MAINTENANCE_MT5', "Kasta alla meddelanden i raderade användarens Skickat-mapp och mottagarens Inkorg");
+DEFINE ('_UDDEADM_MAINTENANCE_MT4', "Ta bort alla meddelanden i raderad användare i avsändarens  Skickat-mapp och raderade användarens Inkorg");
+DEFINE ('_UDDEADM_MAINTENANCE_MT5', "Ta bort alla meddelanden i raderade användarens Skickat-mapp och mottagarens Inkorg");
 DEFINE ('_UDDEADM_MAINTENANCE_NOTHINGTODO', '<b>Ingen åtgärd behövs</b><br />');
 DEFINE ('_UDDEADM_MAINTENANCE_JOBTODO', '<b>Underhåll behövs</b><br />');
 
@@ -1014,22 +1047,22 @@ DEFINE ('_UDDEADM_MAXARCHIVE_EXP', 'Välj hur många meddelanden som ska kunnas 
 DEFINE ('_UDDEADM_COPYTOME_HEAD', 'Tillåt kopia till avsändare');
 DEFINE ('_UDDEADM_COPYTOME_EXP', 'Tillåter avsändare att skicka kopia till sig själv. Kopiorna hamnar i inkorgen.');
 DEFINE ('_UDDEADM_MESSAGES', 'Meddelanden');
-DEFINE ('_UDDEADM_TRASHORIGINAL_HEAD', 'Förelså att kasta original');
-DEFINE ('_UDDEADM_TRASHORIGINAL_EXP', 'Om aktiverat, kommer en kryssruta synas bredvid \'Skickat\' svarsknappen kallad \'Kasta original\' standard är den ikryssad. När ikryssad, kommer meddelanden att flyttas från inkorgen till papperskorgen. Denna funktion hjälper till att minska antal meddelanden i databasen. Användarna kan alltid ta bort markeringen, om de vill ha kvar meddelandet i inkorgen.');
+DEFINE ('_UDDEADM_TRASHORIGINAL_HEAD', 'Förelså att ta bort original');
+DEFINE ('_UDDEADM_TRASHORIGINAL_EXP', 'Om aktiverat, kommer en kryssruta synas bredvid \'Skickat\' svarsknappen kallad \'Ta bort original\' standard är den ikryssad. När ikryssad, kommer meddelanden att flyttas från inkorgen till papperskorgen. Denna funktion hjälper till att minska antal meddelanden i databasen. Användarna kan alltid ta bort markeringen, om de vill ha kvar meddelandet i inkorgen.');
 
 DEFINE ('_UDDEADM_PERPAGE_HEAD', 'Meddelanden per sida');
 DEFINE ('_UDDEADM_PERPAGE_EXP', 'Välj antal meddelanden som ska visas på varje sida i inkorgen, skickat, papperkorg och arkiv.');
 DEFINE ('_UDDEADM_CHARSET_HEAD', 'Använd teckenuppsättning');
 DEFINE ('_UDDEADM_CHARSET_EXP', 'Om problem uppstår med icke-latinska tecken, kan du välja teckenkodning för uddeIM för att konvertera databasens output till HTML-koden här (vid svenska använd UTF-8). <b>Om du inte vet vad detta innebär, ändra inte!</b>');
 DEFINE ('_UDDEADM_MAILCHARSET_HEAD', 'Använd teckenkodning för mail');
-DEFINE ('_UDDEADM_MAILCHARSET_EXP', 'Om problem uppstår med icke-latinska tecken, kan du välja charset för uddeIM för att konvertera databasens output till HTML-koden här (vid svenska använd UTF-8). <b>Om du inte vet vad detta innebär, ändra inte!</b>');
+DEFINE ('_UDDEADM_MAILCHARSET_EXP', 'Om det är problem med icke-latinska tecken, kan du välja teckenuppsättning för uddeIM för att konvertera databasens utdata till HTML-kod här (vid svenska använd UTF-8). <b>Om du inte vet vad detta innebär, ändra inte!</b>');
 
 DEFINE ('_UDDEADM_EMN_BODY_NOMESSAGE_EXP', 'Detta är innehållet för det mail som användarna får om inställningen ovan är aktiverad. Innehållet följer inte med i mailet. Lämna variablerna %you%, %user% and %site% intakta. ');
-DEFINE ('_UDDEADM_EMN_BODY_WITHMESSAGE_EXP', 'Detta är innehållet i det mail som användarna får om inställningen ovan är aktiverat. Innehållet följer inte med i meddelandet. Lämna variablerna %you%, %user%, %pmessage% and %site% intakta. ');
-DEFINE ('_UDDEADM_EMN_FORGETMENOT_EXP', 'Detta är innehållet för glöm-mig-ej-mailet som användarna får om inställningen ovan är aktiverad. Lämna variablerna %you% and %site% intakta. ');
+DEFINE ('_UDDEADM_EMN_BODY_WITHMESSAGE_EXP', 'Detta är innehållet i det mail som användarna får om inställningen ovan är aktiverat. Innehållet följer inte med i meddelandet. Lämna variablerna %you%, %user%, %pmessage% och %site% intakta. ');
+DEFINE ('_UDDEADM_EMN_FORGETMENOT_EXP', 'Detta är innehållet för glöm-mig-ej-mailet som användarna får om inställningen ovan är aktiverad. Lämna variablerna %you% och %site% intakta. ');
 DEFINE ('_UDDEADM_ENABLEDOWNLOAD_EXP', 'Tillåt användare att ladda ner meddelanden från sitt arkiv genom att skicka mail till sig själva.');
 DEFINE ('_UDDEADM_ENABLEDOWNLOAD_HEAD', 'Tillåt nedladdning');
-DEFINE ('_UDDEADM_EXPORT_FORMAT_EXP', 'Detta är formatet för det mail som används för nedladdning meddelanden från arkivet. Bevara variablerna %user%, %msgdate% and %msgbody% intakt. ');
+DEFINE ('_UDDEADM_EXPORT_FORMAT_EXP', 'Detta är formatet för det mail som används för nedladdning meddelanden från arkivet. Bevara variablerna %user%, %msgdate% och %msgbody% intakt. ');
 
 DEFINE ('_UDDEADM_INBOXLIMIT_HEAD', 'Sätt gräns för inkorg');
 DEFINE ('_UDDEADM_INBOXLIMIT_EXP', 'Du kan inkludera antalet meddelanden i inkorgen till antalet meddelanden i arkivet. I det fallet får inte det totala antalet meddelanden i inkorgen och arkivet överstiga den satta gränsen. Alternativt, kan du sätta gräns för inkorgen men inte för arkivet. I detta fall kan inte användarna ha fler meddelanden i sin inbox än den gräns du har satt. Om gränsen är nådd, kan inte användarna svara på meddelanden eller skriva nya, innan de raderat meddelanden från inkorgen eller arkivet (användarna kan fortfarande ta emot och läsa nya meddelanden).');
@@ -1128,8 +1161,8 @@ DEFINE ('_UDDEADM_SHOWMENUICONS_HEAD', 'Visa menyikoner');
 DEFINE ('_UDDEADM_SHOWMENUICONS_EXP', 'Om <b>Ja</b>, kommmer menyer och länkar att visas som ikoner.');
 DEFINE ('_UDDEADM_SHOWTITLE_HEAD', 'Komponentrubrik');
 DEFINE ('_UDDEADM_SHOWTITLE_EXP', 'Fyll i rubriken för PM-komponenten, till exempel \'Personliga Meddelanden\'. Lämna tom om du inte vill visa en rubrik.');
-DEFINE ('_UDDEADM_SHOWABOUT_HEAD', 'Visa Om oss-länk');
-DEFINE ('_UDDEADM_SHOWABOUT_EXP', 'Välj <b>Ja</b> för att visa länk till uddeIM och licens. Denna länk kommer placeras längst ner på uddeIM HTML output.');
+DEFINE ('_UDDEADM_SHOWABOUT_HEAD', 'Visa Om uddeIM-länk');
+DEFINE ('_UDDEADM_SHOWABOUT_EXP', 'Välj <b>Ja</b> för att visa länk till uddeIM och licens. Denna länk kommer placeras längst ner på uddeIM-sidor.');
 DEFINE ('_UDDEADM_STOPALLEMAIL_HEAD', 'Stoppa mail');
 DEFINE ('_UDDEADM_STOPALLEMAIL_EXP', 'Markera för att förhindra UddeIM att skicka ut mail (mailaviseringar och glöm-mig-ej-mail) oavsett användarnas val\' till exempel för att testa webbplatsen. Om du aldrig vill använda dessa funktioner, ställ in alla val ovan på <b>Nej</b>.');
 DEFINE ('_UDDEADM_GETPICLINK_HEAD', 'CB-profilbild i lista');
@@ -1211,13 +1244,43 @@ $udde_sweekday[5]="fr";
 $udde_sweekday[6]="lö";
 
 DEFINE ('_UDDEIM_EMN_BODY_PUBLICWITHMESSAGE',
-"Hej %you%,\n\n%user% har skickat dig följande meddelandet på %site%.\n__________________\n%pmessage%");
+"Hej %you%,
+
+%user% har skickat dig följande meddelande på %site%.
+__________________
+%pmessage% 
+
+OBS! Denna avisering är automatiskt genererad och kan inte besvaras via mail!");
 DEFINE ('_UDDEIM_EMN_BODY_NOMESSAGE',
-"Hej %you%, \n\n%user% har skickat dig ett meddelande på %site%.Logga in för att läsa det!\n\n%livesite%");
+"Hej %you%, 
+
+%user% har skickat ett meddelande till dig på %site%. 
+Logga in för att läsa det!
+
+%livesite% 
+
+OBS! Denna avisering är automatiskt genererad och kan inte besvaras via mail!");
 DEFINE ('_UDDEIM_EMN_BODY_WITHMESSAGE',
-'Hej %you%,\n\n%user% har skickat dig följande meddelandet på %site%. Logga in för att svara!\n\n%livesite%\n\n__________________\n%pmessage%');
+'Hej %you%,
+
+%user% har skickat dig följande meddelande på %site%. 
+Logga in för att svara!
+
+%livesite%
+
+__________________
+%pmessage% 
+
+OBS! Denna avisering är automatiskt genererad och kan inte besvaras via mail!');
 DEFINE ('_UDDEIM_EMN_FORGETMENOT',
-'Hej %you%,\n\nDet finns nya personliga meddelanden till dig på %site%. Logga in för att läsa dem!\n\n%livesite%');
+'Hej %you%,
+
+Det finns nya personliga meddelanden till dig på %site%. 
+Logga in för att läsa dem!
+
+%livesite% 
+
+OBS! Denna avisering är automatiskt genererad och kan inte besvaras via mail!');
 DEFINE ('_UDDEIM_EXPORT_FORMAT', '
 ================================================================================
 %user% (%msgdate%)

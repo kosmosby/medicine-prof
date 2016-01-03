@@ -15,4 +15,8 @@
 defined('CBLIB') or die();
 
 return	array(
+// 1 language strings from file cbgroupjivevideo/xml/views/view.com_comprofiler.editgjvideorow.xml
+'SELECT_GROUP_THE_VIDEO_IS_FOR_6e81dc'	=>	'Select group the video is for.',
+// 1 language strings from file cbgroupjivevideo/xml/views/view.com_comprofiler.showgjvideorows.xml
+'CLICK_TO_PREVIEW_056d16'	=>	'Click to Preview',
 );

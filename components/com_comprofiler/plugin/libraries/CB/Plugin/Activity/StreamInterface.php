@@ -41,21 +41,9 @@ interface StreamInterface extends RegistryInterface
 	public function user( $user = null );
 
 	/**
-	 * Creates or modifies stream data
-	 *
-	 * @param int|array $keys
-	 * @param array     $data
-	 * @return bool
+	 * Resets the data cache for this stream (forces data to requery)
 	 */
-	public function push( $data = array(), $keys = null );
-
-	/**
-	 * Removes data from stream
-	 *
-	 * @param int|array $keys
-	 * @return bool
-	 */
-	public function remove( $keys = null );
+	public function resetData();
 
 	/**
 	 * Retrieves stream data rows or row count

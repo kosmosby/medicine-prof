@@ -262,6 +262,7 @@ switch ($task) {
 		$config->longwaitingemail = (int)uddeIMmosGetParam ($_POST, 'config_longwaitingemail', 0);
 		$config->maxlength = (int)uddeIMmosGetParam ($_POST, 'config_maxlength', 1200);
 		$config->showcblink = (int)uddeIMmosGetParam ($_POST, 'config_showcblink', 0);
+		$config->showmenulink = (int)uddeIMmosGetParam ($_POST, 'config_showmenulink', 0);
 		$config->showcbpic = (int)uddeIMmosGetParam ($_POST, 'config_showcbpic', 0);
 		$config->showonline = (int)uddeIMmosGetParam ($_POST, 'config_showonline', 1);
 		$config->allowarchive = (int)uddeIMmosGetParam ($_POST, 'config_allowarchive', 0);
@@ -1577,6 +1578,25 @@ function uddeIMshowSettings($option, $task, $usedlanguage, $pathtoadmin, $pathto
 				</td>
 				<td align="left" valign="top" width="50%"<?php echo $adminstyle; ?>>
 					<?php echo _UDDEADM_SHOWLINK_EXP; ?>
+				</td>
+			</tr>		
+			<tr align="center" valign="middle">
+				<td align="left" valign="top">
+					<strong><?php echo _UDDEADM_SHOWMENULINK_HEAD; ?></strong>
+				</td>
+				<td align="left" valign="top">
+					<?php
+					if ($is_ku)		$sml[] = mosHTML::makeOption( '12', _UDDEADM_KUNENA30 );
+					if ($is_ku)		$sml[] = mosHTML::makeOption( '11', _UDDEADM_KUNENA20 );
+					if ($is_ku)		$sml[] = mosHTML::makeOption( '9', _UDDEADM_KUNENA16 );
+					if ($is_ku)		$sml[] = mosHTML::makeOption( '5', _UDDEADM_KUNENA );
+					$sml[] = mosHTML::makeOption( '0', _UDDEADM_DISABLED );
+					$list_sml = mosHTML::selectList( $sml, 'config_showmenulink', 'class="inputbox" size="1"', 'value', 'text', $config->showmenulink );
+					echo $list_sml;
+					?>
+				</td>
+				<td align="left" valign="top" width="50%">
+					<?php echo _UDDEADM_SHOWMENULINK_EXP; ?>
 				</td>
 			</tr>		
 			<tr align="center" valign="middle">
@@ -2931,6 +2951,10 @@ function uddeIMconvertConfiguration($option, $task, $pathtoadmin, $expectedversi
 		echo _UDDEADM_CFGFILE_CONVERTING_15."<br />";
 		$config->groupsadmin = "";
 		$config->groupsspecial = "";
+	}	
+	if ($config->version<="2.5") {
+		echo _UDDEADM_CFGFILE_CONVERTING_16."<br />";
+		$config->showmenulink = 0;
 	}
 
 	echo "</p>";
@@ -2998,6 +3022,7 @@ function uddeIMbackupRestoreConfig($option, $task, $act, $pathtoadmin, $config) 
 		$backup['longwaitingemail'] 			= $config->longwaitingemail;
 		$backup['maxlength'] 					= $config->maxlength;
 		$backup['showcblink'] 					= $config->showcblink;
+		$backup['showmenulink'] 				= $config->showmenulink;
 		$backup['showcbpic'] 					= $config->showcbpic;
 		$backup['showonline'] 					= $config->showonline;
 		$backup['allowarchive']					= $config->allowarchive;

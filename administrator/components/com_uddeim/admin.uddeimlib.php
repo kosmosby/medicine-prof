@@ -18,7 +18,8 @@ global $ver;
 
 if ( defined( 'JPATH_ADMINISTRATOR' ) ) {
 	$ver = new JVersion();
-	if (!strncasecmp($ver->RELEASE, "3.3", 3)) {
+	if (!strncasecmp($ver->RELEASE, "3.3", 3) ||
+		!strncasecmp($ver->RELEASE, "3.4", 3)) {
 		require_once(JPATH_SITE.'/administrator/components/com_uddeim/admin.uddeimlib33.php');
 	} elseif (!strncasecmp($ver->RELEASE, "3.2", 3)) {
 		require_once(JPATH_SITE.'/administrator/components/com_uddeim/admin.uddeimlib32.php');

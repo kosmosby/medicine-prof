@@ -349,7 +349,7 @@ function uddeIMcreateCFGstring($config) {
 	$cf.="} else {\n";
 	$cf.=" define('_uddeConfig', 1);\n";
 	$cf.=" class uddeimconfigclass {\n";
-	$cf.="  var \$version = '2.5';\n";		// this is the version number of the configuration file
+	$cf.="  var \$version = '2.6';\n";		// this is the version number of the configuration file
 	$cf.="  var \$cryptkey = '".$config->cryptkey."';\n";
 	$cf.="  var \$datumsformat = '".$config->datumsformat."';\n";
 	$cf.="  var \$ldatumsformat = '".$config->ldatumsformat."';\n";  
@@ -401,6 +401,7 @@ function uddeIMcreateCFGstring($config) {
 	$cf.="  var \$longwaitingemail = ".(int)$config->longwaitingemail.";\n";
 	$cf.="  var \$maxlength = ".(int)$config->maxlength.";\n";
 	$cf.="  var \$showcblink = ".(int)$config->showcblink.";\n";
+	$cf.="  var \$showmenulink = ".(int)$config->showmenulink.";\n";
 	$cf.="  var \$showcbpic = ".(int)$config->showcbpic.";\n";
 	$cf.="  var \$showonline = ".(int)$config->showonline.";\n";
 	$cf.="  var \$allowarchive = ".(int)$config->allowarchive.";\n";

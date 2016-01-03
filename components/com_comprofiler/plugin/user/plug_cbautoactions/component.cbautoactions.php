@@ -51,13 +51,12 @@ class CBplug_cbautoactions extends cbPluginHandler
 			}
 		}
 
-		if ( ( $token == md5( $_CB_framework->getCfg( 'secret' ) ) ) || $actionIds ) {
+		if ( ( $token == md5( $_CB_framework->getCfg( 'secret' ) ) ) || ( ( $action == 'action' ) && $actionIds ) ) {
 			if ( $action == 'general' ) {
 				$query						=	'SELECT *'
 											.	"\n FROM " . $_CB_database->NameQuote( '#__comprofiler_plugin_autoactions' )
 											.	"\n WHERE " . $_CB_database->NameQuote( 'published' ) . " = 1"
 											.	"\n AND " . $_CB_database->NameQuote( 'trigger' ) . " LIKE " . $_CB_database->Quote( '%internalGeneral%', false )
-											.	( $actionIds ? "\n AND " . $_CB_database->NameQuote( 'id' ) . " IN " . $_CB_database->safeArrayOfIntegers( $actionIds ) : null )
 											.	"\n ORDER BY " . $_CB_database->NameQuote( 'system' ) . " ASC, " . $_CB_database->NameQuote( 'ordering' ) . " ASC";
 				$_CB_database->setQuery( $query );
 				$rows						=	$_CB_database->loadObjectList( null, 'cbautoactionsActionTable', array( $_CB_database ) );
@@ -80,7 +79,6 @@ class CBplug_cbautoactions extends cbPluginHandler
 											.	"\n FROM " . $_CB_database->NameQuote( '#__comprofiler_plugin_autoactions' )
 											.	"\n WHERE " . $_CB_database->NameQuote( 'published' ) . " = 1"
 											.	"\n AND " . $_CB_database->NameQuote( 'trigger' ) . " LIKE " . $_CB_database->Quote( '%internalUsers%', false )
-											.	( $actionIds ? "\n AND " . $_CB_database->NameQuote( 'id' ) . " IN " . $_CB_database->safeArrayOfIntegers( $actionIds ) : null )
 											.	"\n ORDER BY " . $_CB_database->NameQuote( 'system' ) . " ASC, " . $_CB_database->NameQuote( 'ordering' ) . " ASC";
 				$_CB_database->setQuery( $query );
 				$rows						=	$_CB_database->loadObjectList( null, 'cbautoactionsActionTable', array( $_CB_database ) );
@@ -90,8 +88,7 @@ class CBplug_cbautoactions extends cbPluginHandler
 					$query					=	'SELECT *'
 											.	"\n FROM " . $_CB_database->NameQuote( '#__comprofiler' ) . " AS c"
 											.	', ' . $_CB_database->NameQuote( '#__users' ) . ' AS u'
-											.	"\n WHERE c." . $_CB_database->NameQuote( 'id' ) . " = u." . $_CB_database->NameQuote( 'id' )
-											.	( $userIds ? "\n AND c." . $_CB_database->NameQuote( 'id' ) . " IN " . $_CB_database->safeArrayOfIntegers( $userIds ) : null );
+											.	"\n WHERE c." . $_CB_database->NameQuote( 'id' ) . " = u." . $_CB_database->NameQuote( 'id' );
 					$_CB_database->setQuery( $query );
 					$users					=	$_CB_database->loadObjectList( null, '\CB\Database\Table\UserTable', array( $_CB_database ) );
 
@@ -126,7 +123,7 @@ class CBplug_cbautoactions extends cbPluginHandler
 											.	"\n FROM " . $_CB_database->NameQuote( '#__comprofiler' ) . " AS c"
 											.	', ' . $_CB_database->NameQuote( '#__users' ) . ' AS u'
 											.	"\n WHERE c." . $_CB_database->NameQuote( 'id' ) . " = u." . $_CB_database->NameQuote( 'id' )
-											.	( $userIds ? "\n AND c." . $_CB_database->NameQuote( 'id' ) . " IN " . $_CB_database->safeArrayOfIntegers( $userIds ) : null );
+											.	"\n AND c." . $_CB_database->NameQuote( 'id' ) . " IN " . $_CB_database->safeArrayOfIntegers( $userIds );
 						$_CB_database->setQuery( $query );
 						$users				=	$_CB_database->loadObjectList( null, '\CB\Database\Table\UserTable', array( $_CB_database ) );
 

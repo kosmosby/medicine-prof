@@ -157,3 +157,34 @@
 		text-align: left;
 	}
 }
+
+.cb_template .gjPhotoActivity {
+	padding: 10px;
+}
+
+.cb_template .gjPhotoActivity .gjContainerBox {
+	width: auto;
+	margin: 0;
+	border-radius: 0;
+}
+
+.cb_template .gjPhotoActivity .gjContainerBox .gjContainerBoxHeader {
+	height: auto;
+}
+
+.cb_template .gjPhotoActivity .gjContainerBox .gjContainerBoxCanvas {
+	position: relative;
+}
+
+.cb_template .gjPhotoActivity .gjContainerBox .gjContainerBoxBody {
+	border-top-width: 1px;
+	border-top-style: solid;
+}
+
+.cb_template .gjPhotoActivity .gjContainerBox img {
+	height: auto;
+	width: auto;
+	max-height: 100%;
+	max-width: 100%;
+	border-radius: 0;
+}

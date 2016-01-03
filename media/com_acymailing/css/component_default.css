@@ -1,6 +1,6 @@
 /**
  * @package    AcyMailing for Joomla!
- * @version    5.0.0
+ * @version    5.0.1
  * @author     acyba.com
  * @copyright  (C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -1164,7 +1164,7 @@ dl.tabs dt{
 .acymailing_smalltable{
 	width: 100%;
 	border-collapse: collapse;
-	margin: 10px 0px 20px 0px;
+	margin: 10px 0px;
 }
 
 #acy_content tr, #acy_content td{
@@ -1176,7 +1176,7 @@ dl.tabs dt{
 }
 
 .acymailing_smalltable td{
-	padding: 10px;
+	padding: 5px;
 	border-bottom: 1px solid #eee;
 	color: #777;
 	font-size: 13px;
@@ -1196,7 +1196,7 @@ dl.tabs dt{
 }
 
 .acymailing_smalltable thead th{
-	padding: 4px 8px;
+	padding: 4px;
 }
 
 
@@ -1232,4 +1232,67 @@ dl.tabs dt{
 	margin-bottom: 20px;
 	color: #728fbd;
 	font-size: 12px;
+}
+
+
+.acymailing_button{
+	background-color: #728fbd;
+	color: #fff;
+	text-shadow: none;
+	padding: 8px 15px;
+	border-radius: 4px;
+	border: none;
+	border-bottom: 1px solid #4f6c99;
+	background-image: none;
+	transition: background 0.3s ease;
+	font-size: 14px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.acymailing_button:hover, .acymailing_button:focus, .acytoolbarmenu button:focus{
+	background-color: #b1c7ea;
+	color: #fff;
+	text-decoration: none;
+	transition: background 0.3s ease;
+	border: none;
+	border-bottom: 1px solid #95afd8;
+}
+
+.acymailing_button_grey{
+	-moz-border-bottom-colors: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	background-color: #f5f5f5;
+	background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+	background-repeat: repeat-x;
+	border-color: #bbbbbb #bbbbbb #a2a2a2;
+	border-image: none;
+	border-radius: 4px;
+	border-style: solid;
+	border-width: 1px;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+	color: #333333;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 13px;
+	line-height: 18px;
+	margin: 3px 0px;
+	padding: 4px 12px;
+	text-align: center;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+	vertical-align: middle;
+}
+
+.acymailing_button_grey:hover, .acymailing_button_grey:focus{
+	background-position: 0 -15px;
+	color: #333333;
+	text-decoration: none;
+	transition: background-position 0.1s linear 0s;
+}
+
+.acymailing_button_grey:hover, .acymailing_button_grey:focus, .acymailing_button_grey:active, .acymailing_button_grey.active, .acymailing_button_grey.disabled, .acymailing_button_grey[disabled]{
+	background-color: #e6e6e6;
+	color: #333333;
 }

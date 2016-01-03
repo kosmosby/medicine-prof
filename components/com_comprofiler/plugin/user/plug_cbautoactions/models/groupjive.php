@@ -11,6 +11,9 @@ use CB\Database\Table\UserTable;
 use CBLib\Registry\ParamsInterface;
 use CBLib\Registry\GetterInterface;
 use CBLib\Language\CBTxt;
+use CB\Plugin\GroupJive\CBGroupJive;
+use CB\Plugin\GroupJive\Table\CategoryTable;
+use CB\Plugin\GroupJive\Table\GroupTable;
 
 if ( ! ( defined( '_VALID_CB' ) || defined( '_JEXEC' ) || defined( '_VALID_MOS' ) ) ) { die( 'Direct Access to this location is not allowed.' ); }
 
@@ -23,7 +26,7 @@ class cbautoactionsActionGroupJive extends cbPluginHandler
 	 */
 	public function execute( $trigger, $user )
 	{
-		global $_CB_framework, $_CB_database, $_PLUGINS;
+		global $_CB_database;
 
 		if ( ! $this->installed() ) {
 			if ( $trigger->getParams()->get( 'debug', false, GetterInterface::BOOLEAN ) ) {
@@ -33,19 +36,16 @@ class cbautoactionsActionGroupJive extends cbPluginHandler
 			return;
 		}
 
-		$gjPlugin										=	$_PLUGINS->getLoadedPlugin( 'user', 'cbgroupjive' );
-		$gjParams										=	$_PLUGINS->getPluginParams( $gjPlugin );
-
 		foreach ( $trigger->getParams()->subTree( 'groupjive' ) as $row ) {
 			/** @var ParamsInterface $row */
 			switch( (int) $row->get( 'mode', 1, GetterInterface::INT ) ) {
 				case 3:
-					$owner								=	$row->get( 'owner', null, GetterInterface::STRING );
+					$owner							=	$row->get( 'owner', null, GetterInterface::STRING );
 
 					if ( ! $owner ) {
-						$owner							=	(int) $user->get( 'id' );
+						$owner						=	(int) $user->get( 'id' );
 					} else {
-						$owner							=	(int) $trigger->getSubstituteString( $owner );
+						$owner						=	(int) $trigger->getSubstituteString( $owner );
 					}
 
 					if ( ! $owner ) {
@@ -56,7 +56,7 @@ class cbautoactionsActionGroupJive extends cbPluginHandler
 						continue;
 					}
 
-					$name								=	$trigger->getSubstituteString( $row->get( 'name', null, GetterInterface::STRING ) );
+					$name							=	$trigger->getSubstituteString( $row->get( 'name', null, GetterInterface::STRING ) );
 
 					if ( ! $name ) {
 						if ( $trigger->getParams()->get( 'debug', false, GetterInterface::BOOLEAN ) ) {
@@ -66,15 +66,9 @@ class cbautoactionsActionGroupJive extends cbPluginHandler
 						continue;
 					}
 
-					$parent								=	(int) $row->get( 'parent', 0, GetterInterface::INT );
+					$category						=	new CategoryTable();
 
-					$category							=	new cbgjCategory( $_CB_database );
-
-					if ( $row->get( 'unique', 1, GetterInterface::BOOLEAN ) ) {
-						$category->load( array( 'user_id' => (int) $owner, 'name' => $name, 'parent' => (int) $parent ) );
-					} else {
-						$category->load( array( 'name' => $name, 'parent' => (int) $parent ) );
-					}
+					$category->load( array( 'name' => $name ) );
 
 					if ( ! $category->get( 'id' ) ) {
 						if ( $trigger->getParams()->get( 'debug', false, GetterInterface::BOOLEAN ) ) {
@@ -84,27 +78,14 @@ class cbautoactionsActionGroupJive extends cbPluginHandler
 						continue;
 					}
 
-					$categoryEditor						=	$gjParams->get( 'category_editor', 1 );
-
 					$category->set( 'published', 1 );
-					$category->set( 'parent', (int) $parent );
 					$category->set( 'user_id', $owner );
 					$category->set( 'name', $name );
-
-					if ( ( $categoryEditor == 2 ) || ( $categoryEditor == 3 ) ) {
-						$category->set( 'description', $trigger->getSubstituteString( $row->get( 'description', null, GetterInterface::RAW ), false ) );
-					} else {
-						$category->set( 'description', $trigger->getSubstituteString( $row->get( 'description', null, GetterInterface::STRING ) ) );
-					}
-
-					$category->set( 'access', (int) $gjParams->get( 'category_access_default', -2 ) );
-					$category->set( 'types', $row->get( 'types', $gjParams->get( 'category_types_default', '1|*|2|*|3' ), GetterInterface::STRING ) );
-					$category->set( 'create', (int) $gjParams->get( 'category_create_default', 1 ) );
-					$category->set( 'create_access', (int) $gjParams->get( 'category_createaccess_default', -1 ) );
-					$category->set( 'nested', (int) $gjParams->get( 'category_nested_default', 1 ) );
-					$category->set( 'nested_access', (int) $gjParams->get( 'category_nestedaccess_default', -1 ) );
-					$category->set( 'date', $_CB_framework->getUTCDate() );
-					$category->set( 'ordering', 99999 );
+					$category->set( 'description', $trigger->getSubstituteString( $row->get( 'description', null, GetterInterface::STRING ) ) );
+					$category->set( 'access', 1 );
+					$category->set( 'create_access', 0 );
+					$category->set( 'types', $row->get( 'types', '1|*|2|*|3', GetterInterface::STRING ) );
+					$category->set( 'ordering', 1 );
 
 					if ( ! $category->store() ) {
 						if ( $trigger->getParams()->get( 'debug', false, GetterInterface::BOOLEAN ) ) {
@@ -115,12 +96,12 @@ class cbautoactionsActionGroupJive extends cbPluginHandler
 					}
 					break;
 				case 2:
-					$owner								=	$row->get( 'owner', null, GetterInterface::STRING );
+					$owner							=	$row->get( 'owner', null, GetterInterface::STRING );
 
 					if ( ! $owner ) {
-						$owner							=	(int) $user->get( 'id' );
+						$owner						=	(int) $user->get( 'id' );
 					} else {
-						$owner							=	(int) $trigger->getSubstituteString( $owner );
+						$owner						=	(int) $trigger->getSubstituteString( $owner );
 					}
 
 					if ( ! $owner ) {
@@ -131,12 +112,12 @@ class cbautoactionsActionGroupJive extends cbPluginHandler
 						continue;
 					}
 
-					$categoryId							=	(int) $row->get( 'category', -1, GetterInterface::INT );
+					$categoryId						=	(int) $row->get( 'category', -1, GetterInterface::INT );
 
-					$category							=	new cbgjCategory( $_CB_database );
+					$category						=	new CategoryTable();
 
 					if ( $categoryId == -1 ) {
-						$name							=	$trigger->getSubstituteString( $row->get( 'category_name', null, GetterInterface::STRING ) );
+						$name						=	$trigger->getSubstituteString( $row->get( 'category_name', null, GetterInterface::STRING ) );
 
 						if ( ! $name ) {
 							if ( $trigger->getParams()->get( 'debug', false, GetterInterface::BOOLEAN ) ) {
@@ -146,36 +127,17 @@ class cbautoactionsActionGroupJive extends cbPluginHandler
 							continue;
 						}
 
-						$parent							=	(int) $row->get( 'category_parent', 0, GetterInterface::INT );
-
-						if ( $row->get( 'category_unique', 1, GetterInterface::BOOLEAN ) ) {
-							$category->load( array( 'user_id' => (int) $owner, 'name' => $name, 'parent' => (int) $parent ) );
-						} else {
-							$category->load( array( 'name' => $name, 'parent' => (int) $parent ) );
-						}
+						$category->load( array( 'name' => $name ) );
 
 						if ( ! $category->get( 'id' ) ) {
-							$categoryEditor				=	$gjParams->get( 'category_editor', 1 );
-
 							$category->set( 'published', 1 );
-							$category->set( 'parent', (int) $parent );
 							$category->set( 'user_id', $owner );
 							$category->set( 'name', $name );
-
-							if ( ( $categoryEditor == 2 ) || ( $categoryEditor == 3 ) ) {
-								$category->set( 'description', $trigger->getSubstituteString( $row->get( 'category_description', null, GetterInterface::RAW ), false ) );
-							} else {
-								$category->set( 'description', $trigger->getSubstituteString( $row->get( 'category_description', null, GetterInterface::STRING ) ) );
-							}
-
-							$category->set( 'access', (int) $gjParams->get( 'category_access_default', -2 ) );
-							$category->set( 'types', $row->get( 'category_types', $gjParams->get( 'category_types_default', '1|*|2|*|3' ), GetterInterface::STRING ) );
-							$category->set( 'create', (int) $gjParams->get( 'category_create_default', 1 ) );
-							$category->set( 'create_access', (int) $gjParams->get( 'category_createaccess_default', -1 ) );
-							$category->set( 'nested', (int) $gjParams->get( 'category_nested_default', 1 ) );
-							$category->set( 'nested_access', (int) $gjParams->get( 'category_nestedaccess_default', -1 ) );
-							$category->set( 'date', $_CB_framework->getUTCDate() );
-							$category->set( 'ordering', 99999 );
+							$category->set( 'description', $trigger->getSubstituteString( $row->get( 'category_description', null, GetterInterface::STRING ) ) );
+							$category->set( 'access', 1 );
+							$category->set( 'create_access', 0 );
+							$category->set( 'types', $row->get( 'category_types', '1|*|2|*|3', GetterInterface::STRING ) );
+							$category->set( 'ordering', 1 );
 
 							if ( ! $category->store() ) {
 								if ( $trigger->getParams()->get( 'debug', false, GetterInterface::BOOLEAN ) ) {
@@ -197,7 +159,7 @@ class cbautoactionsActionGroupJive extends cbPluginHandler
 						continue;
 					}
 
-					$name								=	$trigger->getSubstituteString( $row->get( 'name', null, GetterInterface::STRING ) );
+					$name							=	$trigger->getSubstituteString( $row->get( 'name', null, GetterInterface::STRING ) );
 
 					if ( ! $name ) {
 						if ( $trigger->getParams()->get( 'debug', false, GetterInterface::BOOLEAN ) ) {
@@ -207,41 +169,26 @@ class cbautoactionsActionGroupJive extends cbPluginHandler
 						continue;
 					}
 
-					$parent								=	(int) $row->get( 'group_parent', 0, GetterInterface::INT );
-					$join								=	false;
-
-					$group								=	new cbgjGroup( $_CB_database );
+					$group							=	new GroupTable();
+					$join							=	false;
 
 					if ( $row->get( 'unique', 1, GetterInterface::BOOLEAN ) ) {
-						$group->load( array( 'category' => (int) $category->get( 'id' ), 'user_id' => (int) $owner, 'name' => $name, 'parent' => (int) $parent ) );
+						$group->load( array( 'category' => (int) $category->get( 'id' ), 'user_id' => (int) $owner, 'name' => $name ) );
 					} else {
-						$group->load( array( 'category' => (int) $category->get( 'id' ), 'name' => $name, 'parent' => (int) $parent ) );
+						$group->load( array( 'category' => (int) $category->get( 'id' ), 'name' => $name ) );
 
 						if ( $row->get( 'autojoin', 1, GetterInterface::BOOLEAN ) ) {
-							$join						=	true;
+							$join					=	true;
 						}
 					}
 
 					if ( ! $group->get( 'id' ) ) {
-						$groupEditor					=	$gjParams->get( 'group_editor', 1 );
-
 						$group->set( 'published', 1 );
 						$group->set( 'category', (int) $category->get( 'id' ) );
-						$group->set( 'parent', (int) $parent );
 						$group->set( 'user_id', $owner );
 						$group->set( 'name', $name );
-
-						if ( ( $groupEditor == 2 ) || ( $groupEditor == 3 ) ) {
-							$group->set( 'description', $trigger->getSubstituteString( $row->get( 'description', null, GetterInterface::RAW ), false ) );
-						} else {
-							$group->set( 'description', $trigger->getSubstituteString( $row->get( 'description', null, GetterInterface::STRING ) ) );
-						}
-
-						$group->set( 'access', (int) $gjParams->get( 'group_access_default', -2 ) );
-						$group->set( 'types', (int) $row->get( 'type', $gjParams->get( 'group_type_default', 1 ), GetterInterface::INT ) );
-						$group->set( 'nested', (int) $gjParams->get( 'group_nested_default', 1 ) );
-						$group->set( 'nested_access', (int) $gjParams->get( 'group_nestedaccess_default', -1 ) );
-						$group->set( 'date', $_CB_framework->getUTCDate() );
+						$group->set( 'description', $trigger->getSubstituteString( $row->get( 'description', null, GetterInterface::STRING ) ) );
+						$group->set( 'types', (int) $row->get( 'type', 1, GetterInterface::INT ) );
 						$group->set( 'ordering', 1 );
 
 						if ( ! $group->store() ) {
@@ -251,38 +198,14 @@ class cbautoactionsActionGroupJive extends cbPluginHandler
 
 							continue;
 						}
-
-						$group->storeOwner( $group->get( 'user_id' ) );
-
-						if ( $group->get( 'user_id' ) != $user->get( 'id' ) ) {
-							$groupUser					=	new cbgjUser( $_CB_database );
-
-							$groupUser->load( array( 'group' => (int) $group->get( 'id' ), 'user_id' => (int) $user->get( 'id' ) ) );
-
-							if ( ! $groupUser->get( 'id' ) ) {
-								$groupUser->set( 'user_id', (int) $user->get( 'id' ) );
-								$groupUser->set( 'group', (int) $group->get( 'id' ) );
-								$groupUser->set( 'date', $_CB_framework->getUTCDate() );
-								$groupUser->set( 'status', 1 );
-
-								if ( ! $groupUser->store() ) {
-									if ( $trigger->getParams()->get( 'debug', false, GetterInterface::BOOLEAN ) ) {
-										var_dump( CBTxt::T( 'AUTO_ACTION_GROUPJIVE_FAILED', ':: Action [action] :: CB GroupJive failed to save. Error: [error]', array( '[action]' => (int) $trigger->get( 'id' ), '[error]' => $groupUser->getError() ) ) );
-									}
-
-									continue;
-								}
-							}
-						}
 					} elseif ( $join ) {
-						$groupUser					=	new cbgjUser( $_CB_database );
+						$groupUser					=	new \CB\Plugin\GroupJive\Table\UserTable( $_CB_database );
 
 						$groupUser->load( array( 'group' => (int) $group->get( 'id' ), 'user_id' => (int) $user->get( 'id' ) ) );
 
 						if ( ! $groupUser->get( 'id' ) ) {
 							$groupUser->set( 'user_id', (int) $user->get( 'id' ) );
 							$groupUser->set( 'group', (int) $group->get( 'id' ) );
-							$groupUser->set( 'date', $_CB_framework->getUTCDate() );
 							$groupUser->set( 'status', (int) $row->get( 'group_status', 1, GetterInterface::INT ) );
 
 							if ( ! $groupUser->store() ) {
@@ -291,10 +214,6 @@ class cbautoactionsActionGroupJive extends cbPluginHandler
 								}
 
 								continue;
-							}
-
-							if ( $groupUser->get( 'status' ) == 4 ) {
-								$group->storeOwner( $groupUser->get( 'user_id' ) );
 							}
 						}
 					}
@@ -308,17 +227,17 @@ class cbautoactionsActionGroupJive extends cbPluginHandler
 						cbArrayToInts( $groups );
 
 						foreach ( $groups as $groupId ) {
-							$group					=	new cbgjGroup( $_CB_database );
+							$group					=	new GroupTable();
 
 							$group->load( (int) $groupId );
 
 							if ( $group->get( 'id' ) ) {
-								$groupUser			=	new cbgjUser( $_CB_database );
+								$groupUser			=	new \CB\Plugin\GroupJive\Table\UserTable( $_CB_database );
 
 								$groupUser->load( array( 'group' => (int) $group->get( 'id' ), 'user_id' => (int) $user->get( 'id' ) ) );
 
 								if ( $groupUser->get( 'id' ) && ( $groupUser->get( 'status' ) != 4 ) ) {
-									$groupUser->deleteAll();
+									$groupUser->delete();
 								}
 							}
 						}
@@ -334,19 +253,18 @@ class cbautoactionsActionGroupJive extends cbPluginHandler
 						cbArrayToInts( $groups );
 
 						foreach ( $groups as $groupId ) {
-							$group					=	new cbgjGroup( $_CB_database );
+							$group					=	new GroupTable();
 
 							$group->load( (int) $groupId );
 
 							if ( $group->get( 'id' ) ) {
-								$groupUser			=	new cbgjUser( $_CB_database );
+								$groupUser			=	new \CB\Plugin\GroupJive\Table\UserTable( $_CB_database );
 
 								$groupUser->load( array( 'group' => (int) $group->get( 'id' ), 'user_id' => (int) $user->get( 'id' ) ) );
 
 								if ( ! $groupUser->get( 'id' ) ) {
 									$groupUser->set( 'user_id', (int) $user->get( 'id' ) );
 									$groupUser->set( 'group', (int) $group->get( 'id' ) );
-									$groupUser->set( 'date', $_CB_framework->getUTCDate() );
 									$groupUser->set( 'status', (int) $row->get( 'status', 1, GetterInterface::INT ) );
 
 									if ( ! $groupUser->store() ) {
@@ -355,10 +273,6 @@ class cbautoactionsActionGroupJive extends cbPluginHandler
 										}
 
 										continue;
-									}
-
-									if ( $groupUser->get( 'status' ) == 4 ) {
-										$group->storeOwner( $groupUser->get( 'user_id' ) );
 									}
 								}
 							}
@@ -377,7 +291,7 @@ class cbautoactionsActionGroupJive extends cbPluginHandler
 		$options		=	array();
 
 		if ( $this->installed() ) {
-			$options	=	cbgjClass::getCategoryOptions( null );
+			$options	=	CBGroupJive::getCategoryOptions();
 		}
 
 		return $options;
@@ -391,7 +305,7 @@ class cbautoactionsActionGroupJive extends cbPluginHandler
 		$options		=	array();
 
 		if ( $this->installed() ) {
-			$options	=	cbgjClass::getGroupOptions( null );
+			$options	=	CBGroupJive::getGroupOptions();
 		}
 
 		return $options;
@@ -402,12 +316,22 @@ class cbautoactionsActionGroupJive extends cbPluginHandler
 	 */
 	public function installed()
 	{
-		global $_PLUGINS;
+		global $_CB_framework, $_PLUGINS;
 
-		if ( $_PLUGINS->getLoadedPlugin( 'user', 'cbgroupjive' ) ) {
-			return true;
+		static $installed			=	null;
+
+		if ( $installed === null ) {
+			if ( $_PLUGINS->getLoadedPlugin( 'user', 'cbgroupjive' ) ) {
+				if ( file_exists( $_CB_framework->getCfg( 'absolute_path' ) . '/components/com_comprofiler/plugin/user/plug_cbgroupjive/cbgroupjive.class.php' ) ) {
+					$installed		=	false;
+				} else {
+					$installed		=	true;
+				}
+			} else {
+				$installed			=	false;
+			}
 		}
 
-		return false;
+		return $installed;
 	}
 }

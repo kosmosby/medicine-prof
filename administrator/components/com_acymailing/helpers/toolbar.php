@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -100,12 +100,12 @@ class acytoolbarHelper{
 		$this->custom('link', $text, $class, false, $onClick);
 	}
 
-	function help($helpname){
+	function help($helpname, $anchor = ''){
 		$doc = JFactory::getDocument();
 		$config =& acymailing_config();
 		$level = $config->get('level');
 
-		$url = ACYMAILING_HELPURL.$helpname.'&level='.$level;
+		$url = ACYMAILING_HELPURL.$helpname.'&level='.$level.(!empty($anchor) ? '#'.$anchor : '');
 		$iFrame = "'<iframe frameborder=\"0\" src=\'$url\' width=\'100%\' height=\'100%\' scrolling=\'auto\'></iframe>'";
 
 		$js = "var openHelp = true;
@@ -175,16 +175,14 @@ class acytoolbarHelper{
 			if($name == 'ABtesting'){
 				$mylink = 'index.php?option=com_acymailing&ctrl=newsletter&task=abtesting&tmpl=component&mailid=';
 				$url = JURI::base()."index.php?option=com_acymailing&ctrl=newsletter&task=abtesting&tmpl=component";
-			}
-			elseif($name == 'action'){
+			}elseif($name == 'action'){
 				$mylink = 'index.php?option=com_acymailing&ctrl=filter&tmpl=component&subid=';
 				$url = JURI::base()."index.php?option=com_acymailing&ctrl=filter&tmpl=component";
 			}
 
 			$onClick = ' onclick="this.href=getAcyPopupUrl(\''.$mylink.'\');"';
 			$params['url'] = '\'+getAcyPopupUrl(\''.$mylink.'\')+\'';
-		}
-		else{
+		}else{
 			$params['url'] = $url;
 		}
 

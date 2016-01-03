@@ -62,7 +62,7 @@ class HTML_groupjiveGroupEdit
 			$pageTitle				=	CBTxt::T( 'Edit Group' );
 
 			if ( ! $returnUrl ) {
-				$returnUrl			=	$_CB_framework->pluginClassUrl( $plugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'id' ) ) );;
+				$returnUrl			=	$_CB_framework->pluginClassUrl( $plugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $row->get( 'id' ) ) );
 			}
 		} else {
 			$pageTitle				=	CBTxt::T( 'New Group' );
@@ -78,7 +78,7 @@ class HTML_groupjiveGroupEdit
 									.		'<form action="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'groups', 'func' => 'save', 'id' => (int) $row->get( 'id' ), 'return' => CBGroupJive::getReturn( true ) ) ) . '" method="post" enctype="multipart/form-data" name="gjGroupEditForm" id="gjGroupEditForm" class="cb_form gjGroupEditForm form-auto cbValidation">'
 									.			( $pageTitle ? '<div class="gjGroupEditTitle page-header"><h3>' . $pageTitle . '</h3></div>' : null );
 
-		if ( $isModerator || ( $row->get( 'published' ) != -1 ) || ( ! $plugin->params->get( 'groups_create_approval', 0 ) ) ) {
+		if ( $isModerator || ( $row->get( 'id' ) && ( $row->get( 'published' ) != -1 ) ) || ( ! $plugin->params->get( 'groups_create_approval', 0 ) ) ) {
 			$return					.=			'<div class="cbft_select cbtt_select form-group cb_form_line clearfix">'
 									.				'<label for="published" class="col-sm-3 control-label">' . CBTxt::T( 'Published' ) . '</label>'
 									.				'<div class="cb_field col-sm-9">'

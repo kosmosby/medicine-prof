@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -14,7 +14,7 @@ defined('_JEXEC') or die('Restricted access');
 		?>
 		<div class="onelineblockoptions">
 			<span class="acyblocktitle"><?php echo JText::_('ACY_JOOMLA_PERMISSIONS'); ?></span>
-			<a class="acymailing_button" style="color:#fff;" target="_blank" href="index.php?option=com_config&view=component&component=com_acymailing&path=&return=<?php echo $return; ?>"><?php echo JText::_('JTOOLBAR_OPTIONS'); ?></a><br/>
+			<a class="acymailing_button_grey" style="color:#666;" target="_blank" href="index.php?option=com_config&view=component&component=com_acymailing&path=&return=<?php echo $return; ?>"><?php echo JText::_('JTOOLBAR_OPTIONS'); ?></a><br/>
 		</div>
 	<?php } ?>
 	<div class="onelineblockoptions">

@@ -137,11 +137,11 @@ class HTML_groupjiveFile
 
 			$return							.=					'<tr>'
 											.						'<td style="width: 1%;" class="text-center">' . $download . '</td>'
-											.						'<td class="text-left">'
+											.						'<td style="width: 45%;" class="gjGroupFileItem text-left">'
 											.							$item
 											.							'<div class="gjGroupFileUploader small">' . CBuser::getInstance( (int) $row->get( 'user_id' ), false )->getField( 'formatname', null, 'html', 'none', 'list', 0, true ) . '</div>'
 											.						'</td>'
-											.						'<td style="width: 15%;" class="text-center"><span class="gjGroupFileTypeIcon fa fa-' . htmlspecialchars( self::getFileIcon( $extension ) ) . '" title="' . htmlspecialchars( ( $extension ? strtoupper( $extension ) : CBTxt::T( 'Unknown' ) ) ) . '"></span></td>'
+											.						'<td style="width: 15%;" class="text-center"><span class="gjGroupFileTypeIcon fa fa-' . $row->icon() . '" title="' . htmlspecialchars( ( $extension ? strtoupper( $extension ) : CBTxt::T( 'Unknown' ) ) ) . '"></span></td>'
 											.						'<td style="width: 15%;" class="text-left">' . $size . '</td>'
 											.						'<td style="width: 20%;" class="text-left hidden-xs">'
 											.							'<span title="' . htmlspecialchars( $row->get( 'date' ) ) . '">'
@@ -159,7 +159,7 @@ class HTML_groupjiveFile
 						if ( $isModerator || $isOwner || ( $userStatus >= 2 ) ) {
 							$menuItems		.=		'<li class="gjFileMenuItem"><a href="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'file', 'func' => 'publish', 'id' => (int) $row->get( 'id' ) ) ) . '"><span class="fa fa-check"></span> ' . CBTxt::T( 'Approve' ) . '</a></li>';
 						}
-					} elseif ( $row->get( 'published' ) > 0 ) {
+					} elseif ( $row->get( 'published' ) == 1 ) {
 						$menuItems			.=		'<li class="gjFileMenuItem"><a href="javascript: void(0);" onclick="cbjQuery.cbconfirm( \'' . addslashes( CBTxt::T( 'Are you sure you want to unpublish this File?' ) ) . '\' ).done( function() { window.location.href = \'' . $_CB_framework->pluginClassUrl( $plugin->element, false, array( 'action' => 'file', 'func' => 'unpublish', 'id' => (int) $row->get( 'id' ) ) ) . '\'; })"><span class="fa fa-times-circle"></span> ' . CBTxt::T( 'Unpublish' ) . '</a></li>';
 					} else {
 						$menuItems			.=		'<li class="gjFileMenuItem"><a href="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'file', 'func' => 'publish', 'id' => (int) $row->get( 'id' ) ) ) . '"><span class="fa fa-check"></span> ' . CBTxt::T( 'Publish' ) . '</a></li>';
@@ -222,89 +222,5 @@ class HTML_groupjiveFile
 		$_PLUGINS->trigger( 'gj_onAfterDisplayFiles', array( &$return, $rows, $group, $user ) );
 
 		return $return;
-	}
-
-	/**
-	 * Returns the fontawesome icon based off extension and that extensions mimetype
-	 *
-	 * @param string $extension
-	 * @return string
-	 */
-	static public function getFileIcon( $extension )
-	{
-		$type							=	'file-o';
-
-		if ( ! $extension ) {
-			return $type;
-		}
-
-		static $cache					=	array();
-
-		if ( ! isset( $cache[$extension] ) ) {
-			$mimeParts					=	explode( '/', cbGetMimeFromExt( $extension ) );
-
-			switch ( $mimeParts[0] ) {
-				case 'text':
-					switch ( $extension ) {
-						case 'csv':
-							$type		=	'file-excel-o';
-							break;
-						case 'css':
-						case 'html':
-						case 'htm':
-							$type		=	'file-code-o';
-							break;
-						default:
-							$type		=	'file-text-o';
-							break;
-					}
-					break;
-				case 'video':
-					$type				=	'file-video-o';
-					break;
-				case 'audio':
-					$type				=	'file-audio-o';
-					break;
-				case 'image':
-					$type				=	'file-image-o';
-					break;
-				default:
-					switch ( $extension ) {
-						case 'pdf':
-							$type		=	'file-pdf-o';
-							break;
-						case 'zip':
-						case '7z':
-						case 'rar':
-						case 'tar':
-						case 'iso':
-							$type		=	'file-archive-o';
-							break;
-						case 'js':
-						case 'php':
-						case 'xml':
-						case 'java':
-							$type		=	'file-code-o';
-							break;
-						case 'ods':
-						case 'xls':
-						case 'xlsx':
-						case 'xlt':
-							$type		=	'file-excel-o';
-							break;
-						case 'doc':
-						case 'docx':
-						case 'odt':
-						case 'dot':
-							$type		=	'file-word-o';
-							break;
-					}
-					break;
-			}
-
-			$cache[$extension]			=	$type;
-		}
-
-		return $cache[$extension];
 	}
 }

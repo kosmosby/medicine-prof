@@ -106,9 +106,9 @@ class HTML_groupjiveGroups
 										.							( $counters ? '<div class="gjContainerBoxCounter col-sm-6">' . implode( '</div><div class="gjContainerBoxCounter col-sm-6">', $counters ) . '</div>' : null )
 										.						'</div>'
 										.						( $content ? '<div class="gjContainerBoxContent">' . $content . '</div>' : null )
-										.						( $row->get( 'description' ) ? '<div class="gjContainerBoxDescription">' . cbTooltip( 1, $row->get( 'description' ), $row->get( 'name' ), 400, null, '<span class="fa fa-info-circle text-muted"></span>' ) . '</div>' : null );
+										.						( $row->get( 'description' ) ? '<div class="gjContainerBoxDescription">' . cbTooltip( 1, CBTxt::T( $row->get( 'description' ) ), CBTxt::T( $row->get( 'name' ) ), 400, null, '<span class="fa fa-info-circle text-muted"></span>' ) . '</div>' : null );
 
-			if ( $isModerator && ( $row->get( 'published' ) == -1 ) && $plugin->params->get( 'groups_approval', 0 ) ) {
+			if ( $isModerator && ( $row->get( 'published' ) == -1 ) && $plugin->params->get( 'groups_create_approval', 0 ) ) {
 				$return					.=						'<div class="gjContainerBoxButton text-right">'
 										.							'<button type="button" onclick="window.location.href=\'' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'groups', 'func' => 'publish', 'id' => (int) $row->get( 'id' ), 'return' => CBGroupJive::getReturn() ) ) . '\';" class="gjButton gjButtonApprove btn btn-xs btn-success">' . CBTxt::T( 'Approve' ) . '</button>'
 										.						'</div>';
@@ -134,7 +134,7 @@ class HTML_groupjiveGroups
 				if ( $isModerator || $rowOwner ) {
 					$menuItems			.=		'<li class="gjGroupMenuItem"><a href="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'groups', 'func' => 'edit', 'id' => (int) $row->get( 'id' ), 'return' => CBGroupJive::getReturn() ) ) . '"><span class="fa fa-edit"></span> ' . CBTxt::T( 'Edit' ) . '</a></li>';
 
-					if ( ( $row->get( 'published' ) == -1 ) && $plugin->params->get( 'groups_approval', 0 ) ) {
+					if ( ( $row->get( 'published' ) == -1 ) && $plugin->params->get( 'groups_create_approval', 0 ) ) {
 						if ( $isModerator ) {
 							$menuItems	.=		'<li class="gjGroupMenuItem"><a href="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'groups', 'func' => 'publish', 'id' => (int) $row->get( 'id' ), 'return' => CBGroupJive::getReturn() ) ) . '"><span class="fa fa-check"></span> ' . CBTxt::T( 'Approve' ) . '</a></li>';
 						}

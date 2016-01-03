@@ -106,9 +106,7 @@ class UserTable extends Table
 
 		// Promote to group owner if status is changed to owner:
 		if ( $this->get( 'status' ) == 4 ) {
-			$group			=	new GroupTable();
-
-			$group->load( (int) $this->get( 'group' ) );
+			$group			=	CBGroupJive::getGroup( $this->get( 'group' ) );
 
 			if ( $group->get( 'id' ) && ( $group->get( 'user_id' ) != $this->get( 'user_id' ) ) ) {
 				$group->set( 'user_id', (int) $this->get( 'user_id' ) );
@@ -164,9 +162,7 @@ class UserTable extends Table
 			$id		=	$this->get( 'group' );
 		}
 
-		$group		=	new GroupTable();
-
-		$group->load( (int) $id );
+		$group		=	CBGroupJive::getGroup( $id );
 
 		if ( $group->get( 'id' ) && ( $group->get( 'user_id' ) == $this->get( 'user_id' ) ) ) {
 			$this->setError( CBTxt::T( 'Group owner can not be deleted!' ) );
@@ -245,21 +241,7 @@ class UserTable extends Table
 	 */
 	public function group()
 	{
-		static $cache		=	array();
-
-		$id					=	$this->get( 'group' );
-
-		if ( ! isset( $cache[$id] ) ) {
-			$group			=	new GroupTable();
-
-			if ( $id ) {
-				$group->load( (int) $id );
-			}
-
-			$cache[$id]		=	$group;
-		}
-
-		return $cache[$id];
+		return CBGroupJive::getGroup( (int) $this->get( 'group' ) );
 	}
 
 	/**

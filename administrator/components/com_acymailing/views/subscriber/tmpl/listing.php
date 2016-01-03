@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -41,13 +41,13 @@ defined('_JEXEC') or die('Restricted access');
 				<?php
 				foreach($this->displayFields as $map => $oneField){
 					if($map == 'html') continue; ?>
-					<th class="title">
+					<th class="title" style="text-align: left;">
 						<?php echo JHTML::_('grid.sort', $this->customFields->trans($oneField->fieldname), 'a.'.$map, $this->pageInfo->filter->order->dir, $this->pageInfo->filter->order->value); ?>
 					</th>
 				<?php } ?>
 				<?php $app = JFactory::getApplication();
 				if($app->isAdmin()){ ?>
-					<th class="title">
+					<th class="title" style="text-align: left;">
 						<?php echo JText::_('SUBSCRIPTION'); ?>
 					</th>
 				<?php } ?>
@@ -72,7 +72,7 @@ defined('_JEXEC') or die('Restricted access');
 					<th class="title titleid">
 						<?php echo JHTML::_('grid.sort', JText::_('USER_ID'), 'a.userid', $this->pageInfo->filter->order->dir, $this->pageInfo->filter->order->value); ?>
 					</th>
-					<th class="title titleid">
+					<th class="title titleid" >
 						<?php echo JHTML::_('grid.sort', JText::_('ACY_ID'), 'a.subid', $this->pageInfo->filter->order->dir, $this->pageInfo->filter->order->value); ?>
 					</th>
 				<?php } ?>
@@ -166,8 +166,9 @@ defined('_JEXEC') or die('Restricted access');
 						<td align="center" style="text-align:center">
 							<span id="<?php echo $enabledid ?>" class="loading"><?php echo $this->toggleClass->toggle($enabledid, $row->enabled, 'subscriber') ?></span>
 						</td>
-						<td align="center" style="text-align:center">
-							<?php if(!empty($row->userid)){
+						<td align="center">
+							<?php
+							if(!empty($row->userid)){
 								if(file_exists(ACYMAILING_ROOT.'components'.DS.'com_comprofiler'.DS.'comprofiler.php')){
 									$editLink = 'index.php?option=com_comprofiler&task=edit&cid[]=';
 								}elseif(!ACYMAILING_J16){
@@ -180,7 +181,7 @@ defined('_JEXEC') or die('Restricted access');
 								echo acymailing_tooltip($text, acymailing_dispSearch($row->username, $this->pageInfo->search), '', acymailing_dispSearch($row->userid, $this->pageInfo->search), $editLink.$row->userid);
 							} ?>
 						</td>
-						<td align="center" style="text-align:center">
+						<td align="center">
 							<?php echo acymailing_dispSearch($row->subid, $this->pageInfo->search); ?>
 						</td>
 					<?php } ?>

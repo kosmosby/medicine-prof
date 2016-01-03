@@ -5,21 +5,21 @@
 	margin: 0;
 }
 
-.cb_template .streamItem .media-left {
+.cb_template .streamItem .streamMediaLeft {
 	padding: 10px;
 	float: left;
 }
 
-.cb_template .streamItem .media-left img {
+.cb_template .streamItem .streamMediaLeft img {
 	width: 48px;
 	max-width: none;
 }
 
-.cb_template .streamItem.streamItemInline .media-left img {
+.cb_template .streamItem.streamItemInline .streamMediaLeft img {
 	width: 32px;
 }
 
-.cb_template .streamItem .media-body {
+.cb_template .streamItem .streamMediaBody {
 	padding-right: 30px;
 	padding-top: 10px;
 	padding-bottom: 10px;
@@ -27,35 +27,35 @@
 	width: auto;
 }
 
-.cb_template .streamItem .streamItemNew.media-body,
-.cb_template .streamItem .streamItemEdit.media-body {
+.cb_template .streamItem .streamItemNew.streamMediaBody,
+.cb_template .streamItem .streamItemEdit.streamMediaBody {
 	padding-right: 10px;
 }
 
-.cb_template .streamItem.streamItemInline .media-left {
+.cb_template .streamItem.streamItemInline .streamMediaLeft {
 	padding-left: 0;
 	padding-top: 0;
 	padding-bottom: 0;
 }
 
-.cb_template .streamItem.streamItemInline .media-body {
+.cb_template .streamItem.streamItemInline .streamMediaBody {
 	padding-right: 0;
 	padding-top: 0;
 	padding-bottom: 0;
 }
 
-.cb_template .streamItem.streamItemInline .streamItemDisplay.media-body {
+.cb_template .streamItem.streamItemInline .streamItemDisplay.streamMediaBody {
 	padding-right: 15px;
 }
 
 .cb_template .streamItem .streamItemDivider,
-.cb_template .streamItem .streamItemEdit:not(.media-body),
+.cb_template .streamItem .streamItemEdit:not(.streamMediaBody),
 .cb_template .streamItem .streamItemInputGroupRow + .streamItemInputGroupRow {
 	border-top-width: 1px;
 	border-top-style: solid;
 }
 
-.cb_template .streamItem .panel-heading {
+.cb_template .streamItem .streamPanelHeading {
 	position: relative;
 	min-height: 50px;
 	padding: 10px;
@@ -64,30 +64,30 @@
 	word-wrap: break-word;
 }
 
-.cb_template .streamItem .media.panel-heading {
+.cb_template .streamItem .streamMedia.streamPanelHeading {
 	min-height: 48px;
 	padding: 0;
 }
 
-.cb_template .streamItem .panel-body {
+.cb_template .streamItem .streamPanelBody {
 	padding: 10px;
 	word-wrap: break-word;
 }
 
-.cb_template .streamItem .panel-heading + .panel-body:not(.streamItemDivider) {
+.cb_template .streamItem .streamPanelHeading + .streamPanelBody:not(.streamItemDivider) {
 	padding: 0 10px 10px;
 }
 
-.cb_template .streamItem .panel-footer {
+.cb_template .streamItem .streamPanelFooter {
 	padding: 10px;
 	word-wrap: break-word;
 }
 
-.cb_template .streamItem .streamItemNew + .panel-footer {
+.cb_template .streamItem .streamItemNew + .streamPanelFooter {
 	padding: 6px;
 }
 
-.cb_template .streamItem .panel {
+.cb_template .streamItem .streamPanel {
 	border: 0;
 	background: transparent;
 	box-shadow: none;
@@ -271,7 +271,7 @@
 	min-width: 20px;
 }
 
-.cb_template .streamItem .streamInputSelect .select2-selection {
+.cb_template .streamItem .streamInputSelect:not(.streamInputTags) .select2-selection {
 	display: block;
 	border: 0;
 	margin: 0;
@@ -287,8 +287,6 @@
 	cursor: pointer;
 }
 
-.cb_template .streamItem .streamInputTags .select2-selection,
-.cb_template .streamItem .streamInputTags .select2-selection__rendered,
 .cb_template .streamItem .streamInputEmote .select2-selection,
 .cb_template .streamItem .streamInputEmote .select2-selection__rendered {
 	padding: 0;
@@ -395,22 +393,22 @@
 	margin: 0;
 }
 
-.cb_template .streamItem .streamItemScrollContent.panel .panel-body {
+.cb_template .streamItem .streamItemScrollContent.streamPanel .streamPanelBody {
 	padding: 0;
 }
 
-.cb_template .streamItem .streamItemScrollContent.media .media-left {
+.cb_template .streamItem .streamItemScrollContent.streamMedia .streamMediaLeft {
 	padding-top: 0;
 	padding-bottom: 0;
 }
 
 
-.cb_template .streamItem .streamItemScrollContent.media .media-left img {
+.cb_template .streamItem .streamItemScrollContent.streamMedia .streamMediaLeft img {
 	width: 96px;
 }
 
-.cb_template .streamItem .streamItemScrollContent.panel .panel-footer,
-.cb_template .streamItem .streamItemScrollContent.media .panel-footer {
+.cb_template .streamItem .streamItemScrollContent.streamPanel .streamPanelFooter,
+.cb_template .streamItem .streamItemScrollContent.streamMedia .streamPanelFooter {
 	border: 0;
 }
 
@@ -495,8 +493,11 @@
 
 .cb_template .activityContainer .activityContainerAttachmentCount {
 	position: absolute;
-	top: 0;
+	bottom: 0;
 	right: 0;
+	background-color: rgba(0, 0, 0, 0.08);
+	padding-left: 3px;
+	padding-right: 3px;
 }
 
 .cb_template .activityContainerActivity > .streamItemInner > .activityContainerHeader .activityContainerLogo,

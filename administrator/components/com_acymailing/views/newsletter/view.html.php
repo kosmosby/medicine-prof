@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -619,7 +619,7 @@ class NewsletterViewNewsletter extends acymailingView{
 
 	function upload(){
 		$acyToolbar = acymailing::get('helper.toolbar');
-		$acyToolbar->custom('douploadnewsletter', JText::_('IMPORT'), 'import', false, 'location.href=\''.acymailing_completeLink('stats&task=mailinglist&export=1&mailid='.JRequest::getInt('mailid'), true).'\';');
+		$acyToolbar->custom('douploadnewsletter', JText::_('IMPORT'), 'import', false);
 		$acyToolbar->setTitle(JText::_('IMPORT'));
 		$acyToolbar->topfixed = false;
 		$acyToolbar->display();
@@ -682,7 +682,7 @@ class NewsletterViewNewsletter extends acymailingView{
 				$db->setQuery($query);
 				$queueCheck = $db->loadResult();
 				if(!empty($queueCheck) && $validationStatus != 'abTestAdd'){
-					acymailing_display($mailInQueueErrorMsg, 'error');
+					acymailing_enqueueMessage($mailInQueueErrorMsg, 'error');
 					$noMsg = true;
 				}
 
@@ -695,8 +695,8 @@ class NewsletterViewNewsletter extends acymailingView{
 					$db->query();
 				}
 
-				if(!empty($abTestDetail['status']) && $abTestDetail['status'] == 'testSendOver') acymailing_display(JText::_('ABTESTING_READYTOSEND'), 'info');
-				if(!empty($abTestDetail['status']) && $abTestDetail['status'] == 'completed') acymailing_display(JText::_('ABTESTING_COMPLETE'), 'info');
+				if(!empty($abTestDetail['status']) && $abTestDetail['status'] == 'testSendOver') acymailing_enqueueMessage(JText::_('ABTESTING_READYTOSEND'), 'info');
+				if(!empty($abTestDetail['status']) && $abTestDetail['status'] == 'completed') acymailing_enqueueMessage(JText::_('ABTESTING_COMPLETE'), 'info');
 
 				$this->assign('abTestDetail', $abTestDetail);
 

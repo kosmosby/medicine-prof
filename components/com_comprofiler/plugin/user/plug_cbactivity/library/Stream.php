@@ -41,6 +41,8 @@ abstract class Stream extends Registry implements StreamInterface
 	{
 		global $_PLUGINS;
 
+		parent::__construct();
+
 		$_PLUGINS->loadPluginGroup( 'user' );
 
 		if ( $source === null ) {
@@ -101,6 +103,15 @@ abstract class Stream extends Registry implements StreamInterface
 		}
 
 		return $this->user;
+	}
+
+	/**
+	 * Resets the data cache for this stream (forces data to requery)
+	 */
+	public function resetData()
+	{
+		$this->resetCount	=	true;
+		$this->resetSelect	=	true;
 	}
 
 	/**

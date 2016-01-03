@@ -37,6 +37,12 @@ class HTML_groupjiveAttending
 		initToolTip();
 
 		$canSearch						=	( $plugin->params->get( 'groups_events_attending_search', 0 ) && ( $searching || $pageNav->total ) );
+		$returnUrl						=	CBGroupJive::getReturn( true, true );
+
+		if ( ! $returnUrl ) {
+			$returnUrl					=	$_CB_framework->pluginClassUrl( $plugin->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $event->group()->get( 'id' ) ) );
+		}
+
 		$return							=	null;
 
 		$_PLUGINS->trigger( 'gj_onBeforeDisplayAttending', array( &$return, &$rows, $event, $user ) );
@@ -95,7 +101,7 @@ class HTML_groupjiveAttending
 
 		$return							.=			$pageNav->getLimitBox( false )
 										.			'<div class="form-group cb_form_line clearfix text-right">'
-										.				'<input type="button" value="' . htmlspecialchars( CBTxt::T( 'Back' ) ) . '" class="gjButton gjButtonCancel btn btn-default" onclick="window.location.href = \'' . $_CB_framework->pluginClassUrl( $plugin->_gjPlugin->element, false, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $event->group()->get( 'id' ) ) ) . '\';" />'
+										.				'<input type="button" value="' . htmlspecialchars( CBTxt::T( 'Back' ) ) . '" class="gjButton gjButtonCancel btn btn-default" onclick="window.location.href = \'' . $returnUrl . '\';" />'
 										.			'</div>'
 										.		'</form>'
 										.	'</div>';

@@ -15,11 +15,13 @@
 defined('CBLIB') or die();
 
 return	array(
-// 6 language strings from file cbgroupjiveforums/cbgroupjiveforums.xml
+// 8 language strings from file cbgroupjiveforums/cbgroupjiveforums.xml
 'SELECT_THE_FORUM_MODEL_TO_USE_c18c2a'	=>	'Select the forum model to use.',
 'KUNENA_d71cc9'	=>	'kunena',
 'KUNENA_1a7a41'	=>	'Kunena',
 'SELECT_THE_FORUM_CATEGORY_FOR_ALL_GROUP_FORUMS_3560bb'	=>	'Select the forum category for all group forums.',
+'ENABLE_OR_DISABLE_DISPLAY_OF_BACKLINK_TO_RETURN_TO_b5714a'	=>	'Enable or disable display of backlink to return to a forum categories group.',
+'BACKLINK_3c0ed5'	=>	'Backlink',
 'DATE_ASC_a5871f'	=>	'Date ASC',
 'DATE_DESC_bcfc6d'	=>	'Date DESC',
 // 1 language strings from file cbgroupjiveforums/cbgroupjiveforums.php
@@ -29,6 +31,8 @@ return	array(
 'SELECT_THE_FORUM_CATEGORY_TO_ASSOCIATE_WITH_THIS_C_69ee2f'	=>	'Select the forum category to associate with this category.',
 'NEW_CATEGORY_4223df'	=>	'New Category',
 'SELECT_THE_FORUM_CATEGORY_TO_ASSOCIATE_WITH_THIS_G_d9e669'	=>	'Select the forum category to associate with this group.',
+// 1 language strings from file cbgroupjiveforums/templates/default/backlink.php
+'BACK_TO_GROUP_cb4a9e'	=>	'Back to Group',
 // 5 language strings from file cbgroupjiveforums/templates/default/forums.php
 'GROUP_FORUMS_COUNT'	=>	'%%COUNT%% Discussion|%%COUNT%% Discussions',
 'NEW_POST_43eabe'	=>	'New Post',

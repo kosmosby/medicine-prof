@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -55,11 +55,16 @@ defined('_JEXEC') or die('Restricted access');
 							<div style="width: 160px;height: 160px;margin: 14px;border: 1px solid rgb(233, 233, 233);border-radius:4px;" onmouseover="this.style.opacity = 0.5;" onmouseout="this.style.opacity = 1;">
 								<?php
 								if(strlen($file) > 20){
-									echo substr(rtrim($file, $ext), 0, 17).'...'.$ext;
-								}else echo $file;
+									echo '<span title="'.str_replace('"', '', $file).'">'.substr(rtrim($file, $ext), 0, 17).'...'.$ext.'</span>';
+								}else{
+									echo $file;
+								}
+
 								if(in_array($ext, $imageExtensions)){
 									$imgPath = ACYMAILING_LIVE.$this->uploadFolder.'/'.$file;
-								}else $imgPath = ACYMAILING_LIVE.'media/com_acymailing/images/file.png';
+								}else{
+									$imgPath = ACYMAILING_LIVE.'media/com_acymailing/images/file.png';
+								}
 								echo '<br /><img src="'.$imgPath.'" style="margin-top:5px;width:150px;height:132px;"/>';
 								?>
 							</div>
@@ -78,7 +83,7 @@ defined('_JEXEC') or die('Restricted access');
 			<input type="hidden" name="task" value="select"/>
 			<input type="hidden" name="selected_folder" value="<?php echo htmlspecialchars($this->uploadFolder, ENT_COMPAT, 'UTF-8'); ?>"/>
 			<?php echo JHTML::_('form.token'); ?>
-			<button class="btn btn-primary" type="button" onclick="submitbutton();"> <?php echo JText::_('IMPORT'); ?> </button>
+			<button class="btn btn-primary" type="button" onclick="submit();"> <?php echo JText::_('IMPORT'); ?> </button>
 		</div>
 	</form>
 </div>

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -250,7 +250,9 @@ function acymailing_initJSStrings($includejs = 'header', $params = null){
 	}
 	if(empty($nameCaption)) $nameCaption = JText::_('NAMECAPTION');
 	if(empty($emailCaption)) $emailCaption = JText::_('EMAILCAPTION');
-	$js = "	var acymailing = Array();
+	$js = "	if(typeof acymailing == 'undefined'){
+					var acymailing = Array();
+				}
 				acymailing['NAMECAPTION'] = '".str_replace("'", "\'", $nameCaption)."';
 				acymailing['NAME_MISSING'] = '".str_replace("'", "\'", JText::_('NAME_MISSING'))."';
 				acymailing['EMAILCAPTION'] = '".str_replace("'", "\'", $emailCaption)."';
@@ -693,10 +695,18 @@ function acymailing_importFile($file, $uploadPath, $onlyPict){
 
 	if($onlyPict){
 		$allowedExtensions = array('png', 'jpeg', 'jpg', 'gif', 'ico', 'bmp');
-	}else $allowedExtensions = explode(',', $config->get('allowedfiles'));
+	}else{
+		$allowedExtensions = explode(',', $config->get('allowedfiles'));
+	}
+
 	if(!preg_match('#\.('.implode('|', $allowedExtensions).')$#Ui', $file["name"], $extension)){
 		$ext = substr($file["name"], strrpos($file["name"], '.') + 1);
 		acymailing_display(JText::sprintf('ACCEPTED_TYPE', htmlspecialchars($ext, ENT_COMPAT, 'UTF-8'), implode(', ', $allowedExtensions)), 'error');
+		return false;
+	}
+
+	if(preg_match('#\.(php.?|.?htm.?|pl|py|jsp|asp|sh|cgi)#Ui', $file["name"])){
+		acymailing_display('This extension name is blocked by the system regardless your configuration for security reasons', 'error');
 		return false;
 	}
 
@@ -759,7 +769,9 @@ function acymailing_getFilesFolder($folder = 'upload', $multipleFolders = false)
 	$config =& acymailing_config();
 	if($folder == 'upload'){
 		$uploadFolder = $config->get('uploadfolder', 'media/com_acymailing/upload');
-	}else $uploadFolder = $config->get('mediafolder', 'media/com_acymailing/upload');
+	}else{
+		$uploadFolder = $config->get('mediafolder', 'media/com_acymailing/upload');
+	}
 
 	$folders = explode(',', $uploadFolder);
 
@@ -810,7 +822,9 @@ function acymailing_getFilesFolder($folder = 'upload', $multipleFolders = false)
 
 	if($multipleFolders){
 		return $folders;
-	}else return array_shift($folders);
+	}else{
+		return array_shift($folders);
+	}
 }
 
 function acymailing_generateArborescence($folders){

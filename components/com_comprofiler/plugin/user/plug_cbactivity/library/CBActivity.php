@@ -151,7 +151,7 @@ class CBActivity
 		static $loaded	=	0;
 
 		if ( ! $loaded++ ) {
-			CBActivity::getTemplate( array( 'activity', 'comments', 'tags', 'twemoji' ), true, true, false );
+			self::getTemplate( array( 'activity', 'comments', 'tags', 'twemoji' ), true, true, false );
 
 			initToolTip();
 
@@ -234,15 +234,15 @@ class CBActivity
 			return false;
 		}
 
-		if ( CBActivity::isModerator( (int) $viewer->get( 'id' ) ) ) {
+		if ( self::isModerator( (int) $viewer->get( 'id' ) ) ) {
 			return true;
 		}
 
 		$access					=	false;
 
-		if ( CBActivity::canAccess( $createAccess, (int) $viewer->get( 'id' ) ) ) {
+		if ( self::canAccess( $createAccess, (int) $viewer->get( 'id' ) ) ) {
 			if ( ( $viewer->get( 'id' ) != $user->get( 'id' ) ) && Application::Config()->get( 'allowConnections' ) ) {
-				if ( CBActivity::isConnected( $viewer->get( 'id' ), $user->get( 'id' ) ) ) {
+				if ( self::isConnected( $viewer->get( 'id' ), $user->get( 'id' ) ) ) {
 					$access		=	true;
 				}
 			} else {

@@ -32,8 +32,28 @@
 				</tabpanetab>
 				<tabpanetab name="params" label="Parameters" description="">
 					<tabpane name="editactivityparams">
+						<tabpanetab name="activitycomments" label="Comments" description="">
+							<params name="params" type="params">
+								<params name="comments" type="params">
+									<param name="display" type="yesno" default="1" label="Display" description="Enable or disable display of comments for this activity entry. Note a stream that has comments disabled will not display comments regardless of this setting." yes="Enable" no="Disable" />
+									<if name="display" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+										<param name="source" type="xml:activity_source" default="1" label="Source" hideblanktext="always" description="Select the comments source. Source determines what the comments will be linked to. This allows comments to carry over from activity to activity or outside of activity it self. Object source can only be used if an Item is specified." />
+									</if>
+								</params>
+							</params>
+						</tabpanetab>
 						<if name="type" nametype="param:string" operator="=" value="status" valuetype="const:string" type="condition">
 							<then>
+								<tabpanetab name="activitytags" label="Tags" description="">
+									<params name="params" type="params">
+										<params name="tags" type="params">
+											<param name="display" type="yesno" default="1" label="Display" description="Enable or disable display of tags for this activity entry. Note a stream that has tags disabled will not display tags regardless of this setting." yes="Enable" no="Disable" />
+											<if name="display" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+												<param name="source" type="xml:activity_source" default="1" label="Source" hideblanktext="always" description="Select the tags source. Source determines what the tags will be linked to. This allows tags to carry over from activity to activity or outside of activity it self. Object source can only be used if an Item is specified." />
+											</if>
+										</params>
+									</params>
+								</tabpanetab>
 								<showview name="params" view="activityparamsaction" mandatory="false" formatting="tab">
 									<data name="params" type="sql:string" default="" />
 								</showview>
@@ -50,6 +70,16 @@
 							<else>
 								<if name="subtype" nametype="param:string" operator="=" value="status" valuetype="const:string" type="condition">
 									<then>
+										<tabpanetab name="activitytags" label="Tags" description="">
+											<params name="params" type="params">
+												<params name="tags" type="params">
+													<param name="display" type="yesno" default="1" label="Display" description="Enable or disable display of tags for this activity entry. Note a stream that has tags disabled will not display tags regardless of this setting." yes="Enable" no="Disable" />
+													<if name="display" nametype="param:int" operator="=" value="1" valuetype="const:int" type="showhide">
+														<param name="source" type="xml:activity_source" default="1" label="Source" hideblanktext="always" description="Select the tags source. Source determines what the tags will be linked to. This allows tags to carry over from activity to activity or outside of activity it self. Object source can only be used if an Item is specified." />
+													</if>
+												</params>
+											</params>
+										</tabpanetab>
 										<showview name="params" view="activityparamsaction" mandatory="false" formatting="tab">
 											<data name="params" type="sql:string" default="" />
 										</showview>

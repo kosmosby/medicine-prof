@@ -216,21 +216,7 @@ class InviteTable extends Table
 	 */
 	public function group()
 	{
-		static $cache		=	array();
-
-		$id					=	$this->get( 'group' );
-
-		if ( ! isset( $cache[$id] ) ) {
-			$group			=	new GroupTable();
-
-			if ( $id ) {
-				$group->load( (int) $id );
-			}
-
-			$cache[$id]		=	$group;
-		}
-
-		return $cache[$id];
+		return CBGroupJive::getGroup( (int) $this->get( 'group' ) );
 	}
 
 	/**
@@ -311,7 +297,7 @@ class InviteTable extends Table
 			return false;
 		}
 
-		if ( ( ! $this->group()->get( 'published', 1 ) ) || ( ! $this->group()->category()->get( 'published', 1 ) ) ) {
+		if ( ( $this->group()->get( 'published', 1 ) != 1 ) || ( ! $this->group()->category()->get( 'published', 1 ) ) ) {
 			$this->setError( CBTxt::T( 'Can not invite to an unpublished group!' ) );
 
 			return false;

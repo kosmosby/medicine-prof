@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="2.5" type="plugin" group="search" method="upgrade">
 	<name>Search - CB GroupJive</name>
-	<creationDate>2015-10-09</creationDate>
+	<creationDate>2015-11-13</creationDate>
 	<author>Krileon</author>
 	<copyright>(C) 2004-2014 www.joomlapolis.com / Lightning MultiCom SA - and its licensors, all rights reserved2 License</copyright>
 	<license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2. All copyright statements must be kept and derivative work must prominently duly acknowledge original work on web interface and on website where downloaded.</license>
 	<authorEmail>krileon@joomlapolis.com</authorEmail>
 	<authorUrl>http://www.joomlapolis.com/</authorUrl>
-	<version>3.0.0-beta.1</version>
+	<version>3.0.0-rc.2</version>
 	<description>This plugin allows searching for CB GroupJive with Joomla search.</description>
 	<files>
 		<filename plugin="gjsearchbot">gjsearchbot.php</filename>

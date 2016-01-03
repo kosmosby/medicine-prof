@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cbxml version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:../../../../../../../validation/ahawow.xsd">
 	<views>
-		<view name="editautoaction" type="params" ui="admin" label="Auto Action" icon="envelope" viewformatting="div">
+		<view name="editautoaction" type="params" ui="admin" label="Auto Action" icon="list-alt" viewformatting="div">
 			<if name="system" nametype="param:int" operator="=" value="0" valuetype="const:int" type="condition">
 				<toolbarmenu>
 					<menu name="apply" action="apply" task="act=apply" label="Save" />
@@ -213,6 +213,7 @@
 					<param name="" type="text" label="Example" default="[cb:parse function=&quot;getTitle&quot; class=&quot;var1&quot; /]" description="Executes a custom method or class method." />
 					<param name="" type="text" label="function" default="The function to execute. This can be a function of a class by object (specify class) or by reference (class::function)." />
 					<param name="" type="text" label="class" default="Optionally supply a class to execute a function from (var1 to var10 also supported)." />
+					<param name="" type="text" label="method" default="Optionally supply a method to execute on the function object (note this only functions if the function returns an object)." />
 					<param name="" type="text" label="" default="Optionally additional variables can be added to be sent to the function as function variables." />
 				</fieldset>
 			</fieldset>

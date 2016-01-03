@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cbinstall version="1.0" type="plugin" group="user/plug_cbgroupjive/plugins" method="install">
+<cbinstall version="1.0" type="plugin" group="user/plug_cbgroupjive/plugins">
 	<name>CB GroupJive Events</name>
 	<author>Krileon</author>
-	<creationDate>2015-10-09</creationDate>
+	<creationDate>2015-11-20</creationDate>
 	<copyright>(C) 2004-2015 www.joomlapolis.com / Lightning MultiCom SA - and its licensors, all rights reserved</copyright>
 	<license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2</license>
 	<authorEmail>krileon@joomlapolis.com</authorEmail>
 	<description>Provides groups with Events to easily and quickly schedule between one another.</description>
-	<version>2.0.11</version>
-	<release>3.0.0-beta.1</release>
+	<version>2.0.12</version>
+	<release>3.0.0</release>
+	<installfile>install.cbgroupjiveevents.php</installfile>
 	<files>
 		<filename plugin="cbgroupjiveevents">cbgroupjiveevents.php</filename>
 		<filename>index.html</filename>
 		<filename>component.cbgroupjiveevents.php</filename>
+		<filename>install.cbgroupjiveevents.php</filename>
 		<foldername>language</foldername>
 		<foldername>library</foldername>
 		<foldername>templates</foldername>
@@ -24,6 +26,7 @@
 	<libraries>
 		<library name="CB/Plugin/GroupJiveEvents">
 			<files folder="library">
+				<filename>CBGroupJiveEvents.php</filename>
 				<filename>index.html</filename>
 				<foldername>Table</foldername>
 			</files>
@@ -34,10 +37,12 @@
 			<tabpanetab label="General">
 				<param name="groups_events_content_plugins" type="yesno" default="0" label="Content Plugins" description="Enable or disable usage of content plugins content.prepare on group events." yes="Enable" no="Disable" />
 				<param name="groups_events_create_limit" type="text" default="" size="5" label="Create Limit" description="Input number of events each individual user is limited to creating per group. If blank allow unlimited events. Moderators and group owners are exempt from this configuration." />
+				<param name="groups_events_address" type="yesno" default="1" label="Address" description="Enable or disable usage of location address. The address will automatically map to Google Maps." yes="Enable" no="Disable" />
 				<param name="groups_events_captcha" type="yesno" default="0" label="Captcha" description="Enable or disable usage of captcha on group events. Requires latest CB AntiSpam to be installed and published. Moderators are exempt from this configuration." yes="Enable" no="Disable" />
 			</tabpanetab>
 			<tabpanetab label="Notifications">
 				<param name="notifications_default_event_new" type="yesno" default="0" label="Schedule of new event" description="" yes="Notify" no="Don't Notify" />
+				<param name="notifications_default_event_edit" type="yesno" default="0" label="Edit of existing event" description="" yes="Notify" no="Don't Notify" />
 				<param name="notifications_default_event_approve" type="yesno" default="0" label="New event requires approval" description="" yes="Notify" no="Don't Notify" />
 				<param name="notifications_default_event_attend" type="yesno" default="0" label="User attends my existing events" description="" yes="Notify" no="Don't Notify" />
 				<param name="notifications_default_event_unattend" type="yesno" default="0" label="User unattends my existing events" description="" yes="Notify" no="Don't Notify" />
@@ -55,8 +60,8 @@
 		</tabpane>
 	</params>
 	<database version="1">
-		<table name="#__groupjive_plugin_events" class="\CB\Plugin\GroupJiveEvents\Table\EventTable" strict="true" drop="never">
-			<columns strict="true" drop="never">
+		<table name="#__groupjive_plugin_events" class="\CB\Plugin\GroupJiveEvents\Table\EventTable" strict="false" drop="never"> <!-- TODO: For B/C: change to strict -->
+			<columns strict="false" drop="never"> <!-- TODO: For B/C: change to strict -->
 				<column name="id" type="sql:int(11)" unsigned="true" auto_increment="1" />
 				<column name="user_id" type="sql:int(11)" />
 				<column name="group" type="sql:int(11)" />
@@ -93,7 +98,7 @@
 				<index name="PRIMARY" type="primary">
 					<column name="id" />
 				</index>
-				<index name="user_id_event">
+				<index name="user_id_event" type="unique">
 					<column name="user_id" />
 					<column name="event" />
 				</index>

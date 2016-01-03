@@ -5,11 +5,11 @@ if (defined('_uddeConfig')) {
 } else {
  define('_uddeConfig', 1);
  class uddeimconfigclass {
-  var $version = '2.5';
+  var $version = '2.6';
   var $cryptkey = 'uddeIMcryptkey';
   var $datumsformat = 'j M, H:i';
   var $ldatumsformat = 'j F Y, H:i';
-  var $emn_sendermail = 'webmaster';
+  var $emn_sendermail = 'admin';
   var $emn_sendername = 'Messaging';
   var $sysm_username = 'System';
   var $charset = 'UTF-8';
@@ -25,7 +25,7 @@ if (defined('_uddeConfig')) {
   var $pubblockgroups = '';
   var $hideusers = '62';
   var $pubhideusers = '62';
-  var $attachmentgroups = '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17';
+  var $attachmentgroups = '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22';
   var $recaptchaprv = '';
   var $recaptchapub = '';
   var $allowedextensions = '';
@@ -48,7 +48,7 @@ if (defined('_uddeConfig')) {
   var $blocksystem = 0;
   var $allowemailnotify = 1;
   var $notifydefault = 1;
-  var $popupdefault = 1;
+  var $popupdefault = 0;
   var $allowsysgm = 0;
   var $emailwithmessage = 1;
   var $firstwordsinbox = 40;
@@ -56,18 +56,19 @@ if (defined('_uddeConfig')) {
   var $longwaitingemail = 0;
   var $maxlength = 2500;
   var $showcblink = 1;
+  var $showmenulink = 0;
   var $showcbpic = 1;
   var $showonline = 1;
   var $allowarchive = 0;
   var $maxarchive = 100;
   var $allowcopytome = 1;
-  var $trashoriginal = 0;
+  var $trashoriginal = 1;
   var $perpage = 8;
   var $enabledownload = 0;
   var $inboxlimit = 0;
   var $showinboxlimit = 0;
-  var $allowpopup = 1;
-  var $allowbb = 2;
+  var $allowpopup = 0;
+  var $allowbb = 1;
   var $allowsmile = 1;
   var $animated = 0;
   var $animatedex = 0;
@@ -103,7 +104,7 @@ if (defined('_uddeConfig')) {
   var $hideallusers = 0;
   var $pubhideallusers = 0;
   var $unblockCBconnections = 1;
-  var $CBgallery = 0;
+  var $CBgallery = 1;
   var $enablelists = 0;
   var $maxonlists = 100;
   var $timedelay = 0;

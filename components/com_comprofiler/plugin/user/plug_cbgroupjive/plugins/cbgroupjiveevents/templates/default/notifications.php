@@ -34,6 +34,12 @@ class HTML_groupjiveEventNotifications
 						.		'<div class="cb_field col-sm-3 text-right">'
 						.			$input['event_new']
 						.		'</div>'
+						.	'</div>'
+						.	'<div class="cbft_select cbtt_select form-group cb_form_line clearfix">'
+						.		'<label for="params__event_edit" class="col-sm-9 control-label">' . CBTxt::T( 'Edit of existing event' ) . '</label>'
+						.		'<div class="cb_field col-sm-3 text-right">'
+						.			$input['event_edit']
+						.		'</div>'
 						.	'</div>';
 
 		if ( $row->group()->params()->get( 'events', 1 ) == 2 ) {

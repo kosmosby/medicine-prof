@@ -10,12 +10,13 @@
 use CBLib\Registry\GetterInterface;
 use CBLib\Registry\Registry;
 use CBLib\Database\Table\Table;
+use CBLib\Xml\SimpleXMLElement;
 
 if ( ! ( defined( '_VALID_CB' ) || defined( '_JEXEC' ) || defined( '_VALID_MOS' ) ) ) { die( 'Direct Access to this location is not allowed.' ); }
 
 function plug_cbautoactions_install()
 {
-	global $_CB_database;
+	global $_CB_framework, $_CB_database;
 
 	$table									=	'#__comprofiler_plugin_autoactions';
 	$fields									=	$_CB_database->getTableFields( $table );
@@ -128,10 +129,39 @@ function plug_cbautoactions_install()
 			$_CB_database->dropColumn( $table, 'debug' );
 		}
 	} else {
+		// Convert old |*| delimitered triggers to comma separated:
 		$query								=	'UPDATE ' . $_CB_database->NameQuote( '#__comprofiler_plugin_autoactions' )
 											.	"\n SET " . $_CB_database->NameQuote( 'trigger' ) . " = REPLACE( " . $_CB_database->NameQuote( 'trigger' ) . ", " . $_CB_database->Quote( ',' ) . ", " . $_CB_database->Quote( '|*|' ) . " )";
 		$_CB_database->setQuery( $query );
 		$_CB_database->query();
+	}
+
+	// Delete system actions that no longer exist:
+	if ( isset( $fields[$table]['system'] ) ) {
+		$xmlFile							=	$_CB_framework->getCfg( 'absolute_path' ) . '/components/com_comprofiler/plugin/user/plug_cbautoactions/cbautoactions.xml';
+
+		if ( file_exists( $xmlFile ) ) {
+			$xml							=	new SimpleXMLElement( trim( file_get_contents( $xmlFile ) ) );
+
+			$systemRows						=	$xml->xpath( '//database/table[@name="#__comprofiler_plugin_autoactions"]/rows/row[@index="system"]/@value' );
+
+			if ( $systemRows !== false ) {
+				$systemIds					=	array();
+
+				foreach ( $systemRows as $systemRow ) {
+					$systemIds[]			=	(string) $systemRow;
+				}
+
+				if ( $systemIds ) {
+					$query					=	'DELETE'
+											.	"\n FROM " . $_CB_database->NameQuote( '#__comprofiler_plugin_autoactions' )
+											.	"\n WHERE " . $_CB_database->NameQuote( 'system' ) . " NOT IN " . $_CB_database->safeArrayOfIntegers( $systemIds )
+											.	"\n AND " . $_CB_database->NameQuote( 'system' ) . " != 0";
+					$_CB_database->setQuery( $query );
+					$_CB_database->query();
+				}
+			}
+		}
 	}
 }
 

@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -293,7 +293,7 @@ class plgAcymailingTagcontent extends JPlugin{
 			</table>
 		</div>
 		<div class="onelineblockoptions">
-			<table>
+			<table class="acymailing_table_options">
 				<tr>
 					<td width="100%">
 						<?php acymailing_listingsearch($pageInfo->search); ?>
@@ -714,7 +714,7 @@ class plgAcymailingTagcontent extends JPlugin{
 						</td>
 					</tr>
 
-					<?php
+				<?php
 				}
 
 				$k = 1 - $k;
@@ -752,7 +752,7 @@ class plgAcymailingTagcontent extends JPlugin{
 								?>
 							</td>
 						</tr>
-						<?php
+					<?php
 					}else{ ?>
 						<tr id="content_cat<?php echo $row->id ?>" class="<?php echo "row$k"; ?>" onclick="applyAutoContent(<?php echo $row->id ?>,'<?php echo "row$k" ?>');" style="cursor:pointer;">
 							<td class="acytdcheckbox"></td>
@@ -1073,7 +1073,7 @@ class plgAcymailingTagcontent extends JPlugin{
 		}
 
 		if(!empty($tag->jtags) && version_compare(JVERSION, '3.1.0', '>=')){
-			$this->db->setQuery('SELECT id, alias, title FROM #__tags AS t JOIN #__contentitem_tag_map AS m ON t.id = m.tag_id WHERE m.core_content_id = '.intval($tag->id));
+			$this->db->setQuery('SELECT t.id, t.alias, t.title FROM #__tags AS t JOIN #__contentitem_tag_map AS m ON t.id = m.tag_id WHERE t.published = 1 AND m.type_alias = "com_content.article" AND m.content_item_id = '.intval($tag->id));
 			$tags = $this->db->loadObjectList();
 			if(!empty($tags)){
 				$afterArticle .= '<br />';
@@ -1285,15 +1285,19 @@ class plgAcymailingTagcontent extends JPlugin{
 			}
 
 			if(!empty($parameter->maxcreated)){
+				$date = $parameter->maxcreated;
 				if(strpos($parameter->maxcreated, '[time]') !== false) $date = acymailing_replaceDate(str_replace('[time]', '{time}', $parameter->maxcreated));
 				if(!is_numeric($date)) $date = strtotime($parameter->maxcreated);
 				if(empty($date)){
 					acymailing_display('Wrong date format ('.$parameter->maxcreated.' in '.$oneTag.'), please use YYYY-MM-DD', 'warning');
 				}
 				$where[] = '`created` < '.$this->db->Quote(date('Y-m-d H:i:s', $date)).' OR `publish_up` < '.$this->db->Quote(date('Y-m-d H:i:s', $date));
+			}else{
+				$where[] = '`publish_up` < \''.date('Y-m-d H:i:s', $time - date('Z')).'\'';
 			}
 
 			if(!empty($parameter->mincreated)){
+				$date = $parameter->mincreated;
 				if(strpos($parameter->mincreated, '[time]') !== false) $date = acymailing_replaceDate(str_replace('[time]', '{time}', $parameter->mincreated));
 				if(!is_numeric($date)) $date = strtotime($parameter->mincreated);
 				if(empty($date)){
@@ -1313,7 +1317,6 @@ class plgAcymailingTagcontent extends JPlugin{
 				if(!empty($metaWhere)) $where[] = implode(' OR ', $metaWhere);
 			}
 
-			$where[] = '`publish_up` < \''.date('Y-m-d H:i:s', $time - date('Z')).'\'';
 			$where[] = '`publish_down` > \''.date('Y-m-d H:i:s', $time - date('Z')).'\' OR `publish_down` = 0';
 			if(empty($parameter->unpublished)){
 				$where[] = 'state = 1';

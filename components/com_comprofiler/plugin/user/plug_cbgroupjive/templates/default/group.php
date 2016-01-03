@@ -88,7 +88,7 @@ class HTML_groupjiveGroup
 			$return						.=				'<div class="gjPageHeaderCanvasButtons text-right">'
 										.					( $buttons ? ' <span class="gjPageHeaderCanvasButton">' . implode( '</span> <span class="gjPageHeaderCanvasButton">', $buttons ) . '</span>' : null );
 
-			if ( $isModerator && ( $row->get( 'published' ) == -1 ) && $plugin->params->get( 'groups_approval', 0 ) ) {
+			if ( $isModerator && ( $row->get( 'published' ) == -1 ) && $plugin->params->get( 'groups_create_approval', 0 ) ) {
 				$return					.=					' <span class="gjPageHeaderCanvasButton">'
 										.						'<button type="button" onclick="window.location.href=\'' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'groups', 'func' => 'publish', 'id' => (int) $row->get( 'id' ) ) ) . '\';" class="gjButton gjButtonApprove btn btn-xs btn-success">' . CBTxt::T( 'Approve' ) . '</button>'
 										.					'</span>';
@@ -112,7 +112,7 @@ class HTML_groupjiveGroup
 				if ( $isModerator || $isOwner ) {
 					$menuItems			.=		'<li class="gjGroupMenuItem"><a href="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'groups', 'func' => 'edit', 'id' => (int) $row->get( 'id' ) ) ) . '"><span class="fa fa-edit"></span> ' . CBTxt::T( 'Edit' ) . '</a></li>';
 
-					if ( ( $row->get( 'published' ) == -1 ) && $plugin->params->get( 'groups_approval', 0 ) ) {
+					if ( ( $row->get( 'published' ) == -1 ) && $plugin->params->get( 'groups_create_approval', 0 ) ) {
 						if ( $isModerator ) {
 							$menuItems	.=		'<li class="gjGroupMenuItem"><a href="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'groups', 'func' => 'publish', 'id' => (int) $row->get( 'id' ) ) ) . '"><span class="fa fa-check"></span> ' . CBTxt::T( 'Approve' ) . '</a></li>';
 						}
@@ -123,11 +123,11 @@ class HTML_groupjiveGroup
 					}
 				}
 
-				if ( $plugin->params->get( 'notifications', 1 ) && ( $isModerator || $isOwner || ( $userStatus >= 1 ) ) ) {
+				if ( $plugin->params->get( 'notifications', 1 ) && ( $isModerator || ( ( $row->get( 'published' ) == 1 ) && ( $isOwner || ( $userStatus >= 1 ) ) ) ) ) {
 					$menuItems			.=		'<li class="gjGroupMenuItem"><a href="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'groups', 'func' => 'notifications', 'id' => (int) $row->get( 'id' ) ) ) . '"><span class="fa fa-envelope"></span> ' . CBTxt::T( 'Notifications' ) . '</a></li>';
 				}
 
-				if ( $isModerator || ( $plugin->params->get( 'groups_message', 0 ) && ( $isOwner || ( $userStatus >= 3 ) ) ) ) {
+				if ( $isModerator || ( ( $row->get( 'published' ) == 1 ) && $plugin->params->get( 'groups_message', 0 ) && ( $isOwner || ( $userStatus >= 3 ) ) ) ) {
 					$delay				=	false;
 
 					if ( ( ! $isModerator ) && $row->params()->get( 'messaged' ) && $plugin->params->get( 'groups_message_delay', 60 ) ) {
@@ -190,7 +190,7 @@ class HTML_groupjiveGroup
 										.					' <span class="gjPageHeaderBarCounter"><span class="gjGroupUsersIcon fa-before fa-user"> ' . CBTxt::T( 'GROUP_USERS_COUNT', '%%COUNT%% User|%%COUNT%% Users', array( '%%COUNT%%' => (int) $row->get( '_users', 0 ) ) ) . '</span></span>'
 										.					( $counters ? ' <span class="gjPageHeaderBarCounter">' . implode( '</span> <span class="gjPageHeaderBarCounter">', $counters ) . '</span>' : null )
 										.				'</div>'
-										.				( $row->get( 'description' ) ? ' <div class="gjPageHeaderBarDescription">' . cbTooltip( 1, $row->get( 'description' ), $row->get( 'name' ), 400, null, '<span class="fa fa-info-circle text-muted"></span>' ) . '</div>' : null )
+										.				( $row->get( 'description' ) ? ' <div class="gjPageHeaderBarDescription">' . cbTooltip( 1, CBTxt::T( $row->get( 'description' ) ), CBTxt::T( $row->get( 'name' ) ), 400, null, '<span class="fa fa-info-circle text-muted"></span>' ) . '</div>' : null )
 										.			'</div>'
 										.		'</div>'
 										.		'<div class="gjGroupTabs cbTabs cbTabsMenu" id="cbtabsgrouptab" data-cbtabs-use-cookies="true">'
@@ -229,7 +229,7 @@ class HTML_groupjiveGroup
 		}
 
 		if ( $users ) {
-			$return						.=				$tabs->startTab( null, CBTxt::T( 'Users' ), 'grouptabusers', array( 'tab' => 'cbTabNavMenu', 'pane' => 'tab-pane cbTabPaneMenu', 'override' => true ) )
+			$return						.=				$tabs->startTab( null, CBTxt::T( 'GROUP_USERS', 'Users' ), 'grouptabusers', array( 'tab' => 'cbTabNavMenu', 'pane' => 'tab-pane cbTabPaneMenu', 'override' => true ) )
 										.					'<div class="cb_tab_content cb_tab_menu">'
 										.						$users
 										.					'</div>'

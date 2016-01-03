@@ -32,18 +32,6 @@ class HTML_groupjiveEventEdit
 	{
 		global $_CB_framework, $_PLUGINS;
 
-		$js							=	"$( '.gjButtonLocation' ).on( 'click', function() {"
-									.		"if ( typeof navigator.geolocation == 'undefined' ) {"
-									.			"return null;"
-									.		"}"
-									.		"var input = $( this ).siblings( 'input' );"
-									.		"navigator.geolocation.getCurrentPosition( function( position ) {"
-									.			"input.val( position.coords.latitude + ',' + position.coords.longitude );"
-									.		"});"
-									.	"});";
-
-		$_CB_framework->outputCbJQuery( $js );
-
 		$pageTitle					=	( $row->get( 'id' ) ? CBTxt::T( 'Edit Event' ) : CBTxt::T( 'New Event' ) );
 
 		$_CB_framework->setPageTitle( $pageTitle );
@@ -61,7 +49,7 @@ class HTML_groupjiveEventEdit
 									.		'<form action="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'events', 'func' => 'save', 'id' => (int) $row->get( 'id' ) ) ) . '" method="post" enctype="multipart/form-data" name="gjEventEditForm" id="gjEventEditForm" class="cb_form gjEventEditForm form-auto cbValidation">'
 									.			( $pageTitle ? '<div class="gjEventEditTitle page-header"><h3>' . $pageTitle . '</h3></div>' : null );
 
-		if ( $isModerator || $canModerate || ( $row->get( 'published' ) != -1 ) || ( $group->params()->get( 'events', 1 ) != 2 ) ) {
+		if ( $isModerator || $canModerate || ( $row->get( 'id' ) && ( $row->get( 'published' ) != -1 ) ) || ( $group->params()->get( 'events', 1 ) != 2 ) ) {
 			$return					.=			'<div class="cbft_select cbtt_select form-group cb_form_line clearfix">'
 									.				'<label for="published" class="col-sm-3 control-label">' . CBTxt::T( 'Published' ) . '</label>'
 									.				'<div class="cb_field col-sm-9">'
@@ -91,8 +79,22 @@ class HTML_groupjiveEventEdit
 									.					$input['location']
 									.					getFieldIcons( null, 1, null, CBTxt::T( 'Input the location for this event (e.g. My House, The Park, Restaurant Name, etc..).' ) )
 									.				'</div>'
-									.			'</div>'
-									.			'<div class="cbft_text cbtt_input form-group cb_form_line clearfix">'
+									.			'</div>';
+
+		if ( $plugin->params->get( 'groups_events_address', 1 ) ) {
+			$js						=	"$( '.gjButtonLocation' ).on( 'click', function() {"
+									.		"if ( typeof navigator.geolocation == 'undefined' ) {"
+									.			"return null;"
+									.		"}"
+									.		"var input = $( this ).siblings( 'input' );"
+									.		"navigator.geolocation.getCurrentPosition( function( position ) {"
+									.			"input.val( position.coords.latitude + ',' + position.coords.longitude );"
+									.		"});"
+									.	"});";
+
+			$_CB_framework->outputCbJQuery( $js );
+
+			$return					.=			'<div class="cbft_text cbtt_input form-group cb_form_line clearfix">'
 									.				'<label for="address" class="col-sm-3 control-label">' . CBTxt::T( 'Address' ) . '</label>'
 									.				'<div class="cb_field col-sm-9">'
 									.					'<span class="gjEventEditAddress">'
@@ -101,8 +103,10 @@ class HTML_groupjiveEventEdit
 									.					'</span>'
 									.					getFieldIcons( null, 0, null, CBTxt::T( 'Optionally input the address for this event or click the map button to attempt to find your current location.' ) )
 									.				'</div>'
-									.			'</div>'
-									.			'<div class="cbft_datetime cbtt_input form-group cb_form_line clearfix">'
+									.			'</div>';
+		}
+
+		$return						.=			'<div class="cbft_datetime cbtt_input form-group cb_form_line clearfix">'
 									.				'<label for="start" class="col-sm-3 control-label">' . CBTxt::T( 'Start Date' ) . '</label>'
 									.				'<div class="cb_field col-sm-9">'
 									.					$input['start']

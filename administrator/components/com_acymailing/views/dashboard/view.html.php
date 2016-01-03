@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -34,9 +34,9 @@ class dashboardViewDashboard extends acymailingView{
 		$userStats->nbConfirmed += (empty($userResult[2]->total) ? 0 : $userResult[2]->total);
 		$userStats->total = $userStats->nbConfirmed + $userStats->nbUnconfirmedAndDisabled;
 
-		$userStats->confirmedPercent = (empty($userStats->total) ? 0 : round((($userStats->nbConfirmed * 100) / $userStats->total), 0, PHP_ROUND_HALF_UP));
+		$userStats->confirmedPercent = (empty($userStats->total) ? 0 : round((($userStats->nbConfirmed * 100) / $userStats->total), 0));
 
-		$listsQuery = 'SELECT COUNT(DISTINCT listid) AS total FROM #__acymailing_listsub WHERE status=1';
+		$listsQuery = "SELECT COUNT(DISTINCT(l.listid)) FROM #__acymailing_list as l LEFT JOIN #__acymailing_listsub as ls ON l.listid=ls.listid WHERE l.type='list' AND ls.status=1 AND ls.subid IS NOT NULL";
 		$db->setQuery($listsQuery);
 		$atLeastOneSub = $db->loadResult();
 
@@ -48,7 +48,7 @@ class dashboardViewDashboard extends acymailingView{
 		$listStats->noSub = $nbLists - $atLeastOneSub;
 		$listStats->total = $nbLists;
 
-		$listStats->subscribedPercent = (empty($nbLists) ? 0 : round((($atLeastOneSub * 100) / $nbLists), 0, PHP_ROUND_HALF_UP));
+		$listStats->subscribedPercent = (empty($nbLists) ? 0 : round((($atLeastOneSub * 100) / $nbLists), 0));
 
 		$nlQuery = 'SELECT count(mailid) AS total, published FROM #__acymailing_mail WHERE type = "news" GROUP BY published';
 		$db->setQuery($nlQuery);
@@ -59,7 +59,7 @@ class dashboardViewDashboard extends acymailingView{
 		$nlStats->nbpublished = (empty($nlResult[1]->total) ? 0 : $nlResult[1]->total);
 		$nlStats->total = $nlStats->nbpublished + $nlStats->nbUnpublished;
 
-		$nlStats->publishedPercent = (empty($nlStats->total) ? 0 : round((($nlStats->nbpublished * 100) / $nlStats->total), 0, PHP_ROUND_HALF_UP));
+		$nlStats->publishedPercent = (empty($nlStats->total) ? 0 : round((($nlStats->nbpublished * 100) / $nlStats->total), 0));
 
 
 		$this->assignRef('nlStats', $nlStats);
@@ -78,8 +78,9 @@ class dashboardViewDashboard extends acymailingView{
 			}
 
 			$db = JFactory::getDBO();
+			$nbUsersToGet = 100;
 			$query = 'SELECT geolocation_type, geolocation_subid, geolocation_country_code, geolocation_city, geolocation_country, geolocation_state';
-			$query .= ' FROM #__acymailing_geolocation'.$condition.' GROUP BY geolocation_subid ORDER BY geolocation_created DESC LIMIT 100';
+			$query .= ' FROM #__acymailing_geolocation'.$condition.' GROUP BY geolocation_subid ORDER BY geolocation_created DESC LIMIT '.$nbUsersToGet;
 			$db->setQuery($query);
 			$geoloc = $db->loadObjectList();
 
@@ -111,15 +112,12 @@ class dashboardViewDashboard extends acymailingView{
 				$this->assignRef('geoloc_details', $dataDetails);
 				$this->assignRef('geoloc_region', $region);
 				$this->assignRef('geoloc_addresses', $addresses);
+				$this->assign('nbUsersToGet', $nbUsersToGet);
 			}
 		}
 
 		$doc->addScript("https://www.google.com/jsapi");
-		$today = acymailing_getTime(date('Y-m-d'));
-		$joomConfig = JFactory::getConfig();
-		$offset = ACYMAILING_J30 ? $joomConfig->get('offset') : $joomConfig->getValue('config.offset');
-		$diff = date('Z') + intval($offset * 60 * 60);
-		$db->setQuery("SELECT count(`subid`) as total, DATE_FORMAT(FROM_UNIXTIME(`created` - $diff),'%Y-%m-%d') as subday FROM ".acymailing_table('subscriber')." WHERE `created` > 100000 GROUP BY subday ORDER BY subday DESC LIMIT 15");
+		$db->setQuery("SELECT count(`subid`) as total, DATE_FORMAT(FROM_UNIXTIME(`created`),'%Y-%m-%d') as subday FROM ".acymailing_table('subscriber')." WHERE `created` > 100000 GROUP BY subday ORDER BY subday DESC LIMIT 15");
 		$statsusers = $db->loadObjectList();
 		$this->assignRef('statsusers', $statsusers);
 
@@ -143,14 +141,16 @@ class dashboardViewDashboard extends acymailingView{
 		$this->assignRef('listStatusData', $listStatusData);
 
 
-		$db->setQuery("SELECT count(userstats.`mailid`) as total,  userstats.sent, DATE_FORMAT(FROM_UNIXTIME(`senddate` - $diff), '%Y-%m-%d') AS senddate
-							FROM ".acymailing_table('userstats')." AS userstats
-							WHERE userstats.senddate > ".intval(time() - 2628000)."
-							GROUP BY userstats.sent, senddate
-							ORDER BY senddate DESC");
+		$db->setQuery("SELECT count(userstats.`mailid`) as total, DATE_FORMAT(FROM_UNIXTIME(`senddate`), '%Y-%m-%d') AS send_date,
+						SUM(CASE WHEN fail>0 THEN 1 ELSE 0 END) AS nbFailed
+						FROM ".acymailing_table('userstats')." AS userstats
+						WHERE userstats.senddate > ".intval(time() - 2628000)."
+						GROUP BY send_date
+						ORDER BY send_date DESC");
 
 		$newsletters = $db->loadObjectList();
 		$this->assignRef('newsletters', $newsletters);
+
 
 
 		$progressBarSteps = new stdClass();

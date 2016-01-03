@@ -9,6 +9,8 @@
 
 namespace CB\Plugin\GroupJiveWall\Table;
 
+use CB\Plugin\GroupJive\CBGroupJive;
+use CB\Plugin\GroupJiveWall\CBGroupJiveWall;
 use CBLib\Application\Application;
 use CBLib\Database\Table\Table;
 use CBLib\Language\CBTxt;
@@ -40,7 +42,7 @@ class WallTable extends Table
 	protected $_params		=	null;
 
 	/** @var array  */
-	protected $_regexp		=	array(	'link'		=>	'#^((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))$#i',
+	protected $_regexp		=	array(	'link'		=>	'#^((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]))$#i',
 										'email'		=>	'/^[a-z0-9!#$%&\'*+\\\\\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+\\\\\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i'
 									);
 
@@ -172,21 +174,7 @@ class WallTable extends Table
 	 */
 	public function group()
 	{
-		static $cache		=	array();
-
-		$id					=	$this->get( 'group' );
-
-		if ( ! isset( $cache[$id] ) ) {
-			$group			=	new GroupTable();
-
-			if ( $id ) {
-				$group->load( (int) $id );
-			}
-
-			$cache[$id]		=	$group;
-		}
-
-		return $cache[$id];
+		return CBGroupJive::getGroup( (int) $this->get( 'group' ) );
 	}
 
 	/**
@@ -194,21 +182,7 @@ class WallTable extends Table
 	 */
 	public function reply()
 	{
-		static $cache		=	array();
-
-		$id					=	$this->get( 'reply' );
-
-		if ( ! isset( $cache[$id] ) ) {
-			$reply			=	new WallTable();
-
-			if ( $id ) {
-				$reply->load( (int) $id );
-			}
-
-			$cache[$id]		=	$reply;
-		}
-
-		return $cache[$id];
+		return CBGroupJiveWall::getPost( (int) $this->get( 'reply' ) );
 	}
 
 	/**

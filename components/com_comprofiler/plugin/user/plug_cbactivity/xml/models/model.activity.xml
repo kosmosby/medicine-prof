@@ -9,6 +9,10 @@
 			<option value="1">Enable</option>
 			<option value="0">Disable</option>
 		</type>
+		<type name="activity_source" base="list" valuetype="string">
+			<option value="0">Activity</option>
+			<option value="1">Object</option>
+		</type>
 		<type name="activity_link_type" base="list" valuetype="string">
 			<option value="image">Image</option>
 			<option value="video">Video</option>

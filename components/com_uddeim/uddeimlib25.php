@@ -27,6 +27,7 @@ DEFINE ('_UDDEIM_GID_PUBLIC',		 0);
 // $groupsspecial
 
 jimport('joomla.utilities.date');
+jimport('joomla.utilities.utility');
 
 function uddeIMgetUserTZ() {
 	$JUser = JFactory::getUser();

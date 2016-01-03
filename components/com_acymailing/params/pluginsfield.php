@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,7 +18,7 @@ if(!ACYMAILING_J16){
 		function fetchElement($name, $value, &$node, $control_name){
 			$app = JFactory::getApplication();
 			$link = 'index.php?option=com_acymailing&ctrl='.($app->isAdmin() ? '' : 'front').'tag&task=plgtrigger&plg='.$value.'&fctName='.$value.'&tmpl=component';
-			$text = '<a class="modal" title="'.JText::_('ACY_CONFIGURATION').'" href="'.$link.'" rel="{handler: \'iframe\', size: {x: 800, y: 500}}"><button class="btn" onclick="return false">'.JText::_('CONFIGURATION').'</button></a>';
+			$text = '<a class="modal" title="'.JText::_('ACY_CONFIGURATION').'" href="'.$link.'" rel="{handler: \'iframe\', size: {x: 800, y: 500}}"><button class="btn" onclick="return false">'.JText::_('ACY_CONFIGURATION').'</button></a>';
 			return $text;
 		}
 	}
@@ -29,7 +29,7 @@ if(!ACYMAILING_J16){
 		function getInput(){
 			$app = JFactory::getApplication();
 			$link = 'index.php?option=com_acymailing&ctrl='.($app->isAdmin() ? '' : 'front').'tag&task=plgtrigger&plg='.$this->value.'&fctName='.$this->value.'&tmpl=component';
-			$text = '<a class="modal" title="'.JText::_('ACY_CONFIGURATION').'" href="'.$link.'" rel="{handler: \'iframe\', size: {x: 800, y: 500}}"><button class="btn" onclick="return false">'.JText::_('CONFIGURATION').'</button></a>';
+			$text = '<a class="modal" title="'.JText::_('ACY_CONFIGURATION').'" href="'.$link.'" rel="{handler: \'iframe\', size: {x: 800, y: 500}}"><button class="btn" onclick="return false">'.JText::_('ACY_CONFIGURATION').'</button></a>';
 			return $text;
 		}
 	}

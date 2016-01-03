@@ -13,45 +13,14 @@
 
 if (!(defined('_JEXEC') || defined('_VALID_MOS'))) { die( 'Direct Access to this location is not allowed.' ); }
 
-$xver = 0;
 if ( defined( 'JPATH_ADMINISTRATOR' ) ) {
-	$ver = new JVersion();
-	if (!strncasecmp($ver->RELEASE, "3.3", 3)) {
-		require_once(JPATH_SITE.'/components/com_uddeim/uddeimlib33.php');
-		require_once(JPATH_SITE.'/administrator/components/com_uddeim/admin.uddeimlib33.php');
-	} elseif (!strncasecmp($ver->RELEASE, "3.2", 3)) {
-		require_once(JPATH_SITE.'/components/com_uddeim/uddeimlib32.php');
-		require_once(JPATH_SITE.'/administrator/components/com_uddeim/admin.uddeimlib32.php');
-	} elseif (!strncasecmp($ver->RELEASE, "3.1", 3)) {
-		require_once(JPATH_SITE.'/components/com_uddeim/uddeimlib31.php');
-		require_once(JPATH_SITE.'/administrator/components/com_uddeim/admin.uddeimlib31.php');
-	} elseif (!strncasecmp($ver->RELEASE, "3.0", 3)) {
-		require_once(JPATH_SITE.'/components/com_uddeim/uddeimlib30.php');
-		require_once(JPATH_SITE.'/administrator/components/com_uddeim/admin.uddeimlib30.php');
-		$xver = 3;
-	} elseif (!strncasecmp($ver->RELEASE, "2.5", 3)) {
-		require_once(JPATH_SITE.'/components/com_uddeim/uddeimlib25.php');
-		require_once(JPATH_SITE.'/administrator/components/com_uddeim/admin.uddeimlib25.php');
-	} elseif (!strncasecmp($ver->RELEASE, "1.5", 3)) {
-		require_once(JPATH_SITE.'/components/com_uddeim/uddeimlib15.php');
-		require_once(JPATH_SITE.'/administrator/components/com_uddeim/admin.uddeimlib15.php');
-	} elseif (!strncasecmp($ver->RELEASE, "1.6", 3)) {
-		require_once(JPATH_SITE.'/components/com_uddeim/uddeimlib16.php');
-		require_once(JPATH_SITE.'/administrator/components/com_uddeim/admin.uddeimlib16.php');
-	} elseif (!strncasecmp($ver->RELEASE, "1.7", 3)) {
-		require_once(JPATH_SITE.'/components/com_uddeim/uddeimlib17.php');
-		require_once(JPATH_SITE.'/administrator/components/com_uddeim/admin.uddeimlib17.php');
-	} else {
-		require_once(JPATH_SITE.'/components/com_uddeim/uddeimlib33.php');
-		require_once(JPATH_SITE.'/administrator/components/com_uddeim/admin.uddeimlib33.php');
-	}
+	require_once(JPATH_SITE.'/components/com_uddeim/uddeimlib.php');
+	require_once(JPATH_SITE.'/administrator/components/com_uddeim/admin.uddeimlib.php');
 } else {
 	global $mainframe;
-	require_once($mainframe->getPath('toolbar_default'));
-	require_once($mainframe->getCfg('absolute_path').'/components/com_uddeim/uddeimlib10.php');
-	require_once($mainframe->getCfg('absolute_path').'/administrator/components/com_uddeim/admin.uddeimlib10.php');
+	require_once($mainframe->getCfg('absolute_path').'/components/com_uddeim/uddeimlib.php');
+	require_once($mainframe->getCfg('absolute_path').'/administrator/components/com_uddeim/admin.uddeimlib.php');
 }
-
 require_once(uddeIMgetPath('absolute_path').'/administrator/components/com_uddeim/admin.shared.php');
 
 if (uddeIMcheckJversion()>=4) {	// Joomla >=2.5
@@ -137,7 +106,8 @@ switch ($task) {
 		break;
 	case "settings":
 	default:
-		if ($xver<3) {
+		if (strncasecmp($ver->RELEASE, "3.0", 3)) {		// if NOT Version 3.0 which had a bug
+//		if ($xver<3) {
 			mosMenuBar::startTable();
 	//		mosMenuBar::customX( 'usersettings', '../components/com_uddeim/images/user.png', '../components/com_uddeim/images/user.png', 'User settings', false );
 	//		mosMenuBar::customX( 'usersettings', 'user.png', 'user.png', 'User settings', false );

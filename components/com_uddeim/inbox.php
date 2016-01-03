@@ -211,7 +211,11 @@ function uddeIMshowInbox($myself, $item_id, $limit, $limitstart, $cryptpass, $co
 		$teasermessage=uddeIMteaser(stripslashes($teasermessage), $config->firstwordsinbox, $config->quotedivider, $config->languagecharset);
 		$teasermessage=htmlspecialchars($teasermessage, ENT_QUOTES, $config->charset);
 		$teasermessage=str_replace("&amp;#", "&#", $teasermessage);
+		$teasermessage=str_replace("&amp;&lt;/br&gt;", " ", $teasermessage);
+
 		$safemessage=htmlspecialchars(stripslashes($cm), ENT_QUOTES, $config->charset);
+		$safemessage=str_replace("&amp;#", "&#", $safemessage);
+		$safemessage=str_replace("&amp;&lt;/br&gt;", "</br>", $safemessage);
 
 		if ($themessage->cryptmode==2 || $themessage->cryptmode==4) {	// Message is encrypted, so go to enter password page
 			$messagecell="<a href='".uddeIMsefRelToAbs("index.php?option=com_uddeim&task=showpass&Itemid=".$item_id."&messageid=".$themessage->id)."'>".$teasermessage."</a>";
@@ -290,6 +294,8 @@ function uddeIMshowInbox($myself, $item_id, $limit, $limitstart, $cryptpass, $co
 		echo "<div id='uddeim-pagenav'>".$shownav."<br />";
 		echo "[<a href='".uddeIMsefRelToAbs("index.php?option=com_uddeim&task=inbox&Itemid=".$item_id."&limitstart=0&limit=".$totalinbox.$addlink.$addlink2)."'>"._UDDEIM_SHOWALL."</a>]";
 		echo "</div>\n";
+	} else {
+		echo "<div id='uddeim-pagenav'></div>\n";
 	}
 
 	$showinboxlimit_borderbottom = "";
@@ -358,6 +364,8 @@ function uddeIMshowMessage($myself, $item_id, $messageid, $isforward, $cryptpass
 		// echo str_replace("&amp;#", "&#", nl2br(htmlspecialchars(stripslashes($cm), ENT_QUOTES, $config->charset)));
 		$dmessage = nl2br(htmlspecialchars(stripslashes($cm), ENT_QUOTES, $config->charset));
 		$dmessage = str_replace("&amp;#", "&#", $dmessage);		// unicode workaround
+		$dmessage = str_replace("&amp;&lt;/br&gt;", "</br>", $dmessage);
+		
 		// if system message or bbcodes allowed, call parser
 		if ($displaymessage->systemflag || $config->allowbb)
 			$dmessage = uddeIMbbcode_replace($dmessage, $config);
@@ -666,7 +674,7 @@ function uddeIMforwardPass($myself, $item_id, $messageid, $config) {
 function uddeIMdeleteMessageInbox($myself, $messageid, $limit, $limitstart, $item_id, $ret, $config) {
 	// Delete sets trash flag to true (it does not erase the message from the db, this is only done by PRUNING the messages. So messages deleted from the inbox will be moved to the trash can of the respective user
 	$deletetime=uddetime($config->timezone);
-	uddeIMupdateToread($myself, $messageid, 1);
+	// uddeIMupdateToread($myself, $messageid, 1);
 	uddeIMdeleteMessageFromInbox($myself, $messageid, $deletetime);
 	
 	if ($ret=='archive' && $config->allowarchive) {
@@ -687,7 +695,7 @@ function uddeIMdeleteInbox($myself, $item_id, $arcmes, $limit, $limitstart, $con
 	for ($i = 0; $i <= ($n-1); $i++) {
 		$rightnow=uddetime($config->timezone);
 		if ($arcmes[$i]>0) {
-			uddeIMupdateToread($myself, $arcmes[$i], 1);
+			// uddeIMupdateToread($myself, $arcmes[$i], 1);
 			uddeIMdeleteMessageFromInbox($myself, $arcmes[$i], $rightnow);
 			// when it is a message from me to me and I trash the message then also trash the message from the outbox
 //			$sql="UPDATE #__uddeim SET totrashoutbox=1, totrashdateoutbox=".$rightnow." WHERE toid=fromid AND toid=".(int)$myself." AND id=".(int)$arcmes[$i];

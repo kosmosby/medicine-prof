@@ -100,7 +100,6 @@ class OpenfireController extends JControllerLegacy
         $phonesService = new PhonesService();
 
         echo(json_encode($phonesService->findExistingContacts($user, $contactNames, $contactPhones)));
-
         exit;
     }
 }

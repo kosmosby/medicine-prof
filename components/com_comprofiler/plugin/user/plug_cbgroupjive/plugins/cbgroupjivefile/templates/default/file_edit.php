@@ -49,7 +49,7 @@ class HTML_groupjiveFileEdit
 									.		'<form action="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'file', 'func' => 'save', 'id' => (int) $row->get( 'id' ) ) ) . '" method="post" enctype="multipart/form-data" name="gjFileEditForm" id="gjFileEditForm" class="cb_form gjFileEditForm form-auto cbValidation">'
 									.			( $pageTitle ? '<div class="gjFileEditTitle page-header"><h3>' . $pageTitle . '</h3></div>' : null );
 
-		if ( $isModerator || $canModerate || ( $row->get( 'published' ) != -1 ) || ( $group->params()->get( 'file', 1 ) != 2 ) ) {
+		if ( $isModerator || $canModerate || ( $row->get( 'id' ) && ( $row->get( 'published' ) != -1 ) ) || ( $group->params()->get( 'file', 1 ) != 2 ) ) {
 			$return					.=			'<div class="cbft_select cbtt_select form-group cb_form_line clearfix">'
 									.				'<label for="published" class="col-sm-3 control-label">' . CBTxt::T( 'Published' ) . '</label>'
 									.				'<div class="cb_field col-sm-9">'

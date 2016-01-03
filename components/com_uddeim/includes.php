@@ -696,6 +696,23 @@ function uddeIMprintMenu($myself, $uddeaction, $item_id, $config) {
 		echo "</a>";
 		echo "</li>\n";
 	}
+	
+	// Add menu forum Kunena 
+	if (uddeIMcheckKU() && in_array($config->showmenulink, array(5, 9, 11, 12))) {
+		$cnt = ""; 
+		echo "<li>"; 
+		echo "<a href='".uddeIMsefRelToAbs("index.php?option=com_kunena")."'>";
+		// echo "<a href='/forum/recent' />"; 
+		if ($config->showmenuicons==1 || $config->showmenuicons==2)
+			echo "<img src='".$pathtosite."/components/com_uddeim/templates/".$config->templatedir."/images/icon_next.gif' border='0' alt='"._UDDEIM_KUNENA_LINK."' />"; 
+		if ($config->showmenuicons==0 || $config->showmenuicons==1)
+			echo _UDDEIM_KUNENA_LINK;
+		echo $cnt; 
+		echo "</a>"; 
+		echo "</li>\n"; 
+	}
+	// End of add menu forum Kunena
+
 	echo "</ul></div>\n";
 }
 
@@ -1263,6 +1280,7 @@ function uddeIMdoSmileysExHeight($config) {
 function uddeIMdoSmileysEx($config) {
 	$pathtouser  = uddeIMgetPath('user');
 	$pathtosite  = uddeIMgetPath('live_site');
+	$num = 0;
 	if ($config->allowsmile) {
 		// test, if "animated" exists
 		// $testpath1 = $pathtouser."/templates/".$config->templatedir."/animated";
@@ -1286,7 +1304,6 @@ function uddeIMdoSmileysEx($config) {
 			echo("<div id='uddeim-smileybox-popup'>");
 			echo("<table border='1' cellpadding='2' cellspacing='0'>");
 
-			$num = 0;
 			$maxcols = 8;
 			unset($ff);
 			$folder=opendir ($smileys);
@@ -1334,6 +1351,7 @@ function uddeIMdoSmileysEx($config) {
 			echo("</script>\n");
 		}
 	}
+	return $num;
 }
 
 function uddeIMdoBB($config) {
@@ -1379,7 +1397,7 @@ function uddeIMdoBB($config) {
 	}
 }
 
-function uddeIMdoSmileys($config) {
+function uddeIMdoSmileys($config, $num) {
 	$pathtouser  = uddeIMgetPath('user');
 	$pathtosite  = uddeIMgetPath('live_site');
 	if ($config->allowsmile) {
@@ -1413,9 +1431,11 @@ function uddeIMdoSmileys($config) {
 					<?php 
 						if ($config->animated && $config->animatedex && is_dir($testpath2)) {
 							$height=uddeIMdoSmileysExHeight($config);
+							if ($num>0) {
 					?>
-					<td><a href="#" onclick="uddeimWindowOpen('uddeIM','width=466,height=<?php echo $height;?>,status=no,toolbar=no,scrollbars=no,dependent=yes,location=no,menubar=no,resizable=yes'); return false;"><?php echo _UDDEIM_MORE;?></a></td>
+								<td><a href="#" onclick="uddeimWindowOpen('uddeIM','width=466,height=<?php echo $height;?>,status=no,toolbar=no,scrollbars=no,dependent=yes,location=no,menubar=no,resizable=yes'); return false;"><?php echo _UDDEIM_MORE;?></a></td>
 					<?php 
+							}
 						}
 					?>
 				</tr>
@@ -1839,9 +1859,9 @@ function uddeIMdrawWriteform($myself, $my_gid, $item_id, $backto, $recipname, $p
 
 	if($config->allowbb || $config->allowsmile) {
 		uddeIMaddScript($pathtosite."/components/com_uddeim/js/bbsmile.js");
-		uddeIMdoSmileysEx($config);
+		$num = uddeIMdoSmileysEx($config);
 		uddeIMdoBB($config);
-		uddeIMdoSmileys($config);
+		uddeIMdoSmileys($config, $num);
 	}
 
 // well, I think the complete textarea should be red (or only the label? or both?)

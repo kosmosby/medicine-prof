@@ -160,6 +160,20 @@ class FileTable extends Table
 
 			$this->set( 'file', $newFileName );
 			$this->set( 'filename', $fileName );
+
+			$params					=	$this->params();
+
+			$params->unsetEntry( 'name' );
+			$params->unsetEntry( 'extension' );
+			$params->unsetEntry( 'mimetype' );
+			$params->unsetEntry( 'filesize' );
+
+			$params->set( 'name', $this->name() );
+			$params->set( 'extension', $this->extension() );
+			$params->set( 'mimetype', $this->mimeType() );
+			$params->set( 'filesize', $this->size( true ) );
+
+			$this->set( 'params', $params->asJson() );
 		} elseif ( ! $this->get( 'filename' ) ) {
 			$this->set( 'filename', $this->get( 'file' ) );
 		}
@@ -244,21 +258,7 @@ class FileTable extends Table
 	 */
 	public function group()
 	{
-		static $cache		=	array();
-
-		$id					=	$this->get( 'group' );
-
-		if ( ! isset( $cache[$id] ) ) {
-			$group			=	new GroupTable();
-
-			if ( $id ) {
-				$group->load( (int) $id );
-			}
-
-			$cache[$id]		=	$group;
-		}
-
-		return $cache[$id];
+		return CBGroupJive::getGroup( (int) $this->get( 'group' ) );
 	}
 
 	/**
@@ -312,9 +312,9 @@ class FileTable extends Table
 		$id						=	$this->path();
 
 		if ( ! isset( $cache[$id] ) ) {
-			$fileSize			=	0;
+			$fileSize			=	(int) $this->params()->get( 'filesize', 0 );
 
-			if ( $this->exists() ) {
+			if ( ( ! $fileSize ) && $this->exists() ) {
 				$fileSize		=	@filesize( $id );
 			}
 
@@ -340,7 +340,13 @@ class FileTable extends Table
 		$id					=	$this->path();
 
 		if ( ! isset( $cache[$id] ) ) {
-			$cache[$id]		=	strtolower( pathinfo( preg_replace( '/[^-a-zA-Z0-9_.]/', '', $id ), PATHINFO_EXTENSION ) );
+			$extension		=	$this->params()->get( 'extension' );
+
+			if ( ! $extension ) {
+				$extension	=	strtolower( pathinfo( preg_replace( '/[^-a-zA-Z0-9_.]/', '', $id ), PATHINFO_EXTENSION ) );
+			}
+
+			$cache[$id]		=	$extension;
 		}
 
 		return $cache[$id];
@@ -359,7 +365,13 @@ class FileTable extends Table
 		$id					=	$this->extension();
 
 		if ( ! isset( $cache[$id] ) ) {
-			$cache[$id]		=	cbGetMimeFromExt( $id );
+			$mimeType		=	$this->params()->get( 'mimetype' );
+
+			if ( ! $mimeType ) {
+				$mimeType	=	cbGetMimeFromExt( $id );
+			}
+
+			$cache[$id]		=	$mimeType;
 		}
 
 		return $cache[$id];
@@ -377,13 +389,19 @@ class FileTable extends Table
 		$id						=	$this->path();
 
 		if ( ! isset( $cache[$id] ) ) {
-			$extension			=	$this->extension();
+			$name				=	$this->params()->get( 'name' );
 
-			if ( $this->get( 'filename' ) ) {
-				$cache[$id]		=	Get::clean( pathinfo( $this->get( 'filename' ), PATHINFO_FILENAME ), GetterInterface::STRING ) . '.' . $extension;
-			} else {
-				$cache[$id]		=	preg_replace( '/[^-a-zA-Z0-9_.]/', '', pathinfo( $id, PATHINFO_FILENAME ) ) . '.' . $extension;
+			if ( ! $name ) {
+				$extension		=	$this->extension();
+
+				if ( $this->get( 'filename' ) ) {
+					$name		=	Get::clean( pathinfo( $this->get( 'filename' ), PATHINFO_FILENAME ), GetterInterface::STRING ) . '.' . $extension;
+				} else {
+					$name		=	preg_replace( '/[^-a-zA-Z0-9_.]/', '', pathinfo( $id, PATHINFO_FILENAME ) ) . '.' . $extension;
+				}
 			}
+
+			$cache[$id]			=	$name;
 		}
 
 		return $cache[$id];
@@ -527,5 +545,89 @@ class FileTable extends Table
 		fclose( $file );
 
 		exit();
+	}
+
+	/**
+	 * Returns the fontawesome icon based off extension and that extensions mimetype
+	 *
+	 * @return string
+	 */
+	public function icon()
+	{
+		$extension						=	$this->extension();
+		$type							=	'file-o';
+
+		if ( ! $extension ) {
+			return $type;
+		}
+
+		static $cache					=	array();
+
+		if ( ! isset( $cache[$extension] ) ) {
+			$mimeParts					=	explode( '/', $this->mimeType() );
+
+			switch ( $mimeParts[0] ) {
+				case 'text':
+					switch ( $extension ) {
+						case 'csv':
+							$type		=	'file-excel-o';
+							break;
+						case 'css':
+						case 'html':
+						case 'htm':
+							$type		=	'file-code-o';
+							break;
+						default:
+							$type		=	'file-text-o';
+							break;
+					}
+					break;
+				case 'video':
+					$type				=	'file-video-o';
+					break;
+				case 'audio':
+					$type				=	'file-audio-o';
+					break;
+				case 'image':
+					$type				=	'file-image-o';
+					break;
+				default:
+					switch ( $extension ) {
+						case 'pdf':
+							$type		=	'file-pdf-o';
+							break;
+						case 'zip':
+						case '7z':
+						case 'rar':
+						case 'tar':
+						case 'iso':
+							$type		=	'file-archive-o';
+							break;
+						case 'js':
+						case 'php':
+						case 'xml':
+						case 'java':
+							$type		=	'file-code-o';
+							break;
+						case 'ods':
+						case 'xls':
+						case 'xlsx':
+						case 'xlt':
+							$type		=	'file-excel-o';
+							break;
+						case 'doc':
+						case 'docx':
+						case 'odt':
+						case 'dot':
+							$type		=	'file-word-o';
+							break;
+					}
+					break;
+			}
+
+			$cache[$extension]			=	$type;
+		}
+
+		return $cache[$extension];
 	}
 }

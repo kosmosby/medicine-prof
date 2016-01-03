@@ -67,7 +67,7 @@ class OpenFireService
                          )", $link);
         }
         mysql_close($link);
-        return array("status"=>"OK", "user"=>$login."@medicine-prof.com", "password"=>$password);
+        return array("status"=>"OK", "user"=>$login."@medicine-prof.net", "password"=>$password);
     }
 
     public function filterContacts($phones, $user){

@@ -29,6 +29,10 @@ use CB\Plugin\Activity\Tags;
 
 if ( ! ( defined( '_VALID_CB' ) || defined( '_JEXEC' ) || defined( '_VALID_MOS' ) ) ) { die( 'Direct Access to this location is not allowed.' ); }
 
+global $_PLUGINS;
+
+$_PLUGINS->loadPluginGroup( 'user' );
+
 class CBplug_cbactivity extends cbPluginHandler
 {
 
@@ -951,30 +955,46 @@ class CBplug_cbactivity extends cbPluginHandler
 		}
 
 		if ( $showTags ) {
-			$tags						=	$this->input( 'tags', array(), GetterInterface::RAW );
 			$tagsStream					=	$row->tags( $stream->source() );
 
-			foreach ( $tagsStream->data() as $tag ) {
-				/** @var TagTable $tag */
-				if ( ! in_array( $tag->get( 'user' ), $tags ) ) {
-					$tagsStream->remove( (int) $tag->get( 'id' ) );
-				} else {
-					$key				=	array_search( $tag->get( 'user' ), $tags );
+			if ( $tagsStream ) {
+				$tags					=	$this->input( 'tags', array(), GetterInterface::RAW );
 
-					if ( $key !== false ) {
-						unset( $tags[$key] );
+				foreach ( $tagsStream->data() as $tag ) {
+					/** @var TagTable $tag */
+					if ( ! in_array( $tag->get( 'user' ), $tags ) ) {
+						$tag->delete();
+
+						$tagsStream->resetData();
+					} else {
+						$key			=	array_search( $tag->get( 'user' ), $tags );
+
+						if ( $key !== false ) {
+							unset( $tags[$key] );
+						}
 					}
 				}
-			}
 
-			foreach ( $tags as $tagUser ) {
-				if ( is_numeric( $tagUser ) ) {
-					$tagUser			=	(int) $tagUser;
-				} else {
-					$tagUser			=	Get::clean( $tagUser, GetterInterface::STRING );
+				foreach ( $tags as $tagUser ) {
+					if ( is_numeric( $tagUser ) ) {
+						$tagUser		=	(int) $tagUser;
+					} else {
+						$tagUser		=	Get::clean( $tagUser, GetterInterface::STRING );
+					}
+
+					$tag				=	new TagTable();
+
+					$tag->set( 'user_id', (int) $tagsStream->user()->get( 'id' ) );
+					$tag->set( 'type', $tagsStream->get( 'type', null, GetterInterface::STRING ) );
+					$tag->set( 'subtype', $tagsStream->get( 'subtype', null, GetterInterface::STRING ) );
+					$tag->set( 'item', $tagsStream->get( 'item', null, GetterInterface::STRING ) );
+					$tag->set( 'parent', $tagsStream->get( 'parent', null, GetterInterface::STRING ) );
+					$tag->set( 'user', $tagUser );
+
+					$tag->store();
+
+					$tagsStream->resetData();
 				}
-
-				$tagsStream->push( array( 'user' => $tagUser ) );
 			}
 		}
 

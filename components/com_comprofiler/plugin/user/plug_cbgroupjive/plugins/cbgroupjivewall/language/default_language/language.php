@@ -26,10 +26,11 @@ return	array(
 'DATE_DESC_bcfc6d'	=>	'Date DESC',
 'REPLIES_ASC_956301'	=>	'Replies ASC',
 'REPLIES_DESC_3adf62'	=>	'Replies DESC',
-// 3 language strings from file cbgroupjivewall/cbgroupjivewall.php
+// 4 language strings from file cbgroupjivewall/cbgroupjivewall.php
+'WALL_94e8a4'	=>	'Wall',
+'ADD_NEW_POST_TO_GROUP_b327ed'	=>	'Add New Post to Group',
 'ENABLE_WITH_APPROVAL_575b45'	=>	'Enable, with Approval',
 'OPTIONALLY_ENABLE_OR_DISABLE_USAGE_OF_THE_WALL_GRO_366897'	=>	'Optionally enable or disable usage of the wall. Group owner and group administrators are exempt from this configuration and can always post. Note existing posts will still be accessible.',
-'WALL_94e8a4'	=>	'Wall',
 // 25 language strings from file cbgroupjivewall/component.cbgroupjivewall.php
 'YOU_DO_NOT_HAVE_SUFFICIENT_PERMISSIONS_TO_POST_IN__66053b'	=>	'You do not have sufficient permissions to post in this group.',
 'YOU_DO_NOT_HAVE_SUFFICIENT_PERMISSIONS_TO_EDIT_THI_580f05'	=>	'You do not have sufficient permissions to edit this post.',
@@ -64,6 +65,8 @@ return	array(
 'POST_NOT_SPECIFIED_d7239e'	=>	'Post not specified!',
 'GROUP_DOES_NOT_EXIST_adf2fd'	=>	'Group does not exist!',
 'REPLY_DOES_NOT_EXIST_84b465'	=>	'Reply does not exist!',
+// 1 language strings from file cbgroupjivewall/templates/default/activity.php
+'GROUP_WALL_ACTIVITY_TITLE'	=>	'posted in [group]',
 // 5 language strings from file cbgroupjivewall/templates/default/replies.php
 'SEE_MORE_1f7e18'	=>	'See More',
 'ARE_YOU_SURE_YOU_WANT_TO_UNPUBLISH_THIS_POST_ed089a'	=>	'Are you sure you want to unpublish this Post?',

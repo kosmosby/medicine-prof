@@ -209,6 +209,30 @@ class PhotoTable extends Table
 
 				$this->set( 'image', $newFileName );
 				$this->set( 'filename', $fileName );
+
+				$params				=	$this->params();
+
+				$params->unsetEntry( 'name' );
+				$params->unsetEntry( 'extension' );
+				$params->unsetEntry( 'mimetype' );
+				$params->unsetEntry( 'filesize' );
+				$params->unsetEntry( 'filesize_thumbnail' );
+				$params->unsetEntry( 'height' );
+				$params->unsetEntry( 'width' );
+				$params->unsetEntry( 'height_thumbnail' );
+				$params->unsetEntry( 'width_thumbnail' );
+
+				$params->set( 'name', $this->name() );
+				$params->set( 'extension', $this->extension() );
+				$params->set( 'mimetype', $this->mimeType() );
+				$params->set( 'filesize', $this->size( true ) );
+				$params->set( 'filesize_thumbnail', $this->size( true, true ) );
+				$params->set( 'height', $this->height() );
+				$params->set( 'width', $this->width() );
+				$params->set( 'height_thumbnail', $this->height( true ) );
+				$params->set( 'width_thumbnail', $this->width( true ) );
+
+				$this->set( 'params', $params->asJson() );
 			} catch ( Exception $e ) {
 				$this->setError( $e->getMessage() );
 
@@ -306,21 +330,7 @@ class PhotoTable extends Table
 	 */
 	public function group()
 	{
-		static $cache		=	array();
-
-		$id					=	$this->get( 'group' );
-
-		if ( ! isset( $cache[$id] ) ) {
-			$group			=	new GroupTable();
-
-			if ( $id ) {
-				$group->load( (int) $id );
-			}
-
-			$cache[$id]		=	$group;
-		}
-
-		return $cache[$id];
+		return CBGroupJive::getGroup( (int) $this->get( 'group' ) );
 	}
 
 	/**
@@ -377,9 +387,9 @@ class PhotoTable extends Table
 		$id						=	$this->path( $thumbnail );
 
 		if ( ! isset( $cache[$id] ) ) {
-			$fileSize			=	0;
+			$fileSize			=	(int) $this->params()->get( ( $thumbnail ? 'filesize_thumbnail' : 'filesize' ), 0 );
 
-			if ( $this->exists() ) {
+			if ( ( ! $fileSize ) && $this->exists() ) {
 				$fileSize		=	@filesize( $id );
 			}
 
@@ -405,7 +415,13 @@ class PhotoTable extends Table
 		$id					=	$this->path();
 
 		if ( ! isset( $cache[$id] ) ) {
-			$cache[$id]		=	strtolower( pathinfo( preg_replace( '/[^-a-zA-Z0-9_.]/', '', $id ), PATHINFO_EXTENSION ) );
+			$extension		=	$this->params()->get( 'extension' );
+
+			if ( ! $extension ) {
+				$extension	=	strtolower( pathinfo( preg_replace( '/[^-a-zA-Z0-9_.]/', '', $id ), PATHINFO_EXTENSION ) );
+			}
+
+			$cache[$id]		=	$extension;
 		}
 
 		return $cache[$id];
@@ -424,7 +440,13 @@ class PhotoTable extends Table
 		$id					=	$this->extension();
 
 		if ( ! isset( $cache[$id] ) ) {
-			$cache[$id]		=	cbGetMimeFromExt( $id );
+			$mimeType		=	$this->params()->get( 'mimetype' );
+
+			if ( ! $mimeType ) {
+				$mimeType	=	cbGetMimeFromExt( $id );
+			}
+
+			$cache[$id]		=	$mimeType;
 		}
 
 		return $cache[$id];
@@ -442,13 +464,77 @@ class PhotoTable extends Table
 		$id						=	$this->path();
 
 		if ( ! isset( $cache[$id] ) ) {
-			$extension			=	$this->extension();
+			$name				=	$this->params()->get( 'name' );
 
-			if ( $this->get( 'filename' ) ) {
-				$cache[$id]		=	Get::clean( pathinfo( $this->get( 'filename' ), PATHINFO_FILENAME ), GetterInterface::STRING ) . '.' . $extension;
-			} else {
-				$cache[$id]		=	preg_replace( '/[^-a-zA-Z0-9_.]/', '', pathinfo( $id, PATHINFO_FILENAME ) ) . '.' . $extension;
+			if ( ! $name ) {
+				$extension		=	$this->extension();
+
+				if ( $this->get( 'filename' ) ) {
+					$name		=	Get::clean( pathinfo( $this->get( 'filename' ), PATHINFO_FILENAME ), GetterInterface::STRING ) . '.' . $extension;
+				} else {
+					$name		=	preg_replace( '/[^-a-zA-Z0-9_.]/', '', pathinfo( $id, PATHINFO_FILENAME ) ) . '.' . $extension;
+				}
 			}
+
+			$cache[$id]			=	$name;
+		}
+
+		return $cache[$id];
+	}
+
+	/**
+	 * Returns the image height cleaned of the unique id
+	 *
+	 * @param bool $thumbnail
+	 * @return int
+	 */
+	public function height( $thumbnail = false )
+	{
+		static $cache			=	array();
+
+		$id						=	$this->path( $thumbnail );
+
+		if ( ! isset( $cache[$id] ) ) {
+			$height				=	(int) $this->params()->get( ( $thumbnail ? 'height_thumbnail' : 'height' ), 0 );
+
+			if ( ( ! $height ) && $this->exists() ) {
+				$size			=	@getimagesize( $id );
+
+				if ( $size !== false ) {
+					$height		=	(int) $size[1];
+				}
+			}
+
+			$cache[$id]			=	$height;
+		}
+
+		return $cache[$id];
+	}
+
+	/**
+	 * Returns the image width cleaned of the unique id
+	 *
+	 * @param bool $thumbnail
+	 * @return int
+	 */
+	public function width( $thumbnail = false )
+	{
+		static $cache			=	array();
+
+		$id						=	$this->path( $thumbnail );
+
+		if ( ! isset( $cache[$id] ) ) {
+			$width				=	(int) $this->params()->get( ( $thumbnail ? 'width_thumbnail' : 'width' ), 0 );
+
+			if ( ( ! $width ) && $this->exists() ) {
+				$size			=	@getimagesize( $id );
+
+				if ( $size !== false ) {
+					$width		=	(int) $size[0];
+				}
+			}
+
+			$cache[$id]			=	$width;
 		}
 
 		return $cache[$id];

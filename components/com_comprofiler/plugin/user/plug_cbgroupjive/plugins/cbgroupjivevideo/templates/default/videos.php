@@ -94,9 +94,9 @@ class HTML_groupjiveVideo
 										.						'<div class="gjContainerBoxCounters text-muted small row">'
 										.							'<div class="gjGroupVideoPublisher gjContainerBoxCounter col-sm-6">' . CBuser::getInstance( (int) $row->get( 'user_id' ), false )->getField( 'formatname', null, 'html', 'none', 'list', 0, true ) . '</div>'
 										.							'<div class="gjContainerBoxCounter col-sm-6 text-right">'
-											.							'<span title="' . htmlspecialchars( $row->get( 'date' ) ) . '">'
-											.								cbFormatDate( $row->get( 'date' ), true, false, CBTxt::T( 'GROUP_VIDEO_DATE_FORMAT', 'M j, Y' ) )
-											.							'</span>'
+										.								'<span title="' . htmlspecialchars( $row->get( 'date' ) ) . '">'
+										.									cbFormatDate( $row->get( 'date' ), true, false, CBTxt::T( 'GROUP_VIDEO_DATE_FORMAT', 'M j, Y' ) )
+										.								'</span>'
 										.							'</div>'
 										.							( $rowCounters ? '<div class="gjContainerBoxCounter col-sm-6">' . implode( '</div><div class="gjContainerBoxCounter col-sm-6">', $rowCounters ) . '</div>' : null )
 										.						'</div>'
@@ -121,7 +121,7 @@ class HTML_groupjiveVideo
 						if ( $isModerator || $isOwner || ( $userStatus >= 2 ) ) {
 							$menuItems	.=		'<li class="gjVideoMenuItem"><a href="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'video', 'func' => 'publish', 'id' => (int) $row->get( 'id' ) ) ) . '"><span class="fa fa-check"></span> ' . CBTxt::T( 'Approve' ) . '</a></li>';
 						}
-					} elseif ( $row->get( 'published' ) > 0 ) {
+					} elseif ( $row->get( 'published' ) == 1 ) {
 						$menuItems		.=		'<li class="gjVideoMenuItem"><a href="javascript: void(0);" onclick="cbjQuery.cbconfirm( \'' . addslashes( CBTxt::T( 'Are you sure you want to unpublish this Video?' ) ) . '\' ).done( function() { window.location.href = \'' . $_CB_framework->pluginClassUrl( $plugin->element, false, array( 'action' => 'video', 'func' => 'unpublish', 'id' => (int) $row->get( 'id' ) ) ) . '\'; })"><span class="fa fa-times-circle"></span> ' . CBTxt::T( 'Unpublish' ) . '</a></li>';
 					} else {
 						$menuItems		.=		'<li class="gjVideoMenuItem"><a href="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'video', 'func' => 'publish', 'id' => (int) $row->get( 'id' ) ) ) . '"><span class="fa fa-check"></span> ' . CBTxt::T( 'Publish' ) . '</a></li>';

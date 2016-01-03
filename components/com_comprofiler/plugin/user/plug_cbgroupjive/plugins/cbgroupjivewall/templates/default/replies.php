@@ -109,7 +109,7 @@ class HTML_groupjiveWallReplies
 						if ( $isModerator || $isOwner || ( $userStatus >= 2 ) ) {
 							$menuItems		.=		'<li class="gjWallMenuItem"><a href="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'wall', 'func' => 'publish', 'id' => (int) $row->get( 'id' ) ) ) . '"><span class="fa fa-check"></span> ' . CBTxt::T( 'Approve' ) . '</a></li>';
 						}
-					} elseif ( $row->get( 'published' ) > 0 ) {
+					} elseif ( $row->get( 'published' ) == 1 ) {
 						$menuItems			.=		'<li class="gjWallMenuItem"><a href="javascript: void(0);" onclick="cbjQuery.cbconfirm( \'' . addslashes( CBTxt::T( 'Are you sure you want to unpublish this Post?' ) ) . '\' ).done( function() { window.location.href = \'' . $_CB_framework->pluginClassUrl( $plugin->element, false, array( 'action' => 'wall', 'func' => 'unpublish', 'id' => (int) $row->get( 'id' ) ) ) . '\'; })"><span class="fa fa-times-circle"></span> ' . CBTxt::T( 'Unpublish' ) . '</a></li>';
 					} else {
 						$menuItems			.=		'<li class="gjWallMenuItem"><a href="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'wall', 'func' => 'publish', 'id' => (int) $row->get( 'id' ) ) ) . '"><span class="fa fa-check"></span> ' . CBTxt::T( 'Publish' ) . '</a></li>';
@@ -137,34 +137,34 @@ class HTML_groupjiveWallReplies
 		}
 
 		if ( $plugin->params->get( 'groups_wall_paging', 1 ) && ( $pageNav->total > $pageNav->limit ) ) {
-			$return							.=		'<div class="gjGroupWallRow gjGroupWallPaging text-center">'
-											.			'<form action="' . $_CB_framework->pluginClassUrl( $plugin->_gjPlugin->element, true, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $group->get( 'id' ) ) ) . '" method="post" name="gjGroupWallFormPaging" id="gjGroupWallFormPaging" class="gjGroupWallForm">'
-											.				$pageNav->getListLinks()
-											.				$pageNav->getLimitBox( false )
-											.			'</form>'
-											.		'</div>';
+			$return							.=			'<div class="gjGroupWallRow gjGroupWallPaging text-center">'
+											.				'<form action="' . $_CB_framework->pluginClassUrl( $plugin->_gjPlugin->element, true, array( 'action' => 'groups', 'func' => 'show', 'id' => (int) $group->get( 'id' ) ) ) . '" method="post" name="gjGroupWallFormPaging" id="gjGroupWallFormPaging" class="gjGroupWallForm">'
+											.					$pageNav->getListLinks()
+											.					$pageNav->getLimitBox( false )
+											.				'</form>'
+											.			'</div>';
 		}
 
 		if ( $canCreate ) {
-			$return							.=		'<div class="gjGroupWallRow gjGroupWallNewReply">'
-											.			'<form action="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'wall', 'func' => 'save' ) ) . '" method="post" name="gjGroupWallFormNewReply' . (int) $reply->get( 'id' ) . '" id="gjGroupWallFormNewReply' . (int) $reply->get( 'id' ) . '" class="gjGroupWallForm cbValidation">';
+			$return							.=			'<div class="gjGroupWallRow gjGroupWallNewReply">'
+											.				'<form action="' . $_CB_framework->pluginClassUrl( $plugin->element, true, array( 'action' => 'wall', 'func' => 'save' ) ) . '" method="post" name="gjGroupWallFormNewReply' . (int) $reply->get( 'id' ) . '" id="gjGroupWallFormNewReply' . (int) $reply->get( 'id' ) . '" class="gjGroupWallForm cbValidation">';
 
 			if ( $messageLimit ) {
-				$return						.=				'<div class="gjGroupWallLimit small hidden">'
-											.					'<div class="gjGroupWallLimitCurrent">0</div>'
-											.					' / <div class="gjGroupWallLimitMax">' . (int) $messageLimit . '</div>'
-											.				'</div>';
+				$return						.=					'<div class="gjGroupWallLimit small hidden">'
+											.						'<div class="gjGroupWallLimitCurrent">0</div>'
+											.						' / <div class="gjGroupWallLimitMax">' . (int) $messageLimit . '</div>'
+											.					'</div>';
 			}
 
-			$return							.=				'<textarea name="post" rows="1" class="form-control required" placeholder="' . htmlspecialchars( CBTxt::T( 'Write a reply...' ) ) . '"' . ( $messageLimit ? ' maxlength="' . (int) $messageLimit . '"' : null ) . '></textarea>'
-											.				'<div class="gjGroupWallNewReplyFooter text-right hidden">'
-											.					'<button type="submit" class="gjButton gjButtonSubmit btn btn-primary btn-xs" ' . cbValidator::getSubmitBtnHtmlAttributes() . '>' . CBTxt::T( 'Reply' ) . '</button>'
-											.				'</div>'
-											.				'<input type="hidden" name="group" value="' . (int) $group->get( 'id' ) . '" />'
-											.				'<input type="hidden" name="reply" value="' . (int) $reply->get( 'id' ) . '" />'
-											.				cbGetSpoofInputTag( 'plugin' )
-											.			'</form>'
-											.		'</div>';
+			$return							.=					'<textarea name="post" rows="1" class="form-control required" placeholder="' . htmlspecialchars( CBTxt::T( 'Write a reply...' ) ) . '"' . ( $messageLimit ? ' maxlength="' . (int) $messageLimit . '"' : null ) . '></textarea>'
+											.					'<div class="gjGroupWallNewReplyFooter text-right hidden">'
+											.						'<button type="submit" class="gjButton gjButtonSubmit btn btn-primary btn-xs" ' . cbValidator::getSubmitBtnHtmlAttributes() . '>' . CBTxt::T( 'Reply' ) . '</button>'
+											.					'</div>'
+											.					'<input type="hidden" name="group" value="' . (int) $group->get( 'id' ) . '" />'
+											.					'<input type="hidden" name="reply" value="' . (int) $reply->get( 'id' ) . '" />'
+											.					cbGetSpoofInputTag( 'plugin' )
+											.				'</form>'
+											.			'</div>';
 		}
 
 		$return								.=		'</div>'

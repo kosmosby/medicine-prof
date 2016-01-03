@@ -1,7 +1,7 @@
 <?php
 /**
  * @package	AcyMailing for Joomla!
- * @version	5.0.0
+ * @version	5.0.1
  * @author	acyba.com
  * @copyright	(C) 2009-2015 ACYBA S.A.R.L. All rights reserved.
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -437,7 +437,24 @@ class plgAcymailingTagsubscription extends JPlugin{
 
 		$db = JFactory::getDBO();
 
-		if(in_array($type, array('news', 'autonews', 'followup'))){
+		if($type == 'followup'){
+			$db->setQuery('SELECT a.listid
+							FROM #__acymailing_listsub AS a
+							JOIN #__acymailing_listcampaign AS b
+								ON a.listid = b.listid
+							JOIN #__acymailing_listmail AS c
+								ON b.campaignid = c.listid
+							WHERE a.subid = '.intval($subid).'
+								AND c.mailid = '.intval($mailid).'
+							ORDER BY a.status DESC LIMIT 1');
+			$listid = $db->loadResult();
+			if(!empty($listid)){
+				$this->lists[$mailid][$subid] = $listid;
+				return $listid;
+			}
+		}
+
+		if(in_array($type, array('news', 'autonews'))){
 			if(!empty($subid)){
 				$db->setQuery('SELECT a.listid FROM #__acymailing_listsub as a JOIN #__acymailing_listmail as b ON a.listid = b.listid WHERE a.subid = '.intval($subid).' AND b.mailid = '.intval($mailid).' ORDER BY a.status DESC LIMIT 1');
 				$listid = $db->loadResult();

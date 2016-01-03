@@ -74,6 +74,11 @@
 								</param>
 								<param name="type" type="xml:groupjive_type" label="Type" default="1" blanktext="" display="2lines" description="Select the group type. Type determines the way your group is joined (e.g. Invite requires new users to be invited to join your group)." />
 								<param name="user_id" type="user" label="Owner" size="5" validate="required" display="2lines" description="Input the group owner id. Group owner determines the creator of the group specified as User ID." />
+								<param name="ordering" type="ordering" value="name" label="Ordering" display="2lines" description="Select the ordering of this group.">
+									<orderinggroups>
+										<ordering name="category" type="int" />
+									</orderinggroups>
+								</param>
 							</gridrow>
 						</gridcol>
 					</grid>
