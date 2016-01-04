@@ -61,7 +61,7 @@ class PhonesServiceTest extends PHPUnit_Framework_TestCase
                 "phone" => Array(375333333333, 375293333333),
                 "name" => "test",
                 "phoneCanonical" => Array(375333333333, 375293333333),
-                "jabberUsername" => '375293333333@medicine-prof.com',
+                "jabberUsername" => '375293333333@medicine-prof.net',
                 "contactAdded" => false,
                 "contactExists" => true
             )

@@ -68,7 +68,7 @@ class PhonesService{
             $contactFound = false;
             for($i = 0 ; $i < count($contact["phoneCanonical"]); $i++) {
                 if (in_array($contact["phoneCanonical"][$i], $result)) {
-                    $contacts[$key]['jabberUsername'] = $contact["phoneCanonical"][$i] . "@medicine-prof.com";
+                    $contacts[$key]['jabberUsername'] = $contact["phoneCanonical"][$i] . "@medicine-prof.net";
                     $contacts[$key]['contactAdded'] = false;
                     $contacts[$key]['contactExists'] = true;
                     $contactFound = true;
