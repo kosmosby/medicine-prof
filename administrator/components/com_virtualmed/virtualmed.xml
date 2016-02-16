@@ -24,6 +24,9 @@
 		<filename>controller.php</filename>
 		<folder>views</folder>
 		<folder>models</folder>
+		<folder>bootstrap-treeview</folder>
+		<folder>css</folder>
+		<folder>js</folder>
 	</files>
 
 

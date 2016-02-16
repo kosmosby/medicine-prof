@@ -2,7 +2,7 @@
 
 /**
  * @package   	JCE
- * @copyright 	Copyright (c) 2009-2015 Ryan Demmer. All rights reserved.
+ * @copyright 	Copyright (c) 2009-2016 Ryan Demmer. All rights reserved.
  * @license   	GNU/GPL 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * JCE is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -595,6 +595,11 @@ class WFModelEditor extends WFModelBase {
                     $plugins[] = 'importcss';
                 }
 
+                // add hr
+                if (in_array('hr', $plugins) === false && strpos($this->profile->rows, 'hr') !== false) {
+                    $plugins[] = 'hr';
+                }
+
                 // add advlists plugin if lists are loaded
                 if (in_array('lists', $plugins)) {
                     $plugins[] = 'advlist';
@@ -841,8 +846,14 @@ class WFModelEditor extends WFModelBase {
                 $global_custom = str_replace('$template', $template, $global_custom);
 
                 foreach (explode(',', $global_custom) as $tmp) {
-                    $file = JPATH_SITE . '/' . $tmp;
-                    $list = array();
+                    $tmp    = trim($tmp);
+
+                    if (empty($tmp)) {
+                        continue;
+                    }
+
+                    $file   = JPATH_SITE . '/' . $tmp;
+                    $list   = array();
 
                     // check if path is a file
                     if (is_file($file)) {
@@ -1103,6 +1114,16 @@ class WFModelEditor extends WFModelBase {
                         $content = WF_EDITOR_PLUGINS . '/' . $plugin . '/css/content.css';
                         if (JFile::exists($content)) {
                             $files[] = $content;
+                        }
+                    }
+                } else if ($context == 'preview') {
+                    $files = array();
+                    $files[] = WF_EDITOR_PLUGINS . '/preview/css/preview.css';
+                    // get template stylesheets
+                    $styles = self::getStyleSheetsList(true);
+                    foreach ($styles as $style) {
+                        if (JFile::exists($style)) {
+                            $files[] = $style;
                         }
                     }
                 } else {

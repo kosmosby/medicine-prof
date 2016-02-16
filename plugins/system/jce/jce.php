@@ -32,26 +32,11 @@ class PlgSystemJce extends JPlugin {
     }
 
     protected function getLink() {
-        require_once(JPATH_ADMINISTRATOR . '/components/com_jce/models/model.php');
-
-        // check for class to prevent fatal errors
-        if (!class_exists('WFModel')) {
-            return false;
-        }
-
-        if (WFModel::authorize('browser') === false) {
-            return false;
-        }
-
         require_once(JPATH_ADMINISTRATOR . '/components/com_jce/helpers/browser.php');
 
-        $link = WFBrowserHelper::getBrowserLink('', 'images');
+        $link = WFBrowserHelper::getMediaFieldLink('', 'images');
 
-        if ($link) {
-            return $link;
-        }
-
-        return false;
+        return $link;
     }
 
     /**
@@ -66,7 +51,7 @@ class PlgSystemJce extends JPlugin {
      */
     public function onContentPrepareForm($form, $data) {
         $version = new JVersion;
-        
+
         if (!$version->isCompatible('3.4')) {
             return true;
         }
@@ -75,6 +60,24 @@ class PlgSystemJce extends JPlugin {
             $this->_subject->setError('JERROR_NOT_A_FORM');
 
             return false;
+        }
+        
+        // get form name.
+        $name = $form->getName();
+
+        $valid = array(
+            'com_content.article', 
+            'com_categories.categorycom_content', 
+            'com_templates.style', 
+            'com_tags.tag', 
+            'com_banners.banner', 
+            'com_contact.contact', 
+            'com_newsfeeds.newsfeed'
+        );
+
+        // only allow some forms :(
+        if (!in_array($name, $valid)) {
+            return true;
         }
 
         $config = JFactory::getConfig();
@@ -89,6 +92,7 @@ class PlgSystemJce extends JPlugin {
         }
 
         $link = $this->getLink();
+        $hasMedia = false;
 
         if ($link) {
             $fields = $form->getFieldset();
@@ -99,13 +103,22 @@ class PlgSystemJce extends JPlugin {
                 if (strtolower($type) === "media") {
                     $name   = $field->getAttribute('name');
                     $group  = (string) $field->group;
-
                     $form->setFieldAttribute($name, 'link', $link, $group);
+                    $form->setFieldAttribute($name, 'class', 'input-large wf-media-input', $group);
+
+                    $hasMedia = true;
                 }
+            }
+
+            if ($hasMedia) {
+                // Include jQuery
+                JHtml::_('jquery.framework');
+
+                $document = JFactory::getDocument();
+                $document->addScriptDeclaration('jQuery(document).ready(function($){$(".wf-media-input").removeAttr("readonly");});');
             }
         }
 
         return true;
     }
-
 }

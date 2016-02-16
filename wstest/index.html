@@ -1,0 +1,24 @@
+<script src="jquery-1.11.1.min.js"></script>
+<script src="client.js"></script>
+
+<div style="position: fixed; right: 0; top: 0; font-size: 120%; padding: 5px;">Status: <span style="font-weight: bold; font-size: 150%" id="status"></span></div>
+
+<div id="login">
+	<p>Select user</p>
+	<button data-action="user-login" data-token="03fa461e-ca3a-4f10-87bd-33749a276190">User1</button>
+	<button data-action="user-login" data-token="6b91a44b-f415-4d7f-b008-b38ef154f0a2">User2</button>
+	<button data-action="user-login" data-token="d7e65ee7-cec9-48e4-98f1-f942bd4ed546">User3</button>
+</div>
+<div id="logged" style="display: none">
+	<h1 id="user"></h1>
+
+	<div class="nocall">Waiting for call...</div>
+
+	<div class="oncall" style="display: none">
+		Call with <span style="font-weight: bold" class="peer"></span>
+		<div class="call-timer">
+			<div class="time"></div>
+		</div>
+		<button data-action="call-hangup">Hangup</button>
+	</div>
+</div>

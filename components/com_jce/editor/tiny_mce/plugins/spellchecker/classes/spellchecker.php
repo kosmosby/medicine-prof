@@ -2,7 +2,7 @@
 
 /**
  * @package   	JCE
- * @copyright 	Copyright (c) 2009-2015 Ryan Demmer. All rights reserved.
+ * @copyright 	Copyright (c) 2009-2016 Ryan Demmer. All rights reserved.
  * @license   	GNU/GPL 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * JCE is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -21,16 +21,15 @@ class WFSpellCheckerPlugin extends WFEditorPlugin {
     public function __construct() {
         parent::__construct();
 
-        $config = $this->getConfig();
         $engine = $this->getEngine();
-        
+
         if (!$engine) {
             self::error('No Spellchecker Engine available');
         }
 
         $request = WFRequest::getInstance();
 
-        // Setup plugin XHR callback functions 
+        // Setup plugin XHR callback functions
         $request->setRequest(array($engine, 'checkWords'));
         $request->setRequest(array($engine, 'getSuggestions'));
         $request->setRequest(array($engine, 'ignoreWord'));
@@ -43,51 +42,55 @@ class WFSpellCheckerPlugin extends WFEditorPlugin {
     private function getConfig() {
         static $config;
 
-        if (!is_array($config)) {
+        if (empty($config)) {
             $params = $this->getParams();
 
             $config = array(
-                'general.engine' => $params->get('spellchecker.engine', 'googlespell'),
                 // PSpell settings
                 'PSpell.mode' => $params->get('spellchecker.pspell_mode', 'PSPELL_FAST'),
                 'PSpell.spelling' => $params->get('spellchecker.pspell_spelling', ''),
                 'PSpell.jargon' => $params->get('spellchecker.pspell_jargon', ''),
                 'PSpell.encoding' => $params->get('spellchecker.pspell_encoding', ''),
-                'PSpell.dictionary' => JPATH_BASE . '/' . $params->get('spellchecker.pspell_dictionary', ''),
-                // PSpellShell settings
-                'PSpellShell.mode' => $params->get('spellchecker.pspellshell_mode', 'PSPELL_FAST'),
-                'PSpellShell.aspell' => $params->get('spellchecker.pspellshell_aspell', '/usr/bin/aspell'),
-                'PSpellShell.tmp' => $params->get('spellchecker.pspellshell_tmp', '/tmp')
+                'PSpell.dictionary' => JPATH_BASE . '/' . $params->get('spellchecker.pspell_dictionary', '')
             );
-            
-            // default to googlespell if browser
-            if ($config['general.engine'] == 'browser') {
-                $config['general.engine'] = 'googlespell';
-            }
         }
 
         return $config;
     }
 
     private function getEngine() {
-        static $engine;
+        static $instance;
 
-        $config = $this->getConfig();
+        if (!is_object($instance)) {
+            $params 	= $this->getParams();
+            $classname 	= "";
+            $config		= array();
 
-        if (!is_object($engine)) {
-            $classname = $config['general.engine'];
+            $engine = $params->get('spellchecker.engine', 'browser', 'browser');
 
-            $file = dirname(__FILE__) . '/' . $classname . ".php";
-            
-            if (is_file($file)) {
-                require_once($file);
-                $engine = new $classname($config);
+            if (($engine === "pspell" || $engine === "pspellshell") && function_exists("pspell_new")) {
+                $classname = 'PSpell';
+
+                $config = $this->getConfig();
+            }
+
+            if ($engine === "enchantspell" && function_exists("enchant_broker_init")) {
+                $classname = 'Enchantspell';
+            }
+
+            if (!empty($classname)) {
+                $file = dirname(__FILE__) . '/' . strtolower($classname) . ".php";
+
+                if (is_file($file)) {
+                    require_once($file);
+                    $instance = new $classname($config);
+                }
             }
         }
 
-        return $engine;
+        return $instance;
     }
-    
+
     private static function error($str) {
         die('{"result":null,"id":null,"error":{"errstr":"' . addslashes($str) . '","errfile":"","errline":null,"errcontext":"","level":"FATAL"}}');
     }
@@ -99,6 +102,8 @@ class WFSpellCheckerPlugin extends WFEditorPlugin {
  * @copyright Copyright (c) 2004-2007, Moxiecode Systems AB, All rights reserved.
  */
 class SpellChecker {
+
+    public function __construct() {}
 
     /**
      * Constructor.
@@ -113,7 +118,7 @@ class SpellChecker {
      * Simple loopback function everything that gets in will be send back.
      *
      * @param $args.. Arguments.
-     * @return {Array} Array of all input arguments. 
+     * @return {Array} Array of all input arguments.
      */
     protected function &loopback(/* args.. */) {
         return func_get_args();

@@ -2,7 +2,7 @@
 
 /**
  * @package   	JCE
- * @copyright 	Copyright (c) 2009-2015 Ryan Demmer. All rights reserved.
+ * @copyright 	Copyright (c) 2009-2016 Ryan Demmer. All rights reserved.
  * @license   	GNU/GPL 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * JCE is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -13,11 +13,6 @@ defined('_JEXEC') or die('RESTRICTED');
 
 // try to set time limit
 @set_time_limit(0);
-
-// try to increase memory limit
-if ((int) ini_get('memory_limit') < 32) {
-    @ini_set('memory_limit', '32M');
-}
 
 abstract class WFInstall {
     public static function install($installer) {
@@ -448,7 +443,7 @@ abstract class WFInstall {
                 $row->admin_menu_link = 'option=com_jce&view=' . $v;
 
                 if (!$row->store()) {
-                    $mainframe->enqueueMessage('Unable to update Component Links for view : ' . strtoupper($v), 'error');
+                    $app->enqueueMessage('Unable to update Component Links for view : ' . strtoupper($v), 'error');
                 }
             }
         }
@@ -965,6 +960,28 @@ abstract class WFInstall {
             }
         }
 
+        // transfer hr to a plugin
+        if (version_compare($version, '2.5.8', '<')) {
+            $profiles = self::getProfiles();
+            $table = JTable::getInstance('Profiles', 'WFTable');
+
+            if (!empty($profiles)) {
+                foreach ($profiles as $item) {
+                    $table->load($item->id);
+
+                    $plugins = explode(',', $table->plugins);
+
+                    if (strpos($table->rows, 'hr') !== false) {
+                        $plugins[] = 'hr';
+                    }
+
+                    $table->plugins = implode(',', $plugins);
+
+                    $table->store();
+                }
+            }
+        }
+
         return true;
     }
 
@@ -1024,9 +1041,10 @@ abstract class WFInstall {
         JTable::addIncludePath(JPATH_LIBRARIES . '/joomla/database/table');
 
         $packages = array(
-            'editor' => array('jce'),
+            'editor'    => array('jce'),
+            'system'    => array('jce'),
             'quickicon' => array('jcefilebrowser'),
-            'module' => array('mod_jcefilebrowser')
+            'module'    => array('mod_jcefilebrowser')
         );
 
         foreach ($packages as $folder => $element) {
@@ -1034,10 +1052,10 @@ abstract class WFInstall {
             if (defined('JPATH_PLATFORM')) {
                 if ($folder == 'module') {
                     continue;
-                }
+                }                
                 // Joomla! 1.5  
             } else {
-                if ($folder == 'quickicon') {
+                if ($folder == 'quickicon' || $folder == 'system') {
                     continue;
                 }
             }
@@ -1078,6 +1096,18 @@ abstract class WFInstall {
                     $module->ordering = 100;
                     $module->published = 1;
                     $module->store();
+                }
+                
+                // enable jce system plugin
+                if ($folder == 'system') {
+                    $plugin = JTable::getInstance('extension');
+
+                    foreach ($element as $item) {
+                        $id = $plugin->find(array('type' => 'plugin', 'folder' => $folder, 'element' => $item));
+
+                        $plugin->load($id);
+                        $plugin->publish();
+                    }
                 }
 
                 // rename editor manifest

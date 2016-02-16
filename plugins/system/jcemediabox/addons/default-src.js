@@ -1,10 +1,10 @@
 /**
- * JCEMediaBox Addons 	1.1.24
+ * JCEMediaBox Addons 	1.2
  * @package             JCEMediaBox
  * @url			http://www.joomlacontenteditor.net
  * @copyright           Copyright (C) 2006 - 2015 Ryan Demmer. All rights reserved
  * @license 		GNU/GPL Version 2 - http://www.gnu.org/licenses/gpl-2.0.html
- * @date		21 July 2015
+ * @date		24 November 2015
  * This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
  * is derivative of works licensed under the GNU General Public License or
@@ -29,7 +29,7 @@
          * @param {String} v URL
          */
         flash: function(v) {
-            if (/\.swf\b/.test(v)) {
+            if (/\.swf\b/i.test(v)) {
                 return {
                     type: 'flash'
                 };
@@ -40,7 +40,7 @@
          * @param {String} v URL
          */
         flv: function(v) {
-            if (/\.(flv|f4v)\b/.test(v)) {
+            if (/\.(flv|f4v)\b/i.test(v)) {
                 return {
                     type: 'video/x-flv'
                 };

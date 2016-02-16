@@ -2,7 +2,7 @@
 
 /**
  * @package   	JCE
- * @copyright 	Copyright (c) 2009-2015 Ryan Demmer. All rights reserved.
+ * @copyright 	Copyright (c) 2009-2016 Ryan Demmer. All rights reserved.
  * @license   	GNU/GPL 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * JCE is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -46,7 +46,7 @@ abstract class WFMimeType {
         'application/mbox' => 'mbox',
         'application/mediaservercontrol+xml' => 'mscml',
         'application/mp4' => 'mp4s',
-        'application/msword' => 'doc dot ppt xls docx pptx ppsx xlsx sldx potx xltx dotx',
+        'application/msword' => 'doc dot ppt xls docx pptx ppsx xlsx sldx potx xltx dotx xlsm',
         'application/mxf' => 'mxf',
         'application/octet-stream' => 'bin dms lha lrf lzh so iso dmg dist distz pkg bpk dump elc deploy',
         'application/oda' => 'oda',
@@ -265,7 +265,7 @@ abstract class WFMimeType {
         'application/vnd.mozilla.xul+xml' => 'xul',
         'application/vnd.ms-artgalry' => 'cil',
         'application/vnd.ms-cab-compressed' => 'cab',
-        'application/vnd.ms-excel' => 'xls xlm xla xlc xlt xlw xlsx',
+        'application/vnd.ms-excel' => 'xls xlm xla xlc xlt xlw xlsx xlsm',
         'application/vnd.ms-excel.addin.macroenabled.12' => 'xlam',
         'application/vnd.ms-excel.sheet.binary.macroenabled.12' => 'xlsb',
         'application/vnd.ms-excel.sheet.macroenabled.12' => 'xlsm',
@@ -369,8 +369,7 @@ abstract class WFMimeType {
         'application/vnd.stardivision.draw' => 'sda',
         'application/vnd.stardivision.impress' => 'sdd',
         'application/vnd.stardivision.math' => 'smf',
-        'application/vnd.stardivision.writer' => 'sdw',
-        'application/vnd.stardivision.writer' => 'vor',
+        'application/vnd.stardivision.writer' => 'sdw vor',
         'application/vnd.stardivision.writer-global' => 'sgl',
         'application/vnd.sun.xml.calc' => 'sxc',
         'application/vnd.sun.xml.calc.template' => 'stc',
@@ -533,6 +532,7 @@ abstract class WFMimeType {
         'audio/x-pn-realaudio' => 'ram ra',
         'audio/x-pn-realaudio-plugin' => 'rmp',
         'audio/x-wav' => 'wav',
+        'audio/webm' => 'webm',
         'chemical/x-cdx' => 'cdx',
         'chemical/x-cif' => 'cif',
         'chemical/x-cmdf' => 'cmdf',
@@ -644,6 +644,7 @@ abstract class WFMimeType {
         'video/x-ms-wvx' => 'wvx',
         'video/x-msvideo' => 'avi',
         'video/x-sgi-movie' => 'movie',
+        'video/webm' => 'webm',
         'x-conference/x-cooltalk' => 'ice'
     );
 
@@ -699,7 +700,9 @@ abstract class WFMimeType {
             $mime = self::getMime($mimetype);
 
             if ($mime) {
-                return in_array($extension, $mime);
+                if (!in_array($extension, $mime)) {
+                    return false;
+                }
             }
         }
 
